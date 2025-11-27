@@ -272,10 +272,10 @@ export default function PastPapersPage() {
                             
                             {/* Text */}
                             <div className="flex-1 text-left min-w-0">
-                              <h3 className={`font-bold text-sm truncate ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                              <h3 className={`font-bold text-sm leading-tight ${isSelected ? 'text-white' : 'text-gray-900'}`} title={formatSubjectName(subject)}>
                                 {formatSubjectName(subject)}
                               </h3>
-                              <p className={`text-xs mt-0.5 ${
+                              <p className={`text-xs mt-1 ${
                                 isSelected 
                                   ? 'text-white/80' 
                                   : 'text-gray-500 group-hover:text-gray-700'
@@ -386,7 +386,7 @@ export default function PastPapersPage() {
                                   {/* Year Info */}
                                   <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-1">
-                                      <div className="font-black text-xl text-gray-900 transition-colors duration-300">
+                                      <div className="font-black text-lg text-gray-900 transition-colors duration-300">
                                         {year}
                                       </div>
                                       {isRecent && (

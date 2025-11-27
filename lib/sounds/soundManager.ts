@@ -1,6 +1,6 @@
 /**
  * Sound Manager for Quiz Gamification
- * Handles preloading, playing, and managing all quiz sound effects
+ * Ultra-optimized for mobile with instant playback
  */
 
 export interface SoundConfig {
@@ -22,6 +22,7 @@ class SoundManager {
   private enabled: boolean
   private volume: number
   private isPreloaded: boolean
+  private audioPool: Map<SoundName, HTMLAudioElement[]> = new Map()
 
   constructor(
     private config: SoundConfig,
@@ -89,32 +90,44 @@ class SoundManager {
   }
 
   /**
-   * Play a specific sound - Optimized for mobile
-   * @param soundName - The name of the sound to play
+   * Play a specific sound - Ultra-optimized for instant mobile playback
+   * Uses audio pooling for zero-lag playback
    */
   play(soundName: SoundName): void {
     if (!this.enabled || !this.isPreloaded) {
       return
     }
 
-    const audio = this.sounds.get(soundName)
-    if (!audio) {
-      return // Silent fail for performance
+    // Get or create audio pool for this sound
+    let pool = this.audioPool.get(soundName)
+    if (!pool) {
+      pool = []
+      this.audioPool.set(soundName, pool)
     }
 
-    try {
-      // Lightning-fast playback - no checks, just play
-      audio.currentTime = 0
-      audio.volume = this.volume
+    // Find an available audio element from pool
+    let audio = pool.find(a => a.paused || a.ended)
+    
+    if (!audio) {
+      // Create new audio element if none available
+      const original = this.sounds.get(soundName)
+      if (!original) return
       
-      // Fire and forget - don't wait for promise
-      const playPromise = audio.play()
-      if (playPromise) {
-        playPromise.catch(() => {}) // Silent catch
+      audio = new Audio(original.src)
+      audio.volume = this.volume
+      audio.preload = 'auto'
+      pool.push(audio)
+      
+      // Limit pool size to 3 per sound
+      if (pool.length > 3) {
+        pool.shift()
       }
-    } catch {
-      // Silent fail for performance
     }
+
+    // Instant playback
+    audio.currentTime = 0
+    audio.volume = this.volume
+    audio.play().catch(() => {})
   }
 
   /**

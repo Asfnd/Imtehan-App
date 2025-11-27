@@ -323,11 +323,11 @@ export default function CSSPracticePage() {
                             
                             {/* Text */}
                             <div className="flex-1 text-left min-w-0">
-                              <h3 className={`font-bold text-sm truncate ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                              <h3 className={`font-bold text-sm leading-tight ${isSelected ? 'text-white' : 'text-gray-900'}`} title={subject.subject}>
                                 {subject.subject}
                               </h3>
-                              <p className={`text-xs mt-0.5 font-medium ${isSelected ? 'text-white/90' : 'text-gray-500'}`}>
-                                Practice MCQs
+                              <p className={`text-xs mt-1 font-medium ${isSelected ? 'text-white/90' : 'text-gray-500'}`}>
+                                {subject.count} MCQs
                               </p>
                             </div>
                             
@@ -403,8 +403,11 @@ export default function CSSPracticePage() {
                                       {yearData.year.toString().slice(-2)}
                                     </div>
                                     <div className="text-left flex-1">
-                                      <div className={`font-bold text-base ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                                      <div className={`font-bold text-lg ${isSelected ? 'text-white' : 'text-gray-900'}`}>
                                         {yearData.year}
+                                      </div>
+                                      <div className={`text-xs mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-600'}`}>
+                                        {yearData.count} questions
                                       </div>
                                     </div>
                                   </div>
