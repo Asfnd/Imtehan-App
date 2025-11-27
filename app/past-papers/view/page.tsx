@@ -331,7 +331,7 @@ function PDFViewerContent() {
         <div className="flex justify-center p-4 min-h-full">
           <div className="relative">
             <Document
-              file={{ url: pdfUrl }}
+              file={pdfUrl}
               onLoadSuccess={onDocumentLoadSuccess}
               onLoadError={onDocumentLoadError}
               loading={
