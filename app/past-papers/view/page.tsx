@@ -248,30 +248,37 @@ function PDFViewerContent() {
   // Use iframe fallback for Safari mobile or if PDF.js fails
   if (useFallback || isSafariMobile) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex flex-col">
-        {/* Header */}
-        <div className="bg-white shadow-md p-3 flex items-center justify-between flex-shrink-0">
+      <div className="min-h-screen bg-gray-900 flex flex-col">
+        {/* Compact Header with Controls */}
+        <div className="bg-gray-800 p-2 flex items-center justify-between gap-2 flex-shrink-0">
           <button
             onClick={() => router.back()}
-            className="px-3 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold"
+            className="px-2 py-1 bg-blue-500 text-white rounded text-xs font-semibold"
           >
             ← Back
           </button>
-          <div className="text-center flex-1 px-2">
-            <h1 className="font-bold text-sm text-gray-800 truncate">
-              {subject && formatSubjectName(subject)}
+          <div className="text-center flex-1 min-w-0">
+            <h1 className="font-bold text-xs text-white truncate">
+              {subject && formatSubjectName(subject)} ({year})
             </h1>
-            <p className="text-xs text-gray-600">Year {year}</p>
           </div>
-          <div className="w-16"></div>
+          <a
+            href={pdfUrl || ''}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-2 py-1 bg-green-500 text-white rounded text-xs font-semibold whitespace-nowrap"
+          >
+            Open PDF
+          </a>
         </div>
         
-        {/* PDF iframe - full screen */}
-        <div className="flex-1 relative">
+        {/* PDF iframe - full screen with native controls */}
+        <div className="flex-1 relative bg-white">
           <iframe
-            src={`${pdfUrl}#view=Fit&toolbar=1&navpanes=0&scrollbar=1`}
+            src={pdfUrl || ''}
             className="absolute inset-0 w-full h-full border-0"
             title="PDF Viewer"
+            allow="fullscreen"
           />
         </div>
       </div>
