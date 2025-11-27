@@ -262,7 +262,7 @@ export default function PastPapersPage() {
                         >
                           <div className="flex items-center gap-3 p-3">
                             {/* Colorful Icon Badge with First Letter */}
-                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold text-base flex-shrink-0 transition-all duration-200 ${
+                            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-bold text-sm sm:text-base flex-shrink-0 transition-all duration-200 ${
                               isSelected 
                                 ? 'bg-white/25 text-white' 
                                 : `bg-gradient-to-br ${color.gradient} text-white shadow-sm`
@@ -272,10 +272,10 @@ export default function PastPapersPage() {
                             
                             {/* Text */}
                             <div className="flex-1 text-left min-w-0">
-                              <h3 className={`font-bold text-sm leading-tight ${isSelected ? 'text-white' : 'text-gray-900'}`} title={formatSubjectName(subject)}>
+                              <h3 className={`font-bold text-xs sm:text-sm leading-tight ${isSelected ? 'text-white' : 'text-gray-900'}`} title={formatSubjectName(subject)}>
                                 {formatSubjectName(subject)}
                               </h3>
-                              <p className={`text-xs mt-1 ${
+                              <p className={`text-[10px] sm:text-xs mt-0.5 sm:mt-1 ${
                                 isSelected 
                                   ? 'text-white/80' 
                                   : 'text-gray-500 group-hover:text-gray-700'
@@ -386,11 +386,11 @@ export default function PastPapersPage() {
                                   {/* Year Info */}
                                   <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-1">
-                                      <div className="font-black text-lg text-gray-900 transition-colors duration-300">
+                                      <div className="font-black text-base sm:text-lg text-gray-900 transition-colors duration-300">
                                         {year}
                                       </div>
                                       {isRecent && (
-                                        <span className="px-2 py-0.5 bg-gradient-to-r from-orange-400 to-red-400 text-white text-xs font-bold rounded-full">
+                                        <span className="px-2 py-0.5 bg-gradient-to-r from-orange-400 to-red-400 text-white text-[10px] sm:text-xs font-bold rounded-full">
                                           NEW
                                         </span>
                                       )}

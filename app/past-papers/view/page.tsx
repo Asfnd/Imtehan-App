@@ -61,19 +61,11 @@ function PDFViewerContent() {
     return () => window.removeEventListener('resize', updateDimensions)
   }, [])
 
-  // Calculate page height for optimal readable fit
-  const getPageHeight = () => {
-    if (containerHeight === 0) return undefined
-    
-    // Optimal calculation: maximize readable space while fitting whole page
-    // Mobile gets more space, desktop gets comfortable viewing
-    const isMobile = containerHeight < 700
-    const spacing = isMobile ? 120 : 145
-    
-    const availableHeight = containerHeight - spacing
-    
-    // Return height that's easily readable and nicely fitted
-    return availableHeight
+  // Calculate page width for optimal display
+  const getPageWidth = () => {
+    if (typeof window === 'undefined') return undefined
+    const isMobile = window.innerWidth < 768
+    return isMobile ? window.innerWidth - 32 : Math.min(window.innerWidth - 64, 900)
   }
 
   // Prevent keyboard shortcuts for saving and printing
@@ -379,7 +371,7 @@ function PDFViewerContent() {
             >
               <Page
                 pageNumber={pageNumber}
-                height={getPageHeight()}
+                width={getPageWidth()}
                 scale={scale}
                 renderTextLayer={true}
                 renderAnnotationLayer={true}
