@@ -215,10 +215,6 @@ function CSSQuizContent() {
       // Gamification: Play correct sound
       soundManager.play('correct')
 
-      // Gamification: Show confetti
-      setShowConfetti(true)
-      setTimeout(() => setShowConfetti(false), 100)
-
       // Gamification: Show encouragement
       if (newStreak > 0 && newStreak % 5 === 0) {
         // Milestone reached

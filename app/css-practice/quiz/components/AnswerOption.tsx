@@ -129,9 +129,9 @@ export function AnswerOption({
       {/* Explanation - Compact but readable */}
       {isRevealed && explanation && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          transition={{ duration: 0.3, delay: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.15 }}
           className="px-3 pb-2.5 ml-11"
         >
           <div className="text-[13px] text-gray-600 leading-snug">
