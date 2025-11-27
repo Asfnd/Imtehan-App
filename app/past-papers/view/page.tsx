@@ -42,6 +42,9 @@ function PDFViewerContent() {
   const [useFallback, setUseFallback] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
+  
+  // Detect Safari on iOS
+  const isSafariMobile = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   // Memoize PDF options to prevent unnecessary reloads
   const pdfOptions = useMemo(() => ({
@@ -158,7 +161,12 @@ function PDFViewerContent() {
 
   function onDocumentLoadError(error: Error) {
     console.error('PDF load error:', error)
-    setError('Failed to load PDF document. The file may be corrupted.')
+    // Use fallback for Safari mobile
+    if (isSafariMobile) {
+      setUseFallback(true)
+    } else {
+      setError('Failed to load PDF document. The file may be corrupted.')
+    }
   }
 
   // Toggle fullscreen mode
@@ -237,7 +245,47 @@ function PDFViewerContent() {
     )
   }
 
+  // Use iframe fallback for Safari mobile or if PDF.js fails
+  if (useFallback || isSafariMobile) {
+    return (
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex flex-col">
+        {/* Full Toolbar for Mobile Safari */}
+        <div className="bg-gradient-to-r from-white/95 via-white/90 to-white/95 backdrop-blur-2xl shadow-xl border-b border-white/60 flex-shrink-0 z-10">
+          <div className="px-3 py-2 space-y-2.5">
+            {/* Top Row: Back + Title */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => router.back()}
+                className="group p-2.5 hover:bg-gradient-to-br hover:from-blue-500 hover:to-indigo-500 bg-gray-100 rounded-lg transition-all flex-shrink-0"
+              >
+                <ArrowLeft className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
+              </button>
+              <div className="flex-1 min-w-0">
+                <h1 className="font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
+                  {subject && formatSubjectName(subject)}
+                </h1>
+                <p className="text-xs text-gray-600 font-medium">Year {year} • Safari Mode</p>
+              </div>
+            </div>
 
+            {/* Info Message */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
+              <p className="text-xs text-blue-700 text-center">
+                📱 Using Safari's built-in PDF viewer. Use pinch to zoom and swipe to navigate pages.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* PDF iframe - Safari will show its own toolbar */}
+        <iframe
+          src={pdfUrl || ''}
+          className="flex-1 w-full border-0"
+          title="PDF Viewer"
+        />
+      </div>
+    )
+  }
 
   return (
     <div 
