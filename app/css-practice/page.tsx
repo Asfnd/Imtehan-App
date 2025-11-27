@@ -403,31 +403,31 @@ export default function CSSPracticePage() {
                                       {yearData.year.toString().slice(-2)}
                                     </div>
                                     <div className="text-left flex-1">
-                                      <div className={`font-bold text-lg ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                                      <div className={`font-bold text-sm sm:text-lg ${isSelected ? 'text-white' : 'text-gray-900'}`}>
                                         {yearData.year}
                                       </div>
-                                      <div className={`text-xs mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-600'}`}>
+                                      <div className={`text-[10px] sm:text-xs mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-600'}`}>
                                         {yearData.count} questions
                                       </div>
                                     </div>
                                   </div>
                                   
                                   {/* Tags and Checkmark */}
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-center gap-1 sm:gap-2">
                                     {/* New tag for recent years (2023+) */}
                                     {yearData.year >= 2023 && !isSelected && (
-                                      <span className="px-2 py-0.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full shadow-sm">
+                                      <span className="px-1.5 sm:px-2 py-0.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[9px] sm:text-xs font-bold rounded-full shadow-sm">
                                         New
                                       </span>
                                     )}
                                     {/* Popular tag for years with many questions */}
                                     {yearData.count > 100 && !isSelected && yearData.year < 2023 && (
-                                      <span className="px-2 py-0.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                                      <span className="px-1.5 sm:px-2 py-0.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[9px] sm:text-xs font-bold rounded-full shadow-sm">
                                         Popular
                                       </span>
                                     )}
                                     {isSelected && (
-                                      <div className="w-6 h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                         </svg>
