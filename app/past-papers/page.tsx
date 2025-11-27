@@ -169,78 +169,71 @@ export default function PastPapersPage() {
         message="Sign in to access unlimited past papers"
       />
       <ProtectedContent>
-        <div className="fixed inset-0 bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 relative">
           {/* Animated Background Blobs */}
           <div className="absolute top-0 left-0 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
           <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
           
           {/* Content Container */}
-          <div className="relative h-full flex flex-col p-4 sm:p-6">
+          <div className="relative flex flex-col p-3 sm:p-4 md:p-6 min-h-screen">
             {/* Interactive Header */}
-            <div className="flex items-center justify-between mb-4 bg-white/10 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/20 shadow-lg hover:shadow-xl transition-all group">
+            <div className="flex items-center justify-between mb-3 sm:mb-4 bg-white/10 backdrop-blur-xl rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 border border-white/20 shadow-lg flex-shrink-0">
               <button
                 onClick={() => router.back()}
-                className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/20 hover:bg-white/30 transition-all hover:scale-110 active:scale-95 group/btn overflow-hidden"
+                className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg sm:rounded-xl bg-white/20 active:bg-white/30 transition-all active:scale-95"
               >
-                <div className="absolute inset-0 bg-white/0 group-hover/btn:bg-white/10 transition-colors"></div>
-                <svg className="w-5 h-5 text-white relative z-10 group-hover/btn:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
               </button>
-              <div className="text-center group-hover:scale-105 transition-transform">
-                <h1 className="text-xl font-black text-white drop-shadow-lg">
+              <div className="text-center">
+                <h1 className="text-base sm:text-xl font-black text-white drop-shadow-lg">
                   CSS Past Papers
                 </h1>
-                <p className="text-xs text-white/80 mt-0.5 font-medium">Access Previous Year Papers</p>
+                <p className="text-xs text-white/80 mt-0.5 font-medium hidden sm:block">Access Previous Year Papers</p>
               </div>
               {!user ? (
                 <button 
                   onClick={() => setShowSignInPopup(true)}
-                  className="relative px-3 py-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl text-xs font-bold text-white transition-all hover:scale-110 active:scale-95 overflow-hidden group/badge"
+                  className="relative px-2.5 sm:px-3 py-1.5 bg-white/20 active:bg-white/30 backdrop-blur-sm rounded-lg sm:rounded-xl text-xs font-bold text-white transition-all active:scale-95"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-400/0 via-white/20 to-green-400/0 translate-x-[-100%] group-hover/badge:translate-x-[100%] transition-transform duration-700"></div>
                   <span className="relative z-10">{usageTracker.getRemaining().papers}/5</span>
                 </button>
               ) : (
-                <div className="w-10"></div>
+                <div className="w-9 sm:w-10"></div>
               )}
             </div>
 
-            {/* Main Card - Fixed Height */}
-            <div className="flex-1 bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/30 overflow-hidden flex flex-col">
+            {/* Main Card - Scrollable */}
+            <div className="flex-1 bg-white/95 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/30 overflow-hidden flex flex-col min-h-0">
               {/* Modern Search Bar */}
-              <div className="p-4 border-b border-gray-100/50 flex-shrink-0">
+              <div className="p-3 sm:p-4 border-b border-gray-100/50 flex-shrink-0">
                 <div className="relative group">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                    <Search className="w-5 h-5 text-gray-400 group-focus-within:text-green-600 group-focus-within:scale-110 transition-all duration-300" />
-                    <div className="h-5 w-px bg-gray-300 group-focus-within:bg-green-400 transition-colors"></div>
+                  <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                    <Search className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-focus-within:text-green-600 transition-all duration-300" />
+                    <div className="h-4 sm:h-5 w-px bg-gray-300 group-focus-within:bg-green-400 transition-colors hidden sm:block"></div>
                   </div>
                   <input
                     type="text"
-                    placeholder="Type to search subjects..."
+                    placeholder="Search subjects..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-16 pr-12 py-4 bg-white border-2 border-gray-200 rounded-2xl text-sm text-gray-900 placeholder-gray-400 focus:border-green-500 focus:bg-gradient-to-r focus:from-green-50/50 focus:to-emerald-50/50 focus:outline-none transition-all focus:shadow-xl focus:shadow-green-500/20 font-medium hover:border-green-300 hover:shadow-md"
+                    className="w-full pl-11 sm:pl-16 pr-10 sm:pr-12 py-3 sm:py-4 bg-white border-2 border-gray-200 rounded-xl sm:rounded-2xl text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:border-green-500 focus:outline-none transition-all font-medium"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white transition-all hover:scale-110 active:scale-95 shadow-md hover:shadow-lg"
+                      className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white transition-all active:scale-95 shadow-md"
                     >
-                      <X className="w-4 h-4" />
+                      <X className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
-                  )}
-                  {!searchQuery && (
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-gray-400 bg-gray-100 px-2 py-1 rounded-md">
-                      ⌘K
-                    </div>
                   )}
                 </div>
               </div>
 
-              {/* Split Layout: Subjects Left | Years Right */}
-              <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-100 overflow-hidden">
+              {/* Split Layout: Subjects Left | Years Right - Mobile Responsive */}
+              <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-100 min-h-0">
                 {/* LEFT: Subjects */}
                 <div className="flex flex-col overflow-hidden">
                   <div className="flex items-center justify-between p-4 pb-3 flex-shrink-0">

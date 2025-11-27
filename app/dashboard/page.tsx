@@ -152,7 +152,7 @@ export default function DashboardPage() {
               <div className="min-w-0 flex-1">
                 <p className="font-bold text-gray-900 text-sm sm:text-base leading-tight truncate">{username}</p>
                 <p className="text-xs sm:text-sm text-gray-600 font-medium truncate">
-                  {user ? user.email : `${remaining.cssQuizzes} left`}
+                  {user ? user.email : `Free Trial • ${remaining.cssQuizzes} quizzes left`}
                 </p>
               </div>
             </div>

@@ -47,6 +47,11 @@ export async function GET(request: Request) {
       } else {
         return NextResponse.redirect(`${requestUrl.origin}${next}`)
       }
+    } else {
+      // Log error but still redirect to dashboard
+      // The user is authenticated even if profile creation failed
+      console.error('Auth callback error:', error)
+      return NextResponse.redirect(new URL('/dashboard', requestUrl.origin))
     }
   }
 

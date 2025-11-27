@@ -4,13 +4,27 @@ import { useState, useEffect } from 'react'
 
 /**
  * Lightweight DevToolsWarning - Event-based detection
- * No performance impact - uses resize events instead of intervals
+ * Disabled on mobile devices to prevent false positives
  */
 export default function DevToolsWarning() {
   const [showWarning, setShowWarning] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    // Detect DevTools by checking window size changes
+    // Detect if device is mobile
+    const checkMobile = () => {
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || window.innerWidth < 768
+      setIsMobile(mobile)
+    }
+    
+    checkMobile()
+    
+    // Skip DevTools detection on mobile devices
+    if (isMobile) return
+
+    // Detect DevTools by checking window size changes (desktop only)
     const checkDevTools = () => {
       const widthThreshold = window.outerWidth - window.innerWidth > 160
       const heightThreshold = window.outerHeight - window.innerHeight > 160
@@ -25,9 +39,10 @@ export default function DevToolsWarning() {
     checkDevTools() // Initial check
 
     return () => window.removeEventListener('resize', checkDevTools)
-  }, [])
+  }, [isMobile])
 
-  if (!showWarning) return null
+  // Don't show warning on mobile devices
+  if (!showWarning || isMobile) return null
 
   return (
     <div className="fixed top-0 left-0 right-0 bg-red-600 text-white px-4 py-2 text-center text-sm font-semibold z-[9999] shadow-lg">
