@@ -169,14 +169,14 @@ export default function PastPapersPage() {
         message="Sign in to access unlimited past papers"
       />
       <ProtectedContent>
-        <div className="min-h-screen bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 relative">
+        <div className="fixed inset-0 bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 overflow-hidden">
           {/* Animated Background Blobs */}
           <div className="absolute top-0 left-0 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
           <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
           
           {/* Content Container */}
-          <div className="relative flex flex-col p-3 sm:p-4 md:p-6 min-h-screen">
+          <div className="relative flex flex-col p-3 sm:p-4 md:p-6 h-full">
             {/* Interactive Header */}
             <div className="flex items-center justify-between mb-3 sm:mb-4 bg-white/10 backdrop-blur-xl rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 border border-white/20 shadow-lg flex-shrink-0">
               <button
