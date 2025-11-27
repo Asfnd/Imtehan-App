@@ -1,5 +1,5 @@
 'use client'
-
+// PDF Viewer - Fixed and working
 import { useState, useEffect, Suspense, useMemo, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
