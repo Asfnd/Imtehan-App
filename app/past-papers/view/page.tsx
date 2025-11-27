@@ -39,8 +39,12 @@ function PDFViewerContent() {
   const [scale, setScale] = useState(1.0)
   const [pageWidth, setPageWidth] = useState<number>(800)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [useFallback, setUseFallback] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
+  
+  // Detect Safari on iOS
+  const isSafariMobile = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   // Memoize PDF options to prevent unnecessary reloads
   const pdfOptions = useMemo(() => ({
@@ -157,7 +161,12 @@ function PDFViewerContent() {
 
   function onDocumentLoadError(error: Error) {
     console.error('PDF load error:', error)
-    setError('Failed to load PDF document. The file may be corrupted.')
+    // Use fallback for Safari mobile
+    if (isSafariMobile) {
+      setUseFallback(true)
+    } else {
+      setError('Failed to load PDF document. The file may be corrupted.')
+    }
   }
 
   // Toggle fullscreen mode
@@ -231,6 +240,27 @@ function PDFViewerContent() {
               </button>
             )}
           </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Use iframe fallback for Safari mobile or if PDF.js fails
+  if (useFallback || isSafariMobile) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="p-4">
+          <button
+            onClick={() => router.back()}
+            className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            ← Back
+          </button>
+          <iframe
+            src={pdfUrl || ''}
+            className="w-full h-screen border-0 rounded-lg shadow-xl"
+            title="PDF Viewer"
+          />
         </div>
       </div>
     )
