@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import confetti from 'canvas-confetti'
 
 interface ConfettiCelebrationProps {
@@ -11,13 +11,32 @@ interface ConfettiCelebrationProps {
 /**
  * ConfettiCelebration Component
  * Triggers confetti animations for correct answers and milestones
+ * Disabled on mobile devices for better performance
  */
 export function ConfettiCelebration({
   trigger,
   intensity = 'medium',
 }: ConfettiCelebrationProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
   useEffect(() => {
-    if (!trigger) return
+    // Detect if device is mobile
+    const checkMobile = () => {
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || window.innerWidth < 768
+      setIsMobile(mobile)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    // Skip confetti on mobile devices
+    if (!trigger || isMobile) return
 
     try {
       const configs = {
@@ -59,7 +78,7 @@ export function ConfettiCelebration({
     } catch (error) {
       console.warn('Confetti animation failed:', error)
     }
-  }, [trigger, intensity])
+  }, [trigger, intensity, isMobile])
 
   return null
 }

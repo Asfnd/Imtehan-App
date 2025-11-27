@@ -11,7 +11,7 @@ interface UsageData {
 
 const STORAGE_KEY = 'quiz_usage'
 const MAX_CSS_QUIZZES = 1   // Allow 1 CSS quiz TOTAL - just enough to hook them
-const MAX_MPT_TESTS = 0     // MPT completely locked - creates strong desire to sign up
+const MAX_MPT_TESTS = 1     // Allow 1 MPT test (Mock Test 1) for free trial
 const MAX_PAPERS = 2        // Allow 2 past papers TOTAL - taste but not satisfy
 
 export const usageTracker = {

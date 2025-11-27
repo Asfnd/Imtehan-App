@@ -366,29 +366,31 @@ function CSSQuizContent() {
       />
       <ProtectedContent>
         <UltraProtectedContent>
-          <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-4">
+          <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">
       <div className="max-w-3xl mx-auto">
-        {/* Modern Dark Header - No initial animation */}
-        <div className="bg-gradient-to-r from-slate-800 via-purple-900 to-slate-800 rounded-2xl shadow-2xl p-3 mb-3 border border-purple-500/30">
-          <div className="flex items-center justify-between">
+        {/* Modern Dark Header - Mobile Responsive */}
+        <div className="bg-gradient-to-r from-slate-800 via-purple-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-purple-500/30">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <button
               onClick={() => router.push('/css-practice')}
-              className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-sm font-semibold text-white shadow-lg border border-white/20"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-white/10 active:bg-white/20 rounded-lg sm:rounded-xl transition-colors text-xs sm:text-sm font-semibold text-white shadow-lg border border-white/20"
             >
               <span>←</span>
-              <span>Exit</span>
+              <span className="hidden sm:inline">Exit</span>
             </button>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Question Counter */}
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20">
                 <span className="text-xs font-medium text-purple-300">Q</span>
-                <span className="font-bold text-white">{currentIndex + 1}</span>
+                <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
                 <span className="text-purple-300">/</span>
-                <span className="text-purple-200">{mcqs.length}</span>
+                <span className="text-sm sm:text-base text-purple-200">{mcqs.length}</span>
               </div>
               
-              <StreakCounter streak={streak} maxStreak={maxStreak} />
+              <div className="hidden sm:block">
+                <StreakCounter streak={streak} maxStreak={maxStreak} />
+              </div>
               
               <PointsDisplay
                 points={points}
@@ -397,58 +399,63 @@ function CSSQuizContent() {
               />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <SoundToggle />
               
-              <div className="h-6 w-px bg-white/20"></div>
+              <div className="h-6 w-px bg-white/20 hidden sm:block"></div>
               
               <button
                 onClick={previousQuestion}
                 disabled={currentIndex === 0}
-                className={`p-2 rounded-xl transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-colors ${
                   currentIndex === 0
                     ? 'text-gray-500 cursor-not-allowed bg-white/5'
-                    : 'text-white hover:text-purple-300 hover:bg-white/10 bg-white/5 shadow-sm'
+                    : 'text-white active:text-purple-300 active:bg-white/10 bg-white/5 shadow-sm'
                 }`}
               >
-                <span className="text-lg font-bold">←</span>
+                <span className="text-base sm:text-lg font-bold">←</span>
               </button>
               <button
                 onClick={nextQuestion}
                 disabled={!isCorrect || currentIndex === mcqs.length - 1}
-                className={`p-2 rounded-xl transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-colors ${
                   !isCorrect || currentIndex === mcqs.length - 1
                     ? 'text-gray-500 cursor-not-allowed bg-white/5'
-                    : 'text-white hover:text-purple-300 hover:bg-white/10 bg-white/5 shadow-sm'
+                    : 'text-white active:text-purple-300 active:bg-white/10 bg-white/5 shadow-sm'
                 }`}
               >
-                <span className="text-lg font-bold">→</span>
+                <span className="text-base sm:text-lg font-bold">→</span>
               </button>
             </div>
           </div>
 
+          {/* Streak on mobile - below header */}
+          <div className="sm:hidden mt-2 flex justify-center">
+            <StreakCounter streak={streak} maxStreak={maxStreak} />
+          </div>
+
           {/* Modern Progress Bar */}
-          <div className="mt-3">
-            <div className="w-full bg-white/10 rounded-full h-2 shadow-inner border border-white/10">
+          <div className="mt-2 sm:mt-3">
+            <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
               <div
-                className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 h-2 rounded-full shadow-lg transition-all duration-300"
+                className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
                 style={{ width: `${((currentIndex + 1) / mcqs.length) * 100}%` }}
               />
             </div>
           </div>
         </div>
 
-        {/* Question Card - Simplified transition */}
+        {/* Question Card - Mobile Responsive */}
         <div
           key={currentIndex}
-          className="bg-white rounded-2xl shadow-lg p-3.5 mb-2.5 border-2 border-gray-100 hover:border-purple-200 transition-colors"
+          className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-3.5 mb-2 sm:mb-2.5 border-2 border-gray-100 active:border-purple-200 transition-colors"
         >
             {/* Topic & Report */}
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
               {currentMCQ.topic ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-200">
-                  <span>🏷️</span>
-                  <span>
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-200">
+                  <span className="text-xs sm:text-sm">🏷️</span>
+                  <span className="text-xs sm:text-sm">
                     {currentMCQ.topic
                       .replace(/_/g, ' ')
                       .split(' ')
@@ -467,16 +474,17 @@ function CSSQuizContent() {
               {/* Report Button */}
               <button
                 onClick={handleReport}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-full text-xs font-semibold transition-colors border border-red-200"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-red-50 text-red-600 active:bg-red-100 rounded-full text-xs font-semibold transition-colors border border-red-200"
                 title="Report an issue"
               >
-                <Flag className="w-3.5 h-3.5" />
-                <span>Report</span>
+                <Flag className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span className="hidden sm:inline">Report</span>
+                <span className="sm:hidden">⚠️</span>
               </button>
             </div>
 
             {/* Question */}
-            <h3 className="text-base font-bold text-gray-900 mb-2.5 leading-normal">
+            <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-2.5 leading-normal">
               {currentMCQ.question_text}
             </h3>
 

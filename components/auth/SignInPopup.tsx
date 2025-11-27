@@ -25,23 +25,30 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
       // Store current path to redirect back after sign-in
       const currentPath = window.location.pathname + window.location.search
       
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(currentPath)}`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
+          skipBrowserRedirect: false,
         }
       })
       
-      if (error) throw error
+      if (error) {
+        console.error('OAuth error:', error)
+        throw error
+      }
       
-      // Don't set loading to false here - let the redirect happen
-    } catch (error) {
+      // The browser will redirect automatically, but add a timeout fallback
+      setTimeout(() => {
+        if (window.location.href === window.location.href) {
+          setError('Redirect failed. Please try again or check your popup blocker.')
+          setLoading(false)
+        }
+      }, 5000)
+      
+    } catch (error: any) {
       console.error('Error signing in with Google:', error)
-      setError('Failed to sign in. Please try again.')
+      setError(error?.message || 'Failed to sign in. Please try again.')
       setLoading(false)
     }
   }

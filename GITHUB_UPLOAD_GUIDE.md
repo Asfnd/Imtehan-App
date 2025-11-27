@@ -73,7 +73,7 @@ git add .
 git commit -m "Initial commit - Quiz app ready for deployment"
 
 # Create repository on GitHub first, then:
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git remote add origin https://github.com/AsfandiyarSafi/CSS-App
 
 # Push to GitHub
 git branch -M main

@@ -170,56 +170,56 @@ function MPTQuizContent() {
 
     return (
       <UltraProtectedContent>
-        <div className="h-screen overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-3 sm:px-4 py-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-2xl p-6 md:p-8 shadow-2xl text-center max-w-2xl w-full"
+            className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-2xl text-center max-w-2xl w-full"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="text-6xl mb-4"
+              className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4"
             >
               {percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '📚'}
             </motion.div>
 
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
               {timeExpired ? 'Time Up!' : 'Test Complete!'}
             </h2>
-            <p className="text-gray-600 mb-6">MPT Mock Test {testNumber}</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">MPT Mock Test {testNumber}</p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-6 text-white mb-6"
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 sm:p-6 text-white mb-4 sm:mb-6"
             >
-              <div className="text-4xl md:text-5xl font-bold mb-2">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
                 {score}/{mcqs.length}
               </div>
-              <div className="text-lg md:text-xl">{percentage.toFixed(1)}% Correct</div>
+              <div className="text-base sm:text-lg md:text-xl">{percentage.toFixed(1)}% Correct</div>
             </motion.div>
 
-            <div className="grid grid-cols-3 gap-3 md:gap-4 mb-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-green-50 rounded-lg p-3 md:p-4"
+                className="bg-green-50 rounded-lg p-2 sm:p-3 md:p-4"
               >
-                <div className="text-xl md:text-2xl font-bold text-green-600">{score}</div>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-600">{score}</div>
                 <div className="text-xs md:text-sm text-gray-600">Correct</div>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="bg-red-50 rounded-lg p-3 md:p-4"
+                className="bg-red-50 rounded-lg p-2 sm:p-3 md:p-4"
               >
-                <div className="text-xl md:text-2xl font-bold text-red-600">
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-red-600">
                   {mcqs.length - score}
                 </div>
                 <div className="text-xs md:text-sm text-gray-600">Incorrect</div>
@@ -228,12 +228,12 @@ function MPTQuizContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="bg-blue-50 rounded-lg p-3 md:p-4"
+                className="bg-blue-50 rounded-lg p-2 sm:p-3 md:p-4"
               >
-                <div className="text-xl md:text-2xl font-bold text-blue-600">
+                <div className="text-base sm:text-lg md:text-xl font-bold text-blue-600">
                   {formatTime(timeTaken)}
                 </div>
-                <div className="text-xs md:text-sm text-gray-600">Time Taken</div>
+                <div className="text-xs md:text-sm text-gray-600">Time</div>
               </motion.div>
             </div>
 
@@ -241,13 +241,12 @@ function MPTQuizContent() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-3 justify-center"
+              className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center"
             >
               <motion.button
                 onClick={() => router.push('/mpt-practice')}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-semibold"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-200 text-gray-700 rounded-lg active:bg-gray-300 transition-colors font-semibold text-sm sm:text-base"
               >
                 Back to Tests
               </motion.button>
@@ -259,9 +258,8 @@ function MPTQuizContent() {
                   setTimeLeft(200 * 60)
                   setTimerActive(true)
                 }}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all font-semibold shadow-md"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg active:from-blue-600 active:to-indigo-700 transition-all font-semibold shadow-md text-sm sm:text-base"
               >
                 Retake Test
               </motion.button>
@@ -274,28 +272,28 @@ function MPTQuizContent() {
 
   return (
     <UltraProtectedContent>
-      <div className="h-screen overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
-        <div className="flex-1 flex flex-col px-4 py-4 max-w-4xl mx-auto w-full">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
+        <div className="flex-1 flex flex-col px-3 sm:px-4 py-3 sm:py-4 max-w-4xl mx-auto w-full">
           {/* Compact Header */}
-          <div className="mb-3">
-            <div className="flex items-center justify-between mb-3">
+          <div className="mb-3 flex-shrink-0">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
               <button
                 onClick={() => router.back()}
-                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-xs sm:text-sm"
               >
-                <ArrowLeft className="w-4 h-4 mr-1" />
+                <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                 Back
               </button>
               
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <span className="text-xs text-gray-600">
                   {answeredCount}/{mcqs.length}
                 </span>
                 {/* Timer */}
                 <div
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 font-mono font-bold transition-all text-sm ${getTimerColor()}`}
+                  className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border-2 font-mono font-bold transition-all text-xs sm:text-sm ${getTimerColor()}`}
                 >
-                  <Clock className="w-4 h-4" />
+                  <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>{formatTime(timeLeft)}</span>
                 </div>
               </div>
@@ -311,7 +309,7 @@ function MPTQuizContent() {
           </div>
 
           {/* Question Card - Scrollable content */}
-          <div className="flex-1 overflow-y-auto mb-3 min-h-0">
+          <div className="flex-1 overflow-y-auto mb-3 min-h-0 overscroll-contain">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -319,19 +317,19 @@ function MPTQuizContent() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.2 }}
-                className="bg-white rounded-xl p-5 md:p-6 shadow-lg"
+                className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-lg"
               >
-                <div className="mb-4">
-                  <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full">
+                <div className="mb-3 sm:mb-4">
+                  <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
                     Question {currentMCQ.question_number}
                   </span>
                 </div>
 
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-5 leading-relaxed">
+                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-4 sm:mb-5 leading-relaxed">
                   {currentMCQ.question_text}
                 </h3>
 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {['A', 'B', 'C', 'D'].map((option) => {
                     const optionText = currentMCQ[
                       `option_${option.toLowerCase()}` as keyof MCQ
@@ -342,17 +340,16 @@ function MPTQuizContent() {
                       <motion.button
                         key={option}
                         onClick={() => handleAnswer(option)}
-                        whileHover={{ scale: 1.02, x: 4 }}
                         whileTap={{ scale: 0.98 }}
-                        className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+                        className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 ${
                           isSelected
                             ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50 hover:shadow-sm'
+                            : 'border-gray-200 active:border-blue-300 active:bg-gray-50'
                         }`}
                       >
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-2 sm:gap-3">
                           <span
-                            className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center font-bold transition-all ${
+                            className={`flex-shrink-0 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold transition-all text-sm sm:text-base ${
                               isSelected
                                 ? 'bg-blue-500 text-white shadow-lg'
                                 : 'bg-gray-100 text-gray-600'
@@ -360,7 +357,7 @@ function MPTQuizContent() {
                           >
                             {option}
                           </span>
-                          <span className="text-gray-700 flex-1 text-sm md:text-base leading-relaxed pt-1">
+                          <span className="text-gray-700 flex-1 text-xs sm:text-sm md:text-base leading-relaxed pt-0.5 sm:pt-1">
                             {optionText}
                           </span>
                         </div>
@@ -373,36 +370,33 @@ function MPTQuizContent() {
           </div>
 
           {/* Navigation - Fixed at bottom */}
-          <div className="flex items-center justify-between bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between bg-white/90 backdrop-blur-sm rounded-xl p-2 sm:p-3 shadow-lg border border-gray-100 flex-shrink-0">
             <motion.button
               onClick={goToPrevious}
               disabled={currentIndex === 0}
-              whileHover={{ scale: currentIndex === 0 ? 1 : 1.05 }}
               whileTap={{ scale: currentIndex === 0 ? 1 : 0.95 }}
-              className="px-5 py-2.5 bg-white text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm font-semibold border border-gray-200"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 bg-white text-gray-700 rounded-lg active:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-xs sm:text-sm font-semibold border border-gray-200"
             >
-              ← Previous
+              ← Prev
             </motion.button>
 
-            <span className="text-sm text-gray-600 font-semibold px-3">
+            <span className="text-xs sm:text-sm text-gray-600 font-semibold px-2 sm:px-3">
               {currentIndex + 1} / {mcqs.length}
             </span>
 
             {currentIndex === mcqs.length - 1 ? (
               <motion.button
                 onClick={finishTest}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-md font-bold text-sm"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg active:from-green-600 active:to-emerald-700 transition-all shadow-md font-bold text-xs sm:text-sm"
               >
-                Finish Test ✓
+                Finish ✓
               </motion.button>
             ) : (
               <motion.button
                 onClick={goToNext}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all shadow-md text-sm font-semibold"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg active:from-blue-600 active:to-indigo-700 transition-all shadow-md text-xs sm:text-sm font-semibold"
               >
                 Next →
               </motion.button>
