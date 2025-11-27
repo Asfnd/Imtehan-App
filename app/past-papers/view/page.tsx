@@ -245,29 +245,36 @@ function PDFViewerContent() {
     )
   }
 
-  // Mobile: Show "Open PDF" button instead of embedded viewer
+  // Mobile: Automatically redirect to PDF
   if (useFallback || isSafariMobile) {
+    // Auto-redirect to PDF on mobile
+    useEffect(() => {
+      if (pdfUrl) {
+        window.location.href = pdfUrl
+      }
+    }, [pdfUrl])
+
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           {/* PDF Icon */}
-          <div className="w-24 h-24 bg-gradient-to-br from-red-100 via-orange-100 to-yellow-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+          <div className="w-24 h-24 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl animate-pulse">
             <span className="text-5xl">📄</span>
           </div>
           
           {/* Title */}
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            {subject && formatSubjectName(subject)}
+            Opening PDF...
           </h1>
-          <p className="text-gray-600 font-medium mb-8">Year {year} Past Paper</p>
+          <p className="text-gray-600 font-medium mb-8">{subject && formatSubjectName(subject)} - Year {year}</p>
           
           {/* Info Card */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6 shadow-lg border border-white/60">
             <p className="text-sm text-gray-700 mb-4">
-              📱 For the best mobile experience, open this PDF in your device's native PDF viewer.
+              📱 Redirecting you to the PDF viewer...
             </p>
             <p className="text-xs text-gray-500">
-              You'll be able to zoom, annotate, and navigate easily.
+              If it doesn't open automatically, click the button below.
             </p>
           </div>
           
@@ -275,11 +282,9 @@ function PDFViewerContent() {
           <div className="flex flex-col gap-3">
             <a
               href={pdfUrl || ''}
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-2"
             >
-              📖 Open PDF
+              📖 Open PDF Manually
             </a>
             
             <button
