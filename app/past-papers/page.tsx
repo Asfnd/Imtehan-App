@@ -331,7 +331,7 @@ export default function PastPapersPage() {
                             <Link
                               key={year}
                               href={`/past-papers/view?subject=${selectedSubject}&year=${year}`}
-                              onClick={async (e) => {
+                              onClick={(e) => {
                                 // Check if non-logged-in user can view paper
                                 if (!user && !usageTracker.canViewPaper()) {
                                   e.preventDefault()
@@ -350,33 +350,35 @@ export default function PastPapersPage() {
                                   e.preventDefault()
                                   
                                   // Get PDF URL and open it
-                                  try {
-                                    const supabase = createClient()
-                                    const subjectKebab = selectedSubject.toLowerCase().replace(/\s+/g, '-')
-                                    
-                                    // Find the PDF file
-                                    const { data: files } = await supabase.storage
-                                      .from('css-past-papers')
-                                      .list(`${subjectKebab}/${year}`)
-                                    
-                                    const pdfFile = files?.find(f => f.name.endsWith('.pdf'))
-                                    
-                                    if (pdfFile) {
-                                      // Get signed URL
-                                      const { data: signedData } = await supabase.storage
-                                        .from('css-past-papers')
-                                        .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600)
+                                  const supabase = createClient()
+                                  const subjectKebab = selectedSubject.toLowerCase().replace(/\s+/g, '-')
+                                  
+                                  // Find the PDF file and open it
+                                  supabase.storage
+                                    .from('css-past-papers')
+                                    .list(`${subjectKebab}/${year}`)
+                                    .then(({ data: files }) => {
+                                      const pdfFile = files?.find(f => f.name.endsWith('.pdf'))
                                       
+                                      if (pdfFile) {
+                                        // Get signed URL
+                                        return supabase.storage
+                                          .from('css-past-papers')
+                                          .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600)
+                                      }
+                                      throw new Error('PDF file not found')
+                                    })
+                                    .then(({ data: signedData }) => {
                                       if (signedData?.signedUrl) {
                                         // Open PDF in new tab
                                         window.open(signedData.signedUrl, '_blank')
                                       }
-                                    }
-                                  } catch (error) {
-                                    console.error('Error opening PDF:', error)
-                                    // Fallback to viewer page if error
-                                    router.push(`/past-papers/view?subject=${selectedSubject}&year=${year}`)
-                                  }
+                                    })
+                                    .catch((error) => {
+                                      console.error('Error opening PDF:', error)
+                                      // Fallback to viewer page if error
+                                      router.push(`/past-papers/view?subject=${selectedSubject}&year=${year}`)
+                                    })
                                 }
                               }}
                               className="block group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
