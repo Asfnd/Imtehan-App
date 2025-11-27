@@ -89,7 +89,7 @@ class SoundManager {
   }
 
   /**
-   * Play a specific sound
+   * Play a specific sound - Optimized for mobile
    * @param soundName - The name of the sound to play
    */
   play(soundName: SoundName): void {
@@ -99,28 +99,21 @@ class SoundManager {
 
     const audio = this.sounds.get(soundName)
     if (!audio) {
-      console.warn(`Sound not found: ${soundName}`)
-      return
+      return // Silent fail for performance
     }
 
     try {
-      // Use the original audio element instead of cloning for better mobile performance
-      // Reset to start if already playing
+      // Lightning-fast playback - no checks, just play
       audio.currentTime = 0
       audio.volume = this.volume
-
-      // Play the sound
+      
+      // Fire and forget - don't wait for promise
       const playPromise = audio.play()
-
-      // Handle play promise (required for some browsers)
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          // Silently fail on mobile if autoplay is blocked
-          console.warn(`Failed to play sound: ${soundName}`, error)
-        })
+      if (playPromise) {
+        playPromise.catch(() => {}) // Silent catch
       }
-    } catch (error) {
-      console.warn(`Error playing sound: ${soundName}`, error)
+    } catch {
+      // Silent fail for performance
     }
   }
 

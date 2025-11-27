@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useMemo, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, ZoomIn, ZoomOut, Maximize, Minimize } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -34,7 +34,7 @@ function PDFViewerContent() {
   const [containerHeight, setContainerHeight] = useState<number>(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
 
   // Memoize PDF options to prevent unnecessary reloads
   const pdfOptions = useMemo(() => ({

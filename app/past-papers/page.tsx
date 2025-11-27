@@ -232,8 +232,8 @@ export default function PastPapersPage() {
                 </div>
               </div>
 
-              {/* Split Layout: Subjects Left | Years Right - Mobile Responsive */}
-              <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-100 min-h-0">
+              {/* Split Layout: Subjects Left | Years Right - Always Side by Side */}
+              <div className="flex-1 grid grid-cols-2 divide-x divide-gray-100 min-h-0">
                 {/* LEFT: Subjects */}
                 <div className="flex flex-col overflow-hidden">
                   <div className="flex items-center justify-between p-4 pb-3 flex-shrink-0">
