@@ -62,7 +62,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/:path*',
-        headers: securityHeaders,
+        headers: securityHeaders.filter(h => h.key !== 'Content-Security-Policy'),
       },
     ]
   },
