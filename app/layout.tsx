@@ -4,6 +4,8 @@ import './globals.css'
 import { ToastContainer } from '@/components/ui/Toast'
 import AuthProvider from '@/components/auth/AuthProvider'
 import GlobalSecurity from '@/components/security/GlobalSecurity'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,6 +39,8 @@ export default function RootLayout({
           {children}
           <ToastContainer />
         </AuthProvider>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
