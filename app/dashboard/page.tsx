@@ -301,8 +301,8 @@ export default function DashboardPage() {
       `}</style>
 
       {/* Main Content Area */}
-      <div className="relative flex-1 flex flex-col items-center justify-center px-2 sm:px-4 pb-2 sm:pb-4 z-10 overflow-hidden">
-        <div className="w-full max-w-5xl flex flex-col h-full justify-center">{/* Content wrapper */}
+      <div className="relative flex-1 flex flex-col items-center px-2 sm:px-4 pb-2 sm:pb-4 pt-2 z-10 overflow-y-auto">
+        <div className="w-full max-w-5xl">{/* Content wrapper */}
 
           {/* Modern Header - Compact on mobile */}
           <div className="text-center mb-2 sm:mb-4">
