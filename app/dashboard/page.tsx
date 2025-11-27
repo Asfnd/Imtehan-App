@@ -425,35 +425,7 @@ export default function DashboardPage() {
           </div>
           </div>
 
-          {/* Bulletin - Compact on mobile */}
-          <div className="mt-1.5 sm:mt-3">
-            <div className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-lg sm:rounded-xl py-1 sm:py-2 shadow-lg overflow-hidden">
-              <div className="flex">
-                <div className="animate-marquee whitespace-nowrap">
-                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
-                    🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
-                  </span>
-                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
-                    🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
-                  </span>
-                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
-                    🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
-                  </span>
-                </div>
-                <div className="animate-marquee whitespace-nowrap" aria-hidden="true">
-                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
-                    🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
-                  </span>
-                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
-                    🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
-                  </span>
-                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
-                    🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
 
