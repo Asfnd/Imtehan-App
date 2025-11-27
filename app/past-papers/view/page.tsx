@@ -42,9 +42,6 @@ function PDFViewerContent() {
   const [useFallback, setUseFallback] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
-  
-  // Detect Safari on iOS
-  const isSafariMobile = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
   // Memoize PDF options to prevent unnecessary reloads
   const pdfOptions = useMemo(() => ({
@@ -161,12 +158,7 @@ function PDFViewerContent() {
 
   function onDocumentLoadError(error: Error) {
     console.error('PDF load error:', error)
-    // Use fallback for Safari mobile
-    if (isSafariMobile) {
-      setUseFallback(true)
-    } else {
-      setError('Failed to load PDF document. The file may be corrupted.')
-    }
+    setError('Failed to load PDF document. The file may be corrupted.')
   }
 
   // Toggle fullscreen mode
@@ -245,35 +237,7 @@ function PDFViewerContent() {
     )
   }
 
-  // Use iframe fallback for Safari mobile or if PDF.js fails
-  if (useFallback || isSafariMobile) {
-    return (
-      <div className="fixed inset-0 bg-white flex flex-col">
-        {/* Minimal Header */}
-        <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-2 flex items-center gap-2 flex-shrink-0 shadow-lg">
-          <button
-            onClick={() => router.back()}
-            className="px-3 py-1.5 bg-white/20 text-white rounded-lg text-sm font-bold backdrop-blur-sm"
-          >
-            ← Back
-          </button>
-          <div className="flex-1 text-center">
-            <h1 className="font-bold text-sm text-white truncate">
-              {subject && formatSubjectName(subject)} - {year}
-            </h1>
-          </div>
-        </div>
-        
-        {/* PDF iframe - Safari will show its own toolbar */}
-        <iframe
-          src={pdfUrl || ''}
-          className="flex-1 w-full border-0"
-          title="PDF Viewer"
-          style={{ height: 'calc(100vh - 44px)' }}
-        />
-      </div>
-    )
-  }
+
 
   return (
     <div 
@@ -284,14 +248,14 @@ function PDFViewerContent() {
       <div className="bg-gradient-to-r from-white/95 via-white/90 to-white/95 backdrop-blur-2xl shadow-xl border-b border-white/60 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-4">
           {/* Mobile Layout: Stacked */}
-          <div className="md:hidden space-y-2">
+          <div className="md:hidden space-y-2.5">
             {/* Top Row: Back + Title */}
             <div className="flex items-center gap-2">
               <button
                 onClick={() => router.back()}
-                className="group p-2 hover:bg-gradient-to-br hover:from-blue-500 hover:to-indigo-500 bg-gray-100 rounded-lg transition-all flex-shrink-0"
+                className="group p-2.5 hover:bg-gradient-to-br hover:from-blue-500 hover:to-indigo-500 bg-gray-100 rounded-lg transition-all flex-shrink-0"
               >
-                <ArrowLeft className="w-4 h-4 text-gray-700 group-hover:text-white transition-colors" />
+                <ArrowLeft className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
               </button>
               <div className="flex-1 min-w-0">
                 <h1 className="font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
@@ -301,37 +265,37 @@ function PDFViewerContent() {
               </div>
             </div>
 
-            {/* Bottom Row: All Controls in One Line */}
-            <div className="flex items-center gap-1.5 justify-between">
-              {/* Zoom Controls - Compact */}
-              <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-0.5">
+            {/* Bottom Row: All Controls */}
+            <div className="flex items-center gap-2 justify-between">
+              {/* Zoom Controls */}
+              <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setScale(s => Math.max(0.5, s - 0.1))}
-                  className="p-1.5 hover:bg-white rounded transition-all"
+                  className="p-2 hover:bg-white rounded transition-all active:scale-95"
                   title="Zoom Out"
                 >
-                  <ZoomOut className="w-4 h-4 text-gray-700" />
+                  <ZoomOut className="w-5 h-5 text-gray-700" />
                 </button>
-                <span className="text-xs font-bold text-gray-700 min-w-[45px] text-center">
+                <span className="text-xs font-bold text-gray-700 min-w-[50px] text-center px-1">
                   {Math.round(scale * 100)}%
                 </span>
                 <button
                   onClick={() => setScale(s => Math.min(2.0, s + 0.1))}
-                  className="p-1.5 hover:bg-white rounded transition-all"
+                  className="p-2 hover:bg-white rounded transition-all active:scale-95"
                   title="Zoom In"
                 >
-                  <ZoomIn className="w-4 h-4 text-gray-700" />
+                  <ZoomIn className="w-5 h-5 text-gray-700" />
                 </button>
               </div>
 
-              {/* Page Navigation - Compact */}
-              <div className="flex items-center gap-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg p-0.5 shadow-md">
+              {/* Page Navigation */}
+              <div className="flex items-center gap-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg p-1 shadow-md">
                 <button
                   onClick={() => setPageNumber(p => Math.max(1, p - 1))}
                   disabled={pageNumber <= 1}
-                  className="px-2 py-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded font-bold text-white text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="px-3 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded font-bold text-white text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
                 >
-                  ←
+                  ← Prev
                 </button>
                 <span className="text-xs font-bold text-white px-2 whitespace-nowrap">
                   {pageNumber}/{numPages}
@@ -339,22 +303,22 @@ function PDFViewerContent() {
                 <button
                   onClick={() => setPageNumber(p => Math.min(numPages, p + 1))}
                   disabled={pageNumber >= numPages}
-                  className="px-2 py-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded font-bold text-white text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="px-3 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded font-bold text-white text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
                 >
-                  →
+                  Next →
                 </button>
               </div>
 
-              {/* Fullscreen Button - Compact */}
+              {/* Fullscreen Button */}
               <button
                 onClick={toggleFullscreen}
-                className="p-2 bg-gray-100 hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 rounded-lg transition-all group flex-shrink-0"
+                className="p-2.5 bg-gray-100 hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 rounded-lg transition-all group flex-shrink-0 active:scale-95"
                 title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
               >
                 {isFullscreen ? (
-                  <Minimize className="w-4 h-4 text-gray-700 group-hover:text-white transition-colors" />
+                  <Minimize className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
                 ) : (
-                  <Maximize className="w-4 h-4 text-gray-700 group-hover:text-white transition-colors" />
+                  <Maximize className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
                 )}
               </button>
             </div>
