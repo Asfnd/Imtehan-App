@@ -248,17 +248,29 @@ function PDFViewerContent() {
   // Use iframe fallback for Safari mobile or if PDF.js fails
   if (useFallback || isSafariMobile) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-        <div className="p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex flex-col">
+        {/* Header */}
+        <div className="bg-white shadow-md p-3 flex items-center justify-between flex-shrink-0">
           <button
             onClick={() => router.back()}
-            className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+            className="px-3 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold"
           >
             ← Back
           </button>
+          <div className="text-center flex-1 px-2">
+            <h1 className="font-bold text-sm text-gray-800 truncate">
+              {subject && formatSubjectName(subject)}
+            </h1>
+            <p className="text-xs text-gray-600">Year {year}</p>
+          </div>
+          <div className="w-16"></div>
+        </div>
+        
+        {/* PDF iframe - full screen */}
+        <div className="flex-1 relative">
           <iframe
-            src={pdfUrl || ''}
-            className="w-full h-screen border-0 rounded-lg shadow-xl"
+            src={`${pdfUrl}#view=FitH`}
+            className="absolute inset-0 w-full h-full border-0"
             title="PDF Viewer"
           />
         </div>
