@@ -224,7 +224,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
           {/* MPT Practice */}
           <div
-            className="group relative bg-gradient-to-br from-white via-blue-50 to-indigo-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-blue-200 active:border-blue-500 active:-translate-y-1 active:scale-105"
+            className="group relative bg-gradient-to-br from-white via-blue-50 to-indigo-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-blue-200 hover:border-blue-500 active:border-blue-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
             onClick={() => router.push('/mpt-practice')}
           >
             <div className="relative">
@@ -260,7 +260,7 @@ export default function DashboardPage() {
 
           {/* CSS Practice */}
           <div
-            className="group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-purple-200 active:border-purple-500 active:-translate-y-1 active:scale-105"
+            className="group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-purple-200 hover:border-purple-500 active:border-purple-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
             onClick={() => router.push('/css-practice')}
           >
             <div className="relative">
@@ -296,7 +296,7 @@ export default function DashboardPage() {
 
           {/* Past Papers */}
           <div
-            className="group relative bg-gradient-to-br from-white via-green-50 to-emerald-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-green-200 active:border-green-500 active:-translate-y-1 active:scale-105"
+            className="group relative bg-gradient-to-br from-white via-green-50 to-emerald-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-green-200 hover:border-green-500 active:border-green-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
             onClick={() => router.push('/past-papers')}
           >
             <div className="relative">
