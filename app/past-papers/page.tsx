@@ -343,43 +343,6 @@ export default function PastPapersPage() {
                                 if (!user) {
                                   usageTracker.incrementPaperView()
                                 }
-                                
-                                // On mobile, open PDF directly instead of going to viewer page
-                                const isMobile = window.innerWidth < 768
-                                if (isMobile) {
-                                  e.preventDefault()
-                                  
-                                  // Get PDF URL and open it
-                                  const supabase = createClient()
-                                  const subjectKebab = selectedSubject.toLowerCase().replace(/\s+/g, '-')
-                                  
-                                  // Find the PDF file and open it
-                                  supabase.storage
-                                    .from('css-past-papers')
-                                    .list(`${subjectKebab}/${year}`)
-                                    .then(({ data: files }) => {
-                                      const pdfFile = files?.find(f => f.name.endsWith('.pdf'))
-                                      
-                                      if (pdfFile) {
-                                        // Get signed URL
-                                        return supabase.storage
-                                          .from('css-past-papers')
-                                          .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600)
-                                      }
-                                      throw new Error('PDF file not found')
-                                    })
-                                    .then(({ data: signedData }) => {
-                                      if (signedData?.signedUrl) {
-                                        // Open PDF in new tab
-                                        window.open(signedData.signedUrl, '_blank')
-                                      }
-                                    })
-                                    .catch((error) => {
-                                      console.error('Error opening PDF:', error)
-                                      // Fallback to viewer page if error
-                                      router.push(`/past-papers/view?subject=${selectedSubject}&year=${year}`)
-                                    })
-                                }
                               }}
                               className="block group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
                             >
