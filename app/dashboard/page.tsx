@@ -14,17 +14,37 @@ export default function DashboardPage() {
   const [authLoading, setAuthLoading] = useState(true)
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [remaining, setRemaining] = useState({ cssQuizzes: 1, mptTests: 0, papers: 2 })
-  // Extract first name only from full name or email
+  
+  // Get full name for top bar
+  const getFullName = () => {
+    if (user?.user_metadata?.name) {
+      return user.user_metadata.name
+    }
+    if (user?.user_metadata?.full_name) {
+      return user.user_metadata.full_name
+    }
+    if (user?.email) {
+      return user.email.split('@')[0]
+    }
+    return "Guest User"
+  }
+  
+  // Get first name only for welcome message
   const getFirstName = () => {
     if (user?.user_metadata?.name) {
       return user.user_metadata.name.split(' ')[0]
+    }
+    if (user?.user_metadata?.full_name) {
+      return user.user_metadata.full_name.split(' ')[0]
     }
     if (user?.email) {
       return user.email.split('@')[0]
     }
     return "Guest"
   }
-  const username = getFirstName()
+  
+  const fullName = getFullName()
+  const firstName = getFirstName()
 
   useEffect(() => {
     const supabase = createClient()
@@ -135,76 +155,150 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Modern Premium Top Bar - Mobile Responsive */}
+      {/* Ultra Modern Premium Top Bar - Glassmorphism Design */}
       <div className="relative z-20 mx-2 sm:mx-4 mt-2 sm:mt-4">
-        <div className="bg-gradient-to-r from-white/95 via-white/90 to-white/95 backdrop-blur-2xl rounded-xl sm:rounded-2xl shadow-xl border border-white/60 hover:shadow-2xl transition-shadow duration-300">
-          <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3.5 gap-2">
-            {/* Left: User Info with Modern Badge */}
-            <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-              <div className="relative active:scale-110 transition-transform duration-200 flex-shrink-0">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                  <User className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                {user && (
-                  <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md"></div>
-                )}
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="font-bold text-gray-900 text-sm sm:text-base leading-tight truncate">{username}</p>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium truncate">
-                  {user ? user.email : `Free Trial • ${remaining.cssQuizzes} quizzes left`}
-                </p>
-              </div>
+        {/* Floating glow effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl sm:rounded-3xl opacity-20 blur-2xl animate-pulse"></div>
+        
+        {/* Animated gradient border wrapper */}
+        <div className="relative rounded-2xl sm:rounded-3xl p-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-x shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          {/* Main content with glassmorphism */}
+          <div className="bg-white/95 backdrop-blur-3xl rounded-2xl sm:rounded-3xl overflow-hidden">
+            {/* Subtle animated background pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
             </div>
+            
+            {/* Sparkle effects */}
+            <div className="absolute top-2 right-20 w-1 h-1 bg-white rounded-full animate-ping"></div>
+            <div className="absolute top-4 right-40 w-1 h-1 bg-white rounded-full animate-ping animation-delay-1000"></div>
+            <div className="absolute bottom-3 left-32 w-1 h-1 bg-white rounded-full animate-ping animation-delay-2000"></div>
+            
+            <div className="relative flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 gap-3">
+              {/* Left: User Info with Premium Badge */}
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                {/* Avatar - Clean & Professional */}
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                    <User className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                </div>
+                
+                {/* User Info - Clean & Professional */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <h2 className="font-bold text-gray-900 text-base sm:text-lg leading-tight truncate">
+                      {fullName}
+                    </h2>
+                    {user && (
+                      <>
+                        <span className="flex-shrink-0 w-2 h-2 bg-emerald-500 rounded-full"></span>
+                        <span className="flex-shrink-0 px-2.5 py-0.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-bold rounded-md">
+                          PRO
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  <p className="text-xs sm:text-sm text-gray-600 font-medium truncate mt-0.5">
+                    {user ? (
+                      user.email
+                    ) : (
+                      <>Free Trial • {remaining.cssQuizzes} quizzes remaining</>
+                    )}
+                  </p>
+                </div>
+              </div>
 
-            {/* Right: Controls with Better Spacing */}
-            <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
-              {/* Sound Toggle - More Prominent */}
-              <button
-                onClick={toggleSound}
-                className={`relative w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl transition-all active:scale-90 ${
-                  soundEnabled 
-                    ? 'bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 shadow-lg' 
-                    : 'bg-gray-100 active:bg-gray-200 shadow-md'
-                }`}
-                title={soundEnabled ? 'Sound On' : 'Sound Off'}
-              >
-                {soundEnabled ? (
-                  <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+              {/* Right: Premium Controls */}
+              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                {/* Sound Toggle - Glassmorphism Style */}
+                <button
+                  onClick={toggleSound}
+                  className={`relative group w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 ${
+                    soundEnabled 
+                      ? 'bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/70' 
+                      : 'bg-gradient-to-br from-gray-100 to-gray-200 shadow-md hover:shadow-lg'
+                  }`}
+                  title={soundEnabled ? 'Sound On' : 'Sound Off'}
+                >
+                  {/* Glow effect on hover */}
+                  {soundEnabled && (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-blue-400 to-indigo-400 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300"></div>
+                      {/* Pulse ring */}
+                      <div className="absolute -inset-1 bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-30 blur-md animate-pulse"></div>
+                    </>
+                  )}
+                  
+                  {soundEnabled ? (
+                    <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg group-hover:scale-110 transition-transform" />
+                  ) : (
+                    <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:text-gray-800 transition-colors" />
+                  )}
+                </button>
+
+                {/* Auth Buttons - Premium Design */}
+                {user ? (
+                  <button
+                    onClick={handleSignOut}
+                    className="group relative flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-red-500 via-rose-500 to-pink-500 hover:from-red-600 hover:via-rose-600 hover:to-pink-600 text-white rounded-xl sm:rounded-2xl transition-all shadow-lg hover:shadow-xl hover:shadow-red-500/50 active:scale-95 font-bold text-xs sm:text-sm overflow-hidden"
+                  >
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    
+                    <LogOut className="w-4 h-4 sm:w-5 sm:h-5 relative z-10" />
+                    <span className="hidden sm:inline relative z-10">Sign Out</span>
+                    <span className="sm:hidden relative z-10">Out</span>
+                  </button>
                 ) : (
-                  <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  <button
+                    onClick={handleGoogleSignIn}
+                    className="group relative flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white rounded-xl sm:rounded-2xl transition-all shadow-lg hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 font-bold text-xs sm:text-sm whitespace-nowrap overflow-hidden"
+                  >
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 relative z-10 drop-shadow-lg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="white"/>
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="white"/>
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="white"/>
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="white"/>
+                    </svg>
+                    <span className="hidden sm:inline relative z-10">Sign in with Google</span>
+                    <span className="sm:hidden relative z-10">Sign in</span>
+                  </button>
                 )}
-              </button>
-
-              {/* Auth Buttons - Improved Design */}
-              {user ? (
-                <button
-                  onClick={handleSignOut}
-                  className="flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-red-500 via-rose-500 to-pink-500 active:from-red-600 active:via-rose-600 active:to-pink-600 text-white rounded-lg sm:rounded-xl transition-all shadow-lg active:shadow-xl active:scale-95 font-bold text-xs sm:text-sm"
-                >
-                  <LogOut className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Sign Out</span>
-                  <span className="sm:hidden">Out</span>
-                </button>
-              ) : (
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 active:from-blue-700 active:via-indigo-700 active:to-purple-700 text-white rounded-lg sm:rounded-xl transition-all shadow-lg active:shadow-xl active:scale-95 font-bold text-xs sm:text-sm whitespace-nowrap"
-                >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="white"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="white"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="white"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="white"/>
-                  </svg>
-                  <span className="hidden sm:inline">Sign in with Google</span>
-                  <span className="sm:hidden">Sign in</span>
-                </button>
-              )}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Add custom animations */}
+      <style jsx>{`
+        @keyframes gradient-x {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 3s ease infinite;
+        }
+        .animation-delay-1000 {
+          animation-delay: 1s;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .shadow-3xl {
+          box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+        }
+      `}</style>
 
       {/* Main Content Area */}
       <div className="relative flex-1 flex flex-col items-center justify-center px-2 sm:px-4 pb-2 sm:pb-4 z-10 overflow-y-auto">
@@ -213,7 +307,7 @@ export default function DashboardPage() {
           {/* Modern Header */}
           <div className="text-center mb-4 sm:mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-              Welcome back, {username}!
+              Welcome back, {firstName}!
             </h1>
             <p className="text-sm sm:text-base text-gray-700">
               Choose your practice mode

@@ -1,89 +1,125 @@
-# Sound Files Guide
+# 🔊 Sound Files Directory
 
-This directory contains sound effects for the quiz gamification features.
+## Required Sound Files:
 
-## ✅ FINAL SOUND SELECTION (ACTIVE)
+Place the following MP3 files in this directory:
 
-All sounds have been selected and are ready to use!
+1. **correct.mp3** - Plays when user selects correct answer
+   - Suggested: Cheerful bell or chime sound
+   - Duration: 0.5-1 second
+   - Example: "ding", "success", "correct"
 
-### 1. correct.mp3
-- **Purpose**: Plays when user selects correct answer
-- **Duration**: 200-500ms
-- **Type**: Pleasant chime, bell, or success sound
-- **Recommended sources**:
-  - https://mixkit.co/free-sound-effects/success/
-  - https://freesound.org/search/?q=correct+answer
-  - https://www.zapsplat.com/sound-effect-category/success/
+2. **incorrect.mp3** - Plays when user selects wrong answer
+   - Suggested: Gentle buzz or soft error sound
+   - Duration: 0.5-1 second
+   - Example: "buzz", "wrong", "error"
 
-### 2. incorrect.mp3
-- **Purpose**: Plays when user selects wrong answer
-- **Duration**: 200-400ms
-- **Type**: Gentle "oops" or soft error sound (not harsh)
-- **Recommended sources**:
-  - https://mixkit.co/free-sound-effects/error/
-  - https://freesound.org/search/?q=wrong+answer
-  - https://www.zapsplat.com/sound-effect-category/error/
+3. **streak-milestone.mp3** - Plays when user reaches streak milestone (every 5 correct)
+   - Suggested: Celebratory fanfare or achievement sound
+   - Duration: 1-2 seconds
+   - Example: "fanfare", "achievement", "level-up"
 
-### 3. streak-milestone.mp3
-- **Purpose**: Plays when user reaches streak milestones (5, 10, etc.)
-- **Duration**: 500-1000ms
-- **Type**: Celebratory fanfare or achievement sound
-- **Recommended sources**:
-  - https://mixkit.co/free-sound-effects/win/
-  - https://freesound.org/search/?q=achievement
-  - https://www.zapsplat.com/sound-effect-category/achievement/
+4. **quiz-complete.mp3** - Plays when quiz is finished
+   - Suggested: Victory or completion sound
+   - Duration: 1-2 seconds
+   - Example: "victory", "complete", "applause"
 
-### 4. quiz-complete.mp3
-- **Purpose**: Plays when user completes the entire quiz
-- **Duration**: 1-2 seconds
-- **Type**: Victory or completion fanfare
-- **Recommended sources**:
-  - https://mixkit.co/free-sound-effects/game/
-  - https://freesound.org/search/?q=victory
-  - https://www.zapsplat.com/sound-effect-category/victory/
+---
 
-## Quick Setup (Temporary)
+## Where to Get Free Sounds:
 
-For testing purposes, you can use these free sound URLs temporarily:
+### 1. Freesound.org
+- https://freesound.org/
+- Search for: "correct", "wrong", "achievement", "victory"
+- Filter by: Creative Commons 0 (Public Domain)
 
-1. Download sounds from Mixkit (royalty-free):
-   - Correct: https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3
-   - Incorrect: https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3
-   - Streak: https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3
-   - Complete: https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3
+### 2. Zapsplat.com
+- https://www.zapsplat.com/
+- Free with attribution
+- High quality game sounds
 
-2. Rename them to match the required filenames above
-3. Place them in this directory
+### 3. Mixkit.co
+- https://mixkit.co/free-sound-effects/
+- Free for commercial use
+- No attribution required
 
-## File Format Requirements
+### 4. Pixabay
+- https://pixabay.com/sound-effects/
+- Free for commercial use
+- Good selection of UI sounds
 
-- **Format**: MP3 (best browser compatibility)
-- **Bitrate**: 128kbps or lower (for fast loading)
-- **Sample Rate**: 44.1kHz
-- **Channels**: Mono or Stereo
-- **File Size**: Keep under 50KB each for optimal performance
+---
 
-## Testing
+## Quick Setup (Placeholder Sounds):
 
-Once you've added the sound files, the sound manager will automatically preload them when the quiz page loads. You can test by:
+If you don't have sounds yet, you can:
 
-1. Starting a quiz
-2. Answering questions (correct/incorrect)
-3. Building a streak to 5 or 10
-4. Completing the quiz
+1. **Option A:** Use silent placeholder files
+   - Create empty 1-second MP3 files
+   - App will work without sounds
 
-## Troubleshooting
+2. **Option B:** Download from Freesound
+   ```bash
+   # Example searches:
+   - "ui correct"
+   - "ui wrong"
+   - "achievement unlock"
+   - "quiz complete"
+   ```
 
-If sounds don't play:
-1. Check browser console for loading errors
-2. Verify file names match exactly (case-sensitive)
-3. Ensure files are in MP3 format
-4. Check file permissions
-5. Try opening sound files directly in browser to verify they work
+3. **Option C:** Generate with AI
+   - Use ElevenLabs Sound Effects
+   - Use Soundraw.io
+   - Use Mubert
 
-## License
+---
 
-Make sure any sound files you use are:
-- Royalty-free
-- Licensed for commercial use (if applicable)
-- Properly attributed if required by the license
+## File Specifications:
+
+- **Format:** MP3
+- **Sample Rate:** 44.1kHz
+- **Bitrate:** 128kbps (good quality, small size)
+- **File Size:** < 50KB per file
+- **Duration:** 0.5-2 seconds
+- **Volume:** Normalized to -3dB
+
+---
+
+## Testing Sounds:
+
+After adding sound files:
+
+1. Go to any quiz page
+2. Enable sound (speaker icon in header)
+3. Answer questions to test:
+   - Correct answer → correct.mp3
+   - Wrong answer → incorrect.mp3
+   - 5 correct in a row → streak-milestone.mp3
+   - Finish quiz → quiz-complete.mp3
+
+---
+
+## Troubleshooting:
+
+### Sounds Not Playing?
+1. Check file names match exactly (case-sensitive)
+2. Ensure files are in `public/sounds/` directory
+3. Check browser console for errors
+4. Verify sound toggle is enabled
+5. Check file format is MP3
+
+### Sounds Too Loud/Quiet?
+- Adjust volume in `lib/sounds/soundManager.ts`
+- Default volume is 0.7 (70%)
+- Or normalize audio files to consistent volume
+
+---
+
+## Current Status:
+
+- [ ] correct.mp3
+- [ ] incorrect.mp3
+- [ ] streak-milestone.mp3
+- [ ] quiz-complete.mp3
+
+**Add these files to enable sound effects!** 🔊

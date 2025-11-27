@@ -97,17 +97,6 @@ class SoundManager {
       return
     }
 
-    // Disable sounds on mobile to prevent lag
-    if (typeof window !== 'undefined') {
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      ) || window.innerWidth < 768
-      
-      if (isMobile) {
-        return // Skip sound on mobile
-      }
-    }
-
     const audio = this.sounds.get(soundName)
     if (!audio) {
       console.warn(`Sound not found: ${soundName}`)
@@ -115,24 +104,21 @@ class SoundManager {
     }
 
     try {
-      // Clone the audio element for better performance (allows overlapping sounds)
-      const audioClone = audio.cloneNode() as HTMLAudioElement
-      audioClone.volume = this.volume
+      // Use the original audio element instead of cloning for better mobile performance
+      // Reset to start if already playing
+      audio.currentTime = 0
+      audio.volume = this.volume
 
       // Play the sound
-      const playPromise = audioClone.play()
+      const playPromise = audio.play()
 
       // Handle play promise (required for some browsers)
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
+          // Silently fail on mobile if autoplay is blocked
           console.warn(`Failed to play sound: ${soundName}`, error)
         })
       }
-
-      // Clean up after playing
-      audioClone.addEventListener('ended', () => {
-        audioClone.remove()
-      })
     } catch (error) {
       console.warn(`Error playing sound: ${soundName}`, error)
     }

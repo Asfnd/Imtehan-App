@@ -329,7 +329,7 @@ function MPTQuizContent() {
                   {currentMCQ.question_text}
                 </h3>
 
-                <div className="space-y-2 sm:space-y-3">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
                   {['A', 'B', 'C', 'D'].map((option) => {
                     const optionText = currentMCQ[
                       `option_${option.toLowerCase()}` as keyof MCQ
@@ -365,42 +365,42 @@ function MPTQuizContent() {
                     )
                   })}
                 </div>
+
+                {/* Navigation - Inside card, right after options */}
+                <div className="flex items-center justify-between pt-4 sm:pt-5 border-t border-gray-100">
+                  <motion.button
+                    onClick={goToPrevious}
+                    disabled={currentIndex === 0}
+                    whileTap={{ scale: currentIndex === 0 ? 1 : 0.95 }}
+                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold"
+                  >
+                    ← Previous
+                  </motion.button>
+
+                  <span className="text-sm sm:text-base text-gray-600 font-semibold px-3">
+                    {currentIndex + 1} / {mcqs.length}
+                  </span>
+
+                  {currentIndex === mcqs.length - 1 ? (
+                    <motion.button
+                      onClick={finishTest}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base"
+                    >
+                      Finish Test ✓
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      onClick={goToNext}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 active:from-blue-700 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base font-semibold"
+                    >
+                      Next →
+                    </motion.button>
+                  )}
+                </div>
               </motion.div>
             </AnimatePresence>
-          </div>
-
-          {/* Navigation - Fixed at bottom */}
-          <div className="flex items-center justify-between bg-white/90 backdrop-blur-sm rounded-xl p-2 sm:p-3 shadow-lg border border-gray-100 flex-shrink-0">
-            <motion.button
-              onClick={goToPrevious}
-              disabled={currentIndex === 0}
-              whileTap={{ scale: currentIndex === 0 ? 1 : 0.95 }}
-              className="px-3 sm:px-5 py-2 sm:py-2.5 bg-white text-gray-700 rounded-lg active:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-xs sm:text-sm font-semibold border border-gray-200"
-            >
-              ← Prev
-            </motion.button>
-
-            <span className="text-xs sm:text-sm text-gray-600 font-semibold px-2 sm:px-3">
-              {currentIndex + 1} / {mcqs.length}
-            </span>
-
-            {currentIndex === mcqs.length - 1 ? (
-              <motion.button
-                onClick={finishTest}
-                whileTap={{ scale: 0.95 }}
-                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg active:from-green-600 active:to-emerald-700 transition-all shadow-md font-bold text-xs sm:text-sm"
-              >
-                Finish ✓
-              </motion.button>
-            ) : (
-              <motion.button
-                onClick={goToNext}
-                whileTap={{ scale: 0.95 }}
-                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg active:from-blue-600 active:to-indigo-700 transition-all shadow-md text-xs sm:text-sm font-semibold"
-              >
-                Next →
-              </motion.button>
-            )}
           </div>
         </div>
       </div>
