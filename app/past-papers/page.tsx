@@ -321,7 +321,7 @@ export default function PastPapersPage() {
                         </span>
                       </div>
                       
-                      <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3 custom-scrollbar">
+                      <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2 sm:space-y-3 custom-scrollbar">
                         {papers[selectedSubject].map((year, index) => {
                           const totalYears = papers[selectedSubject].length
                           const progress = ((totalYears - index) / totalYears) * 100
@@ -353,52 +353,52 @@ export default function PastPapersPage() {
                               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                               
                               {/* Content */}
-                              <div className="relative bg-gradient-to-br from-gray-50 to-white group-hover:bg-transparent border-2 border-gray-100 group-hover:border-transparent rounded-2xl transition-all duration-300">
-                                <div className="flex items-center gap-4 p-4">
-                                  {/* Clean Paper Document Badge */}
-                                  <div className="relative">
+                              <div className="relative bg-gradient-to-br from-gray-50 to-white group-hover:bg-transparent border-2 border-gray-100 group-hover:border-transparent rounded-xl sm:rounded-2xl transition-all duration-300">
+                                <div className="flex items-center gap-2 sm:gap-4 p-2 sm:p-4">
+                                  {/* Clean Paper Document Badge - Compact on mobile */}
+                                  <div className="relative flex-shrink-0">
                                     {/* Subtle Shadow Layers */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl transform translate-x-0.5 translate-y-0.5 opacity-30"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg sm:rounded-xl transform translate-x-0.5 translate-y-0.5 opacity-30"></div>
                                     
                                     {/* Main Badge */}
-                                    <div className={`relative w-14 h-14 rounded-xl flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300 overflow-hidden`}>
+                                    <div className={`relative w-10 h-10 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300 overflow-hidden`}>
                                       {/* Document Icon */}
-                                      <svg className="w-8 h-8 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <svg className="w-5 h-5 sm:w-8 sm:h-8 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                       </svg>
                                       
                                       {/* Year Label */}
-                                      <div className="absolute bottom-1 right-1 bg-white/20 backdrop-blur-sm px-1.5 py-0.5 rounded text-xs font-bold">
+                                      <div className="absolute bottom-0.5 right-0.5 sm:bottom-1 sm:right-1 bg-white/20 backdrop-blur-sm px-1 sm:px-1.5 py-0.5 rounded text-[10px] sm:text-xs font-bold">
                                         '{year.toString().slice(-2)}
                                       </div>
                                       
                                       {/* Subtle Corner Fold */}
-                                      <div className="absolute top-0 right-0 w-0 h-0 border-l-[10px] border-l-transparent border-t-[10px] border-t-white/20"></div>
+                                      <div className="absolute top-0 right-0 w-0 h-0 border-l-[8px] sm:border-l-[10px] border-l-transparent border-t-[8px] sm:border-t-[10px] border-t-white/20"></div>
                                     </div>
                                     
                                     {/* NEW Badge */}
                                     {isRecent && (
-                                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">
+                                      <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-4 h-4 sm:w-5 sm:h-5 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shadow-lg">
                                         ✓
                                       </div>
                                     )}
                                   </div>
                                   
-                                  {/* Year Info */}
+                                  {/* Year Info - Compact on mobile */}
                                   <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <div className="font-black text-base sm:text-lg text-gray-900 transition-colors duration-300">
+                                    <div className="flex items-center gap-1 sm:gap-2 mb-0.5 sm:mb-1">
+                                      <div className="font-black text-sm sm:text-lg text-gray-900 transition-colors duration-300">
                                         {year}
                                       </div>
                                       {isRecent && (
-                                        <span className="px-2 py-0.5 bg-gradient-to-r from-orange-400 to-red-400 text-white text-[10px] sm:text-xs font-bold rounded-full">
+                                        <span className="px-1.5 sm:px-2 py-0.5 bg-gradient-to-r from-orange-400 to-red-400 text-white text-[9px] sm:text-xs font-bold rounded-full">
                                           NEW
                                         </span>
                                       )}
                                     </div>
                                     
-                                    {/* Progress Bar */}
-                                    <div className="relative h-2 bg-gray-200 group-hover:bg-gray-300 rounded-full overflow-hidden mb-1 transition-colors duration-300">
+                                    {/* Progress Bar - Thinner on mobile */}
+                                    <div className="relative h-1.5 sm:h-2 bg-gray-200 group-hover:bg-gray-300 rounded-full overflow-hidden mb-0.5 sm:mb-1 transition-colors duration-300">
                                       <div 
                                         className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 group-hover:from-green-500 group-hover:via-emerald-500 group-hover:to-teal-500 rounded-full transition-all duration-500"
                                         style={{ width: `${progress}%` }}
@@ -407,15 +407,15 @@ export default function PastPapersPage() {
                                       </div>
                                     </div>
                                     
-                                    <div className="text-xs font-semibold text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                                    <div className="text-[10px] sm:text-xs font-semibold text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
                                       Click to view paper
                                     </div>
                                   </div>
                                   
-                                  {/* Arrow Icon */}
+                                  {/* Arrow Icon - Smaller on mobile */}
                                   <div className="flex-shrink-0">
-                                    <div className="w-10 h-10 rounded-xl bg-gray-100 group-hover:bg-green-100 flex items-center justify-center transition-all duration-300 group-hover:translate-x-1">
-                                      <svg className="w-5 h-5 text-gray-600 group-hover:text-green-700 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gray-100 group-hover:bg-green-100 flex items-center justify-center transition-all duration-300 group-hover:translate-x-1">
+                                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-green-700 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                       </svg>
                                     </div>

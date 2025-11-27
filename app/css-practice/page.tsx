@@ -392,10 +392,10 @@ export default function CSSPracticePage() {
                                     : 'bg-white hover:shadow-lg border-2 border-gray-100 hover:border-blue-300'
                                 }`}
                               >
-                                <div className="flex items-center justify-between p-3">
-                                  <div className="flex items-center gap-3">
+                                <div className="flex items-center justify-between p-2 sm:p-3">
+                                  <div className="flex items-center gap-2 sm:gap-3">
                                     {/* Colorful Year Badge */}
-                                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-bold text-sm sm:text-base transition-all duration-200 ${
+                                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-200 ${
                                       isSelected 
                                         ? 'bg-white/25 text-white' 
                                         : 'bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-sm'
