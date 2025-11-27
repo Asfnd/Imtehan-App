@@ -13,10 +13,12 @@ import './viewer.css'
 const Document = dynamic(() => import('react-pdf').then(mod => mod.Document), { ssr: false })
 const Page = dynamic(() => import('react-pdf').then(mod => mod.Page), { ssr: false })
 
-// Configure PDF.js worker - only on client
+// Configure PDF.js worker - only on client with error handling
 if (typeof window !== 'undefined') {
   import('react-pdf').then(mod => {
-    mod.pdfjs.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.mjs'
+    mod.pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${mod.pdfjs.version}/pdf.worker.min.js`
+  }).catch(err => {
+    console.error('Failed to load PDF.js:', err)
   })
 }
 
@@ -28,6 +30,7 @@ function PDFViewerContent() {
   
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [numPages, setNumPages] = useState<number>(0)
   const [pageNumber, setPageNumber] = useState(1)
   const [scale, setScale] = useState(1.0)
@@ -89,30 +92,66 @@ function PDFViewerContent() {
 
   async function loadPDF() {
     try {
+      setError(null)
+      
+      if (!subject || !year) {
+        setError('Missing subject or year parameter')
+        setLoading(false)
+        return
+      }
+
       // Convert subject to kebab-case for storage path
-      const subjectKebab = subject?.toLowerCase().replace(/\s+/g, '-')
+      const subjectKebab = subject.toLowerCase().replace(/\s+/g, '-')
       
       // Find the PDF file in the subject/year folder
-      const { data: files, error } = await supabase.storage
+      const { data: files, error: listError } = await supabase.storage
         .from('css-past-papers')
         .list(`${subjectKebab}/${year}`)
 
-      if (error) throw error
-
-      const pdfFile = files?.find(f => f.name.endsWith('.pdf'))
-      
-      if (pdfFile) {
-        // Get signed URL for authenticated access
-        const { data: signedData, error: signedError } = await supabase.storage
-          .from('css-past-papers')
-          .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600) // 1 hour
-
-        if (signedError) throw signedError
-
-        setPdfUrl(signedData.signedUrl)
+      if (listError) {
+        console.error('Storage list error:', listError)
+        setError('Failed to access storage. Please try again.')
+        setLoading(false)
+        return
       }
+
+      if (!files || files.length === 0) {
+        setError('No files found for this paper')
+        setLoading(false)
+        return
+      }
+
+      const pdfFile = files.find(f => f.name.endsWith('.pdf'))
+      
+      if (!pdfFile) {
+        setError('PDF file not found for this paper')
+        setLoading(false)
+        return
+      }
+      
+      // Get signed URL for authenticated access
+      const { data: signedData, error: signedError } = await supabase.storage
+        .from('css-past-papers')
+        .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600) // 1 hour
+
+      if (signedError) {
+        console.error('Signed URL error:', signedError)
+        setError('Failed to generate secure access link')
+        setLoading(false)
+        return
+      }
+
+      if (!signedData?.signedUrl) {
+        setError('Failed to load PDF URL')
+        setLoading(false)
+        return
+      }
+
+      setPdfUrl(signedData.signedUrl)
+      setError(null)
     } catch (error) {
       console.error('Error loading PDF:', error)
+      setError('An unexpected error occurred. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -120,6 +159,12 @@ function PDFViewerContent() {
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages)
+    setError(null)
+  }
+
+  function onDocumentLoadError(error: Error) {
+    console.error('PDF load error:', error)
+    setError('Failed to load PDF document. The file may be corrupted.')
   }
 
   // Toggle fullscreen mode
@@ -160,17 +205,39 @@ function PDFViewerContent() {
     )
   }
 
-  if (!pdfUrl) {
+  if (error || !pdfUrl) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600 mb-4">PDF not found</p>
-          <button
-            onClick={() => router.back()}
-            className="text-indigo-600 hover:text-indigo-700"
-          >
-            Go Back
-          </button>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+        <div className="text-center max-w-md">
+          <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <span className="text-4xl">⚠️</span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-3">
+            {error ? 'Error Loading PDF' : 'PDF Not Found'}
+          </h2>
+          <p className="text-gray-600 mb-6">
+            {error || 'The requested PDF could not be found. It may have been moved or deleted.'}
+          </p>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={() => router.back()}
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+            >
+              ← Go Back
+            </button>
+            {error && (
+              <button
+                onClick={() => {
+                  setLoading(true)
+                  setError(null)
+                  loadPDF()
+                }}
+                className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:shadow-lg transition-all border border-gray-200"
+              >
+                🔄 Try Again
+              </button>
+            )}
+          </div>
         </div>
       </div>
     )
@@ -276,8 +343,9 @@ function PDFViewerContent() {
             <Document
               file={pdfUrl}
               onLoadSuccess={onDocumentLoadSuccess}
+              onLoadError={onDocumentLoadError}
               loading={
-                <div className="flex flex-col items-center justify-center min-h-full">
+                <div className="flex flex-col items-center justify-center min-h-full py-20">
                   <div className="relative">
                     <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200"></div>
                     <div className="animate-spin rounded-full h-16 w-16 border-4 border-t-blue-600 border-r-indigo-600 absolute top-0 left-0"></div>
@@ -286,12 +354,25 @@ function PDFViewerContent() {
                 </div>
               }
               error={
-                <div className="text-center p-8 min-h-full flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-3xl">⚠️</span>
+                <div className="text-center p-8 min-h-full flex flex-col items-center justify-center py-20">
+                  <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <span className="text-4xl">⚠️</span>
                   </div>
-                  <p className="text-red-600 font-semibold mb-2">Failed to load PDF</p>
-                  <p className="text-gray-600 text-sm">Please try again or contact support</p>
+                  <p className="text-red-600 font-bold text-lg mb-2">Failed to load PDF</p>
+                  <p className="text-gray-600 text-sm mb-6 max-w-md">
+                    The PDF document could not be loaded. This may be due to a corrupted file or network issue.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setLoading(true)
+                      setError(null)
+                      setPdfUrl(null)
+                      loadPDF()
+                    }}
+                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                  >
+                    🔄 Reload PDF
+                  </button>
                 </div>
               }
               options={pdfOptions}
@@ -303,6 +384,9 @@ function PDFViewerContent() {
                 renderTextLayer={true}
                 renderAnnotationLayer={true}
                 className="pdf-page-shadow"
+                onRenderError={(error) => {
+                  console.error('Page render error:', error)
+                }}
               />
             </Document>
           </div>
