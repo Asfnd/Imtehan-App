@@ -245,44 +245,51 @@ function PDFViewerContent() {
     )
   }
 
-  // Use iframe fallback for Safari mobile or if PDF.js fails
+  // Mobile: Show "Open PDF" button instead of embedded viewer
   if (useFallback || isSafariMobile) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex flex-col">
-        {/* Full Toolbar for Mobile Safari */}
-        <div className="bg-gradient-to-r from-white/95 via-white/90 to-white/95 backdrop-blur-2xl shadow-xl border-b border-white/60 flex-shrink-0 z-10">
-          <div className="px-3 py-2 space-y-2.5">
-            {/* Top Row: Back + Title */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => router.back()}
-                className="group p-2.5 hover:bg-gradient-to-br hover:from-blue-500 hover:to-indigo-500 bg-gray-100 rounded-lg transition-all flex-shrink-0"
-              >
-                <ArrowLeft className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
-              </button>
-              <div className="flex-1 min-w-0">
-                <h1 className="font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
-                  {subject && formatSubjectName(subject)}
-                </h1>
-                <p className="text-xs text-gray-600 font-medium">Year {year} • Safari Mode</p>
-              </div>
-            </div>
-
-            {/* Info Message */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-              <p className="text-xs text-blue-700 text-center">
-                📱 Using Safari's built-in PDF viewer. Use pinch to zoom and swipe to navigate pages.
-              </p>
-            </div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+        <div className="text-center max-w-md">
+          {/* PDF Icon */}
+          <div className="w-24 h-24 bg-gradient-to-br from-red-100 via-orange-100 to-yellow-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+            <span className="text-5xl">📄</span>
+          </div>
+          
+          {/* Title */}
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            {subject && formatSubjectName(subject)}
+          </h1>
+          <p className="text-gray-600 font-medium mb-8">Year {year} Past Paper</p>
+          
+          {/* Info Card */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6 shadow-lg border border-white/60">
+            <p className="text-sm text-gray-700 mb-4">
+              📱 For the best mobile experience, open this PDF in your device's native PDF viewer.
+            </p>
+            <p className="text-xs text-gray-500">
+              You'll be able to zoom, annotate, and navigate easily.
+            </p>
+          </div>
+          
+          {/* Buttons */}
+          <div className="flex flex-col gap-3">
+            <a
+              href={pdfUrl || ''}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-2"
+            >
+              📖 Open PDF
+            </a>
+            
+            <button
+              onClick={() => router.back()}
+              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:shadow-lg transition-all border border-gray-200 active:scale-95"
+            >
+              ← Go Back
+            </button>
           </div>
         </div>
-        
-        {/* PDF iframe - Safari will show its own toolbar */}
-        <iframe
-          src={pdfUrl || ''}
-          className="flex-1 w-full border-0"
-          title="PDF Viewer"
-        />
       </div>
     )
   }

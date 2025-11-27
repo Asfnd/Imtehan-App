@@ -331,16 +331,52 @@ export default function PastPapersPage() {
                             <Link
                               key={year}
                               href={`/past-papers/view?subject=${selectedSubject}&year=${year}`}
-                              onClick={(e) => {
+                              onClick={async (e) => {
                                 // Check if non-logged-in user can view paper
                                 if (!user && !usageTracker.canViewPaper()) {
                                   e.preventDefault()
                                   setShowSignInPopup(true)
                                   return
                                 }
+                                
                                 // Track paper view for non-logged-in users
                                 if (!user) {
                                   usageTracker.incrementPaperView()
+                                }
+                                
+                                // On mobile, open PDF directly instead of going to viewer page
+                                const isMobile = window.innerWidth < 768
+                                if (isMobile) {
+                                  e.preventDefault()
+                                  
+                                  // Get PDF URL and open it
+                                  try {
+                                    const supabase = createClient()
+                                    const subjectKebab = selectedSubject.toLowerCase().replace(/\s+/g, '-')
+                                    
+                                    // Find the PDF file
+                                    const { data: files } = await supabase.storage
+                                      .from('css-past-papers')
+                                      .list(`${subjectKebab}/${year}`)
+                                    
+                                    const pdfFile = files?.find(f => f.name.endsWith('.pdf'))
+                                    
+                                    if (pdfFile) {
+                                      // Get signed URL
+                                      const { data: signedData } = await supabase.storage
+                                        .from('css-past-papers')
+                                        .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600)
+                                      
+                                      if (signedData?.signedUrl) {
+                                        // Open PDF in new tab
+                                        window.open(signedData.signedUrl, '_blank')
+                                      }
+                                    }
+                                  } catch (error) {
+                                    console.error('Error opening PDF:', error)
+                                    // Fallback to viewer page if error
+                                    router.push(`/past-papers/view?subject=${selectedSubject}&year=${year}`)
+                                  }
                                 }
                               }}
                               className="block group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
