@@ -43,6 +43,7 @@ function PDFViewerContent() {
   const pdfOptions = useMemo(() => ({
     cMapUrl: 'https://unpkg.com/pdfjs-dist@3.11.174/cmaps/',
     cMapPacked: true,
+    standardFontDataUrl: 'https://unpkg.com/pdfjs-dist@3.11.174/standard_fonts/',
   }), [])
 
   useEffect(() => {
@@ -330,7 +331,7 @@ function PDFViewerContent() {
         <div className="flex justify-center p-4 min-h-full">
           <div className="relative">
             <Document
-              file={pdfUrl}
+              file={{ url: pdfUrl, httpHeaders: { 'Access-Control-Allow-Origin': '*' } }}
               onLoadSuccess={onDocumentLoadSuccess}
               onLoadError={onDocumentLoadError}
               loading={
