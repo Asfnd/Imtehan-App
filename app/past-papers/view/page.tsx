@@ -13,10 +13,13 @@ import './viewer.css'
 const Document = dynamic(() => import('react-pdf').then(mod => mod.Document), { ssr: false })
 const Page = dynamic(() => import('react-pdf').then(mod => mod.Page), { ssr: false })
 
-// Configure PDF.js worker - use local file
+// Configure PDF.js worker - use local file with proper MIME type
 if (typeof window !== 'undefined') {
   import('react-pdf').then(mod => {
-    mod.pdfjs.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.js'
+    mod.pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+      'pdfjs-dist/build/pdf.worker.min.mjs',
+      import.meta.url
+    ).toString()
   }).catch(err => {
     console.error('Failed to load PDF.js:', err)
   })
