@@ -301,49 +301,49 @@ export default function DashboardPage() {
       `}</style>
 
       {/* Main Content Area */}
-      <div className="relative flex-1 flex flex-col items-center justify-center px-2 sm:px-4 pb-2 sm:pb-4 z-10 overflow-y-auto">
-        <div className="w-full max-w-5xl">{/* Content wrapper */}
+      <div className="relative flex-1 flex flex-col items-center justify-center px-2 sm:px-4 pb-2 sm:pb-4 z-10 overflow-hidden">
+        <div className="w-full max-w-5xl flex flex-col h-full justify-center">{/* Content wrapper */}
 
-          {/* Modern Header */}
-          <div className="text-center mb-4 sm:mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+          {/* Modern Header - Compact on mobile */}
+          <div className="text-center mb-2 sm:mb-4">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-1">
               Welcome back, {firstName}!
             </h1>
-            <p className="text-sm sm:text-base text-gray-700">
+            <p className="text-xs sm:text-base text-gray-700">
               Choose your practice mode
             </p>
           </div>
 
-          {/* Modern Practice Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+          {/* Modern Practice Cards - Compact on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-4">
           {/* MPT Practice */}
           <div
-            className="group relative bg-gradient-to-br from-white via-blue-50 to-indigo-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-blue-200 hover:border-blue-500 active:border-blue-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
+            className="group relative bg-gradient-to-br from-white via-blue-50 to-indigo-50 rounded-xl sm:rounded-3xl p-3 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-blue-200 hover:border-blue-500 active:border-blue-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
             onClick={() => router.push('/mpt-practice')}
           >
             <div className="relative">
-              <div className="text-center mb-4 sm:mb-5">
-                <div className="inline-flex p-4 sm:p-5 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 rounded-2xl sm:rounded-3xl shadow-2xl mb-3 sm:mb-4 transition-all duration-300">
-                  <Target className="w-8 h-8 sm:w-10 sm:h-10 text-white transition-transform duration-300" />
+              <div className="text-center mb-2 sm:mb-5">
+                <div className="inline-flex p-3 sm:p-5 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 rounded-xl sm:rounded-3xl shadow-2xl mb-2 sm:mb-4 transition-all duration-300">
+                  <Target className="w-6 h-6 sm:w-10 sm:h-10 text-white transition-transform duration-300" />
                 </div>
-                <h3 className="font-bold text-gray-900 text-xl sm:text-2xl mb-2 transition-all duration-300">MPT</h3>
+                <h3 className="font-bold text-gray-900 text-lg sm:text-2xl mb-1 transition-all duration-300">MPT</h3>
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                   MCQ-Based Preliminary Test
                 </p>
               </div>
 
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-blue-100 transition-transform">
+              <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-5">
+                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-blue-100 transition-transform">
                   <span className="text-gray-700 font-medium">Questions</span>
-                  <span className="font-bold text-blue-600 text-base sm:text-lg">500+</span>
+                  <span className="font-bold text-blue-600 text-sm sm:text-lg">500+</span>
                 </div>
-                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-indigo-100 transition-transform">
+                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-indigo-100 transition-transform">
                   <span className="text-gray-700 font-medium">Mock Tests</span>
-                  <span className="font-bold text-indigo-600 text-base sm:text-lg">Timed</span>
+                  <span className="font-bold text-indigo-600 text-sm sm:text-lg">Timed</span>
                 </div>
               </div>
 
-              <button className="group/btn w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm active:scale-95 active:shadow-xl transition-all duration-300 ease-out overflow-hidden relative">
+              <button className="group/btn w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm active:scale-95 active:shadow-xl transition-all duration-300 ease-out overflow-hidden relative">
                 <span className="relative flex items-center justify-center gap-2 sm:gap-3">
                   <span className="transition-all duration-300">Start Practice</span>
                   <span className="transition-all duration-300">→</span>
@@ -354,32 +354,32 @@ export default function DashboardPage() {
 
           {/* CSS Practice */}
           <div
-            className="group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-purple-200 hover:border-purple-500 active:border-purple-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
+            className="group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-xl sm:rounded-3xl p-3 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-purple-200 hover:border-purple-500 active:border-purple-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
             onClick={() => router.push('/css-practice')}
           >
             <div className="relative">
-              <div className="text-center mb-4 sm:mb-5">
-                <div className="inline-flex p-4 sm:p-5 bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 rounded-2xl sm:rounded-3xl shadow-2xl mb-3 sm:mb-4 transition-all duration-300">
-                  <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-white transition-transform duration-300" />
+              <div className="text-center mb-2 sm:mb-5">
+                <div className="inline-flex p-3 sm:p-5 bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 rounded-xl sm:rounded-3xl shadow-2xl mb-2 sm:mb-4 transition-all duration-300">
+                  <BookOpen className="w-6 h-6 sm:w-10 sm:h-10 text-white transition-transform duration-300" />
                 </div>
-                <h3 className="font-bold text-gray-900 text-xl sm:text-2xl mb-2 transition-all duration-300">CSS MCQs</h3>
+                <h3 className="font-bold text-gray-900 text-lg sm:text-2xl mb-1 transition-all duration-300">CSS MCQs</h3>
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                   Practice Past CSS MCQs
                 </p>
               </div>
 
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-purple-100 transition-transform">
+              <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-5">
+                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-purple-100 transition-transform">
                   <span className="text-gray-700 font-medium">Questions</span>
-                  <span className="font-bold text-purple-600 text-base sm:text-lg">2,500+</span>
+                  <span className="font-bold text-purple-600 text-sm sm:text-lg">2,500+</span>
                 </div>
-                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-pink-100 transition-transform">
+                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-pink-100 transition-transform">
                   <span className="text-gray-700 font-medium">Subjects</span>
-                  <span className="font-bold text-pink-600 text-base sm:text-lg">40+</span>
+                  <span className="font-bold text-pink-600 text-sm sm:text-lg">40+</span>
                 </div>
               </div>
 
-              <button className="group/btn w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm active:scale-95 active:shadow-xl transition-all duration-300 ease-out overflow-hidden relative">
+              <button className="group/btn w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm active:scale-95 active:shadow-xl transition-all duration-300 ease-out overflow-hidden relative">
                 <span className="relative flex items-center justify-center gap-2 sm:gap-3">
                   <span className="transition-all duration-300">Start Practice</span>
                   <span className="transition-all duration-300">→</span>
@@ -390,32 +390,32 @@ export default function DashboardPage() {
 
           {/* Past Papers */}
           <div
-            className="group relative bg-gradient-to-br from-white via-green-50 to-emerald-50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-green-200 hover:border-green-500 active:border-green-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
+            className="group relative bg-gradient-to-br from-white via-green-50 to-emerald-50 rounded-xl sm:rounded-3xl p-3 sm:p-5 shadow-lg hover:shadow-2xl active:shadow-2xl transition-all duration-300 ease-out cursor-pointer border-2 border-green-200 hover:border-green-500 active:border-green-500 hover:-translate-y-2 active:-translate-y-1 hover:scale-105 active:scale-105"
             onClick={() => router.push('/past-papers')}
           >
             <div className="relative">
-              <div className="text-center mb-4 sm:mb-5">
-                <div className="inline-flex p-4 sm:p-5 bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 rounded-2xl sm:rounded-3xl shadow-2xl mb-3 sm:mb-4 transition-all duration-300">
-                  <FileText className="w-8 h-8 sm:w-10 sm:h-10 text-white transition-transform duration-300" />
+              <div className="text-center mb-2 sm:mb-5">
+                <div className="inline-flex p-3 sm:p-5 bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 rounded-xl sm:rounded-3xl shadow-2xl mb-2 sm:mb-4 transition-all duration-300">
+                  <FileText className="w-6 h-6 sm:w-10 sm:h-10 text-white transition-transform duration-300" />
                 </div>
-                <h3 className="font-bold text-gray-900 text-xl sm:text-2xl mb-2 transition-all duration-300">Past Papers</h3>
+                <h3 className="font-bold text-gray-900 text-lg sm:text-2xl mb-1 transition-all duration-300">Past Papers</h3>
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                   Previous Year Papers
                 </p>
               </div>
 
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-green-100 transition-transform">
+              <div className="space-y-1.5 sm:space-y-3 mb-2 sm:mb-5">
+                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-green-100 transition-transform">
                   <span className="text-gray-700 font-medium">Papers</span>
-                  <span className="font-bold text-green-600 text-base sm:text-lg">1000+</span>
+                  <span className="font-bold text-green-600 text-sm sm:text-lg">1000+</span>
                 </div>
-                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-emerald-100 transition-transform">
+                <div className="flex items-center justify-between text-xs sm:text-sm bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg sm:rounded-xl p-2 sm:p-3 border border-emerald-100 transition-transform">
                   <span className="text-gray-700 font-medium">Subjects</span>
-                  <span className="font-bold text-emerald-600 text-base sm:text-lg">50+</span>
+                  <span className="font-bold text-emerald-600 text-sm sm:text-lg">50+</span>
                 </div>
               </div>
 
-              <button className="group/btn w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm active:scale-95 active:shadow-xl transition-all duration-300 ease-out overflow-hidden relative">
+              <button className="group/btn w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm active:scale-95 active:shadow-xl transition-all duration-300 ease-out overflow-hidden relative">
                 <span className="relative flex items-center justify-center gap-2 sm:gap-3">
                   <span className="transition-all duration-300">View Papers</span>
                   <span className="transition-all duration-300">→</span>
@@ -425,29 +425,29 @@ export default function DashboardPage() {
           </div>
           </div>
 
-          {/* Bulletin */}
-          <div className="mt-2 sm:mt-3">
-            <div className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-lg sm:rounded-xl py-1.5 sm:py-2 shadow-lg overflow-hidden">
+          {/* Bulletin - Compact on mobile */}
+          <div className="mt-1.5 sm:mt-3">
+            <div className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-lg sm:rounded-xl py-1 sm:py-2 shadow-lg overflow-hidden">
               <div className="flex">
                 <div className="animate-marquee whitespace-nowrap">
-                  <span className="text-white text-xs sm:text-sm font-bold inline-block px-4 sm:px-8">
+                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
                     🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
                   </span>
-                  <span className="text-white text-xs sm:text-sm font-bold inline-block px-4 sm:px-8">
+                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
                     🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
                   </span>
-                  <span className="text-white text-xs sm:text-sm font-bold inline-block px-4 sm:px-8">
+                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
                     🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
                   </span>
                 </div>
                 <div className="animate-marquee whitespace-nowrap" aria-hidden="true">
-                  <span className="text-white text-xs sm:text-sm font-bold inline-block px-4 sm:px-8">
+                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
                     🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
                   </span>
-                  <span className="text-white text-xs sm:text-sm font-bold inline-block px-4 sm:px-8">
+                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
                     🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
                   </span>
-                  <span className="text-white text-xs sm:text-sm font-bold inline-block px-4 sm:px-8">
+                  <span className="text-white text-[10px] sm:text-sm font-bold inline-block px-3 sm:px-8">
                     🎓 Coming Soon: MDCAT, ECAT & NTS Resources - Stay Tuned for Updates!
                   </span>
                 </div>
