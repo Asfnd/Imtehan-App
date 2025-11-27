@@ -269,7 +269,7 @@ function PDFViewerContent() {
         {/* PDF iframe - full screen */}
         <div className="flex-1 relative">
           <iframe
-            src={`${pdfUrl}#view=FitH`}
+            src={`${pdfUrl}#view=Fit&toolbar=1&navpanes=0&scrollbar=1`}
             className="absolute inset-0 w-full h-full border-0"
             title="PDF Viewer"
           />
