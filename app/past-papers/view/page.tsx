@@ -381,8 +381,8 @@ function PDFViewerContent() {
                 pageNumber={pageNumber}
                 height={getPageHeight()}
                 scale={scale}
-                renderTextLayer={false}
-                renderAnnotationLayer={false}
+                renderTextLayer={true}
+                renderAnnotationLayer={true}
                 className="pdf-page-shadow"
                 onRenderError={(error) => {
                   console.error('Page render error:', error)

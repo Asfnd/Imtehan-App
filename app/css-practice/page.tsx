@@ -363,13 +363,13 @@ export default function CSSPracticePage() {
                   ) : (
                     <>
                       <div className="flex items-center justify-between p-4 pb-3 flex-shrink-0">
-                        <div>
+                        <div className="flex-1 min-w-0 pr-2">
                           <h2 className="text-base font-black text-gray-800 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                             Years
                           </h2>
-                          <p className="text-xs text-gray-600 mt-0.5 truncate max-w-[200px] font-semibold">{selectedSubject}</p>
+                          <p className="text-xs text-gray-600 mt-0.5 font-semibold leading-tight break-words">{selectedSubject}</p>
                         </div>
-                        <span className="text-xs font-bold text-blue-600 bg-blue-100 px-3 py-1.5 rounded-full">
+                        <span className="text-xs font-bold text-blue-600 bg-blue-100 px-3 py-1.5 rounded-full flex-shrink-0">
                           {years.length}
                         </span>
                       </div>

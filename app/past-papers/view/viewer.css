@@ -41,13 +41,11 @@
 .react-pdf__Document {
   display: inline-block;
   margin: 0 auto;
-  min-height: 100%;
 }
 
 .react-pdf__Page {
   display: block !important;
   margin: 0 auto;
-  position: relative;
 }
 
 .react-pdf__Page__canvas {
@@ -55,15 +53,6 @@
   margin: 0 auto;
   max-width: 100% !important;
   height: auto !important;
-  width: 100% !important;
-}
-
-.react-pdf__Page__textContent {
-  display: none !important;
-}
-
-.react-pdf__Page__annotations {
-  display: none !important;
 }
 
 /* Shadow for PDF page */
