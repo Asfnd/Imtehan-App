@@ -1,0 +1,211 @@
+[
+  {
+    "question": "Which of the following is a genetically transmitted (hereditary) disease?",
+    "option_a": "Haemophilia",
+    "option_b": "Tuberculosis",
+    "option_c": "Tetanus",
+    "option_d": "Cholera",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 610
+  },
+  {
+    "question": "The fuel most commonly used in commercial jet airplanes is a type of:",
+    "option_a": "High-octane gasoline",
+    "option_b": "Kerosene",
+    "option_c": "Liquefied Petroleum Gas (LPG)",
+    "option_d": "Compressed Natural Gas (CNG)",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 610
+  },
+  {
+    "question": "The largest component of Natural Gas by volume is:",
+    "option_a": "Methane",
+    "option_b": "Propane",
+    "option_c": "Butane",
+    "option_d": "Ethane",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 611
+  },
+  {
+    "question": "Unsaturated fats and oils, often considered healthier, are chemically characterized by the presence of:",
+    "option_a": "Only single carbon-carbon bonds",
+    "option_b": "At least one double or triple carbon-carbon bond",
+    "option_c": "A large number of glycerol molecules",
+    "option_d": "A saturated hydrocarbon chain",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 611
+  },
+  {
+    "question": "A chemical reaction that releases energy into the surroundings, often in the form of heat, is called:",
+    "option_a": "An endothermic reaction",
+    "option_b": "A substitution reaction",
+    "option_c": "An exothermic reaction",
+    "option_d": "A redox reaction",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 612
+  },
+  {
+    "question": "A transistor, the fundamental building block of modern electronics, primarily acts as:",
+    "option_a": "A power generator",
+    "option_b": "A charge storage device",
+    "option_c": "An amplifier and a switch",
+    "option_d": "A light-emitting device",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 612
+  },
+  {
+    "question": "The Potohar Plateau region in Punjab, Pakistan, is significant for the extraction of:",
+    "option_a": "Marble and Granite",
+    "option_b": "Precious gemstones",
+    "option_c": "Iron Ore",
+    "option_d": "Petroleum and Natural Gas",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 612
+  },
+  {
+    "question": "Malaria is a parasitic disease transmitted to humans by the bite of the:",
+    "option_a": "Aedes mosquito",
+    "option_b": "Tsetse fly",
+    "option_c": "Female Anopheles mosquito",
+    "option_d": "Sandfly",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 613
+  },
+  {
+    "question": "10. The three primary raw materials required for the industrial manufacturing of common glass are:",
+    "option_a": "Clay, Gypsum, and Water",
+    "option_b": "Bauxite, Cryolite, and Fluorite",
+    "option_c": "Sand (Silica), Soda Ash, and Limestone",
+    "option_d": "Graphite, Carbon, and Boron",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 613
+  },
+  {
+    "question": "11. Which of the following commercial products is produced by an insect?",
+    "option_a": "Jute",
+    "option_b": "Shellac",
+    "option_c": "Rubber",
+    "option_d": "Cotton",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 613
+  },
+  {
+    "question": "12. What is the primary functional difference between a barrage and a dam?",
+    "option_a": "A dam generates electricity, while a barrage is only for irrigation.",
+    "option_b": "A barrage is designed to raise the water level and divert it into canals, while a dam is primarily for water storage.",
+    "option_c": "A barrage is much larger than a dam.",
+    "option_d": "Dams are built on rivers, while barrages are built on lakes.",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 614
+  },
+  {
+    "question": "13. The ultimate source of energy that sustains almost all life on Earth is:",
+    "option_a": "Geothermal heat",
+    "option_b": "The Sun",
+    "option_c": "Nuclear fission",
+    "option_d": "Chemical energy from fossil fuels",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 614
+  },
+  {
+    "question": "14. The Thar region in Sindh is a major hub for which energy resource in Pakistan?",
+    "option_a": "Petroleum",
+    "option_b": "Coal",
+    "option_c": "Uranium",
+    "option_d": "Geothermal energy",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 615
+  },
+  {
+    "question": "15. Bronze is an example of an alloy, primarily made from:",
+    "option_a": "Iron and Carbon",
+    "option_b": "Copper and Zinc",
+    "option_c": "Copper and Tin",
+    "option_d": "Aluminum and Magnesium",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 615
+  },
+  {
+    "question": "16. In Pakistan, the Saindak and Reko Diq projects in Balochistan are globally recognized for their vast deposits of:",
+    "option_a": "Coal and Gas",
+    "option_b": "Iron and Bauxite",
+    "option_c": "Copper and Gold",
+    "option_d": "Mica and Limestone",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 615
+  },
+  {
+    "question": "17. Urea and Diammonium Phosphate (DAP) are widely used in agriculture as:",
+    "option_a": "Pesticides",
+    "option_b": "Herbicides",
+    "option_c": "Nitrogenous and Phosphatic Fertilizers",
+    "option_d": "Soil conditioners",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 616
+  },
+  {
+    "question": "18. The process of adding substances like methanol to ethyl alcohol to make it unfit for drinking is known as:",
+    "option_a": "Fermentation",
+    "option_b": "Esterification",
+    "option_c": "Rectification",
+    "option_d": "Denaturation",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 616
+  },
+  {
+    "question": "19. In the human body, hormones function as:",
+    "option_a": "Catalysts that speed up reactions",
+    "option_b": "The primary source of energy",
+    "option_c": "Building blocks for muscles",
+    "option_d": "Chemical messengers",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 616
+  },
+  {
+    "question": "20. Heavy Water, used as a moderator in nuclear reactors, is also known as:",
+    "option_a": "Hydrogen Peroxide (H2O2)",
+    "option_b": "Deuterium Oxide (D2O)",
+    "option_c": "Tritium Oxide (T2O)",
+    "option_d": "Ozonated Water (H2O3)",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1978",
+    "page": 617
+  }
+]

@@ -1,0 +1,211 @@
+[
+  {
+    "question": "What is the formula for the total surface area of a cone?",
+    "option_a": "πr²h",
+    "option_b": "πrl",
+    "option_c": "πr(r + l)",
+    "option_d": "2πr² + 2πrh",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 26
+  },
+  {
+    "question": "Most deadly bacteria for humans as declared by WHO is",
+    "option_a": "Virus",
+    "option_b": "E.Coli",
+    "option_c": "Dengue",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 26
+  },
+  {
+    "question": "What is a Nematode?",
+    "option_a": "An insect",
+    "option_b": "A crustacean",
+    "option_c": "A mammal",
+    "option_d": "A worm",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 26
+  },
+  {
+    "question": "In the presence of H2O2, which of the following is more acidic?",
+    "option_a": "H2O",
+    "option_b": "H2O2",
+    "option_c": "CO2",
+    "option_d": "O2",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 27
+  },
+  {
+    "question": "What is the mass of the heaviest Neutron star compared to the mass of the Sun?",
+    "option_a": "2.35 times greater",
+    "option_b": "2.35 times lower",
+    "option_c": "Half of the Sun",
+    "option_d": "Twice the mass of the Sun",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 27
+  },
+  {
+    "question": "What type of rock is marble?",
+    "option_a": "Igneous",
+    "option_b": "Metamorphic",
+    "option_c": "Sedimentary",
+    "option_d": "Volcanic",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 27
+  },
+  {
+    "question": "Exciton is a pair between",
+    "option_a": "Electron-Proton",
+    "option_b": "Proton-Proton",
+    "option_c": "Electron-Hole",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 28
+  },
+  {
+    "question": "What material is used to make LEDs?",
+    "option_a": "Gallium Arsenide",
+    "option_b": "Copper and silver",
+    "option_c": "Gold and silver",
+    "option_d": "Silver and aluminum",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 28
+  },
+  {
+    "question": "Electromagnetic waves, which are used for satellite communication, are:",
+    "option_a": "Radio waves and Microwaves",
+    "option_b": "Infrared and Ultraviolet",
+    "option_c": "Gamma rays and X-rays",
+    "option_d": "Visible light and Radio waves",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 28
+  },
+  {
+    "question": "10. What is the most dangerous infectious disease in the world, according to the World Health Organization (WHO)?",
+    "option_a": "Cholera",
+    "option_b": "Malaria",
+    "option_c": "Tuberculosis",
+    "option_d": "HIV/AIDS essays, written by qualifiers and officers & evaluated by Sir Syed Kazim Ali. Perfect for CSS & PMS aspirants aiming to enhance their writing skills to qualify. Explore Essays",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 29
+  },
+  {
+    "question": "11. What are synoptic weather charts used for?",
+    "option_a": "To predict the weather",
+    "option_b": "To identify air masses",
+    "option_c": "To locate pressure systems",
+    "option_d": "To detect areas of precipitation",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 31
+  },
+  {
+    "question": "12. White coal is another name of",
+    "option_a": "Geothermal energy",
+    "option_b": "Hydroelectricity",
+    "option_c": "Biofuel",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 31
+  },
+  {
+    "question": "13. What does monochromatic mean?",
+    "option_a": "A variety of colours",
+    "option_b": "A single wavelength",
+    "option_c": "A single colour",
+    "option_d": "A variety of wavelengths",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 31
+  },
+  {
+    "question": "14. Mauna Loa, one of the world's largest active volcanoes, is located in",
+    "option_a": "Hawaii",
+    "option_b": "Green Island",
+    "option_c": "Malta Island",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 32
+  },
+  {
+    "question": "15. Which type of cloud is a dense, towering vertical cloud associated with thunderstorms and lightning?",
+    "option_a": "Stratus",
+    "option_b": "Cumulus",
+    "option_c": "Nimbostratus",
+    "option_d": "Cumulonimbus",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 32
+  },
+  {
+    "question": "16. A dark cloud of great vertical extent charged with electricity is:",
+    "option_a": "Cumulus Cloud",
+    "option_b": "Nimbus Cloud",
+    "option_c": "Stratus Cloud",
+    "option_d": "Cumulonimbus Cloud",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 32
+  },
+  {
+    "question": "17. Which of the following is not one of the five types of Hepatitis?",
+    "option_a": "Hepatitis F",
+    "option_b": "Hepatitis A",
+    "option_c": "Hepatitis C",
+    "option_d": "Hepatitis E",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 33
+  },
+  {
+    "question": "18. Which of the following can grow on Wood saw dust",
+    "option_a": "Mushrooms",
+    "option_b": "Peas",
+    "option_c": "Grass",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 33
+  },
+  {
+    "question": "20. Most hazardous waste is",
+    "option_a": "Hospital waste",
+    "option_b": "Material waste",
+    "option_c": "Chemical waste",
+    "option_d": "Nuclear waste",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "2023",
+    "page": 34
+  }
+]

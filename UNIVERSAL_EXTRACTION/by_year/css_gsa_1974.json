@@ -1,0 +1,211 @@
+[
+  {
+    "question": "The control center of the human nervous system is the:",
+    "option_a": "Heart",
+    "option_b": "Lungs",
+    "option_c": "Brain",
+    "option_d": "Stomach",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 638
+  },
+  {
+    "question": "The main ingredients of our food are classified as proteins, fats, and:",
+    "option_a": "Vitamins",
+    "option_b": "Carbohydrates",
+    "option_c": "Minerals",
+    "option_d": "Water",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 638
+  },
+  {
+    "question": "When an acid and an alkali react with each other, they produce water and a:",
+    "option_a": "new acid",
+    "option_b": "new alkali",
+    "option_c": "salt",
+    "option_d": "gas",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 638
+  },
+  {
+    "question": "The correct first-aid action when a person's clothing catches fire is to:",
+    "option_a": "run to find a fan",
+    "option_b": "pour gasoline to put it out",
+    "option_c": "stop, drop, and roll on the ground",
+    "option_d": "remove the clothing as quickly as possible",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 639
+  },
+  {
+    "question": "Which of the following is a key difference between bacteria and viruses?",
+    "option_a": "Bacteria are living cells, while viruses are not",
+    "option_b": "Viruses are always helpful, bacteria are always harmful",
+    "option_c": "Viruses are plants, bacteria are animals",
+    "option_d": "Bacteria are much larger than viruses and visible to the naked eye",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 639
+  },
+  {
+    "question": "The colour of the sky appears blue due to the:",
+    "option_a": "reflection of the oceans",
+    "option_b": "presence of blue gas in the atmosphere",
+    "option_c": "scattering of sunlight by air molecules",
+    "option_d": "sky absorbing all other colours",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 639
+  },
+  {
+    "question": "Which of the following is a primary cause of environmental pollution?",
+    "option_a": "Planting trees",
+    "option_b": "The water cycle",
+    "option_c": "Smoke from factories",
+    "option_d": "Photosynthesis",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 640
+  },
+  {
+    "question": "Which part of a plant is mainly responsible for anchoring it and absorbing water?",
+    "option_a": "Leaf",
+    "option_b": "Stem",
+    "option_c": "Root",
+    "option_d": "Flower",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 640
+  },
+  {
+    "question": "The process of making food in a plant's leaves using sunlight is called:",
+    "option_a": "Respiration",
+    "option_b": "Photosynthesis",
+    "option_c": "Transpiration",
+    "option_d": "Absorption",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 640
+  },
+  {
+    "question": "10. A common and early symptom of tuberculosis is:",
+    "option_a": "a persistent cough",
+    "option_b": "a broken leg",
+    "option_c": "rapid hair fall",
+    "option_d": "sudden weight gain",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 641
+  },
+  {
+    "question": "11. Leaves of many trees change colour in autumn because the green pigment, '____, breaks down.",
+    "option_a": "chlorophyll",
+    "option_b": "hemoglobin",
+    "option_c": "carotene",
+    "option_d": "salt",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 641
+  },
+  {
+    "question": "12. The cleansing action of soap involves its ability to remove:",
+    "option_a": "water from hands",
+    "option_b": "oil and grease",
+    "option_c": "permanent ink",
+    "option_d": "color from fabric",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 642
+  },
+  {
+    "question": "13. The main function of the human ear is to:",
+    "option_a": "regulate balance only",
+    "option_b": "detect and process sound",
+    "option_c": "produce wax",
+    "option_d": "cool the brain",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 642
+  },
+  {
+    "question": "15. A chemical fire-extinguisher primarily works by cutting off the supply of:",
+    "option_a": "Fuel",
+    "option_b": "Oxygen",
+    "option_c": "Heat",
+    "option_d": "Light",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 643
+  },
+  {
+    "question": "16. Which of the following can be treated with antibiotics?",
+    "option_a": "Viral infections",
+    "option_b": "Bacterial infections",
+    "option_c": "All types of infections",
+    "option_d": "A broken bone",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 643
+  },
+  {
+    "question": "17. A substance that tastes sour and turns blue litmus paper red is typically an:",
+    "option_a": "Acid",
+    "option_b": "Alkali",
+    "option_c": "Salt",
+    "option_d": "Element",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 643
+  },
+  {
+    "question": "18. The human nervous system is primarily composed of the brain, spinal cord, and:",
+    "option_a": "Bones",
+    "option_b": "Muscles",
+    "option_c": "Nerves",
+    "option_d": "Blood vessels",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 644
+  },
+  {
+    "question": "19. Which of the following is a major factor that determines the climate of a place?",
+    "option_a": "The number of buildings",
+    "option_b": "The population size",
+    "option_c": "The altitude and latitude",
+    "option_d": "The type of soil",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 644
+  },
+  {
+    "question": "20. A diet that contains all the necessary ingredients for health in the right proportions is called:",
+    "option_a": "a heavy diet",
+    "option_b": "a liquid diet",
+    "option_c": "a balanced diet",
+    "option_d": "a carbohydrate-only diet",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1974",
+    "page": 645
+  }
+]

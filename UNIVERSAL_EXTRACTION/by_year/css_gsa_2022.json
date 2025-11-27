@@ -1,0 +1,222 @@
+[
+  {
+    "question": "What method may not be considered a food preservation method?",
+    "option_a": "Freezing",
+    "option_b": "Irradiation",
+    "option_c": "Sleeping",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 35
+  },
+  {
+    "question": "Which of the following is not an electromagnetic wave?",
+    "option_a": "Sound waves",
+    "option_b": "Radio waves",
+    "option_c": "Light waves",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 35
+  },
+  {
+    "question": "Which one of the following may be considered as a factor influencing intelligence?",
+    "option_a": "Heritability",
+    "option_b": "Dressing",
+    "option_c": "Smiling",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 35
+  },
+  {
+    "question": "For what terminology is the abbreviation GPS being used globally?",
+    "option_a": "Geo Pakistan System",
+    "option_b": "Global Positioning System",
+    "option_c": "Global Path System",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 36
+  },
+  {
+    "question": "Which one can be considered as the unit of distance?",
+    "option_a": "Footpath",
+    "option_b": "Heavy Year",
+    "option_c": "Light Year",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 36
+  },
+  {
+    "question": "What is the scientific name for atoms of the same element with different mass numbers?",
+    "option_a": "Subshells",
+    "option_b": "Isotopes",
+    "option_c": "Orbitals",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 36
+  },
+  {
+    "question": "The combining of two non-metal atoms by sharing one or more pairs of electrons is called:",
+    "option_a": "Ionic Bond",
+    "option_b": "Covalent Bond",
+    "option_c": "Metallic Bond",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 37
+  },
+  {
+    "question": "Which one can be considered in representing the geographic coordinate system?",
+    "option_a": "Aptitude",
+    "option_b": "Latitude",
+    "option_c": "Attitude",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 37
+  },
+  {
+    "question": "Which of the following cannot be considered a renewable source of energy?",
+    "option_a": "Coal",
+    "option_b": "Wind",
+    "option_c": "Solar",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 38
+  },
+  {
+    "question": "10. What does RNA stand for?",
+    "option_a": "Ribonucleic Acid",
+    "option_b": "Russian National Assembly",
+    "option_c": "Red Nitric Acid",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 38
+  },
+  {
+    "question": "11. Which one is not a part of a cell phone's structure?",
+    "option_a": "LCD",
+    "option_b": "Battery",
+    "option_c": "Water",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 38
+  },
+  {
+    "question": "12. Which one is not a planet?",
+    "option_a": "Earth",
+    "option_b": "Venus",
+    "option_c": "Moon",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 39
+  },
+  {
+    "question": "13. A deficiency of iron in the human diet causes:",
+    "option_a": "Hepatitis",
+    "option_b": "Malaria",
+    "option_c": "Anemia",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 39
+  },
+  {
+    "question": "14. COVID-19 is caused by a:",
+    "option_a": "Bacterium",
+    "option_b": "Virus",
+    "option_c": "Injection",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 39
+  },
+  {
+    "question": "15. Which of the following may be said to be the most harmful radiation emitted by the sun?",
+    "option_a": "Infrared",
+    "option_b": "Visible light",
+    "option_c": "Ultraviolet",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 40
+  },
+  {
+    "question": "16. Which part of the body will be mainly affected by fluoride pollution?",
+    "option_a": "Brain",
+    "option_b": "Liver",
+    "option_c": "Teeth",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 40
+  },
+  {
+    "question": "17. Which of the following is not a part of the quantities used to discuss computer memory?",
+    "option_a": "Bite",
+    "option_b": "Bit",
+    "option_c": "Byte",
+    "option_d": "None of these",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 41
+  },
+  {
+    "question": "18. How can we symbolically write ozone gas?",
+    "option_a": "O2",
+    "option_b": "O3",
+    "option_c": "CO2",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 41
+  },
+  {
+    "question": "19. In which direction does the Earth rotate on its axis?",
+    "option_a": "East to West",
+    "option_b": "West to East",
+    "option_c": "North to South",
+    "option_d": "None of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 41
+  },
+  {
+    "question": "20. Sound waves... The plotting of the vibration caused by an earthquake on paper is called",
+    "option_a": "Photograph",
+    "option_b": "Earthograph",
+    "option_c": "Seismograph",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2022",
+    "page": 42
+  }
+]

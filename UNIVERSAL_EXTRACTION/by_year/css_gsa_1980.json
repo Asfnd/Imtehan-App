@@ -1,0 +1,222 @@
+[
+  {
+    "question": "The process of gathering information about the Earth's surface from a distance, typically by satellites or aircraft, is called:",
+    "option_a": "Geocaching",
+    "option_b": "Triangulation",
+    "option_c": "Remote Sensing",
+    "option_d": "Tectonics",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 592
+  },
+  {
+    "question": "The primary function of the lungs in the human body is facilitated by millions of tiny air sacs called alveoli, which serve to:",
+    "option_a": "Produce mucus",
+    "option_b": "Vibrate to produce sound",
+    "option_c": "Maximize the surface area for gas exchange",
+    "option_d": "Filter out dust particles",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 592
+  },
+  {
+    "question": "The industrial process used in an oil refinery to separate crude oil into useful fractions like gasoline, diesel, and kerosene is:",
+    "option_a": "Fractional Distillation",
+    "option_b": "Cracking",
+    "option_c": "Polymerization",
+    "option_d": "Electrolysis",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 592
+  },
+  {
+    "question": "The process of coating a metal object with a thin layer of another metal using electricity, such as in silver-plating, is called:",
+    "option_a": "Smelting",
+    "option_b": "Galvanization",
+    "option_c": "Electroplating",
+    "option_d": "Annealing",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 593
+  },
+  {
+    "question": "A spinning top can stay upright without falling for a considerable time due to the principle of:",
+    "option_a": "Conservation of linear momentum",
+    "option_b": "Newton's Law of Gravitation",
+    "option_c": "Centripetal force",
+    "option_d": "Conservation of angular momentum (gyroscopic effect)",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 593
+  },
+  {
+    "question": "On a weather map, lines drawn to connect points of equal temperature are known as:",
+    "option_a": "Isobars",
+    "option_b": "Contours",
+    "option_c": "Isotherms",
+    "option_d": "Isohyets",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 594
+  },
+  {
+    "question": "In the analogy of the human eye as a camera, which part corresponds to the camera's sensor or film, where the image is formed?",
+    "option_a": "The Iris",
+    "option_b": "The Lens",
+    "option_c": "The Retina",
+    "option_d": "The Cornea",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 594
+  },
+  {
+    "question": "The timekeeping mechanism in a modern quartz clock relies on the precise and regular vibrations of:",
+    "option_a": "A balanced spring",
+    "option_b": "A small pendulum",
+    "option_c": "A quartz crystal under an electric field",
+    "option_d": "A bimetallic strip",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 594
+  },
+  {
+    "question": "A transformer is a device used in electrical circuits to:",
+    "option_a": "Convert Alternating Current (AC) to Direct Current (DC)",
+    "option_b": "Store electrical charge",
+    "option_c": "Change the voltage of an Alternating Current",
+    "option_d": "Generate electricity from motion",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 595
+  },
+  {
+    "question": "10. The operation of an electric doorbell is a classic application of:",
+    "option_a": "The photoelectric effect",
+    "option_b": "Static electricity",
+    "option_c": "Electromagnetism",
+    "option_d": "Nuclear fission",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 595
+  },
+  {
+    "question": "11. Smallpox, a disease now eradicated globally, was caused by a:",
+    "option_a": "Bacterium",
+    "option_b": "Virus",
+    "option_c": "Fungus",
+    "option_d": "Parasite",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 596
+  },
+  {
+    "question": "12. Sound is produced by a flute when:",
+    "option_a": "The metal of the flute vibrates",
+    "option_b": "The player's lips vibrate against the mouthpiece",
+    "option_c": "A column of air inside the instrument is made to vibrate",
+    "option_d": "The keys are struck",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 596
+  },
+  {
+    "question": "13. A glacier is a large, persistent body of ice on land, whereas an iceberg is:",
+    "option_a": "A frozen lake",
+    "option_b": "A smaller type of glacier",
+    "option_c": "A large piece of ice that has broken off from a glacier and is floating in the sea",
+    "option_d": "A permanent ice sheet covering a continent",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 596
+  },
+  {
+    "question": "14. A walkie-talkie is a portable, two-way transceiver that communicates using:",
+    "option_a": "Infrared light",
+    "option_b": "Laser beams",
+    "option_c": "Radio waves",
+    "option_d": "Ultrasonic pulses",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 597
+  },
+  {
+    "question": "15. The breaking down of rocks and minerals on the surface of the Earth is known as weathering, while the movement of these broken particles by wind or water is called:",
+    "option_a": "Deposition",
+    "option_b": "Erosion",
+    "option_c": "Sedimentation",
+    "option_d": "Compaction",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 597
+  },
+  {
+    "question": "16. The primary reason leaves change color from green to yellow or red in autumn is the:",
+    "option_a": "Production of new pigments due to cold",
+    "option_b": "Freezing of the water inside the leaf cells",
+    "option_c": "Breakdown of green chlorophyll, which unmasks other pre-existing pigments",
+    "option_d": "Absorption of minerals from the soil",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 597
+  },
+  {
+    "question": "17. The ripening of fruits, such as mangoes turning sweet, is a chemical process primarily involving the breakdown of complex starches into simple:",
+    "option_a": "Proteins",
+    "option_b": "Sugars",
+    "option_c": "Fats",
+    "option_d": "Vitamins",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 598
+  },
+  {
+    "question": "18. Fjords, which are long, deep, narrow inlets of the sea with steep sides, are typically formed by:",
+    "option_a": "River erosion",
+    "option_b": "Volcanic collapse",
+    "option_c": "Glacial erosion",
+    "option_d": "Tectonic plate movement",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 598
+  },
+  {
+    "question": "19. When a driver presses the brake pedal of a car, the force is transmitted and amplified through the brake fluid to stop the wheels. This is a direct application of:",
+    "option_a": "Archimedes' Principle",
+    "option_b": "Pascal's Law",
+    "option_c": "Bernoulli's Principle",
+    "option_d": "The Law of Conservation of Energy",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 599
+  },
+  {
+    "question": "20. Influenza (the flu) and Tuberculosis are examples of diseases that are primarily:",
+    "option_a": "Water-borne",
+    "option_b": "Air-borne",
+    "option_c": "Vector-borne",
+    "option_d": "Genetic",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1980",
+    "page": 599
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "question": "In nuclear physics, a self-sustaining reaction in which the products of one reaction event stimulate further reaction events is called a:",
+    "option_a": "Redox reaction",
+    "option_b": "Chain reaction",
+    "option_c": "Endothermic reaction",
+    "option_d": "Reversible reaction",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 600
+  },
+  {
+    "question": "Which of the following is an example of mimicry in biology?",
+    "option_a": "A chameleon changing its color to match the sand.",
+    "option_b": "A harmless hoverfly evolving to look like a stinging wasp.",
+    "option_c": "A bat using echolocation to find insects.",
+    "option_d": "A plant turning towards the sunlight.",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 600
+  },
+  {
+    "question": "Proteins, which are essential for countless bodily functions, are polymers made from which building blocks?",
+    "option_a": "Fatty acids",
+    "option_b": "Glucose molecules",
+    "option_c": "Nucleotides",
+    "option_d": "Amino acids",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 600
+  },
+  {
+    "question": "Which planet in our solar system is often called the \"Red Planet\" due to its rust-colored surface?",
+    "option_a": "Jupiter",
+    "option_b": "Venus",
+    "option_c": "Mars",
+    "option_d": "Mercury",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 601
+  },
+  {
+    "question": "The primary raw materials used in the manufacture of cement are:",
+    "option_a": "Sand and Gravel",
+    "option_b": "Bauxite and Cryolite",
+    "option_c": "Limestone and Clay",
+    "option_d": "Gypsum and Salt",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 601
+  },
+  {
+    "question": "Typhoid fever is a bacterial infection that is primarily transmitted through:",
+    "option_a": "Insect bites",
+    "option_b": "Airborne droplets",
+    "option_c": "Contaminated food and water",
+    "option_d": "Blood transfusion",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 602
+  },
+  {
+    "question": "When an acid and an alkali react, they neutralize each other to form:",
+    "option_a": "A stronger acid and water",
+    "option_b": "A stronger alkali and hydrogen",
+    "option_c": "A salt and water",
+    "option_d": "Two different salts",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 602
+  },
+  {
+    "question": "A Calorie is a unit used to measure:",
+    "option_a": "Power",
+    "option_b": "Energy",
+    "option_c": "Pressure",
+    "option_d": "Frequency",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 602
+  },
+  {
+    "question": "Computers perform all their calculations and processing using a:",
+    "option_a": "Decimal system (base-10)",
+    "option_b": "Hexadecimal system (base-16)",
+    "option_c": "Binary system (base-2)",
+    "option_d": "Analog signal system essays, written by qualifiers and officers & evaluated by Sir Syed Kazim Ali. Perfect for CSS & PMS aspirants aiming to enhance their writing skills to qualify. Explore Essays",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 603
+  },
+  {
+    "question": "10. The fundamental units of heredity, which are segments of DNA located on chromosomes, are known as:",
+    "option_a": "Gametes",
+    "option_b": "Genes",
+    "option_c": "Alleles",
+    "option_d": "Cytoplasm",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 605
+  },
+  {
+    "question": "11. A substance with a pH value greater than 7 is known as:",
+    "option_a": "An acid",
+    "option_b": "An alkali (or base)",
+    "option_c": "A neutral substance",
+    "option_d": "A salt",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 605
+  },
+  {
+    "question": "12. Which of the following chemical processes is essential for life as it converts light energy into chemical energy in plants?",
+    "option_a": "Respiration",
+    "option_b": "Transpiration",
+    "option_c": "Fermentation",
+    "option_d": "Photosynthesis",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 605
+  },
+  {
+    "question": "13. Geostationary satellites are crucial for telecommunications because they:",
+    "option_a": "Orbit the Earth at very high speeds",
+    "option_b": "Remain in a fixed position relative to the Earth's surface",
+    "option_c": "Have powerful telescopes",
+    "option_d": "Are not affected by solar flares",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 606
+  },
+  {
+    "question": "14. The existence of an element in two or more different physical forms, such as carbon existing as diamond and graphite, is known as:",
+    "option_a": "Isomerism",
+    "option_b": "Isotopy",
+    "option_c": "Allotropy",
+    "option_d": "Isomorphism",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 606
+  },
+  {
+    "question": "15. The unit of electrical energy that is typically used to measure household electricity consumption on utility bills is the:",
+    "option_a": "Volt",
+    "option_b": "Ampere",
+    "option_c": "Watt",
+    "option_d": "Kilowatt-hour (kWh)",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 607
+  },
+  {
+    "question": "16. The variation in the length of days and nights throughout the year is caused by:",
+    "option_a": "The Earth's rotation on its axis",
+    "option_b": "The Earth's tilted axis as it revolves around the sun",
+    "option_c": "The varying distance of the Earth from the sun",
+    "option_d": "The gravitational pull of the moon",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 607
+  },
+  {
+    "question": "17. One Horse Power (HP), a unit of power, is approximately equal to:",
+    "option_a": "1000 Watts",
+    "option_b": "100 Watts",
+    "option_c": "746 Watts",
+    "option_d": "550 Watts",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 607
+  },
+  {
+    "question": "18. The primary role of the kidney in the human body is to:",
+    "option_a": "Digest proteins",
+    "option_b": "Produce hormones for growth",
+    "option_c": "Filter waste products from the blood",
+    "option_d": "Absorb nutrients from food",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 608
+  },
+  {
+    "question": "19. The movement of a solvent (like water) across a semi-permeable membrane into a region of higher solute concentration is called:",
+    "option_a": "Diffusion",
+    "option_b": "Active Transport",
+    "option_c": "Osmosis",
+    "option_d": "Effusion",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 608
+  },
+  {
+    "question": "20. The disease Plague, historically known as the Black Death, is caused by a:",
+    "option_a": "Virus",
+    "option_b": "Bacterium",
+    "option_c": "Fungus",
+    "option_d": "Parasitic protozoan",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "1979",
+    "page": 608
+  }
+]

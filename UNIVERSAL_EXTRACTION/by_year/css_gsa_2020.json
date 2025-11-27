@@ -1,0 +1,222 @@
+[
+  {
+    "question": "Karnal Bunt is a disease of:",
+    "option_a": "Barley crop",
+    "option_b": "Wheat crop",
+    "option_c": "Bajra crop",
+    "option_d": "Jowar crop",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 52
+  },
+  {
+    "question": "The gas used in the manufacture of vanaspati ghee from vanaspati oil is:",
+    "option_a": "Hydrogen",
+    "option_b": "Oxygen",
+    "option_c": "Nitrogen",
+    "option_d": "Carbon dioxide",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 52
+  },
+  {
+    "question": "Different types of electromagnetic radiation (X-rays, infrared, radio, etc.):",
+    "option_a": "Travel at different speeds in a vacuum",
+    "option_b": "Have different amounts of energy for each photon",
+    "option_c": "Have the same wavelength",
+    "option_d": "Do not always obey the inverse square law",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 52
+  },
+  {
+    "question": "Which one of the following is not a sedimentary rock?",
+    "option_a": "Limestone",
+    "option_b": "Sandstone",
+    "option_c": "Granite",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 53
+  },
+  {
+    "question": "What is the shape of our galaxy?",
+    "option_a": "Elliptical",
+    "option_b": "Spiral",
+    "option_c": "Lenticular",
+    "option_d": "Irregular",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 53
+  },
+  {
+    "question": "Of the following diseases, which one is caused by an insect bite?",
+    "option_a": "Scurvy",
+    "option_b": "Dengue",
+    "option_c": "Pneumonia",
+    "option_d": "Asthma",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 53
+  },
+  {
+    "question": "The bonds present in N2O5 are:",
+    "option_a": "Only ionic",
+    "option_b": "Covalent and coordinate",
+    "option_c": "Only covalent",
+    "option_d": "Covalent and ionic",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 54
+  },
+  {
+    "question": "A set of programs with a full set of documentation is considered:",
+    "option_a": "Database packages",
+    "option_b": "File package",
+    "option_c": "Software",
+    "option_d": "Software packages",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 54
+  },
+  {
+    "question": "The WHO-permitted concentration of arsenic in drinking water is:",
+    "option_a": "1 or 2 µg/l",
+    "option_b": "10 µg/l",
+    "option_c": "12 µg/l",
+    "option_d": "200 µg/l",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 54
+  },
+  {
+    "question": "10. Polio is caused by:",
+    "option_a": "Fungus",
+    "option_b": "Bacteria",
+    "option_c": "A virus with single-stranded RNA",
+    "option_d": "A virus with single-stranded DNA",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 55
+  },
+  {
+    "question": "11. Which cell organelle is called the powerhouse of the cell?",
+    "option_a": "Endoplasmic reticulum",
+    "option_b": "Mitochondria",
+    "option_c": "Vacuoles",
+    "option_d": "Lysosomes",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 55
+  },
+  {
+    "question": "12. Impurities like boron, aluminum, gallium, or indium are added to an intrinsic semiconductor to form:",
+    "option_a": "N-type doped semiconductor",
+    "option_b": "P-type doped semiconductor",
+    "option_c": "A junction diode",
+    "option_d": "All of these",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 56
+  },
+  {
+    "question": "13. The temperature is lowest at the:",
+    "option_a": "Stratosphere",
+    "option_b": "Mesopause",
+    "option_c": "Tropopause",
+    "option_d": "Stratopause",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 56
+  },
+  {
+    "question": "14. What is the size of a MAC Address?",
+    "option_a": "16-bits",
+    "option_b": "32-bits",
+    "option_c": "48-bits",
+    "option_d": "64-bits",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 56
+  },
+  {
+    "question": "15. Which of the following is an example of an unsaturated fatty acid?",
+    "option_a": "Lauric acid or dodecanoic acid",
+    "option_b": "Linolenic acid",
+    "option_c": "Palmitic acid, or hexadecanoic acid",
+    "option_d": "Myristic acid (tetradecanoic acid)",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 57
+  },
+  {
+    "question": "16. Humidity is measured with a:",
+    "option_a": "Barometer",
+    "option_b": "Thermometer",
+    "option_c": "Hygrometer",
+    "option_d": "None of these",
+    "correct_answer": "C",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 57
+  },
+  {
+    "question": "17. The high-level language ____ has now become the dominant AI programming language.",
+    "option_a": "Ada",
+    "option_b": "Lisp",
+    "option_c": "AI pro",
+    "option_d": "High AI",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 58
+  },
+  {
+    "question": "18. The vitamin essential for blood clotting is:",
+    "option_a": "Vitamin A",
+    "option_b": "Vitamin B",
+    "option_c": "Vitamin C",
+    "option_d": "Vitamin K",
+    "correct_answer": "D",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 58
+  },
+  {
+    "question": "19. The two planets between the Earth and the Sun are:",
+    "option_a": "Mars and Jupiter",
+    "option_b": "Mercury and Venus",
+    "option_c": "Mercury and Saturn",
+    "option_d": "Venus and Jupiter",
+    "correct_answer": "B",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 58
+  },
+  {
+    "question": "20. The following disease is waterborne:",
+    "option_a": "Typhoid",
+    "option_b": "Tuberculosis",
+    "option_c": "Hepatitis B",
+    "option_d": "Scurvy",
+    "correct_answer": "A",
+    "question_type": "multiple_choice",
+    "year": "2020",
+    "page": 59
+  }
+]
