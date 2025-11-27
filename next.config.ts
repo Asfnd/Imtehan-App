@@ -11,6 +11,8 @@ const securityHeaders = [
       "font-src 'self' data:",
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://hcaptcha.com https://*.hcaptcha.com",
       "frame-src 'self' https://hcaptcha.com https://*.hcaptcha.com",
+      "worker-src 'self' blob:",
+      "child-src 'self' blob:",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
