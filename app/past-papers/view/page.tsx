@@ -34,7 +34,7 @@ function PDFViewerContent() {
   const [numPages, setNumPages] = useState<number>(0)
   const [pageNumber, setPageNumber] = useState(1)
   const [scale, setScale] = useState(1.0)
-  const [containerHeight, setContainerHeight] = useState<number>(0)
+  const [pageWidth, setPageWidth] = useState<number>(800)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
@@ -51,22 +51,19 @@ function PDFViewerContent() {
     }
   }, [subject, year])
 
-  // Calculate container height for fit-to-page
+  // Calculate and update page width
   useEffect(() => {
-    const updateDimensions = () => {
-      setContainerHeight(window.innerHeight)
+    const updateWidth = () => {
+      if (typeof window !== 'undefined') {
+        const isMobile = window.innerWidth < 768
+        const width = isMobile ? window.innerWidth - 32 : Math.min(window.innerWidth - 64, 900)
+        setPageWidth(width)
+      }
     }
-    updateDimensions()
-    window.addEventListener('resize', updateDimensions)
-    return () => window.removeEventListener('resize', updateDimensions)
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
   }, [])
-
-  // Calculate page width for optimal display
-  const getPageWidth = () => {
-    if (typeof window === 'undefined') return undefined
-    const isMobile = window.innerWidth < 768
-    return isMobile ? window.innerWidth - 32 : Math.min(window.innerWidth - 64, 900)
-  }
 
   // Prevent keyboard shortcuts for saving and printing
   useEffect(() => {
@@ -371,14 +368,9 @@ function PDFViewerContent() {
             >
               <Page
                 pageNumber={pageNumber}
-                width={getPageWidth()}
+                width={pageWidth}
                 scale={scale}
-                renderTextLayer={true}
-                renderAnnotationLayer={true}
                 className="pdf-page-shadow"
-                onRenderError={(error) => {
-                  console.error('Page render error:', error)
-                }}
               />
             </Document>
           </div>
