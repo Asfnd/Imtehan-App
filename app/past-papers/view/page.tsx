@@ -248,39 +248,29 @@ function PDFViewerContent() {
   // Use iframe fallback for Safari mobile or if PDF.js fails
   if (useFallback || isSafariMobile) {
     return (
-      <div className="min-h-screen bg-gray-900 flex flex-col">
-        {/* Compact Header with Controls */}
-        <div className="bg-gray-800 p-2 flex items-center justify-between gap-2 flex-shrink-0">
+      <div className="fixed inset-0 bg-white flex flex-col">
+        {/* Minimal Header */}
+        <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-2 flex items-center gap-2 flex-shrink-0 shadow-lg">
           <button
             onClick={() => router.back()}
-            className="px-2 py-1 bg-blue-500 text-white rounded text-xs font-semibold"
+            className="px-3 py-1.5 bg-white/20 text-white rounded-lg text-sm font-bold backdrop-blur-sm"
           >
             ← Back
           </button>
-          <div className="text-center flex-1 min-w-0">
-            <h1 className="font-bold text-xs text-white truncate">
-              {subject && formatSubjectName(subject)} ({year})
+          <div className="flex-1 text-center">
+            <h1 className="font-bold text-sm text-white truncate">
+              {subject && formatSubjectName(subject)} - {year}
             </h1>
           </div>
-          <a
-            href={pdfUrl || ''}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2 py-1 bg-green-500 text-white rounded text-xs font-semibold whitespace-nowrap"
-          >
-            Open PDF
-          </a>
         </div>
         
-        {/* PDF iframe - full screen with native controls */}
-        <div className="flex-1 relative bg-white">
-          <iframe
-            src={pdfUrl || ''}
-            className="absolute inset-0 w-full h-full border-0"
-            title="PDF Viewer"
-            allow="fullscreen"
-          />
-        </div>
+        {/* PDF iframe - Safari will show its own toolbar */}
+        <iframe
+          src={pdfUrl || ''}
+          className="flex-1 w-full border-0"
+          title="PDF Viewer"
+          style={{ height: 'calc(100vh - 44px)' }}
+        />
       </div>
     )
   }
