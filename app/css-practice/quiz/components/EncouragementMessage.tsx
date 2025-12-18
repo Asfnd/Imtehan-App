@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 
 interface EncouragementMessageProps {
   type: 'correct' | 'incorrect' | 'milestone'
@@ -72,22 +71,16 @@ export function EncouragementMessage({
   }
 
   return (
-    <AnimatePresence>
+    <>
       {show && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.2 }}
-          className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none"
-        >
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none animate-slide-down">
           <div className={`${getBackgroundColor()} text-white px-6 py-3 rounded-full shadow-2xl`}>
             <span className="text-lg font-bold whitespace-nowrap">
               {displayMessage}
             </span>
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   )
 }

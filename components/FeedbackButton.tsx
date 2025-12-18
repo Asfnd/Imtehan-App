@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X, Send, Star } from 'lucide-react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
 
 interface FeedbackButtonProps {
   page: string
@@ -70,14 +70,8 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
       {/* Floating Feedback Button */}
       <div className="fixed bottom-6 right-6 z-40">
         {/* Prompt Tooltip */}
-        <AnimatePresence>
-          {showPrompt && !isOpen && (
-            <motion.div
-              initial={{ opacity: 0, x: 20, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 20, scale: 0.9 }}
-              className="absolute bottom-full right-0 mb-4 bg-white rounded-2xl shadow-2xl p-4 w-64 border-2 border-purple-200"
-            >
+        {showPrompt && !isOpen && (
+          <div className="absolute bottom-full right-0 mb-4 bg-white rounded-2xl shadow-2xl p-4 w-64 border-2 border-purple-200 animate-slide-right">
               <button
                 onClick={() => {
                   setShowPrompt(false)
@@ -102,78 +96,57 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
               >
                 Give Feedback
               </button>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
 
-        <motion.button
-          initial={{ scale: 0 }}
-          animate={{ 
-            scale: 1,
-            boxShadow: showPrompt ? '0 0 0 8px rgba(168, 85, 247, 0.2)' : '0 0 0 0px rgba(168, 85, 247, 0)',
-          }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+        <button
           onClick={() => {
             setIsOpen(true)
             setShowPrompt(false)
           }}
-          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all"
+          className={combineAnimations(
+            'bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all hover-scale',
+            'animate-scale-in',
+            showPrompt ? 'animate-pulse-purple' : ''
+          )}
           title="Send Feedback"
         >
           <MessageCircle className="w-6 h-6" />
-        </motion.button>
+        </button>
       </div>
 
       {/* Feedback Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-            onClick={() => setIsOpen(false)}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-backdrop-in"
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl animate-modal-in"
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl"
-            >
               {submitted ? (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="text-center py-8"
-                >
+                <div className="text-center py-8 animate-scale-in">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2 }}
-                    >
+                    <div className="animate-scale-in text-2xl text-green-600 font-bold">
                       ✓
-                    </motion.div>
+                    </div>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
                   <p className="text-gray-600">Your feedback helps us improve</p>
-                </motion.div>
+                </div>
               ) : (
                 <>
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       Send Feedback
                     </h3>
-                    <motion.button
-                      whileHover={{ scale: 1.1, rotate: 90 }}
-                      whileTap={{ scale: 0.9 }}
+                    <button
                       onClick={() => setIsOpen(false)}
-                      className="text-gray-400 hover:text-gray-600"
+                      className="text-gray-400 hover:text-gray-600 hover-scale transition-all"
                     >
                       <X className="w-6 h-6" />
-                    </motion.button>
+                    </button>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -195,23 +168,19 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                               onMouseLeave={() => setHoverRating(0)}
                             >
                               {/* Left half - for half star */}
-                              <motion.button
+                              <button
                                 type="button"
-                                whileHover={{ scale: 1.15 }}
-                                whileTap={{ scale: 0.95 }}
                                 onClick={() => setRating(starIndex - 0.5)}
                                 onMouseEnter={() => setHoverRating(starIndex - 0.5)}
-                                className="absolute left-0 top-0 w-1/2 h-full z-10 focus:outline-none"
+                                className="absolute left-0 top-0 w-1/2 h-full z-10 focus:outline-none hover-scale transition-all"
                               />
                               
                               {/* Right half - for full star */}
-                              <motion.button
+                              <button
                                 type="button"
-                                whileHover={{ scale: 1.15 }}
-                                whileTap={{ scale: 0.95 }}
                                 onClick={() => setRating(starIndex)}
                                 onMouseEnter={() => setHoverRating(starIndex)}
-                                className="absolute right-0 top-0 w-1/2 h-full z-10 focus:outline-none"
+                                className="absolute right-0 top-0 w-1/2 h-full z-10 focus:outline-none hover-scale transition-all"
                               />
                               
                               {/* Star visual */}
@@ -234,13 +203,9 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                         })}
                       </div>
                       {rating > 0 && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-center text-sm font-semibold text-gray-600 mt-2"
-                        >
+                        <p className="text-center text-sm font-semibold text-gray-600 mt-2 animate-slide-up">
                           {rating} out of 5 stars
-                        </motion.p>
+                        </p>
                       )}
                     </div>
 
@@ -274,12 +239,10 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                     </div>
 
                     {/* Submit Button */}
-                    <motion.button
+                    <button
                       type="submit"
                       disabled={isSubmitting || !message.trim() || rating === 0}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover-scale-sm transition-all"
                     >
                       {isSubmitting ? (
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -289,14 +252,13 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                           Send Feedback
                         </>
                       )}
-                    </motion.button>
+                    </button>
                   </form>
                 </>
               )}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
     </>
   )
 }

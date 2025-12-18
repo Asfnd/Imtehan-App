@@ -1,7 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { BookOpen, Globe, Sparkles, TrendingUp, Calculator } from 'lucide-react'
+import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
 import type { QuizTopic } from '@/lib/supabase/types'
 
 interface TopicSelectorProps {
@@ -42,32 +42,31 @@ const topics = [
 ]
 
 export default function TopicSelector({ onSelectTopic }: TopicSelectorProps) {
+  const fadeInAnimation = useAnimation('fadeIn', { trigger: true })
+  const slideUpAnimation = useAnimation('slideUp', { trigger: true })
+  const hoverAnimation = useHoverAnimation('scale')
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
-      >
+      <div className={combineAnimations('text-center mb-8', slideUpAnimation)}>
         <h1 className="text-4xl font-bold mb-2">Choose Your Topic</h1>
         <p className="text-gray-600 dark:text-gray-400">
           Select a topic to start your personalized quiz
         </p>
-      </motion.div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-stagger">
         {topics.map((topic, index) => {
           const Icon = topic.icon
           return (
-            <motion.button
+            <button
               key={topic.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => onSelectTopic(topic.name)}
-              className="relative overflow-hidden rounded-2xl p-6 text-left bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow"
+              className={combineAnimations(
+                'relative overflow-hidden rounded-2xl p-6 text-left bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all',
+                fadeInAnimation,
+                hoverAnimation
+              )}
             >
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${topic.color} opacity-10`}
@@ -83,7 +82,7 @@ export default function TopicSelector({ onSelectTopic }: TopicSelectorProps) {
                   {topic.description}
                 </p>
               </div>
-            </motion.button>
+            </button>
           )
         })}
       </div>

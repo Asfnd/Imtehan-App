@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Check, X } from 'lucide-react'
+import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
+import { useState, useEffect } from 'react'
 
 interface AnswerOptionProps {
   label: string
@@ -28,29 +29,27 @@ export function AnswerOption({
   disabled,
   explanation,
 }: AnswerOptionProps) {
+  const [showShake, setShowShake] = useState(false)
+  const [showPulse, setShowPulse] = useState(false)
   const showCorrect = isCorrect && isRevealed
   const showIncorrect = isSelected && !isCorrect && isRevealed
 
-  // Combined animation based on state
-  const getAnimation = () => {
+  // Trigger animations based on state
+  useEffect(() => {
     if (showIncorrect) {
-      return {
-        x: [0, -10, 10, -10, 10, 0],
-        transition: { duration: 0.5, type: 'tween' as const },
-      }
+      setShowShake(true)
+      const timer = setTimeout(() => setShowShake(false), 500)
+      return () => clearTimeout(timer)
     }
     if (showCorrect) {
-      return {
-        boxShadow: [
-          '0 0 0 0 rgba(34, 197, 94, 0)',
-          '0 0 0 8px rgba(34, 197, 94, 0.2)',
-          '0 0 0 0 rgba(34, 197, 94, 0)',
-        ],
-        transition: { duration: 1, repeat: 2, type: 'tween' as const },
-      }
+      setShowPulse(true)
+      const timer = setTimeout(() => setShowPulse(false), 2000)
+      return () => clearTimeout(timer)
     }
-    return {}
-  }
+  }, [showIncorrect, showCorrect])
+
+  const fadeInAnimation = useAnimation('fadeIn', { trigger: true })
+  const hoverAnimation = useHoverAnimation('scaleSm')
 
   const getBackgroundColor = () => {
     if (showCorrect) {
@@ -73,9 +72,15 @@ export function AnswerOption({
   }
 
   return (
-    <motion.div
-      animate={getAnimation()}
-      className={`rounded-xl transition-all ${getBackgroundColor()} shadow-sm hover:shadow-md`}
+    <div
+      className={combineAnimations(
+        'rounded-xl transition-all shadow-sm hover:shadow-md',
+        fadeInAnimation,
+        hoverAnimation,
+        showShake ? 'animate-shake' : '',
+        showPulse ? 'animate-pulse-green' : '',
+        getBackgroundColor()
+      )}
     >
       <button
         onClick={onSelect}
@@ -99,46 +104,31 @@ export function AnswerOption({
 
           {/* Status Icon */}
           {showCorrect && (
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', stiffness: 200 }}
-              className="flex-shrink-0"
-            >
+            <div className="flex-shrink-0 animate-scale-in">
               <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
                 <Check className="w-4 h-4 text-white" strokeWidth={3} />
               </div>
-            </motion.div>
+            </div>
           )}
 
           {showIncorrect && (
-            <motion.div
-              initial={{ scale: 0, rotate: 180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', stiffness: 200 }}
-              className="flex-shrink-0"
-            >
+            <div className="flex-shrink-0 animate-scale-in">
               <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
                 <X className="w-4 h-4 text-white" strokeWidth={3} />
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
       </button>
 
       {/* Explanation - Compact but readable */}
       {isRevealed && explanation && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.15 }}
-          className="px-3 pb-2.5 ml-11"
-        >
+        <div className="px-3 pb-2.5 ml-11 animate-fade-in">
           <div className="text-[13px] text-gray-600 leading-snug">
             {explanation}
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.div>
+    </div>
   )
 }

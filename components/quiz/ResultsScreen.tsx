@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import confetti from 'canvas-confetti'
 import { Trophy, Clock, Target, Zap, RotateCcw, Home } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import type { Question, Answer, QuizResult } from '@/lib/supabase/types'
@@ -15,6 +13,51 @@ interface ResultsScreenProps {
   onHome: () => void
 }
 
+// CSS-based celebration component
+const CelebrationEffect = ({ show, isPerfect }: { show: boolean; isPerfect: boolean }) => {
+  if (!show) return null
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
+      {/* Confetti particles */}
+      {Array.from({ length: isPerfect ? 40 : 25 }).map((_, i) => (
+        <div
+          key={`confetti-${i}`}
+          className="absolute animate-confetti-fall"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            animationDuration: `${2 + Math.random() * 2}s`,
+          }}
+        >
+          <div
+            className={`w-3 h-3 ${Math.random() > 0.5 ? 'rounded-full' : 'rounded-sm'}`}
+            style={{
+              backgroundColor: ['#3b82f6', '#8b5cf6', '#ec4899', '#fbbf24'][
+                Math.floor(Math.random() * 4)
+              ],
+            }}
+          />
+        </div>
+      ))}
+      
+      {/* Floating emojis for perfect score */}
+      {isPerfect && Array.from({ length: 10 }).map((_, i) => (
+        <div
+          key={`emoji-${i}`}
+          className="absolute text-3xl animate-emoji-float"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 1}s`,
+          }}
+        >
+          {['🎉', '🏆', '⭐', '✨', '🌟'][Math.floor(Math.random() * 5)]}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function ResultsScreen({
   questions,
   answers,
@@ -22,56 +65,20 @@ export default function ResultsScreen({
   onRetake,
   onHome,
 }: ResultsScreenProps) {
-  const [showConfetti, setShowConfetti] = useState(false)
+  const [showCelebration, setShowCelebration] = useState(false)
 
   const accuracy = Math.round((result.score / result.total_questions) * 100)
   const isHighScore = accuracy >= 70
   const isPerfectScore = accuracy === 100
 
   useEffect(() => {
-    if (isHighScore && !showConfetti) {
-      setShowConfetti(true)
-      
-      // More intense confetti for perfect score
+    if (isHighScore) {
+      setShowCelebration(true)
+      // Hide celebration after duration
       const duration = isPerfectScore ? 5000 : 3000
-      const particleCount = isPerfectScore ? 5 : 3
-      const end = Date.now() + duration
-
-      const frame = () => {
-        confetti({
-          particleCount,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#fbbf24'],
-        })
-        confetti({
-          particleCount,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#fbbf24'],
-        })
-
-        // Extra confetti burst for perfect score
-        if (isPerfectScore) {
-          confetti({
-            particleCount: 2,
-            angle: 90,
-            spread: 45,
-            origin: { x: 0.5, y: 0.5 },
-            colors: ['#fbbf24', '#f59e0b'],
-          })
-        }
-
-        if (Date.now() < end) {
-          requestAnimationFrame(frame)
-        }
-      }
-
-      frame()
+      setTimeout(() => setShowCelebration(false), duration)
     }
-  }, [isHighScore, isPerfectScore, showConfetti])
+  }, [isHighScore, isPerfectScore])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -80,20 +87,13 @@ export default function ResultsScreen({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <>
+      <CelebrationEffect show={showCelebration} isPerfect={isPerfectScore} />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 py-8 px-4">
+        <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', delay: 0.2 }}
-            className="inline-block mb-4"
-          >
+        <div className="text-center mb-8 animate-fade-in">
+          <div className="inline-block mb-4 animate-bounce">
             <div className={`w-24 h-24 rounded-full flex items-center justify-center ${
               isHighScore
                 ? 'bg-gradient-to-br from-yellow-400 to-orange-500'
@@ -101,7 +101,7 @@ export default function ResultsScreen({
             }`}>
               <Trophy className="w-12 h-12 text-white" />
             </div>
-          </motion.div>
+          </div>
 
           <h1 className="text-4xl font-bold mb-2">
             {isPerfectScore 
@@ -117,80 +117,51 @@ export default function ResultsScreen({
                 ? '🚀 You crushed it! Keep up the great work! 💪'
                 : '📖 Good effort! Review the explanations to improve. 💡'}
           </p>
-        </motion.div>
+        </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg"
-          >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-stagger">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
             <Target className="w-8 h-8 mx-auto mb-2 text-blue-500" />
             <div className="text-3xl font-bold mb-1">{accuracy}%</div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Accuracy</div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg"
-          >
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
             <Trophy className="w-8 h-8 mx-auto mb-2 text-purple-500" />
             <div className="text-3xl font-bold mb-1">
               {result.score}/{result.total_questions}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Score</div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg"
-          >
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
             <Clock className="w-8 h-8 mx-auto mb-2 text-green-500" />
             <div className="text-3xl font-bold mb-1">
               {formatTime(result.time_taken)}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Time</div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg"
-          >
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
             <Zap className="w-8 h-8 mx-auto mb-2 text-yellow-500" />
             <div className="text-3xl font-bold mb-1">+{result.xp_earned}</div>
             <div className="text-sm text-gray-600 dark:text-gray-400">XP Earned</div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Level Up Banner */}
         {result.level_up && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 mb-8 text-white text-center shadow-lg"
-          >
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 mb-8 text-white text-center shadow-lg animate-scale-in">
             <h2 className="text-2xl font-bold mb-2">🎉 Level Up!</h2>
             <p className="text-lg">
               You've reached Level {result.new_level}!
             </p>
-          </motion.div>
+          </div>
         )}
 
         {/* Question Review */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg mb-8"
-        >
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg mb-8 animate-slide-up">
           <h2 className="text-2xl font-bold mb-6">Review Your Answers</h2>
           <div className="space-y-4">
             {questions.map((question, index) => {
@@ -249,7 +220,7 @@ export default function ResultsScreen({
               )
             })}
           </div>
-        </motion.div>
+        </div>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -276,5 +247,6 @@ export default function ResultsScreen({
         </div>
       </div>
     </div>
+    </>
   )
 }

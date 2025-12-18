@@ -4,23 +4,46 @@ import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Lightbulb, BookOpen, Flag } from 'lucide-react'
-import { usageTracker } from '@/lib/usageTracker'
+import dynamic from 'next/dynamic'
+import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
 import { SoundToggle } from './components/SoundToggle'
-import { StreakCounter } from './components/StreakCounter'
 import { PointsDisplay } from './components/PointsDisplay'
-import { ConfettiCelebration } from './components/ConfettiCelebration'
 import { EncouragementMessage } from './components/EncouragementMessage'
-import { EnhancedResultsScreen } from './components/EnhancedResultsScreen'
-import { AnswerOption } from './components/AnswerOption'
-import { ExplanationModal } from './components/ExplanationModal'
-import { HintsModal } from './components/HintsModal'
 import FeedbackButton from '@/components/FeedbackButton'
-import { motion, AnimatePresence } from 'framer-motion'
+
+// Optimized imports - reduce dynamic loading for better performance
+import { StreakCounter } from './components/StreakCounter'
+import { ConfettiCelebration } from './components/ConfettiCelebration'
+import { AnswerOption } from './components/AnswerOption'
+
+// Only lazy load the heavy components that are used conditionally
+const EnhancedResultsScreen = dynamic(() => import('./components/EnhancedResultsScreen').then(mod => ({ default: mod.EnhancedResultsScreen })), {
+  loading: () => (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading results...</p>
+      </div>
+    </div>
+  ),
+  ssr: false
+})
+
+const ExplanationModal = dynamic(() => import('./components/ExplanationModal').then(mod => ({ default: mod.ExplanationModal })), {
+  loading: () => null,
+  ssr: false
+})
+
+const HintsModal = dynamic(() => import('./components/HintsModal').then(mod => ({ default: mod.HintsModal })), {
+  loading: () => null,
+  ssr: false
+})
+
 
 interface MCQ {
   id: number
@@ -47,6 +70,7 @@ interface MCQ {
 function CSSQuizContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { user, loading: authLoading, checkAccess } = useFreeTrial()
 
   const [mcqs, setMcqs] = useState<MCQ[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -72,40 +96,7 @@ function CSSQuizContent() {
     'correct' | 'incorrect' | 'milestone'
   >('correct')
   const [showConfetti, setShowConfetti] = useState(false)
-  const [user, setUser] = useState<any>(null)
-  const [authLoading, setAuthLoading] = useState(true)
-  const [authChecked, setAuthChecked] = useState(false)
-
-  // Check auth status and listen for changes
-  useEffect(() => {
-    const supabase = createClient()
-    
-    const checkUser = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
-        setUser(user)
-        setAuthChecked(true)
-        setAuthLoading(false)
-      } catch (error) {
-        console.error('Auth check error:', error)
-        setUser(null)
-        setAuthChecked(true)
-        setAuthLoading(false)
-      }
-    }
-    checkUser()
-
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user ?? null)
-        setAuthChecked(true)
-        setAuthLoading(false)
-      }
-    )
-
-    return () => subscription.unsubscribe()
-  }, [])
+  const [hasLoadedMCQs, setHasLoadedMCQs] = useState(false)
 
   const fetchMCQs = useCallback(async () => {
     try {
@@ -120,7 +111,13 @@ function CSSQuizContent() {
       if (subject) query = query.eq('subject', subject)
       if (year) query = query.eq('year', parseInt(year))
 
-      const { data, error } = await query.limit(20)
+      // IMPORTANT: Only limit to 20 for random mode (no year selected)
+      // Year-wise mode should show ALL MCQs for that year
+      if (!year) {
+        query = query.limit(20)
+      }
+
+      const { data, error } = await query
 
       if (error) throw error
 
@@ -130,8 +127,10 @@ function CSSQuizContent() {
         return
       }
 
-      const shuffled = data.sort(() => Math.random() - 0.5)
+      // Only shuffle once when initially loading - don't re-shuffle on re-renders
+      const shuffled = [...data].sort(() => Math.random() - 0.5)
       setMcqs(shuffled)
+      setHasLoadedMCQs(true)
       setLoading(false)
     } catch (error) {
       console.error('Error fetching MCQs:', error)
@@ -140,29 +139,27 @@ function CSSQuizContent() {
   }, [searchParams])
 
   useEffect(() => {
-    // Wait for auth check to complete - don't do anything until we know auth status
-    if (!authChecked || authLoading) {
+    // Wait for auth check to complete
+    if (authLoading) {
       return
     }
 
-    // Only check usage limits for anonymous users (not signed in)
-    if (!user) {
-      if (!usageTracker.canTakeCSSQuiz()) {
-        // Redirect to Google sign in
-        router.push('/api/auth/signin')
-        return
-      }
-      // Increment usage for anonymous users only
-      usageTracker.incrementCSSQuiz()
+    // Check if user has access (handles both signed-in users and free trial limits)
+    if (!user && !checkAccess('cssSubject')) {
+      // Redirect back to subjects page - the hook will show sign-in popup
+      router.push('/css-practice/subjects')
+      return
     }
 
-    // Signed-in users have unlimited access - no limits
-    fetchMCQs()
-    // Preload sounds
-    soundManager.preload().catch((error) => {
-      console.warn('Failed to preload sounds:', error)
-    })
-  }, [fetchMCQs, user, authLoading, authChecked])
+    // Only load quiz once - prevent re-fetching on re-renders
+    if (!hasLoadedMCQs) {
+      fetchMCQs()
+      // Preload sounds
+      soundManager.preload().catch((error) => {
+        console.warn('Failed to preload sounds:', error)
+      })
+    }
+  }, [fetchMCQs, user, authLoading, checkAccess, router, hasLoadedMCQs])
 
   const handleReport = async () => {
     try {
@@ -288,6 +285,8 @@ function CSSQuizContent() {
     setPoints(0)
     setRecentPoints(0)
     setShowRecentPoints(false)
+    // Reset loading flag to allow re-fetching
+    setHasLoadedMCQs(false)
     fetchMCQs()
   }
 
@@ -310,7 +309,7 @@ function CSSQuizContent() {
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
           <p className="text-xl text-gray-700 mb-4">No MCQs found for your selection</p>
           <button
-            onClick={() => router.push('/css-practice')}
+            onClick={() => router.back()}
             className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
           >
             Go Back
@@ -333,7 +332,7 @@ function CSSQuizContent() {
           maxStreak={maxStreak}
           totalPoints={points}
           onRestart={restartQuiz}
-          onExit={() => router.push('/css-practice')}
+          onExit={() => router.back()}
         />
       </>
     )
@@ -368,7 +367,7 @@ function CSSQuizContent() {
         <div className="bg-gradient-to-r from-slate-800 via-purple-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-purple-500/30">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <button
-              onClick={() => router.push('/css-practice')}
+              onClick={() => router.back()}
               className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-white/10 active:bg-white/20 rounded-lg sm:rounded-xl transition-colors text-xs sm:text-sm font-semibold text-white shadow-lg border border-white/20"
             >
               <span>←</span>
@@ -567,31 +566,19 @@ function CSSQuizContent() {
       <FeedbackButton page="css-practice-quiz" />
 
       {/* Report Toast Notification - Top Center */}
-      <AnimatePresence>
-        {showReportToast && (
-          <motion.div
-            initial={{ opacity: 0, y: -100, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -50, scale: 0.9 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
-          >
-            <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-white/20">
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 0.5 }}
-                className="text-2xl"
-              >
-                ✓
-              </motion.div>
-              <div>
-                <div className="font-bold text-lg">Question Flagged!</div>
-                <div className="text-sm text-white/90">Thanks for helping us improve</div>
-              </div>
+      {showReportToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-slide-down">
+          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-white/20">
+            <div className="text-2xl animate-pulse">
+              ✓
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div>
+              <div className="font-bold text-lg">Question Flagged!</div>
+              <div className="text-sm text-white/90">Thanks for helping us improve</div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

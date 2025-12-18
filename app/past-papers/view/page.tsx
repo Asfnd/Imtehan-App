@@ -1,27 +1,18 @@
 'use client'
-// PDF Viewer - Fixed and working
-import { useState, useEffect, Suspense, useMemo, useRef } from 'react'
+
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
-import { ArrowLeft, ZoomIn, ZoomOut, Maximize, Minimize } from 'lucide-react'
-import dynamic from 'next/dynamic'
-import 'react-pdf/dist/Page/AnnotationLayer.css'
-import 'react-pdf/dist/Page/TextLayer.css'
-import './viewer.css'
+import { getPDFUrl } from '@/lib/simple-pdf-storage'
+import CleanPDFViewer from '@/components/pdf/CleanPDFViewer'
+import { ArrowLeft } from 'lucide-react'
 
-// Dynamically import react-pdf to avoid SSR issues
-const Document = dynamic(() => import('react-pdf').then(mod => mod.Document), { ssr: false })
-const Page = dynamic(() => import('react-pdf').then(mod => mod.Page), { ssr: false })
-
-// Configure PDF.js worker - use local file with proper MIME type
+// Prevent page caching
 if (typeof window !== 'undefined') {
-  import('react-pdf').then(mod => {
-    mod.pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-      'pdfjs-dist/build/pdf.worker.min.mjs',
-      import.meta.url
-    ).toString()
-  }).catch(err => {
-    console.error('Failed to load PDF.js:', err)
+  // Disable back-forward cache
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      window.location.reload()
+    }
   })
 }
 
@@ -34,44 +25,52 @@ function PDFViewerContent() {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [numPages, setNumPages] = useState<number>(0)
-  const [pageNumber, setPageNumber] = useState(1)
-  const [scale, setScale] = useState(1.0)
-  const [pageWidth, setPageWidth] = useState<number>(800)
-  const [isFullscreen, setIsFullscreen] = useState(false)
   const [useFallback, setUseFallback] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const supabase = createClient()
   
   // Detect Safari on iOS
   const isSafariMobile = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  
+  // Prevent browser from caching this page
+  useEffect(() => {
+    // Set cache control meta tags dynamically
+    const metaCache = document.createElement('meta')
+    metaCache.httpEquiv = 'Cache-Control'
+    metaCache.content = 'no-cache, no-store, must-revalidate'
+    document.head.appendChild(metaCache)
+    
+    const metaPragma = document.createElement('meta')
+    metaPragma.httpEquiv = 'Pragma'
+    metaPragma.content = 'no-cache'
+    document.head.appendChild(metaPragma)
+    
+    const metaExpires = document.createElement('meta')
+    metaExpires.httpEquiv = 'Expires'
+    metaExpires.content = '0'
+    document.head.appendChild(metaExpires)
+    
+    return () => {
+      document.head.removeChild(metaCache)
+      document.head.removeChild(metaPragma)
+      document.head.removeChild(metaExpires)
+    }
+  }, [])
 
-  // Memoize PDF options to prevent unnecessary reloads
-  const pdfOptions = useMemo(() => ({
-    cMapUrl: 'https://unpkg.com/pdfjs-dist@3.11.174/cmaps/',
-    cMapPacked: true,
-    standardFontDataUrl: 'https://unpkg.com/pdfjs-dist@3.11.174/standard_fonts/',
-  }), [])
-
+  // Force fresh load on mount and when params change
   useEffect(() => {
     if (subject && year) {
-      loadPDF()
+      // Clear any previous state
+      setPdfUrl(null)
+      setError(null)
+      setLoading(true)
+      
+      // Load with slight delay to ensure state is cleared
+      const timer = setTimeout(() => {
+        loadPDF()
+      }, 100)
+      
+      return () => clearTimeout(timer)
     }
   }, [subject, year])
-
-  // Calculate and update page width
-  useEffect(() => {
-    const updateWidth = () => {
-      if (typeof window !== 'undefined') {
-        const isMobile = window.innerWidth < 768
-        const width = isMobile ? window.innerWidth - 32 : Math.min(window.innerWidth - 64, 900)
-        setPageWidth(width)
-      }
-    }
-    updateWidth()
-    window.addEventListener('resize', updateWidth)
-    return () => window.removeEventListener('resize', updateWidth)
-  }, [])
 
   // Prevent keyboard shortcuts for saving and printing
   useEffect(() => {
@@ -87,9 +86,10 @@ function PDFViewerContent() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  async function loadPDF() {
+  const loadPDF = async () => {
     try {
       setError(null)
+      setPdfUrl(null) // Clear previous URL to force fresh load
       
       if (!subject || !year) {
         setError('Missing subject or year parameter')
@@ -97,148 +97,156 @@ function PDFViewerContent() {
         return
       }
 
-      // Convert subject to kebab-case for storage path
-      const subjectKebab = subject.toLowerCase().replace(/\s+/g, '-')
+      console.log('🔍 Loading PDF for:', { subject, year })
+      console.log('🔄 Force clearing any cached URLs...')
       
-      // Find the PDF file in the subject/year folder
-      const { data: files, error: listError } = await supabase.storage
-        .from('css-past-papers')
-        .list(`${subjectKebab}/${year}`)
-
-      if (listError) {
-        console.error('Storage list error:', listError)
-        setError('Failed to access storage. Please try again.')
-        setLoading(false)
-        return
-      }
-
-      if (!files || files.length === 0) {
-        setError('No files found for this paper')
-        setLoading(false)
-        return
-      }
-
-      const pdfFile = files.find(f => f.name.endsWith('.pdf'))
+      // Direct database lookup with aggressive cache-busting
+      const pdfResult = await getPDFUrl(subject, parseInt(year))
       
-      if (!pdfFile) {
-        setError('PDF file not found for this paper')
-        setLoading(false)
-        return
+      if (pdfResult.success && pdfResult.url) {
+        // Add aggressive cache-busting to the URL
+        const timestamp = Date.now()
+        const random = Math.random().toString(36).substring(7)
+        const cacheBuster = `${timestamp}-${random}`
+        
+        // Add multiple cache-busting parameters
+        const separator = pdfResult.url.includes('?') ? '&' : '?'
+        const urlWithCacheBuster = `${pdfResult.url}${separator}v=${cacheBuster}&t=${timestamp}&nocache=${random}`
+        
+        console.log('✅ PDF URL obtained from database with cache buster')
+        console.log('📄 URL includes cache buster to prevent stale content')
+        setPdfUrl(urlWithCacheBuster)
+        setError(null)
+      } else {
+        console.log('❌ PDF not found in database:', pdfResult.error)
+        setError(pdfResult.error || 'PDF not found')
       }
       
-      // Get signed URL for authenticated access
-      const { data: signedData, error: signedError } = await supabase.storage
-        .from('css-past-papers')
-        .createSignedUrl(`${subjectKebab}/${year}/${pdfFile.name}`, 3600) // 1 hour
-
-      if (signedError) {
-        console.error('Signed URL error:', signedError)
-        setError('Failed to generate secure access link')
-        setLoading(false)
-        return
-      }
-
-      if (!signedData?.signedUrl) {
-        setError('Failed to load PDF URL')
-        setLoading(false)
-        return
-      }
-
-      setPdfUrl(signedData.signedUrl)
-      setError(null)
     } catch (error) {
-      console.error('Error loading PDF:', error)
-      setError('An unexpected error occurred. Please try again.')
+      console.error('❌ Error loading PDF:', error)
+      setError(`Failed to load PDF: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {
       setLoading(false)
     }
   }
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
-    setNumPages(numPages)
+  
+  const handlePDFLoad = () => {
+    console.log('✅ PDF loaded successfully')
     setError(null)
   }
 
-  function onDocumentLoadError(error: Error) {
-    console.error('PDF load error:', error)
-    // Use fallback for Safari mobile
-    if (isSafariMobile) {
-      setUseFallback(true)
-    } else {
-      setError('Failed to load PDF document. The file may be corrupted.')
-    }
-  }
-
-  // Toggle fullscreen mode
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen()
-      setIsFullscreen(true)
-    } else {
-      document.exitFullscreen()
-      setIsFullscreen(false)
-    }
-  }
-
-  // Listen for fullscreen changes
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
-    }
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
-  }, [])
-
   const formatSubjectName = (slug: string) => {
-    return slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ')
+    return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+  }
+
+  const convertSubjectForStorage = (displayName: string) => {
+    return displayName.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[()&]/g, '')
+      .replace(/[^a-z0-9-]/g, '')
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading PDF...</p>
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 flex items-center justify-center">
+        <div className="text-center max-w-md px-6">
+          {/* Animated Document Stack */}
+          <div className="relative mb-8">
+            <div className="w-24 h-24 mx-auto">
+              {/* Background layers */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-300 to-blue-400 rounded-3xl transform rotate-6 opacity-30 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-blue-500 rounded-3xl transform -rotate-3 opacity-40 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+              
+              {/* Main document */}
+              <div className="relative w-24 h-24 bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-600 rounded-3xl flex items-center justify-center shadow-2xl transform hover:scale-105 transition-transform">
+                <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          {/* Elegant Spinner */}
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <div className="w-16 h-16 border-4 border-purple-200 rounded-full"></div>
+              <div className="w-16 h-16 border-4 border-t-purple-600 border-r-blue-600 border-b-transparent border-l-transparent rounded-full animate-spin absolute top-0 left-0"></div>
+            </div>
+          </div>
+          
+          {/* Professional Message */}
+          <h2 className="text-2xl font-bold text-gray-800 mb-3">
+            Preparing Your Past Paper
+          </h2>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            Loading {subject && formatSubjectName(subject)} ({year})
+          </p>
+          
+          {/* Animated Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden shadow-inner">
+            <div className="h-full bg-gradient-to-r from-purple-500 via-blue-600 to-cyan-600 rounded-full animate-loading-progress"></div>
+          </div>
         </div>
+        
+        <style jsx>{`
+          @keyframes loading-progress {
+            0% {
+              width: 0%;
+              transform: translateX(0);
+            }
+            50% {
+              width: 70%;
+            }
+            100% {
+              width: 100%;
+              transform: translateX(0);
+            }
+          }
+          .animate-loading-progress {
+            animation: loading-progress 2.5s ease-in-out infinite;
+          }
+        `}</style>
       </div>
     )
   }
 
   if (error || !pdfUrl) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
             <span className="text-4xl">⚠️</span>
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-3">
-            {error ? 'Error Loading PDF' : 'PDF Not Found'}
+            {error ? 'Error Loading Past Paper' : 'Past Paper Not Found'}
           </h2>
-          <p className="text-gray-600 mb-6">
-            {error || 'The requested PDF could not be found. It may have been moved or deleted.'}
+          <p className="text-gray-600 mb-6 text-sm">
+            {error || 'The requested past paper could not be found.'}
           </p>
+          <div className="bg-gray-100 p-4 rounded-lg mb-6 text-left">
+            <p className="text-xs text-gray-600 mb-2">Debug Info:</p>
+            <p className="text-xs text-gray-800">Subject: {subject}</p>
+            <p className="text-xs text-gray-800">Year: {year}</p>
+            <p className="text-xs text-gray-800">PDF URL: {pdfUrl ? 'Available' : 'Not available'}</p>
+            <p className="text-xs text-gray-800">Error: {error || 'None'}</p>
+          </div>
           <div className="flex gap-3 justify-center">
             <button
               onClick={() => router.back()}
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
             >
               ← Go Back
             </button>
-            {error && (
-              <button
-                onClick={() => {
-                  setLoading(true)
-                  setError(null)
-                  loadPDF()
-                }}
-                className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:shadow-lg transition-all border border-gray-200"
-              >
-                🔄 Try Again
-              </button>
-            )}
+            <button
+              onClick={() => {
+                setLoading(true)
+                setError(null)
+                loadPDF()
+              }}
+              className="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:shadow-lg transition-all border border-gray-200"
+            >
+              🔄 Try Again
+            </button>
           </div>
         </div>
       </div>
@@ -248,23 +256,23 @@ function PDFViewerContent() {
   // Mobile: Show "Open PDF" button instead of embedded viewer
   if (useFallback || isSafariMobile) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           {/* PDF Icon */}
-          <div className="w-24 h-24 bg-gradient-to-br from-red-100 via-orange-100 to-yellow-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+          <div className="w-24 h-24 bg-gradient-to-br from-purple-100 via-blue-100 to-cyan-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
             <span className="text-5xl">📄</span>
           </div>
           
           {/* Title */}
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             {subject && formatSubjectName(subject)}
           </h1>
-          <p className="text-gray-600 font-medium mb-8">Year {year} Past Paper</p>
+          <p className="text-sm text-gray-500 mb-8">Year {year} Past Paper</p>
           
           {/* Info Card */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6 shadow-lg border border-white/60">
             <p className="text-sm text-gray-700 mb-4">
-              📱 For the best mobile experience, open this PDF in your device's native PDF viewer.
+              📱 For the best mobile experience, open this past paper in your device's native PDF viewer.
             </p>
             <p className="text-xs text-gray-500">
               You'll be able to zoom, annotate, and navigate easily.
@@ -277,9 +285,9 @@ function PDFViewerContent() {
               href={pdfUrl || ''}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-2"
             >
-              📖 Open PDF
+              📖 Open Past Paper
             </a>
             
             <button
@@ -295,11 +303,8 @@ function PDFViewerContent() {
   }
 
   return (
-    <div 
-      ref={containerRef}
-      className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 ${isFullscreen ? 'bg-black' : ''}`}
-    >
-      {/* Modern Premium Header - Mobile Optimized */}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50">
+      {/* Modern Premium Header */}
       <div className="bg-gradient-to-r from-white/95 via-white/90 to-white/95 backdrop-blur-2xl shadow-xl border-b border-white/60 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-4">
           {/* Mobile Layout: Stacked */}
@@ -308,74 +313,15 @@ function PDFViewerContent() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => router.back()}
-                className="group p-2.5 hover:bg-gradient-to-br hover:from-blue-500 hover:to-indigo-500 bg-gray-100 rounded-lg transition-all flex-shrink-0"
+                className="group p-2.5 hover:bg-gradient-to-br hover:from-purple-500 hover:to-blue-500 bg-gray-100 rounded-lg transition-all flex-shrink-0"
               >
                 <ArrowLeft className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
               </button>
               <div className="flex-1 min-w-0">
-                <h1 className="font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
+                <h1 className="font-bold text-sm bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent truncate">
                   {subject && formatSubjectName(subject)}
                 </h1>
-                <p className="text-xs text-gray-600 font-medium">Year {year}</p>
               </div>
-            </div>
-
-            {/* Bottom Row: All Controls */}
-            <div className="flex items-center gap-2 justify-between">
-              {/* Zoom Controls */}
-              <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-                <button
-                  onClick={() => setScale(s => Math.max(0.5, s - 0.1))}
-                  className="p-2 hover:bg-white rounded transition-all active:scale-95"
-                  title="Zoom Out"
-                >
-                  <ZoomOut className="w-5 h-5 text-gray-700" />
-                </button>
-                <span className="text-xs font-bold text-gray-700 min-w-[50px] text-center px-1">
-                  {Math.round(scale * 100)}%
-                </span>
-                <button
-                  onClick={() => setScale(s => Math.min(2.0, s + 0.1))}
-                  className="p-2 hover:bg-white rounded transition-all active:scale-95"
-                  title="Zoom In"
-                >
-                  <ZoomIn className="w-5 h-5 text-gray-700" />
-                </button>
-              </div>
-
-              {/* Page Navigation */}
-              <div className="flex items-center gap-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg p-1 shadow-md">
-                <button
-                  onClick={() => setPageNumber(p => Math.max(1, p - 1))}
-                  disabled={pageNumber <= 1}
-                  className="px-3 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded font-bold text-white text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
-                >
-                  ← Prev
-                </button>
-                <span className="text-xs font-bold text-white px-2 whitespace-nowrap">
-                  {pageNumber}/{numPages}
-                </span>
-                <button
-                  onClick={() => setPageNumber(p => Math.min(numPages, p + 1))}
-                  disabled={pageNumber >= numPages}
-                  className="px-3 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded font-bold text-white text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95"
-                >
-                  Next →
-                </button>
-              </div>
-
-              {/* Fullscreen Button */}
-              <button
-                onClick={toggleFullscreen}
-                className="p-2.5 bg-gray-100 hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 rounded-lg transition-all group flex-shrink-0 active:scale-95"
-                title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-              >
-                {isFullscreen ? (
-                  <Minimize className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
-                ) : (
-                  <Maximize className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
-                )}
-              </button>
             </div>
           </div>
 
@@ -385,143 +331,29 @@ function PDFViewerContent() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => router.back()}
-                className="group p-3 hover:bg-gradient-to-br hover:from-blue-500 hover:to-indigo-500 bg-gray-100 rounded-xl transition-all hover:shadow-lg"
+                className="group p-3 hover:bg-gradient-to-br hover:from-purple-500 hover:to-blue-500 bg-gray-100 rounded-xl transition-all hover:shadow-lg"
               >
                 <ArrowLeft className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
               </button>
               <div>
-                <h1 className="font-bold text-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="font-bold text-xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   {subject && formatSubjectName(subject)}
                 </h1>
-                <p className="text-sm text-gray-600 font-medium">📄 Year {year} Past Paper</p>
-              </div>
-            </div>
-
-            {/* Right: Controls */}
-            <div className="flex items-center gap-3">
-              {/* Zoom Controls */}
-              <div className="flex items-center gap-2 bg-gray-100 rounded-xl p-1">
-                <button
-                  onClick={() => setScale(s => Math.max(0.5, s - 0.1))}
-                  className="p-2 hover:bg-white rounded-lg transition-all hover:shadow-md"
-                  title="Zoom Out"
-                >
-                  <ZoomOut className="w-5 h-5 text-gray-700" />
-                </button>
-                <span className="text-sm font-bold text-gray-700 min-w-[60px] text-center px-2">
-                  {Math.round(scale * 100)}%
-                </span>
-                <button
-                  onClick={() => setScale(s => Math.min(2.0, s + 0.1))}
-                  className="p-2 hover:bg-white rounded-lg transition-all hover:shadow-md"
-                  title="Zoom In"
-                >
-                  <ZoomIn className="w-5 h-5 text-gray-700" />
-                </button>
-              </div>
-
-              {/* Fullscreen Button */}
-              <button
-                onClick={toggleFullscreen}
-                className="p-3 bg-gray-100 hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 rounded-xl transition-all hover:shadow-lg group"
-                title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-              >
-                {isFullscreen ? (
-                  <Minimize className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
-                ) : (
-                  <Maximize className="w-5 h-5 text-gray-700 group-hover:text-white transition-colors" />
-                )}
-              </button>
-
-              {/* Page Navigation */}
-              <div className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl p-1 shadow-lg">
-                <button
-                  onClick={() => setPageNumber(p => Math.max(1, p - 1))}
-                  disabled={pageNumber <= 1}
-                  className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg font-bold text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  ← Prev
-                </button>
-                <span className="text-sm font-bold text-white px-3">
-                  {pageNumber} / {numPages}
-                </span>
-                <button
-                  onClick={() => setPageNumber(p => Math.min(numPages, p + 1))}
-                  disabled={pageNumber >= numPages}
-                  className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg font-bold text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  Next →
-                </button>
+                <p className="text-sm text-gray-600">Year {year} Past Paper</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* PDF Viewer - Fully Scrollable */}
-      <div 
-        className="pdf-viewer-container overflow-auto w-full relative"
-        style={{ height: isFullscreen ? '100vh' : 'calc(100vh - 120px)' }}
-        onContextMenu={(e) => e.preventDefault()}
-        onCopy={(e) => e.preventDefault()}
-        onCut={(e) => e.preventDefault()}
-        onDragStart={(e) => e.preventDefault()}
-      >
-        <div className="flex justify-center p-4 min-h-full">
-          <div className="relative">
-            <Document
-              file={pdfUrl}
-              onLoadSuccess={onDocumentLoadSuccess}
-              onLoadError={onDocumentLoadError}
-              loading={
-                <div className="flex flex-col items-center justify-center min-h-full py-20">
-                  <div className="relative">
-                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200"></div>
-                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-t-blue-600 border-r-indigo-600 absolute top-0 left-0"></div>
-                  </div>
-                  <p className="mt-4 text-gray-600 font-medium">Loading PDF...</p>
-                </div>
-              }
-              error={
-                <div className="text-center p-8 min-h-full flex flex-col items-center justify-center py-20">
-                  <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <span className="text-4xl">⚠️</span>
-                  </div>
-                  <p className="text-red-600 font-bold text-lg mb-2">Failed to load PDF</p>
-                  <p className="text-gray-600 text-sm mb-6 max-w-md">
-                    The PDF document could not be loaded. This may be due to a corrupted file or network issue.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setLoading(true)
-                      setError(null)
-                      setPdfUrl(null)
-                      loadPDF()
-                    }}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
-                  >
-                    🔄 Reload PDF
-                  </button>
-                </div>
-              }
-              options={pdfOptions}
-            >
-              <Page
-                pageNumber={pageNumber}
-                width={pageWidth}
-                scale={scale}
-                className="pdf-page-shadow"
-              />
-            </Document>
-          </div>
-        </div>
-      </div>
-      
-      {/* Page Info Footer - Fixed at bottom */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 py-2 z-10">
-        <p className="text-center text-xs sm:text-sm text-gray-600 font-medium px-2">
-          📖 Page {pageNumber} of {numPages} • {subject && formatSubjectName(subject)} ({year})
-        </p>
+      {/* PDF Viewer */}
+      <div className="w-full relative" style={{ height: 'calc(100vh - 120px)' }}>
+        <CleanPDFViewer
+          pdfUrl={pdfUrl}
+          title={`${subject && formatSubjectName(subject)} ${year} Past Paper`}
+          className="w-full h-full"
+          onLoad={handlePDFLoad}
+        />
       </div>
     </div>
   )
@@ -529,11 +361,12 @@ function PDFViewerContent() {
 
 export default function PDFViewerPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading PDF viewer...</p>
       </div>
-    }>
+    </div>}>
       <PDFViewerContent />
     </Suspense>
   )

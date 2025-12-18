@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { Star, Mail, Calendar } from 'lucide-react'
 
@@ -171,14 +170,11 @@ export default function FeedbackAdminPage() {
           <p className="text-gray-500 text-lg">No feedback yet</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 animate-stagger">
           {feedback.map((item, index) => (
-            <motion.div
+            <div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all border-2 border-gray-100"
+              className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all border-2 border-gray-100 animate-slide-up"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -212,7 +208,7 @@ export default function FeedbackAdminPage() {
                   {item.user_email}
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       )}

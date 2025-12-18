@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import QuestionCard from './QuestionCard'
+import { useAnimation } from '@/lib/hooks/useAnimation'
 import Timer from './Timer'
 import { Button } from '@/components/ui/Button'
 import type { Question, Answer } from '@/lib/supabase/types'
@@ -93,20 +93,13 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* XP Animation */}
-        <AnimatePresence>
-          {showXPAnimation && (
-            <motion.div
-              initial={{ opacity: 0, y: -50, scale: 0.5 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -100, scale: 0.5 }}
-              className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50"
-            >
-              <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-full shadow-2xl font-bold text-2xl">
-                +10 XP! 🎉
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {showXPAnimation && (
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
+            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-full shadow-2xl font-bold text-2xl">
+              +10 XP! 🎉
+            </div>
+          </div>
+        )}
 
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -136,25 +129,19 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
         </div>
 
         {/* Question Card */}
-        <AnimatePresence mode="wait">
-          <QuestionCard
-            key={currentQuestionIndex}
-            question={currentQuestion}
-            selectedAnswer={selectedAnswer}
-            onSelectAnswer={handleSelectAnswer}
-            showResult={showResult}
-            questionNumber={currentQuestionIndex + 1}
-            totalQuestions={questions.length}
-          />
-        </AnimatePresence>
+        <QuestionCard
+          key={currentQuestionIndex}
+          question={currentQuestion}
+          selectedAnswer={selectedAnswer}
+          onSelectAnswer={handleSelectAnswer}
+          showResult={showResult}
+          questionNumber={currentQuestionIndex + 1}
+          totalQuestions={questions.length}
+        />
 
         {/* Next Button */}
         {showResult && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex justify-center mt-8"
-          >
+          <div className="flex justify-center mt-8 animate-slide-up">
             <Button
               onClick={handleNext}
               size="lg"
@@ -162,7 +149,7 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
             >
               {isLastQuestion ? 'View Results' : 'Next Question'}
             </Button>
-          </motion.div>
+          </div>
         )}
       </div>
     </div>

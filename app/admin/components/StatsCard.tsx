@@ -1,8 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { LucideIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
 
 interface StatsCardProps {
   title: string
@@ -48,15 +48,18 @@ export default function StatsCard({ title, value, icon: Icon, trend, color, onCl
     }
   }, [value, numericValue])
 
+  const slideUpAnimation = useAnimation('slideUp', { trigger: true })
+  const hoverAnimation = useHoverAnimation('scaleSm')
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.02 }}
+    <div
       onClick={onClick}
-      className={`bg-gradient-to-br ${colorClasses[color]} rounded-2xl p-6 border-2 ${
-        onClick ? 'cursor-pointer' : ''
-      } transition-all hover:shadow-lg`}
+      className={combineAnimations(
+        `bg-gradient-to-br ${colorClasses[color]} rounded-2xl p-6 border-2 transition-all hover:shadow-lg`,
+        slideUpAnimation,
+        onClick ? 'cursor-pointer' : '',
+        onClick ? hoverAnimation : ''
+      )}
     >
       <div className="flex items-center justify-between mb-3">
         <Icon className={`w-8 h-8 ${color === 'yellow' ? 'text-yellow-500' : ''}`} />
@@ -75,6 +78,6 @@ export default function StatsCard({ title, value, icon: Icon, trend, color, onCl
       <p className="text-4xl font-bold text-gray-900">
         {typeof value === 'number' ? displayValue : value}
       </p>
-    </motion.div>
+    </div>
   )
 }

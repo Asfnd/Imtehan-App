@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useAnimation } from '@/lib/hooks/useAnimation'
 
 interface StreakCounterProps {
   streak: number
@@ -61,41 +61,25 @@ export function StreakCounter({ streak, maxStreak }: StreakCounterProps) {
       </div>
 
       {/* Milestone Celebration Popup */}
-      <AnimatePresence>
-        {showMilestone && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.9 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className="absolute -top-14 left-1/2 transform -translate-x-1/2 z-50"
-          >
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg shadow-lg whitespace-nowrap">
-              <motion.span
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
-                className="text-sm font-bold"
-              >
-                {milestoneMessage}
-              </motion.span>
-            </div>
-            {/* Arrow */}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
-              <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-red-500" />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showMilestone && (
+        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 z-50 animate-slide-down">
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg shadow-lg whitespace-nowrap">
+            <span className="text-sm font-bold animate-pulse">
+              {milestoneMessage}
+            </span>
+          </div>
+          {/* Arrow */}
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-red-500" />
+          </div>
+        </div>
+      )}
 
       {/* Max Streak Badge (if current streak equals max) */}
       {streak > 0 && streak === maxStreak && maxStreak >= 5 && (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          className="absolute -top-1 -right-1 bg-purple-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
-        >
+        <div className="absolute -top-1 -right-1 bg-purple-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-scale-in">
           ★
-        </motion.div>
+        </div>
       )}
     </div>
   )

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import confetti from 'canvas-confetti'
 
 interface ConfettiCelebrationProps {
   trigger: boolean
@@ -10,75 +9,74 @@ interface ConfettiCelebrationProps {
 
 /**
  * ConfettiCelebration Component
- * Triggers confetti animations for correct answers and milestones
- * Disabled on mobile devices for better performance
+ * CSS-based confetti animations for correct answers and milestones
+ * Lightweight and performant on all devices
  */
 export function ConfettiCelebration({
   trigger,
   intensity = 'medium',
 }: ConfettiCelebrationProps) {
-  const [isMobile, setIsMobile] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   useEffect(() => {
-    // Detect if device is mobile
-    const checkMobile = () => {
-      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      ) || window.innerWidth < 768
-      setIsMobile(mobile)
+    if (trigger) {
+      setShowConfetti(true)
+      
+      // Hide confetti after animation duration
+      const duration = intensity === 'high' ? 3000 : intensity === 'medium' ? 2000 : 1500
+      setTimeout(() => setShowConfetti(false), duration)
     }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  }, [trigger, intensity])
 
-  useEffect(() => {
-    // Skip confetti on mobile devices
-    if (!trigger || isMobile) return
+  if (!showConfetti) return null
 
-    try {
-      const configs = {
-        low: {
-          particleCount: 30,
-          spread: 50,
-          origin: { y: 0.7 },
-          colors: ['#9333ea', '#3b82f6', '#10b981'],
-        },
-        medium: {
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.6 },
-          colors: ['#9333ea', '#3b82f6', '#10b981', '#f59e0b'],
-        },
-        high: {
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.5 },
-          colors: ['#9333ea', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
-          ticks: 200,
-        },
-      }
+  const particleCount = {
+    low: 15,
+    medium: 25,
+    high: 40,
+  }[intensity]
 
-      const config = configs[intensity]
+  const colors = {
+    low: ['#9333ea', '#3b82f6', '#10b981'],
+    medium: ['#9333ea', '#3b82f6', '#10b981', '#f59e0b'],
+    high: ['#9333ea', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+  }[intensity]
 
-      // Fire confetti
-      confetti(config)
-
-      // For high intensity, fire one additional burst
-      if (intensity === 'high') {
-        setTimeout(() => {
-          confetti({
-            ...config,
-            particleCount: 50,
-          })
-        }, 150)
-      }
-    } catch (error) {
-      console.warn('Confetti animation failed:', error)
-    }
-  }, [trigger, intensity, isMobile])
-
-  return null
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
+      {/* CSS Confetti particles */}
+      {Array.from({ length: particleCount }).map((_, i) => (
+        <div
+          key={`confetti-${i}`}
+          className="absolute animate-confetti-fall"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 0.5}s`,
+            animationDuration: `${1.5 + Math.random() * 1}s`,
+          }}
+        >
+          <div
+            className={`w-2 h-2 ${Math.random() > 0.5 ? 'rounded-full' : 'rounded-sm'}`}
+            style={{
+              backgroundColor: colors[Math.floor(Math.random() * colors.length)],
+            }}
+          />
+        </div>
+      ))}
+      
+      {/* Extra particles for high intensity */}
+      {intensity === 'high' && Array.from({ length: 10 }).map((_, i) => (
+        <div
+          key={`extra-${i}`}
+          className="absolute text-2xl animate-emoji-float"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${0.2 + Math.random() * 0.3}s`,
+          }}
+        >
+          ✨
+        </div>
+      ))}
+    </div>
+  )
 }

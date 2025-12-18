@@ -206,12 +206,12 @@ export default function CSSGSAPage() {
         {/* Quick Actions */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
-            href="/css-gsa/practice/random"
+            href="/css-gsa/practice/all"
             className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xl font-bold">Random Practice</h3>
+                <h3 className="text-xl font-bold">All Years Practice</h3>
                 <p className="mt-2 text-purple-100">Mix of all years</p>
               </div>
               <svg className="w-12 h-12 text-white opacity-80 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,13 +221,13 @@ export default function CSSGSAPage() {
           </Link>
 
           <Link
-            href="/css-gsa/practice/recent"
+            href="/css-gsa/practice/2024"
             className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xl font-bold">Recent Years</h3>
-                <p className="mt-2 text-blue-100">2020-2025 only</p>
+                <h3 className="text-xl font-bold">Latest Year</h3>
+                <p className="mt-2 text-blue-100">2024 Questions</p>
               </div>
               <svg className="w-12 h-12 text-white opacity-80 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />

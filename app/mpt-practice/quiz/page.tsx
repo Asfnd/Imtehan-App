@@ -2,12 +2,28 @@
 
 import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { ArrowLeft, Check, X, Clock } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
+
+// Lazy load heavy components for better performance
+const QuizTimer = dynamic(() => Promise.resolve(() => (
+  <div className="flex items-center gap-2 px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-bold">
+    <Clock className="w-4 h-4" />
+    <span id="timer-display">Loading...</span>
+  </div>
+)), {
+  loading: () => (
+    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg">
+      <div className="w-4 h-4 bg-gray-300 animate-pulse rounded"></div>
+      <div className="w-16 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </div>
+  ),
+  ssr: false
+})
 
 interface MCQ {
   id: number
@@ -171,86 +187,50 @@ function MPTQuizContent() {
     return (
       <UltraProtectedContent>
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center px-3 sm:px-4 py-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-2xl text-center max-w-2xl w-full"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4"
-            >
+          <div className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-2xl text-center max-w-2xl w-full animate-scale-in">
+            <div className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 animate-bounce">
               {percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '📚'}
-            </motion.div>
+            </div>
 
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
               {timeExpired ? 'Time Up!' : 'Test Complete!'}
             </h2>
             <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">MPT Mock Test {testNumber}</p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 sm:p-6 text-white mb-4 sm:mb-6"
-            >
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 sm:p-6 text-white mb-4 sm:mb-6 animate-slide-up">
               <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
                 {score}/{mcqs.length}
               </div>
               <div className="text-base sm:text-lg md:text-xl">{percentage.toFixed(1)}% Correct</div>
-            </motion.div>
+            </div>
 
-            <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="bg-green-50 rounded-lg p-2 sm:p-3 md:p-4"
-              >
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 animate-stagger">
+              <div className="bg-green-50 rounded-lg p-2 sm:p-3 md:p-4 animate-slide-up">
                 <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-600">{score}</div>
                 <div className="text-xs md:text-sm text-gray-600">Correct</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="bg-red-50 rounded-lg p-2 sm:p-3 md:p-4"
-              >
+              </div>
+              <div className="bg-red-50 rounded-lg p-2 sm:p-3 md:p-4 animate-slide-up">
                 <div className="text-lg sm:text-xl md:text-2xl font-bold text-red-600">
                   {mcqs.length - score}
                 </div>
                 <div className="text-xs md:text-sm text-gray-600">Incorrect</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="bg-blue-50 rounded-lg p-2 sm:p-3 md:p-4"
-              >
+              </div>
+              <div className="bg-blue-50 rounded-lg p-2 sm:p-3 md:p-4 animate-slide-up">
                 <div className="text-base sm:text-lg md:text-xl font-bold text-blue-600">
                   {formatTime(timeTaken)}
                 </div>
                 <div className="text-xs md:text-sm text-gray-600">Time</div>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center"
-            >
-              <motion.button
-                onClick={() => router.push('/mpt-practice')}
-                whileTap={{ scale: 0.95 }}
-                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-200 text-gray-700 rounded-lg active:bg-gray-300 transition-colors font-semibold text-sm sm:text-base"
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center animate-slide-up">
+              <button
+                onClick={() => router.back()}
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-semibold text-sm sm:text-base hover-scale-sm"
               >
                 Back to Tests
-              </motion.button>
-              <motion.button
+              </button>
+              <button
                 onClick={() => {
                   setShowResults(false)
                   setCurrentIndex(0)
@@ -258,13 +238,12 @@ function MPTQuizContent() {
                   setTimeLeft(200 * 60)
                   setTimerActive(true)
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg active:from-blue-600 active:to-indigo-700 transition-all font-semibold shadow-md text-sm sm:text-base"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all font-semibold shadow-md text-sm sm:text-base hover-scale-sm"
               >
                 Retake Test
-              </motion.button>
-            </motion.div>
-          </motion.div>
+              </button>
+            </div>
+          </div>
         </div>
       </UltraProtectedContent>
     )
@@ -310,15 +289,10 @@ function MPTQuizContent() {
 
           {/* Question Card - Scrollable content */}
           <div className="flex-1 overflow-y-auto mb-3 min-h-0 overscroll-contain">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2 }}
-                className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-lg"
-              >
+            <div
+              key={currentIndex}
+              className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-lg animate-slide-left"
+            >
                 <div className="mb-3 sm:mb-4">
                   <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
                     Question {currentMCQ.question_number}
@@ -337,11 +311,10 @@ function MPTQuizContent() {
                     const isSelected = selectedAnswers[currentIndex] === option
 
                     return (
-                      <motion.button
+                      <button
                         key={option}
                         onClick={() => handleAnswer(option)}
-                        whileTap={{ scale: 0.98 }}
-                        className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 ${
+                        className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 hover-scale-sm ${
                           isSelected
                             ? 'border-blue-500 bg-blue-50 shadow-md'
                             : 'border-gray-200 active:border-blue-300 active:bg-gray-50'
@@ -361,46 +334,42 @@ function MPTQuizContent() {
                             {optionText}
                           </span>
                         </div>
-                      </motion.button>
+                      </button>
                     )
                   })}
                 </div>
 
                 {/* Navigation - Inside card, right after options */}
                 <div className="flex items-center justify-between pt-4 sm:pt-5 border-t border-gray-100">
-                  <motion.button
+                  <button
                     onClick={goToPrevious}
                     disabled={currentIndex === 0}
-                    whileTap={{ scale: currentIndex === 0 ? 1 : 0.95 }}
-                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold"
+                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold hover-scale-sm"
                   >
                     ← Previous
-                  </motion.button>
+                  </button>
 
                   <span className="text-sm sm:text-base text-gray-600 font-semibold px-3">
                     {currentIndex + 1} / {mcqs.length}
                   </span>
 
                   {currentIndex === mcqs.length - 1 ? (
-                    <motion.button
+                    <button
                       onClick={finishTest}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base"
+                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base hover-scale-sm"
                     >
                       Finish Test ✓
-                    </motion.button>
+                    </button>
                   ) : (
-                    <motion.button
+                    <button
                       onClick={goToNext}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 active:from-blue-700 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base font-semibold"
+                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 active:from-blue-700 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base font-semibold hover-scale-sm"
                     >
                       Next →
-                    </motion.button>
+                    </button>
                   )}
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
           </div>
         </div>
       </div>

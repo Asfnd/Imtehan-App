@@ -1,0 +1,68 @@
+# Robots.txt - Content Protection
+# This site contains proprietary educational content
+
+# Block all scrapers and crawlers from sensitive content
+User-agent: *
+Disallow: /api/
+Disallow: /quiz/
+Disallow: /css-practice/quiz/
+Disallow: /css-practice/idioms/
+Disallow: /mpt-practice/quiz/
+Disallow: /mpt-practice/past-papers/
+Disallow: /past-papers/
+Disallow: /solved-papers/
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /dashboard/
+
+# Allow only homepage and public pages
+Allow: /$
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+
+# Block common scraping bots
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+User-agent: HTTrack
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+# Crawl delay for allowed bots
+Crawl-delay: 10
+
+# Sitemap (only public pages)
+Sitemap: https://yourdomain.com/sitemap.xml

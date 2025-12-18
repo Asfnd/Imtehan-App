@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import { Clock } from 'lucide-react'
 
 interface TimerProps {
@@ -48,17 +47,15 @@ export default function Timer({ duration, onTimeUp, isPaused = false }: TimerPro
       </div>
 
       <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-        <motion.div
-          className={`h-full ${
+        <div
+          className={`h-full transition-all duration-300 ${
             isLow
               ? 'bg-red-500'
               : percentage > 50
               ? 'bg-green-500'
               : 'bg-yellow-500'
           }`}
-          initial={{ width: '100%' }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.3 }}
+          style={{ width: `${percentage}%` }}
         />
       </div>
     </div>

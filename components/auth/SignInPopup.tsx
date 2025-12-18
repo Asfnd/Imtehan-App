@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { X, Lock } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useAnimation } from '@/lib/hooks/useAnimation'
 
 interface SignInPopupProps {
   isOpen: boolean
@@ -54,25 +54,18 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
   }
 
   return (
-    <AnimatePresence>
+    <>
       {isOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-backdrop-in"
           >
             {/* Popup */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ type: "spring", duration: 0.5 }}
+            <div
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
+              className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-modal-in"
             >
               {/* Close Button */}
               <button
@@ -85,14 +78,9 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
               {/* Content */}
               <div className="p-8 text-center">
                 {/* Lock Icon with Animation */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1, rotate: [0, -10, 10, -10, 0] }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                  className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg"
-                >
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg animate-bounce">
                   <Lock className="w-10 h-10 text-white" />
-                </motion.div>
+                </div>
 
                 {/* Message */}
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -106,7 +94,7 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
                 <button
                   onClick={handleGoogleSignIn}
                   disabled={loading}
-                  className="w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-4 px-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all flex items-center justify-center gap-3 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed group"
+                  className="w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-4 px-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all flex items-center justify-center gap-3 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed group hover-scale-sm"
                 >
                   {loading ? (
                     <div className="w-5 h-5 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
@@ -151,10 +139,10 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
               {/* Decorative Elements */}
               <div className="absolute top-0 left-0 w-32 h-32 bg-blue-400/10 rounded-full -translate-x-16 -translate-y-16" />
               <div className="absolute bottom-0 right-0 w-32 h-32 bg-indigo-400/10 rounded-full translate-x-16 translate-y-16" />
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </>
       )}
-    </AnimatePresence>
+    </>
   )
 }

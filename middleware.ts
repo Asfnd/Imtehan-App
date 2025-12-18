@@ -52,6 +52,21 @@ function getIdentifier(request: NextRequest): string {
   )
 }
 
+function isSuspiciousRequest(request: NextRequest): boolean {
+  const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
+  
+  // Block requests without user agent
+  if (!userAgent) return true
+  
+  // Block known scrapers and bots
+  const suspiciousPatterns = [
+    'bot', 'crawler', 'spider', 'scraper', 'wget', 'curl', 
+    'python', 'requests', 'scrapy', 'selenium', 'phantomjs'
+  ]
+  
+  return suspiciousPatterns.some(pattern => userAgent.includes(pattern))
+}
+
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -70,6 +85,22 @@ export default async function middleware(request: NextRequest) {
     pathname.startsWith('/api') ||
     pathname.includes('/quiz') ||
     pathname.includes('/practice')
+
+  // Block suspicious requests (bots, scrapers)
+  if (isSuspiciousRequest(request)) {
+    return new NextResponse(
+      JSON.stringify({
+        error: 'Access denied',
+        message: 'Automated requests are not allowed',
+      }),
+      {
+        status: 403,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+  }
 
   if (shouldRateLimit) {
     try {
@@ -92,11 +123,37 @@ export default async function middleware(request: NextRequest) {
         )
       }
     } catch (error) {
-      console.error('Middleware error:', error)
+      // Silently handle middleware errors in production
     }
   }
 
-  return NextResponse.next()
+  // Create response with performance and security headers
+  const response = NextResponse.next()
+  
+  // Performance headers
+  response.headers.set('X-DNS-Prefetch-Control', 'on')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  
+  // Anti-scraping and security headers
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN') // Prevent iframe embedding
+  response.headers.set('X-XSS-Protection', '1; mode=block') // XSS protection
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin') // Hide referrer
+  response.headers.set('Permissions-Policy', 'interest-cohort=()') // Disable FLoC tracking
+  
+  // Prevent caching of sensitive content
+  if (pathname.includes('/quiz') || pathname.includes('/practice') || pathname.includes('/past-papers')) {
+    response.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+    response.headers.set('Pragma', 'no-cache')
+    response.headers.set('Expires', '0')
+  }
+  
+  // Preconnect to Supabase for faster API calls
+  response.headers.set(
+    'Link',
+    '<https://qsrkkvrrxorbgvbgekew.supabase.co>; rel=preconnect; crossorigin'
+  )
+
+  return response
 }
 
 export const config = {

@@ -1,8 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Check, X } from 'lucide-react'
 import type { Question } from '@/lib/supabase/types'
+import { useAnimation, useHoverAnimation, useTransition } from '@/lib/hooks/useAnimation'
 
 interface QuestionCardProps {
   question: Question
@@ -22,14 +22,11 @@ export default function QuestionCard({
   totalQuestions,
 }: QuestionCardProps) {
   const isCorrect = selectedAnswer === question.correct_answer
+  const slideAnimation = useAnimation('slideLeft')
+  const transitionClass = useTransition('all')
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      className="w-full max-w-3xl mx-auto"
-    >
+    <div className={`w-full max-w-3xl mx-auto ${slideAnimation}`}>
       {/* Progress indicator */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
@@ -41,11 +38,9 @@ export default function QuestionCard({
           </span>
         </div>
         <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-            initial={{ width: 0 }}
-            animate={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
-            transition={{ duration: 0.5 }}
+          <div
+            className={`h-full bg-gradient-to-r from-blue-500 to-purple-500 ${transitionClass}`}
+            style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
           />
         </div>
       </div>
@@ -63,13 +58,13 @@ export default function QuestionCard({
             const showIncorrect = showResult && isSelected && !isCorrect
 
             return (
-              <motion.button
+              <button
                 key={index}
-                whileHover={!showResult ? { scale: 1.02 } : {}}
-                whileTap={!showResult ? { scale: 0.98 } : {}}
                 onClick={() => !showResult && onSelectAnswer(option)}
                 disabled={showResult}
                 className={`w-full p-4 rounded-xl text-left font-medium transition-all ${
+                  !showResult ? 'hover-scale-sm active:scale-95' : ''
+                } ${
                   showCorrect
                     ? 'bg-green-100 dark:bg-green-900/30 border-2 border-green-500 text-green-700 dark:text-green-300'
                     : showIncorrect
@@ -88,7 +83,7 @@ export default function QuestionCard({
                     <X className="w-6 h-6 text-red-500 flex-shrink-0" />
                   )}
                 </div>
-              </motion.button>
+              </button>
             )
           })}
         </div>
@@ -96,10 +91,8 @@ export default function QuestionCard({
 
       {/* Explanation (shown after answer) */}
       {showResult && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={`rounded-2xl p-6 ${
+        <div
+          className={`rounded-2xl p-6 animate-slide-up ${
             isCorrect
               ? 'bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800'
               : 'bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800'
@@ -148,8 +141,8 @@ export default function QuestionCard({
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.div>
+    </div>
   )
 }

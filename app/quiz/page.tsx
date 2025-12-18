@@ -2,11 +2,35 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import TopicSelector from '@/components/quiz/TopicSelector'
-import QuizArena from '@/components/quiz/QuizArena'
-import ResultsScreen from '@/components/quiz/ResultsScreen'
 import { showToast } from '@/components/ui/Toast'
 import type { QuizTopic, Quiz, Answer, QuizResult } from '@/lib/supabase/types'
+
+// Lazy load heavy quiz components
+const QuizArena = dynamic(() => import('@/components/quiz/QuizArena'), {
+  loading: () => (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading quiz...</p>
+      </div>
+    </div>
+  ),
+  ssr: false
+})
+
+const ResultsScreen = dynamic(() => import('@/components/quiz/ResultsScreen'), {
+  loading: () => (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading results...</p>
+      </div>
+    </div>
+  ),
+  ssr: false
+})
 
 type QuizState = 'topic-selection' | 'quiz-active' | 'results'
 
@@ -32,7 +56,7 @@ export default function QuizPage() {
       const { data: { session } } = await supabase.auth.getSession()
       
       if (!session) {
-        router.push('/login')
+        router.push('/dashboard')
         return
       }
       
@@ -40,7 +64,7 @@ export default function QuizPage() {
       setAuthChecked(true)
     } catch (error) {
       console.error('Auth check failed:', error)
-      router.push('/login')
+      router.push('/dashboard')
     }
   }
 

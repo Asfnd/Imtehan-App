@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { Volume2, VolumeX } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { soundManager } from '@/lib/sounds/soundManager'
+import { useHoverAnimation } from '@/lib/hooks/useAnimation'
 
 /**
  * SoundToggle Component
@@ -13,6 +13,7 @@ import { soundManager } from '@/lib/sounds/soundManager'
 export function SoundToggle() {
   const [enabled, setEnabled] = useState(true)
   const [mounted, setMounted] = useState(false)
+  const hoverAnimation = useHoverAnimation('scaleSm')
 
   // Load saved preference on mount
   useEffect(() => {
@@ -40,29 +41,23 @@ export function SoundToggle() {
   }
 
   return (
-    <motion.button
+    <button
       onClick={toggleSound}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
       className={`p-2.5 rounded-lg transition-all ${
         enabled
           ? 'bg-purple-100 hover:bg-purple-200 text-purple-700'
           : 'bg-gray-100 hover:bg-gray-200 text-gray-400'
-      }`}
+      } ${hoverAnimation}`}
       title={enabled ? 'Mute sounds' : 'Unmute sounds'}
       aria-label={enabled ? 'Mute sounds' : 'Unmute sounds'}
     >
-      <motion.div
-        initial={false}
-        animate={{ rotate: enabled ? 0 : 180 }}
-        transition={{ duration: 0.3 }}
-      >
+      <div className={`transition-transform duration-300 ${enabled ? '' : 'rotate-180'}`}>
         {enabled ? (
           <Volume2 className="w-5 h-5" />
         ) : (
           <VolumeX className="w-5 h-5" />
         )}
-      </motion.div>
-    </motion.button>
+      </div>
+    </button>
   )
 }
