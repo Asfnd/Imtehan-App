@@ -281,21 +281,21 @@ export default function CSSSubjectMCQsPage() {
                 </div>
               </div>
 
-              {/* Split Layout: Subjects Left | Years Right - Always Side by Side */}
-              <div className="flex-1 grid grid-cols-2 divide-x divide-gray-100 overflow-hidden">
+              {/* Split Layout: Responsive - Stack on mobile, side by side on desktop */}
+              <div className="flex-1 flex flex-col sm:grid sm:grid-cols-2 sm:divide-x divide-gray-100 overflow-hidden">
                 {/* LEFT: Subjects */}
-                <div className="flex flex-col overflow-hidden">
-                  <div className="flex items-center justify-between p-4 pb-3 flex-shrink-0">
-                    <h2 className="text-base font-black text-gray-800 bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
+                <div className="flex flex-col overflow-hidden flex-1 sm:flex-none">
+                  <div className="flex items-center justify-between p-3 sm:p-4 pb-2 sm:pb-3 flex-shrink-0">
+                    <h2 className="text-sm sm:text-base font-black text-gray-800 bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
                       Subjects
                     </h2>
-                    <span className="text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1.5 rounded-full">
+                    <span className="text-xs font-bold text-purple-600 bg-purple-100 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
                       {filteredSubjects.length}
                     </span>
                   </div>
                   
                   {/* Category Filter in Sidebar */}
-                  <div className="px-4 pb-3 flex-shrink-0">
+                  <div className="px-3 sm:px-4 pb-2 sm:pb-3 flex-shrink-0">
                     <SidebarCategoryToggle
                       activeCategory={activeCategory}
                       onCategoryChange={handleCategoryChange}
@@ -303,7 +303,7 @@ export default function CSSSubjectMCQsPage() {
                     />
                   </div>
                   
-                  <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2 custom-scrollbar">
+                  <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
                     {filteredSubjects.map((subject, index) => {
                       const color = getSubjectColor(index)
                       const isSelected = selectedSubject === subject.subject
@@ -314,15 +314,15 @@ export default function CSSSubjectMCQsPage() {
                             setSelectedSubject(subject.subject)
                             setSelectedYear(null)
                           }}
-                          className={`w-full group relative overflow-hidden rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
+                          className={`w-full group relative overflow-hidden rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-[1.01] sm:hover:scale-[1.02] active:scale-[0.98] ${
                             isSelected 
-                              ? `bg-gradient-to-r ${color.gradient} shadow-lg ${color.hover} scale-[1.02]` 
+                              ? `bg-gradient-to-r ${color.gradient} shadow-lg ${color.hover} scale-[1.01] sm:scale-[1.02]` 
                               : 'bg-white hover:shadow-lg border-2 border-gray-100 hover:border-purple-300'
                           }`}
                         >
-                          <div className="flex items-center gap-3 p-3">
+                          <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3">
                             {/* Colorful Icon Badge */}
-                            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-bold text-sm sm:text-base flex-shrink-0 transition-all duration-200 ${
+                            <div className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm md:text-base flex-shrink-0 transition-all duration-200 ${
                               isSelected 
                                 ? 'bg-white/25 text-white' 
                                 : `bg-gradient-to-br ${color.gradient} text-white shadow-sm`
@@ -331,24 +331,24 @@ export default function CSSSubjectMCQsPage() {
                             </div>
                             
                             {/* Text */}
-                            <div className="flex-1 text-left min-w-0">
-                              <h3 className={`font-bold text-xs sm:text-sm leading-tight ${isSelected ? 'text-white' : 'text-gray-900'}`} title={subject.subject}>
+                            <div className="flex-1 text-left min-w-0 pr-1">
+                              <h3 className={`font-bold text-xs sm:text-sm leading-tight line-clamp-2 ${isSelected ? 'text-white' : 'text-gray-900'}`} title={subject.subject}>
                                 {subject.subject}
                               </h3>
-                              <p className={`text-[10px] sm:text-xs mt-0.5 sm:mt-1 ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
+                              <p className={`text-[10px] sm:text-xs mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
                                 {subject.count} MCQs
                               </p>
                             </div>
                             
                             {/* Checkmark or Arrow */}
                             {isSelected ? (
-                              <div className="w-6 h-6 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
-                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                               </div>
                             ) : (
-                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-500 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-purple-500 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                             )}
                           </div>
                         </button>
@@ -357,62 +357,62 @@ export default function CSSSubjectMCQsPage() {
                   </div>
                 </div>
 
-                {/* RIGHT: Years */}
-                <div className="flex flex-col overflow-hidden">
+                {/* RIGHT: Years - Hidden on mobile when no subject selected */}
+                <div className={`flex flex-col overflow-hidden flex-1 sm:flex-none ${!selectedSubject ? 'hidden sm:flex' : ''}`}>
                   {!selectedSubject ? (
-                    <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
-                      <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-fuchsia-100 rounded-3xl flex items-center justify-center mb-4 animate-pulse">
-                        <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex-1 flex flex-col items-center justify-center text-center p-4 sm:p-8">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-100 to-fuchsia-100 rounded-2xl sm:rounded-3xl flex items-center justify-center mb-3 sm:mb-4 animate-pulse">
+                        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">Select a Subject</h3>
-                      <p className="text-sm text-gray-500">Choose from {subjects.length} subjects to see available years</p>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 sm:mb-2">Select a Subject</h3>
+                      <p className="text-xs sm:text-sm text-gray-500">Choose from {subjects.length} subjects to see available years</p>
                     </div>
                   ) : (
                     <>
-                      <div className="flex items-center justify-between p-4 pb-3 flex-shrink-0">
+                      <div className="flex items-center justify-between p-3 sm:p-4 pb-2 sm:pb-3 flex-shrink-0">
                         <div className="flex-1 min-w-0 pr-2">
-                          <h2 className="text-base font-black text-gray-800 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                          <h2 className="text-sm sm:text-base font-black text-gray-800 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                             Years
                           </h2>
-                          <p className="text-xs text-gray-600 mt-0.5 font-semibold leading-tight break-words">{selectedSubject}</p>
+                          <p className="text-xs text-gray-600 mt-0.5 font-semibold leading-tight break-words line-clamp-1">{selectedSubject}</p>
                         </div>
-                        <span className="text-xs font-bold text-blue-600 bg-blue-100 px-3 py-1.5 rounded-full flex-shrink-0">
+                        <span className="text-xs font-bold text-blue-600 bg-blue-100 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full flex-shrink-0">
                           {years.length}
                         </span>
                       </div>
                       
                       {years.length === 0 ? (
-                        <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
+                        <div className="flex-1 flex items-center justify-center text-gray-400 text-sm p-4">
                           No years available
                         </div>
                       ) : (
-                        <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2 custom-scrollbar">
+                        <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
                           {years.map((yearData) => {
                             const isSelected = selectedYear === yearData.year
                             return (
                               <button
                                 key={yearData.year}
                                 onClick={() => setSelectedYear(yearData.year)}
-                                className={`w-full group relative overflow-hidden rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
+                                className={`w-full group relative overflow-hidden rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-[1.01] sm:hover:scale-[1.02] active:scale-[0.98] ${
                                   isSelected 
-                                    ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/50 scale-[1.02]' 
+                                    ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/50 scale-[1.01] sm:scale-[1.02]' 
                                     : 'bg-white hover:shadow-lg border-2 border-gray-100 hover:border-blue-300'
                                 }`}
                               >
                                 <div className="flex items-center justify-between p-2 sm:p-3">
-                                  <div className="flex items-center gap-2 sm:gap-3">
+                                  <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                     {/* Colorful Year Badge */}
-                                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-200 ${
+                                    <div className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-md sm:rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm transition-all duration-200 flex-shrink-0 ${
                                       isSelected 
                                         ? 'bg-white/25 text-white' 
                                         : 'bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-sm'
                                     }`}>
                                       {yearData.year.toString().slice(-2)}
                                     </div>
-                                    <div className="text-left flex-1">
-                                      <div className={`font-bold text-sm sm:text-lg ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                                    <div className="text-left flex-1 min-w-0">
+                                      <div className={`font-bold text-sm sm:text-base md:text-lg ${isSelected ? 'text-white' : 'text-gray-900'}`}>
                                         {yearData.year}
                                       </div>
                                       <div className={`text-[10px] sm:text-xs mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-600'}`}>
@@ -422,22 +422,22 @@ export default function CSSSubjectMCQsPage() {
                                   </div>
                                   
                                   {/* Tags and Checkmark */}
-                                  <div className="flex items-center gap-1 sm:gap-2">
+                                  <div className="flex items-center gap-1 flex-shrink-0">
                                     {/* New tag for recent years (2023+) */}
                                     {yearData.year >= 2023 && !isSelected && (
-                                      <span className="px-1.5 sm:px-2 py-0.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[9px] sm:text-xs font-bold rounded-full shadow-sm">
+                                      <span className="px-1.5 py-0.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[9px] sm:text-xs font-bold rounded-full shadow-sm">
                                         New
                                       </span>
                                     )}
                                     {/* Popular tag for years with many questions */}
                                     {yearData.count > 100 && !isSelected && yearData.year < 2023 && (
-                                      <span className="px-1.5 sm:px-2 py-0.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[9px] sm:text-xs font-bold rounded-full shadow-sm">
+                                      <span className="px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[9px] sm:text-xs font-bold rounded-full shadow-sm">
                                         Popular
                                       </span>
                                     )}
                                     {isSelected && (
                                       <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                         </svg>
                                       </div>
@@ -454,29 +454,31 @@ export default function CSSSubjectMCQsPage() {
                 </div>
               </div>
 
-              {/* Bottom: Start Button - Fixed */}
+              {/* Bottom: Start Button - Fixed and Mobile Optimized */}
               {selectedSubject && selectedYear && (
-                <div className="p-4 bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 border-t border-gray-100 flex-shrink-0">
+                <div className="p-3 sm:p-4 bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 border-t border-gray-100 flex-shrink-0">
                   <button
                     onClick={startPractice}
-                    className="w-full bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-700 hover:via-emerald-700 hover:to-teal-700 text-white py-4 px-6 rounded-2xl font-black text-base flex items-center justify-center gap-3 transition-all shadow-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-[1.03] active:scale-[0.97] group relative overflow-hidden"
+                    className="w-full bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-700 hover:via-emerald-700 hover:to-teal-700 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl font-black text-sm sm:text-base flex items-center justify-center gap-2 sm:gap-3 transition-all shadow-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-[1.02] sm:hover:scale-[1.03] active:scale-[0.97] group relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                     <span className="relative z-10">Start Quiz</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                   </button>
                   <div className="mt-2 text-center text-xs">
-                    <span className="font-bold text-purple-700">{selectedSubject}</span>
-                    {' • '}
-                    <span className="font-bold text-blue-700">{selectedYear}</span>
-                    {selectedYear && selectedYear >= 2023 && (
-                      <>
-                        {' • '}
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-full text-xs">
-                          Latest
-                        </span>
-                      </>
-                    )}
+                    <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2">
+                      <span className="font-bold text-purple-700 break-words max-w-[120px] sm:max-w-none">{selectedSubject}</span>
+                      <span className="text-gray-500">•</span>
+                      <span className="font-bold text-blue-700">{selectedYear}</span>
+                      {selectedYear && selectedYear >= 2023 && (
+                        <>
+                          <span className="text-gray-500">•</span>
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-full text-xs">
+                            Latest
+                          </span>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
@@ -486,7 +488,7 @@ export default function CSSSubjectMCQsPage() {
           {/* Custom Styles */}
           <style jsx global>{`
             .custom-scrollbar::-webkit-scrollbar {
-              width: 6px;
+              width: 4px;
             }
             .custom-scrollbar::-webkit-scrollbar-track {
               background: transparent;
@@ -498,6 +500,21 @@ export default function CSSSubjectMCQsPage() {
             .custom-scrollbar::-webkit-scrollbar-thumb:hover {
               background: linear-gradient(to bottom, #9333ea, #db2777);
             }
+            
+            /* Text truncation utilities */
+            .line-clamp-1 {
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+            .line-clamp-2 {
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+            
             @keyframes blob {
               0%, 100% { transform: translate(0, 0) scale(1); }
               25% { transform: translate(20px, -50px) scale(1.1); }
@@ -512,6 +529,13 @@ export default function CSSSubjectMCQsPage() {
             }
             .animation-delay-4000 {
               animation-delay: 4s;
+            }
+            
+            /* Mobile optimizations */
+            @media (max-width: 640px) {
+              .custom-scrollbar::-webkit-scrollbar {
+                width: 3px;
+              }
             }
           `}</style>
 

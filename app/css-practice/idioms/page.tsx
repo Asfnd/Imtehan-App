@@ -195,77 +195,77 @@ export default function IdiomsPage() {
               </div>
 
               {/* Practice Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto animate-fade-in">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto animate-fade-in">
                 {/* Practice All Card */}
                 <div 
-                  className="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:scale-[1.01] h-96"
+                  className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:scale-[1.01] h-80 sm:h-96"
                   onClick={() => startQuiz()}
                 >
                   <div className="text-center h-full flex flex-col justify-center">
-                    <div className="inline-flex p-4 bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 rounded-2xl shadow-lg mb-5 group-hover:scale-105 transition-all duration-300 mx-auto">
-                      <Play className="w-8 h-8 text-white" />
+                    <div className="inline-flex p-3 sm:p-4 bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 rounded-2xl shadow-lg mb-4 sm:mb-5 group-hover:scale-105 transition-all duration-300 mx-auto">
+                      <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                     </div>
                     
-                    <h3 className="text-xl font-black text-white mb-2">Quick Practice</h3>
-                    <p className="text-purple-200 mb-6 text-sm">Random Official MCQs</p>
+                    <h3 className="text-lg sm:text-xl font-black text-white mb-2">Quick Practice</h3>
+                    <p className="text-purple-200 mb-4 sm:mb-6 text-sm">Random Official MCQs</p>
                     
-                    <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-4 mb-6 border border-purple-400/30">
-                      <div className="text-3xl font-black bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent mb-1">
+                    <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-purple-400/30">
+                      <div className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent mb-1">
                         20
                       </div>
                       <div className="text-xs text-purple-200 font-semibold">MCQs</div>
                     </div>
                     
-                    <button className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:from-purple-600 hover:via-pink-600 hover:to-indigo-600 text-white py-3 px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl">
+                    <button className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:from-purple-600 hover:via-pink-600 hover:to-indigo-600 text-white py-3 px-4 sm:px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl text-sm sm:text-base">
                       Start Now
                     </button>
                   </div>
                 </div>
 
                 {/* Choose Year Card */}
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 flex flex-col h-96">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 flex flex-col h-80 sm:h-96 overflow-hidden">
                   {/* Header */}
-                  <div className="flex items-center gap-3 p-6 pb-4 flex-shrink-0">
-                    <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl shadow-lg">
-                      <Calendar className="w-6 h-6 text-white" />
+                  <div className="flex items-center gap-3 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
+                    <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl shadow-lg">
+                      <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black text-white">By Year</h3>
-                      <p className="text-purple-200 text-sm">{yearData.length} Years Available</p>
+                      <h3 className="text-lg sm:text-xl font-black text-white">By Year</h3>
+                      <p className="text-purple-200 text-xs sm:text-sm">{yearData.length} Years Available</p>
                     </div>
                   </div>
                   
-                  {/* Scrollable Years List - Constrained height to leave space for button */}
-                  <div className={`overflow-y-auto px-6 space-y-2 custom-scrollbar ${selectedYear ? 'flex-1 max-h-48' : 'flex-1'}`}>
+                  {/* Scrollable Years List - Better mobile spacing and height management */}
+                  <div className={`overflow-y-auto px-4 sm:px-6 space-y-1.5 sm:space-y-2 custom-scrollbar ${selectedYear ? 'max-h-40 sm:max-h-44' : 'flex-1'}`}>
                     {yearData.map((year) => (
                       <button
                         key={year.year}
                         onClick={() => setSelectedYear(year.year)}
-                        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all hover:scale-[1.01] active:scale-[0.99] border group shadow-sm hover:shadow-md ${
+                        className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-lg sm:rounded-xl transition-all hover:scale-[1.01] active:scale-[0.99] border group shadow-sm hover:shadow-md ${
                           selectedYear === year.year
                             ? 'bg-gradient-to-r from-purple-500/30 to-pink-500/30 border-purple-400/70 shadow-purple-500/20'
                             : 'bg-gradient-to-r from-white/5 to-purple-500/10 hover:from-purple-500/20 hover:to-pink-500/20 border-white/10 hover:border-purple-400/50'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 text-white font-bold rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-lg text-sm ${
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <div className={`w-8 h-8 sm:w-10 sm:h-10 text-white font-bold rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-lg text-xs sm:text-sm ${
                             selectedYear === year.year
                               ? 'bg-gradient-to-br from-purple-400 to-pink-400'
                               : 'bg-gradient-to-br from-indigo-500 to-purple-500'
                           }`}>
                             {year.year.toString().slice(-2)}
                           </div>
-                          <span className="font-bold text-white">{year.year}</span>
+                          <span className="font-bold text-white text-sm sm:text-base">{year.year}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                        <div className="flex items-center gap-1 sm:gap-2">
+                          <span className={`text-xs font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${
                             selectedYear === year.year
                               ? 'text-purple-100 bg-white/20'
                               : 'text-purple-200 bg-white/10'
                           }`}>{year.count}</span>
                           {selectedYear === year.year && (
-                            <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center">
-                              <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-white/20 rounded-full flex items-center justify-center">
+                              <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             </div>
@@ -275,11 +275,11 @@ export default function IdiomsPage() {
                     ))}
                   </div>
                   
-                  {/* Fixed Bottom Start Button - Always visible when year is selected */}
+                  {/* Fixed Bottom Start Button - Always visible when year is selected, better mobile layout */}
                   {selectedYear && (
-                    <div className="p-6 pt-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-t border-white/10 animate-fade-in flex-shrink-0 mt-auto">
+                    <div className="p-4 sm:p-6 pt-3 sm:pt-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-t border-white/10 animate-fade-in flex-shrink-0 mt-auto">
                       <div className="text-center mb-3">
-                        <div className="text-lg font-black text-white mb-1">
+                        <div className="text-base sm:text-lg font-black text-white mb-1">
                           {selectedYear}
                         </div>
                         <div className="text-xs text-purple-200 font-semibold">
@@ -288,7 +288,7 @@ export default function IdiomsPage() {
                       </div>
                       <button 
                         onClick={() => startQuiz(selectedYear)}
-                        className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:from-purple-600 hover:via-pink-600 hover:to-indigo-600 text-white py-3 px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl"
+                        className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:from-purple-600 hover:via-pink-600 hover:to-indigo-600 text-white py-3 px-4 sm:px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl text-sm sm:text-base"
                       >
                         Start {selectedYear} Quiz
                       </button>
