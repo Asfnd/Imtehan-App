@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Lightbulb, BookOpen, Flag } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
+import { useAnalytics } from '@/lib/hooks/useAnalytics'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -71,6 +72,7 @@ function CSSQuizContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user, loading: authLoading, checkAccess } = useFreeTrial()
+  const analytics = useAnalytics()
 
   const [mcqs, setMcqs] = useState<MCQ[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -132,6 +134,10 @@ function CSSQuizContent() {
       setMcqs(shuffled)
       setHasLoadedMCQs(true)
       setLoading(false)
+
+      // Track quiz start
+      const quizSubject = searchParams.get('subject') || 'General'
+      analytics.trackQuizStart('css-mcq', quizSubject)
     } catch (error) {
       console.error('Error fetching MCQs:', error)
       setLoading(false)
@@ -253,6 +259,10 @@ function CSSQuizContent() {
     } else {
       // Quiz complete!
       soundManager.play('quizComplete')
+      
+      // Track quiz completion
+      const completionSubject = searchParams.get('subject') || 'General'
+      analytics.trackQuizComplete('css-mcq', score + (isCorrect ? 1 : 0), mcqs.length, completionSubject)
       
       setShowResult(true)
     }

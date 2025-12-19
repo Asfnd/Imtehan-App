@@ -19,6 +19,7 @@
     "perf-test": "npm run build && npm run bundle-size && npm test -- --testPathPatterns=performance"
   },
   "dependencies": {
+    "@next/third-parties": "^16.1.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.87.1",

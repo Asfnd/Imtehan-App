@@ -7,6 +7,7 @@ import GlobalSecurity from '@/components/security/GlobalSecurity'
 import ContentProtection from '@/components/security/ContentProtection'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
+import { GoogleAnalytics } from '@/lib/analytics/GoogleAnalytics'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -62,6 +63,7 @@ export default function RootLayout({
         </AuthProvider>
         <SpeedInsights />
         <Analytics />
+        <GoogleAnalytics />
       </body>
     </html>
   )
