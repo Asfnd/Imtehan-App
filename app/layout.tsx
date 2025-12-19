@@ -8,6 +8,7 @@ import ContentProtection from '@/components/security/ContentProtection'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 import { GoogleAnalytics } from '@/lib/analytics/GoogleAnalytics'
+import { GADebug } from '@/components/debug/GADebug'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -41,6 +42,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://lh3.googleusercontent.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
         
+        {/* Performance: Preconnect to Google Analytics */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        
         {/* Performance: Prefetch critical resources */}
         <link rel="prefetch" href="/dashboard" />
         <link rel="prefetch" href="/css-practice" />
@@ -64,6 +71,7 @@ export default function RootLayout({
         <SpeedInsights />
         <Analytics />
         <GoogleAnalytics />
+        <GADebug />
       </body>
     </html>
   )
