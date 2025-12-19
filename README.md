@@ -1,4 +1,4 @@
-# CSS Practice App
+# CSS Practice Hub
 
 A comprehensive CSS exam preparation platform built with Next.js 14, featuring practice questions, past papers, and solved papers for CSS (Central Superior Services) examination preparation.
 

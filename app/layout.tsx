@@ -20,9 +20,35 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'AI Quiz Platform - Personalized Learning',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://css-practice-hub.vercel.app'),
+  title: 'CSS Practice Hub - Master Your CSS Exam Preparation',
   description:
-    'AI-powered quiz platform that adapts to your skill level and helps you learn effectively',
+    'Complete CSS exam preparation platform with 10,000+ practice questions, past papers, and mock tests. Prepare for CSS 2025 with confidence.',
+  keywords: 'CSS exam, CSS preparation, CSS practice, CSS mock test, CSS past papers, Central Superior Services, Pakistan CSS, CSS 2025, government jobs Pakistan',
+  authors: [{ name: 'CSS Practice Hub' }],
+  creator: 'CSS Practice Hub',
+  publisher: 'CSS Practice Hub',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'CSS Practice Hub - Master Your CSS Exam Preparation',
+    description: 'Complete CSS exam preparation platform with 10,000+ practice questions, past papers, and mock tests.',
+    type: 'website',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'CSS Practice Hub - Complete CSS Exam Preparation Platform',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CSS Practice Hub - Master Your CSS Exam Preparation',
+    description: 'Complete CSS exam preparation platform with 10,000+ practice questions, past papers, and mock tests.',
+    images: ['/og-image.svg'],
+  },
 }
 
 export default function RootLayout({
@@ -55,7 +81,23 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
         
         {/* Theme color for better perceived performance */}
-        <meta name="theme-color" content="#8b5cf6" />
+        <meta name="theme-color" content="#6366f1" />
+        
+        {/* Favicon and app icons */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon-32x32.svg" sizes="32x32" type="image/svg+xml" />
+        <link rel="icon" href="/favicon-16x16.svg" sizes="16x16" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon-32x32.svg" />
+        <meta name="msapplication-TileColor" content="#6366f1" />
+        
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        
+        {/* Additional meta tags for better social sharing */}
+        <meta property="og:image" content="/og-image.svg" />
+        <meta name="twitter:image" content="/og-image.svg" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

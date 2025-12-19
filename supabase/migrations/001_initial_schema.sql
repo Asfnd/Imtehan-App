@@ -1,4 +1,4 @@
--- Initial Database Schema for AI Quiz Platform
+-- Initial Database Schema for CSS Practice Hub
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
