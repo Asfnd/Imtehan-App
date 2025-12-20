@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://css-practice-hub.vercel.app'),
   title: 'CSS Practice Hub - Master Your CSS Exam Preparation',
   description: 'Comprehensive CSS exam preparation platform with 10,000+ practice questions, past papers, and expert solutions. Perfect for CSS, MPT, and competitive exam preparation.',
-    'Complete CSS exam preparation platform with 10,000+ practice questions, past papers, and mock tests. Prepare for CSS 2025 with confidence.',
   keywords: 'CSS exam, CSS preparation, CSS practice, CSS mock test, CSS past papers, Central Superior Services, Pakistan CSS, CSS 2025, government jobs Pakistan',
   authors: [{ name: 'CSS Practice Hub' }],
   creator: 'CSS Practice Hub',
