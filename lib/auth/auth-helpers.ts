@@ -111,11 +111,7 @@ export async function signIn({ email, password }: SignInData) {
 export async function signInWithGoogle() {
   try {
     const supabase = createClient()
-    
-    // Use client-side callback page (handles PKCE properly)
     const redirectTo = `${window.location.origin}/auth/callback`
-    
-    console.log('🔐 Initiating Google OAuth with redirectTo:', redirectTo)
     
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -129,14 +125,11 @@ export async function signInWithGoogle() {
     })
 
     if (error) {
-      console.error('❌ OAuth error:', error)
-      
-      // Provide more helpful error messages
       let errorMessage = error.message
       if (error.message.includes('redirect_uri_mismatch')) {
-        errorMessage = 'Redirect URI mismatch. Please check Google Console configuration. The redirect URI should be: https://[your-project].supabase.co/auth/v1/callback'
+        errorMessage = 'Redirect URI mismatch. Please check Google Console configuration.'
       } else if (error.message.includes('invalid_client')) {
-        errorMessage = 'Invalid OAuth client. Please check that Google OAuth is properly configured in Supabase dashboard.'
+        errorMessage = 'Invalid OAuth client. Please check that Google OAuth is properly configured.'
       }
       
       return {
@@ -144,15 +137,13 @@ export async function signInWithGoogle() {
       }
     }
 
-    console.log('✅ OAuth initiated successfully')
     return {
       error: null,
       data,
     }
   } catch (error: any) {
-    console.error('❌ Google sign in error:', error)
     return {
-      error: error?.message || 'An unexpected error occurred. Please check your console for details.',
+      error: error?.message || 'An unexpected error occurred.',
     }
   }
 }

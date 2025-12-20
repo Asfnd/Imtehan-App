@@ -72,14 +72,13 @@ function isSuspiciousRequest(request: NextRequest): boolean {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Skip rate limiting for static assets, auth callbacks, and debug pages
+  // Skip rate limiting for static assets and auth callbacks
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
     pathname === '/auth/callback' ||
-    pathname === '/signin/callback' ||
-    pathname === '/auth-debug'
+    pathname === '/signin/callback'
   ) {
     return NextResponse.next()
   }

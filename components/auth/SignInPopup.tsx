@@ -29,8 +29,6 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
       const redirectTo = `${baseUrl}/auth/callback?next=${encodeURIComponent(currentPath)}`
       
-      console.log('🔐 Initiating Google OAuth with redirectTo:', redirectTo)
-      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -58,11 +56,9 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
         return
       }
       
-      console.log('✅ OAuth initiated successfully')
       // The browser will redirect automatically
       
     } catch (error: any) {
-      console.error('❌ Error signing in with Google:', error)
       setError(error?.message || 'Failed to sign in. Please try again.')
       setLoading(false)
     }
