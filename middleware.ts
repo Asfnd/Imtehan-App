@@ -72,12 +72,13 @@ function isSuspiciousRequest(request: NextRequest): boolean {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Skip rate limiting for static assets and auth callbacks
+  // Skip rate limiting for static assets, auth callbacks, and debug pages
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
-    pathname === '/auth/callback'
+    pathname === '/auth/callback' ||
+    pathname === '/auth-debug'
   ) {
     return NextResponse.next()
   }
@@ -99,7 +100,13 @@ export default async function middleware(request: NextRequest) {
           },
           setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value, options }) => {
-              response.cookies.set(name, value, options)
+              response.cookies.set(name, value, {
+                ...options,
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
+                path: '/',
+              })
             })
           },
         },

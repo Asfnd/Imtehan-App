@@ -23,6 +23,11 @@ export async function GET(request: Request) {
     try {
       const cookieStore = await cookies()
       
+      // Create the response first
+      const redirectUrl = new URL(next, requestUrl.origin)
+      redirectUrl.searchParams.set('auth', 'success')
+      const response = NextResponse.redirect(redirectUrl)
+      
       const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -33,7 +38,15 @@ export async function GET(request: Request) {
             },
             setAll(cookiesToSet) {
               cookiesToSet.forEach(({ name, value, options }) => {
+                // Set on both cookie store and response
                 cookieStore.set(name, value, options)
+                response.cookies.set(name, value, {
+                  ...options,
+                  httpOnly: true,
+                  secure: process.env.NODE_ENV === 'production',
+                  sameSite: 'lax',
+                  path: '/',
+                })
               })
             },
           },
@@ -54,18 +67,11 @@ export async function GET(request: Request) {
         console.log('Access token length:', data.session.access_token?.length)
         console.log('Refresh token length:', data.session.refresh_token?.length)
         
-        // Build the redirect URL with success parameter
-        const redirectUrl = new URL(next, requestUrl.origin)
-        redirectUrl.searchParams.set('auth', 'success')
-        
         console.log('Redirecting to:', redirectUrl.toString())
         
-        // Create response with proper headers
-        const response = NextResponse.redirect(redirectUrl)
-        
-        // Ensure cookies are set on the response
+        // Log all cookies being set
         const allCookies = cookieStore.getAll()
-        console.log('Setting cookies on response:', allCookies.map(c => c.name))
+        console.log('Cookies set:', allCookies.map(c => ({ name: c.name, value: c.value?.substring(0, 20) + '...' })))
         
         return response
       } else {
