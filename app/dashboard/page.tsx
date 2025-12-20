@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 // Removed framer-motion for faster loading
 import { BookOpen, FileText, Target, LogOut } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
@@ -10,9 +10,39 @@ import { createClient } from '@/lib/supabase/client'
 // Removed usageTracker import - not needed for dashboard display
 
 export default function DashboardPage() {
+  return (
+    <Suspense fallback={<DashboardLoading />}>
+      <DashboardContent />
+    </Suspense>
+  )
+}
+
+function DashboardLoading() {
+  return (
+    <div className="relative h-screen overflow-hidden flex flex-col">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl"></div>
+          <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl"></div>
+        </div>
+      </div>
+      <div className="relative z-10 flex items-center justify-center h-full">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 font-semibold">Loading...</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DashboardContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [user, setUser] = useState<any>(null)
   const [authLoading, setAuthLoading] = useState(true)
+  const [authMessage, setAuthMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
 
   // Removed remaining state - not displayed in UI anymore
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
@@ -51,16 +81,53 @@ export default function DashboardPage() {
   useEffect(() => {
     const supabase = createClient()
     
+    // Check for auth status in URL parameters
+    const authStatus = searchParams.get('auth')
+    const authMessageParam = searchParams.get('message')
+    
+    if (authStatus === 'success') {
+      setAuthMessage({ type: 'success', message: 'Successfully signed in!' })
+      // Clear URL parameters after showing message
+      const newUrl = new URL(window.location.href)
+      newUrl.searchParams.delete('auth')
+      newUrl.searchParams.delete('message')
+      window.history.replaceState({}, '', newUrl.toString())
+      
+      // Auto-hide success message after 3 seconds
+      setTimeout(() => setAuthMessage(null), 3000)
+    } else if (authStatus === 'error') {
+      setAuthMessage({ 
+        type: 'error', 
+        message: authMessageParam ? decodeURIComponent(authMessageParam) : 'Authentication failed' 
+      })
+      // Clear URL parameters after showing message
+      const newUrl = new URL(window.location.href)
+      newUrl.searchParams.delete('auth')
+      newUrl.searchParams.delete('message')
+      window.history.replaceState({}, '', newUrl.toString())
+      
+      // Auto-hide error message after 5 seconds
+      setTimeout(() => setAuthMessage(null), 5000)
+    }
+    
     checkUser()
 
     // Listen for auth state changes for smooth sign-in experience
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Dashboard: Auth state change:', event, session ? { user: session.user?.email } : 'no session')
 
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+          console.log('Dashboard: User signed in, updating state')
           setUser(session?.user ?? null)
           setAuthLoading(false)
+          // Show success message if not already shown
+          if (!authMessage) {
+            setAuthMessage({ type: 'success', message: 'Successfully signed in!' })
+            setTimeout(() => setAuthMessage(null), 3000)
+          }
         } else if (event === 'SIGNED_OUT') {
+          console.log('Dashboard: User signed out, clearing state')
           setUser(null)
           setAuthLoading(false)
         }
@@ -70,13 +137,26 @@ export default function DashboardPage() {
     return () => {
       subscription.unsubscribe()
     }
-  }, [])
+  }, [searchParams])
   
   // Removed updateRemaining - not needed since we don't display counters
 
   const checkUser = async () => {
     const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    console.log('Dashboard: Checking user session...')
+    
+    const { data: { user }, error } = await supabase.auth.getUser()
+    
+    console.log('Dashboard: User check result:', { 
+      user: user ? { id: user.id, email: user.email } : null, 
+      error: error?.message 
+    })
+    
+    if (user) {
+      console.log('Dashboard: User session found, setting user state')
+    } else {
+      console.log('Dashboard: No user session found')
+    }
 
     setUser(user)
     setAuthLoading(false)
@@ -93,10 +173,12 @@ export default function DashboardPage() {
 
   const handleGoogleSignIn = async () => {
     const supabase = createClient()
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${baseUrl}/auth/callback?next=${encodeURIComponent('/dashboard')}`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
@@ -141,6 +223,17 @@ export default function DashboardPage() {
 
       {/* Dark Attached Top Bar */}
       <div className="relative z-20 w-full">
+        {/* Authentication Status Message */}
+        {authMessage && (
+          <div className={`w-full px-4 py-3 text-center text-sm font-medium ${
+            authMessage.type === 'success' 
+              ? 'bg-green-500 text-white' 
+              : 'bg-red-500 text-white'
+          }`}>
+            {authMessage.message}
+          </div>
+        )}
+        
         {/* Dark top bar container - attached to borders */}
         <div className="relative">
           {/* Dark glassmorphism container */}

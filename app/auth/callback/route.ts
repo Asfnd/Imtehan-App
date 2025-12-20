@@ -8,6 +8,16 @@ export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
   const next = requestUrl.searchParams.get('next') ?? '/dashboard'
+  const error = requestUrl.searchParams.get('error')
+  const errorDescription = requestUrl.searchParams.get('error_description')
+
+  console.log('Auth callback:', { code: !!code, next, error, errorDescription })
+
+  // Handle OAuth errors
+  if (error) {
+    console.error('OAuth error:', error, errorDescription)
+    return NextResponse.redirect(new URL(`/dashboard?auth=error&message=${encodeURIComponent(errorDescription || error)}`, requestUrl.origin))
+  }
 
   if (code) {
     try {
@@ -22,62 +32,52 @@ export async function GET(request: Request) {
               return cookieStore.getAll()
             },
             setAll(cookiesToSet) {
-              try {
-                cookiesToSet.forEach(({ name, value, options }) =>
-                  cookieStore.set(name, value, options)
-                )
-              } catch (error) {
-                console.error('Cookie set error:', error)
-              }
+              cookiesToSet.forEach(({ name, value, options }) => {
+                cookieStore.set(name, value, options)
+              })
             },
           },
         }
       )
       
-      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+      console.log('Exchanging code for session...')
+      const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
       
-      if (error) {
-        console.error('Auth exchange error:', error)
-        // Redirect to login with error
-        return NextResponse.redirect(new URL('/dashboard?auth=error', requestUrl.origin))
+      if (exchangeError) {
+        console.error('Auth exchange error:', exchangeError)
+        return NextResponse.redirect(new URL(`/dashboard?auth=error&message=${encodeURIComponent(exchangeError.message)}`, requestUrl.origin))
       }
 
       if (data.session) {
-        // Success! Build the redirect URL
-        const redirectUrl = new URL(next, requestUrl.origin)
+        console.log('Session created successfully for user:', data.user?.email)
+        console.log('Session expires at:', data.session.expires_at)
+        console.log('Access token length:', data.session.access_token?.length)
+        console.log('Refresh token length:', data.session.refresh_token?.length)
         
-        // Create response with redirect
+        // Build the redirect URL with success parameter
+        const redirectUrl = new URL(next, requestUrl.origin)
+        redirectUrl.searchParams.set('auth', 'success')
+        
+        console.log('Redirecting to:', redirectUrl.toString())
+        
+        // Create response with proper headers
         const response = NextResponse.redirect(redirectUrl)
         
-        // Ensure cookies are set in the response
-        const { access_token, refresh_token } = data.session
-        
-        // Set cookies manually for better Vercel compatibility
-        response.cookies.set('sb-access-token', access_token, {
-          path: '/',
-          secure: process.env.NODE_ENV === 'production',
-          httpOnly: true,
-          sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 7, // 7 days
-        })
-        
-        if (refresh_token) {
-          response.cookies.set('sb-refresh-token', refresh_token, {
-            path: '/',
-            secure: process.env.NODE_ENV === 'production',
-            httpOnly: true,
-            sameSite: 'lax',
-            maxAge: 60 * 60 * 24 * 30, // 30 days
-          })
-        }
+        // Ensure cookies are set on the response
+        const allCookies = cookieStore.getAll()
+        console.log('Setting cookies on response:', allCookies.map(c => c.name))
         
         return response
+      } else {
+        console.error('No session created')
+        return NextResponse.redirect(new URL('/dashboard?auth=error&message=No session created', requestUrl.origin))
       }
     } catch (error) {
       console.error('Callback error:', error)
+      return NextResponse.redirect(new URL(`/dashboard?auth=error&message=${encodeURIComponent('Authentication failed')}`, requestUrl.origin))
     }
   }
 
-  // Fallback redirect
-  return NextResponse.redirect(new URL('/dashboard', requestUrl.origin))
+  console.log('No code provided, redirecting to dashboard')
+  return NextResponse.redirect(new URL('/dashboard?auth=error&message=No authorization code', requestUrl.origin))
 }

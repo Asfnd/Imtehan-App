@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase/server'
+import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { rateLimit, getClientIP, RATE_LIMITS } from '@/lib/security/rateLimiter'
 
 export async function POST(request: NextRequest) {
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Use server-side Supabase client
-    const supabase = supabaseAdmin
+    const supabase = await createServerSupabaseClient()
 
     // Insert into database
     const { data, error } = await supabase

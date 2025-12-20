@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase/server'
+import { createServerSupabaseClient } from '@/lib/supabase/server'
 import type { Answer } from '@/lib/supabase/types'
 
 export async function POST(request: NextRequest) {
@@ -24,8 +24,11 @@ export async function POST(request: NextRequest) {
     const score = answers.filter(a => a.is_correct).length
     const totalQuestions = answers.length
 
+    // Get server-side Supabase client
+    const supabase = await createServerSupabaseClient()
+
     // Save quiz history using admin client (bypasses RLS)
-    const { data: history, error: historyError } = await supabaseAdmin
+    const { data: history, error: historyError } = await supabase
       .from('quiz_history')
       .insert({
         user_id: userId,
@@ -49,7 +52,7 @@ export async function POST(request: NextRequest) {
     const totalXP = baseXP + bonusXP
 
     // Get current user data and last quiz date
-    const { data: currentUser } = await supabaseAdmin
+    const { data: currentUser } = await supabase
       .from('users')
       .select('total_xp, level, current_streak, longest_streak, total_quizzes, last_quiz_date')
       .eq('id', userId)
@@ -100,7 +103,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Update user profile with all new values
-      const { error: updateError } = await supabaseAdmin
+      const { error: updateError } = await supabase
         .from('users')
         .update({
           total_xp: newXP,

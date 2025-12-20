@@ -25,10 +25,13 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
       // Store current path to redirect back after sign-in
       const currentPath = window.location.pathname + window.location.search
       
+      // Use the correct base URL for production
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(currentPath)}`,
+          redirectTo: `${baseUrl}/auth/callback?next=${encodeURIComponent(currentPath)}`,
           skipBrowserRedirect: false,
         }
       })

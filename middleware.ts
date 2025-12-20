@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
 
 /**
  * Lightning-fast middleware with minimal overhead
  * - Only runs on specific routes (quiz pages, API routes)
  * - Uses in-memory rate limiting (no external dependencies)
  * - Graceful fallback if rate limiter fails
+ * - Handles Supabase session refresh
  */
 
 // Simple in-memory rate limiter
@@ -80,6 +82,37 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  let response = NextResponse.next()
+
+  // Handle Supabase session refresh for authenticated routes
+  try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll().map(cookie => ({
+              name: cookie.name,
+              value: cookie.value,
+            }))
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              response.cookies.set(name, value, options)
+            })
+          },
+        },
+      }
+    )
+
+    // Refresh session if needed
+    await supabase.auth.getUser()
+  } catch (error) {
+    // Silently handle auth errors
+    console.error('Auth middleware error:', error)
+  }
+
   // Apply rate limiting to sensitive routes
   const shouldRateLimit =
     pathname.startsWith('/api') ||
@@ -126,9 +159,6 @@ export default async function middleware(request: NextRequest) {
       // Silently handle middleware errors in production
     }
   }
-
-  // Create response with performance and security headers
-  const response = NextResponse.next()
   
   // Performance headers
   response.headers.set('X-DNS-Prefetch-Control', 'on')
