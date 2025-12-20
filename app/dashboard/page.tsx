@@ -43,9 +43,14 @@ function DashboardContent() {
   const [user, setUser] = useState<any>(null)
   const [authLoading, setAuthLoading] = useState(true)
   const [authMessage, setAuthMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   // Removed remaining state - not displayed in UI anymore
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   
   // Get full name for top bar
   const getFullName = () => {
@@ -79,6 +84,8 @@ function DashboardContent() {
   const firstName = getFirstName()
 
   useEffect(() => {
+    if (!mounted) return
+
     const supabase = createClient()
     
     // Check for auth status in URL parameters
@@ -137,9 +144,7 @@ function DashboardContent() {
     return () => {
       subscription.unsubscribe()
     }
-  }, [searchParams])
-  
-  // Removed updateRemaining - not needed since we don't display counters
+  }, [searchParams, mounted])
 
   const checkUser = async () => {
     const supabase = createClient()
@@ -162,8 +167,6 @@ function DashboardContent() {
     setAuthLoading(false)
   }
 
-
-
   const handleSignOut = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
@@ -173,7 +176,7 @@ function DashboardContent() {
 
   const handleGoogleSignIn = async () => {
     const supabase = createClient()
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (mounted ? window.location.origin : '')
     
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -187,12 +190,10 @@ function DashboardContent() {
     })
   }
 
-
-
-  // Show loading state while checking auth
-  if (authLoading) {
+  // Show loading state while checking auth or not mounted
+  if (authLoading || !mounted) {
     return (
-      <div className="relative h-screen overflow-hidden flex flex-col">
+      <div className="relative h-screen overflow-hidden flex flex-col bg-white">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl"></div>

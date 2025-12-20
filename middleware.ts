@@ -78,6 +78,7 @@ export default async function middleware(request: NextRequest) {
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
     pathname === '/auth/callback' ||
+    pathname === '/signin/callback' ||
     pathname === '/auth-debug'
   ) {
     return NextResponse.next()

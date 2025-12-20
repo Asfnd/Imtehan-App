@@ -27,30 +27,42 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
       
       // Use the correct base URL for production
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+      const redirectTo = `${baseUrl}/auth/callback?next=${encodeURIComponent(currentPath)}`
+      
+      console.log('🔐 Initiating Google OAuth with redirectTo:', redirectTo)
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${baseUrl}/auth/callback?next=${encodeURIComponent(currentPath)}`,
-          skipBrowserRedirect: false,
+          redirectTo,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         }
       })
       
       if (error) {
-        console.error('OAuth error:', error)
-        throw error
+        console.error('❌ OAuth error:', error)
+        
+        // Provide more helpful error messages
+        let errorMessage = error.message
+        if (error.message.includes('redirect_uri_mismatch')) {
+          errorMessage = 'Redirect URI mismatch. Please check Google Console configuration. Visit /oauth-diagnostic for help.'
+        } else if (error.message.includes('invalid_client')) {
+          errorMessage = 'OAuth client not configured. Please check Supabase dashboard → Authentication → Providers → Google.'
+        }
+        
+        setError(errorMessage)
+        setLoading(false)
+        return
       }
       
-      // The browser will redirect automatically, but add a timeout fallback
-      setTimeout(() => {
-        if (window.location.href === window.location.href) {
-          setError('Redirect failed. Please try again or check your popup blocker.')
-          setLoading(false)
-        }
-      }, 5000)
+      console.log('✅ OAuth initiated successfully')
+      // The browser will redirect automatically
       
     } catch (error: any) {
-      console.error('Error signing in with Google:', error)
+      console.error('❌ Error signing in with Google:', error)
       setError(error?.message || 'Failed to sign in. Please try again.')
       setLoading(false)
     }
