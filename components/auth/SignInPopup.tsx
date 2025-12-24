@@ -95,10 +95,13 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
 
                 {/* Message */}
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Unlock Premium Content
+                  Trial Limit Reached
                 </h2>
-                <p className="text-gray-600 mb-8">
+                <p className="text-gray-600 mb-3">
                   {message}
+                </p>
+                <p className="text-sm text-gray-500 mb-8">
+                  Sign in to unlock unlimited access to all CSS preparation resources
                 </p>
 
                 {/* Google Sign In Button */}
