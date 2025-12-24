@@ -1,3 +1,9 @@
+export const metadata = {
+  title: 'Terms of Service | CSS Practice Hub',
+  description: 'Read our terms of service. Understand the rules and conditions for using CSS Practice Hub.',
+  keywords: 'terms of service, conditions of use, user agreement'
+}
+
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 px-4">

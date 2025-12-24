@@ -1,3 +1,9 @@
+export const metadata = {
+  title: 'Privacy Policy | CSS Practice Hub',
+  description: 'Learn how CSS Practice Hub protects your personal data and privacy. Our comprehensive privacy policy explains data collection and usage.',
+  keywords: 'privacy policy, data protection, GDPR, user privacy'
+}
+
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 px-4">

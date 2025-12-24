@@ -1,27 +1,27 @@
-# Robots.txt - Content Protection
-# This site contains proprietary educational content
+# Robots.txt - CSS Practice Hub SEO Configuration
+# Allows Google and legitimate bots to crawl public content
+# Protects private user data and admin areas
 
-# Block all scrapers and crawlers from sensitive content
+# Allow all legitimate bots (Googlebot, Bingbot, etc.)
 User-agent: *
+Allow: /
+
+# Block private/protected content
 Disallow: /api/
-Disallow: /quiz/
-Disallow: /css-practice/quiz/
-Disallow: /css-practice/idioms/
-Disallow: /mpt-practice/quiz/
-Disallow: /mpt-practice/past-papers/
-Disallow: /past-papers/
-Disallow: /solved-papers/
 Disallow: /admin/
-Disallow: /profile/
 Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /signin/
+Disallow: /auth/
+Disallow: /quiz/css-practice/
+Disallow: /quiz/mpt-practice/
 
-# Allow only homepage and public pages
-Allow: /$
-Allow: /contact
-Allow: /privacy
-Allow: /terms
+# Protect user-specific pages
+Disallow: /my-account/
+Disallow: /settings/
+Disallow: /results/
 
-# Block common scraping bots
+# Block malicious bots and scrapers
 User-agent: GPTBot
 Disallow: /
 
@@ -55,14 +55,25 @@ Disallow: /
 User-agent: HTTrack
 Disallow: /
 
-User-agent: wget
+User-agent: MJ12bot
 Disallow: /
 
-User-agent: curl
+User-agent: AhrefsBot
 Disallow: /
 
-# Crawl delay for allowed bots
-Crawl-delay: 10
+User-agent: SemrushBot
+Disallow: /
 
-# Sitemap (only public pages)
-Sitemap: https://yourdomain.com/sitemap.xml
+# Public pages that should be indexed
+Allow: /
+Allow: /css-practice/subjects
+Allow: /past-papers
+Allow: /solved-papers
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+Allow: /about
+Allow: /sitemap.xml
+
+# Sitemap location for Google
+Sitemap: https://prepz.vercel.app/sitemap.xml
