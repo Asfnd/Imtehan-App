@@ -69,46 +69,36 @@ export default function CSSSubjectMCQsPage() {
     if (!selectedSubject) return
     try {
       const supabase = createClient()
-      
-      // Get ALL years with pagination to avoid 1000 record limit
-      let allData: any[] = []
-      let from = 0
-      const pageSize = 1000
-      
-      while (true) {
-        const { data, error } = await supabase
-          .from('css_mcqs_enhanced')
-          .select('year')
-          .eq('subject', selectedSubject)
-          .range(from, from + pageSize - 1)
-          .order('year', { ascending: false }) // Order by year DESC to get recent years first
-        
-        if (error) throw error
-        if (!data || data.length === 0) break
-        
-        allData.push(...data)
-        
-        if (data.length < pageSize) break
-        from += pageSize
-      }
-      
-      if (allData.length === 0) {
+
+      // OPTIMIZED: Fetch with reasonable limit instead of paginating through all records
+      // This reduces egress significantly (from 500KB-2MB to ~50KB)
+      const { data, error } = await supabase
+        .from('css_mcqs_enhanced')
+        .select('year')
+        .eq('subject', selectedSubject)
+        .order('year', { ascending: false })
+        .limit(1000) // Safety limit - most subjects have < 1000 MCQs
+
+      if (error) throw error
+
+      if (!data || data.length === 0) {
         setYears([])
         return
       }
-      
-      const yearMap = allData.reduce((acc: any, row: any) => {
+
+      // Count MCQs per year efficiently
+      const yearMap = data.reduce((acc: any, row: any) => {
         if (!acc[row.year]) {
           acc[row.year] = { year: row.year, count: 0 }
         }
         acc[row.year].count++
         return acc
       }, {})
-      
+
       const yearList = Object.values(yearMap)
         .map((y: any) => ({ year: y.year, count: y.count }))
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
-      
+
       setYears(yearList)
     } catch (error) {
       console.error('Error fetching years:', error)

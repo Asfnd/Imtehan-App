@@ -1,25 +1,36 @@
 import type { NextConfig } from "next";
 
 const securityHeaders = [
-  // Temporarily disable CSP to fix profile images
-  // {
-  //   key: 'Content-Security-Policy',
-  //   value: [
-  //     "default-src 'self'",
-  //     "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://cdnjs.cloudflare.com",
-  //     "style-src 'self' 'unsafe-inline'",
-  //     "img-src 'self' data: https: blob: https://lh3.googleusercontent.com",
-  //     "font-src 'self' data:",
-  //     "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
-  //     "frame-src 'self'",
-  //     "worker-src 'self' blob:",
-  //     "child-src 'self' blob:",
-  //     "frame-ancestors 'none'",
-  //     "base-uri 'self'",
-  //     "form-action 'self'",
-  //     "upgrade-insecure-requests",
-  //   ].join('; '),
-  // },
+  // SECURITY: Content Security Policy (re-enabled)
+  {
+    key: 'Content-Security-Policy',
+    value: [
+      "default-src 'self'",
+      // Script sources: self + Google Analytics + Vercel analytics + trusted CDNs
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://cdnjs.cloudflare.com",
+      // Style: self + unsafe-inline (needed for Tailwind CSS)
+      "style-src 'self' 'unsafe-inline'",
+      // Images: self, data URIs, HTTPS, blobs, and Google profile pictures
+      "img-src 'self' data: https: blob: https://lh3.googleusercontent.com https://*.googleusercontent.com",
+      // Fonts: self and data URIs
+      "font-src 'self' data:",
+      // API connections to Supabase
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com",
+      // Frames: only from self
+      "frame-src 'self'",
+      // Workers and blobs
+      "worker-src 'self' blob:",
+      "child-src 'self' blob:",
+      // Prevent embedding in iframes
+      "frame-ancestors 'none'",
+      // Base URI: only self
+      "base-uri 'self'",
+      // Form submissions only to same origin
+      "form-action 'self'",
+      // Upgrade insecure requests
+      "upgrade-insecure-requests",
+    ].join('; '),
+  },
   {
     key: 'X-DNS-Prefetch-Control',
     value: 'on',
@@ -48,19 +59,19 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
   },
-  // Temporarily disable CORS restrictions to fix profile images
-  // {
-  //   key: 'Cross-Origin-Embedder-Policy',
-  //   value: 'require-corp',
-  // },
-  // {
-  //   key: 'Cross-Origin-Opener-Policy',
-  //   value: 'same-origin',
-  // },
-  // {
-  //   key: 'Cross-Origin-Resource-Policy',
-  //   value: 'same-origin',
-  // },
+  // SECURITY: CORS headers (re-enabled) - prevents Spectre/Meltdown attacks
+  {
+    key: 'Cross-Origin-Embedder-Policy',
+    value: 'require-corp',
+  },
+  {
+    key: 'Cross-Origin-Opener-Policy',
+    value: 'same-origin',
+  },
+  {
+    key: 'Cross-Origin-Resource-Policy',
+    value: 'cross-origin', // Allow cross-origin resource access for images/PDFs
+  },
 ]
 
 const nextConfig: NextConfig = {
@@ -189,7 +200,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/:path*',
-        headers: securityHeaders.filter(h => h.key !== 'Content-Security-Policy'),
+        headers: securityHeaders, // Include all security headers including CSP
       },
       // Cache static assets (JS, CSS, images)
       {

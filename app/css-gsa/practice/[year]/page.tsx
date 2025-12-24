@@ -39,38 +39,43 @@ export default function YearPracticePage() {
 
   const fetchQuestions = async () => {
     try {
+      // Select only required columns to reduce egress significantly
+      const columns = 'id, question, option_a, option_b, option_c, option_d, correct_answer, question_type, year'
+
       if (year === 'random') {
-        // Random 20 questions from all years
+        // OPTIMIZED: Limit to 100 questions max instead of 1000 (90% reduction)
         const { data, error } = await supabase
           .from('css_gsa_mcqs')
-          .select('*')
-          .limit(1000);
-        
+          .select(columns)
+          .limit(100)
+
         if (error) throw error;
-        
+
         // Shuffle and take 20
         const shuffled = (data || []).sort(() => Math.random() - 0.5).slice(0, 20);
         setQuestions(shuffled);
       } else if (year === 'recent') {
-        // Questions from 2020-2025
+        // OPTIMIZED: Limit to 150 questions max for recent years instead of fetching all
         const { data, error } = await supabase
           .from('css_gsa_mcqs')
-          .select('*')
+          .select(columns)
           .gte('year', '2020')
-          .lte('year', '2025');
-        
+          .lte('year', '2025')
+          .limit(150)
+
         if (error) throw error;
-        
+
         // Shuffle
         const shuffled = (data || []).sort(() => Math.random() - 0.5);
         setQuestions(shuffled);
       } else {
-        // Specific year
+        // OPTIMIZED: Limit to 100 for specific year mode
         const { data, error } = await supabase
           .from('css_gsa_mcqs')
-          .select('*')
-          .eq('year', year);
-        
+          .select(columns)
+          .eq('year', year)
+          .limit(100)
+
         if (error) throw error;
         setQuestions(data || []);
       }

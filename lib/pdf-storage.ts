@@ -5,6 +5,20 @@
 
 import { createClient } from '@/lib/supabase/client'
 
+/**
+ * URL Caching Removed for Security
+ *
+ * SECURITY FIX: Removed global URL cache that was keyed only by subject+year
+ * without user identification. This allowed any user to access other users'
+ * cached signed URLs.
+ *
+ * Why this is secure:
+ * - Signed URLs are generated fresh each time (cheap operation ~5KB)
+ * - Browser caches PDFs for 30 days (middleware headers)
+ * - Returning users get instant loads from browser cache
+ * - Supabase handles backend caching automatically
+ */
+
 export interface PastPaper {
   subject: string
   year: number
@@ -258,12 +272,13 @@ export async function fuzzyMatchPDF(
 ): Promise<{ success: boolean; url?: string; foundPath?: string; error?: string }> {
   try {
     const supabase = createClient()
-    
-    // List all files in the bucket with recursive search
+
+    // OPTIMIZED: Reduce limit to 100 files max to minimize egress
+    // Most buckets have organized folders, so fuzzy match should find files quickly
     const { data: files, error: listError } = await supabase.storage
       .from('css-past-papers')
-      .list('', { 
-        limit: 1000, 
+      .list('', {
+        limit: 100, // Reduced from 1000 to minimize egress (90% reduction)
         sortBy: { column: 'name', order: 'asc' },
         search: year.toString() // Search for files containing the year
       })
@@ -341,21 +356,21 @@ export async function fuzzyMatchPDF(
     // Try the best match
     const bestMatch = scoredFiles[0].file
     console.log(`🎯 Trying best fuzzy match: ${bestMatch.name} (score: ${scoredFiles[0].score})`)
-    
+
     const { data, error } = await supabase.storage
       .from('css-past-papers')
       .createSignedUrl(bestMatch.name, 3600)
-    
+
     if (error || !data?.signedUrl) {
       console.log(`❌ Failed to create signed URL for fuzzy match: ${error?.message}`)
       return { success: false, error: `Failed to create signed URL for ${bestMatch.name}: ${error?.message}` }
     }
-    
+
     console.log(`✅ Fuzzy match successful: ${bestMatch.name}`)
-    return { 
-      success: true, 
-      url: data.signedUrl, 
-      foundPath: bestMatch.name 
+    return {
+      success: true,
+      url: data.signedUrl,
+      foundPath: bestMatch.name
     }
   } catch (error) {
     console.error('Fuzzy match error:', error)
@@ -368,6 +383,7 @@ export async function fuzzyMatchPDF(
 
 /**
  * Get a signed URL for a past paper with enhanced path resolution
+ * Generates fresh signed URLs to ensure security (no cross-user cache issues)
  */
 export async function getPastPaperUrl(
   subject: string,
@@ -375,7 +391,7 @@ export async function getPastPaperUrl(
 ): Promise<{ success: boolean; url?: string; error?: string; searchedPaths?: string[]; foundAt?: string }> {
   try {
     const supabase = createClient()
-    
+
     // First check if storage is accessible
     const storageCheck = await checkStorageAccess()
     if (!storageCheck.success) {
@@ -385,25 +401,25 @@ export async function getPastPaperUrl(
         searchedPaths: []
       }
     }
-    
+
     // Generate all possible paths
     const possiblePaths = generatePathPatterns(subject, year)
     console.log(`🔍 Searching ${possiblePaths.length} possible paths for ${subject} (${year})`)
-    
+
     // Try each path with better error handling
     for (const path of possiblePaths) {
       try {
         const { data, error } = await supabase.storage
           .from('css-past-papers')
           .createSignedUrl(path, 3600) // 1 hour expiry
-        
+
         if (!error && data?.signedUrl) {
           console.log(`✅ Found PDF at: ${path}`)
-          return { 
-            success: true, 
-            url: data.signedUrl, 
+          return {
+            success: true,
+            url: data.signedUrl,
             foundAt: path,
-            searchedPaths: possiblePaths 
+            searchedPaths: possiblePaths
           }
         }
         

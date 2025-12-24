@@ -3,10 +3,11 @@
 import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Lightbulb, BookOpen, Flag } from 'lucide-react'
+import { Lightbulb, BookOpen, Flag, Loader } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { useAnalytics } from '@/lib/hooks/useAnalytics'
+import { useLazyLoadMCQs } from '@/lib/hooks/useLazyLoadMCQs'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -74,18 +75,43 @@ function CSSQuizContent() {
   const { user, loading: authLoading, checkAccess } = useFreeTrial()
   const analytics = useAnalytics()
 
-  const [mcqs, setMcqs] = useState<MCQ[]>([])
+  // Get subject and year for lazy loading detection
+  const subject = searchParams.get('subject')
+  const year = searchParams.get('year')
+
+  // Determine if we should enable lazy loading (only for subject+year specific paths)
+  const enableLazyLoad = Boolean(subject && year)
+
+  // Use the new lazy loading hook
+  const {
+    mcqs: lazyLoadedMcqs,
+    totalCount,
+    loading: lazyLoading,
+    error: lazyError,
+    isLoadingNextBatch,
+    hasMoreToLoad,
+    checkAndTriggerNextBatch,
+    fetchExplanation,
+    fetchHints,
+  } = useLazyLoadMCQs({
+    subject,
+    year,
+    enableLazyLoad,
+  })
+
+  // Local state
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [score, setScore] = useState(0)
   const [answers, setAnswers] = useState<boolean[]>([])
-  const [loading, setLoading] = useState(true)
   const [wrongAttempts, setWrongAttempts] = useState<number>(0)
   const [showExplanationModal, setShowExplanationModal] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
   const [showHintsModal, setShowHintsModal] = useState(false)
   const [showReportToast, setShowReportToast] = useState(false)
+  const [loadingExplanation, setLoadingExplanation] = useState(false)
+  const [loadingHints, setLoadingHints] = useState(false)
 
   // Gamification state
   const [streak, setStreak] = useState(0)
@@ -97,53 +123,8 @@ function CSSQuizContent() {
   const [encouragementType, setEncouragementType] = useState<
     'correct' | 'incorrect' | 'milestone'
   >('correct')
-  const [showConfetti, setShowConfetti] = useState(false)
-  const [hasLoadedMCQs, setHasLoadedMCQs] = useState(false)
 
-  const fetchMCQs = useCallback(async () => {
-    try {
-      const supabase = createClient()
-      const subject = searchParams.get('subject')
-      const year = searchParams.get('year')
-
-      let query = supabase
-        .from('css_mcqs_enhanced')
-        .select('*')
-
-      if (subject) query = query.eq('subject', subject)
-      if (year) query = query.eq('year', parseInt(year))
-
-      // IMPORTANT: Only limit to 20 for random mode (no year selected)
-      // Year-wise mode should show ALL MCQs for that year
-      if (!year) {
-        query = query.limit(20)
-      }
-
-      const { data, error } = await query
-
-      if (error) throw error
-
-      if (!data || data.length === 0) {
-        setMcqs([])
-        setLoading(false)
-        return
-      }
-
-      // Only shuffle once when initially loading - don't re-shuffle on re-renders
-      const shuffled = [...data].sort(() => Math.random() - 0.5)
-      setMcqs(shuffled)
-      setHasLoadedMCQs(true)
-      setLoading(false)
-
-      // Track quiz start
-      const quizSubject = searchParams.get('subject') || 'General'
-      analytics.trackQuizStart('css-mcq', quizSubject)
-    } catch (error) {
-      console.error('Error fetching MCQs:', error)
-      setLoading(false)
-    }
-  }, [searchParams])
-
+  // Handle auth check and access validation
   useEffect(() => {
     // Wait for auth check to complete
     if (authLoading) {
@@ -157,28 +138,35 @@ function CSSQuizContent() {
       return
     }
 
-    // Only load quiz once - prevent re-fetching on re-renders
-    if (!hasLoadedMCQs) {
-      fetchMCQs()
-      // Preload sounds
-      soundManager.preload().catch((error) => {
-        console.warn('Failed to preload sounds:', error)
-      })
+    // Preload sounds when component mounts
+    soundManager.preload().catch((error) => {
+      console.warn('Failed to preload sounds:', error)
+    })
+  }, [user, authLoading, checkAccess, router])
+
+  // Track quiz start when MCQs are loaded
+  useEffect(() => {
+    if (lazyLoadedMcqs.length > 0 && !lazyLoading) {
+      const quizSubject = subject || 'General'
+      analytics.trackQuizStart('css-mcq', quizSubject)
     }
-  }, [fetchMCQs, user, authLoading, checkAccess, router, hasLoadedMCQs])
+  }, [lazyLoadedMcqs.length, lazyLoading, subject, analytics])
 
   const handleReport = async () => {
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
-      
+      const currentMCQ = lazyLoadedMcqs[currentIndex]
+
+      if (!currentMCQ) return
+
       await supabase.from('question_reports').insert({
         question_id: currentMCQ.id,
         question_type: 'css',
         subject: currentMCQ.subject,
         user_id: user?.id || null
       })
-      
+
       // Show toast notification
       setShowReportToast(true)
       setTimeout(() => setShowReportToast(false), 3000)
@@ -194,7 +182,7 @@ function CSSQuizContent() {
     if (isCorrect) return // Already got it right
 
     setSelectedAnswer(answer)
-    const correct = answer === mcqs[currentIndex].correct_answer
+    const correct = answer === lazyLoadedMcqs[currentIndex].correct_answer
     
     if (correct) {
       setIsCorrect(true)
@@ -249,21 +237,27 @@ function CSSQuizContent() {
   }
 
   const nextQuestion = () => {
-    if (currentIndex < mcqs.length - 1) {
-      setCurrentIndex(currentIndex + 1)
+    if (currentIndex < lazyLoadedMcqs.length - 1) {
+      const nextIndex = currentIndex + 1
+      setCurrentIndex(nextIndex)
       setSelectedAnswer(null)
       setWrongAttempts(0)
       setShowExplanationModal(false)
       setIsCorrect(false)
       setShowHintsModal(false)
+
+      // Smart trigger: Check if we need to load next batch
+      if (enableLazyLoad) {
+        checkAndTriggerNextBatch(nextIndex)
+      }
     } else {
       // Quiz complete!
       soundManager.play('quizComplete')
-      
+
       // Track quiz completion
-      const completionSubject = searchParams.get('subject') || 'General'
-      analytics.trackQuizComplete('css-mcq', score + (isCorrect ? 1 : 0), mcqs.length, completionSubject)
-      
+      const completionSubject = subject || 'General'
+      analytics.trackQuizComplete('css-mcq', score + (isCorrect ? 1 : 0), lazyLoadedMcqs.length, completionSubject)
+
       setShowResult(true)
     }
   }
@@ -295,14 +289,51 @@ function CSSQuizContent() {
     setPoints(0)
     setRecentPoints(0)
     setShowRecentPoints(false)
-    // Reset loading flag to allow re-fetching
-    setHasLoadedMCQs(false)
-    fetchMCQs()
+    // For lazy loading, reload page to start fresh
+    router.refresh()
+  }
+
+  /**
+   * Handle explanation button click - fetch on-demand
+   */
+  const handleShowExplanation = async () => {
+    const currentMCQ = lazyLoadedMcqs[currentIndex]
+    if (!currentMCQ || loadingExplanation) return
+
+    // Check if already loaded
+    if (currentMCQ.explanation_detailed) {
+      setShowExplanationModal(true)
+      return
+    }
+
+    setLoadingExplanation(true)
+    await fetchExplanation(currentMCQ.id)
+    setLoadingExplanation(false)
+    setShowExplanationModal(true)
+  }
+
+  /**
+   * Handle hints button click - fetch on-demand
+   */
+  const handleShowHints = async () => {
+    const currentMCQ = lazyLoadedMcqs[currentIndex]
+    if (!currentMCQ || loadingHints) return
+
+    // Check if already loaded
+    if (currentMCQ.hint_1 || currentMCQ.hint_2 || currentMCQ.hint_3) {
+      setShowHintsModal(true)
+      return
+    }
+
+    setLoadingHints(true)
+    await fetchHints(currentMCQ.id)
+    setLoadingHints(false)
+    setShowHintsModal(true)
   }
 
 
 
-  if (loading) {
+  if (lazyLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-center">
@@ -313,7 +344,23 @@ function CSSQuizContent() {
     )
   }
 
-  if (mcqs.length === 0) {
+  if (lazyError) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="text-center bg-white p-8 rounded-xl shadow-lg">
+          <p className="text-xl text-gray-700 mb-4">Error: {lazyError}</p>
+          <button
+            onClick={() => router.back()}
+            className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (lazyLoadedMcqs.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
@@ -334,11 +381,11 @@ function CSSQuizContent() {
       <>
         <ConfettiCelebration
           trigger={true}
-          intensity={score / mcqs.length >= 0.8 ? 'high' : 'medium'}
+          intensity={score / lazyLoadedMcqs.length >= 0.8 ? 'high' : 'medium'}
         />
         <EnhancedResultsScreen
           score={score}
-          total={mcqs.length}
+          total={lazyLoadedMcqs.length}
           maxStreak={maxStreak}
           totalPoints={points}
           onRestart={restartQuiz}
@@ -348,7 +395,7 @@ function CSSQuizContent() {
     )
   }
 
-  const currentMCQ = mcqs[currentIndex]
+  const currentMCQ = lazyLoadedMcqs[currentIndex]
   const options = [
     { label: 'A', text: currentMCQ.option_a },
     { label: 'B', text: currentMCQ.option_b },
@@ -356,7 +403,7 @@ function CSSQuizContent() {
     { label: 'D', text: currentMCQ.option_d },
   ]
 
-  const hasHints = currentMCQ.hint_1 || currentMCQ.hint_2 || currentMCQ.hint_3
+  // Build hints array from loaded data
   const hints = [currentMCQ.hint_1, currentMCQ.hint_2, currentMCQ.hint_3].filter(
     Boolean
   ) as string[]
@@ -385,12 +432,20 @@ function CSSQuizContent() {
             </button>
             
             <div className="flex items-center gap-2 sm:gap-4">
-              {/* Question Counter */}
+              {/* Question Counter - Shows total or dynamic count if lazy loading */}
               <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20">
                 <span className="text-xs font-medium text-purple-300">Q</span>
                 <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
                 <span className="text-purple-300">/</span>
-                <span className="text-sm sm:text-base text-purple-200">{mcqs.length}</span>
+                <span className="text-sm sm:text-base text-purple-200">
+                  {totalCount ?? lazyLoadedMcqs.length}
+                </span>
+                {/* Show loading indicator if next batch is being fetched */}
+                {isLoadingNextBatch && (
+                  <span className="ml-2 text-xs text-purple-300 animate-pulse">
+                    Loading...
+                  </span>
+                )}
               </div>
               
               <div className="hidden sm:block">
@@ -422,9 +477,9 @@ function CSSQuizContent() {
               </button>
               <button
                 onClick={nextQuestion}
-                disabled={!isCorrect || currentIndex === mcqs.length - 1}
+                disabled={!isCorrect || currentIndex === lazyLoadedMcqs.length - 1}
                 className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-colors ${
-                  !isCorrect || currentIndex === mcqs.length - 1
+                  !isCorrect || currentIndex === lazyLoadedMcqs.length - 1
                     ? 'text-gray-500 cursor-not-allowed bg-white/5'
                     : 'text-white active:text-purple-300 active:bg-white/10 bg-white/5 shadow-sm'
                 }`}
@@ -444,7 +499,7 @@ function CSSQuizContent() {
             <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
               <div
                 className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
-                style={{ width: `${((currentIndex + 1) / mcqs.length) * 100}%` }}
+                style={{ width: `${((currentIndex + 1) / lazyLoadedMcqs.length) * 100}%` }}
               />
             </div>
           </div>
@@ -521,14 +576,24 @@ function CSSQuizContent() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 mb-3">
-          {/* Hints Button - Left side */}
-          {wrongAttempts > 0 && !isCorrect && hasHints && (
+          {/* Hints Button - Left side with loading state */}
+          {wrongAttempts > 0 && !isCorrect && (
             <button
-              onClick={() => setShowHintsModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-shadow"
+              onClick={handleShowHints}
+              disabled={loadingHints}
+              className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Lightbulb className="w-4 h-4" />
-              <span>Hint</span>
+              {loadingHints ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin" />
+                  <span>Loading...</span>
+                </>
+              ) : (
+                <>
+                  <Lightbulb className="w-4 h-4" />
+                  <span>Hint</span>
+                </>
+              )}
             </button>
           )}
 
@@ -538,18 +603,28 @@ function CSSQuizContent() {
               onClick={nextQuestion}
               className="flex-1 px-5 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-bold transition-colors"
             >
-              {currentIndex < mcqs.length - 1 ? 'Next Question →' : 'View Results 🎉'}
+              {currentIndex < lazyLoadedMcqs.length - 1 ? 'Next Question →' : 'View Results 🎉'}
             </button>
           )}
 
-          {/* Explanation Button - Right side, visible and readable */}
-          {isCorrect && currentMCQ.explanation_detailed && (
+          {/* Explanation Button - Right side with on-demand loading */}
+          {isCorrect && (
             <button
-              onClick={() => setShowExplanationModal(true)}
-              className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-shadow"
+              onClick={handleShowExplanation}
+              disabled={loadingExplanation}
+              className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <BookOpen className="w-4 h-4" />
-              <span>Explanation</span>
+              {loadingExplanation ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin" />
+                  <span>Loading...</span>
+                </>
+              ) : (
+                <>
+                  <BookOpen className="w-4 h-4" />
+                  <span>Explanation</span>
+                </>
+              )}
             </button>
           )}
         </div>

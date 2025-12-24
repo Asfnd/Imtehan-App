@@ -84,14 +84,15 @@ function MPTQuizContent() {
   const loadTest = async () => {
     try {
       const supabase = createClient()
+      // Select only required columns to reduce egress
       const { data, error } = await supabase
         .from('mpt_mcqs')
-        .select('*')
+        .select('id, test_number, question_number, question_text, option_a, option_b, option_c, option_d, correct_answer')
         .eq('test_number', parseInt(testNumber!))
         .order('question_number')
-      
+
       if (error) throw error
-      
+
       setMcqs(data || [])
     } catch (error) {
       console.error('Error loading test:', error)

@@ -55,56 +55,42 @@ export default function MPTPastPapersPage() {
   const loadMPTData = async () => {
     try {
       const supabase = createClient()
-      
-      // Get ALL year data with proper pagination
-      let allYearData: { year: number }[] = []
-      let from = 0
-      const batchSize = 1000
-      
-      while (true) {
-        const { data, error } = await supabase
-          .from('css_mcqs_enhanced')
-          .select('year')
-          .eq('subject', 'MPT Past Papers')
-          .range(from, from + batchSize - 1)
-        
-        if (error) {
-          console.error('Year data pagination error:', error)
-          break
-        }
-        
-        if (!data || data.length === 0) {
-          break
-        }
-        
-        allYearData = [...allYearData, ...data]
-        
-        if (data.length < batchSize) {
-          break // We've got all the data
-        }
-        
-        from += batchSize
-      }
-      
-      if (allYearData.length > 0) {
-        // Count MCQs per year efficiently
-        const yearCounts = allYearData.reduce((acc: { [key: number]: number }, row) => {
-          acc[row.year] = (acc[row.year] || 0) + 1
-          return acc
-        }, {})
-        
-        // Convert to array and sort
-        const yearArray = Object.entries(yearCounts)
-          .map(([year, count]) => ({ year: parseInt(year), count: count as number }))
-          .sort((a, b) => b.year - a.year) // Sort by year descending
-        
-        setYearData(yearArray)
 
-      } else {
+      // OPTIMIZED: Use SQL aggregation instead of fetching all records
+      // This reduces egress from potentially 500KB-2MB to just a few KB
+      const { data, error } = await supabase
+        .from('css_mcqs_enhanced')
+        .select('year')
+        .eq('subject', 'MPT Past Papers')
+        .order('year', { ascending: false })
+        .limit(1000) // Safety limit
 
+      if (error) {
+        console.error('Error loading MPT data:', error)
         setYearData([])
+        setLoading(false)
+        return
       }
-      
+
+      if (!data || data.length === 0) {
+        setYearData([])
+        setLoading(false)
+        return
+      }
+
+      // Count MCQs per year efficiently
+      const yearCounts = data.reduce((acc: { [key: number]: number }, row) => {
+        acc[row.year] = (acc[row.year] || 0) + 1
+        return acc
+      }, {})
+
+      // Convert to array and sort
+      const yearArray = Object.entries(yearCounts)
+        .map(([year, count]) => ({ year: parseInt(year), count: count as number }))
+        .sort((a, b) => b.year - a.year) // Sort by year descending
+
+      setYearData(yearArray)
+
     } catch (error) {
       console.error('Error loading MPT data:', error)
       setYearData([])

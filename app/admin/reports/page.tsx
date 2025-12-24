@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
+import { Lock } from 'lucide-react'
 
 interface Report {
   id: number
@@ -18,19 +19,65 @@ export default function ReportsPage() {
   const [reports, setReports] = useState<Report[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>('all')
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null)
   const supabase = createClientComponentClient()
   const router = useRouter()
 
   useEffect(() => {
-    fetchReports()
-  }, [filter])
+    // SECURITY: Check if user is authenticated and has admin role
+    const checkAuthorization = async () => {
+      try {
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+
+        if (userError || !user) {
+          // Not authenticated
+          router.push('/signin')
+          return
+        }
+
+        // Check if user has admin role (from user metadata or custom claims)
+        const userRole = user.user_metadata?.role || 'user'
+        const isAdmin = userRole === 'admin' || user.email?.includes('admin')
+
+        if (!isAdmin) {
+          // Check if email is in admin list (backup check)
+          const { data: adminUser, error: adminError } = await supabase
+            .from('admin_users')
+            .select('id')
+            .eq('user_id', user.id)
+            .single()
+
+          if (adminError || !adminUser) {
+            // Not an admin
+            router.push('/')
+            return
+          }
+        }
+
+        setIsAuthorized(true)
+      } catch (error) {
+        console.error('Authorization check failed:', error)
+        router.push('/')
+      }
+    }
+
+    checkAuthorization()
+  }, [supabase, router])
+
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchReports()
+    }
+  }, [filter, isAuthorized])
 
   const fetchReports = async () => {
     try {
+      // OPTIMIZATION: Select only needed columns instead of '*' and limit to 100 recent
       let query = supabase
         .from('question_reports')
-        .select('*')
+        .select('id, question_id, question_type, subject, reported_at, status, admin_notes')
         .order('reported_at', { ascending: false })
+        .limit(100) // Only fetch 100 most recent, pagination can load more
 
       if (filter !== 'all') {
         query = query.eq('status', filter)
@@ -61,12 +108,24 @@ export default function ReportsPage() {
     }
   }
 
-  if (loading) {
+  if (isAuthorized === null || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading reports...</p>
+          <p className="mt-4 text-gray-600">{isAuthorized === null ? 'Checking authorization...' : 'Loading reports...'}</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Lock className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
+          <p className="text-gray-600">You do not have permission to access this page.</p>
         </div>
       </div>
     )

@@ -45,28 +45,77 @@ function checkRateLimit(identifier: string): boolean {
   return false
 }
 
+/**
+ * SECURITY: Safe IP extraction (resistant to spoofing)
+ * Only trusts Cloudflare header which cannot be spoofed
+ */
 function getIdentifier(request: NextRequest): string {
-  return (
-    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-    request.headers.get('x-real-ip') ||
-    request.headers.get('cf-connecting-ip') ||
-    'unknown'
-  )
+  // SECURITY: Cloudflare header (most trusted - cannot be spoofed)
+  const cfIP = request.headers.get('cf-connecting-ip')
+  if (cfIP) {
+    return cfIP
+  }
+
+  // Fallback for non-Cloudflare environments
+  // NOTE: x-forwarded-for can be spoofed - only trust if behind verified proxy
+  const xForwardedFor = request.headers.get('x-forwarded-for')
+  if (xForwardedFor) {
+    // Take the last IP (closest to reverse proxy)
+    const ips = xForwardedFor.split(',')
+    return ips[ips.length - 1]?.trim() || 'unknown'
+  }
+
+  return 'unknown'
 }
 
+/**
+ * SECURITY: Improved bot detection
+ * Blocks known malicious bots while allowing legitimate tools
+ */
 function isSuspiciousRequest(request: NextRequest): boolean {
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
-  
-  // Block requests without user agent
+
+  // Block requests without user agent (suspicious)
   if (!userAgent) return true
-  
-  // Block known scrapers and bots
-  const suspiciousPatterns = [
-    'bot', 'crawler', 'spider', 'scraper', 'wget', 'curl', 
-    'python', 'requests', 'scrapy', 'selenium', 'phantomjs'
+
+  // SECURITY: Block MALICIOUS scrapers and bots (not all automated tools)
+  // These are specifically known malicious scrapers
+  const maliciousBotPatterns = [
+    // Specific malicious scrapers
+    'scrapy', 'selenium', 'phantomjs', 'headlesschrome',
+    // SQL injection attempts
+    'sqlmap', 'nikto', 'nmap',
+    // Known bad actors
+    'masscan', 'shodan', 'zoomeye',
+    // Credential stuffing / brute force
+    'hydra', 'hashcat',
   ]
-  
-  return suspiciousPatterns.some(pattern => userAgent.includes(pattern))
+
+  // SECURITY: ALLOW legitimate tools
+  // curl, wget, python, requests are used by developers and legitimate services
+  // Only block if combined with other suspicious signs
+  const legitimateTools = ['curl', 'wget', 'python', 'requests', 'java', 'node']
+
+  const isMaliciousBot = maliciousBotPatterns.some(pattern => userAgent.includes(pattern))
+  const isLegitimate = legitimateTools.some(pattern => userAgent.includes(pattern))
+
+  // Block if it's a known malicious bot, even if it looks legitimate
+  if (isMaliciousBot) {
+    return true
+  }
+
+  // Allow legitimate tools (developers need these)
+  if (isLegitimate) {
+    return false
+  }
+
+  // Check for suspicious patterns in legitimate tools
+  // e.g., if it says "curl" but also "sql" or "inject"
+  if (isLegitimate && (userAgent.includes('inject') || userAgent.includes('exploit') || userAgent.includes('attack'))) {
+    return true
+  }
+
+  return false
 }
 
 export default async function middleware(request: NextRequest) {
@@ -177,11 +226,22 @@ export default async function middleware(request: NextRequest) {
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin') // Hide referrer
   response.headers.set('Permissions-Policy', 'interest-cohort=()') // Disable FLoC tracking
   
-  // Prevent caching of sensitive content
-  if (pathname.includes('/quiz') || pathname.includes('/practice') || pathname.includes('/past-papers')) {
+  // Intelligent caching: disable for active quiz pages, allow for subject/year selection pages
+  if (pathname.includes('/quiz') && !pathname.includes('/subjects')) {
+    // Active quiz pages - no caching (user-specific)
     response.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate')
     response.headers.set('Pragma', 'no-cache')
     response.headers.set('Expires', '0')
+  } else if (pathname.includes('/subjects') || pathname.includes('/past-papers')) {
+    // Subject/year selection pages - cache for 5 minutes (data rarely changes)
+    response.headers.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600')
+  }
+
+  // OPTIMIZATION: Cache PDF files for 30 days in browser
+  // Returning users get instant PDF loads from local cache
+  if (pathname.includes('/storage/v1/object/public/css-past-papers') || pathname.includes('/storage/v1/object/public/css-solved-papers')) {
+    response.headers.set('Cache-Control', 'public, max-age=2592000, immutable') // 30 days
+    response.headers.set('Expires', new Date(Date.now() + 2592000000).toUTCString())
   }
   
   // Preconnect to Supabase for faster API calls
