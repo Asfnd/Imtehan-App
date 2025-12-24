@@ -88,11 +88,31 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate answer structure
+    // SECURITY: Validate answer structure
     for (const answer of answers) {
-      if (typeof answer.id !== 'number' || typeof answer.is_correct !== 'boolean') {
+      if (
+        typeof answer.question_id !== 'string' ||
+        typeof answer.selected_answer !== 'string' ||
+        typeof answer.is_correct !== 'boolean' ||
+        typeof answer.time_spent !== 'number'
+      ) {
         return NextResponse.json(
           { error: 'Invalid answer structure' },
+          { status: 400 }
+        )
+      }
+
+      // SECURITY: Validate answer data ranges
+      if (answer.time_spent < 0 || answer.time_spent > 3600000) {
+        return NextResponse.json(
+          { error: 'Invalid time spent on question' },
+          { status: 400 }
+        )
+      }
+
+      if (answer.selected_answer.length > 500) {
+        return NextResponse.json(
+          { error: 'Answer text too long' },
           { status: 400 }
         )
       }

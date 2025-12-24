@@ -95,8 +95,14 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
   const [hasMoreToLoad, setHasMoreToLoad] = useState(true)
   const [nextBatchOffset, setNextBatchOffset] = useState(20) // After initial 20
 
-  // Caching
-  const explanationCacheRef = useRef<Map<number, MCQ>>(new Map())
+  // Caching - store explanation data by MCQ ID
+  const explanationCacheRef = useRef<Map<number, {
+    explanation_detailed?: string
+    explanation_a?: string
+    explanation_b?: string
+    explanation_c?: string
+    explanation_d?: string
+  }>>(new Map())
 
   // Track if we've already triggered next batch load to avoid duplicate requests
   const batchLoadTriggeredRef = useRef<Set<number>>(new Set())

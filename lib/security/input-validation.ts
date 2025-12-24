@@ -152,15 +152,15 @@ export function validateSubject(subject: string): MessageValidation {
  * Detect common attack patterns
  */
 export function detectSuspiciousPatterns(text: string): string[] {
-  const suspiciousPatterns = [
-    // SQL injection patterns
-    /('|("|`)?.*;.*('|("|`)?|(\w*)(union|select|insert|update|delete|drop|create|alter)(\w*))/gi,
+  const suspiciousPatterns: RegExp[] = [
+    // SQL injection patterns (union, select, insert, update, delete, drop, create, alter)
+    /(\bunion\b|\bselect\b|\binsert\b|\bupdate\b|\bdelete\b|\bdrop\b|\bcreate\b|\balter\b)/gi,
     // XSS patterns
-    /<script[^>]*>.*?<\/script>/gi,
-    /<iframe[^>]*>.*?<\/iframe>/gi,
+    /<script/gi,
+    /<iframe/gi,
     /on\w+\s*=/gi, // Event handlers
     // Command injection
-    /[;&|`$(){}[\]]/g,
+    /[;&|`$]/g,
   ]
 
   const detected: string[] = []

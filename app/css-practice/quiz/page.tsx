@@ -76,8 +76,8 @@ function CSSQuizContent() {
   const analytics = useAnalytics()
 
   // Get subject and year for lazy loading detection
-  const subject = searchParams.get('subject')
-  const year = searchParams.get('year')
+  const subject = searchParams.get('subject') || undefined
+  const year = searchParams.get('year') || undefined
 
   // Determine if we should enable lazy loading (only for subject+year specific paths)
   const enableLazyLoad = Boolean(subject && year)
@@ -123,6 +123,7 @@ function CSSQuizContent() {
   const [encouragementType, setEncouragementType] = useState<
     'correct' | 'incorrect' | 'milestone'
   >('correct')
+  const [showConfetti, setShowConfetti] = useState(false)
 
   // Handle auth check and access validation
   useEffect(() => {
