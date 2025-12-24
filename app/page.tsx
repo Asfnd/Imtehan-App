@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Award, TrendingUp, Users, Zap, CheckCircle } from 'lucide-react'
+import { SmartCTAButton } from '@/components/seo/SmartCTAButton'
 
 export const metadata = {
   title: 'CSS Exam Preparation Online | 10,000+ Practice Questions & Solutions',
@@ -148,12 +149,12 @@ export default function Home() {
             CSS Practice Hub
           </div>
           <div className="flex gap-4">
-            <Link href="/signin" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium">
-              Sign In
+            <Link href="/privacy" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium text-sm">
+              Privacy
             </Link>
-            <Link href="/signin" className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-shadow">
+            <SmartCTAButton variant="primary" showIcon={false}>
               Get Started
-            </Link>
+            </SmartCTAButton>
           </div>
         </div>
       </nav>
@@ -169,10 +170,10 @@ export default function Home() {
               Complete CSS preparation with 10,000+ practice questions, official past papers, mock tests & expert solutions
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link href="/signin" className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all hover:scale-105">
-                Start Free Practice <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link href="/about" className="inline-flex items-center justify-center px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 transition-colors">
+              <SmartCTAButton variant="primary">
+                Start Free Practice
+              </SmartCTAButton>
+              <Link href="/privacy" className="inline-flex items-center justify-center px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 transition-colors">
                 Learn More
               </Link>
             </div>
@@ -279,9 +280,9 @@ export default function Home() {
           <p className="text-xl mb-8 opacity-90">
             Join thousands of successful CSS candidates preparing with our platform
           </p>
-          <Link href="/signin" className="inline-flex items-center justify-center px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:shadow-lg transition-all hover:scale-105">
-            Start Free Practice Now <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
+          <SmartCTAButton variant="primary" className="!px-8 !py-3 !bg-white !from-white !to-white !text-purple-600">
+            Start Free Practice Now
+          </SmartCTAButton>
         </div>
       </section>
 
