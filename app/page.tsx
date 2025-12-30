@@ -100,10 +100,13 @@ export default function Home() {
             <h1 className="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight mb-8 leading-[1.2] text-black">
               <div className="text-center">Prepare for competitive exams</div>
               <div className="text-center mt-1 pl-0 sm:pl-12 md:pl-24">
-                with <AnimatedText
-                  words={['confidence', 'precision', 'intelligence', 'excellence']}
-                  interval={1400}
-                />
+                <span className="inline-flex items-baseline gap-3">
+                  <span>with</span>
+                  <AnimatedText
+                    words={['confidence', 'precision', 'intelligence', 'excellence']}
+                    interval={1400}
+                  />
+                </span>
               </div>
             </h1>
 
