@@ -19,10 +19,9 @@ export function InfiniteMarquee({ items, direction = 'left', speed = 40, isRevie
   return (
     <div className="relative overflow-hidden py-4">
       <div
-        className="flex gap-6 md:gap-8"
+        className={`flex gap-6 md:gap-8 w-fit ${direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'}`}
         style={{
-          animation: `marquee-${direction} ${speed}s linear infinite`,
-          width: 'fit-content',
+          animationDuration: `${speed}s`,
         }}
       >
         {allItems.map((item, index) => (
@@ -64,26 +63,6 @@ export function InfiniteMarquee({ items, direction = 'left', speed = 40, isRevie
       {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-white to-transparent pointer-events-none" />
-
-      <style jsx>{`
-        @keyframes marquee-left {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-
-        @keyframes marquee-right {
-          0% {
-            transform: translateX(-33.333%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </div>
   )
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { BookOpen, LogOut } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/Button'
 
@@ -112,9 +112,11 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-[68px] flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-            <BookOpen className="w-4.5 h-4.5 text-white" />
-          </div>
+          <img
+            src="/favicon.svg"
+            alt="Imtehan Logo"
+            className="w-8 h-8"
+          />
           <span className="font-bold text-[19px] text-gray-900">Imtehan</span>
         </Link>
 
