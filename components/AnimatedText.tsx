@@ -23,17 +23,17 @@ export function AnimatedText({ words, interval = 1400 }: AnimatedTextProps) {
       className="inline-block relative overflow-hidden"
       style={{
         width: '11.5ch',
-        height: '1.15em',
-        verticalAlign: 'text-bottom',
-        display: 'inline-block',
-        marginLeft: '-0.1em'
+        height: '1.4em',
+        verticalAlign: 'baseline',
+        lineHeight: '1.4em'
       }}
     >
       {words.map((word, index) => (
         <span
           key={word}
-          className="absolute left-0 top-0 text-gray-500 whitespace-nowrap transition-all duration-350 ease-in-out"
+          className="absolute left-0 text-gray-500 whitespace-nowrap transition-all duration-350 ease-in-out"
           style={{
+            top: '0.18em',
             opacity: currentWordIndex === index ? 1 : 0,
             transform: currentWordIndex === index
               ? 'translateY(0)'
