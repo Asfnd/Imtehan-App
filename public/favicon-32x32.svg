@@ -1,13 +1,12 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#gradient32)"/>
+  <!-- Rounded rectangle background matching primary color -->
+  <rect x="2" y="2" width="28" height="28" rx="6" fill="oklch(0.55 0.22 253)"/>
+
+  <!-- BookOpen icon (Lucide) -->
   <g stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Left page -->
     <path d="M8 22V10c0-.5.5-1.5 2-2 1.5-.5 4-.5 6 1v14c-2-1.5-4.5-1.5-6-1-1.5.5-2 1-2 1z"/>
+    <!-- Right page -->
     <path d="M24 22V10c0-.5-.5-1.5-2-2-1.5-.5-4-.5-6 1v14c2-1.5 4.5-1.5 6-1 1.5.5 2 1 2 1z"/>
   </g>
-  <defs>
-    <linearGradient id="gradient32" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#6366F1"/>
-      <stop offset="100%" style="stop-color:#8B5CF6"/>
-    </linearGradient>
-  </defs>
 </svg>
