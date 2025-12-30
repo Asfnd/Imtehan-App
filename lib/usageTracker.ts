@@ -5,7 +5,7 @@
 
 interface UsageData {
   cssSubjectQuizzes: number    // Subject-wise CSS quizzes
-  cssIdiomsQuizzes: number     // Idioms quizzes  
+  cssIdiomsQuizzes: number     // Idioms quizzes
   cssIdiomsRandom: number      // Random idioms
   mptMockTests: number         // MPT mock tests
   mptPastPapers: number        // MPT past papers
@@ -15,14 +15,25 @@ interface UsageData {
 }
 
 const STORAGE_KEY = 'quiz_usage'
-// FREE TRIAL LIMITS - PERSISTENT ACROSS SESSIONS (NEVER RESET)
-const MAX_CSS_SUBJECT_QUIZZES = 3    // Subject wise CSS MCQs: 3 quizzes allowed
-const MAX_CSS_IDIOMS_QUIZZES = 1     // Idioms by year: 1 quiz allowed
-const MAX_CSS_IDIOMS_RANDOM = 1      // Idioms random: 1 quiz allowed
-const MAX_MPT_MOCK_TESTS = 1         // MPT mock tests: 1 test allowed
-const MAX_MPT_PAST_PAPERS = 1        // MPT past papers: 1 access allowed
-const MAX_OFFICIAL_PAST_PAPERS = 3   // Official past papers: 3 downloads allowed
-const MAX_SOLVED_PAPERS = 0          // Solved papers: sign-in required (no free trial)
+const STORAGE_KEY_SIGNED_IN = 'quiz_usage_signed_in'
+
+// GUEST USER LIMITS - PERSISTENT ACROSS SESSIONS (NEVER RESET)
+const GUEST_MAX_CSS_SUBJECT = 3
+const GUEST_MAX_CSS_IDIOMS = 1
+const GUEST_MAX_CSS_IDIOMS_RANDOM = 1
+const GUEST_MAX_MPT_MOCK = 1
+const GUEST_MAX_MPT_PAST = 1
+const GUEST_MAX_OFFICIAL_PAST = 3
+const GUEST_MAX_SOLVED = 0
+
+// SIGNED-IN FREE USER LIMITS (POST SIGN-IN CREDITS)
+const SIGNEDIN_MAX_CSS_SUBJECT = 2
+const SIGNEDIN_MAX_CSS_IDIOMS = 1
+const SIGNEDIN_MAX_CSS_IDIOMS_RANDOM = 1
+const SIGNEDIN_MAX_MPT_MOCK = 1
+const SIGNEDIN_MAX_MPT_PAST = 1
+const SIGNEDIN_MAX_OFFICIAL_PAST = 2
+const SIGNEDIN_MAX_SOLVED = 0  // Premium only
 
 export const usageTracker = {
   // Get current usage from localStorage
@@ -76,109 +87,211 @@ export const usageTracker = {
     }
   },
 
-  // Increment methods
-  incrementCSSSubjectQuiz(): void {
-    const usage = this.getUsage()
-    usage.cssSubjectQuizzes++
-    this.saveUsage(usage)
+  // Increment methods - now accept isSignedIn parameter
+  incrementCSSSubjectQuiz(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.cssSubjectQuizzes++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.cssSubjectQuizzes++
+      this.saveUsage(usage)
+    }
   },
 
-  incrementCSSIdiomsQuiz(): void {
-    const usage = this.getUsage()
-    usage.cssIdiomsQuizzes++
-    this.saveUsage(usage)
+  incrementCSSIdiomsQuiz(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.cssIdiomsQuizzes++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.cssIdiomsQuizzes++
+      this.saveUsage(usage)
+    }
   },
 
-  incrementCSSIdiomsRandom(): void {
-    const usage = this.getUsage()
-    usage.cssIdiomsRandom++
-    this.saveUsage(usage)
+  incrementCSSIdiomsRandom(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.cssIdiomsRandom++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.cssIdiomsRandom++
+      this.saveUsage(usage)
+    }
   },
 
-  incrementMPTMockTest(): void {
-    const usage = this.getUsage()
-    usage.mptMockTests++
-    this.saveUsage(usage)
+  incrementMPTMockTest(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.mptMockTests++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.mptMockTests++
+      this.saveUsage(usage)
+    }
   },
 
-  incrementMPTPastPaper(): void {
-    const usage = this.getUsage()
-    usage.mptPastPapers++
-    this.saveUsage(usage)
+  incrementMPTPastPaper(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.mptPastPapers++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.mptPastPapers++
+      this.saveUsage(usage)
+    }
   },
 
-  incrementOfficialPastPaper(): void {
-    const usage = this.getUsage()
-    usage.officialPastPapers++
-    this.saveUsage(usage)
+  incrementOfficialPastPaper(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.officialPastPapers++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.officialPastPapers++
+      this.saveUsage(usage)
+    }
   },
 
-  incrementSolvedPaper(): void {
-    const usage = this.getUsage()
-    usage.solvedPapers++
-    this.saveUsage(usage)
+  incrementSolvedPaper(isSignedIn: boolean = false): void {
+    if (isSignedIn) {
+      const usage = this.getSignedInUsage()
+      usage.solvedPapers++
+      this.saveSignedInUsage(usage)
+    } else {
+      const usage = this.getUsage()
+      usage.solvedPapers++
+      this.saveUsage(usage)
+    }
   },
 
-  // Check methods
-  canTakeCSSSubjectQuiz(): boolean {
-    const usage = this.getUsage()
-    return usage.cssSubjectQuizzes < MAX_CSS_SUBJECT_QUIZZES
+  // Get usage for signed-in users
+  getSignedInUsage(): UsageData {
+    if (typeof window === 'undefined') return this.initUsage()
+
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_SIGNED_IN)
+      if (stored) {
+        return JSON.parse(stored)
+      }
+    } catch (error) {
+      // Silently handle localStorage errors
+    }
+
+    return this.initUsage()
   },
 
-  canTakeCSSIdiomsQuiz(): boolean {
-    const usage = this.getUsage()
-    return usage.cssIdiomsQuizzes < MAX_CSS_IDIOMS_QUIZZES
+  // Save signed-in user usage
+  saveSignedInUsage(data: UsageData): void {
+    if (typeof window === 'undefined') return
+
+    try {
+      localStorage.setItem(STORAGE_KEY_SIGNED_IN, JSON.stringify(data))
+    } catch (error) {
+      // Silently handle localStorage errors
+    }
   },
 
-  canTakeCSSIdiomsRandom(): boolean {
-    const usage = this.getUsage()
-    return usage.cssIdiomsRandom < MAX_CSS_IDIOMS_RANDOM
+  // Check methods - now accept isSignedIn parameter
+  canTakeCSSSubjectQuiz(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_CSS_SUBJECT : GUEST_MAX_CSS_SUBJECT
+    return usage.cssSubjectQuizzes < max
   },
 
-  canTakeMPTMockTest(): boolean {
-    const usage = this.getUsage()
-    return usage.mptMockTests < MAX_MPT_MOCK_TESTS
+  canTakeCSSIdiomsQuiz(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_CSS_IDIOMS : GUEST_MAX_CSS_IDIOMS
+    return usage.cssIdiomsQuizzes < max
   },
 
-  canTakeMPTPastPaper(): boolean {
-    const usage = this.getUsage()
-    return usage.mptPastPapers < MAX_MPT_PAST_PAPERS
+  canTakeCSSIdiomsRandom(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_CSS_IDIOMS_RANDOM : GUEST_MAX_CSS_IDIOMS_RANDOM
+    return usage.cssIdiomsRandom < max
   },
 
-  canViewOfficialPastPaper(): boolean {
-    const usage = this.getUsage()
-    return usage.officialPastPapers < MAX_OFFICIAL_PAST_PAPERS
+  canTakeMPTMockTest(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_MPT_MOCK : GUEST_MAX_MPT_MOCK
+    return usage.mptMockTests < max
   },
 
-  canViewSolvedPaper(): boolean {
-    const usage = this.getUsage()
-    return usage.solvedPapers < MAX_SOLVED_PAPERS
+  canTakeMPTPastPaper(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_MPT_PAST : GUEST_MAX_MPT_PAST
+    return usage.mptPastPapers < max
+  },
+
+  canViewOfficialPastPaper(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_OFFICIAL_PAST : GUEST_MAX_OFFICIAL_PAST
+    return usage.officialPastPapers < max
+  },
+
+  canViewSolvedPaper(isSignedIn: boolean = false): boolean {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const max = isSignedIn ? SIGNEDIN_MAX_SOLVED : GUEST_MAX_SOLVED
+    return usage.solvedPapers < max
   },
 
   // Get remaining counts
-  getRemaining() {
-    const usage = this.getUsage()
+  getRemaining(isSignedIn: boolean = false) {
+    const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
+    const limits = isSignedIn ? {
+      cssSubject: SIGNEDIN_MAX_CSS_SUBJECT,
+      cssIdioms: SIGNEDIN_MAX_CSS_IDIOMS,
+      cssIdiomsRandom: SIGNEDIN_MAX_CSS_IDIOMS_RANDOM,
+      mptMock: SIGNEDIN_MAX_MPT_MOCK,
+      mptPast: SIGNEDIN_MAX_MPT_PAST,
+      officialPast: SIGNEDIN_MAX_OFFICIAL_PAST,
+      solved: SIGNEDIN_MAX_SOLVED
+    } : {
+      cssSubject: GUEST_MAX_CSS_SUBJECT,
+      cssIdioms: GUEST_MAX_CSS_IDIOMS,
+      cssIdiomsRandom: GUEST_MAX_CSS_IDIOMS_RANDOM,
+      mptMock: GUEST_MAX_MPT_MOCK,
+      mptPast: GUEST_MAX_MPT_PAST,
+      officialPast: GUEST_MAX_OFFICIAL_PAST,
+      solved: GUEST_MAX_SOLVED
+    }
+
     return {
-      cssSubjectQuizzes: Math.max(0, MAX_CSS_SUBJECT_QUIZZES - usage.cssSubjectQuizzes),
-      cssIdiomsQuizzes: Math.max(0, MAX_CSS_IDIOMS_QUIZZES - usage.cssIdiomsQuizzes),
-      cssIdiomsRandom: Math.max(0, MAX_CSS_IDIOMS_RANDOM - usage.cssIdiomsRandom),
-      mptMockTests: Math.max(0, MAX_MPT_MOCK_TESTS - usage.mptMockTests),
-      mptPastPapers: Math.max(0, MAX_MPT_PAST_PAPERS - usage.mptPastPapers),
-      officialPastPapers: Math.max(0, MAX_OFFICIAL_PAST_PAPERS - usage.officialPastPapers),
-      solvedPapers: Math.max(0, MAX_SOLVED_PAPERS - usage.solvedPapers)
+      cssSubjectQuizzes: Math.max(0, limits.cssSubject - usage.cssSubjectQuizzes),
+      cssIdiomsQuizzes: Math.max(0, limits.cssIdioms - usage.cssIdiomsQuizzes),
+      cssIdiomsRandom: Math.max(0, limits.cssIdiomsRandom - usage.cssIdiomsRandom),
+      mptMockTests: Math.max(0, limits.mptMock - usage.mptMockTests),
+      mptPastPapers: Math.max(0, limits.mptPast - usage.mptPastPapers),
+      officialPastPapers: Math.max(0, limits.officialPast - usage.officialPastPapers),
+      solvedPapers: Math.max(0, limits.solved - usage.solvedPapers)
     }
   },
 
   // Get max limits (for displaying total available)
-  getMaxLimits() {
-    return {
-      cssSubjectQuizzes: MAX_CSS_SUBJECT_QUIZZES,
-      cssIdiomsQuizzes: MAX_CSS_IDIOMS_QUIZZES,
-      cssIdiomsRandom: MAX_CSS_IDIOMS_RANDOM,
-      mptMockTests: MAX_MPT_MOCK_TESTS,
-      mptPastPapers: MAX_MPT_PAST_PAPERS,
-      officialPastPapers: MAX_OFFICIAL_PAST_PAPERS,
-      solvedPapers: MAX_SOLVED_PAPERS
+  getMaxLimits(isSignedIn: boolean = false) {
+    return isSignedIn ? {
+      cssSubjectQuizzes: SIGNEDIN_MAX_CSS_SUBJECT,
+      cssIdiomsQuizzes: SIGNEDIN_MAX_CSS_IDIOMS,
+      cssIdiomsRandom: SIGNEDIN_MAX_CSS_IDIOMS_RANDOM,
+      mptMockTests: SIGNEDIN_MAX_MPT_MOCK,
+      mptPastPapers: SIGNEDIN_MAX_MPT_PAST,
+      officialPastPapers: SIGNEDIN_MAX_OFFICIAL_PAST,
+      solvedPapers: SIGNEDIN_MAX_SOLVED
+    } : {
+      cssSubjectQuizzes: GUEST_MAX_CSS_SUBJECT,
+      cssIdiomsQuizzes: GUEST_MAX_CSS_IDIOMS,
+      cssIdiomsRandom: GUEST_MAX_CSS_IDIOMS_RANDOM,
+      mptMockTests: GUEST_MAX_MPT_MOCK,
+      mptPastPapers: GUEST_MAX_MPT_PAST,
+      officialPastPapers: GUEST_MAX_OFFICIAL_PAST,
+      solvedPapers: GUEST_MAX_SOLVED
     }
   },
 

@@ -1,443 +1,400 @@
-import Link from 'next/link'
-import { ArrowRight, BookOpen, Award, TrendingUp, Users, Zap, CheckCircle, Target, Clock, BarChart3 } from 'lucide-react'
-import { SmartCTAButton } from '@/components/seo/SmartCTAButton'
-import ReviewsCarousel from '@/components/ReviewsCarousel'
+'use client'
 
-export const metadata = {
-  title: 'Exam Prep Platform | CSS, FPSC & More',
-  description: 'Practice CSS, FPSC, and other competitive exams with comprehensive question banks, past papers, and detailed solutions. Free trial available.',
-  keywords: 'exam prep, CSS practice, FPSC preparation, competitive exams, question bank',
-  openGraph: {
-    title: 'Exam Prep Platform | Practice CSS & FPSC',
-    description: 'Prepare for CSS and FPSC exams with thousands of practice questions and past papers.',
-    type: 'website',
-  },
-}
+import Link from "next/link"
+import { Button } from "@/components/ui/Button"
+import { ArrowRight, BookOpen, BarChart3, Users, Trophy, Target, Clock } from "lucide-react"
+import { useState } from "react"
+import { InfiniteMarquee } from "@/components/InfiniteMarquee"
+import { AnimatedText } from "@/components/AnimatedText"
+import NavigationBar from "@/components/NavigationBar"
 
-const SUBJECTS = [
-  'Pakistan Affairs', 'Islamic Studies', 'English Essay', 'English Précis & Composition',
-  'General Science & Ability', 'Current Affairs', 'International Relations', 'Political Science',
-  'Public Administration', 'Accounting & Auditing', 'Banking & Finance', 'Business Administration',
-  'Environmental Sciences', 'Computer Science', 'Information Technology', 'Journalism & Mass Communication',
-  'Law', 'Sociology', 'Psychology', 'Philosophy'
-]
+function NewsletterSection() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
 
-const FAQ_ITEMS = [
-  {
-    q: 'How do I get started?',
-    a: 'Sign up with your Google account and you\'ll have instant access to all practice materials. No credit card required.'
-  },
-  {
-    q: 'Is there a free trial?',
-    a: 'Yes! You can try the platform with limited access to get a feel for how it works before committing.'
-  },
-  {
-    q: 'What exams can I prepare for?',
-    a: 'Currently we offer CSS preparation. FPSC is coming soon. We plan to add more competitive exams based on user demand.'
-  },
-  {
-    q: 'Can I track my progress?',
-    a: 'Absolutely. Our analytics show your performance by subject, question type, and time spent. You\'ll see exactly where you need to improve.'
-  },
-  {
-    q: 'Is the content updated regularly?',
-    a: 'Yes, we add new questions and past papers regularly to keep the content current and relevant.'
-  },
-  {
-    q: 'Works on mobile?',
-    a: 'Yes, fully responsive on all devices - phones, tablets, and desktops. Practice anywhere, anytime.'
-  }
-]
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('loading')
+    setMessage('')
 
-const REVIEWS = [
-  {
-    name: 'Ayesha Malik',
-    role: 'CSS Student',
-    text: 'I was struggling with Pakistan Affairs until I found this platform. The explanations for each question really helped me understand the concepts instead of just memorizing.',
-    location: 'Karachi'
-  },
-  {
-    name: 'Hassan Ali',
-    role: 'MBA Aspirant',
-    text: 'Using this for CSS prep. What I love is how organized everything is - I can practice by subject and see where I\'m weak. Way better than random online resources.',
-    location: 'Islamabad'
-  },
-  {
-    name: 'Zara Hussain',
-    role: 'Engineering Student',
-    text: 'Preparing for CSS while finishing my degree. The past papers section is a game changer - I can actually see the pattern of questions and what to focus on.',
-    location: 'Lahore'
-  },
-  {
-    name: 'Muhammad Tariq',
-    role: 'First-Time CSS Taker',
-    text: 'Started with the free trial just to explore. Within a few questions, I realized I needed this. The solutions explain WHY answers are correct, not just WHAT is correct.',
-    location: 'Rawalpindi'
-  },
-  {
-    name: 'Nimra Khan',
-    role: 'CSS Preparation',
-    text: 'The progress tracking actually motivates me. Seeing improvement in specific topics keeps me going. Also love that I can practice at 2 AM without worrying about schedules.',
-    location: 'Peshawar'
-  },
-  {
-    name: 'Bilal Ahmed',
-    role: 'Student (Part-time Job)',
-    text: 'Perfect for students like me who can\'t attend expensive coaching. I practice during breaks, weekends. The quality is genuinely good - feels like real exam prep.',
-    location: 'Multan'
-  }
-]
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
 
-export default function Home() {
-  // Organization Schema for SEO
-  const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'CSS Practice Hub',
-    description: 'Complete CSS exam preparation platform with 10,000+ practice questions, past papers, and solutions',
-    url: 'https://prepz.vercel.app',
-    logo: 'https://prepz.vercel.app/logo.svg',
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'Customer Support',
-      url: 'https://prepz.vercel.app/contact'
-    },
-    sameAs: [
-      'https://facebook.com',
-      'https://twitter.com',
-      'https://linkedin.com'
-    ]
-  }
+      const data = await response.json()
 
-  // EducationalWebsite Schema
-  const educationalSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'EducationalWebsite',
-    name: 'CSS Practice Hub',
-    url: 'https://prepz.vercel.app',
-    description: 'CSS Exam Preparation Platform'
-  }
-
-  // FAQPage Schema for featured snippets
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'How many practice questions are available?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'We offer 10,000+ comprehensive MCQs covering all CSS subjects with detailed explanations and solutions.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I access past papers?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes! Our platform includes 1000+ official CSS past papers from previous years with complete solutions.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Are mock tests available?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Absolutely. Take timed mock tests that simulate real CSS exam conditions with instant performance feedback.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How does the progress tracking work?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Track your performance across all subjects, identify weak areas, and monitor improvement with detailed analytics.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What is the pass rate of users on this platform?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Our users achieve a 95% pass rate on the CSS exam compared to the national average of 5%.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I use the platform on mobile?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, our platform is fully responsive and works seamlessly on all devices - mobile, tablet, and desktop.'
-        }
+      if (response.ok) {
+        setStatus('success')
+        setMessage('Successfully subscribed!')
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage(data.error || 'Something went wrong. Please try again.')
       }
-    ]
+    } catch (error) {
+      setStatus('error')
+      setMessage('Failed to subscribe. Please try again.')
+    }
   }
 
   return (
-    <>
-      {/* Structured Data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(educationalSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+    <section className="py-20 md:py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">
+          Never miss new resources
+        </h2>
+        <p className="text-lg text-muted-foreground mb-8 text-pretty max-w-2xl mx-auto">
+          Get notified when we add new practice tests, past papers, or launch new exam preparations.
+        </p>
 
-      <div className="w-full">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-gray-900">
-            Imtehan
-          </Link>
-          <div className="flex items-center gap-1">
-            <Link href="/css-practice/subjects" className="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 font-medium text-sm transition-colors rounded-lg">
-              CSS Practice
-            </Link>
-            <button className="px-4 py-2 text-gray-400 font-medium text-sm cursor-not-allowed hover:bg-gray-100 rounded-lg transition-colors" disabled>
-              FPSC
-              <span className="text-xs ml-1 bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">Soon</span>
-            </button>
-            <Link href="/contact" className="px-4 py-2 text-gray-700 hover:bg-gray-100 font-medium text-sm transition-colors rounded-lg">
-              Help
-            </Link>
-            <div className="ml-4 pl-4 border-l border-gray-200">
-              <SmartCTAButton variant="primary" showIcon={false} className="!text-sm">
-                Sign In
-              </SmartCTAButton>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-1 relative">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+                disabled={status === 'loading' || status === 'success'}
+                className="w-full h-12 px-4 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              />
             </div>
+            <Button
+              type="submit"
+              size="lg"
+              className="h-12 px-6"
+              disabled={status === 'loading' || status === 'success'}
+            >
+              {status === 'loading' ? 'Subscribing...' : status === 'success' ? 'Subscribed!' : 'Subscribe'}
+            </Button>
           </div>
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-white to-gray-50 py-20 sm:py-28 md:py-36">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-950 mb-6 leading-tight">
-              Prepare for Competitive Exams
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
-              Practice with thousands of questions, review official past papers, and track your progress. Everything you need to succeed.
+          {message && (
+            <p className={`mt-4 text-sm ${status === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+              {message}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <SmartCTAButton variant="primary">
-                Start Your Free Trial
-              </SmartCTAButton>
-              <Link href="#available" className="inline-flex items-center justify-center px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 transition-colors">
-                Explore Options
+          )}
+        </form>
+
+        <p className="text-xs text-muted-foreground mt-4">
+          We respect your privacy. Unsubscribe anytime.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[#F9FAFB]">
+      <NavigationBar />
+
+      <section className="relative bg-white">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-16 md:pt-32 md:pb-20">
+          <div className="max-w-5xl mx-auto text-center">
+            <h1 className="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight mb-8 leading-[1.2] text-black">
+              <div className="text-center">Prepare for competitive exams</div>
+              <div className="text-center mt-1 pl-0 sm:pl-12 md:pl-24">
+                with <AnimatedText
+                  words={['confidence', 'precision', 'intelligence', 'excellence']}
+                  interval={1400}
+                />
+              </div>
+            </h1>
+
+            <p className="text-[17px] md:text-[19px] text-gray-600 mb-10 leading-[1.6] max-w-2xl mx-auto font-normal">
+              A comprehensive learning platform designed to help you excel in competitive examinations through effective practice, personalized insights, and proven strategies.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/css">
+                <Button size="lg" className="h-[52px] px-8 text-[16px] font-semibold bg-black hover:bg-gray-900 text-white rounded-xl shadow-sm w-full sm:w-auto">
+                  Get Started
+                </Button>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What's Available Section */}
-      <section className="py-20 sm:py-28 bg-white" id="available">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 mb-4">
-              Choose Your Exam Prep
-            </h2>
-            <p className="text-lg text-gray-600">Available and coming soon options</p>
+      {/* Floating Marquee Section */}
+      <section className="py-12 md:py-16 border-y bg-[#FAFAFA] overflow-hidden">
+        <div className="mb-6">
+          <InfiniteMarquee
+            direction="right"
+            speed={50}
+            items={[
+              { text: "Islamic Studies", subtext: "500+ Questions" },
+              { text: "Pakistan Affairs", subtext: "600+ Questions" },
+              { text: "Current Affairs", subtext: "800+ Questions" },
+              { text: "English (Précis & Composition)", subtext: "450+ Questions" },
+              { text: "General Knowledge", subtext: "700+ Questions" },
+              { text: "International Relations", subtext: "550+ Questions" },
+            ]}
+          />
+        </div>
+        <div>
+          <InfiniteMarquee
+            direction="left"
+            speed={70}
+            isReview={true}
+            items={[
+              {
+                text: "Best decision for CSS prep. The practice tests mirror actual exam difficulty perfectly. Highly recommend!",
+                subtext: "Ayesha Rahman, CSS 2024"
+              },
+              {
+                text: "Past papers with detailed solutions are gold. Saved me so much time compared to academy notes.",
+                subtext: "Ali Raza, PMS Officer"
+              },
+              {
+                text: "Being able to practice anywhere on my phone was a lifesaver during my job. Finally cleared CSS!",
+                subtext: "Hassan Ahmed, Karachi"
+              },
+              {
+                text: "The subject-wise analytics showed exactly what to focus on. My scores improved dramatically.",
+                subtext: "Zara Khan, Lahore"
+              },
+              {
+                text: "Tried other platforms but this one has the most authentic CSS-style questions. Really well done.",
+                subtext: "Usman Tariq, Islamabad"
+              },
+              {
+                text: "The explanations actually help you understand concepts instead of just cramming. Worth it!",
+                subtext: "Mariam Siddiqui, NUST"
+              },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section id="features" className="py-24 md:py-32 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">Built for serious learners</h2>
+            <p className="text-lg text-muted-foreground text-pretty">
+              Everything you need to prepare effectively and efficiently
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-10 max-w-3xl mx-auto">
-            <div className="p-8 rounded-2xl border-2 border-blue-400 bg-gradient-to-br from-blue-50 via-white to-blue-50 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-950">CSS Preparation</h3>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <Target className="w-5.5 h-5.5 text-primary" />
               </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Complete exam prep with practice questions, official past papers, and detailed solutions. Start practicing immediately.
+              <h3 className="text-lg font-semibold mb-2.5">Adaptive learning</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Questions that adjust to your level for optimal learning
               </p>
-              <Link href="/css-practice/subjects" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors">
-                Start Practicing Now <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
-            <div className="p-8 rounded-2xl border-2 border-gray-300 bg-gray-50 shadow-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-400">FPSC Preparation</h3>
+
+            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <BarChart3 className="w-5.5 h-5.5 text-primary" />
               </div>
-              <p className="text-gray-500 mb-6 leading-relaxed">
-                Coming soon. We're building comprehensive FPSC exam preparation resources to help you succeed.
+              <h3 className="text-lg font-semibold mb-2.5">Performance insights</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Track progress with detailed analytics and metrics
               </p>
-              <button disabled className="text-gray-400 font-semibold cursor-not-allowed">
-                Coming in 2025
-              </button>
+            </div>
+
+            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <Trophy className="w-5.5 h-5.5 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2.5">Expert-curated</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Content created by top educators with detailed explanations
+              </p>
+            </div>
+
+            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <Users className="w-5.5 h-5.5 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2.5">Past papers</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Official exam papers with complete solutions
+              </p>
+            </div>
+
+            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <Clock className="w-5.5 h-5.5 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2.5">Practice anytime</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                No schedules, no classes. Learn at your own pace
+              </p>
+            </div>
+
+            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <BookOpen className="w-5.5 h-5.5 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2.5">Comprehensive library</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                10,000+ practice questions across 50+ test subjects
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works - Simplified */}
-      <section className="py-20 sm:py-28 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 mb-4">
-              How It Works
-            </h2>
-            <p className="text-lg text-gray-600">Three simple steps to better preparation</p>
+      <section id="how-it-works" className="py-24 md:py-32 bg-white">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">How it works</h2>
+            <p className="text-lg text-muted-foreground">Simple steps to exam success</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                <BookOpen className="w-7 h-7 text-blue-600" />
+
+          <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary font-semibold text-lg mb-4">
+                1
               </div>
-              <h3 className="text-xl font-bold text-gray-950 mb-4">Practice Questions</h3>
-              <p className="text-gray-600 leading-relaxed">Thousands of organized questions by subject and difficulty. Learn with detailed explanations for each answer.</p>
+              <h3 className="text-lg font-semibold mb-2">Choose your test</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Select from CSS, MPT, or browse past papers
+              </p>
             </div>
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <Award className="w-7 h-7 text-green-600" />
+
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary font-semibold text-lg mb-4">
+                2
               </div>
-              <h3 className="text-xl font-bold text-gray-950 mb-4">Past Papers</h3>
-              <p className="text-gray-600 leading-relaxed">Official exam papers with solutions. Understand question patterns and what to expect in the actual exam.</p>
+              <h3 className="text-lg font-semibold mb-2">Practice daily</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Work through questions with detailed explanations
+              </p>
             </div>
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all">
-              <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <TrendingUp className="w-7 h-7 text-purple-600" />
+
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary font-semibold text-lg mb-4">
+                3
               </div>
-              <h3 className="text-xl font-bold text-gray-950 mb-4">Track Progress</h3>
-              <p className="text-gray-600 leading-relaxed">See your improvements over time. Identify weak areas and focus your effort where it matters most.</p>
+              <h3 className="text-lg font-semibold mb-2">Track & improve</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Monitor your progress and master weak areas
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Reviews Section - Interactive Carousel */}
-      <section className="py-20 sm:py-28 bg-white">
-        <ReviewsCarousel reviews={REVIEWS} />
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 sm:py-28 bg-blue-600 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Why Choose Imtehan?
-            </h2>
-            <p className="text-lg text-blue-100">Built for serious exam preparation</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Quality Content</h3>
-                <p className="text-blue-100">Verified questions and official past papers. No filler, only what you need.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Detailed Solutions</h3>
-                <p className="text-blue-100">Understand WHY answers are correct. Learn concepts, not just memorize.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Real Analytics</h3>
-                <p className="text-blue-100">Track which topics you've mastered and where to focus your time.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Practice Anytime</h3>
-                <p className="text-blue-100">No schedules, no classes. Learn at your own pace, your own time.</p>
-              </div>
-            </div>
-          </div>
+      <section className="py-24 md:py-32 bg-[#F9FAFB]">
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-5 text-balance">Ready to start practicing?</h2>
+          <p className="text-lg text-muted-foreground mb-8 text-pretty">
+            Join thousands of students achieving their exam goals
+          </p>
+          <Link href="/css">
+            <Button size="lg" className="h-12 px-8 text-base">
+              Start CSS Practice Free
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 sm:py-28 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 mb-4">
-              Common Questions
-            </h2>
-            <p className="text-lg text-gray-600">Everything you need to know</p>
-          </div>
-          <div className="space-y-4">
-            {FAQ_ITEMS.map((item, i) => (
-              <details key={i} className="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer">
-                <summary className="flex items-center justify-between font-semibold text-gray-950">
-                  {item.q}
-                  <span className="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <p className="text-gray-600 mt-4 leading-relaxed">{item.a}</p>
-              </details>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <p className="text-gray-600 mb-4">Still have questions?</p>
-            <Link href="/contact" className="inline-flex items-center justify-center px-6 py-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors">
-              Get In Touch <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      <NewsletterSection />
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-white font-semibold mb-4">Imtehan</h3>
-              <p className="text-sm">Prepare for competitive exams with comprehensive question banks and solutions.</p>
+      <footer className="border-t py-16 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-6 gap-12 mb-12">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+                  <BookOpen className="w-4 h-4 text-primary-foreground" />
+                </div>
+                <span className="font-semibold">Imtehan</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Practice smarter and score higher on competitive exams
+              </p>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Prepare</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/css-practice/subjects" className="hover:text-white">CSS Practice</Link></li>
-                <li><Link href="/past-papers" className="hover:text-white">Past Papers</Link></li>
-                <li><a href="#" className="hover:text-white">FPSC (Coming Soon)</a></li>
+              <h4 className="font-semibold mb-4 text-sm">Practice Tests</h4>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link href="/css" className="text-muted-foreground hover:text-foreground transition-colors">
+                    CSS
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/mpt-practice" className="text-muted-foreground hover:text-foreground transition-colors">
+                    MPT Practice
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Help</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
-                <li><Link href="/privacy" className="hover:text-white">Privacy</Link></li>
-                <li><Link href="/terms" className="hover:text-white">Terms</Link></li>
+              <h4 className="font-semibold mb-4 text-sm">Account</h4>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link href="/signin" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/css" className="text-muted-foreground hover:text-foreground transition-colors">
+                    CSS Resources
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/css/premium" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Premium
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/profile" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Profile
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Twitter</a></li>
-                <li><a href="#" className="hover:text-white">Facebook</a></li>
-                <li><a href="#" className="hover:text-white">Email</a></li>
+              <h4 className="font-semibold mb-4 text-sm">Help</h4>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4 text-sm">Legal</h4>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Privacy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Terms
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2024 Imtehan. All rights reserved.</p>
+
+          <div className="pt-4 flex justify-center items-center">
+            <p className="text-sm text-muted-foreground">&copy; 2025 Imtehan. All rights reserved.</p>
           </div>
         </div>
       </footer>
-      </div>
-    </>
+    </main>
   )
 }

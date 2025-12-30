@@ -69,10 +69,10 @@ export default function MPTPracticeMain() {
 
   if (loading) {
     return (
-      <div className="h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center">
-          <div className="w-10 h-10 border-3 border-purple-400 border-t-purple-200 rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-purple-200 text-sm">Loading...</p>
+          <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <p className="text-muted-foreground text-sm">Loading...</p>
         </div>
       </div>
     )
@@ -81,67 +81,75 @@ export default function MPTPracticeMain() {
   return (
     <>
       <DevToolsWarning />
-      <SignInPopup 
-        isOpen={showSignInPopup} 
+      <SignInPopup
+        isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
         message="Sign in to continue practicing"
       />
       <ProtectedContent>
-        <div className="h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden flex flex-col">
-          {/* Header */}
-          <div className="bg-black/20 backdrop-blur-xl border-b border-white/10 z-10 shadow-lg">
-            <div className="max-w-5xl mx-auto px-4 py-4">
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">
+          {/* Clean Header */}
+          <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
                 <button
-                  onClick={() => router.push('/dashboard')}
-                  className="flex items-center gap-2 px-3 py-2 text-purple-200 hover:text-white hover:bg-white/10 rounded-xl transition-all active:scale-95"
+                  onClick={() => router.push('/css')}
+                  className="flex items-center gap-2 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  <span className="font-medium">Back</span>
+                  <span className="font-medium text-sm">Back to Dashboard</span>
                 </button>
-                
-                <div className="text-center">
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">Choose your MPT Practice Mode</h1>
-                </div>
-                
-                <div className="w-16"></div>
+
+                <h1 className="text-lg md:text-xl font-semibold text-foreground">MPT Practice</h1>
+
+                <div className="w-32"></div>
               </div>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex items-center justify-center px-4">
-            <div className="w-full max-w-6xl mx-auto">
+          <div className="flex-1 py-8 md:py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-5xl mx-auto">
               {/* Title Section */}
               <div className="text-center mb-8">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
+                  MPT Practice Modes
+                </h2>
+                <p className="text-gray-600">Choose how you want to practice for MPT</p>
               </div>
 
               {/* Practice Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto animate-fade-in">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {practiceTypes.map((type) => {
                   const Icon = type.icon
                   return (
                     <div
                       key={type.id}
-                      className="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:scale-[1.01] h-80"
+                      className="group relative bg-white rounded-lg border border-gray-200 hover:border-blue-400 shadow-sm hover:shadow-md hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
                       onClick={() => router.push(type.route)}
                     >
-                      <div className="text-center h-full flex flex-col justify-center">
-                        <div className={`inline-flex p-4 bg-gradient-to-br ${type.gradient} rounded-2xl shadow-lg mb-5 group-hover:scale-105 transition-all duration-300 mx-auto`}>
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                      <div className="relative p-8 text-center">
+                        {/* Icon */}
+                        <div className="w-16 h-16 mx-auto rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-all duration-300">
                           <Icon className="w-8 h-8 text-white" />
                         </div>
-                        
-                        <h3 className="text-xl font-black text-white mb-2">{type.title}</h3>
-                        <p className="text-purple-200 mb-6 text-sm">{type.description}</p>
-                        
-                        <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-4 mb-6 border border-purple-400/30">
-                          <div className="text-2xl font-black bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent mb-1">
+
+                        {/* Title & Description */}
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-900 transition-colors">{type.title}</h3>
+                        <p className="text-gray-600 mb-6 text-sm">{type.description}</p>
+
+                        {/* Stats */}
+                        <div className="bg-blue-50 rounded-lg p-4 mb-6 border border-blue-100">
+                          <div className="text-2xl font-semibold text-blue-600 mb-1">
                             {type.stats.split(' ')[0]}
                           </div>
-                          <div className="text-xs text-purple-200 font-semibold">{type.stats.split(' ').slice(1).join(' ')}</div>
+                          <div className="text-xs text-gray-600 font-medium">{type.stats.split(' ').slice(1).join(' ')}</div>
                         </div>
-                        
-                        <button className={`w-full bg-gradient-to-r ${type.gradient} hover:shadow-lg text-white py-3 px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl`}>
+
+                        {/* Button */}
+                        <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-all shadow-sm hover:shadow-md">
                           Start Practice
                         </button>
                       </div>

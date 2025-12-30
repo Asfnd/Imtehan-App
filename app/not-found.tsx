@@ -16,18 +16,18 @@ export default function NotFound() {
 
         <div className="space-y-4">
           <Link
-            href="/dashboard"
+            href="/css"
             className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105"
           >
-            Go to Dashboard
+            Go to CSS Resources
           </Link>
           
           <div className="flex gap-4 justify-center mt-4">
             <Link
-              href="/css-practice"
+              href="/css"
               className="text-purple-600 hover:text-purple-700 font-semibold"
             >
-              CSS Practice
+              CSS
             </Link>
             <span className="text-gray-400">•</span>
             <Link
@@ -35,13 +35,6 @@ export default function NotFound() {
               className="text-purple-600 hover:text-purple-700 font-semibold"
             >
               MPT Practice
-            </Link>
-            <span className="text-gray-400">•</span>
-            <Link
-              href="/past-papers"
-              className="text-purple-600 hover:text-purple-700 font-semibold"
-            >
-              Past Papers
             </Link>
           </div>
         </div>

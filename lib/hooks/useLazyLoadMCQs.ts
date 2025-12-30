@@ -4,47 +4,23 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 /**
- * SECURITY: Whitelist of valid subjects to prevent SQL injection and invalid queries
- */
-const VALID_SUBJECTS = [
-  'pakistan-affairs',
-  'islamic-studies',
-  'english-essay',
-  'english-precis-and-composition',
-  'general-science-and-ability',
-  'current-affairs',
-  'international-relations',
-  'political-science',
-  'public-administration',
-  'accounting-and-auditing',
-  'banking-and-finance',
-  'business-administration',
-  'environmental-sciences',
-  'computer-science',
-  'information-technology',
-  'journalism-and-mass-communication',
-  'law',
-  'sociology',
-  'psychology',
-  'philosophy',
-  'education',
-  'economics',
-  'geography',
-  'history',
-  'literature',
-  'chemistry',
-  'physics',
-  'biology',
-  'mathematics'
-]
-
-/**
- * Validate subject against whitelist
+ * SECURITY: Validate subject to prevent SQL injection
+ * We don't use a strict whitelist since subjects come from the database
+ * Instead, we validate the format and let Supabase handle the query safely
  */
 function isValidSubject(subject: string): boolean {
-  if (!subject) return false
-  const normalized = subject.toLowerCase().trim()
-  return VALID_SUBJECTS.includes(normalized)
+  if (!subject || typeof subject !== 'string') return false
+
+  // Basic validation: ensure subject doesn't contain malicious patterns
+  // Allow alphanumeric, spaces, hyphens, parentheses, and common punctuation
+  const safePattern = /^[a-zA-Z0-9\s\-()&,'\.]+$/
+
+  if (!safePattern.test(subject)) return false
+
+  // Additional safety: max length check
+  if (subject.length > 200) return false
+
+  return true
 }
 
 export interface MCQ {
@@ -146,10 +122,13 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
 
       // SECURITY: Validate subject against whitelist
       if (subject && !isValidSubject(subject)) {
-        setError('Invalid subject specified')
+        console.error('❌ Subject validation failed:', subject)
+        setError(`Invalid subject format: ${subject}`)
         setLoading(false)
         return
       }
+
+      console.log('✅ Loading MCQs:', { subject, year, enableLazyLoad })
 
       const columns = 'id, question_text, option_a, option_b, option_c, option_d, correct_answer, subject, year, topic, difficulty'
 
@@ -164,13 +143,23 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       const batchSize = 20
       query = query.limit(batchSize)
 
+      console.log('🔍 Executing query with:', { subject, year, limit: batchSize })
       const { data, error: queryError } = await query
 
-      if (queryError) throw queryError
+      if (queryError) {
+        console.error('❌ Database query error:', queryError)
+        setError(`Database error: ${queryError.message}`)
+        setLoading(false)
+        return
+      }
+
+      console.log(`✅ Query returned ${data?.length || 0} MCQs`)
+
       if (!data || data.length === 0) {
+        console.warn('⚠️ No MCQs found for:', { subject, year })
         setMcqs([])
         setLoading(false)
-        setError('No MCQs found for this selection')
+        setError(`No MCQs found for ${subject || 'this selection'}${year ? ` (${year})` : ''}`)
         return
       }
 

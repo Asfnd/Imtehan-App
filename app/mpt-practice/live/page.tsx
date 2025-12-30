@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Lock } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { usageTracker } from '@/lib/usageTracker'
+import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import FeedbackButton from '@/components/FeedbackButton'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -17,39 +17,13 @@ interface TestStats {
 
 export default function MPTLiveTestsPage() {
   const router = useRouter()
+  const { showSignInPopup, setShowSignInPopup, requestAccess } = useFreeTrial()
   const [tests, setTests] = useState<TestStats[]>([])
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
-  const [showSignInPopup, setShowSignInPopup] = useState(false)
 
   useEffect(() => {
-    const supabase = createClient()
-    
     loadTests()
-    checkUser()
-    
-    // Listen for auth changes and refresh
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN') {
-          setUser(session?.user ?? null)
-          setShowSignInPopup(false)
-          // Refresh the page to show unlocked content
-          router.refresh()
-        } else if (event === 'SIGNED_OUT') {
-          setUser(null)
-        }
-      }
-    )
-    
-    return () => subscription.unsubscribe()
   }, [])
-
-  const checkUser = async () => {
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    setUser(user)
-  }
 
   const loadTests = async () => {
     try {
@@ -66,21 +40,13 @@ export default function MPTLiveTestsPage() {
     }
   }
 
-  const startTest = (testNumber: number) => {
-    // For non-logged-in users, check if test is locked
-    if (!user) {
-      // Check if they can start any mock test (only 1 allowed for free users)
-      if (!usageTracker.canTakeMPTMockTest()) {
-        // Show sign-in popup
-        setShowSignInPopup(true)
-        return
-      }
-      
-      // Increment when entering the test (counts as used)
-      usageTracker.incrementMPTMockTest()
+  const startTest = async (testNumber: number) => {
+    // Check access and handle free trial limits
+    const hasAccess = await requestAccess('mptMock')
+    if (hasAccess) {
+      router.push(`/mpt-practice/quiz?test=${testNumber}`)
     }
-    
-    router.push(`/mpt-practice/quiz?test=${testNumber}`)
+    // If requestAccess returns false, it will automatically show sign-in popup or redirect to premium
   }
 
   if (loading) {
@@ -121,25 +87,12 @@ export default function MPTLiveTestsPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                 {tests.map((test) => {
-                  // Determine if test is locked for non-logged-in users
-                  const isLocked = !user && !usageTracker.canTakeMPTMockTest()
-                  
                   return (
                   <div
                     key={test.test_number}
                     className="group relative bg-gradient-to-br from-white to-blue-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg hover:shadow-xl active:shadow-2xl transition-all duration-300 cursor-pointer border-2 border-blue-200 hover:border-blue-400 active:border-blue-500 overflow-hidden hover:scale-[1.02] active:scale-[0.98]"
                     onClick={() => startTest(test.test_number)}
                   >
-                    {/* Lock Overlay for non-logged-in users */}
-                    {isLocked && (
-                      <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm rounded-2xl sm:rounded-3xl flex items-center justify-center z-20">
-                        <div className="text-center text-white px-4">
-                          <Lock className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3" />
-                          <p className="font-bold text-base sm:text-lg mb-1">Sign up to unlock</p>
-                          <p className="text-xs sm:text-sm text-white/80">Free trial used - sign up for unlimited access</p>
-                        </div>
-                      </div>
-                    )}
 
                     <div className="relative text-center">
                       <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-2xl group-hover:shadow-blue-500/50 transition-shadow">

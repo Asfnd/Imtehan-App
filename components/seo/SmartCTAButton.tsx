@@ -41,8 +41,8 @@ export function SmartCTAButton({
       const { data } = await supabase.auth.getSession()
 
       if (data?.session?.user) {
-        // User is logged in - go to dashboard
-        router.push('/dashboard')
+        // User is logged in - go to CSS resources
+        router.push('/css')
       } else {
         // User is not logged in - go to signin
         router.push('/signin')

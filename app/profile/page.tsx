@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
 import { User, Volume2, VolumeX, Sun, Moon, LogOut, ArrowLeft } from 'lucide-react'
 
 export default function ProfilePage() {
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [soundEnabled, setSoundEnabled] = useState(true)
@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const checkUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
-      router.push('/dashboard')
+      router.push('/css')
       return
     }
     setUser(user)
@@ -50,7 +50,7 @@ export default function ProfilePage() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    router.push('/dashboard')
+    router.push('/css')
   }
 
   if (loading) {
@@ -86,8 +86,27 @@ export default function ProfilePage() {
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-6">
           {/* Header Section */}
           <div className="bg-gradient-to-r from-purple-500 via-purple-600 to-blue-600 p-8 text-center">
-            <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white/30">
-              <User className="w-12 h-12 text-white" />
+            {/* Profile Picture with Smooth Loading */}
+            <div className="relative w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full mx-auto mb-4 border-4 border-white/30 overflow-hidden">
+              {/* Background with user icon - always visible as fallback */}
+              <div className="w-full h-full flex items-center justify-center">
+                <User className="w-12 h-12 text-white" />
+              </div>
+              {/* Profile image overlay - fades in when loaded */}
+              {(user?.user_metadata?.avatar_url || user?.user_metadata?.picture) && (
+                <img
+                  src={user.user_metadata.avatar_url || user.user_metadata.picture}
+                  alt="Profile"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onLoad={(e) => {
+                    e.currentTarget.style.opacity = '1'
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                  style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
+                />
+              )}
             </div>
             <h2 className="text-2xl font-bold text-white mb-2">
               {user?.user_metadata?.name || 'User'}

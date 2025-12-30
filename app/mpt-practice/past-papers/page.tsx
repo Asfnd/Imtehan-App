@@ -8,7 +8,7 @@ import ProtectedContent from '@/components/security/ProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { createClient } from '@/lib/supabase/client'
-import { usageTracker } from '@/lib/usageTracker'
+import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 
 interface YearData {
   year: number
@@ -17,39 +17,14 @@ interface YearData {
 
 export default function MPTPastPapersPage() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
-  const [showSignInPopup, setShowSignInPopup] = useState(false)
+  const { showSignInPopup, setShowSignInPopup, requestAccess } = useFreeTrial()
   const [yearData, setYearData] = useState<YearData[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
 
   useEffect(() => {
-    const supabase = createClient()
-    
-    // Check auth status
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      setUser(user)
-    }
-    checkUser()
-    
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN') {
-          setUser(session?.user ?? null)
-          setShowSignInPopup(false)
-          router.refresh()
-        } else if (event === 'SIGNED_OUT') {
-          setUser(null)
-        }
-      }
-    )
-    
     // Load MPT data
     loadMPTData()
-    
-    return () => subscription.unsubscribe()
   }, [])
 
   const loadMPTData = async () => {
@@ -99,34 +74,27 @@ export default function MPTPastPapersPage() {
     }
   }
 
-  const startQuiz = (year?: number) => {
-    
-    // Check usage limits for anonymous users
-    if (!user) {
-      if (!usageTracker.canTakeMPTPastPaper()) {
-        setShowSignInPopup(true)
-        return
-      }
-      
-      // Increment usage when starting the quiz
-      usageTracker.incrementMPTPastPaper()
+  const startQuiz = async (year?: number) => {
+    // Check access and handle free trial limits
+    const hasAccess = await requestAccess('mptPast')
+    if (hasAccess) {
+      const params = new URLSearchParams({
+        subject: 'MPT Past Papers',
+        ...(year && { year: year.toString() })
+      })
+
+      const quizUrl = `/css/css-practice/quiz?${params.toString()}`
+      router.push(quizUrl)
     }
-    
-    const params = new URLSearchParams({
-      subject: 'MPT Past Papers',
-      ...(year && { year: year.toString() })
-    })
-    
-    const quizUrl = `/css-practice/quiz?${params.toString()}`
-    router.push(quizUrl)
+    // If requestAccess returns false, it will automatically show sign-in popup or redirect to premium
   }
 
   if (loading) {
     return (
-      <div className="h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center">
-          <div className="w-10 h-10 border-3 border-purple-400 border-t-purple-200 rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-purple-200 text-sm">Loading...</p>
+          <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <p className="text-muted-foreground text-sm">Loading...</p>
         </div>
       </div>
     )
@@ -135,113 +103,115 @@ export default function MPTPastPapersPage() {
   return (
     <>
       <DevToolsWarning />
-      <SignInPopup 
-        isOpen={showSignInPopup} 
+      <SignInPopup
+        isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
         message="Sign in to access unlimited MPT past paper practice"
       />
       <ProtectedContent>
-        <div className="h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden flex flex-col">
-          {/* Header */}
-          <div className="bg-black/20 backdrop-blur-xl border-b border-white/10 z-10 shadow-lg">
-            <div className="max-w-5xl mx-auto px-4 py-4">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50/40 flex flex-col">
+          {/* Clean Header */}
+          <div className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b-2 border-blue-100 shadow-sm">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => router.push('/mpt-practice')}
-                  className="flex items-center gap-2 px-3 py-2 text-purple-200 hover:text-white hover:bg-white/10 rounded-xl transition-all active:scale-95"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  <span className="font-medium">Back</span>
+                  <span className="font-semibold text-sm">Back</span>
                 </button>
-                
-                <div className="text-center">
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">Official MPT Past Papers</h1>
-                </div>
-                
-                <div className="w-16"></div>
+
+                <h1 className="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">MPT Past Papers</h1>
+
+                <div className="w-20"></div>
               </div>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex items-center justify-center px-4">
-            <div className="w-full max-w-6xl mx-auto">
+          <div className="flex-1 py-10 md:py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto">
               {/* Title Section */}
-              <div className="text-center mb-8">
+              <div className="text-center mb-10 md:mb-12">
+                <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 mb-3">
+                  MPT Past Papers Practice
+                </h2>
+                <p className="text-base md:text-lg text-gray-600">Prepare with previous year MPT questions</p>
               </div>
 
               {/* Practice Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto animate-fade-in">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
                 {/* Practice All Card */}
-                <div 
-                  className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:scale-[1.01] h-80 sm:h-96"
+                <div
+                  className="group relative bg-white rounded-2xl border-2 border-blue-100 hover:border-blue-400 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer hover:-translate-y-2 overflow-hidden"
                   onClick={() => startQuiz()}
                 >
-                  <div className="text-center h-full flex flex-col justify-center">
-                    <div className="inline-flex p-3 sm:p-4 bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 rounded-2xl shadow-lg mb-4 sm:mb-5 group-hover:scale-105 transition-all duration-300 mx-auto">
-                      <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                  <div className="relative p-8 text-center">
+                    <div className="w-18 h-18 mx-auto rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-5 shadow-lg shadow-blue-500/40 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                      <Play className="w-9 h-9 text-white" />
                     </div>
-                    
-                    <h3 className="text-lg sm:text-xl font-black text-white mb-2">Quick Practice</h3>
-                    <p className="text-purple-200 mb-4 sm:mb-6 text-sm">Random Official MCQs</p>
-                    
-                    <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-purple-400/30">
-                      <div className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent mb-1">
-                        20
-                      </div>
-                      <div className="text-xs text-purple-200 font-semibold">MCQs</div>
+
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-900 transition-colors">Quick Practice</h3>
+                    <p className="text-gray-600 mb-5 text-base">Random MPT questions</p>
+
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl p-5 mb-5 border-2 border-blue-200">
+                      <div className="text-4xl font-bold text-blue-600 mb-1">20</div>
+                      <div className="text-sm text-gray-600 font-semibold">Questions</div>
                     </div>
-                    
-                    <button className="w-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600 text-white py-3 px-4 sm:px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl text-sm sm:text-base">
+
+                    <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl">
                       Start Now
                     </button>
                   </div>
                 </div>
 
                 {/* Choose Year Card */}
-<div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-300 flex flex-col h-80 sm:h-96 overflow-hidden">
+                <div className="bg-white rounded-2xl border-2 border-blue-100 shadow-xl transition-all duration-300 flex flex-col overflow-hidden max-h-[550px]">
                   {/* Header */}
-                  <div className="flex items-center gap-3 p-4 sm:p-6 pb-3 sm:pb-4 flex-shrink-0">
-                    <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl shadow-lg">
-                      <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <div className="flex items-center gap-3 p-5 pb-4 flex-shrink-0 border-b-2 border-blue-100 bg-gradient-to-r from-blue-50 to-transparent">
+                    <div className="p-2.5 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-md">
+                      <Calendar className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-lg sm:text-xl font-black text-white">By Year</h3>
-                      <p className="text-purple-200 text-xs sm:text-sm">{yearData.length} Years Available</p>
+                      <h3 className="text-lg font-bold text-gray-900">By Year</h3>
+                      <p className="text-gray-600 text-sm font-medium">{yearData.length} years available</p>
                     </div>
                   </div>
-                  
-                  {/* Scrollable Years List - Better height management for mobile and desktop */}
-                  <div className={`overflow-y-auto px-4 sm:px-6 space-y-1.5 sm:space-y-2 custom-scrollbar ${selectedYear ? 'max-h-40 sm:max-h-44' : 'flex-1'}`}>
+
+                  {/* Scrollable Years List */}
+                  <div className="overflow-y-auto px-5 py-4 space-y-2.5 custom-scrollbar flex-1">
                     {yearData.map((year) => (
                       <button
                         key={year.year}
                         onClick={() => setSelectedYear(year.year)}
-                        className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-lg sm:rounded-xl transition-all hover:scale-[1.01] active:scale-[0.99] border group shadow-sm hover:shadow-md ${
+                        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all ${
                           selectedYear === year.year
-                            ? 'bg-gradient-to-r from-emerald-500/30 to-green-500/30 border-emerald-400/70 shadow-emerald-500/20'
-                            : 'bg-gradient-to-r from-white/5 to-emerald-500/10 hover:from-emerald-500/20 hover:to-green-500/20 border-white/10 hover:border-emerald-400/50'
+                            ? 'bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg'
+                            : 'bg-blue-50/50 hover:bg-blue-100 border-2 border-blue-100 hover:border-blue-300'
                         }`}
                       >
-                        <div className="flex items-center gap-2 sm:gap-3">
-                          <div className={`w-8 h-8 sm:w-10 sm:h-10 text-white font-bold rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-lg text-xs sm:text-sm ${
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 font-bold rounded-xl flex items-center justify-center text-sm ${
                             selectedYear === year.year
-                              ? 'bg-gradient-to-br from-emerald-400 to-green-400'
-                              : 'bg-gradient-to-br from-emerald-500 to-green-500'
+                              ? 'bg-white/20 text-white'
+                              : 'bg-blue-200 text-blue-800'
                           }`}>
                             {year.year.toString().slice(-2)}
                           </div>
-                          <span className="font-bold text-white text-sm sm:text-base">{year.year}</span>
+                          <span className={`font-bold text-base ${selectedYear === year.year ? 'text-white' : 'text-gray-900'}`}>{year.year}</span>
                         </div>
-                        <div className="flex items-center gap-1 sm:gap-2">
-                          <span className={`text-xs font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${
+                        <div className="flex items-center gap-2">
+                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
                             selectedYear === year.year
-                              ? 'text-emerald-100 bg-white/20'
-                              : 'text-emerald-200 bg-white/10'
+                              ? 'text-white bg-white/20'
+                              : 'text-blue-700 bg-blue-200'
                           }`}>{year.count}</span>
                           {selectedYear === year.year && (
-                            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-white/20 rounded-full flex items-center justify-center">
-                              <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             </div>
@@ -250,21 +220,21 @@ export default function MPTPastPapersPage() {
                       </button>
                     ))}
                   </div>
-                  
-                  {/* Fixed Bottom Start Button - Always visible when year is selected */}
+
+                  {/* Fixed Bottom Start Button */}
                   {selectedYear && (
-                    <div className="p-4 sm:p-6 pt-3 sm:pt-4 bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-t border-white/10 animate-fade-in flex-shrink-0 mt-auto">
+                    <div className="p-5 pt-4 bg-gradient-to-r from-blue-50 to-transparent border-t-2 border-blue-100 flex-shrink-0 mt-auto">
                       <div className="text-center mb-3">
-                        <div className="text-base sm:text-lg font-black text-white mb-1">
+                        <div className="text-lg font-bold text-gray-900 mb-1">
                           {selectedYear}
                         </div>
-                        <div className="text-xs text-purple-200 font-semibold">
-                          {yearData.find(y => y.year === selectedYear)?.count} MCQs Available
+                        <div className="text-sm text-gray-600 font-medium">
+                          {yearData.find(y => y.year === selectedYear)?.count} questions
                         </div>
                       </div>
-                      <button 
+                      <button
                         onClick={() => startQuiz(selectedYear)}
-                        className="w-full bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600 text-white py-3 px-4 sm:px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl"
                       >
                         Start {selectedYear} Quiz
                       </button>
@@ -277,22 +247,22 @@ export default function MPTPastPapersPage() {
 
           <FeedbackButton page="mpt-practice" />
         </div>
-        
+
         {/* Custom Styles */}
         <style jsx global>{`
           .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
           }
           .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
+            background: #dbeafe;
             border-radius: 10px;
           }
           .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #10b981, #059669);
+            background: linear-gradient(to bottom, #3b82f6, #2563eb);
             border-radius: 10px;
           }
           .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, #059669, #047857);
+            background: linear-gradient(to bottom, #2563eb, #1d4ed8);
           }
           
           @keyframes fade-in {

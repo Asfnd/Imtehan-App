@@ -101,7 +101,7 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
                   {message}
                 </p>
                 <p className="text-sm text-gray-500 mb-8">
-                  Sign in to unlock unlimited access to all CSS preparation resources
+                  Sign in to get more credits, save your progress, and track your performance
                 </p>
 
                 {/* Google Sign In Button */}

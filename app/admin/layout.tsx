@@ -29,11 +29,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </p>
             </div>
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push('/css')}
               className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 font-medium transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Dashboard
+              Back to CSS Resources
             </button>
           </div>
 

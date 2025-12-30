@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { MessageCircle, X, Send, Star } from 'lucide-react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
 import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
 
 interface FeedbackButtonProps {
@@ -19,7 +19,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
   const [submitted, setSubmitted] = useState(false)
   const [showPrompt, setShowPrompt] = useState(false)
   const [promptDismissed, setPromptDismissed] = useState(false)
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
 
   // Show feedback prompt after 2 minutes
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
       <div className="fixed bottom-6 right-6 z-40">
         {/* Prompt Tooltip */}
         {showPrompt && !isOpen && (
-          <div className="absolute bottom-full right-0 mb-4 bg-white rounded-2xl shadow-2xl p-4 w-64 border-2 border-purple-200 animate-slide-right">
+          <div className="absolute bottom-full right-0 mb-4 bg-white rounded-2xl shadow-2xl p-4 w-64 border-2 border-blue-200 animate-slide-right">
               <button
                 onClick={() => {
                   setShowPrompt(false)
@@ -92,7 +92,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                   setShowPrompt(false)
                   setIsOpen(true)
                 }}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded-lg text-sm font-bold hover:shadow-lg transition-all"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 rounded-lg text-sm font-bold hover:shadow-lg transition-all"
               >
                 Give Feedback
               </button>
@@ -105,9 +105,9 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
             setShowPrompt(false)
           }}
           className={combineAnimations(
-            'bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all hover-scale',
+            'bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-full shadow-2xl hover:shadow-blue-500/50 transition-all hover-scale',
             'animate-scale-in',
-            showPrompt ? 'animate-pulse-purple' : ''
+            showPrompt ? 'animate-pulse-blue' : ''
           )}
           title="Send Feedback"
         >
@@ -138,7 +138,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
               ) : (
                 <>
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                       Send Feedback
                     </h3>
                     <button
@@ -220,7 +220,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                         placeholder="Tell us what you think..."
                         required
                         rows={4}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none resize-none"
+                        className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none resize-none transition-all"
                       />
                     </div>
 
@@ -234,7 +234,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@email.com"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none"
+                        className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none transition-all"
                       />
                     </div>
 
@@ -242,7 +242,7 @@ export default function FeedbackButton({ page }: FeedbackButtonProps) {
                     <button
                       type="submit"
                       disabled={isSubmitting || !message.trim() || rating === 0}
-                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover-scale-sm transition-all"
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover-scale-sm transition-all shadow-lg hover:shadow-xl"
                     >
                       {isSubmitting ? (
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>

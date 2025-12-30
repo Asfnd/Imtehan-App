@@ -135,6 +135,7 @@ export default async function middleware(request: NextRequest) {
   let response = NextResponse.next()
 
   // Handle Supabase session refresh for authenticated routes
+  let user = null
   try {
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -163,10 +164,30 @@ export default async function middleware(request: NextRequest) {
     )
 
     // Refresh session if needed
-    await supabase.auth.getUser()
+    const { data: { user: authUser } } = await supabase.auth.getUser()
+    user = authUser
   } catch (error) {
-    // Silently handle auth errors
-    console.error('Auth middleware error:', error)
+    // Silently handle auth errors in production
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Auth middleware error:', error)
+    }
+  }
+
+  // SECURITY: Protect solved papers routes - premium only
+  if (pathname.startsWith('/css/solved-papers/view')) {
+    if (!user) {
+      // Not authenticated - redirect to sign in
+      const redirectUrl = new URL('/signin', request.url)
+      redirectUrl.searchParams.set('redirect', pathname)
+      return NextResponse.redirect(redirectUrl)
+    }
+
+    const isPremium = user.user_metadata?.is_premium === true
+    if (!isPremium) {
+      // Not premium - redirect to premium page
+      const redirectUrl = new URL('/css/premium', request.url)
+      return NextResponse.redirect(redirectUrl)
+    }
   }
 
   // Apply rate limiting to sensitive routes

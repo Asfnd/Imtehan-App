@@ -1,112 +1,279 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { usageTracker } from '@/lib/usageTracker'
 
+// Server-side limits for signed-in users (stored in database - CANNOT be bypassed)
+const SIGNED_IN_LIMITS = {
+  cssSubject: 2,
+  cssIdioms: 1,
+  cssIdiomsRandom: 1,
+  mptMock: 1,
+  mptPast: 1,
+  officialPast: 2,
+  solved: 0, // Premium only
+}
+
+// Guest limits (stored in localStorage - can be bypassed, but tracks before sign-in)
+const GUEST_LIMITS = {
+  cssSubject: 3,
+  cssIdioms: 1,
+  cssIdiomsRandom: 1,
+  mptMock: 1,
+  mptPast: 1,
+  officialPast: 3,
+  solved: 0, // Premium only
+}
+
+interface DatabaseUsage {
+  cssSubjectQuizzes: number
+  cssIdiomsQuizzes: number
+  cssIdiomsRandom: number
+  mptMockTests: number
+  mptPastPapers: number
+  officialPastPapers: number
+  solvedPapers: number
+}
+
 export function useFreeTrial() {
+  const router = useRouter()
   const [user, setUser] = useState<any>(null)
   const [showSignInPopup, setShowSignInPopup] = useState(false)
+  const [showPremiumPopup, setShowPremiumPopup] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [dbUsage, setDbUsage] = useState<DatabaseUsage | null>(null)
+  const [usageLoading, setUsageLoading] = useState(false)
+
+  // Fetch database usage for signed-in users
+  const fetchDatabaseUsage = async () => {
+    if (!user) return
+
+    setUsageLoading(true)
+    try {
+      const response = await fetch('/api/usage')
+      if (response.ok) {
+        const data = await response.json()
+        setDbUsage(data.usage)
+      }
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Failed to fetch database usage:', error)
+      }
+    } finally {
+      setUsageLoading(false)
+    }
+  }
 
   useEffect(() => {
     const supabase = createClient()
-    
+
     // Check auth status
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
       setLoading(false)
+
+      // Fetch database usage if signed in
+      if (user) {
+        await fetchDatabaseUsage()
+      }
     }
     checkUser()
-    
+
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === 'SIGNED_IN') {
           setUser(session?.user ?? null)
           setShowSignInPopup(false)
+          // Fetch database usage immediately
+          if (session?.user) {
+            await fetchDatabaseUsage()
+          }
         } else if (event === 'SIGNED_OUT') {
           setUser(null)
+          setDbUsage(null)
         }
         setLoading(false)
       }
     )
-    
+
     return () => subscription.unsubscribe()
   }, [])
 
-  const checkAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved'): boolean => {
-    // If user is signed in, allow unlimited access
-    if (user) return true
+  // Re-fetch database usage when user changes
+  useEffect(() => {
+    if (user && !dbUsage && !usageLoading) {
+      fetchDatabaseUsage()
+    }
+  }, [user])
 
-    // Solved papers require sign-in (no free trial)
+  const checkAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved'): boolean => {
+    const isPremium = user?.user_metadata?.is_premium || false
+    const isSignedIn = !!user
+
+    // Premium users get unlimited access
+    if (isPremium) return true
+
+    // Solved papers require premium
     if (type === 'solved') return false
 
-    // Check free trial limits for other types - persistent across sessions
+    // For signed-in users, check database usage
+    if (isSignedIn && dbUsage) {
+      const usageMap: Record<string, keyof DatabaseUsage> = {
+        cssSubject: 'cssSubjectQuizzes',
+        cssIdioms: 'cssIdiomsQuizzes',
+        cssIdiomsRandom: 'cssIdiomsRandom',
+        mptMock: 'mptMockTests',
+        mptPast: 'mptPastPapers',
+        officialPast: 'officialPastPapers',
+        solved: 'solvedPapers',
+      }
+
+      const usageKey = usageMap[type]
+      const limitKey = type as keyof typeof SIGNED_IN_LIMITS
+      const currentUsage = dbUsage[usageKey] || 0
+      const limit = SIGNED_IN_LIMITS[limitKey]
+
+      return currentUsage < limit
+    }
+
+    // For guest users, use localStorage (old behavior)
     switch (type) {
       case 'cssSubject':
-        return usageTracker.canTakeCSSSubjectQuiz()
+        return usageTracker.canTakeCSSSubjectQuiz(false)
       case 'cssIdioms':
-        return usageTracker.canTakeCSSIdiomsQuiz()
+        return usageTracker.canTakeCSSIdiomsQuiz(false)
       case 'cssIdiomsRandom':
-        return usageTracker.canTakeCSSIdiomsRandom()
+        return usageTracker.canTakeCSSIdiomsRandom(false)
       case 'mptMock':
-        return usageTracker.canTakeMPTMockTest()
+        return usageTracker.canTakeMPTMockTest(false)
       case 'mptPast':
-        return usageTracker.canTakeMPTPastPaper()
+        return usageTracker.canTakeMPTPastPaper(false)
       case 'officialPast':
-        return usageTracker.canViewOfficialPastPaper()
+        return usageTracker.canViewOfficialPastPaper(false)
       default:
         return false
     }
   }
 
-  const requestAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved'): boolean => {
-    if (user) return true
+  const requestAccess = async (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved'): Promise<boolean> => {
+    const isPremium = user?.user_metadata?.is_premium || false
+    const isSignedIn = !!user
 
-    // Solved papers require sign-in (no free trial)
+    // Premium users get unlimited access
+    if (isPremium) return true
+
+    // Solved papers require premium
     if (type === 'solved') {
-      setShowSignInPopup(true)
+      if (isSignedIn) {
+        router.push('/css/premium')
+      } else {
+        setShowSignInPopup(true)
+      }
       return false
     }
 
+    // Check if user has access
     if (checkAccess(type)) {
-      // Increment usage for free trial types - persistent tracking
-      switch (type) {
-        case 'cssSubject':
-          usageTracker.incrementCSSSubjectQuiz()
-          break
-        case 'cssIdioms':
-          usageTracker.incrementCSSIdiomsQuiz()
-          break
-        case 'cssIdiomsRandom':
-          usageTracker.incrementCSSIdiomsRandom()
-          break
-        case 'mptMock':
-          usageTracker.incrementMPTMockTest()
-          break
-        case 'mptPast':
-          usageTracker.incrementMPTPastPaper()
-          break
-        case 'officialPast':
-          usageTracker.incrementOfficialPastPaper()
-          break
+      // For signed-in users, increment in database
+      if (isSignedIn) {
+        try {
+          const response = await fetch('/api/usage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type }),
+          })
+
+          if (response.ok) {
+            // Refresh database usage after increment
+            await fetchDatabaseUsage()
+          }
+        } catch (error) {
+          if (process.env.NODE_ENV === 'development') {
+            console.error('Failed to increment database usage:', error)
+          }
+        }
+      } else {
+        // For guest users, use localStorage
+        switch (type) {
+          case 'cssSubject':
+            usageTracker.incrementCSSSubjectQuiz(false)
+            break
+          case 'cssIdioms':
+            usageTracker.incrementCSSIdiomsQuiz(false)
+            break
+          case 'cssIdiomsRandom':
+            usageTracker.incrementCSSIdiomsRandom(false)
+            break
+          case 'mptMock':
+            usageTracker.incrementMPTMockTest(false)
+            break
+          case 'mptPast':
+            usageTracker.incrementMPTPastPaper(false)
+            break
+          case 'officialPast':
+            usageTracker.incrementOfficialPastPaper(false)
+            break
+        }
       }
       return true
     } else {
-      // Show sign-in popup when limits exceeded
-      setShowSignInPopup(true)
+      // User hit their limit
+      if (isSignedIn) {
+        // Signed-in user → redirect to premium page
+        router.push('/css/premium')
+      } else {
+        // Guest user → show sign-in popup
+        setShowSignInPopup(true)
+      }
       return false
     }
   }
 
   const getTrialStatus = () => {
-    if (user) return { isSignedIn: true, remaining: null }
-    
-    const remaining = usageTracker.getRemaining()
-    return { 
-      isSignedIn: false, 
+    const isSignedIn = !!user
+    const isPremium = user?.user_metadata?.is_premium || false
+
+    if (isPremium) {
+      return { isSignedIn: true, isPremium: true, remaining: null }
+    }
+
+    // For signed-in users, calculate from database usage
+    if (isSignedIn && dbUsage) {
+      return {
+        isSignedIn: true,
+        isPremium: false,
+        remaining: {
+          cssSubjectQuizzes: Math.max(0, SIGNED_IN_LIMITS.cssSubject - (dbUsage.cssSubjectQuizzes || 0)),
+          cssIdiomsQuizzes: Math.max(0, SIGNED_IN_LIMITS.cssIdioms - (dbUsage.cssIdiomsQuizzes || 0)),
+          cssIdiomsRandom: Math.max(0, SIGNED_IN_LIMITS.cssIdiomsRandom - (dbUsage.cssIdiomsRandom || 0)),
+          mptMockTests: Math.max(0, SIGNED_IN_LIMITS.mptMock - (dbUsage.mptMockTests || 0)),
+          mptPastPapers: Math.max(0, SIGNED_IN_LIMITS.mptPast - (dbUsage.mptPastPapers || 0)),
+          officialPastPapers: Math.max(0, SIGNED_IN_LIMITS.officialPast - (dbUsage.officialPastPapers || 0)),
+          solvedPapers: 0,
+        },
+        hasTrialLeft: Object.entries(dbUsage).some(([key, value]) => {
+          // Map database field names to limit keys
+          const limitKey = key === 'cssSubjectQuizzes' ? 'cssSubject' :
+                           key === 'cssIdiomsQuizzes' ? 'cssIdioms' :
+                           key === 'cssIdiomsRandom' ? 'cssIdiomsRandom' :
+                           key === 'mptMockTests' ? 'mptMock' :
+                           key === 'mptPastPapers' ? 'mptPast' :
+                           key === 'officialPastPapers' ? 'officialPast' : 'solved'
+          const limit = SIGNED_IN_LIMITS[limitKey as keyof typeof SIGNED_IN_LIMITS]
+          return value < limit
+        })
+      }
+    }
+
+    // For guest users, use localStorage
+    const remaining = usageTracker.getRemaining(false)
+    return {
+      isSignedIn: false,
+      isPremium: false,
       remaining,
       hasTrialLeft: Object.values(remaining).some(count => count > 0)
     }
@@ -114,11 +281,13 @@ export function useFreeTrial() {
 
   return {
     user,
-    loading,
+    loading: loading || usageLoading,
     showSignInPopup,
     setShowSignInPopup,
+    showPremiumPopup,
+    setShowPremiumPopup,
     checkAccess,
     requestAccess,
-    getTrialStatus
+    getTrialStatus,
   }
 }

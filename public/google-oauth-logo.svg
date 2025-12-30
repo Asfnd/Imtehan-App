@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9333ea;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded rectangle background with gradient -->
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#bgGradient)"/>
+
+  <!-- BookOpen icon (Lucide) - scaled up -->
+  <g stroke="white" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Left page -->
+    <path d="M128 352 V160 c0,-8 8,-24 32,-32 24,-8 64,-8 96 16 v224 c-32,-24 -72,-24 -96,-16 -24,8 -32,16 -32,16 z"/>
+    <!-- Right page -->
+    <path d="M384 352 V160 c0,-8 -8,-24 -32,-32 -24,-8 -64,-8 -96 16 v224 c32,-24 72,-24 96,-16 24,8 32,16 32,16 z"/>
+  </g>
+</svg>

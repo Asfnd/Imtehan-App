@@ -111,16 +111,17 @@ export async function getPDFUrl(
       }
     }
     
-    // Get signed URL from storage using the exact path from database
-    const { data: urlData, error: urlError } = await supabase.storage
+    // Get public URL from storage using the exact path from database
+    // Using getPublicUrl instead of createSignedUrl for public bucket access
+    const { data: urlData } = supabase.storage
       .from('css-past-papers')
-      .createSignedUrl(data.storage_path, 3600) // 1 hour expiry
-    
-    if (urlError || !urlData?.signedUrl) {
-      console.error('❌ Failed to create signed URL:', urlError)
-      return { 
-        success: false, 
-        error: `Failed to generate URL for ${subject} (${year})` 
+      .getPublicUrl(data.storage_path)
+
+    if (!urlData?.publicUrl) {
+      console.error('❌ Failed to get public URL')
+      return {
+        success: false,
+        error: `Failed to generate URL for ${subject} (${year})`
       }
     }
     
@@ -131,10 +132,10 @@ export async function getPDFUrl(
       .eq('id', data.id)
     
     console.log(`✅ Found PDF: ${data.storage_path}`)
-    
-    return { 
-      success: true, 
-      url: urlData.signedUrl,
+
+    return {
+      success: true,
+      url: urlData.publicUrl,
       paper: data
     }
   } catch (error) {

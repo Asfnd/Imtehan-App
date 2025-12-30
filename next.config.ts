@@ -7,7 +7,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Script sources: self + Google Analytics + Vercel analytics + trusted CDNs
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://cdnjs.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com https://cdnjs.cloudflare.com",
       // Style: self + unsafe-inline (needed for Tailwind CSS)
       "style-src 'self' 'unsafe-inline'",
       // Images: self, data URIs, HTTPS, blobs, and Google profile pictures
@@ -16,11 +16,11 @@ const securityHeaders = [
       "font-src 'self' data:",
       // API connections to Supabase
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com",
-      // Frames: only from self
-      "frame-src 'self'",
+      // Frames: self + Supabase storage (for PDF viewer iframes)
+      "frame-src 'self' https://*.supabase.co",
       // Workers and blobs
       "worker-src 'self' blob:",
-      "child-src 'self' blob:",
+      "child-src 'self' blob: https://*.supabase.co",
       // Prevent embedding in iframes
       "frame-ancestors 'none'",
       // Base URI: only self
@@ -59,14 +59,11 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
   },
-  // SECURITY: CORS headers (re-enabled) - prevents Spectre/Meltdown attacks
-  {
-    key: 'Cross-Origin-Embedder-Policy',
-    value: 'require-corp',
-  },
+  // SECURITY: CORS headers - Allow cross-origin resources for PDF viewing
+  // Note: COEP disabled to allow PDF iframes from Supabase storage
   {
     key: 'Cross-Origin-Opener-Policy',
-    value: 'same-origin',
+    value: 'same-origin-allow-popups', // Allow popups while maintaining isolation
   },
   {
     key: 'Cross-Origin-Resource-Policy',
@@ -196,6 +193,60 @@ const nextConfig: NextConfig = {
   turbopack: {
     // Empty config to silence the warning
   },
+  async redirects() {
+    return [
+      // Redirect old CSS practice routes to new structure
+      {
+        source: '/css-practice',
+        destination: '/css/css-practice',
+        permanent: true,
+      },
+      {
+        source: '/css-practice/:path*',
+        destination: '/css/css-practice/:path*',
+        permanent: true,
+      },
+      // Redirect old past papers routes
+      {
+        source: '/past-papers',
+        destination: '/css/past-papers',
+        permanent: true,
+      },
+      {
+        source: '/past-papers/:path*',
+        destination: '/css/past-papers/:path*',
+        permanent: true,
+      },
+      // Redirect old solved papers routes
+      {
+        source: '/solved-papers',
+        destination: '/css/solved-papers',
+        permanent: true,
+      },
+      {
+        source: '/solved-papers/:path*',
+        destination: '/css/solved-papers/:path*',
+        permanent: true,
+      },
+      // Redirect old CSS GSA routes
+      {
+        source: '/css-gsa',
+        destination: '/css/css-gsa',
+        permanent: true,
+      },
+      {
+        source: '/css-gsa/:path*',
+        destination: '/css/css-gsa/:path*',
+        permanent: true,
+      },
+      // Redirect old dashboard to CSS main page
+      {
+        source: '/dashboard',
+        destination: '/css',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
@@ -234,7 +285,7 @@ const nextConfig: NextConfig = {
       },
       // NO CACHE for PDF viewer pages - always fetch fresh
       {
-        source: '/solved-papers/view',
+        source: '/css/solved-papers/view',
         headers: [
           {
             key: 'Cache-Control',
@@ -251,7 +302,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/past-papers/view',
+        source: '/css/past-papers/view',
         headers: [
           {
             key: 'Cache-Control',

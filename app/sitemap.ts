@@ -53,19 +53,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${BASE_URL}/css-practice/subjects`,
+      url: `${BASE_URL}/css`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/past-papers`,
+      url: `${BASE_URL}/css/css-practice/subjects`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/solved-papers`,
+      url: `${BASE_URL}/css/past-papers`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/css/solved-papers`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -99,7 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Subject pages with all years
   const subjectPages: MetadataRoute.Sitemap = SUBJECTS.flatMap(subject =>
     YEARS.map(year => ({
-      url: `${BASE_URL}/css-practice/subjects?subject=${subject}&year=${year}`,
+      url: `${BASE_URL}/css/css-practice/subjects?subject=${subject}&year=${year}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
@@ -108,7 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Subject pages without year filter
   const subjectOnlyPages: MetadataRoute.Sitemap = SUBJECTS.map(subject => ({
-    url: `${BASE_URL}/css-practice/subjects?subject=${subject}`,
+    url: `${BASE_URL}/css/css-practice/subjects?subject=${subject}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
@@ -116,7 +122,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Year-specific pages
   const yearPages: MetadataRoute.Sitemap = YEARS.map(year => ({
-    url: `${BASE_URL}/past-papers?year=${year}`,
+    url: `${BASE_URL}/css/past-papers?year=${year}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.7,

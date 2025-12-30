@@ -357,19 +357,19 @@ export async function fuzzyMatchPDF(
     const bestMatch = scoredFiles[0].file
     console.log(`🎯 Trying best fuzzy match: ${bestMatch.name} (score: ${scoredFiles[0].score})`)
 
-    const { data, error } = await supabase.storage
+    const { data } = supabase.storage
       .from('css-past-papers')
-      .createSignedUrl(bestMatch.name, 3600)
+      .getPublicUrl(bestMatch.name)
 
-    if (error || !data?.signedUrl) {
-      console.log(`❌ Failed to create signed URL for fuzzy match: ${error?.message}`)
-      return { success: false, error: `Failed to create signed URL for ${bestMatch.name}: ${error?.message}` }
+    if (!data?.publicUrl) {
+      console.log(`❌ Failed to get public URL for fuzzy match`)
+      return { success: false, error: `Failed to get public URL for ${bestMatch.name}` }
     }
 
     console.log(`✅ Fuzzy match successful: ${bestMatch.name}`)
     return {
       success: true,
-      url: data.signedUrl,
+      url: data.publicUrl,
       foundPath: bestMatch.name
     }
   } catch (error) {
@@ -409,24 +409,21 @@ export async function getPastPaperUrl(
     // Try each path with better error handling
     for (const path of possiblePaths) {
       try {
-        const { data, error } = await supabase.storage
+        const { data } = supabase.storage
           .from('css-past-papers')
-          .createSignedUrl(path, 3600) // 1 hour expiry
+          .getPublicUrl(path)
 
-        if (!error && data?.signedUrl) {
+        if (data?.publicUrl) {
           console.log(`✅ Found PDF at: ${path}`)
           return {
             success: true,
-            url: data.signedUrl,
+            url: data.publicUrl,
             foundAt: path,
             searchedPaths: possiblePaths
           }
         }
-        
-        // Log specific errors for debugging
-        if (error) {
-          console.log(`❌ Path ${path} failed: ${error.message}`)
-        }
+
+        console.log(`❌ Path ${path} - no public URL generated`)
       } catch (err) {
         console.log(`❌ Path ${path} threw error:`, err)
         continue

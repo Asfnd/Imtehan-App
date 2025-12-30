@@ -56,7 +56,7 @@ export default function QuizPage() {
       const { data: { session } } = await supabase.auth.getSession()
       
       if (!session) {
-        router.push('/dashboard')
+        router.push('/css')
         return
       }
       

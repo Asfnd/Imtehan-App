@@ -67,21 +67,22 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
  */
 export const breadcrumbPaths = {
   home: { name: 'Home', url: '/' },
-  practice: { name: 'CSS Practice', url: '/css-practice/subjects' },
-  pastPapers: { name: 'Past Papers', url: '/past-papers' },
-  solvedPapers: { name: 'Solved Papers', url: '/solved-papers' },
+  css: { name: 'CSS', url: '/css' },
+  practice: { name: 'CSS Practice', url: '/css/css-practice/subjects' },
+  pastPapers: { name: 'Past Papers', url: '/css/past-papers' },
+  solvedPapers: { name: 'Solved Papers', url: '/css/solved-papers' },
   contact: { name: 'Contact', url: '/contact' },
   privacy: { name: 'Privacy Policy', url: '/privacy' },
   terms: { name: 'Terms of Service', url: '/terms' },
 
   getSubjectPath: (subject: string) => ({
     name: `${subject.replace(/-/g, ' ')} Questions`,
-    url: `/css-practice/subjects?subject=${subject}`,
+    url: `/css/css-practice/subjects?subject=${subject}`,
   }),
 
   getYearPath: (year: number) => ({
     name: `${year} Papers`,
-    url: `/past-papers?year=${year}`,
+    url: `/css/past-papers?year=${year}`,
   }),
 }
 
@@ -91,18 +92,20 @@ export const breadcrumbPaths = {
 export const breadcrumbTrails = {
   home: [breadcrumbPaths.home],
 
-  practice: [breadcrumbPaths.home, breadcrumbPaths.practice],
+  practice: [breadcrumbPaths.home, breadcrumbPaths.css, breadcrumbPaths.practice],
 
   practiceSubject: (subject: string) => [
     breadcrumbPaths.home,
+    breadcrumbPaths.css,
     breadcrumbPaths.practice,
     breadcrumbPaths.getSubjectPath(subject),
   ],
 
-  pastPapers: [breadcrumbPaths.home, breadcrumbPaths.pastPapers],
+  pastPapers: [breadcrumbPaths.home, breadcrumbPaths.css, breadcrumbPaths.pastPapers],
 
   pastPapersYear: (year: number) => [
     breadcrumbPaths.home,
+    breadcrumbPaths.css,
     breadcrumbPaths.pastPapers,
     breadcrumbPaths.getYearPath(year),
   ],

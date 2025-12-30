@@ -1,115 +1,296 @@
+import Link from 'next/link'
+import { Button } from '@/components/ui/Button'
+import { BookOpen, ArrowLeft, Shield, Lock, CheckCircle, Eye, Database, Users } from 'lucide-react'
+
 export const metadata = {
-  title: 'Privacy Policy | CSS Practice Hub',
-  description: 'Learn how CSS Practice Hub protects your personal data and privacy. Our comprehensive privacy policy explains data collection and usage.',
-  keywords: 'privacy policy, data protection, GDPR, user privacy'
+  title: 'Privacy Policy | Imtehan',
+  description: 'Learn how Imtehan protects your personal data and privacy. Our comprehensive privacy policy explains data collection and usage.',
+  keywords: 'privacy policy, data protection, user privacy'
 }
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-6">Privacy Policy</h1>
-        <p className="text-sm text-gray-600 mb-8">Last updated: November 26, 2025</p>
-
-        <div className="space-y-6 text-gray-700">
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">1. Information We Collect</h2>
-            <p className="mb-3">We collect information that you provide directly to us:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Account Information:</strong> Email address, name (when you sign up)</li>
-              <li><strong>Usage Data:</strong> Quiz scores, progress, and performance metrics</li>
-              <li><strong>Device Information:</strong> Browser type, IP address, device type</li>
-              <li><strong>Feedback:</strong> Any feedback or reports you submit</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">2. How We Use Your Information</h2>
-            <p className="mb-3">We use the information we collect to:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Provide, maintain, and improve our services</li>
-              <li>Track your quiz progress and performance</li>
-              <li>Send you updates and notifications (if you opt-in)</li>
-              <li>Respond to your feedback and support requests</li>
-              <li>Detect and prevent fraud or abuse</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">3. Data Storage and Security</h2>
-            <p className="mb-3">
-              Your data is stored securely using Supabase (PostgreSQL database) with industry-standard encryption.
-              We implement appropriate technical and organizational measures to protect your personal information.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">4. Third-Party Services</h2>
-            <p className="mb-3">We use the following third-party services:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Supabase:</strong> Database and authentication</li>
-              <li><strong>Google OAuth:</strong> Sign-in functionality</li>
-              <li><strong>Vercel:</strong> Hosting and deployment</li>
-            </ul>
-            <p className="mt-3">
-              These services have their own privacy policies governing their use of your information.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">5. Cookies and Tracking</h2>
-            <p>
-              We use essential cookies to maintain your session and preferences. We do not use tracking cookies
-              for advertising purposes.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">6. Your Rights</h2>
-            <p className="mb-3">You have the right to:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Access your personal data</li>
-              <li>Correct inaccurate data</li>
-              <li>Request deletion of your data</li>
-              <li>Export your data</li>
-              <li>Opt-out of communications</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">7. Children's Privacy</h2>
-            <p>
-              Our service is not directed to children under 13. We do not knowingly collect personal information
-              from children under 13. If you believe we have collected such information, please contact us.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">8. Changes to This Policy</h2>
-            <p>
-              We may update this privacy policy from time to time. We will notify you of any changes by posting
-              the new policy on this page and updating the "Last updated" date.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">9. Contact Us</h2>
-            <p>
-              If you have any questions about this Privacy Policy, please contact us through the feedback button
-              in the app or email us at: <strong>support@cssquizapp.com</strong>
-            </p>
-          </section>
+    <main className="min-h-screen">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <BookOpen className="w-4.5 h-4.5 text-primary-foreground" />
+            </div>
+            <span className="font-semibold text-lg">Imtehan</span>
+          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/">
+              <Button variant="ghost" size="sm" className="h-9">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            </Link>
+          </div>
         </div>
+      </nav>
 
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <a
-            href="/dashboard"
-            className="text-purple-600 hover:text-purple-700 font-semibold"
-          >
-            ← Back to Dashboard
-          </a>
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-32">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 mb-6">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-balance leading-[1.1]">
+              Privacy
+              <br />
+              <span className="text-muted-foreground">Policy</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-6 text-pretty leading-relaxed max-w-2xl mx-auto">
+              Your privacy and data security are our top priorities
+            </p>
+            <p className="text-sm text-muted-foreground">Last updated: November 26, 2025</p>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Trust Badges */}
+      <section className="py-12 bg-muted/30">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-3">
+                <Lock className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-1">Encrypted</h3>
+              <p className="text-xs text-muted-foreground">End-to-end security</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-3">
+                <Eye className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-1">Transparent</h3>
+              <p className="text-xs text-muted-foreground">Clear practices</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-3">
+                <Database className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-1">Secure</h3>
+              <p className="text-xs text-muted-foreground">Protected data</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-3">
+                <Users className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-1">Your Control</h3>
+              <p className="text-xs text-muted-foreground">Full data rights</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="py-16 md:py-20">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="space-y-12">
+            {/* Key sections with more prominence */}
+            <div className="bg-card rounded-2xl p-8 md:p-10 border shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary font-bold flex-shrink-0">
+                  1
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Information We Collect</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    We collect information that you provide directly to us:
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Account Info</p>
+                        <p className="text-xs text-muted-foreground">Email and name via Google OAuth</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Usage Data</p>
+                        <p className="text-xs text-muted-foreground">Quiz scores and progress</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Device Info</p>
+                        <p className="text-xs text-muted-foreground">Browser, IP, device type</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Feedback</p>
+                        <p className="text-xs text-muted-foreground">Messages you submit</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-card rounded-2xl p-8 md:p-10 border shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary font-bold flex-shrink-0">
+                  2
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">How We Use Your Information</h2>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Provide, maintain, and improve our services</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Track your quiz progress and performance</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Send you updates (if you opt-in)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Respond to support requests</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Detect and prevent fraud</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Remaining sections in grid */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    3
+                  </div>
+                  <h3 className="text-xl font-bold">Data Security</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Your data is stored securely using Supabase with industry-standard encryption. We implement appropriate measures to protect your information.
+                </p>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    4
+                  </div>
+                  <h3 className="text-xl font-bold">Third-Party Services</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">We use:</p>
+                <div className="space-y-1 text-xs text-muted-foreground">
+                  <p>• Supabase - Database & auth</p>
+                  <p>• Google OAuth - Sign-in</p>
+                  <p>• Vercel - Hosting</p>
+                </div>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    5
+                  </div>
+                  <h3 className="text-xl font-bold">Cookies</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  We use essential cookies for sessions and preferences. No tracking cookies for advertising.
+                </p>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    6
+                  </div>
+                  <h3 className="text-xl font-bold">Your Rights</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">You can:</p>
+                <div className="space-y-1 text-xs text-muted-foreground">
+                  <p>• Access your data</p>
+                  <p>• Request corrections</p>
+                  <p>• Delete your account</p>
+                  <p>• Export your data</p>
+                </div>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    7
+                  </div>
+                  <h3 className="text-xl font-bold">Data Sharing</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  We don't sell your data. We only share with essential service providers who are contractually obligated to protect it.
+                </p>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    8
+                  </div>
+                  <h3 className="text-xl font-bold">Updates</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  We may update this policy. We'll notify you of material changes via email or platform notification.
+                </p>
+              </div>
+            </div>
+
+            {/* Commitment Section */}
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 md:p-10 border text-center">
+              <Shield className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-3">Our Commitment to You</h3>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                We're committed to protecting your privacy and being transparent about our data practices. Your trust matters to us.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link href="/contact">
+                  <Button size="lg">Contact Us</Button>
+                </Link>
+                <a href="mailto:asfnd.safi@gmail.com">
+                  <Button variant="outline" size="lg">
+                    Email Us
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Links */}
+      <section className="py-12 border-t bg-muted/30">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground transition-colors">
+              © 2025 Imtehan. All rights reserved.
+            </Link>
+            <div className="flex items-center gap-6">
+              <Link href="/terms" className="hover:text-foreground transition-colors">
+                Terms
+              </Link>
+              <Link href="/contact" className="hover:text-foreground transition-colors">
+                Contact
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }
