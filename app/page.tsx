@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button"
 import { ArrowRight, BookOpen, BarChart3, Users, Trophy, Target, Clock } from "lucide-react"
 import { useState } from "react"
 import { InfiniteMarquee } from "@/components/InfiniteMarquee"
+import { AnimatedText } from "@/components/AnimatedText"
 import NavigationBar from "@/components/NavigationBar"
 
 function NewsletterSection() {
@@ -96,8 +97,17 @@ export default function Home() {
       <section className="relative bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-16 md:pt-32 md:pb-20">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight mb-8 leading-[1.2] text-black text-center">
-              Master CSS & MPT Exams: 10,000+ MCQs, Past Papers & Expert Solutions
+            <h1 className="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight mb-8 leading-[1.2] text-black">
+              <div className="text-center">Prepare for competitive exams</div>
+              <div className="text-center mt-1 pl-0 sm:pl-12 md:pl-24">
+                <span className="inline-flex items-baseline gap-3">
+                  <span>with</span>
+                  <AnimatedText
+                    words={['confidence', 'precision', 'intelligence', 'excellence']}
+                    interval={1400}
+                  />
+                </span>
+              </div>
             </h1>
 
             <p className="text-[17px] md:text-[19px] text-gray-600 mb-10 leading-[1.6] max-w-2xl mx-auto font-normal">
