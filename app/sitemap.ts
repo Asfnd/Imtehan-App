@@ -137,6 +137,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/blog/css-english-essay-structure-examples`,
+      lastModified: new Date('2026-01-03'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/css-time-management-3-hour-mcq-exam`,
+      lastModified: new Date('2026-01-03'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/css-english-precis-composition-tips`,
+      lastModified: new Date('2026-01-03'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/css-past-papers-analysis-trends`,
+      lastModified: new Date('2026-01-03'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/pakistan-affairs-important-facts-by-year`,
+      lastModified: new Date('2026-01-03'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/blog/css-exam-preparation-guide-2025`,
       lastModified: new Date('2025-01-02'),
       changeFrequency: 'monthly',
