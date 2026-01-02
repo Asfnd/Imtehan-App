@@ -10,6 +10,7 @@ import DevToolsWarning from '@/components/security/DevToolsWarning'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { SidebarCategoryToggle } from '@/components/css-practice/CategoryToggle'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
+import { Breadcrumb, breadcrumbTrails } from '@/components/seo/Breadcrumb'
 
 import { 
   filterSubjects, 
@@ -171,6 +172,10 @@ export default function CSSSubjectMCQsPage() {
       />
       <ProtectedContent>
         <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-white overflow-hidden">
+          {/* SEO Breadcrumbs */}
+          <div className="absolute top-4 left-6 z-10">
+            <Breadcrumb items={breadcrumbTrails.practice} className="text-xs" />
+          </div>
           {/* Decorative Background Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>

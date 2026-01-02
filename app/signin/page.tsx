@@ -88,7 +88,7 @@ export default function AuthPage() {
                   {user.user_metadata?.avatar_url && (
                     <img
                       src={user.user_metadata.avatar_url}
-                      alt="Profile"
+                      alt={`Profile picture for ${user.user_metadata?.full_name || user.email}`}
                       className="absolute inset-0 w-full h-full object-cover"
                       onLoad={(e) => {
                         e.currentTarget.style.opacity = '1'

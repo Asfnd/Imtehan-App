@@ -147,7 +147,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                   {profileImage && (
                     <img
                       src={profileImage}
-                      alt={fullName}
+                      alt={`Profile picture for ${fullName}`}
                       className="absolute inset-0 w-full h-full object-cover"
                       onLoad={(e) => {
                         e.currentTarget.style.opacity = '1'
@@ -270,7 +270,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                       {profileImage && (
                         <img
                           src={profileImage}
-                          alt={fullName}
+                          alt={`Profile picture for ${fullName}`}
                           className="absolute inset-0 w-full h-full object-cover"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none'

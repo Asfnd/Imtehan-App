@@ -176,7 +176,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Target className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -184,9 +184,9 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Questions that adjust to your level for optimal learning
               </p>
-            </div>
+            </Link>
 
-            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <BarChart3 className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -194,9 +194,9 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Track progress with detailed analytics and metrics
               </p>
-            </div>
+            </Link>
 
-            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Trophy className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -204,9 +204,9 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Content created by top educators with detailed explanations
               </p>
-            </div>
+            </Link>
 
-            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/past-papers" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Users className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -214,9 +214,9 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Official exam papers with complete solutions
               </p>
-            </div>
+            </Link>
 
-            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Clock className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -224,9 +224,9 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 No schedules, no classes. Learn at your own pace
               </p>
-            </div>
+            </Link>
 
-            <div className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <BookOpen className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -234,7 +234,7 @@ export default function Home() {
               <p className="text-muted-foreground text-sm leading-relaxed">
                 10,000+ practice questions across 50+ test subjects
               </p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
