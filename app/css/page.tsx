@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
+import { useEffect, useState, Suspense, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { BookOpen, FileText, Target, LogOut, ArrowRight, Award, TrendingUp, Flame } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
@@ -53,6 +53,9 @@ function DashboardContent() {
   const [weakSubjects, setWeakSubjects] = useState<WeakSubject[]>([])
   const [statsLoading, setStatsLoading] = useState(true)
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
+
+  // Track last analytics refresh time to prevent excessive calls (debounce)
+  const lastAnalyticsRefreshRef = useRef<number>(0)
   
   // Get full name for top bar
   const getFullName = () => {
@@ -133,7 +136,7 @@ function DashboardContent() {
           setWeakSubjects(analytics.weak_subjects || [])
         }
       } catch (error) {
-        console.error('Failed to load analytics:', error)
+        // Silently handle analytics loading errors
       } finally {
         setStatsLoading(false)
       }
@@ -143,17 +146,25 @@ function DashboardContent() {
   }, [user])
 
   // Refresh analytics when window gains focus (user comes back after quiz)
+  // Debounced to prevent excessive API calls (5 minute minimum between refreshes)
   useEffect(() => {
     if (!user) return
 
     const handleFocus = async () => {
-      console.log('🔄 Window focused - refreshing analytics...')
+      const now = Date.now()
+      const timeSinceLastRefresh = now - lastAnalyticsRefreshRef.current
+
+      // Only refresh if more than 5 minutes (300000ms) has passed
+      if (timeSinceLastRefresh < 300000) {
+        return
+      }
+
+      lastAnalyticsRefreshRef.current = now
       const analytics = await getUserAnalytics()
       if (analytics) {
         setUserStats(analytics.stats)
         setRecommendation(analytics.recommendation)
         setWeakSubjects(analytics.weak_subjects || [])
-        console.log('✅ Analytics refreshed on focus')
       }
     }
 
@@ -172,8 +183,6 @@ function DashboardContent() {
     const supabase = createClient()
     // Always use current browser location for OAuth redirects
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL || ''
-
-    console.log('OAuth redirect will use:', baseUrl)
 
     await supabase.auth.signInWithOAuth({
       provider: 'google',

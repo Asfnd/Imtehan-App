@@ -18,7 +18,6 @@ import type {
  * Updates: user_stats, quiz_attempts, subject_performance, daily_activity, streak
  */
 export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizResponse | null> {
-  const startTime = performance.now()
   const supabase = createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
@@ -28,14 +27,6 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
   }
 
   try {
-    console.log('💾 Saving quiz to database...', {
-      user: user.email,
-      subject: quizData.subject || 'General',
-      score: `${quizData.correctAnswers}/${quizData.totalQuestions}`,
-      percentage: `${Math.round((quizData.correctAnswers / quizData.totalQuestions) * 100)}%`,
-      time: `${Math.floor(quizData.timeInSeconds / 60)}m ${quizData.timeInSeconds % 60}s`
-    })
-
     const { data, error } = await supabase.rpc('save_quiz_and_update_analytics', {
       p_user_id: user.id,
       p_quiz_type: quizData.quizType,
@@ -57,22 +48,6 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
       throw error
     }
 
-    const endTime = performance.now()
-    const duration = Math.round(endTime - startTime)
-
-    console.log('✅ Quiz saved to database successfully!', {
-      duration: `${duration}ms`,
-      newStreak: data?.streak || 0,
-      totalQuestions: data?.total_questions || quizData.totalQuestions,
-      totalTests: data?.total_tests || 1,
-      subject: quizData.subject || 'General'
-    })
-
-    // Show streak celebration if applicable
-    if (data?.streak && data.streak >= 3) {
-      console.log(`🔥 STREAK ACTIVE: ${data.streak} days! Keep it going!`)
-    }
-
     return data as SaveQuizResponse
 
   } catch (error) {
@@ -90,18 +65,14 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
  * Single RPC call fetches: stats, weak subjects, recommendation, recent scores
  */
 export async function getUserAnalytics(): Promise<UserAnalytics | null> {
-  const startTime = performance.now()
   const supabase = createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
-    console.log('ℹ️ No user logged in, skipping analytics')
     return null
   }
 
   try {
-    console.log('📊 Fetching analytics from database for:', user.email)
-
     const { data, error } = await supabase.rpc('get_user_analytics', {
       p_user_id: user.id
     })
@@ -114,33 +85,6 @@ export async function getUserAnalytics(): Promise<UserAnalytics | null> {
         details: error.details
       })
       throw error
-    }
-
-    const endTime = performance.now()
-    const duration = Math.round(endTime - startTime)
-
-    if (data) {
-      console.log('✅ Analytics loaded from database:', {
-        duration: `${duration}ms`,
-        totalQuestions: data.stats?.total_questions_solved || 0,
-        totalTests: data.stats?.total_tests_completed || 0,
-        avgScore: data.stats?.average_score ? `${data.stats.average_score.toFixed(1)}%` : '0%',
-        streak: data.stats?.current_streak || 0,
-        weakSubjects: data.weak_subjects?.length || 0,
-        hasRecommendation: !!data.recommendation
-      })
-
-      // Log weak subjects if any
-      if (data.weak_subjects && data.weak_subjects.length > 0) {
-        console.log('📉 Weak subjects found:', data.weak_subjects.map((s: any) =>
-          `${s.subject} (${s.average_score.toFixed(0)}%)`
-        ).join(', '))
-      }
-
-      // Log recommendation if any
-      if (data.recommendation) {
-        console.log('💡 Today\'s recommendation:', data.recommendation.subject)
-      }
     }
 
     return data as UserAnalytics
