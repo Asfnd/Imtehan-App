@@ -6,6 +6,7 @@ import { BookOpen, FileText, Target, LogOut, ArrowRight, Award, TrendingUp, Flam
 import FeedbackButton from '@/components/FeedbackButton'
 import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics } from '@/lib/analytics'
+import { useAuth } from '@/lib/contexts/AuthContext'
 import type { UserStats, TodaysRecommendation as RecommendationType, WeakSubject } from '@/lib/analytics/types'
 import dynamic from 'next/dynamic'
 import NavigationBar from '@/components/NavigationBar'
@@ -43,23 +44,15 @@ function DashboardLoading() {
 function DashboardContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [user, setUser] = useState<any>(null)
-  const [authLoading, setAuthLoading] = useState(true)
+  const { user, loading: authLoading } = useAuth()
   const [authMessage, setAuthMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
-  const [mounted, setMounted] = useState(false)
-
-  // Removed remaining state - not displayed in UI anymore
-  const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
 
   // Analytics state
   const [userStats, setUserStats] = useState<UserStats | null>(null)
   const [recommendation, setRecommendation] = useState<RecommendationType | null>(null)
   const [weakSubjects, setWeakSubjects] = useState<WeakSubject[]>([])
   const [statsLoading, setStatsLoading] = useState(true)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
   
   // Get full name for top bar
   const getFullName = () => {
@@ -92,97 +85,45 @@ function DashboardContent() {
   const fullName = getFullName()
   const firstName = getFirstName()
 
+  // Handle auth status messages from URL (smooth sign-in/sign-out experience)
   useEffect(() => {
-    if (!mounted) return
-
-    const supabase = createClient()
-    
-    // Check for auth status in URL parameters
     const authStatus = searchParams.get('auth')
     const authMessageParam = searchParams.get('message')
-    
+
     if (authStatus === 'success') {
       setAuthMessage({ type: 'success', message: 'Successfully signed in!' })
-      // Clear URL parameters after showing message
-      const newUrl = new URL(window.location.href)
-      newUrl.searchParams.delete('auth')
-      newUrl.searchParams.delete('message')
-      window.history.replaceState({}, '', newUrl.toString())
-      
-      // Auto-hide success message after 3 seconds
       setTimeout(() => setAuthMessage(null), 3000)
     } else if (authStatus === 'error') {
-      setAuthMessage({ 
-        type: 'error', 
-        message: authMessageParam ? decodeURIComponent(authMessageParam) : 'Authentication failed' 
+      setAuthMessage({
+        type: 'error',
+        message: authMessageParam ? decodeURIComponent(authMessageParam) : 'Authentication failed'
       })
-      // Clear URL parameters after showing message
+      setTimeout(() => setAuthMessage(null), 5000)
+    }
+
+    // Clear URL parameters after processing
+    if (authStatus) {
       const newUrl = new URL(window.location.href)
       newUrl.searchParams.delete('auth')
       newUrl.searchParams.delete('message')
       window.history.replaceState({}, '', newUrl.toString())
-      
-      // Auto-hide error message after 5 seconds
-      setTimeout(() => setAuthMessage(null), 5000)
     }
-    
-    checkUser()
+  }, [searchParams])
 
-    // Listen for auth state changes for smooth sign-in experience
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Dashboard: Auth state change:', event, session ? { user: session.user?.email } : 'no session')
-
-        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-          console.log('Dashboard: User signed in, updating state')
-          setUser(session?.user ?? null)
-          setAuthLoading(false)
-          // Show success message if not already shown
-          if (!authMessage) {
-            setAuthMessage({ type: 'success', message: 'Successfully signed in!' })
-            setTimeout(() => setAuthMessage(null), 3000)
-          }
-        } else if (event === 'SIGNED_OUT') {
-          console.log('Dashboard: User signed out, clearing state')
-          setUser(null)
-          setAuthLoading(false)
-        }
-      }
-    )
-    
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [searchParams, mounted])
-
-  const checkUser = async () => {
-    const supabase = createClient()
-    console.log('Dashboard: Checking user session...')
-
-    const { data: { user }, error } = await supabase.auth.getUser()
-
-    console.log('Dashboard: User check result:', {
-      user: user ? { id: user.id, email: user.email } : null,
-      error: error?.message
-    })
-
-    if (user) {
-      console.log('Dashboard: User session found, setting user state')
-    } else {
-      console.log('Dashboard: No user session found')
-    }
-
-    setUser(user)
-    setAuthLoading(false)
-  }
-
-  // Load analytics data when user changes
+  // Load analytics data in parallel with rendering (no blocking)
   useEffect(() => {
-    if (!mounted) return
-
     const loadAnalytics = async () => {
-      if (user) {
-        console.log('📊 Loading analytics for user:', user.email)
+      if (!user) {
+        // User not logged in - clear analytics
+        setUserStats(null)
+        setRecommendation(null)
+        setWeakSubjects([])
+        setStatsLoading(false)
+        return
+      }
+
+      // Load analytics in background (non-blocking)
+      try {
         setStatsLoading(true)
         const analytics = await getUserAnalytics()
 
@@ -190,33 +131,20 @@ function DashboardContent() {
           setUserStats(analytics.stats)
           setRecommendation(analytics.recommendation)
           setWeakSubjects(analytics.weak_subjects || [])
-          console.log('✅ Analytics loaded successfully:', {
-            questionsolved: analytics.stats?.total_questions_solved,
-            tests: analytics.stats?.total_tests_completed,
-            avgScore: analytics.stats?.average_score,
-            streak: analytics.stats?.current_streak,
-            hasRecommendation: !!analytics.recommendation,
-            weakSubjectsCount: analytics.weak_subjects?.length || 0
-          })
-        } else {
-          console.log('⚠️ No analytics data returned')
         }
-        setStatsLoading(false)
-      } else {
-        console.log('ℹ️ No user logged in, clearing analytics')
-        setUserStats(null)
-        setRecommendation(null)
-        setWeakSubjects([])
+      } catch (error) {
+        console.error('Failed to load analytics:', error)
+      } finally {
         setStatsLoading(false)
       }
     }
 
     loadAnalytics()
-  }, [user, mounted])
+  }, [user])
 
   // Refresh analytics when window gains focus (user comes back after quiz)
   useEffect(() => {
-    if (!mounted || !user) return
+    if (!user) return
 
     const handleFocus = async () => {
       console.log('🔄 Window focused - refreshing analytics...')
@@ -231,12 +159,12 @@ function DashboardContent() {
 
     window.addEventListener('focus', handleFocus)
     return () => window.removeEventListener('focus', handleFocus)
-  }, [mounted, user])
+  }, [user])
 
   const handleSignOut = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
-    setUser(null)
+    // User state will update automatically via auth context
     router.refresh()
   }
 
@@ -259,8 +187,8 @@ function DashboardContent() {
     })
   }
 
-  // Show loading state while checking auth or not mounted
-  if (authLoading || !mounted) {
+  // Show loading state while checking auth
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">

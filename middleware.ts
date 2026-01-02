@@ -134,58 +134,65 @@ export default async function middleware(request: NextRequest) {
 
   let response = NextResponse.next()
 
-  // Handle Supabase session refresh for authenticated routes
-  let user = null
-  try {
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll().map(cookie => ({
-              name: cookie.name,
-              value: cookie.value,
-            }))
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) => {
-              response.cookies.set(name, value, {
-                ...options,
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
-                path: '/',
+  // SECURITY: Protect solved papers routes - premium only (with timeout)
+  const isPremiumRoute = pathname.startsWith('/css/solved-papers/view')
+
+  if (isPremiumRoute) {
+    try {
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          cookies: {
+            getAll() {
+              return request.cookies.getAll().map(cookie => ({
+                name: cookie.name,
+                value: cookie.value,
+              }))
+            },
+            setAll(cookiesToSet) {
+              cookiesToSet.forEach(({ name, value, options }) => {
+                response.cookies.set(name, value, {
+                  ...options,
+                  httpOnly: true,
+                  secure: process.env.NODE_ENV === 'production',
+                  sameSite: 'lax',
+                  path: '/',
+                })
               })
-            })
+            },
           },
-        },
+        }
+      )
+
+      // Use Promise.race with timeout for faster failure (2 second timeout)
+      const authPromise = supabase.auth.getUser()
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Auth timeout')), 2000)
+      )
+
+      const { data: { user } } = await Promise.race([authPromise, timeoutPromise]) as any
+
+      if (!user) {
+        // Not authenticated - redirect to sign in
+        const redirectUrl = new URL('/signin', request.url)
+        redirectUrl.searchParams.set('redirect', pathname)
+        return NextResponse.redirect(redirectUrl)
       }
-    )
 
-    // Refresh session if needed
-    const { data: { user: authUser } } = await supabase.auth.getUser()
-    user = authUser
-  } catch (error) {
-    // Silently handle auth errors in production
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Auth middleware error:', error)
-    }
-  }
-
-  // SECURITY: Protect solved papers routes - premium only
-  if (pathname.startsWith('/css/solved-papers/view')) {
-    if (!user) {
-      // Not authenticated - redirect to sign in
+      const isPremium = user.user_metadata?.is_premium === true
+      if (!isPremium) {
+        // Not premium - redirect to premium page
+        const redirectUrl = new URL('/css/premium', request.url)
+        return NextResponse.redirect(redirectUrl)
+      }
+    } catch (error) {
+      // On auth error/timeout, redirect to sign in (fail secure)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Premium route auth error:', error)
+      }
       const redirectUrl = new URL('/signin', request.url)
       redirectUrl.searchParams.set('redirect', pathname)
-      return NextResponse.redirect(redirectUrl)
-    }
-
-    const isPremium = user.user_metadata?.is_premium === true
-    if (!isPremium) {
-      // Not premium - redirect to premium page
-      const redirectUrl = new URL('/css/premium', request.url)
       return NextResponse.redirect(redirectUrl)
     }
   }

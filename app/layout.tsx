@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { AuthProvider } from "@/lib/contexts/AuthContext"
 import "./globals.css"
 
 const inter = Inter({
@@ -13,11 +14,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://imtehan.com'),
   title: {
-    default: "Imtehan - CSS & MPT Exam Preparation Platform",
+    default: "Imtehan - Learn smarter, practice better, and compete with confidence",
     template: "%s | Imtehan"
   },
   description:
-    "Master CSS and MPT competitive exams with interactive practice tests, past papers, detailed analytics, and personalized study paths. Join thousands of successful aspirants.",
+    "Competitive Exams Preparation Platform",
   keywords: ['CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams', 'past papers', 'MCQs', 'exam preparation'],
   authors: [{ name: 'Imtehan' }],
   openGraph: {
@@ -82,7 +83,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

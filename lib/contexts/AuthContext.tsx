@@ -1,80 +1,82 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 interface AuthContextType {
   user: User | null
   loading: boolean
-  signOut: () => Promise<void>
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: true,
-  signOut: async () => {}
-})
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+/**
+ * AuthProvider - Single source of truth for user authentication
+ * Prevents duplicate Supabase calls across the entire app
+ * Shares auth state across all components via context
+ */
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
+  const [initialized, setInitialized] = useState(false)
 
   useEffect(() => {
-    // Get initial session
-    const getSession = async () => {
+    // Only initialize once
+    if (initialized) return
+
+    const supabase = createClient()
+
+    // Check initial auth state (fires once on mount)
+    const checkInitialAuth = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession()
-        
-        // If refresh token error, clear the session
-        if (error && error.message.includes('refresh')) {
-          await supabase.auth.signOut()
-          setUser(null)
-        } else {
-          setUser(session?.user ?? null)
-        }
-      } catch (err) {
-        console.error('Session error:', err)
+        const { data: { user: currentUser } } = await supabase.auth.getUser()
+        setUser(currentUser ?? null)
+      } catch (error) {
+        console.error('Failed to check initial auth:', error)
         setUser(null)
       } finally {
         setLoading(false)
       }
     }
 
-    getSession()
+    checkInitialAuth()
 
-    // Listen for auth changes
+    // Subscribe to auth changes (triggered by sign in/out/token refresh)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user ?? null)
-        setLoading(false)
-        
-        // Clear stale sessions on sign out
-        if (event === 'SIGNED_OUT') {
+      (event, session) => {
+        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+          setUser(session?.user ?? null)
+        } else if (event === 'SIGNED_OUT') {
           setUser(null)
         }
+        setLoading(false)
       }
     )
 
-    return () => subscription.unsubscribe()
-  }, [supabase])
+    setInitialized(true)
 
-  const signOut = async () => {
-    await supabase.auth.signOut()
-  }
+    // Cleanup subscription on unmount
+    return () => {
+      subscription?.unsubscribe()
+    }
+  }, [initialized])
 
   return (
-    <AuthContext.Provider value={{ user, loading, signOut }}>
+    <AuthContext.Provider value={{ user, loading }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-export const useAuth = () => {
+/**
+ * Hook to access auth context
+ * Ensures components don't make their own Supabase auth calls
+ */
+export function useAuth() {
   const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+  if (context === undefined) {
+    throw new Error('useAuth must be used within AuthProvider')
   }
   return context
 }
