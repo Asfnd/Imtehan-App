@@ -6,13 +6,13 @@ import NavigationBar from '@/components/NavigationBar'
 
 export const metadata: Metadata = {
   title: 'About Imtehan - CSS & MPT Exam Preparation Platform',
-  description: 'Learn about Imtehan, Pakistan\'s leading online platform for CSS and MPT exam preparation. Discover our mission to help thousands of students excel in competitive exams with expert-curated content.',
+  description: 'Learn about Imtehan, Pakistan\'s leading online platform for Competitive exams preparation. Discover our mission to help thousands of students excel in competitive exams with expert-curated content.',
   alternates: {
     canonical: 'https://imtehan.com/about',
   },
   openGraph: {
     title: 'About Imtehan - CSS & MPT Exam Preparation Platform',
-    description: 'Learn about Imtehan, Pakistan\'s leading online platform for CSS and MPT exam preparation.',
+    description: 'Learn about Imtehan, Pakistan\'s leading online platform for Competitive exams preparation.',
     url: 'https://imtehan.com/about',
     type: 'website',
   },

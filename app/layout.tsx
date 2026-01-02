@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Imtehan"
   },
   description:
-    "Master CSS and MPT competitive exams in Pakistan with 10,000+ practice MCQs, past papers (2015-2023), and expert explanations. Free CSS practice tests for Islamic Studies, Pakistan Affairs, Current Affairs, and 25+ subjects.",
+    "Imtehan - Learn smarter, practice better, and compete with confidence. Master CSS and MPT competitive exams with 10,000+ MCQs and past papers.",
   keywords: [
     'CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams',
     'CSS past papers PDF', 'CSS MCQs with answers', 'CSS Islamic Studies MCQs',
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://imtehan.com',
     siteName: 'Imtehan',
-    title: 'Imtehan - CSS & MPT Exam Preparation',
-    description: 'Master CSS and MPT competitive exams in Pakistan with 10,000+ practice MCQs, past papers, and expert explanations. Free CSS preparation platform.',
+    title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
+    description: 'Imtehan - Learn smarter, practice better, and compete with confidence. Master CSS and MPT competitive exams with 10,000+ MCQs and past papers.',
     images: [
       {
         url: '/og-image.svg',
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Imtehan - CSS & MPT Exam Preparation',
-    description: 'Master CSS and MPT competitive exams in Pakistan with 10,000+ practice MCQs, past papers, and expert explanations.',
+    title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
+    description: 'Imtehan - Learn smarter, practice better, and compete with confidence. Master CSS and MPT competitive exams with 10,000+ MCQs and past papers.',
     images: ['/og-image.svg']
   },
   robots: {
