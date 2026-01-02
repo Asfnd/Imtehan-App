@@ -13,8 +13,9 @@ interface InfiniteMarqueeProps {
 }
 
 export function InfiniteMarquee({ items, direction = 'left', speed = 40, isReview = false }: InfiniteMarqueeProps) {
-  // Duplicate items for seamless loop
-  const allItems = [...items, ...items, ...items]
+  // Only duplicate items twice for seamless loop (instead of 3x)
+  // Optimizes DOM size while maintaining animation smoothness
+  const allItems = [...items, ...items]
 
   return (
     <div className="relative overflow-hidden py-4">

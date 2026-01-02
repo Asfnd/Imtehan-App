@@ -12,24 +12,22 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [user, setUser] = useState<any>(null)
-  const [checkingAuth, setCheckingAuth] = useState(true)
 
   useEffect(() => {
     const supabase = createClient()
 
-    // Check current session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user || null)
-      setCheckingAuth(false)
-    })
-
-    // Listen for auth changes
+    // Only listen for auth changes (don't check session - AuthContext already does this)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null)
+
+      // Redirect if user signs in while on this page
+      if (session?.user) {
+        router.push('/css')
+      }
     })
 
     return () => subscription.unsubscribe()
-  }, [])
+  }, [router])
 
   const handleGoogleSignIn = async () => {
     try {
@@ -62,19 +60,7 @@ export default function AuthPage() {
     router.push('/')
   }
 
-  // Loading state
-  if (checkingAuth) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    )
-  }
-
-  // Already logged in
+  // Already logged in - redirect immediately
   if (user) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">

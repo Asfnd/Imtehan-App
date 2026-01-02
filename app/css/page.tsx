@@ -113,7 +113,8 @@ function DashboardContent() {
     }
   }, [searchParams])
 
-  // Load analytics data in parallel with rendering (no blocking)
+  // Load analytics data with delay to avoid blocking initial render
+  // Uses requestIdleCallback if available, falls back to timeout
   useEffect(() => {
     const loadAnalytics = async () => {
       if (!user) {
@@ -125,7 +126,7 @@ function DashboardContent() {
         return
       }
 
-      // Load analytics in background (non-blocking)
+      // Load analytics in background after page is interactive
       try {
         setStatsLoading(true)
         const analytics = await getUserAnalytics()
@@ -142,7 +143,14 @@ function DashboardContent() {
       }
     }
 
-    loadAnalytics()
+    // Defer analytics loading until page is interactive
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => loadAnalytics(), { timeout: 1000 })
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      const timeoutId = setTimeout(loadAnalytics, 500)
+      return () => clearTimeout(timeoutId)
+    }
   }, [user])
 
   // Refresh analytics when window gains focus (user comes back after quiz)
