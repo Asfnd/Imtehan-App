@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
+import { OrganizationSchema, WebSiteSchema } from "@/components/seo/StructuredData"
 import "./globals.css"
 
 const inter = Inter({
@@ -18,16 +19,29 @@ export const metadata: Metadata = {
     template: "%s | Imtehan"
   },
   description:
-    "Competitive Exams Preparation Platform",
-  keywords: ['CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams', 'past papers', 'MCQs', 'exam preparation'],
+    "Master CSS and MPT competitive exams in Pakistan with 10,000+ practice MCQs, past papers (2015-2023), and expert explanations. Free CSS practice tests for Islamic Studies, Pakistan Affairs, Current Affairs, and 25+ subjects.",
+  keywords: [
+    'CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams',
+    'CSS past papers PDF', 'CSS MCQs with answers', 'CSS Islamic Studies MCQs',
+    'Pakistan Affairs MCQs', 'CSS English preparation', 'CSS essay writing',
+    'Federal Public Service Commission', 'FPSC preparation',
+    'CSS exam syllabus 2025', 'CSS online practice test',
+    'CSS mock test free', 'CSS preparation books',
+    'MPT test pattern', 'CSS compulsory subjects',
+    'CSS current affairs', 'CSS general knowledge', 'CSS exam guide',
+    'FPSC CSS', 'CSS competitive exam Pakistan', 'CSS online preparation'
+  ],
   authors: [{ name: 'Imtehan' }],
+  alternates: {
+    canonical: 'https://imtehan.com',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://imtehan.com',
     siteName: 'Imtehan',
     title: 'Imtehan - CSS & MPT Exam Preparation',
-    description: 'Master CSS and MPT competitive exams with interactive practice tests and past papers',
+    description: 'Master CSS and MPT competitive exams in Pakistan with 10,000+ practice MCQs, past papers, and expert explanations. Free CSS preparation platform.',
     images: [
       {
         url: '/og-image.svg',
@@ -40,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Imtehan - CSS & MPT Exam Preparation',
-    description: 'Master CSS and MPT competitive exams with interactive practice tests',
+    description: 'Master CSS and MPT competitive exams in Pakistan with 10,000+ practice MCQs, past papers, and expert explanations.',
     images: ['/og-image.svg']
   },
   robots: {
@@ -82,6 +96,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <OrganizationSchema />
+        <WebSiteSchema />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <AuthProvider>
           {children}

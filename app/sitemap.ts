@@ -6,7 +6,7 @@ import { MetadataRoute } from 'next'
  * Updates automatically as content changes
  */
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://prepz.vercel.app'
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://imtehan.com'
 
 // All CSS subjects for dynamic URL generation
 const SUBJECTS = [
@@ -98,7 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.7,
     },
   ]
 
@@ -128,21 +128,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  // Blog pages (when created)
-  const blogPages: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-  ]
-
   return [
     ...staticPages,
     ...subjectPages,
     ...subjectOnlyPages,
     ...yearPages,
-    ...blogPages,
   ]
 }

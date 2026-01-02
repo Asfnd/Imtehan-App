@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown, BookOpen, HelpCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 interface FAQItem {
   question: string
@@ -86,6 +87,7 @@ export default function FAQPage() {
 
   return (
     <main className="min-h-screen bg-[#F9FAFB]">
+      <FAQSchema items={faqs} />
       <NavigationBar />
 
       {/* Hero Section */}

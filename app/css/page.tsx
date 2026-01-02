@@ -10,6 +10,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import type { UserStats, TodaysRecommendation as RecommendationType, WeakSubject } from '@/lib/analytics/types'
 import dynamic from 'next/dynamic'
 import NavigationBar from '@/components/NavigationBar'
+import { CourseSchema } from '@/components/seo/StructuredData'
 
 // Lazy load recommendation components
 const TodaysRecommendation = dynamic(() => import('@/components/analytics/TodaysRecommendation'), {
@@ -218,6 +219,11 @@ function DashboardContent() {
 
   return (
     <div className="relative min-h-screen flex flex-col bg-background">
+      <CourseSchema
+        name="CSS Exam Preparation Course"
+        description="Comprehensive CSS (Central Superior Services) exam preparation with 10,000+ practice MCQs, past papers from 2015-2023, and expert-curated content covering all compulsory and optional subjects."
+        url="https://imtehan.com/css"
+      />
       {/* Navigation Bar */}
       {authMessage && (
         <div className={`w-full px-4 py-3 text-center text-sm font-medium z-50 ${
