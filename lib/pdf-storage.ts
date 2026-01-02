@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client'
+import { pdfPathCache } from '@/lib/pdf-path-cache'
 
 /**
  * URL Caching Removed for Security
@@ -392,6 +393,30 @@ export async function getPastPaperUrl(
   try {
     const supabase = createClient()
 
+    // 🚀 OPTIMIZATION: Check cache first before expensive fuzzy matching
+    const cachedPath = pdfPathCache.get(subject, year)
+    if (cachedPath) {
+      console.log(`⚡ Cache HIT for ${subject} (${year}): ${cachedPath}`)
+      const { data } = supabase.storage
+        .from('css-past-papers')
+        .getPublicUrl(cachedPath)
+
+      if (data?.publicUrl) {
+        return {
+          success: true,
+          url: data.publicUrl,
+          foundAt: cachedPath,
+          searchedPaths: [cachedPath] // Only searched cached path
+        }
+      } else {
+        // Cached path is stale, remove it
+        console.log(`⚠️ Cached path ${cachedPath} is stale, removing from cache`)
+        pdfPathCache.remove(subject, year)
+      }
+    }
+
+    console.log(`💾 Cache MISS for ${subject} (${year}), performing full search...`)
+
     // First check if storage is accessible
     const storageCheck = await checkStorageAccess()
     if (!storageCheck.success) {
@@ -415,6 +440,11 @@ export async function getPastPaperUrl(
 
         if (data?.publicUrl) {
           console.log(`✅ Found PDF at: ${path}`)
+
+          // 🚀 OPTIMIZATION: Cache successful path for future requests
+          pdfPathCache.set(subject, year, path)
+          console.log(`💾 Cached path: ${path}`)
+
           return {
             success: true,
             url: data.publicUrl,
@@ -431,10 +461,14 @@ export async function getPastPaperUrl(
     }
     
     console.log('❌ Exact path matching failed, trying fuzzy search...')
-    
+
     // If exact paths fail, try fuzzy matching
     const fuzzyResult = await fuzzyMatchPDF(subject, year)
-    if (fuzzyResult.success) {
+    if (fuzzyResult.success && fuzzyResult.foundPath) {
+      // 🚀 OPTIMIZATION: Cache fuzzy-matched path for future requests
+      pdfPathCache.set(subject, year, fuzzyResult.foundPath)
+      console.log(`💾 Cached fuzzy-matched path: ${fuzzyResult.foundPath}`)
+
       return {
         success: true,
         url: fuzzyResult.url,

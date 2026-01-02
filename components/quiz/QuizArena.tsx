@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import QuestionCard from './QuestionCard'
 import { useAnimation } from '@/lib/hooks/useAnimation'
+import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import Timer from './Timer'
 import { Button } from '@/components/ui/Button'
+import { soundManager } from '@/lib/sounds/soundManager'
 import type { Question, Answer } from '@/lib/supabase/types'
 
 interface QuizArenaProps {
@@ -22,6 +24,16 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
   const [questionStartTime, setQuestionStartTime] = useState(Date.now())
   const [totalXP, setTotalXP] = useState(0)
   const [showXPAnimation, setShowXPAnimation] = useState(false)
+  const soundsEnabled = useSoundsEnabled()
+
+  // Preload sounds on mount
+  useEffect(() => {
+    soundManager.preload().catch((error) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Failed to preload sounds:', error)
+      }
+    })
+  }, [])
 
   const currentQuestion = questions[currentQuestionIndex]
   const isLastQuestion = currentQuestionIndex === questions.length - 1
@@ -44,12 +56,21 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
 
     setAnswers(prev => [...prev, newAnswer])
 
+    // Play sound based on answer correctness (only if sounds enabled for this quiz type)
+    if (soundsEnabled) {
+      if (isCorrect) {
+        soundManager.play('correct')
+      } else {
+        soundManager.play('incorrect')
+      }
+    }
+
     // Award XP immediately for correct answers
     if (isCorrect) {
       const xpEarned = 10 // 10 XP per correct answer
       setTotalXP(prev => prev + xpEarned)
       setShowXPAnimation(true)
-      
+
       // Hide animation after 2 seconds
       setTimeout(() => setShowXPAnimation(false), 2000)
     }
@@ -73,12 +94,17 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
 
   const handleNext = () => {
     if (isLastQuestion) {
+      // Play quiz complete sound (only if sounds enabled for this quiz type)
+      if (soundsEnabled) {
+        soundManager.play('quizComplete')
+      }
+
       const totalTime = Math.floor((Date.now() - startTime) / 1000)
-      
+
       // Calculate bonus XP for completion
       const score = answers.filter(a => a.is_correct).length
       const bonusXP = score === questions.length ? 50 : score >= questions.length * 0.8 ? 25 : 0
-      
+
       onComplete(answers, totalTime)
     } else {
       setCurrentQuestionIndex(prev => prev + 1)

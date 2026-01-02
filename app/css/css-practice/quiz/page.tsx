@@ -1,13 +1,14 @@
 'use client'
 
-import { useState, useEffect, useCallback, Suspense } from 'react'
+import { useState, useEffect, useCallback, useMemo, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Lightbulb, BookOpen, Flag, Loader } from 'lucide-react'
+import { Flag } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { useAnalytics } from '@/lib/hooks/useAnalytics'
 import { useLazyLoadMCQs } from '@/lib/hooks/useLazyLoadMCQs'
+import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { saveQuizResults } from '@/lib/analytics'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
@@ -34,16 +35,6 @@ const EnhancedResultsScreen = dynamic(() => import('./components/EnhancedResults
       </div>
     </div>
   ),
-  ssr: false
-})
-
-const ExplanationModal = dynamic(() => import('./components/ExplanationModal').then(mod => ({ default: mod.ExplanationModal })), {
-  loading: () => null,
-  ssr: false
-})
-
-const HintsModal = dynamic(() => import('./components/HintsModal').then(mod => ({ default: mod.HintsModal })), {
-  loading: () => null,
   ssr: false
 })
 
@@ -75,6 +66,7 @@ function CSSQuizContent() {
   const searchParams = useSearchParams()
   const { user, loading: authLoading, checkAccess } = useFreeTrial()
   const analytics = useAnalytics()
+  const soundsEnabled = useSoundsEnabled()
 
   // Get subject and year for lazy loading detection
   const subject = searchParams.get('subject') || undefined
@@ -92,8 +84,6 @@ function CSSQuizContent() {
     isLoadingNextBatch,
     hasMoreToLoad,
     checkAndTriggerNextBatch,
-    fetchExplanation,
-    fetchHints,
   } = useLazyLoadMCQs({
     subject,
     year,
@@ -107,12 +97,8 @@ function CSSQuizContent() {
   const [score, setScore] = useState(0)
   const [answers, setAnswers] = useState<boolean[]>([])
   const [wrongAttempts, setWrongAttempts] = useState<number>(0)
-  const [showExplanationModal, setShowExplanationModal] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
-  const [showHintsModal, setShowHintsModal] = useState(false)
   const [showReportToast, setShowReportToast] = useState(false)
-  const [loadingExplanation, setLoadingExplanation] = useState(false)
-  const [loadingHints, setLoadingHints] = useState(false)
   const [quizStartTime, setQuizStartTime] = useState<number>(Date.now())
 
   // Gamification state
@@ -126,6 +112,30 @@ function CSSQuizContent() {
     'correct' | 'incorrect' | 'milestone'
   >('correct')
   const [showConfetti, setShowConfetti] = useState(false)
+
+  // Memoized values to prevent unnecessary recalculations
+  const currentMCQ = useMemo(
+    () => lazyLoadedMcqs[currentIndex],
+    [lazyLoadedMcqs, currentIndex]
+  )
+
+  const progressPercentage = useMemo(
+    () => ((currentIndex + 1) / lazyLoadedMcqs.length) * 100,
+    [currentIndex, lazyLoadedMcqs.length]
+  )
+
+  const isLastQuestion = useMemo(
+    () => currentIndex === lazyLoadedMcqs.length - 1,
+    [currentIndex, lazyLoadedMcqs.length]
+  )
+
+  // Memoized answer options array
+  const options = useMemo(() => [
+    { label: 'A', text: currentMCQ?.option_a || '' },
+    { label: 'B', text: currentMCQ?.option_b || '' },
+    { label: 'C', text: currentMCQ?.option_c || '' },
+    { label: 'D', text: currentMCQ?.option_d || '' },
+  ], [currentMCQ])
 
   // Handle auth check and access validation
   useEffect(() => {
@@ -157,11 +167,11 @@ function CSSQuizContent() {
     }
   }, [lazyLoadedMcqs.length, lazyLoading, subject, analytics])
 
-  const handleReport = async () => {
+  // Wrap handler with useCallback to prevent unnecessary re-renders
+  const handleReport = useCallback(async () => {
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
-      const currentMCQ = lazyLoadedMcqs[currentIndex]
 
       if (!currentMCQ) return
 
@@ -183,7 +193,7 @@ function CSSQuizContent() {
       setShowReportToast(true)
       setTimeout(() => setShowReportToast(false), 3000)
     }
-  }
+  }, [currentMCQ])
 
   const handleAnswer = (answer: string) => {
     if (isCorrect) return // Already got it right
@@ -210,14 +220,18 @@ function CSSQuizContent() {
       setShowRecentPoints(true)
       setTimeout(() => setShowRecentPoints(false), 1500)
 
-      // Gamification: Play correct sound
-      soundManager.play('correct')
+      // Gamification: Play correct sound (only if sounds enabled for this quiz type)
+      if (soundsEnabled) {
+        soundManager.play('correct')
+      }
 
       // Gamification: Show encouragement
       if (newStreak > 0 && newStreak % 5 === 0) {
         // Milestone reached
         setEncouragementType('milestone')
-        soundManager.play('streakMilestone')
+        if (soundsEnabled) {
+          soundManager.play('streakMilestone')
+        }
       } else {
         setEncouragementType('correct')
       }
@@ -230,8 +244,10 @@ function CSSQuizContent() {
       // Gamification: Reset streak
       setStreak(0)
 
-      // Gamification: Play incorrect sound
-      soundManager.play('incorrect')
+      // Gamification: Play incorrect sound (only if sounds enabled for this quiz type)
+      if (soundsEnabled) {
+        soundManager.play('incorrect')
+      }
 
       // Gamification: Show encouragement
       setEncouragementType('incorrect')
@@ -249,9 +265,7 @@ function CSSQuizContent() {
       setCurrentIndex(nextIndex)
       setSelectedAnswer(null)
       setWrongAttempts(0)
-      setShowExplanationModal(false)
       setIsCorrect(false)
-      setShowHintsModal(false)
 
       // Smart trigger: Check if we need to load next batch
       if (enableLazyLoad) {
@@ -259,7 +273,9 @@ function CSSQuizContent() {
       }
     } else {
       // Quiz complete!
-      soundManager.play('quizComplete')
+      if (soundsEnabled) {
+        soundManager.play('quizComplete')
+      }
 
       const finalScore = score + (isCorrect ? 1 : 0)
       const completionSubject = subject || 'General'
@@ -308,9 +324,7 @@ function CSSQuizContent() {
       setCurrentIndex(currentIndex - 1)
       setSelectedAnswer(null)
       setWrongAttempts(0)
-      setShowExplanationModal(false)
       setIsCorrect(false)
-      setShowHintsModal(false)
     }
   }
 
@@ -321,9 +335,7 @@ function CSSQuizContent() {
     setScore(0)
     setAnswers([])
     setWrongAttempts(0)
-    setShowExplanationModal(false)
     setIsCorrect(false)
-    setShowHintsModal(false)
     setQuizStartTime(Date.now()) // Reset start time
     // Reset gamification
     setStreak(0)
@@ -334,46 +346,6 @@ function CSSQuizContent() {
     // For lazy loading, reload page to start fresh
     router.refresh()
   }
-
-  /**
-   * Handle explanation button click - fetch on-demand
-   */
-  const handleShowExplanation = async () => {
-    const currentMCQ = lazyLoadedMcqs[currentIndex]
-    if (!currentMCQ || loadingExplanation) return
-
-    // Check if already loaded
-    if (currentMCQ.explanation_detailed) {
-      setShowExplanationModal(true)
-      return
-    }
-
-    setLoadingExplanation(true)
-    await fetchExplanation(currentMCQ.id)
-    setLoadingExplanation(false)
-    setShowExplanationModal(true)
-  }
-
-  /**
-   * Handle hints button click - fetch on-demand
-   */
-  const handleShowHints = async () => {
-    const currentMCQ = lazyLoadedMcqs[currentIndex]
-    if (!currentMCQ || loadingHints) return
-
-    // Check if already loaded
-    if (currentMCQ.hint_1 || currentMCQ.hint_2 || currentMCQ.hint_3) {
-      setShowHintsModal(true)
-      return
-    }
-
-    setLoadingHints(true)
-    await fetchHints(currentMCQ.id)
-    setLoadingHints(false)
-    setShowHintsModal(true)
-  }
-
-
 
   if (lazyLoading) {
     return (
@@ -436,19 +408,6 @@ function CSSQuizContent() {
       </>
     )
   }
-
-  const currentMCQ = lazyLoadedMcqs[currentIndex]
-  const options = [
-    { label: 'A', text: currentMCQ.option_a },
-    { label: 'B', text: currentMCQ.option_b },
-    { label: 'C', text: currentMCQ.option_c },
-    { label: 'D', text: currentMCQ.option_d },
-  ]
-
-  // Build hints array from loaded data
-  const hints = [currentMCQ.hint_1, currentMCQ.hint_2, currentMCQ.hint_3].filter(
-    Boolean
-  ) as string[]
 
   return (
     <>
@@ -618,55 +577,13 @@ function CSSQuizContent() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 mb-3">
-          {/* Hints Button - Left side with loading state */}
-          {wrongAttempts > 0 && !isCorrect && (
-            <button
-              onClick={handleShowHints}
-              disabled={loadingHints}
-              className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loadingHints ? (
-                <>
-                  <Loader className="w-4 h-4 animate-spin" />
-                  <span>Loading...</span>
-                </>
-              ) : (
-                <>
-                  <Lightbulb className="w-4 h-4" />
-                  <span>Hint</span>
-                </>
-              )}
-            </button>
-          )}
-
-          {/* Next Button - Takes remaining space */}
+          {/* Next Button */}
           {isCorrect && (
             <button
               onClick={nextQuestion}
-              className="flex-1 px-5 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-bold transition-colors"
+              className="w-full px-5 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-bold transition-colors"
             >
               {currentIndex < lazyLoadedMcqs.length - 1 ? 'Next Question →' : 'View Results 🎉'}
-            </button>
-          )}
-
-          {/* Explanation Button - Right side with on-demand loading */}
-          {isCorrect && (
-            <button
-              onClick={handleShowExplanation}
-              disabled={loadingExplanation}
-              className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loadingExplanation ? (
-                <>
-                  <Loader className="w-4 h-4 animate-spin" />
-                  <span>Loading...</span>
-                </>
-              ) : (
-                <>
-                  <BookOpen className="w-4 h-4" />
-                  <span>Explanation</span>
-                </>
-              )}
             </button>
           )}
         </div>
@@ -675,20 +592,7 @@ function CSSQuizContent() {
         </div>
         </UltraProtectedContent>
       </ProtectedContent>
-      
-      {/* Modals - Rendered outside main container for proper z-index */}
-      <HintsModal
-        isOpen={showHintsModal}
-        onClose={() => setShowHintsModal(false)}
-        hints={hints}
-      />
 
-      <ExplanationModal
-        isOpen={showExplanationModal}
-        onClose={() => setShowExplanationModal(false)}
-        explanation={currentMCQ.explanation_detailed || ''}
-      />
-      
       {/* Feedback Button - Pops out from side after 2 minutes */}
       <FeedbackButton page="css-practice-quiz" />
 
