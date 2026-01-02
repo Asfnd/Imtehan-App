@@ -178,12 +178,21 @@ class SoundManager {
   }
 
   /**
-   * Stop all currently playing sounds
+   * Stop all currently playing sounds (including audio pool instances)
    */
   stopAll(): void {
+    // Stop main sounds
     this.sounds.forEach((audio) => {
       audio.pause()
       audio.currentTime = 0
+    })
+
+    // Stop all audio pool instances
+    this.audioPool.forEach((pool) => {
+      pool.forEach((audio) => {
+        audio.pause()
+        audio.currentTime = 0
+      })
     })
   }
 }

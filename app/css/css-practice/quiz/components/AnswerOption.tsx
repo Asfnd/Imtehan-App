@@ -2,7 +2,7 @@
 
 import { Check, X } from 'lucide-react'
 import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 
 interface AnswerOptionProps {
   label: string
@@ -18,8 +18,9 @@ interface AnswerOptionProps {
 /**
  * AnswerOption Component
  * Modern, interactive answer button with animations and feedback
+ * Memoized to prevent unnecessary re-renders when quiz state changes
  */
-export function AnswerOption({
+export const AnswerOption = memo(function AnswerOption({
   label,
   text,
   isSelected,
@@ -131,4 +132,4 @@ export function AnswerOption({
       )}
     </div>
   )
-}
+})

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { useAnimation } from '@/lib/hooks/useAnimation'
 
 interface StreakCounterProps {
@@ -11,8 +11,9 @@ interface StreakCounterProps {
 /**
  * StreakCounter Component
  * Displays current streak with animations and milestone celebrations
+ * Memoized to prevent re-renders when streak hasn't changed
  */
-export function StreakCounter({ streak, maxStreak }: StreakCounterProps) {
+export const StreakCounter = memo(function StreakCounter({ streak, maxStreak }: StreakCounterProps) {
   const [showMilestone, setShowMilestone] = useState(false)
   const [milestoneMessage, setMilestoneMessage] = useState('')
 
@@ -83,4 +84,4 @@ export function StreakCounter({ streak, maxStreak }: StreakCounterProps) {
       )}
     </div>
   )
-}
+})

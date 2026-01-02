@@ -96,7 +96,11 @@ export default function QuizArena({ questions, onComplete, onExit }: QuizArenaPr
     if (isLastQuestion) {
       // Play quiz complete sound (only if sounds enabled for this quiz type)
       if (soundsEnabled) {
-        soundManager.play('quizComplete')
+        soundManager.stopAll()
+        // Small delay to ensure clean audio transition
+        setTimeout(() => {
+          soundManager.play('quizComplete')
+        }, 100)
       }
 
       const totalTime = Math.floor((Date.now() - startTime) / 1000)

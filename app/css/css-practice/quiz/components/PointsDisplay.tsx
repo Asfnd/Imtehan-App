@@ -1,5 +1,7 @@
 'use client'
 
+import { memo } from 'react'
+
 interface PointsDisplayProps {
   points: number
   recentPoints: number
@@ -9,8 +11,9 @@ interface PointsDisplayProps {
 /**
  * PointsDisplay Component
  * Shows total points (no floating animation)
+ * Memoized to prevent re-renders when points haven't changed
  */
-export function PointsDisplay({
+export const PointsDisplay = memo(function PointsDisplay({
   points,
 }: PointsDisplayProps) {
   return (
@@ -21,4 +24,4 @@ export function PointsDisplay({
       </span>
     </div>
   )
-}
+})

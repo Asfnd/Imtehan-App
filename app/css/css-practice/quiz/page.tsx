@@ -272,9 +272,13 @@ function CSSQuizContent() {
         checkAndTriggerNextBatch(nextIndex)
       }
     } else {
-      // Quiz complete!
+      // Quiz complete! Stop other sounds first, then play completion sound
       if (soundsEnabled) {
-        soundManager.play('quizComplete')
+        soundManager.stopAll()
+        // Small delay to ensure clean audio transition
+        setTimeout(() => {
+          soundManager.play('quizComplete')
+        }, 100)
       }
 
       const finalScore = score + (isCorrect ? 1 : 0)

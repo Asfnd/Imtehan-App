@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, memo } from 'react'
 
 interface EncouragementMessageProps {
   type: 'correct' | 'incorrect' | 'milestone'
@@ -44,8 +44,9 @@ const messages = {
 /**
  * EncouragementMessage Component
  * Displays motivational messages with animations
+ * Memoized to prevent unnecessary re-renders
  */
-export function EncouragementMessage({
+export const EncouragementMessage = memo(function EncouragementMessage({
   type,
   message,
   show,
@@ -83,4 +84,4 @@ export function EncouragementMessage({
       )}
     </>
   )
-}
+})
