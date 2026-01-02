@@ -188,3 +188,63 @@ export function EducationalOrganizationSchema({
     />
   )
 }
+
+interface ArticleSchemaProps {
+  title: string
+  description: string
+  content: string
+  author?: string
+  publishDate: string
+  modifiedDate?: string
+  imageUrl?: string
+  url: string
+}
+
+export function ArticleSchema({
+  title,
+  description,
+  content,
+  author = 'Imtehan',
+  publishDate,
+  modifiedDate,
+  imageUrl = 'https://imtehan.com/og-image.svg',
+  url,
+}: ArticleSchemaProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    content: {
+      '@type': 'Text',
+      text: content,
+    },
+    author: {
+      '@type': 'Organization',
+      name: author,
+      url: 'https://imtehan.com',
+    },
+    datePublished: publishDate,
+    ...(modifiedDate && { dateModified: modifiedDate }),
+    image: {
+      '@type': 'ImageObject',
+      url: imageUrl,
+    },
+    url,
+    isPartOf: {
+      '@type': 'Blog',
+      name: 'Imtehan Blog',
+      url: 'https://imtehan.com/blog',
+    },
+    mainEntity: {
+      '@type': 'Article',
+    },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}

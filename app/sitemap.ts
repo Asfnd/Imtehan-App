@@ -128,10 +128,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  // Blog pages
+  const blogPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/css-exam-preparation-guide-2025`,
+      lastModified: new Date('2025-01-02'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/pakistan-affairs-mcqs-top-100-questions`,
+      lastModified: new Date('2024-12-28'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/css-english-essay-preparation`,
+      lastModified: new Date('2024-12-25'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/css-past-papers-analysis-what-to-expect`,
+      lastModified: new Date('2024-12-20'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/blog/islamic-studies-css-complete-syllabus`,
+      lastModified: new Date('2024-12-22'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+  ]
+
   return [
     ...staticPages,
     ...subjectPages,
     ...subjectOnlyPages,
     ...yearPages,
+    ...blogPages,
   ]
 }
