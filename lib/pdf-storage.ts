@@ -52,7 +52,7 @@ export async function uploadPastPaper(
     const { data, error } = await supabase.storage
       .from('css-past-papers')
       .upload(storagePath, file, {
-        cacheControl: '3600',
+        cacheControl: '2592000', // 30 days - optimized for Cloudflare edge caching
         upsert: true // Replace if exists
       })
     

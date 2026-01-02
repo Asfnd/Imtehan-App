@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client'
+import { useCustomStorageUrl } from '@/lib/storage-config'
 
 export interface PastPaper {
   id: number
@@ -124,18 +125,22 @@ export async function getPDFUrl(
         error: `Failed to generate URL for ${subject} (${year})`
       }
     }
-    
+
+    // Convert to custom storage domain (storage.imtehan.com)
+    const finalUrl = useCustomStorageUrl(urlData.publicUrl)
+
     // Increment download count
     await supabase
       .from('past_papers')
       .update({ download_count: data.download_count + 1 })
       .eq('id', data.id)
-    
+
     console.log(`✅ Found PDF: ${data.storage_path}`)
+    console.log(`📦 Serving from: ${finalUrl}`)
 
     return {
       success: true,
-      url: urlData.publicUrl,
+      url: finalUrl, // Now uses storage.imtehan.com
       paper: data
     }
   } catch (error) {

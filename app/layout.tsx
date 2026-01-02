@@ -11,9 +11,48 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Imtehan - Practice smarter and score higher on competitive exams",
+  metadataBase: new URL('https://imtehan.com'),
+  title: {
+    default: "Imtehan - CSS & MPT Exam Preparation Platform",
+    template: "%s | Imtehan"
+  },
   description:
-    "Master competitive exams with interactive practice tests, past papers, detailed analytics, and personalized study paths. Join thousands of successful aspirants.",
+    "Master CSS and MPT competitive exams with interactive practice tests, past papers, detailed analytics, and personalized study paths. Join thousands of successful aspirants.",
+  keywords: ['CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams', 'past papers', 'MCQs', 'exam preparation'],
+  authors: [{ name: 'Imtehan' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://imtehan.com',
+    siteName: 'Imtehan',
+    title: 'Imtehan - CSS & MPT Exam Preparation',
+    description: 'Master CSS and MPT competitive exams with interactive practice tests and past papers',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Imtehan - Exam Preparation Platform'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Imtehan - CSS & MPT Exam Preparation',
+    description: 'Master CSS and MPT competitive exams with interactive practice tests',
+    images: ['/og-image.svg']
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }
+  },
   icons: {
     icon: [
       {

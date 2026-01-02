@@ -76,4 +76,4 @@ Allow: /about
 Allow: /sitemap.xml
 
 # Sitemap location for Google
-Sitemap: https://prepz.vercel.app/sitemap.xml
+Sitemap: https://imtehan.com/sitemap.xml

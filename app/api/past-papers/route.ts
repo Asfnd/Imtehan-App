@@ -47,6 +47,12 @@ export async function GET(request: NextRequest) {
       total_subjects: totalSubjects,
       source: 'cache',
       timestamp: new Date().toISOString()
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'CDN-Cache-Control': 'public, max-age=300',
+        'Vercel-CDN-Cache-Control': 'public, max-age=300'
+      }
     })
     
   } catch (error) {

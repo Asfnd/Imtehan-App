@@ -104,18 +104,13 @@ function PDFViewerContent() {
       const pdfResult = await getPDFUrl(subject, parseInt(year))
       
       if (pdfResult.success && pdfResult.url) {
-        // Add aggressive cache-busting to the URL
-        const timestamp = Date.now()
-        const random = Math.random().toString(36).substring(7)
-        const cacheBuster = `${timestamp}-${random}`
-        
-        // Add multiple cache-busting parameters
-        const separator = pdfResult.url.includes('?') ? '&' : '?'
-        const urlWithCacheBuster = `${pdfResult.url}${separator}v=${cacheBuster}&t=${timestamp}&nocache=${random}`
-        
-        console.log('✅ PDF URL obtained from database with cache buster')
-        console.log('📄 URL includes cache buster to prevent stale content')
-        setPdfUrl(urlWithCacheBuster)
+        // Use the clean URL without cache-busting to allow Cloudflare caching
+        // The PDF files themselves are immutable and safe to cache
+        // Page-level cache control (lines 34-56) prevents stale viewer UI
+
+        console.log('✅ PDF URL obtained from database')
+        console.log('📄 URL allows Cloudflare edge caching for performance')
+        setPdfUrl(pdfResult.url)
         setError(null)
       } else {
         console.log('❌ PDF not found in database:', pdfResult.error)

@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { useCustomStorageUrl } from '@/lib/storage-config'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
@@ -71,15 +72,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 6. Log successful access (optional: store in database for audit trail)
+    // 6. Convert to custom storage domain (storage.imtehan.com)
+    const finalUrl = useCustomStorageUrl(signedData.signedUrl)
+
+    // 7. Log successful access (optional: store in database for audit trail)
     if (process.env.NODE_ENV === 'development') {
       console.log(`Premium user ${user.email} accessed solved paper: ${paperId}`)
+      console.log(`Serving from: ${finalUrl}`)
     }
 
-    // 7. Return signed URL
+    // 8. Return signed URL (with custom domain)
     return NextResponse.json({
       success: true,
-      url: signedData.signedUrl,
+      url: finalUrl, // Now uses storage.imtehan.com
       expiresIn: 3600,
       paperId
     })
