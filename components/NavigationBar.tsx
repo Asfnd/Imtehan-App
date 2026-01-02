@@ -86,15 +86,15 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-[68px] flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
           <img
             src="/favicon.svg"
             alt="Imtehan Logo"
             width={32}
             height={32}
-            className="w-8 h-8 object-contain"
+            className="w-8 h-8 flex-shrink-0 object-contain"
           />
-          <span className="font-bold text-lg md:text-xl text-gray-900 leading-none">Imtehan</span>
+          <span className="font-bold text-base sm:text-lg md:text-xl text-gray-900 leading-none whitespace-nowrap">Imtehan</span>
         </Link>
 
         {/* Centered Navigation - Desktop Only */}
