@@ -396,10 +396,91 @@ export default function BlogPost() {
           </div>
         </div>
 
+        <h2 className="text-2xl font-bold mt-8 mb-4">Frequently Asked Questions About Pakistan Affairs</h2>
+
+        <div className="space-y-4 mb-6">
+          <div className="bg-blue-50 p-4 rounded">
+            <p className="font-bold text-blue-900">Q: Which year is most important for Pakistan Affairs?</p>
+            <p className="text-gray-700 text-sm mt-2">A: 1947 (Independence) and 1971 (Bangladesh separation) are critical turning points. Both appear in almost every CSS exam. However, the 1977 military coup and 2010 18th Amendment are equally important as they shaped Pakistan's political structure.</p>
+          </div>
+
+          <div className="bg-green-50 p-4 rounded">
+            <p className="font-bold text-green-900">Q: How many military coups has Pakistan had?</p>
+            <p className="text-gray-700 text-sm mt-2">A: Four major military coups: 1958 (Ayub Khan), 1977 (Zia-ul-Haq), 1999 (Musharraf), and multiple interventions. Students must know dates and leaders. The 1977 coup lasted 11 years—longest military rule in Pakistan.</p>
+          </div>
+
+          <div className="bg-purple-50 p-4 rounded">
+            <p className="font-bold text-purple-900">Q: What's the difference between 1973 and 2010 Constitutions?</p>
+            <p className="text-gray-700 text-sm mt-2">A: 1973 Constitution: Parliamentary democracy, federal structure. 2010 18th Amendment: Restored federalism, reduced President's power, strengthened provinces. The 2010 amendment is critical for understanding modern Pakistan's political structure.</p>
+          </div>
+
+          <div className="bg-yellow-50 p-4 rounded">
+            <p className="font-bold text-yellow-900">Q: Which wars should I focus on for CSS?</p>
+            <p className="text-gray-700 text-sm mt-2">A: Focus on: 1948 (First—Kashmir), 1965 (Second—brief but important), 1971 (Third—Bangladesh independence), 1999 Kargil (recent, modern exam focus). Know dates, casualties, leaders, and geopolitical context for each.</p>
+          </div>
+
+          <div className="bg-red-50 p-4 rounded">
+            <p className="font-bold text-red-900">Q: Why does Pakistan keep having military rule?</p>
+            <p className="text-gray-700 text-sm mt-2">A: This is a common essay question. Key factors: Political instability, weak democratic institutions, regional threats (India), military's powerful bureaucratic role. Examiners want nuanced answers showing understanding of Pakistan's unique political challenges.</p>
+          </div>
+
+          <div className="bg-blue-50 p-4 rounded">
+            <p className="font-bold text-blue-900">Q: What is the significance of Indus Waters Treaty?</p>
+            <p className="text-gray-700 text-sm mt-2">A: 1960 treaty with India managed river waters. Landmark agreement showing Pakistan's diplomatic skill. Still functioning after 60+ years—proving successful international cooperation despite conflicts. Frequently asked in current affairs sections.</p>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Related Blog Posts for Comprehensive CSS Preparation</h2>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <Link href="/blog/css-past-papers-analysis-trends" className="border rounded-lg p-4 hover:bg-blue-50 transition">
+            <p className="font-semibold text-blue-600">CSS Past Papers Analysis</p>
+            <p className="text-sm text-gray-600 mt-2">See which Pakistan Affairs topics repeat in exams (2015-2023 analysis)</p>
+          </Link>
+          <Link href="/blog/css-exam-preparation-guide-2025" className="border rounded-lg p-4 hover:bg-green-50 transition">
+            <p className="font-semibold text-green-600">Complete CSS Exam Guide</p>
+            <p className="text-sm text-gray-600 mt-2">Comprehensive preparation strategy covering all compulsory subjects</p>
+          </Link>
+          <Link href="/blog/css-6-month-study-plan" className="border rounded-lg p-4 hover:bg-purple-50 transition">
+            <p className="font-semibold text-purple-600">6-Month Study Plan</p>
+            <p className="text-sm text-gray-600 mt-2">Week-by-week schedule with Pakistan Affairs focus</p>
+          </Link>
+          <Link href="/blog/css-english-essay-structure-examples" className="border rounded-lg p-4 hover:bg-yellow-50 transition">
+            <p className="font-semibold text-yellow-600">Essay Writing Guide</p>
+            <p className="text-sm text-gray-600 mt-2">Master essay writing for Pakistan Affairs essay questions</p>
+          </Link>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Quick Reference: Pakistan Affairs Scoring Strategy</h2>
+
+        <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg mb-6">
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex gap-3">
+              <span className="font-bold text-blue-600">1.</span>
+              <span><strong>High-Frequency Topics (Memorize First):</strong> Independence, Partition, Wars (1948, 1965, 1971, 1999), Military coups (1958, 1977, 1999), Constitutions (1956, 1962, 1973, 2010), Key figures (Jinnah, Liaquat, Zia, Benazir, Nawaz)</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-green-600">2.</span>
+              <span><strong>Medium-Frequency Topics:</strong> Foreign relations (USA, China, Saudi Arabia), Economic policies, Treaties (Indus Waters, CPEC), Democratic periods (1988-1999, 2008-present)</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-purple-600">3.</span>
+              <span><strong>Scoring Method:</strong> MCQs = factual recall, Essays = analysis of political trends, Viva = deeper understanding of causes and effects</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-yellow-600">4.</span>
+              <span><strong>Realistic Target:</strong> 75-85 marks out of 100 achievable with focused study on this guide</span>
+            </li>
+          </ul>
+        </div>
+
         <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Practice Pakistan Affairs MCQs</h3>
-          <p className="text-gray-700 mb-4">Test your knowledge with 500+ Pakistan Affairs MCQs organized by topic and year on Imtehan.</p>
-          <Link href="/css/css-practice/subjects?subject=pakistan-affairs" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practice</Link>
+          <h3 className="font-semibold mb-2">Practice Pakistan Affairs MCQs with Detailed Explanations</h3>
+          <p className="text-gray-700 mb-4">Test your knowledge with 500+ Pakistan Affairs MCQs organized by topic and year. Each answer includes detailed explanations and references to the facts covered in this guide.</p>
+          <div className="flex gap-3">
+            <Link href="/css/css-practice/subjects?subject=pakistan-affairs" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practice MCQs</Link>
+            <Link href="/css/past-papers" className="inline-block bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">Solve Past Papers</Link>
+          </div>
         </div>
       </article>
     </main>

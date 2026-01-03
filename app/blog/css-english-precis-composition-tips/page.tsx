@@ -310,10 +310,86 @@ export default function BlogPost() {
           </table>
         </div>
 
+        <h2 className="text-2xl font-bold mt-12 mb-6">Frequently Asked Questions</h2>
+
+        <div className="space-y-6 mb-8">
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">How strict is the 60-70 word limit for précis?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Very strict. Most examiners count words carefully. 60-70 words means exactly that range. 71 words = deduction (usually 1-2 marks). 59 words = also penalized. Aim for 65-68 words as a safe zone. Count EVERY word including articles (a, an, the). Contractions like "don't" count as 1 word. Numbers count as 1 word each (2025 = 1 word). Hyphenated words count as 1 (well-known = 1). Practice counting manually multiple times—don't rely on computer word counts which may vary.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Can I use the exact words from the passage in my précis?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              No. Examiners specifically want YOUR understanding expressed in YOUR words. Copying 3+ consecutive words from original passage = plagiarism and mark deduction. Rewrite every sentence. However, technical terms or names (Pakistan, climate change, etc.) can remain the same. Challenge yourself: Read passage, close it, then write from memory. This ensures you're writing your own words. Using synonyms shows better comprehension. "The government implemented" becomes "Authorities adopted." "A severe problem" becomes "A critical challenge."
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">What should I do if I can't fit all main ideas in 70 words?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              You're including too many details or explaining too much. Re-examine the passage: identify 3 MAIN ideas maximum (not 5-6 supporting points). Use compression techniques: combine related ideas, eliminate examples, remove explanations, keep only essential information. If you truly have 4+ main ideas, pick the 3 most important ones. The passage usually has a clear hierarchy—some ideas are central, others are supporting. Focus on the central thesis and 2-3 key supporting ideas. Practice identifying main idea vs supporting detail by reading sample précis answers.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">How much time should I allocate for précis vs composition?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Allocate time proportional to marks: Précis = 20 marks in 20 minutes (1 minute per mark). Composition = 30 marks in 25 minutes. Total = 45 minutes for 50 marks. This gives you 2-3 minutes buffer for review. Practice with this exact timing. In exam, don't exceed 20 minutes on précis no matter what. If you're struggling, write what you can and move to composition (which has higher marks). A rushed but grammatically sound composition scores better than a perfect précis with mediocre composition.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">What makes a composition "expression" different from "ideas"?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Ideas (30 marks) = Content quality: Are your arguments strong? Are they logical and original? Do you make a convincing case? Expression (40 marks) = Writing quality: Is your English clear and correct? Do you use varied sentence structures? Is vocabulary appropriate and sophisticated? Is grammar flawless? Example: Same idea poorly expressed loses marks. "Technology is good because it helps people" (weak) vs "Technology accelerates human productivity through automation and connectivity, enabling economies to flourish" (strong expression). Write simply but correctly rather than complexity with errors.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Can I write 4-5 paragraphs instead of the suggested structure?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              The suggested structure (Introduction + 2 Body Paragraphs + Conclusion = 4 paragraphs) is a guideline, not a rule. You can write 5-6 paragraphs if: (1) Each paragraph is substantial (40+ words), not thin one-liners; (2) You maintain clear structure (still intro, body arguments, conclusion); (3) Your 200-300 word target is met. Most examiners prefer the 4-paragraph structure because it's clear and well-balanced. More paragraphs risk fragmented ideas or padding. Fewer paragraphs (3 total) might feel rushed. Stick to 4 unless you have compelling reason for more.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-12 mb-6">Related Resources</h2>
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <Link href="/blog/css-english-essay-structure-examples" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS English Essay Structure and Examples</h3>
+            <p className="text-sm text-gray-600 mb-3">Master essay writing with perfect structure and real examples</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+
+          <Link href="/blog/css-time-management-3-hour-mcq-exam" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Time Management During MCQ Exam</h3>
+            <p className="text-sm text-gray-600 mb-3">Master time allocation for all exam components</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+
+          <Link href="/blog/css-exam-preparation-guide-2025" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">Complete CSS Exam Preparation Guide 2025</h3>
+            <p className="text-sm text-gray-600 mb-3">Comprehensive guide covering all exam sections</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+
+          <Link href="/blog/best-css-preparation-books-resources" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">Best CSS Preparation Books &amp; Resources</h3>
+            <p className="text-sm text-gray-600 mb-3">Recommended resources for comprehensive English practice</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+        </div>
+
         <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
           <h3 className="font-semibold mb-2">Practice Précis & Composition Online</h3>
-          <p className="text-gray-700 mb-4">Get real précis passages and composition topics with instant feedback on grammar and word count.</p>
-          <Link href="/css/css-practice/subjects" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practicing</Link>
+          <p className="text-gray-700 mb-4">Get real précis passages and composition topics with instant feedback on grammar and word count. Track your improvement over time.</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link href="/css/css-practice/subjects" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practicing</Link>
+            <Link href="/css/past-papers" className="inline-block bg-white text-blue-600 border border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50">View Past Papers</Link>
+          </div>
         </div>
       </article>
     </main>

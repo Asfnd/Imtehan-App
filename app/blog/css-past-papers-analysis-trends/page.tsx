@@ -334,10 +334,86 @@ export default function BlogPost() {
           </li>
         </ol>
 
+        <h2 className="text-2xl font-bold mt-8 mb-4">Past Papers Strategy: Common Student Questions</h2>
+
+        <div className="space-y-4 mb-6">
+          <div className="bg-blue-50 p-4 rounded">
+            <p className="font-bold text-blue-900">Q: How many times should I solve past papers?</p>
+            <p className="text-gray-700 text-sm mt-2">A: Minimum 3-4 times each. First time: analyze and learn patterns. Second time: identify weak areas. Third time: timed practice. Final time: full-length exam simulation. Solving 9 years × 3 attempts = 27 full tests for mastery.</p>
+          </div>
+
+          <div className="bg-green-50 p-4 rounded">
+            <p className="font-bold text-green-900">Q: Should I memorize past paper answers?</p>
+            <p className="text-gray-700 text-sm mt-2">A: No. Understanding WHY topics repeat is more important than memorizing answers. Exams test the same concepts differently. Focus on grasping underlying patterns and principles, not exact questions.</p>
+          </div>
+
+          <div className="bg-purple-50 p-4 rounded">
+            <p className="font-bold text-purple-900">Q: What if a topic hasn't appeared since 2018?</p>
+            <p className="text-gray-700 text-sm mt-2">A: Low priority, but don't ignore completely. The examiners may avoid it, or it could make a sudden comeback. Prepare it after high-frequency topics, not before.</p>
+          </div>
+
+          <div className="bg-yellow-50 p-4 rounded">
+            <p className="font-bold text-yellow-900">Q: Can I predict which topics will appear in 2026?</p>
+            <p className="text-gray-700 text-sm mt-2">A: With 80% confidence, yes. Topics appearing 7-9 years straight will almost certainly appear. Topics appearing 0-2 years likely won't. Past papers show clear mathematical probability patterns.</p>
+          </div>
+
+          <div className="bg-red-50 p-4 rounded">
+            <p className="font-bold text-red-900">Q: How do I use past papers if I don't have answers?</p>
+            <p className="text-gray-700 text-sm mt-2">A: Use Imtehan's solved past papers with detailed explanations. Or research answers through forums, textbooks, and expert notes. Understanding the explanation is more valuable than just having the answer.</p>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Related Study Guides Complementing Past Papers Analysis</h2>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <Link href="/blog/pakistan-affairs-important-facts-by-year" className="border rounded-lg p-4 hover:bg-blue-50 transition">
+            <p className="font-semibold text-blue-600">Pakistan Affairs by Year</p>
+            <p className="text-sm text-gray-600 mt-2">Complete year-wise facts for Pakistan Affairs recurring topics</p>
+          </Link>
+          <Link href="/blog/css-time-management-3-hour-mcq-exam" className="border rounded-lg p-4 hover:bg-green-50 transition">
+            <p className="font-semibold text-green-600">Time Management Strategy</p>
+            <p className="text-sm text-gray-600 mt-2">How to manage time when solving past papers in 3-hour MCQ exam</p>
+          </Link>
+          <Link href="/blog/css-english-essay-structure-examples" className="border rounded-lg p-4 hover:bg-purple-50 transition">
+            <p className="font-semibold text-purple-600">Essay Writing Mastery</p>
+            <p className="text-sm text-gray-600 mt-2">Master essay topics from past papers with proper structure</p>
+          </Link>
+          <Link href="/blog/css-mock-test-strategy" className="border rounded-lg p-4 hover:bg-yellow-50 transition">
+            <p className="font-semibold text-yellow-600">Mock Test Strategy</p>
+            <p className="text-sm text-gray-600 mt-2">Use past papers as mock tests to prepare for real exam</p>
+          </Link>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">Past Papers ROI: Expected Score Improvement</h2>
+
+        <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg mb-6">
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex gap-3">
+              <span className="font-bold text-blue-600">Attempt 1:</span>
+              <span>Learn patterns, identify weak areas, understand question styles. Average score: 40-50%</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-green-600">Attempt 2:</span>
+              <span>Fill knowledge gaps, practice high-frequency topics. Average score: 55-65%</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-purple-600">Attempt 3:</span>
+              <span>Timed practice, build confidence. Average score: 70-80%</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-yellow-600">Attempt 4+:</span>
+              <span>Exam simulation, polish weak areas, achieve 80-95%+ scores</span>
+            </li>
+          </ul>
+        </div>
+
         <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Practice with CSS Past Papers on Imtehan</h3>
-          <p className="text-gray-700 mb-4">We've organized past papers by subject and year. Solve them under timed conditions with detailed explanations.</p>
-          <Link href="/css/past-papers" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Access Past Papers</Link>
+          <h3 className="font-semibold mb-2">Solve Organized Past Papers on Imtehan</h3>
+          <p className="text-gray-700 mb-4">We've organized past papers 2015-2023 by subject and year with detailed solutions. Practice under timed conditions to simulate real exam and track your improvement across attempts.</p>
+          <div className="flex gap-3 flex-wrap">
+            <Link href="/css/past-papers" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Browse Past Papers</Link>
+            <Link href="/css/solved-papers" className="inline-block bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">View Solved Papers</Link>
+          </div>
         </div>
       </article>
     </main>

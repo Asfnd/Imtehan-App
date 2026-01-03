@@ -254,10 +254,86 @@ export default function BlogPost() {
           Master the 90-second rule. Follow the question scan. Practice under timed conditions. You'll hit 100+ marks.
         </p>
 
+        <h2 className="text-2xl font-bold mt-12 mb-6">Frequently Asked Questions</h2>
+
+        <div className="space-y-6 mb-8">
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Should I guess on questions I don't know?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Absolutely yes. In CSS MCQs, there's no negative marking (wrong = 0 marks, blank = 0 marks). A blank answer guarantees 0 marks. A guess has 25% chance (one correct answer out of four options = 1 mark average per guess). Mathematically, always guess. On 20 difficult questions: blank answers = 0 marks. Educated guesses = 5 marks. This 5-mark difference matters when competing for top positions. During your remaining 30 minutes, even quick guesses on 15-20 skipped questions yield 4-5 additional marks.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">What if I finish all questions early?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Finishing early (with 20+ minutes remaining) means you rushed carelessly. Review your answers, focusing on: (1) Re-read questions you marked as uncertain to see if new context emerges; (2) Double-check calculations for quantitative questions; (3) Verify you haven't misread any question stems; (4) Consider if your answer still makes sense in context. Don't change answers just to change them—only change if you're now certain you were wrong. Many students lose marks by over-reviewing and second-guessing correct answers. Quality review &gt; Speed.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">How do I know which questions are "easy" vs "difficult"?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Easy questions: You answer within 30-45 seconds with confidence (Pakistan's capital, basic Islamic facts, recent major news events). Medium questions: Require 60-90 seconds of thinking but you're reasonably confident (connecting facts, historical dates you partially recall, comparison-based questions). Difficult questions: You hesitate for more than 90 seconds, consider multiple options, or feel uncertain (obscure facts, specific Hadith numbers, historical figures you're unsure about, technical details). During your 2-minute initial scan, note which category each question falls into. Your first instinct here is usually accurate—trust your categorization.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Should I attempt questions in the order they appear?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              No. Question difficulty is random throughout the paper. Question 47 might be easier than Question 8. Your strategy: Answer all easy questions first (in any order), then medium questions, reserve difficult for final time slot. This maximizes your score because you secure easy marks before running out of time. Some students rigidly answer question 1-2-3-4 in sequence and run out of time on question 98 (which might have been easier). Be flexible with question order—your goal is maximum total marks, not completing questions sequentially.
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">What time allocation should I use for Pakistan Affairs specifically?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Pakistan Affairs typically has 20-25 questions and is the slowest section (requires specific date/event recall). Allocate 40-50 minutes for this section (1.5-2 minutes per question), which is slightly above the 90-second average. Why? Historical facts require more thinking than basic knowledge. However, still enforce the 90-second skip rule—if you don't recall a fact by 90 seconds, you likely won't recall it in 5 minutes. Mark difficult Pakistan Affairs questions and return in the final 30 minutes. Practice with past papers to identify which Pakistan Affairs questions are "easy" for you (might be different from other students).
+            </p>
+          </div>
+
+          <div className="border-b pb-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">How do I stay calm when watching time run out?</h3>
+            <p className="text-gray-700 leading-relaxed">
+              Panic kills time management. You'll make careless mistakes and stop thinking clearly. Build confidence by practicing 5-10 full-length mock tests with strict timing beforehand. When you practice the strategy multiple times, it becomes automatic during the real exam. Set multiple time checkpoints: At 2 min mark (should be starting easy questions), at 65 min mark (should have easy questions done, starting medium), at 140 min mark (should have most medium questions done). If you're behind schedule, skip more aggressively. Remember: you're not expected to finish with time to spare—finishing with 5-10 minutes for review is optimal.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-12 mb-6">Related Resources</h2>
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <Link href="/blog/css-english-essay-structure-examples" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS English Essay Structure and Examples</h3>
+            <p className="text-sm text-gray-600 mb-3">Master essay writing with real examples and scoring breakdown</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+
+          <Link href="/blog/pakistan-affairs-important-facts-by-year" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">Pakistan Affairs: Important Facts by Year</h3>
+            <p className="text-sm text-gray-600 mb-3">Quick reference guide for Pakistan Affairs MCQ preparation</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+
+          <Link href="/blog/css-past-papers-analysis-trends" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Past Papers Analysis &amp; Trends</h3>
+            <p className="text-sm text-gray-600 mb-3">Understand recurring topics to prioritize your preparation</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+
+          <Link href="/blog/how-to-crack-css-first-attempt" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">How to Crack CSS in First Attempt</h3>
+            <p className="text-sm text-gray-600 mb-3">Insider strategies combining all exam components</p>
+            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          </Link>
+        </div>
+
         <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
           <h3 className="font-semibold mb-2">Practice Timed MCQs Online</h3>
-          <p className="text-gray-700 mb-4">Take full-length practice tests with built-in timer on Imtehan to master time management before the real exam.</p>
-          <Link href="/css/css-practice/quiz" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Timed Practice</Link>
+          <p className="text-gray-700 mb-4">Take full-length practice tests with built-in timer on Imtehan to master time management before the real exam. Track your speed and accuracy per subject.</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link href="/css/css-practice/quiz" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Timed Practice</Link>
+            <Link href="/css/past-papers" className="inline-block bg-white text-blue-600 border border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50">View Past Papers</Link>
+          </div>
         </div>
       </article>
     </main>

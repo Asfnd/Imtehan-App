@@ -96,7 +96,27 @@ Remember that CSS exam success depends on your dedication and smart study approa
 - Regular self-assessment
 - Mental health and fitness
 
-Your journey to becoming a CSS officer starts with preparation. Begin today on Imtehan!`
+Your journey to becoming a CSS officer starts with preparation. Begin today on Imtehan!
+
+## Frequently Asked Questions
+
+**Q: How long should I prepare for CSS exam?**
+Most successful candidates prepare for 6-12 months. This allows 3-4 months for core subjects, 3-4 months for optional subjects, and final months for revision and mock tests. Starting with a 6-month timeline is realistic for working professionals; 4-6 months suits full-time students.
+
+**Q: Should I study all optional subjects or specialize in one?**
+Specialize in 1-2 optional subjects maximum. Studying multiple optional subjects spreads yourself thin. Choose 1 optional that aligns with your background (if you have commerce background, choose Economics; if science background, choose Physics/Chemistry). Study 2 optionals only if you're exceptionally strong and have 9+ months preparation time.
+
+**Q: What's the ideal daily study schedule?**
+Allocate 6-7 hours daily: 3-4 hours for compulsory subjects, 2-3 hours for optional subject, 1 hour for current affairs and newspaper reading. Include 15-minute breaks every 90 minutes. Study during your peak mental hours (typically morning for 90% of students). Consistency matters more than marathon sessions.
+
+**Q: How important is newspaper reading for CSS?**
+Very important. Current Affairs comprises 15-20% of MCQs and is tested in essay section. Read Dawn or The News for 45 minutes daily. Focus on: Pakistan news, international relations, global conflicts, economic news, scientific discoveries. Keep notes of important incidents, dates, and figures. This practice builds contextual knowledge that strengthens essays.
+
+**Q: What resources should I use beyond textbooks?**
+Use: 1) Past papers (essential for pattern recognition), 2) YouTube lectures (for concept clarification), 3) Online MCQ banks (for practice), 4) Newspapers (for current affairs), 5) Documentary films (for international relations), 6) Forums like Prep.pk (for peer learning). Combining multiple resources prevents monotony and builds comprehensive understanding.
+
+**Q: How do I balance study with work/family commitments?**
+Prepare a realistic schedule: morning 2-3 hours before work, evening 2-3 hours after work, weekends 3-4 hours. This totals 7-10 hours weekly if studied consistently. Quality beats quantity—focused 1-hour sessions beat distracted 3-hour sessions. Inform family about your preparation timeline so they support you. Some successful officers prepared while working full-time; commitment matters more than circumstances.`
 
 export default function BlogPost() {
   const articleSchema = {
@@ -206,25 +226,61 @@ export default function BlogPost() {
 
       {/* Related Posts */}
       <section className="max-w-6xl mx-auto px-6 lg:px-8 py-16 border-t">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Related Articles</h2>
-        <div className="grid md:grid-cols-2 gap-8">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Essential CSS Preparation Resources</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Link
-            href="/blog/css-english-essay-preparation"
-            className="group p-6 bg-white rounded-lg border hover:shadow-lg transition-all"
+            href="/blog/css-english-essay-structure-examples"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
           >
             <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
-              How to Prepare for CSS English Essay
+              CSS English Essay Structure
             </h3>
-            <p className="text-gray-600 text-sm">Learn techniques to excel in CSS English essay writing.</p>
+            <p className="text-gray-600 text-sm">Master perfect essay structure with real examples and scoring breakdown.</p>
           </Link>
           <Link
-            href="/blog/css-past-papers-analysis-what-to-expect"
-            className="group p-6 bg-white rounded-lg border hover:shadow-lg transition-all"
+            href="/blog/css-time-management-3-hour-mcq-exam"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
           >
             <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
-              CSS Past Papers Analysis
+              CSS Time Management
             </h3>
-            <p className="text-gray-600 text-sm">Understand exam patterns from 2015-2023 papers.</p>
+            <p className="text-gray-600 text-sm">90-second rule and minute-by-minute strategy for 3-hour MCQ exam.</p>
+          </Link>
+          <Link
+            href="/blog/css-english-precis-composition-tips"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              Précis & Composition Tips
+            </h3>
+            <p className="text-gray-600 text-sm">Master 60-70 word précis and composition writing techniques.</p>
+          </Link>
+          <Link
+            href="/blog/css-past-papers-analysis-trends"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              Past Papers Analysis
+            </h3>
+            <p className="text-gray-600 text-sm">Analyze 2015-2023 trends to understand what to expect.</p>
+          </Link>
+          <Link
+            href="/blog/how-to-crack-css-first-attempt"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              How to Crack CSS First Attempt
+            </h3>
+            <p className="text-gray-600 text-sm">Insider strategies from top CSS officers for first attempt success.</p>
+          </Link>
+          <Link
+            href="/blog/css-compulsory-subjects-overview"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              CSS Compulsory Subjects
+            </h3>
+            <p className="text-gray-600 text-sm">Overview of all 7 compulsory subjects with study tips.</p>
           </Link>
         </div>
       </section>
