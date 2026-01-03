@@ -242,6 +242,26 @@ Imtehan provides:
 - Topic-wise organization
 - Performance tracking
 
+## Frequently Asked Questions
+
+**Q: How much time should I dedicate to Islamic Studies?**
+Allocate 4-5 hours per week (combined with other compulsory subjects). Islamic Studies is faster than subjects like Pakistan Affairs (requires fewer date memorizations), but requires understanding of theological concepts. First month: 5 hours weekly for concept building. Months 2-4: 3-4 hours weekly for MCQ practice. Final weeks: 2-3 hours weekly for revision. This schedule allows mastery while balancing other subjects.
+
+**Q: What's the difference between learning Islamic history and Islamic teachings?**
+Islamic teachings (Quran, Hadith, jurisprudence) are concepts: "Why does Islam emphasize justice?" Historical events (Prophet's life, caliphates, empires) are facts: "When did specific battles occur?" CSS expects both. Essays test conceptual understanding. MCQs test factual knowledge. For essays, focus on theological principles and their application. For MCQs, memorize key dates, personalities, and events. Balance both: 60% teaching-focused, 40% history-focused.
+
+**Q: Do I need to memorize the entire Quran?**
+Absolutely not. You need to know: (1) Major Quranic themes (justice, mercy, knowledge, family), (2) Key verses addressing social/political issues, (3) Chapter names and their basic themes. Learn 10-15 core verses that appear frequently in MCQs. For essays, reference Quranic principles conceptually without needing exact verse numbers. Memorizing the entire Quran benefits scholars; exam success needs targeted Quranic knowledge.
+
+**Q: How do I excel in Islamic Studies essays?**
+Structure: Introduction (define question), 2-3 body paragraphs (each develops one Islamic principle), Conclusion (application). Use Quranic or Hadith references strategically. Examples: "Quran emphasizes justice (Surah Al-Nahl 90), which applies to modern governance through..." This shows integration of teaching with analysis. Write 2 Islamic Studies essays monthly, analyzing high-scoring sample answers to improve arguments and evidence usage.
+
+**Q: What are the most important Islamic personalities besides Prophet Muhammad?**
+Frequently tested: Four Rightly Guided Caliphs (Abu Bakr, Umar, Uthman, Ali), Ali as military strategist, Mu'awiyah's administrative genius, Umayyad caliphs (Abd al-Malik, Hisham), Abbasid caliphs (Harun al-Rashid, Al-Ma'mun). Later: Saladin, Ottoman sultans (Suleiman). Islamic scholars: Imam Bukhari, Imam Muslim. Ensure you know their contributions, timeline, and policies. Focus on how their leadership shaped Islamic civilization.
+
+**Q: How do I connect Islamic teachings to contemporary world issues?**
+This is essay gold. Modern topics: Islamic approach to democracy, women empowerment, economic justice, environmental stewardship, science and technology. Structure: "Islamic principle X [from Quran/Hadith] demonstrates that [concept], which applies today to [modern issue] by [mechanism]." Example: "Islamic emphasis on community welfare (Quran 2:177) shaped Zakat system, which modern societies address through progressive taxation." Practice linking historical Islamic governance principles to current geopolitical issues.
+
 Success in Islamic Studies comes from combining knowledge of teachings with historical understanding. Practice regularly on Imtehan to build confidence!`
 
 export default function BlogPost() {
@@ -345,25 +365,61 @@ export default function BlogPost() {
       </article>
 
       <section className="max-w-6xl mx-auto px-6 lg:px-8 py-16 border-t">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Related Articles</h2>
-        <div className="grid md:grid-cols-2 gap-8">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Related CSS Preparation Resources</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Link
-            href="/blog/css-exam-preparation-guide-2025"
-            className="group p-6 bg-white rounded-lg border hover:shadow-lg transition-all"
+            href="/blog/css-compulsory-subjects-overview"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
           >
             <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
-              CSS Exam Guide
+              CSS Compulsory Subjects Overview
             </h3>
-            <p className="text-gray-600 text-sm">Master the CSS examination.</p>
+            <p className="text-gray-600 text-sm">Master all 7 compulsory subjects with study tips.</p>
+          </Link>
+          <Link
+            href="/blog/css-exam-preparation-guide-2025"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              CSS Exam Preparation Guide 2025
+            </h3>
+            <p className="text-gray-600 text-sm">Complete guide with timeline and strategies.</p>
+          </Link>
+          <Link
+            href="/blog/pakistan-affairs-important-facts-by-year"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              Pakistan Affairs Important Facts
+            </h3>
+            <p className="text-gray-600 text-sm">Year-wise facts and chronological breakdown.</p>
+          </Link>
+          <Link
+            href="/blog/how-to-crack-css-first-attempt"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              How to Crack CSS First Attempt
+            </h3>
+            <p className="text-gray-600 text-sm">Insider strategies from top CSS officers.</p>
           </Link>
           <Link
             href="/blog/pakistan-affairs-mcqs-top-100-questions"
-            className="group p-6 bg-white rounded-lg border hover:shadow-lg transition-all"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
           >
             <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
               Pakistan Affairs MCQs
             </h3>
-            <p className="text-gray-600 text-sm">Practice essential questions.</p>
+            <p className="text-gray-600 text-sm">Top 100 practice questions with answers.</p>
+          </Link>
+          <Link
+            href="/blog/current-affairs-css-how-to-prepare"
+            className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all"
+          >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
+              Current Affairs Preparation
+            </h3>
+            <p className="text-gray-600 text-sm">How to prepare effectively for current affairs.</p>
           </Link>
         </div>
       </section>
