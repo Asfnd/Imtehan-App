@@ -184,6 +184,26 @@ Don't fall for the trap of buying too many books. Focus on recommended ones and 
 - **Focus on practice**: Resources matter only if you practice
 - **Quality over quantity**: Few quality books beat many mediocre ones
 
+## Frequently Asked Questions
+
+**Q: Should I buy all recommended books or can I skip some?**
+Skip generously. Focus on: (1) ONE comprehensive book per compulsory subject (typically Hasty & Aziz's guides for Pakistan/Islamic Studies), (2) English grammar reference (Wren & Martin or similar), (3) Newspapers daily (non-negotiable). Optional subjects: Choose 1-2 books in your optional subject only. Total budget: Rs. 5,000-8,000 maximum. Most students overspend on books; practice platforms matter more. Use library copies to preview before buying.
+
+**Q: Is Imtehan sufficient or do I need external books?**
+Imtehan is excellent for MCQ practice and time management. Books are essential for: (1) Concept understanding (MCQs test, books explain), (2) Essay writing (books provide examples and context), (3) Historical facts (Pakistan Studies requires chronology). Combined approach: Books for learning (months 1-3), Imtehan for practice (months 2-6), Newspapers throughout. Don't rely on Imtehan alone; it's a tool, not a complete replacement for reading.
+
+**Q: How many hours should I spend reading newspapers vs books?**
+Daily breakdown: Newspapers (1 hour minimum) > Subject books (3-4 hours) > MCQ platforms (2-3 hours). Newspapers are most time-efficient (covers current affairs, general knowledge, Pakistan affairs simultaneously). Books require deeper focus but build conceptual understanding. Optimize: Read newspapers for breakfast/commute, study books during peak mental hours, practice MCQs during evening. This schedule maximizes productivity across different resource types.
+
+**Q: Can I depend entirely on YouTube lectures instead of books?**
+Partially possible but risky. YouTube advantages: Visual learning, concept clarity, subject-specific channels. Disadvantages: Time-consuming, lacks depth, unpredictable quality, no systematic coverage. Strategy: Use YouTube for weak concepts only (30 minutes per week), not as primary resource. Books provide systematic, comprehensive coverage; videos supplement. Never replace books entirely; combine both. YouTube should be 10% of study, not 40%.
+
+**Q: Which newspaper is best for CSS Current Affairs?**
+Top choices: (1) Dawn (English, comprehensive, excellent op-eds), (2) The News (balanced coverage), (3) Express (local focus), read one consistently. Supplement with: BBC, Reuters, Al Jazeera (international perspectives). Time investment: 45-60 minutes daily. Focus areas: Pakistan national news, international relations, economic policy, scientific discoveries. Keep monthly notes; review before exam. Single newspaper read thoroughly beats multiple papers read casually.
+
+**Q: Is buying an expensive reference library necessary for success?**
+No. Spend Rs. 3,000-5,000 on 2-3 quality books per subject, rest on newspapers. Most expensive libraries are ego purchases, not study necessities. Successful candidates use: 1 good book per subject + newspapers + MCQ platform. Library access is better than ownership (borrow books, save money). What matters: Consistent newspaper reading, focused book study, regular MCQ practice. Resources are enablers; discipline is everything. A Rs. 500 notebook with consistent daily practice beats a Rs. 50,000 library unused.
+
 Success comes from smart resource selection and consistent practice, not from expensive materials. Use Imtehan's comprehensive platform to complement your reading!`
 
 export default function BlogPost() {
