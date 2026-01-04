@@ -6,7 +6,8 @@ import { MetadataRoute } from 'next'
  * Query parameters are discovered through crawling and internal links
  */
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://imtehan.com'
+// HARDCODED to prevent environment variable issues
+const BASE_URL = 'https://imtehan.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // All static pages - NO query parameters to avoid XML parsing errors
