@@ -248,3 +248,96 @@ export function ArticleSchema({
     />
   )
 }
+
+interface BreadcrumbItem {
+  name: string
+  url: string
+}
+
+interface BreadcrumbListProps {
+  items: BreadcrumbItem[]
+}
+
+export function BreadcrumbListSchema({ items }: BreadcrumbListProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+interface FAQPageItem {
+  question: string
+  answer: string
+}
+
+interface FAQPageSchemaProps {
+  items: FAQPageItem[]
+}
+
+export function FAQPageSchema({ items }: FAQPageSchemaProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+interface BlogCollectionProps {
+  items: {
+    title: string
+    description: string
+    url: string
+    datePublished: string
+  }[]
+}
+
+export function BlogCollectionSchema({ items }: BlogCollectionProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'CSS & MPT Exam Blog',
+    description: 'Expert guides on CSS and MPT exam preparation',
+    url: 'https://imtehan.com/blog',
+    hasPart: items.map((item) => ({
+      '@type': 'BlogPosting',
+      headline: item.title,
+      description: item.description,
+      url: item.url,
+      datePublished: item.datePublished,
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}

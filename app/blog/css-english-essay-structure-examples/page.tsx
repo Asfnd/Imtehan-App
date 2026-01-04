@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, Clock, Calendar } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
-import { ArticleSchema } from '@/components/seo/StructuredData'
+import { ArticleSchema, BreadcrumbListSchema } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   title: 'CSS English Essay Structure and Examples | Complete Guide | Imtehan',
@@ -20,6 +20,14 @@ export default function BlogPost() {
         content="CSS English essay (100 marks) is do-or-die subject. Perfect structure separates 40-mark scorers from 80-mark scorers. Essential structure: Introduction (15% of essay) - Hook with quote/question, Define thesis clearly, Provide essay roadmap. Body (70% of essay) - Each paragraph one main idea, Topic sentence then 3-4 supporting arguments, Use examples: statistics, quotes, case studies, real incidents. Conclusion (15% of essay) - Restate thesis with new insight, Summarize key arguments, End with powerful statement or call to action. Scoring breakdown: Introduction (10 marks) - Clarity, relevance, thesis strength. Body (60 marks) - Depth, examples, argumentation, logic. Conclusion (15 marks) - Summary, impact, coherence. Language (15 marks) - Grammar, vocabulary, sentence flow. Real example essay structure: Title - Debate topic or question. Paragraph 1 (Introduction) - Opens with relevant fact/quote, mentions controversy, states position clearly. Paragraphs 2-4 (Body) - Each develops one argument with supporting evidence. Paragraph 5 (Conclusion) - Wraps up, reinforces position, leaves reader thinking. Common mistakes: Weak introduction that doesn't grab attention, Body paragraphs without examples (only theory), Rambling conclusion that repeats instead of concluding, Poor grammar damaging message. Pro tips: Read essay prompts 2-3 times before writing, Use 2-3 minutes planning outline, Include 1-2 real-world examples per paragraph, Use transition words (However, Moreover, Furthermore, In contrast), Keep sentences varied (short + long), Reread conclusion to ensure it answers prompt. Time allocation: 3 minutes reading prompt, 5 minutes planning outline, 75 minutes writing, 2 minutes final review. Practice approach: Write 2 essays weekly, Get feedback from forum/mentors, Analyze scoring, Improve next essay. High-scoring essay characteristics: Clear thesis in introduction, Each paragraph focused on single point, Real examples not generic statements, Logical flow between paragraphs, Powerful conclusion that resonates. Scoring potential: With proper structure + examples + grammar = 75-90 marks achievable!"
         publishDate="2026-01-03"
         url="https://imtehan.com/blog/css-english-essay-structure-examples"
+      />
+      <BreadcrumbListSchema
+        items={[
+          { name: 'Home', url: 'https://imtehan.com' },
+          { name: 'Blog', url: 'https://imtehan.com/blog' },
+          { name: 'CSS Subjects', url: 'https://imtehan.com/blog?category=Subject%20Guide' },
+          { name: 'English Essay Structure', url: 'https://imtehan.com/blog/css-english-essay-structure-examples' },
+        ]}
       />
       <NavigationBar />
       <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
