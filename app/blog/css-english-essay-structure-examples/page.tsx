@@ -267,30 +267,36 @@ export default function BlogPost() {
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold mt-12 mb-6">Related Resources</h2>
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <Link href="/blog/css-time-management-3-hour-mcq-exam" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Time Management During MCQ Exam</h3>
-            <p className="text-sm text-gray-600 mb-3">Learn minute-by-minute breakdown for 3-hour exam strategy</p>
-            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+        <h2 className="text-2xl font-bold mt-12 mb-6">Related Study Guides</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <Link href="/blog/css-english-precis-composition-tips" className="group bg-blue-50 p-4 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-1 text-sm">English Précis & Composition</h3>
+            <p className="text-xs text-gray-600">Master the other critical English section</p>
           </Link>
 
-          <Link href="/blog/css-past-papers-analysis-trends" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Past Papers Analysis &amp; Trends</h3>
-            <p className="text-sm text-gray-600 mb-3">Understand recurring topics and patterns from 2015-2023</p>
-            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          <Link href="/blog/css-time-management-3-hour-mcq-exam" className="group bg-blue-50 p-4 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-1 text-sm">CSS Time Management Strategy</h3>
+            <p className="text-xs text-gray-600">Minute-by-minute breakdown for exam</p>
           </Link>
 
-          <Link href="/blog/css-english-precis-composition-tips" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS English Précis and Composition Tips</h3>
-            <p className="text-sm text-gray-600 mb-3">Master the other critical English section with proven techniques</p>
-            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          <Link href="/blog/css-exam-preparation-guide-2025" className="group bg-blue-50 p-4 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-1 text-sm">Complete Exam Prep Guide</h3>
+            <p className="text-xs text-gray-600">Overall strategy for CSS 2025</p>
           </Link>
 
-          <Link href="/blog/how-to-crack-css-first-attempt" className="group bg-blue-50 p-6 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">How to Crack CSS in First Attempt</h3>
-            <p className="text-sm text-gray-600 mb-3">Insider strategies from successful CSS candidates</p>
-            <span className="text-blue-600 text-sm font-semibold">Read more →</span>
+          <Link href="/blog/how-to-crack-css-first-attempt" className="group bg-blue-50 p-4 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-1 text-sm">Crack CSS First Attempt</h3>
+            <p className="text-xs text-gray-600">Insider strategies from top scorers</p>
+          </Link>
+
+          <Link href="/blog/css-past-papers-analysis-what-to-expect" className="group bg-blue-50 p-4 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-1 text-sm">Past Papers Analysis</h3>
+            <p className="text-xs text-gray-600">Understand exam patterns and trends</p>
+          </Link>
+
+          <Link href="/blog/best-css-preparation-books-resources" className="group bg-blue-50 p-4 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
+            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-1 text-sm">Best Books & Resources</h3>
+            <p className="text-xs text-gray-600">Recommended reading material</p>
           </Link>
         </div>
 
