@@ -1,9 +1,21 @@
-'use client'
-
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Calendar, User } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { Breadcrumb, breadcrumbTrails } from '@/components/seo/Breadcrumb'
+
+export const metadata: Metadata = {
+  title: 'CSS & MPT Exam Preparation Blog - Study Guides & Tips | Imtehan',
+  description: 'Expert guides on CSS and MPT exam preparation. Learn essay writing, time management, subject strategies, and insider tips from successful candidates. 20+ in-depth articles.',
+  alternates: { canonical: 'https://imtehan.com/blog' },
+  openGraph: {
+    title: 'CSS & MPT Exam Blog - Expert Guides & Study Tips',
+    description: 'Comprehensive blog covering CSS exam preparation, strategies, and subject guides.',
+    url: 'https://imtehan.com/blog',
+    type: 'website',
+    siteName: 'Imtehan',
+  },
+}
 
 interface BlogPost {
   slug: string
@@ -209,7 +221,10 @@ export default function BlogPage() {
           <div className="flex justify-between items-start gap-8">
             <div className="flex-1">
               <Breadcrumb
-                items={[...breadcrumbTrails.home, { name: 'Blog', url: '/blog' }]}
+                items={[
+                  { name: 'Home', url: '/' },
+                  { name: 'Blog', url: '/blog' }
+                ]}
                 className="mb-6"
               />
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
