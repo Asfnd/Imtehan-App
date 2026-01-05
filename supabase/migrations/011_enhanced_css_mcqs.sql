@@ -63,11 +63,15 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
+  SELECT
     m.subject,
     COUNT(*) as question_count,
-    ARRAY_AGG(DISTINCT m.year ORDER BY m.year DESC) FILTER (WHERE m.year IS NOT NULL) as years
+    ARRAY_AGG(DISTINCT m.year ORDER BY m.year DESC) FILTER (WHERE m.year IS NOT NULL AND m.year >= 2007) as years
   FROM css_mcqs_enhanced m
+  WHERE m.year >= 2007
+    AND m.year IS NOT NULL
+    AND LOWER(m.subject) NOT LIKE '%mpt%'
+    AND LOWER(m.subject) NOT LIKE '%management%'
   GROUP BY m.subject
   ORDER BY m.subject;
 END;

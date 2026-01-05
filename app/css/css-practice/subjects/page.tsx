@@ -100,7 +100,7 @@ export default function CSSSubjectMCQsPage() {
         subjectsWithIdioms = [
           ...subjectList,
           {
-            subject: 'Idioms & Phrases',
+            subject: 'Idioms',
             count: 500, // Approximate count for idioms
             databaseName: 'English (Idioms)' // The actual name in database
           }
@@ -152,7 +152,7 @@ export default function CSSSubjectMCQsPage() {
       error = result1.error
 
       // If first query failed and we're looking for idioms, try alternative names
-      if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms & Phrases')) {
+      if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms')) {
         console.log('First query failed or returned no data, trying alternative idiom names...')
 
         const altNames = ['English (Idioms)', 'English Idioms', 'Idioms', 'Idioms & Phrases', 'english (idioms)', 'english idioms']

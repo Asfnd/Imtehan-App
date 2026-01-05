@@ -3,8 +3,8 @@
  * Defines which subjects are compulsory vs optional for CSS examination
  */
 
-export type SubjectCategory = 'compulsory' | 'optional' | 'language' | 'idioms'
-export type CategoryFilter = 'all' | 'compulsory' | 'optional' | 'language' | 'idioms'
+export type SubjectCategory = 'compulsory' | 'optional' | 'language'
+export type CategoryFilter = 'all' | 'compulsory' | 'optional' | 'language'
 
 export interface Subject {
   subject: string
@@ -25,24 +25,18 @@ export interface CategoryCounts {
   compulsory: number
   optional: number
   language: number
-  idioms: number
 }
 
 /**
- * Static configuration defining idioms subjects for CSS examination
- */
-export const IDIOMS_SUBJECTS: readonly string[] = [
-  "Idioms",
-  "Idioms & Phrases",
-  "English (Idioms)",
-  "English Idioms"
-] as const
-
-/**
  * Static configuration defining language skills subjects for CSS examination
+ * Includes English Essay and Idioms
  */
 export const LANGUAGE_SUBJECTS: readonly string[] = [
-  "English Essay"
+  "English Essay",
+  "Idioms",
+  "Idioms & Phrases", // Legacy database name support
+  "English (Idioms)", // Alternative database name
+  "English Idioms" // Another alternative database name
 ] as const
 
 /**
@@ -68,14 +62,7 @@ export const COMPULSORY_SUBJECTS: readonly string[] = [
 ] as const
 
 /**
- * Determines if a subject is an idioms subject
- */
-export function isIdiomsSubject(subjectName: string): boolean {
-  return IDIOMS_SUBJECTS.includes(subjectName as any)
-}
-
-/**
- * Determines if a subject is a language skill subject
+ * Determines if a subject is a language skill subject (includes idioms)
  */
 export function isLanguageSubject(subjectName: string): boolean {
   return LANGUAGE_SUBJECTS.includes(subjectName as any)
@@ -89,11 +76,10 @@ export function isCompulsorySubject(subjectName: string): boolean {
 }
 
 /**
- * Categorizes a subject as compulsory, optional, language, or idioms
- * Priority: idioms > language > compulsory > optional
+ * Categorizes a subject as compulsory, optional, or language
+ * Priority: language > compulsory > optional
  */
 export function categorizeSubject(subjectName: string): SubjectCategory {
-  if (isIdiomsSubject(subjectName)) return 'idioms'
   if (isLanguageSubject(subjectName)) return 'language'
   if (isCompulsorySubject(subjectName)) return 'compulsory'
   return 'optional'
@@ -151,17 +137,15 @@ export function filterSubjects(
  * Calculates counts for each category
  */
 export function calculateCategoryCounts(subjects: Subject[]): CategoryCounts {
-  const idiomsCount = subjects.filter(s => isIdiomsSubject(s.subject)).length
   const languageCount = subjects.filter(s => isLanguageSubject(s.subject)).length
-  const compulsoryCount = subjects.filter(s => isCompulsorySubject(s.subject) && !isLanguageSubject(s.subject) && !isIdiomsSubject(s.subject)).length
-  const optionalCount = subjects.length - idiomsCount - languageCount - compulsoryCount
+  const compulsoryCount = subjects.filter(s => isCompulsorySubject(s.subject) && !isLanguageSubject(s.subject)).length
+  const optionalCount = subjects.length - languageCount - compulsoryCount
 
   return {
     all: subjects.length,
     compulsory: compulsoryCount,
     optional: optionalCount,
-    language: languageCount,
-    idioms: idiomsCount
+    language: languageCount
   }
 }
 
@@ -190,7 +174,7 @@ export function loadCategoryFromSession(): CategoryFilter {
   try {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       const saved = sessionStorage.getItem(CATEGORY_STORAGE_KEY)
-      if (saved && ['all', 'compulsory', 'optional', 'language', 'idioms'].includes(saved)) {
+      if (saved && ['all', 'compulsory', 'optional', 'language'].includes(saved)) {
         return saved as CategoryFilter
       }
     }
