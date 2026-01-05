@@ -185,7 +185,7 @@ export function HomeClient() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Target className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -205,7 +205,7 @@ export function HomeClient() {
               </p>
             </Link>
 
-            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Trophy className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -225,7 +225,7 @@ export function HomeClient() {
               </p>
             </Link>
 
-            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Clock className="w-5.5 h-5.5 text-primary" />
               </div>
@@ -235,7 +235,7 @@ export function HomeClient() {
               </p>
             </Link>
 
-            <Link href="/css/css-practice/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/css/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <BookOpen className="w-5.5 h-5.5 text-primary" />
               </div>

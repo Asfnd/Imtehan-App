@@ -478,7 +478,7 @@ export default function BlogPost() {
           <h3 className="font-semibold mb-2">Practice Pakistan Affairs MCQs with Detailed Explanations</h3>
           <p className="text-gray-700 mb-4">Test your knowledge with 500+ Pakistan Affairs MCQs organized by topic and year. Each answer includes detailed explanations and references to the facts covered in this guide.</p>
           <div className="flex gap-3">
-            <Link href="/css/css-practice/subjects?subject=pakistan-affairs" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practice MCQs</Link>
+            <Link href="/css/subjects?subject=pakistan-affairs" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practice MCQs</Link>
             <Link href="/css/past-papers" className="inline-block bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">Solve Past Papers</Link>
           </div>
         </div>

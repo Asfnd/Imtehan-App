@@ -19,7 +19,7 @@ const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://imtehan.com/css/css-practice/subjects</loc>
+    <loc>https://imtehan.com/css/subjects</loc>
     <lastmod>2026-01-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

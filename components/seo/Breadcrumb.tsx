@@ -68,7 +68,7 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
 export const breadcrumbPaths = {
   home: { name: 'Home', url: '/' },
   css: { name: 'CSS', url: '/css' },
-  practice: { name: 'CSS Practice', url: '/css/css-practice/subjects' },
+  practice: { name: 'CSS Practice', url: '/css/subjects' },
   pastPapers: { name: 'Past Papers', url: '/css/past-papers' },
   solvedPapers: { name: 'Solved Papers', url: '/css/solved-papers' },
   contact: { name: 'Contact', url: '/contact' },
@@ -77,7 +77,7 @@ export const breadcrumbPaths = {
 
   getSubjectPath: (subject: string) => ({
     name: `${subject.replace(/-/g, ' ')} Questions`,
-    url: `/css/css-practice/subjects?subject=${subject}`,
+    url: `/css/subjects?subject=${subject}`,
   }),
 
   getYearPath: (year: number) => ({

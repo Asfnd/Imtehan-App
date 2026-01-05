@@ -41,7 +41,7 @@ export default function CSSPracticeMain() {
       title: 'Practice Past MCQs',
       description: 'Practice Past Paper MCQs from past CSS exams by subject and year. Find Idioms under the Idioms category filter.',
       icon: BookOpen,
-      route: '/css/css-practice/subjects',
+      route: '/css/subjects',
       stats: `${stats.subjects} Questions`,
       subjects: '40+ Subjects + Idioms'
     }

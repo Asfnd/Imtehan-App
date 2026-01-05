@@ -139,7 +139,7 @@ export function WebSiteSchema({
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${url}/css/css-practice/subjects?subject={search_term_string}`,
+        urlTemplate: `${url}/css/subjects?subject={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },

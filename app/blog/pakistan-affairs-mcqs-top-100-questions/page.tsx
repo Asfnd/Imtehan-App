@@ -230,7 +230,7 @@ export default function BlogPost() {
             Access 600+ Pakistan Affairs questions on Imtehan with detailed explanations and performance tracking.
           </p>
           <Link
-            href="/css/css-practice/subjects"
+            href="/css/subjects"
             className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Practice Now

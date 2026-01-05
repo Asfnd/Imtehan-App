@@ -100,6 +100,8 @@ function CSSQuizContent() {
   const [isCorrect, setIsCorrect] = useState(false)
   const [showReportToast, setShowReportToast] = useState(false)
   const [quizStartTime, setQuizStartTime] = useState<number>(Date.now())
+  const [wrongOptions, setWrongOptions] = useState<Set<string>>(new Set())
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false)
 
   // Gamification state
   const [streak, setStreak] = useState(0)
@@ -147,7 +149,7 @@ function CSSQuizContent() {
     // Check if user has access (handles both signed-in users and free trial limits)
     if (!user && !checkAccess('cssSubject')) {
       // Redirect back to subjects page - the hook will show sign-in popup
-      router.push('/css/css-practice/subjects')
+      router.push('/css/subjects')
       return
     }
 
@@ -200,11 +202,12 @@ function CSSQuizContent() {
 
     setSelectedAnswer(answer)
     const correct = answer === lazyLoadedMcqs[currentIndex].correct_answer
-    
+
     if (correct) {
       setIsCorrect(true)
       setAnswers([...answers, true])
       setScore(score + 1)
+      setShowCorrectAnswer(true)
 
       // Gamification: Update streak
       const newStreak = streak + 1
@@ -238,7 +241,9 @@ function CSSQuizContent() {
       setShowEncouragement(true)
       setTimeout(() => setShowEncouragement(false), 2000)
     } else {
-      // Wrong answer - increment attempts but don't lock
+      // Wrong answer - track it and show correct answer
+      setWrongOptions(prev => new Set(prev).add(answer))
+      setShowCorrectAnswer(true) // Show correct answer when wrong one is clicked
       setWrongAttempts(prev => prev + 1)
 
       // Gamification: Reset streak
@@ -254,7 +259,7 @@ function CSSQuizContent() {
       setShowEncouragement(true)
       setTimeout(() => setShowEncouragement(false), 2000)
 
-      // Clear selection after a moment to allow retry
+      // Clear selection after a moment to allow retry, but keep visual feedback
       setTimeout(() => setSelectedAnswer(null), 800)
     }
   }
@@ -266,6 +271,8 @@ function CSSQuizContent() {
       setSelectedAnswer(null)
       setWrongAttempts(0)
       setIsCorrect(false)
+      setWrongOptions(new Set())
+      setShowCorrectAnswer(false)
 
       // Smart trigger: Check if we need to load next batch
       if (enableLazyLoad) {
@@ -329,6 +336,8 @@ function CSSQuizContent() {
       setSelectedAnswer(null)
       setWrongAttempts(0)
       setIsCorrect(false)
+      setWrongOptions(new Set())
+      setShowCorrectAnswer(false)
     }
   }
 
@@ -558,6 +567,7 @@ function CSSQuizContent() {
             {options.map((option) => {
               const isSelected = selectedAnswer === option.label
               const isOptionCorrect = option.label === currentMCQ.correct_answer
+              const isWrongOption = wrongOptions.has(option.label)
               const optionExplanation = currentMCQ[
                 `explanation_${option.label.toLowerCase()}` as keyof MCQ
               ] as string | undefined
@@ -570,6 +580,8 @@ function CSSQuizContent() {
                   isSelected={isSelected}
                   isCorrect={isOptionCorrect}
                   isRevealed={isCorrect}
+                  isWrong={isWrongOption}
+                  showCorrectAnswer={showCorrectAnswer}
                   onSelect={() => handleAnswer(option.label)}
                   disabled={isCorrect}
                   explanation={optionExplanation}
@@ -579,15 +591,34 @@ function CSSQuizContent() {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 mb-3">
-          {/* Next Button */}
+        {/* Action Buttons - Professional Navigation */}
+        <div className="flex items-center gap-3 mb-3">
+          {/* Back Button - Always visible */}
+          <button
+            onClick={previousQuestion}
+            disabled={currentIndex === 0}
+            className={`flex-1 px-5 py-3 rounded-xl font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+              currentIndex === 0
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 shadow-sm hover:shadow-md active:scale-95'
+            }`}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Back</span>
+          </button>
+
+          {/* Next Button - Shows when answer is correct */}
           {isCorrect && (
             <button
               onClick={nextQuestion}
-              className="w-full px-5 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-bold transition-colors"
+              className="flex-[2] px-5 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95 flex items-center justify-center gap-2"
             >
-              {currentIndex < lazyLoadedMcqs.length - 1 ? 'Next Question →' : 'View Results 🎉'}
+              <span>{currentIndex < lazyLoadedMcqs.length - 1 ? 'Next Question' : 'View Results'}</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           )}
         </div>

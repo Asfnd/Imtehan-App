@@ -10,6 +10,8 @@ interface AnswerOptionProps {
   isSelected: boolean
   isCorrect: boolean
   isRevealed: boolean
+  isWrong?: boolean
+  showCorrectAnswer?: boolean
   onSelect: () => void
   disabled: boolean
   explanation?: string
@@ -26,14 +28,16 @@ export const AnswerOption = memo(function AnswerOption({
   isSelected,
   isCorrect,
   isRevealed,
+  isWrong = false,
+  showCorrectAnswer = false,
   onSelect,
   disabled,
   explanation,
 }: AnswerOptionProps) {
   const [showShake, setShowShake] = useState(false)
   const [showPulse, setShowPulse] = useState(false)
-  const showCorrect = isCorrect && isRevealed
-  const showIncorrect = isSelected && !isCorrect && isRevealed
+  const showCorrect = isCorrect && (isRevealed || showCorrectAnswer)
+  const showIncorrect = isWrong || (isSelected && !isCorrect)
 
   // Trigger animations based on state
   useEffect(() => {

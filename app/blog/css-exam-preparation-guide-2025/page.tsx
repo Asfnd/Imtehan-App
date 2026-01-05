@@ -216,7 +216,7 @@ export default function BlogPost() {
             Access 10,000+ practice MCQs, past papers, and performance analytics on Imtehan. Start your free trial today!
           </p>
           <Link
-            href="/css/css-practice/subjects"
+            href="/css/subjects"
             className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Start Practicing Free

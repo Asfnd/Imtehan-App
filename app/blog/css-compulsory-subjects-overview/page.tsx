@@ -345,7 +345,7 @@ export default function BlogPost() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
-              href="/css/css-practice/subjects"
+              href="/css/subjects"
               className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Start Practicing

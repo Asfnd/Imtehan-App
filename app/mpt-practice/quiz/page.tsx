@@ -49,6 +49,7 @@ function MPTQuizContent() {
   const [loading, setLoading] = useState(true)
   const [timeLeft, setTimeLeft] = useState(200 * 60) // 200 minutes in seconds
   const [timerActive, setTimerActive] = useState(false)
+  const [showFeedback, setShowFeedback] = useState<Record<number, boolean>>({}) // Track which questions show feedback
 
   useEffect(() => {
     const supabase = createClient()
@@ -105,6 +106,11 @@ function MPTQuizContent() {
     setSelectedAnswers({
       ...selectedAnswers,
       [currentIndex]: answer
+    })
+    // Enable feedback for this question
+    setShowFeedback({
+      ...showFeedback,
+      [currentIndex]: true
     })
   }
 
@@ -310,30 +316,61 @@ function MPTQuizContent() {
                       `option_${option.toLowerCase()}` as keyof MCQ
                     ] as string
                     const isSelected = selectedAnswers[currentIndex] === option
+                    const isCorrect = option === currentMCQ.correct_answer
+                    const shouldShowFeedback = showFeedback[currentIndex]
+                    const showAsCorrect = shouldShowFeedback && isCorrect
+                    const showAsWrong = shouldShowFeedback && isSelected && !isCorrect
 
                     return (
                       <button
                         key={option}
                         onClick={() => handleAnswer(option)}
-                        className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 hover-scale-sm ${
-                          isSelected
+                        className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 ${
+                          showAsCorrect
+                            ? 'border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 shadow-md'
+                            : showAsWrong
+                            ? 'border-red-500 bg-gradient-to-r from-red-50 to-rose-50 shadow-md animate-shake'
+                            : isSelected
                             ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 active:border-blue-300 active:bg-gray-50'
+                            : 'border-gray-200 hover:border-gray-300 active:border-blue-300 active:bg-gray-50'
                         }`}
                       >
                         <div className="flex items-start gap-2 sm:gap-3">
                           <span
                             className={`flex-shrink-0 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold transition-all text-sm sm:text-base ${
-                              isSelected
+                              showAsCorrect
+                                ? 'bg-green-500 text-white shadow-lg'
+                                : showAsWrong
+                                ? 'bg-red-500 text-white shadow-lg'
+                                : isSelected
                                 ? 'bg-blue-500 text-white shadow-lg'
                                 : 'bg-gray-100 text-gray-600'
                             }`}
                           >
                             {option}
                           </span>
-                          <span className="text-gray-700 flex-1 text-xs sm:text-sm md:text-base leading-relaxed pt-0.5 sm:pt-1">
+                          <span className={`flex-1 text-xs sm:text-sm md:text-base leading-relaxed pt-0.5 sm:pt-1 ${
+                            showAsCorrect ? 'text-green-900 font-semibold' :
+                            showAsWrong ? 'text-red-900' :
+                            'text-gray-700'
+                          }`}>
                             {optionText}
                           </span>
+                          {/* Check/X icons */}
+                          {showAsCorrect && (
+                            <span className="flex-shrink-0">
+                              <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                                <Check className="w-4 h-4 text-white" strokeWidth={3} />
+                              </div>
+                            </span>
+                          )}
+                          {showAsWrong && (
+                            <span className="flex-shrink-0">
+                              <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
+                                <X className="w-4 h-4 text-white" strokeWidth={3} />
+                              </div>
+                            </span>
+                          )}
                         </div>
                       </button>
                     )
