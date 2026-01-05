@@ -46,23 +46,45 @@ export default function CSSSubjectMCQsPage() {
   const fetchSubjects = useMemo(() => async () => {
     try {
       const supabase = createClient()
-      const { data, error } = await supabase.rpc('get_enhanced_css_subject_stats')
+
+      // Query table directly with NO LIMITS to get accurate data
+      console.log('Querying all MCQs from css_mcqs_enhanced table...')
+      const { data, error, count } = await supabase
+        .from('css_mcqs_enhanced')
+        .select('subject', { count: 'exact', head: false })
+        .gte('year', 2007)  // Only 2007 onwards
+        .not('subject', 'like', '%MPT%')  // Exclude MPT
+        .not('subject', 'like', '%Management%')  // Exclude Management
+        .range(0, 1000000)  // Fetch up to 1 million records (no practical limit)
+
+      console.log('Total MCQs count:', count, 'Records returned:', data?.length)
+
       if (error) throw error
       if (!data || data.length === 0) {
+        console.warn('No data returned from query')
         setSubjects([])
         setLoading(false)
         return
       }
-      const subjectList = data
-        .map((row: any) => ({
-          subject: row.subject,
-          count: row.question_count
+
+      // Group and count subjects - count all returned records
+      const subjectCounts = new Map<string, number>()
+      data.forEach((row: any) => {
+        const subject = row.subject
+        const count = subjectCounts.get(subject) || 0
+        subjectCounts.set(subject, count + 1)
+      })
+
+      const subjectList = Array.from(subjectCounts.entries())
+        .map(([subject, count]) => ({
+          subject,
+          count
         }))
         .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
 
-      console.log('=== Subjects from database ===')
+      console.log('=== Subjects from database (Direct Query) ===')
       console.log('Total subjects:', subjectList.length)
-      console.log('All subjects:', subjectList.map(s => s.subject))
+      console.log('All subjects:', subjectList.map(s => `${s.subject}: ${s.count}`))
 
       // Check if idioms already exists - with detailed matching
       const idiomVariations = ['idiom', 'english (idiom', 'english idiom']
@@ -147,6 +169,7 @@ export default function CSSSubjectMCQsPage() {
         .select('year')
         .eq('subject', subjectQuery)
         .order('year', { ascending: false })
+        .range(0, 1000000)  // Load all years (no limit)
 
       data = result1.data
       error = result1.error
@@ -165,6 +188,7 @@ export default function CSSSubjectMCQsPage() {
             .select('year')
             .eq('subject', altName)
             .order('year', { ascending: false })
+            .range(0, 1000000)  // Load all years (no limit)
 
           if (altResult.data && altResult.data.length > 0) {
             console.log('SUCCESS with alternative name:', altName)
