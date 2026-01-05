@@ -464,6 +464,38 @@ function DashboardContent() {
 
           {/* Practice Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* MPT Practice */}
+            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative p-5 flex-1 flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">MPT Practice</h3>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
+                  Past MPT MCQs + Mock tests
+                </p>
+                <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-blue-600">1,000+</span>
+                    <span className="text-gray-500">MCQs</span>
+                  </div>
+                  <div className="w-px h-3 bg-gray-300"></div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-blue-600">Timed</span>
+                    <span className="text-gray-500">Tests</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => router.push('/mpt-practice')}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                >
+                  Start Test
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
             {/* CSS Subject Practice */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -471,9 +503,9 @@ function DashboardContent() {
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
                   <BookOpen className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Subject Practice</h3>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Practice Past CSS MCQs</h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Subject-wise MCQs from past CSS exams
+                  Practice subject-wise MCQs of past CSS exams
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
@@ -505,7 +537,7 @@ function DashboardContent() {
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Past Papers</h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Previous year examination papers
+                  Past CSS papers
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
@@ -539,7 +571,7 @@ function DashboardContent() {
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Solved Papers</h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Detailed solutions with explanations
+                  Solved CSS Past Papers
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
@@ -557,38 +589,6 @@ function DashboardContent() {
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
                   View Solutions
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* MPT Practice */}
-            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative p-5 flex-1 flex flex-col">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <Target className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">MPT Practice</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Timed preliminary test preparation
-                </p>
-                <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-blue-600">1,000+</span>
-                    <span className="text-gray-500">MCQs</span>
-                  </div>
-                  <div className="w-px h-3 bg-gray-300"></div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-blue-600">Timed</span>
-                    <span className="text-gray-500">Tests</span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => router.push('/mpt-practice')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
-                >
-                  Start Test
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
