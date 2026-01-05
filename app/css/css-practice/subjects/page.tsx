@@ -82,13 +82,28 @@ export default function CSSSubjectMCQsPage() {
       const supabase = createClient()
       const isIdioms = selectedSubject === 'Idioms & Phrases'
 
-      // Use different table for idioms
-      const tableName = isIdioms ? 'css_idioms' : 'css_mcqs_enhanced'
-      const query = isIdioms
-        ? supabase.from(tableName).select('year').order('year', { ascending: false }).limit(1000)
-        : supabase.from(tableName).select('year').eq('subject', selectedSubject).order('year', { ascending: false }).limit(1000)
+      let data, error
 
-      const { data, error } = await query
+      if (isIdioms) {
+        // Fetch from css_idioms table
+        const result = await supabase
+          .from('css_idioms')
+          .select('year')
+          .order('year', { ascending: false })
+          .limit(1000)
+        data = result.data
+        error = result.error
+      } else {
+        // Fetch from css_mcqs_enhanced table
+        const result = await supabase
+          .from('css_mcqs_enhanced')
+          .select('year')
+          .eq('subject', selectedSubject)
+          .order('year', { ascending: false })
+          .limit(1000)
+        data = result.data
+        error = result.error
+      }
 
       if (error) throw error
 

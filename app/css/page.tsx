@@ -519,7 +519,7 @@ function DashboardContent() {
                   </div>
                 </div>
                 <button
-                  onClick={() => router.push('/css/css-practice')}
+                  onClick={() => router.push('/css/css-practice/subjects')}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
                   Start Practice
