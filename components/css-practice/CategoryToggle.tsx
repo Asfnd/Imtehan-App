@@ -65,7 +65,19 @@ export default function CategoryToggle({
       activeGradient: 'from-emerald-600 to-teal-700',
       bgColor: 'bg-emerald-100',
       textColor: 'text-emerald-700',
-      description: 'English & language skills including idioms'
+      description: 'English & language skills'
+    },
+    {
+      key: 'idioms' as CategoryFilter,
+      label: 'Idioms',
+      count: categoryCounts.idioms,
+      shortLabel: 'Idioms',
+      gradient: 'from-purple-500 to-pink-600',
+      hoverGradient: 'hover:from-purple-600 hover:to-pink-700',
+      activeGradient: 'from-purple-600 to-pink-700',
+      bgColor: 'bg-purple-100',
+      textColor: 'text-purple-700',
+      description: 'Idioms & phrases practice'
     }
   ]
 
@@ -143,7 +155,7 @@ export default function CategoryToggle({
       </div>
 
       {/* Desktop: Horizontal buttons */}
-      <div className="hidden sm:flex gap-2 flex-1">
+      <div className="hidden sm:grid sm:grid-cols-5 gap-2 flex-1">
         {buttons.map((button) => {
           const isActive = activeCategory === button.key
           return (
@@ -221,7 +233,8 @@ export function CompactCategoryToggle({
     { key: 'all' as CategoryFilter, label: 'All', count: categoryCounts.all },
     { key: 'compulsory' as CategoryFilter, label: 'Core', count: categoryCounts.compulsory },
     { key: 'optional' as CategoryFilter, label: 'Elective', count: categoryCounts.optional },
-    { key: 'language' as CategoryFilter, label: 'Language', count: categoryCounts.language }
+    { key: 'language' as CategoryFilter, label: 'Language', count: categoryCounts.language },
+    { key: 'idioms' as CategoryFilter, label: 'Idioms', count: categoryCounts.idioms }
   ]
 
   return (

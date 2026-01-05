@@ -23,6 +23,7 @@ import {
 interface Subject {
   subject: string
   count: number
+  databaseName?: string // The actual name in database (for virtual subjects like Idioms)
 }
 
 interface YearData {
@@ -59,15 +60,55 @@ export default function CSSSubjectMCQsPage() {
         }))
         .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
 
-      // Add Idioms as a virtual subject for language skills
-      const subjectsWithIdioms = [
-        ...subjectList,
-        {
-          subject: 'Idioms & Phrases',
-          count: 500 // Approximate count for idioms
-        }
-      ].sort((a: any, b: any) => a.subject.localeCompare(b.subject))
+      console.log('=== Subjects from database ===')
+      console.log('Total subjects:', subjectList.length)
+      console.log('All subjects:', subjectList.map(s => s.subject))
 
+      // Check if idioms already exists - with detailed matching
+      const idiomVariations = ['idiom', 'english (idiom', 'english idiom']
+      const hasIdioms = subjectList.some(s => {
+        const lower = s.subject.toLowerCase()
+        return idiomVariations.some(v => lower.includes(v))
+      })
+
+      console.log('Has idioms subject already:', hasIdioms)
+
+      if (hasIdioms) {
+        const idiomSubject = subjectList.find(s => {
+          const lower = s.subject.toLowerCase()
+          return idiomVariations.some(v => lower.includes(v))
+        })
+        console.log('Found idiom subject in DB:', idiomSubject?.subject)
+      }
+
+      // Add Idioms as a virtual subject for language skills (only if not already present)
+      let subjectsWithIdioms = subjectList
+
+      if (hasIdioms) {
+        // If idioms exists, find its real name and create a display variant
+        const idiomSubject = subjectList.find(s => {
+          const lower = s.subject.toLowerCase()
+          return idiomVariations.some(v => lower.includes(v))
+        })
+
+        if (idiomSubject) {
+          console.log('Using existing idiom subject from DB:', idiomSubject.subject)
+          // Don't add virtual - idioms already exists
+        }
+      } else {
+        // Create virtual Idioms subject pointing to most likely DB name
+        subjectsWithIdioms = [
+          ...subjectList,
+          {
+            subject: 'Idioms & Phrases',
+            count: 500, // Approximate count for idioms
+            databaseName: 'English (Idioms)' // The actual name in database
+          }
+        ].sort((a: any, b: any) => a.subject.localeCompare(b.subject))
+        console.log('Added virtual Idioms subject (not found in DB)')
+      }
+
+      console.log('Final subjects with idioms:', subjectsWithIdioms.map(s => s.subject))
       setSubjects(subjectsWithIdioms)
       setLoading(false)
     } catch (error) {
@@ -80,24 +121,104 @@ export default function CSSSubjectMCQsPage() {
     if (!selectedSubject) return
     try {
       const supabase = createClient()
-      const isIdioms = selectedSubject === 'Idioms & Phrases'
 
-      // For idioms, query with subject 'English (Idioms)'
-      const subjectQuery = isIdioms ? 'English (Idioms)' : selectedSubject
+      // Find the subject in the list to get the database name
+      const subjectObj = subjects.find(s => s.subject === selectedSubject)
+      console.log('Subject object:', subjectObj)
 
-      const { data, error } = await supabase
+      // Use databaseName if available (for virtual subjects), otherwise use the subject name
+      const subjectQuery = subjectObj?.databaseName || selectedSubject
+
+      console.log('Fetching years for subject (display):', selectedSubject)
+      console.log('Fetching years for subject (query):', subjectQuery)
+
+      console.log('=== QUERY DETAILS ===')
+      console.log('Table: css_mcqs_enhanced')
+      console.log('Selecting: year')
+      console.log('Where subject =', subjectQuery)
+      console.log('Order by year DESC')
+      console.log('No limit - loading all years')
+
+      let data, error
+
+      // Try the primary query
+      const result1 = await supabase
         .from('css_mcqs_enhanced')
         .select('year')
         .eq('subject', subjectQuery)
         .order('year', { ascending: false })
-        .limit(1000)
 
-      if (error) throw error
+      data = result1.data
+      error = result1.error
+
+      // If first query failed and we're looking for idioms, try alternative names
+      if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms & Phrases')) {
+        console.log('First query failed or returned no data, trying alternative idiom names...')
+
+        const altNames = ['English (Idioms)', 'English Idioms', 'Idioms', 'Idioms & Phrases', 'english (idioms)', 'english idioms']
+        for (const altName of altNames) {
+          if (altName === subjectQuery) continue // Skip if already tried
+
+          console.log('Trying alternative name:', altName)
+          const altResult = await supabase
+            .from('css_mcqs_enhanced')
+            .select('year')
+            .eq('subject', altName)
+            .order('year', { ascending: false })
+
+          if (altResult.data && altResult.data.length > 0) {
+            console.log('SUCCESS with alternative name:', altName)
+            data = altResult.data
+            error = null
+            break
+          }
+        }
+      }
+
+      console.log('=== QUERY RESPONSE ===')
+      console.log('Error object:', error)
+      console.log('Error keys:', error ? Object.keys(error) : 'no error')
+      console.log('Error message:', error?.message)
+      console.log('Error code:', error?.code)
+      console.log('Error details:', error?.details)
+      console.log('Data:', data)
+      console.log('Data type:', typeof data)
+      console.log('Data is array:', Array.isArray(data))
+      console.log('Data length:', data?.length)
+
+      if (error) {
+        console.error('=== SUPABASE ERROR ===')
+        console.error('Full error:', JSON.stringify(error, null, 2))
+        throw error
+      }
 
       if (!data || data.length === 0) {
+        console.log('=== NO DATA FOUND ===')
+        console.log('Checking if data is null:', data === null)
+        console.log('Checking if data is undefined:', data === undefined)
+        console.log('Checking if data is empty array:', Array.isArray(data) && data.length === 0)
+
+        // Try a simple count query to see if table exists
+        const { count, error: countError } = await supabase
+          .from('css_mcqs_enhanced')
+          .select('*', { count: 'exact', head: true })
+
+        console.log('Table count query - Count:', count, 'Error:', countError)
+
+        // Try querying without the filter
+        const { data: allData, error: allError } = await supabase
+          .from('css_mcqs_enhanced')
+          .select('subject')
+          .limit(5)
+
+        console.log('All subjects sample (no filter):', allData, 'Error:', allError)
+
         setYears([])
         return
       }
+
+      console.log('=== DATA FOUND ===')
+      console.log('Raw data sample (first 5):', data.slice(0, 5))
 
       // Count MCQs per year efficiently
       const yearMap = data.reduce((acc: any, row: any) => {
@@ -112,12 +233,14 @@ export default function CSSSubjectMCQsPage() {
         .map((y: any) => ({ year: y.year, count: y.count }))
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
 
+      console.log('Final year list:', yearList)
       setYears(yearList)
     } catch (error) {
-      console.error('Error fetching years:', error)
+      console.error('Error fetching years - Full error object:', error)
+      console.error('Error details:', JSON.stringify(error))
       setYears([])
     }
-  }, [selectedSubject])
+  }, [selectedSubject, subjects])
 
   useEffect(() => {
     // Load saved category preference
@@ -127,8 +250,19 @@ export default function CSSSubjectMCQsPage() {
   }, [fetchSubjects])
 
   useEffect(() => {
+    console.log('=== useEffect triggered ===')
+    console.log('selectedSubject:', selectedSubject)
+    console.log('fetchYears function:', typeof fetchYears)
+
     if (selectedSubject) {
-      fetchYears()
+      console.log('Calling fetchYears()...')
+      const result = fetchYears()
+      console.log('fetchYears() returned:', result)
+      if (result instanceof Promise) {
+        result.catch((err) => {
+          console.error('Promise rejection:', err)
+        })
+      }
     } else {
       setYears([])
       setSelectedYear(null)
@@ -155,21 +289,14 @@ export default function CSSSubjectMCQsPage() {
     // Check access and handle free trial limits
     const hasAccess = await requestAccess('cssSubject')
     if (hasAccess) {
-      const isIdioms = selectedSubject === 'Idioms & Phrases'
+      // Find the subject to get its database name
+      const subjectObj = subjects.find(s => s.subject === selectedSubject)
+      const subjectForQuery = subjectObj?.databaseName || selectedSubject
 
-      if (isIdioms) {
-        // Route to quiz page with English (Idioms) subject
-        const params = new URLSearchParams()
-        params.append('subject', 'English (Idioms)')
-        if (selectedYear) params.append('year', selectedYear.toString())
-        router.push(`/css/css-practice/quiz?${params.toString()}`)
-      } else {
-        // Route to regular quiz page
-        const params = new URLSearchParams()
-        if (selectedSubject) params.append('subject', selectedSubject)
-        if (selectedYear) params.append('year', selectedYear.toString())
-        router.push(`/css/css-practice/quiz?${params.toString()}`)
-      }
+      const params = new URLSearchParams()
+      if (subjectForQuery) params.append('subject', subjectForQuery)
+      if (selectedYear) params.append('year', selectedYear.toString())
+      router.push(`/css/css-practice/quiz?${params.toString()}`)
     }
     // If requestAccess returns false, it will show the sign-in popup or redirect automatically
   }
