@@ -62,16 +62,13 @@ export default function CSSSubjectMCQsPage() {
           return true
         })
         .map((row: any) => {
-          // Filter years array to only include 2007+ (excluding 1975 placeholder)
-          const validYears = (row.years || []).filter((y: any) => y && y >= 2007 && y !== 1975)
+          // Keep all years from RPC except 1975 placeholder
+          const validYears = (row.years || []).filter((y: any) => y && y !== 1975)
 
-          // Recalculate count based on valid years
-          // This is approximate since we need to query again for exact count
-          // But the year array gives us a good estimate
           return {
             subject: row.subject,
-            count: row.question_count, // Keep original count for now
-            years: validYears // Keep filtered years for reference
+            count: row.question_count,
+            years: validYears
           }
         })
         .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
@@ -113,10 +110,11 @@ export default function CSSSubjectMCQsPage() {
         }
       } else {
         // Create virtual Idioms subject pointing to most likely DB name
+        // Use "Idioms & Phrases" as display name (matches old working version)
         subjectsWithIdioms = [
           ...subjectList,
           {
-            subject: 'Idioms',
+            subject: 'Idioms & Phrases',
             count: 500, // Approximate count for idioms
             databaseName: 'English (Idioms)' // The actual name in database
           }
@@ -181,7 +179,7 @@ export default function CSSSubjectMCQsPage() {
       }
 
       // If first query failed and we're looking for idioms, try alternative names
-      if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms')) {
+      if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms & Phrases')) {
         console.log('First query failed or returned no data, trying alternative idiom names...')
 
         const altNames = ['English (Idioms)', 'English Idioms', 'Idioms', 'Idioms & Phrases', 'english (idioms)', 'english idioms']
@@ -254,24 +252,12 @@ export default function CSSSubjectMCQsPage() {
       const allUniqueYears = [...new Set(data.map((r: any) => r.year))].sort((a: any, b: any) => b - a)
       console.log('All unique years in raw data:', allUniqueYears)
 
-      // Count MCQs per year efficiently, filtering out invalid years
-      const filteredOutYears: any[] = []
+      // Count MCQs per year - keep ALL valid years
       const yearMap = data.reduce((acc: any, row: any) => {
-        // Skip year 1975 (common default/placeholder value)
-        if (row.year === 1975) {
-          filteredOutYears.push({ year: 1975, reason: 'placeholder' })
-          return acc
-        }
-        // Skip years before 2007
-        if (row.year < 2007) {
-          filteredOutYears.push({ year: row.year, reason: 'pre-2007' })
-          return acc
-        }
-        // Skip null/undefined years
-        if (!row.year) {
-          filteredOutYears.push({ year: null, reason: 'null/undefined' })
-          return acc
-        }
+        // Only skip null/undefined years
+        if (!row.year) return acc
+        // Skip only 1975 placeholder
+        if (row.year === 1975) return acc
 
         if (!acc[row.year]) {
           acc[row.year] = { year: row.year, count: 0 }
@@ -284,11 +270,7 @@ export default function CSSSubjectMCQsPage() {
         .map((y: any) => ({ year: y.year, count: y.count }))
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
 
-      // Count filtered records
-      const uniqueFilteredYears = [...new Set(filteredOutYears.map(f => f.year))]
-      console.log('Unique years filtered out:', uniqueFilteredYears)
-      console.log('Total records filtered:', filteredOutYears.length)
-      console.log('Final year list (filtered):', yearList, `Total kept: ${yearList.length}`)
+      console.log('Final year list:', yearList, `Total: ${yearList.length}`)
       setYears(yearList)
     } catch (error) {
       console.error('Error fetching years - Full error object:', error)
