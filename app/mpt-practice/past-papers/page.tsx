@@ -186,60 +186,21 @@ export default function MPTPastPapersPage() {
                     {yearData.map((year) => (
                       <button
                         key={year.year}
-                        onClick={() => setSelectedYear(year.year)}
-                        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all ${
-                          selectedYear === year.year
-                            ? 'bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg'
-                            : 'bg-blue-50/50 hover:bg-blue-100 border-2 border-blue-100 hover:border-blue-300'
-                        }`}
+                        onClick={() => startQuiz(year.year)}
+                        className="w-full flex items-center justify-between p-3 rounded-xl transition-all bg-blue-50/50 hover:bg-blue-100 border-2 border-blue-100 hover:border-blue-300"
                       >
                         <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 font-bold rounded-xl flex items-center justify-center text-sm ${
-                            selectedYear === year.year
-                              ? 'bg-white/20 text-white'
-                              : 'bg-blue-200 text-blue-800'
-                          }`}>
+                          <div className="w-10 h-10 font-bold rounded-xl flex items-center justify-center text-sm bg-blue-200 text-blue-800">
                             {year.year.toString().slice(-2)}
                           </div>
-                          <span className={`font-bold text-base ${selectedYear === year.year ? 'text-white' : 'text-gray-900'}`}>{year.year}</span>
+                          <span className="font-bold text-base text-gray-900">{year.year}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                            selectedYear === year.year
-                              ? 'text-white bg-white/20'
-                              : 'text-blue-700 bg-blue-200'
-                          }`}>{year.count}</span>
-                          {selectedYear === year.year && (
-                            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                            </div>
-                          )}
+                          <span className="text-xs font-bold px-2.5 py-1 rounded-full text-blue-700 bg-blue-200">{year.count}</span>
                         </div>
                       </button>
                     ))}
                   </div>
-
-                  {/* Fixed Bottom Start Button */}
-                  {selectedYear && (
-                    <div className="p-5 pt-4 bg-gradient-to-r from-blue-50 to-transparent border-t-2 border-blue-100 flex-shrink-0 mt-auto">
-                      <div className="text-center mb-3">
-                        <div className="text-lg font-bold text-gray-900 mb-1">
-                          {selectedYear}
-                        </div>
-                        <div className="text-sm text-gray-600 font-medium">
-                          {yearData.find(y => y.year === selectedYear)?.count} questions
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => startQuiz(selectedYear)}
-                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 px-4 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl"
-                      >
-                        Start {selectedYear} Quiz
-                      </button>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

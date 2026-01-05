@@ -404,7 +404,7 @@ export default function CSSSubjectMCQsPage() {
     setSelectedYear(null)
   }
 
-  const startPractice = async () => {
+  const startPractice = async (year: number) => {
     // Check access and handle free trial limits
     const hasAccess = await requestAccess('cssSubject')
     if (hasAccess) {
@@ -414,7 +414,7 @@ export default function CSSSubjectMCQsPage() {
 
       const params = new URLSearchParams()
       if (subjectForQuery) params.append('subject', subjectForQuery)
-      if (selectedYear) params.append('year', selectedYear.toString())
+      params.append('year', year.toString())
       router.push(`/css/css-practice/quiz?${params.toString()}`)
     }
     // If requestAccess returns false, it will show the sign-in popup or redirect automatically
@@ -624,50 +624,34 @@ export default function CSSSubjectMCQsPage() {
                       ) : (
                         <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
                           {years.map((yearData) => {
-                            const isSelected = selectedYear === yearData.year
                             return (
                               <button
                                 key={yearData.year}
-                                onClick={() => setSelectedYear(yearData.year)}
-                                className={`w-full group relative overflow-hidden rounded-xl transition-all duration-200 ${
-                                  isSelected
-                                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg scale-[1.02]'
-                                    : 'bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md'
-                                }`}
+                                onClick={() => startPractice(yearData.year)}
+                                className="w-full group relative overflow-hidden rounded-xl transition-all duration-200 bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md"
                               >
                                 <div className="flex items-center justify-between p-2.5 sm:p-3">
                                   <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                     {/* Year Badge */}
-                                    <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 ${
-                                      isSelected
-                                        ? 'bg-white/20 text-white'
-                                        : 'bg-blue-200 text-blue-800'
-                                    }`}>
+                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 bg-blue-200 text-blue-800">
                                       {yearData.year.toString().slice(-2)}
                                     </div>
                                     <div className="text-left flex-1 min-w-0">
-                                      <div className={`font-semibold text-sm ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                                      <div className="font-semibold text-sm text-gray-900">
                                         {yearData.year}
                                       </div>
-                                      <div className={`text-[10px] sm:text-xs mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-600'}`}>
+                                      <div className="text-[10px] sm:text-xs mt-0.5 text-gray-600">
                                         {yearData.count} questions
                                       </div>
                                     </div>
                                   </div>
 
-                                  {/* Tags and Checkmark */}
+                                  {/* Tags */}
                                   <div className="flex items-center gap-1 flex-shrink-0">
-                                    {yearData.year >= 2023 && !isSelected && (
+                                    {yearData.year >= 2023 && (
                                       <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] sm:text-xs font-semibold rounded-full">
                                         New
                                       </span>
-                                    )}
-                                    {isSelected && (
-                                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white/20 rounded-full flex items-center justify-center">
-                                        <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-                                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                        </svg>
-                                      </div>
                                     )}
                                   </div>
                                 </div>
@@ -681,23 +665,6 @@ export default function CSSSubjectMCQsPage() {
                 </div>
               </div>
 
-              {/* Bottom: Enhanced Start Button */}
-              {selectedSubject && selectedYear && (
-                <div className="p-4 sm:p-5 bg-gradient-to-r from-blue-50 to-transparent border-t-2 border-blue-100 flex-shrink-0">
-                  <button
-                    onClick={startPractice}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3.5 px-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl group"
-                  >
-                    <span>Start Quiz</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                  <div className="mt-3 text-center text-xs sm:text-sm text-gray-700">
-                    <span className="font-bold">{selectedSubject}</span>
-                    <span className="mx-2 text-blue-400">•</span>
-                    <span className="font-bold">{selectedYear}</span>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
 
