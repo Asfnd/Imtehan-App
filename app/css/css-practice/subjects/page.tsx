@@ -98,15 +98,27 @@ export default function CSSSubjectMCQsPage() {
       let subjectsWithIdioms = subjectList
 
       if (hasIdioms) {
-        // If idioms exists, find its real name and create a display variant
-        const idiomSubject = subjectList.find(s => {
+        // If idioms exists, rename it to "Idioms & Phrases" for display
+        const idiomIndex = subjectList.findIndex(s => {
           const lower = s.subject.toLowerCase()
           return idiomVariations.some(v => lower.includes(v))
         })
 
-        if (idiomSubject) {
-          console.log('Using existing idiom subject from DB:', idiomSubject.subject)
-          // Don't add virtual - idioms already exists
+        if (idiomIndex !== -1) {
+          const actualIdiomsSubject = subjectList[idiomIndex].subject
+          console.log('Found idiom subject in DB:', actualIdiomsSubject)
+
+          // Create a copy with renamed display name but keep original for queries
+          subjectsWithIdioms = [
+            ...subjectList.slice(0, idiomIndex),
+            ...subjectList.slice(idiomIndex + 1),
+            {
+              ...subjectList[idiomIndex],
+              subject: 'Idioms & Phrases',  // Rename for display
+              databaseName: actualIdiomsSubject  // Keep original name for queries
+            }
+          ].sort((a: any, b: any) => a.subject.localeCompare(b.subject))
+          console.log('Renamed existing idiom subject to "Idioms & Phrases" (DB name: ' + actualIdiomsSubject + ')')
         }
       } else {
         // Create virtual Idioms subject pointing to most likely DB name
@@ -155,26 +167,55 @@ export default function CSSSubjectMCQsPage() {
 
       let data, error
 
-      // Try the primary query - load ALL years with explicit range to bypass pagination
-      console.log('🔍 Querying for subject:', subjectQuery)
-      const result1 = await supabase
-        .from('css_mcqs_enhanced')
-        .select('year', { count: 'exact' })
-        .eq('subject', subjectQuery)
-        .order('year', { ascending: false })
-        .range(0, 1000000)  // Explicitly load up to 1 million rows
+      // CRITICAL FIX: Query ALL records without limit, then extract distinct years
+      // Problem: .range() doesn't work with large datasets
+      // Solution: Load in chunks if needed, or use aggregation
+      console.log('🔍 Querying ALL records for subject:', subjectQuery)
 
-      data = result1.data
-      error = result1.error
+      // Try to load ALL records by making multiple requests if needed
+      let allData: any[] = []
+      let offset = 0
+      const chunkSize = 1000
+      let hasMore = true
 
-      console.log('✅ Primary query for subject:', subjectQuery)
-      console.log('   Data returned:', data?.length, 'rows')
-      console.log('   Count header:', result1.count, 'total records')
-      console.log('   Error:', error)
-      if (data && data.length > 0) {
-        console.log('   Sample data (first 5 rows):', data.slice(0, 5))
-        console.log('   Sample data (last 5 rows):', data.slice(-5))
+      while (hasMore) {
+        const { data: chunk, error: chunkError } = await supabase
+          .from('css_mcqs_enhanced')
+          .select('year')
+          .eq('subject', subjectQuery)
+          .range(offset, offset + chunkSize - 1)
+
+        if (chunkError) {
+          error = chunkError
+          break
+        }
+
+        if (!chunk || chunk.length === 0) {
+          hasMore = false
+          break
+        }
+
+        allData = allData.concat(chunk)
+        offset += chunkSize
+
+        // Safety: Stop if we've loaded more than 100k records
+        if (offset >= 100000) {
+          console.warn('⚠️ Stopped loading after 100k records to prevent infinite loop')
+          hasMore = false
+        }
+
+        // If we got less than chunkSize, we've reached the end
+        if (chunk.length < chunkSize) {
+          hasMore = false
+        }
       }
+
+      data = allData
+      error = error || null
+
+      console.log('✅ Loaded ALL records for subject:', subjectQuery)
+      console.log('   Total records loaded:', data?.length)
+      console.log('   Error:', error)
 
       // Get exact count for this subject to detect truncation
       const { count: exactCount, error: countErr } = await supabase
@@ -196,17 +237,36 @@ export default function CSSSubjectMCQsPage() {
           if (altName === subjectQuery) continue // Skip if already tried
 
           console.log('   Trying alternative name:', altName)
-          const altResult = await supabase
-            .from('css_mcqs_enhanced')
-            .select('year', { count: 'exact' })
-            .eq('subject', altName)
-            .order('year', { ascending: false })
-            .range(0, 1000000)  // Explicitly load up to 1 million rows
 
-          console.log('   Alternative query returned:', altResult.data?.length, 'rows (count header:', altResult.count, ')')
-          if (altResult.data && altResult.data.length > 0) {
+          // Load ALL records for this alternative name too
+          let altAllData: any[] = []
+          let altOffset = 0
+          let altHasMore = true
+
+          while (altHasMore) {
+            const { data: altChunk, error: altChunkError } = await supabase
+              .from('css_mcqs_enhanced')
+              .select('year')
+              .eq('subject', altName)
+              .range(altOffset, altOffset + chunkSize - 1)
+
+            if (altChunkError || !altChunk || altChunk.length === 0) {
+              altHasMore = false
+              break
+            }
+
+            altAllData = altAllData.concat(altChunk)
+            altOffset += chunkSize
+
+            if (altOffset >= 100000 || altChunk.length < chunkSize) {
+              altHasMore = false
+            }
+          }
+
+          console.log('   Alternative query returned:', altAllData.length, 'rows')
+          if (altAllData.length > 0) {
             console.log('   ✅ SUCCESS with alternative name:', altName)
-            data = altResult.data
+            data = altAllData
             error = null
             break
           }
