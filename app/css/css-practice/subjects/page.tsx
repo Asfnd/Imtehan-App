@@ -155,17 +155,26 @@ export default function CSSSubjectMCQsPage() {
 
       let data, error
 
-      // Try the primary query - load ALL years
+      // Try the primary query - load ALL years with explicit range to bypass pagination
+      console.log('🔍 Querying for subject:', subjectQuery)
       const result1 = await supabase
         .from('css_mcqs_enhanced')
-        .select('year')
+        .select('year', { count: 'exact' })
         .eq('subject', subjectQuery)
         .order('year', { ascending: false })
+        .range(0, 1000000)  // Explicitly load up to 1 million rows
 
       data = result1.data
       error = result1.error
 
-      console.log('Primary query for subject:', subjectQuery, 'returned:', data?.length, 'records')
+      console.log('✅ Primary query for subject:', subjectQuery)
+      console.log('   Data returned:', data?.length, 'rows')
+      console.log('   Count header:', result1.count, 'total records')
+      console.log('   Error:', error)
+      if (data && data.length > 0) {
+        console.log('   Sample data (first 5 rows):', data.slice(0, 5))
+        console.log('   Sample data (last 5 rows):', data.slice(-5))
+      }
 
       // Get exact count for this subject to detect truncation
       const { count: exactCount, error: countErr } = await supabase
@@ -186,15 +195,17 @@ export default function CSSSubjectMCQsPage() {
         for (const altName of altNames) {
           if (altName === subjectQuery) continue // Skip if already tried
 
-          console.log('Trying alternative name:', altName)
+          console.log('   Trying alternative name:', altName)
           const altResult = await supabase
             .from('css_mcqs_enhanced')
-            .select('year')
+            .select('year', { count: 'exact' })
             .eq('subject', altName)
             .order('year', { ascending: false })
+            .range(0, 1000000)  // Explicitly load up to 1 million rows
 
+          console.log('   Alternative query returned:', altResult.data?.length, 'rows (count header:', altResult.count, ')')
           if (altResult.data && altResult.data.length > 0) {
-            console.log('SUCCESS with alternative name:', altName)
+            console.log('   ✅ SUCCESS with alternative name:', altName)
             data = altResult.data
             error = null
             break
@@ -250,14 +261,24 @@ export default function CSSSubjectMCQsPage() {
 
       // Collect all unique years to debug filtering
       const allUniqueYears = [...new Set(data.map((r: any) => r.year))].sort((a: any, b: any) => b - a)
-      console.log('All unique years in raw data:', allUniqueYears)
+      console.log('📊 Raw data analysis:')
+      console.log('   Total records:', data.length)
+      console.log('   Unique years found:', allUniqueYears.length)
+      console.log('   Year range:', allUniqueYears.length > 0 ? `${Math.min(...allUniqueYears)} to ${Math.max(...allUniqueYears)}` : 'N/A')
+      console.log('   All unique years:', allUniqueYears)
 
       // Count MCQs per year - keep ALL valid years
       const yearMap = data.reduce((acc: any, row: any) => {
         // Only skip null/undefined years
-        if (!row.year) return acc
+        if (!row.year) {
+          acc.nullCount = (acc.nullCount || 0) + 1
+          return acc
+        }
         // Skip only 1975 placeholder
-        if (row.year === 1975) return acc
+        if (row.year === 1975) {
+          acc.placeholder1975 = (acc.placeholder1975 || 0) + 1
+          return acc
+        }
 
         if (!acc[row.year]) {
           acc[row.year] = { year: row.year, count: 0 }
@@ -266,11 +287,18 @@ export default function CSSSubjectMCQsPage() {
         return acc
       }, {})
 
-      const yearList = Object.values(yearMap)
-        .map((y: any) => ({ year: y.year, count: y.count }))
+      // Extract actual years and sort
+      const yearList = Object.entries(yearMap)
+        .filter(([key]: any) => !['nullCount', 'placeholder1975'].includes(key))
+        .map(([_, value]: any) => value)
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
 
-      console.log('Final year list:', yearList, `Total: ${yearList.length}`)
+      console.log('📋 Final year list:')
+      console.log('   Total years after filtering:', yearList.length)
+      console.log('   Records with null year:', yearMap.nullCount || 0)
+      console.log('   Records with 1975:', yearMap.placeholder1975 || 0)
+      console.log('   Year details:', yearList)
+      console.log('   Years (comma-separated):', yearList.map(y => y.year).join(', '))
       setYears(yearList)
     } catch (error) {
       console.error('Error fetching years - Full error object:', error)
