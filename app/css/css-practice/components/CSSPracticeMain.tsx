@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { BookOpen, MessageSquare, ArrowLeft, ChevronRight } from 'lucide-react'
+import { BookOpen, ArrowLeft, ChevronRight } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -38,21 +38,12 @@ export default function CSSPracticeMain() {
   const practiceTypes = [
     {
       id: 'subjects',
-      title: 'Subject Practice',
-      description: 'Practice MCQs from past CSS exams by subject and year',
+      title: 'Practice Past MCQs',
+      description: 'Practice Past Paper MCQs from past CSS exams by subject and year. Find Idioms under the Language category filter.',
       icon: BookOpen,
       route: '/css/css-practice/subjects',
       stats: `${stats.subjects} Questions`,
-      subjects: '40+ Subjects'
-    },
-    {
-      id: 'idioms',
-      title: 'Idioms Practice',
-      description: 'Master English idioms from previous examinations',
-      icon: MessageSquare,
-      route: '/css/css-practice/idioms',
-      stats: `${stats.idioms} Questions`,
-      subjects: 'Official MCQs'
+      subjects: '40+ Subjects + Idioms'
     }
   ]
 
@@ -98,9 +89,9 @@ export default function CSSPracticeMain() {
 
           {/* Main Content */}
           <div className="flex-1 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-2xl mx-auto">
               {/* Practice Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex justify-center">
                 {practiceTypes.map((type) => {
                   const Icon = type.icon
                   return (

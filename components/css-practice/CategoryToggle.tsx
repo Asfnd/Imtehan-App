@@ -54,6 +54,18 @@ export default function CategoryToggle({
       bgColor: 'bg-blue-100',
       textColor: 'text-blue-700',
       description: 'Elective subjects you can choose from'
+    },
+    {
+      key: 'language' as CategoryFilter,
+      label: 'Language',
+      count: categoryCounts.language,
+      shortLabel: 'Language',
+      gradient: 'from-emerald-500 to-teal-600',
+      hoverGradient: 'hover:from-emerald-600 hover:to-teal-700',
+      activeGradient: 'from-emerald-600 to-teal-700',
+      bgColor: 'bg-emerald-100',
+      textColor: 'text-emerald-700',
+      description: 'English & language skills including idioms'
     }
   ]
 
@@ -208,7 +220,8 @@ export function CompactCategoryToggle({
   const buttons = [
     { key: 'all' as CategoryFilter, label: 'All', count: categoryCounts.all },
     { key: 'compulsory' as CategoryFilter, label: 'Core', count: categoryCounts.compulsory },
-    { key: 'optional' as CategoryFilter, label: 'Elective', count: categoryCounts.optional }
+    { key: 'optional' as CategoryFilter, label: 'Elective', count: categoryCounts.optional },
+    { key: 'language' as CategoryFilter, label: 'Language', count: categoryCounts.language }
   ]
 
   return (
@@ -253,9 +266,9 @@ export function SidebarCategoryToggle({
   className = ''
 }: CategoryToggleProps) {
   const buttons = [
-    { 
-      key: 'all' as CategoryFilter, 
-      label: 'All', 
+    {
+      key: 'all' as CategoryFilter,
+      label: 'All',
       count: categoryCounts.all,
       activeGradient: 'bg-gradient-to-r from-purple-600 to-indigo-600',
       inactiveGradient: 'bg-gradient-to-r from-purple-50 to-indigo-50',
@@ -263,9 +276,9 @@ export function SidebarCategoryToggle({
       textColor: 'text-purple-700',
       borderColor: 'border-purple-200 hover:border-purple-300'
     },
-    { 
-      key: 'compulsory' as CategoryFilter, 
-      label: 'Compulsory', 
+    {
+      key: 'compulsory' as CategoryFilter,
+      label: 'Compulsory',
       count: categoryCounts.compulsory,
       activeGradient: 'bg-gradient-to-r from-red-600 to-pink-600',
       inactiveGradient: 'bg-gradient-to-r from-red-50 to-pink-50',
@@ -273,20 +286,30 @@ export function SidebarCategoryToggle({
       textColor: 'text-red-700',
       borderColor: 'border-red-200 hover:border-red-300'
     },
-    { 
-      key: 'optional' as CategoryFilter, 
-      label: 'Optional', 
+    {
+      key: 'optional' as CategoryFilter,
+      label: 'Optional',
       count: categoryCounts.optional,
       activeGradient: 'bg-gradient-to-r from-blue-600 to-cyan-600',
       inactiveGradient: 'bg-gradient-to-r from-blue-50 to-cyan-50',
       hoverGradient: 'hover:from-blue-100 hover:to-cyan-100',
       textColor: 'text-blue-700',
       borderColor: 'border-blue-200 hover:border-blue-300'
+    },
+    {
+      key: 'language' as CategoryFilter,
+      label: 'Language',
+      count: categoryCounts.language,
+      activeGradient: 'bg-gradient-to-r from-emerald-600 to-teal-600',
+      inactiveGradient: 'bg-gradient-to-r from-emerald-50 to-teal-50',
+      hoverGradient: 'hover:from-emerald-100 hover:to-teal-100',
+      textColor: 'text-emerald-700',
+      borderColor: 'border-emerald-200 hover:border-emerald-300'
     }
   ]
 
   return (
-    <div className={`flex gap-2 ${className}`}>
+    <div className={`grid grid-cols-2 gap-2 ${className}`}>
       {buttons.map((button) => {
         const isActive = activeCategory === button.key
         return (
@@ -294,10 +317,10 @@ export function SidebarCategoryToggle({
             key={button.key}
             onClick={() => onCategoryChange(button.key)}
             className={`
-              flex-1 flex flex-col items-center justify-center px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-200
+              flex flex-col items-center justify-center px-2 py-2.5 rounded-xl text-xs font-bold transition-all duration-200
               hover:scale-[1.02] active:scale-[0.98] group relative overflow-hidden border-2
-              ${isActive 
-                ? `${button.activeGradient} text-white shadow-lg border-transparent` 
+              ${isActive
+                ? `${button.activeGradient} text-white shadow-lg border-transparent`
                 : `${button.inactiveGradient} ${button.hoverGradient} ${button.textColor} ${button.borderColor} shadow-sm hover:shadow-md`
               }
             `}
@@ -306,14 +329,14 @@ export function SidebarCategoryToggle({
             <span className="text-xs font-bold leading-tight">{button.label}</span>
             <span className={`
               text-[10px] font-bold mt-1 px-2 py-0.5 rounded-full transition-all duration-200
-              ${isActive 
-                ? 'bg-white/25 text-white' 
+              ${isActive
+                ? 'bg-white/25 text-white'
                 : 'bg-white/80 text-gray-700 shadow-sm'
               }
             `}>
               {button.count}
             </span>
-            
+
             {/* Enhanced hover glow for inactive buttons */}
             {!isActive && (
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

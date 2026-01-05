@@ -3,8 +3,8 @@
  * Defines which subjects are compulsory vs optional for CSS examination
  */
 
-export type SubjectCategory = 'compulsory' | 'optional'
-export type CategoryFilter = 'all' | 'compulsory' | 'optional'
+export type SubjectCategory = 'compulsory' | 'optional' | 'language'
+export type CategoryFilter = 'all' | 'compulsory' | 'optional' | 'language'
 
 export interface Subject {
   subject: string
@@ -24,10 +24,28 @@ export interface CategoryCounts {
   all: number
   compulsory: number
   optional: number
+  language: number
 }
 
 /**
+ * Static configuration defining language skills subjects for CSS examination
+ */
+export const LANGUAGE_SUBJECTS: readonly string[] = [
+  "English Essay",
+  "English (Precis and Composition)",
+  "English Precis and Composition", // Legacy name support
+  "English Precis And Composition", // Database format with capital "And"
+  "English Precis & Composition", // Alternative with ampersand
+  "English (Precis & Composition)", // Alternative with ampersand and parentheses
+  "Precis and Composition", // Short form
+  "Idioms & Phrases", // Idioms practice
+  "English Idioms", // Alternative name
+  "Idioms" // Short form
+] as const
+
+/**
  * Static configuration defining compulsory subjects for CSS examination
+ * Note: English subjects are in LANGUAGE_SUBJECTS but also count as compulsory
  */
 export const COMPULSORY_SUBJECTS: readonly string[] = [
   "English Essay",
@@ -48,6 +66,13 @@ export const COMPULSORY_SUBJECTS: readonly string[] = [
 ] as const
 
 /**
+ * Determines if a subject is a language skill subject
+ */
+export function isLanguageSubject(subjectName: string): boolean {
+  return LANGUAGE_SUBJECTS.includes(subjectName as any)
+}
+
+/**
  * Determines if a subject is compulsory based on the predefined list
  */
 export function isCompulsorySubject(subjectName: string): boolean {
@@ -55,10 +80,13 @@ export function isCompulsorySubject(subjectName: string): boolean {
 }
 
 /**
- * Categorizes a subject as compulsory or optional
+ * Categorizes a subject as compulsory, optional, or language
+ * Priority: language > compulsory > optional
  */
 export function categorizeSubject(subjectName: string): SubjectCategory {
-  return isCompulsorySubject(subjectName) ? 'compulsory' : 'optional'
+  if (isLanguageSubject(subjectName)) return 'language'
+  if (isCompulsorySubject(subjectName)) return 'compulsory'
+  return 'optional'
 }
 
 /**
@@ -113,13 +141,15 @@ export function filterSubjects(
  * Calculates counts for each category
  */
 export function calculateCategoryCounts(subjects: Subject[]): CategoryCounts {
-  const compulsoryCount = subjects.filter(s => isCompulsorySubject(s.subject)).length
-  const optionalCount = subjects.length - compulsoryCount
-  
+  const languageCount = subjects.filter(s => isLanguageSubject(s.subject)).length
+  const compulsoryCount = subjects.filter(s => isCompulsorySubject(s.subject) && !isLanguageSubject(s.subject)).length
+  const optionalCount = subjects.length - languageCount - compulsoryCount
+
   return {
     all: subjects.length,
     compulsory: compulsoryCount,
-    optional: optionalCount
+    optional: optionalCount,
+    language: languageCount
   }
 }
 
@@ -148,14 +178,14 @@ export function loadCategoryFromSession(): CategoryFilter {
   try {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       const saved = sessionStorage.getItem(CATEGORY_STORAGE_KEY)
-      if (saved && ['all', 'compulsory', 'optional'].includes(saved)) {
+      if (saved && ['all', 'compulsory', 'optional', 'language'].includes(saved)) {
         return saved as CategoryFilter
       }
     }
   } catch (error) {
     console.warn('Failed to load category from session storage:', error)
   }
-  
+
   return 'all' // Default fallback
 }
 

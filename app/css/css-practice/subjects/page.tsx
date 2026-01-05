@@ -58,7 +58,17 @@ export default function CSSSubjectMCQsPage() {
           count: row.question_count
         }))
         .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
-      setSubjects(subjectList)
+
+      // Add Idioms as a virtual subject for language skills
+      const subjectsWithIdioms = [
+        ...subjectList,
+        {
+          subject: 'Idioms & Phrases',
+          count: 500 // Approximate count for idioms
+        }
+      ].sort((a: any, b: any) => a.subject.localeCompare(b.subject))
+
+      setSubjects(subjectsWithIdioms)
       setLoading(false)
     } catch (error) {
       console.error('Error fetching subjects:', error)
@@ -272,10 +282,16 @@ export default function CSSSubjectMCQsPage() {
                   <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
                     {filteredSubjects.map((subject) => {
                       const isSelected = selectedSubject === subject.subject
+                      const isIdioms = subject.subject === 'Idioms & Phrases'
                       return (
                         <button
                           key={subject.subject}
                           onClick={() => {
+                            // Redirect to idioms page if idioms is selected
+                            if (isIdioms) {
+                              router.push('/css/css-practice/idioms')
+                              return
+                            }
                             setSelectedSubject(subject.subject)
                             setSelectedYear(null)
                           }}
