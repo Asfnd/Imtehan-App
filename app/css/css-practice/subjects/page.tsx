@@ -80,15 +80,15 @@ export default function CSSSubjectMCQsPage() {
     if (!selectedSubject) return
     try {
       const supabase = createClient()
+      const isIdioms = selectedSubject === 'Idioms & Phrases'
 
-      // OPTIMIZED: Fetch with reasonable limit instead of paginating through all records
-      // This reduces egress significantly (from 500KB-2MB to ~50KB)
-      const { data, error } = await supabase
-        .from('css_mcqs_enhanced')
-        .select('year')
-        .eq('subject', selectedSubject)
-        .order('year', { ascending: false })
-        .limit(1000) // Safety limit - most subjects have < 1000 MCQs
+      // Use different table for idioms
+      const tableName = isIdioms ? 'css_idioms' : 'css_mcqs_enhanced'
+      const query = isIdioms
+        ? supabase.from(tableName).select('year').order('year', { ascending: false }).limit(1000)
+        : supabase.from(tableName).select('year').eq('subject', selectedSubject).order('year', { ascending: false }).limit(1000)
+
+      const { data, error } = await query
 
       if (error) throw error
 
@@ -153,10 +153,20 @@ export default function CSSSubjectMCQsPage() {
     // Check access and handle free trial limits
     const hasAccess = await requestAccess('cssSubject')
     if (hasAccess) {
-      const params = new URLSearchParams()
-      if (selectedSubject) params.append('subject', selectedSubject)
-      if (selectedYear) params.append('year', selectedYear.toString())
-      router.push(`/css/css-practice/quiz?${params.toString()}`)
+      const isIdioms = selectedSubject === 'Idioms & Phrases'
+
+      if (isIdioms) {
+        // Route to idioms page with year parameter
+        const params = new URLSearchParams()
+        if (selectedYear) params.append('year', selectedYear.toString())
+        router.push(`/css/css-practice/idioms?${params.toString()}`)
+      } else {
+        // Route to regular quiz page
+        const params = new URLSearchParams()
+        if (selectedSubject) params.append('subject', selectedSubject)
+        if (selectedYear) params.append('year', selectedYear.toString())
+        router.push(`/css/css-practice/quiz?${params.toString()}`)
+      }
     }
     // If requestAccess returns false, it will show the sign-in popup or redirect automatically
   }
@@ -282,16 +292,10 @@ export default function CSSSubjectMCQsPage() {
                   <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
                     {filteredSubjects.map((subject) => {
                       const isSelected = selectedSubject === subject.subject
-                      const isIdioms = subject.subject === 'Idioms & Phrases'
                       return (
                         <button
                           key={subject.subject}
                           onClick={() => {
-                            // Redirect to idioms page if idioms is selected
-                            if (isIdioms) {
-                              router.push('/css/css-practice/idioms')
-                              return
-                            }
                             setSelectedSubject(subject.subject)
                             setSelectedYear(null)
                           }}

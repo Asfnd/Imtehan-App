@@ -32,12 +32,6 @@ export interface CategoryCounts {
  */
 export const LANGUAGE_SUBJECTS: readonly string[] = [
   "English Essay",
-  "English (Precis and Composition)",
-  "English Precis and Composition", // Legacy name support
-  "English Precis And Composition", // Database format with capital "And"
-  "English Precis & Composition", // Alternative with ampersand
-  "English (Precis & Composition)", // Alternative with ampersand and parentheses
-  "Precis and Composition", // Short form
   "Idioms & Phrases", // Idioms practice
   "English Idioms", // Alternative name
   "Idioms" // Short form
