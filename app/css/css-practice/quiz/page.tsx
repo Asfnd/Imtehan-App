@@ -198,7 +198,8 @@ function CSSQuizContent() {
   }, [currentMCQ])
 
   const handleAnswer = (answer: string) => {
-    if (isCorrect) return // Already got it right
+    // Lock answer after first selection
+    if (selectedAnswer) return
 
     setSelectedAnswer(answer)
     const correct = answer === lazyLoadedMcqs[currentIndex].correct_answer
@@ -245,6 +246,7 @@ function CSSQuizContent() {
       setWrongOptions(prev => new Set(prev).add(answer))
       setShowCorrectAnswer(true) // Show correct answer when wrong one is clicked
       setWrongAttempts(prev => prev + 1)
+      setAnswers([...answers, false])
 
       // Gamification: Reset streak
       setStreak(0)
@@ -258,9 +260,6 @@ function CSSQuizContent() {
       setEncouragementType('incorrect')
       setShowEncouragement(true)
       setTimeout(() => setShowEncouragement(false), 2000)
-
-      // Clear selection after a moment to allow retry, but keep visual feedback
-      setTimeout(() => setSelectedAnswer(null), 800)
     }
   }
 
@@ -475,31 +474,6 @@ function CSSQuizContent() {
 
             <div className="flex items-center gap-1 sm:gap-2">
               <SoundToggle />
-              
-              <div className="h-6 w-px bg-white/20 hidden sm:block"></div>
-              
-              <button
-                onClick={previousQuestion}
-                disabled={currentIndex === 0}
-                className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-colors ${
-                  currentIndex === 0
-                    ? 'text-gray-500 cursor-not-allowed bg-white/5'
-                    : 'text-white active:text-purple-300 active:bg-white/10 bg-white/5 shadow-sm'
-                }`}
-              >
-                <span className="text-base sm:text-lg font-bold">←</span>
-              </button>
-              <button
-                onClick={nextQuestion}
-                disabled={!isCorrect || currentIndex === lazyLoadedMcqs.length - 1}
-                className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-colors ${
-                  !isCorrect || currentIndex === lazyLoadedMcqs.length - 1
-                    ? 'text-gray-500 cursor-not-allowed bg-white/5'
-                    : 'text-white active:text-purple-300 active:bg-white/10 bg-white/5 shadow-sm'
-                }`}
-              >
-                <span className="text-base sm:text-lg font-bold">→</span>
-              </button>
             </div>
           </div>
 
@@ -583,7 +557,7 @@ function CSSQuizContent() {
                   isWrong={isWrongOption}
                   showCorrectAnswer={showCorrectAnswer}
                   onSelect={() => handleAnswer(option.label)}
-                  disabled={isCorrect}
+                  disabled={!!selectedAnswer}
                   explanation={optionExplanation}
                 />
               )
@@ -591,34 +565,33 @@ function CSSQuizContent() {
           </div>
         </div>
 
-        {/* Action Buttons - Professional Navigation */}
-        <div className="flex items-center gap-3 mb-3">
-          {/* Back Button - Always visible */}
+        {/* Navigation - Compact Professional Style like MPT Mock */}
+        <div className="flex items-center justify-between pt-3 sm:pt-4 border-t-2 border-gray-100 mb-3">
           <button
             onClick={previousQuestion}
             disabled={currentIndex === 0}
-            className={`flex-1 px-5 py-3 rounded-xl font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
-              currentIndex === 0
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 shadow-sm hover:shadow-md active:scale-95'
-            }`}
+            className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span>Back</span>
+            ← Previous
           </button>
 
-          {/* Next Button - Shows when answer is correct */}
-          {isCorrect && (
+          <span className="text-sm sm:text-base text-gray-600 font-semibold px-2 sm:px-3">
+            {currentIndex + 1} / {lazyLoadedMcqs.length}
+          </span>
+
+          {isLastQuestion ? (
             <button
               onClick={nextQuestion}
-              className="flex-[2] px-5 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95 flex items-center justify-center gap-2"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base"
             >
-              <span>{currentIndex < lazyLoadedMcqs.length - 1 ? 'Next Question' : 'View Results'}</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
+              Finish Test ✓
+            </button>
+          ) : (
+            <button
+              onClick={nextQuestion}
+              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 active:from-blue-700 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base font-semibold"
+            >
+              Next →
             </button>
           )}
         </div>

@@ -103,6 +103,9 @@ function MPTQuizContent() {
   }
 
   const handleAnswer = (answer: string) => {
+    // Lock answer after first selection for this question
+    if (selectedAnswers[currentIndex]) return
+
     setSelectedAnswers({
       ...selectedAnswers,
       [currentIndex]: answer
@@ -325,6 +328,7 @@ function MPTQuizContent() {
                       <button
                         key={option}
                         onClick={() => handleAnswer(option)}
+                        disabled={!!selectedAnswers[currentIndex]}
                         className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 ${
                           showAsCorrect
                             ? 'border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 shadow-md'
@@ -333,7 +337,7 @@ function MPTQuizContent() {
                             : isSelected
                             ? 'border-blue-500 bg-blue-50 shadow-md'
                             : 'border-gray-200 hover:border-gray-300 active:border-blue-300 active:bg-gray-50'
-                        }`}
+                        } ${selectedAnswers[currentIndex] ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                       >
                         <div className="flex items-start gap-2 sm:gap-3">
                           <span
