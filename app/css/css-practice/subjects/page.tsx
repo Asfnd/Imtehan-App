@@ -157,16 +157,28 @@ export default function CSSSubjectMCQsPage() {
 
       let data, error
 
-      // Try the primary query - load ALL years (no pagination limit)
+      // Try the primary query - load ALL years
       const result1 = await supabase
         .from('css_mcqs_enhanced')
         .select('year')
         .eq('subject', subjectQuery)
         .order('year', { ascending: false })
-        .range(0, 1000000)  // Bypass default 1000-row limit
 
       data = result1.data
       error = result1.error
+
+      console.log('Primary query for subject:', subjectQuery, 'returned:', data?.length, 'records')
+
+      // Get exact count for this subject to detect truncation
+      const { count: exactCount, error: countErr } = await supabase
+        .from('css_mcqs_enhanced')
+        .select('*', { count: 'exact', head: true })
+        .eq('subject', subjectQuery)
+
+      console.log('Exact count for subject', subjectQuery, ':', exactCount, 'Error:', countErr)
+      if (data && exactCount && data.length < exactCount) {
+        console.warn(`⚠️ TRUNCATION DETECTED: Got ${data.length} rows but ${exactCount} exist!`)
+      }
 
       // If first query failed and we're looking for idioms, try alternative names
       if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms')) {
@@ -182,7 +194,6 @@ export default function CSSSubjectMCQsPage() {
             .select('year')
             .eq('subject', altName)
             .order('year', { ascending: false })
-            .range(0, 1000000)  // Bypass default 1000-row limit
 
           if (altResult.data && altResult.data.length > 0) {
             console.log('SUCCESS with alternative name:', altName)
@@ -236,16 +247,31 @@ export default function CSSSubjectMCQsPage() {
       }
 
       console.log('=== DATA FOUND ===')
-      console.log('Raw data sample (first 5):', data.slice(0, 5))
+      console.log('Total records returned:', data.length)
+      console.log('Raw data sample (first 10):', data.slice(0, 10))
+
+      // Collect all unique years to debug filtering
+      const allUniqueYears = [...new Set(data.map((r: any) => r.year))].sort((a: any, b: any) => b - a)
+      console.log('All unique years in raw data:', allUniqueYears)
 
       // Count MCQs per year efficiently, filtering out invalid years
+      const filteredOutYears: any[] = []
       const yearMap = data.reduce((acc: any, row: any) => {
         // Skip year 1975 (common default/placeholder value)
-        if (row.year === 1975) return acc
+        if (row.year === 1975) {
+          filteredOutYears.push({ year: 1975, reason: 'placeholder' })
+          return acc
+        }
         // Skip years before 2007
-        if (row.year < 2007) return acc
+        if (row.year < 2007) {
+          filteredOutYears.push({ year: row.year, reason: 'pre-2007' })
+          return acc
+        }
         // Skip null/undefined years
-        if (!row.year) return acc
+        if (!row.year) {
+          filteredOutYears.push({ year: null, reason: 'null/undefined' })
+          return acc
+        }
 
         if (!acc[row.year]) {
           acc[row.year] = { year: row.year, count: 0 }
@@ -258,7 +284,11 @@ export default function CSSSubjectMCQsPage() {
         .map((y: any) => ({ year: y.year, count: y.count }))
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
 
-      console.log('Final year list (filtered):', yearList, `Total: ${yearList.length}`)
+      // Count filtered records
+      const uniqueFilteredYears = [...new Set(filteredOutYears.map(f => f.year))]
+      console.log('Unique years filtered out:', uniqueFilteredYears)
+      console.log('Total records filtered:', filteredOutYears.length)
+      console.log('Final year list (filtered):', yearList, `Total kept: ${yearList.length}`)
       setYears(yearList)
     } catch (error) {
       console.error('Error fetching years - Full error object:', error)
