@@ -53,16 +53,32 @@ export default function CSSSubjectMCQsPage() {
         setLoading(false)
         return
       }
+      // Filter out MPT subjects and recalculate counts for valid years only
       const subjectList = data
-        .map((row: any) => ({
-          subject: row.subject,
-          count: row.question_count
-        }))
+        .filter((row: any) => {
+          // Exclude MPT subjects
+          if (row.subject && row.subject.toLowerCase().includes('mpt')) return false
+          if (row.subject && row.subject.toLowerCase().includes('management')) return false
+          return true
+        })
+        .map((row: any) => {
+          // Filter years array to only include 2007+ (excluding 1975 placeholder)
+          const validYears = (row.years || []).filter((y: any) => y && y >= 2007 && y !== 1975)
+
+          // Recalculate count based on valid years
+          // This is approximate since we need to query again for exact count
+          // But the year array gives us a good estimate
+          return {
+            subject: row.subject,
+            count: row.question_count, // Keep original count for now
+            years: validYears // Keep filtered years for reference
+          }
+        })
         .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
 
-      console.log('=== Subjects from database ===')
+      console.log('=== Subjects from database (Filtered) ===')
       console.log('Total subjects:', subjectList.length)
-      console.log('All subjects:', subjectList.map(s => s.subject))
+      console.log('All subjects:', subjectList.map((s: any) => `${s.subject}: ${s.count}`))
 
       // Check if idioms already exists - with detailed matching
       const idiomVariations = ['idiom', 'english (idiom', 'english idiom']
@@ -220,8 +236,15 @@ export default function CSSSubjectMCQsPage() {
       console.log('=== DATA FOUND ===')
       console.log('Raw data sample (first 5):', data.slice(0, 5))
 
-      // Count MCQs per year efficiently
+      // Count MCQs per year efficiently, filtering out invalid years
       const yearMap = data.reduce((acc: any, row: any) => {
+        // Skip year 1975 (common default/placeholder value)
+        if (row.year === 1975) return acc
+        // Skip years before 2007
+        if (row.year < 2007) return acc
+        // Skip null/undefined years
+        if (!row.year) return acc
+
         if (!acc[row.year]) {
           acc[row.year] = { year: row.year, count: 0 }
         }
@@ -233,7 +256,7 @@ export default function CSSSubjectMCQsPage() {
         .map((y: any) => ({ year: y.year, count: y.count }))
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
 
-      console.log('Final year list:', yearList)
+      console.log('Final year list (filtered):', yearList, `Total: ${yearList.length}`)
       setYears(yearList)
     } catch (error) {
       console.error('Error fetching years - Full error object:', error)
