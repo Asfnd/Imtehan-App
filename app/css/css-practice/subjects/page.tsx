@@ -157,12 +157,13 @@ export default function CSSSubjectMCQsPage() {
 
       let data, error
 
-      // Try the primary query
+      // Try the primary query - load ALL years (no pagination limit)
       const result1 = await supabase
         .from('css_mcqs_enhanced')
         .select('year')
         .eq('subject', subjectQuery)
         .order('year', { ascending: false })
+        .range(0, 1000000)  // Bypass default 1000-row limit
 
       data = result1.data
       error = result1.error
@@ -181,6 +182,7 @@ export default function CSSSubjectMCQsPage() {
             .select('year')
             .eq('subject', altName)
             .order('year', { ascending: false })
+            .range(0, 1000000)  // Bypass default 1000-row limit
 
           if (altResult.data && altResult.data.length > 0) {
             console.log('SUCCESS with alternative name:', altName)
