@@ -139,12 +139,11 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       if (subject) query = query.eq('subject', subject)
       if (year) query = query.eq('year', parseInt(year))
 
-      // When both subject+year specified, load ALL MCQs (no limit)
-      // Otherwise load in batches of 20
-      const batchSize = subject && year ? 1000000 : 20
-      query = query.limit(batchSize).range(0, batchSize)
+      // Load 20 for subject+year, 20 for random
+      const batchSize = 20
+      query = query.limit(batchSize)
 
-      console.log('🔍 Executing query with:', { subject, year, limit: batchSize, enableLazyLoad })
+      console.log('🔍 Executing query with:', { subject, year, limit: batchSize })
       const { data, error: queryError } = await query
 
       if (queryError) {
@@ -168,15 +167,12 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       const shuffled = [...data].sort(() => Math.random() - 0.5)
       setMcqs(shuffled as LoadedMCQ[])
 
-      // If both subject+year specified, we've already loaded all MCQs
-      // So disable batch loading
-      if (subject && year) {
-        setTotalCount(data.length)
-        setHasMoreToLoad(false) // Already loaded all
-      } else if (enableLazyLoad) {
-        // For random/no-filter queries, use batch loading
+      // If lazy loading enabled and we have subject+year, get total count
+      if (enableLazyLoad && subject && year) {
         const count = await getCount()
         setTotalCount(count)
+
+        // Set up next batch loading
         if (count && count > 20) {
           setHasMoreToLoad(true)
           setNextBatchOffset(20)
