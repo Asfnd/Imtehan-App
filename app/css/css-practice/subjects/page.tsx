@@ -79,7 +79,7 @@ export default function CSSSubjectMCQsPage() {
 
       // Check if idioms already exists - with detailed matching
       const idiomVariations = ['idiom', 'english (idiom', 'english idiom']
-      const hasIdioms = subjectList.some(s => {
+      const hasIdioms = subjectList.some((s: Subject) => {
         const lower = s.subject.toLowerCase()
         return idiomVariations.some(v => lower.includes(v))
       })
@@ -87,7 +87,7 @@ export default function CSSSubjectMCQsPage() {
       console.log('Has idioms subject already:', hasIdioms)
 
       if (hasIdioms) {
-        const idiomSubject = subjectList.find(s => {
+        const idiomSubject = subjectList.find((s: Subject) => {
           const lower = s.subject.toLowerCase()
           return idiomVariations.some(v => lower.includes(v))
         })
@@ -99,7 +99,7 @@ export default function CSSSubjectMCQsPage() {
 
       if (hasIdioms) {
         // If idioms exists, rename it to "Idioms & Phrases" for display
-        const idiomIndex = subjectList.findIndex(s => {
+        const idiomIndex = subjectList.findIndex((s: Subject) => {
           const lower = s.subject.toLowerCase()
           return idiomVariations.some(v => lower.includes(v))
         })
@@ -134,7 +134,7 @@ export default function CSSSubjectMCQsPage() {
         console.log('Added virtual Idioms subject (not found in DB)')
       }
 
-      console.log('Final subjects with idioms:', subjectsWithIdioms.map(s => s.subject))
+      console.log('Final subjects with idioms:', subjectsWithIdioms.map((s: Subject) => s.subject))
       setSubjects(subjectsWithIdioms)
       setLoading(false)
     } catch (error) {
@@ -461,13 +461,13 @@ export default function CSSSubjectMCQsPage() {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
                 <div className="flex items-center justify-between">
                   <button
-                    onClick={() => router.push('/css/css-practice')}
+                    onClick={() => router.push('/css')}
                     className="flex items-center gap-2.5 px-4 py-2.5 bg-white/15 hover:bg-white/25 backdrop-blur-md text-white rounded-xl transition-all border border-white/30 hover:border-white/40 shadow-lg hover:shadow-xl"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
-                    <span className="font-bold text-sm tracking-wide">Back</span>
+                    <span className="font-bold text-sm tracking-wide">Dashboard</span>
                   </button>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/40 shadow-lg">

@@ -56,16 +56,16 @@ export default function CategoryToggle({
       description: 'Elective subjects you can choose from'
     },
     {
-      key: 'language' as CategoryFilter,
-      label: 'Language',
-      count: categoryCounts.language,
-      shortLabel: 'Language',
+      key: 'idioms' as CategoryFilter,
+      label: 'Idioms',
+      count: categoryCounts.idioms,
+      shortLabel: 'Idioms',
       gradient: 'from-emerald-500 to-teal-600',
       hoverGradient: 'hover:from-emerald-600 hover:to-teal-700',
       activeGradient: 'from-emerald-600 to-teal-700',
       bgColor: 'bg-emerald-100',
       textColor: 'text-emerald-700',
-      description: 'English essays, precis, composition, and idioms'
+      description: 'English idioms and phrases for CSS examination'
     }
   ]
 
@@ -221,7 +221,7 @@ export function CompactCategoryToggle({
     { key: 'all' as CategoryFilter, label: 'All', count: categoryCounts.all },
     { key: 'compulsory' as CategoryFilter, label: 'Core', count: categoryCounts.compulsory },
     { key: 'optional' as CategoryFilter, label: 'Elective', count: categoryCounts.optional },
-    { key: 'language' as CategoryFilter, label: 'Language', count: categoryCounts.language }
+    { key: 'idioms' as CategoryFilter, label: 'Idioms', count: categoryCounts.idioms }
   ]
 
   return (
@@ -297,9 +297,9 @@ export function SidebarCategoryToggle({
       borderColor: 'border-blue-200 hover:border-blue-300'
     },
     {
-      key: 'language' as CategoryFilter,
-      label: 'Language',
-      count: categoryCounts.language,
+      key: 'idioms' as CategoryFilter,
+      label: 'Idioms',
+      count: categoryCounts.idioms,
       activeGradient: 'bg-gradient-to-r from-emerald-600 to-teal-600',
       inactiveGradient: 'bg-gradient-to-r from-emerald-50 to-teal-50',
       hoverGradient: 'hover:from-emerald-100 hover:to-teal-100',
