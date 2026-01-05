@@ -71,9 +71,10 @@ function CSSQuizContent() {
   // Get subject and year for lazy loading detection
   const subject = searchParams.get('subject') || undefined
   const year = searchParams.get('year') || undefined
+  const reviewMode = searchParams.get('reviewMode') === 'true'
 
-  // Determine if we should enable lazy loading (only for subject+year specific paths)
-  const enableLazyLoad = Boolean(subject && year)
+  // Determine if we should enable lazy loading (only for subject+year specific paths, and not in review mode)
+  const enableLazyLoad = Boolean(subject && year && !reviewMode)
 
   // Use the new lazy loading hook
   const {
@@ -102,6 +103,12 @@ function CSSQuizContent() {
   const [quizStartTime, setQuizStartTime] = useState<number>(Date.now())
   const [wrongOptions, setWrongOptions] = useState<Set<string>>(new Set())
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false)
+  const [wrongQuestionIds, setWrongQuestionIds] = useState<number[]>([])
+
+  // Review mode state
+  const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
+  const [reviewLoading, setReviewLoading] = useState(false)
+  const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
 
   // Gamification state
   const [streak, setStreak] = useState(0)
@@ -115,20 +122,24 @@ function CSSQuizContent() {
   >('correct')
   const [showConfetti, setShowConfetti] = useState(false)
 
+  // Determine which MCQs to use (review or regular)
+  const activeMCQs = reviewMode ? reviewMCQs : lazyLoadedMcqs
+  const activeLoading = reviewMode ? reviewLoading : lazyLoading
+
   // Memoized values to prevent unnecessary recalculations
   const currentMCQ = useMemo(
-    () => lazyLoadedMcqs[currentIndex],
-    [lazyLoadedMcqs, currentIndex]
+    () => activeMCQs[currentIndex],
+    [activeMCQs, currentIndex]
   )
 
   const progressPercentage = useMemo(
-    () => ((currentIndex + 1) / lazyLoadedMcqs.length) * 100,
-    [currentIndex, lazyLoadedMcqs.length]
+    () => ((currentIndex + 1) / activeMCQs.length) * 100,
+    [currentIndex, activeMCQs.length]
   )
 
   const isLastQuestion = useMemo(
-    () => currentIndex === lazyLoadedMcqs.length - 1,
-    [currentIndex, lazyLoadedMcqs.length]
+    () => currentIndex === activeMCQs.length - 1,
+    [currentIndex, activeMCQs.length]
   )
 
   // Memoized answer options array
@@ -161,13 +172,80 @@ function CSSQuizContent() {
     })
   }, [user, authLoading, checkAccess, router])
 
+  // Load review mode MCQs if in review mode
+  useEffect(() => {
+    if (reviewMode) {
+      const loadReviewMCQs = async () => {
+        try {
+          setReviewLoading(true)
+
+          // Get wrong question IDs from session storage
+          const storedIds = sessionStorage.getItem('practiceWrongQuestions')
+          if (!storedIds) {
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          const questionIds = JSON.parse(storedIds) as number[]
+          if (questionIds.length === 0) {
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          // Get original score from session storage (for comparison later)
+          const storedScore = sessionStorage.getItem('originalQuizScore')
+          if (storedScore) {
+            setOriginalScore(JSON.parse(storedScore))
+          }
+
+          // Fetch MCQs by IDs
+          const supabase = createClient()
+          const { data, error } = await supabase
+            .from('css_mcqs_enhanced')
+            .select('*')
+            .in('id', questionIds)
+
+          if (error) {
+            console.error('Error loading review MCQs:', error)
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          if (!data || data.length === 0) {
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          // Shuffle the questions
+          const shuffled = [...data].sort(() => Math.random() - 0.5)
+          setReviewMCQs(shuffled as MCQ[])
+          setReviewLoading(false)
+
+        } catch (error) {
+          console.error('Error in review mode:', error)
+          setReviewLoading(false)
+          router.back()
+        }
+      }
+
+      loadReviewMCQs()
+    }
+  }, [reviewMode, router])
+
   // Track quiz start when MCQs are loaded
   useEffect(() => {
-    if (lazyLoadedMcqs.length > 0 && !lazyLoading) {
+    const mcqsToCheck = reviewMode ? reviewMCQs : lazyLoadedMcqs
+    const loadingToCheck = reviewMode ? reviewLoading : lazyLoading
+
+    if (mcqsToCheck.length > 0 && !loadingToCheck) {
       const quizSubject = subject || 'General'
-      analytics.trackQuizStart('css-mcq', quizSubject)
+      analytics.trackQuizStart(reviewMode ? 'css-mcq-review' : 'css-mcq', quizSubject)
     }
-  }, [lazyLoadedMcqs.length, lazyLoading, subject, analytics])
+  }, [lazyLoadedMcqs.length, lazyLoading, reviewMCQs.length, reviewLoading, subject, analytics, reviewMode])
 
   // Wrap handler with useCallback to prevent unnecessary re-renders
   const handleReport = useCallback(async () => {
@@ -202,7 +280,7 @@ function CSSQuizContent() {
     if (selectedAnswer) return
 
     setSelectedAnswer(answer)
-    const correct = answer === lazyLoadedMcqs[currentIndex].correct_answer
+    const correct = answer === activeMCQs[currentIndex].correct_answer
 
     if (correct) {
       setIsCorrect(true)
@@ -248,6 +326,11 @@ function CSSQuizContent() {
       setWrongAttempts(prev => prev + 1)
       setAnswers([...answers, false])
 
+      // Track wrong question ID for review (only in normal mode, not review mode)
+      if (!reviewMode) {
+        setWrongQuestionIds(prev => [...prev, activeMCQs[currentIndex].id])
+      }
+
       // Gamification: Reset streak
       setStreak(0)
 
@@ -264,7 +347,7 @@ function CSSQuizContent() {
   }
 
   const nextQuestion = () => {
-    if (currentIndex < lazyLoadedMcqs.length - 1) {
+    if (currentIndex < activeMCQs.length - 1) {
       const nextIndex = currentIndex + 1
       setCurrentIndex(nextIndex)
       setSelectedAnswer(null)
@@ -273,8 +356,8 @@ function CSSQuizContent() {
       setWrongOptions(new Set())
       setShowCorrectAnswer(false)
 
-      // Smart trigger: Check if we need to load next batch
-      if (enableLazyLoad) {
+      // Smart trigger: Check if we need to load next batch (only in non-review mode)
+      if (enableLazyLoad && !reviewMode) {
         checkAndTriggerNextBatch(nextIndex)
       }
     } else {
@@ -294,36 +377,38 @@ function CSSQuizContent() {
       const timeInSeconds = Math.floor((Date.now() - quizStartTime) / 1000)
 
       // Track quiz completion (Google Analytics)
-      analytics.trackQuizComplete('css-mcq', finalScore, lazyLoadedMcqs.length, completionSubject)
+      analytics.trackQuizComplete(reviewMode ? 'css-mcq-review' : 'css-mcq', finalScore, activeMCQs.length, completionSubject)
 
-      // Save quiz results to Supabase for analytics dashboard
-      saveQuizResults({
-        quizType: 'subject',
-        subject: completionSubject,
-        totalQuestions: lazyLoadedMcqs.length,
-        correctAnswers: finalScore,
-        wrongAnswers: lazyLoadedMcqs.length - finalScore,
-        skippedAnswers: 0,
-        timeInSeconds
-      }).then(response => {
-        if (response && process.env.NODE_ENV === 'development') {
-          console.log('✅ Quiz saved to analytics!', {
-            score: `${finalScore}/${lazyLoadedMcqs.length}`,
-            time: `${Math.floor(timeInSeconds / 60)}m ${timeInSeconds % 60}s`,
-            streak: `${response.streak} days 🔥`,
-            subject: completionSubject
-          })
+      // Save quiz results to Supabase for analytics dashboard (only for non-review mode)
+      if (!reviewMode) {
+        saveQuizResults({
+          quizType: 'subject',
+          subject: completionSubject,
+          totalQuestions: activeMCQs.length,
+          correctAnswers: finalScore,
+          wrongAnswers: activeMCQs.length - finalScore,
+          skippedAnswers: 0,
+          timeInSeconds
+        }).then(response => {
+          if (response && process.env.NODE_ENV === 'development') {
+            console.log('✅ Quiz saved to analytics!', {
+              score: `${finalScore}/${activeMCQs.length}`,
+              time: `${Math.floor(timeInSeconds / 60)}m ${timeInSeconds % 60}s`,
+              streak: `${response.streak} days 🔥`,
+              subject: completionSubject
+            })
 
-          // Optionally show streak notification
-          if (response.streak > 0) {
-            console.log(`🔥 Current streak: ${response.streak} days!`)
+            // Optionally show streak notification
+            if (response.streak > 0) {
+              console.log(`🔥 Current streak: ${response.streak} days!`)
+            }
           }
-        }
-      }).catch(error => {
-        if (process.env.NODE_ENV === 'development') {
-          console.error('❌ Error saving quiz to analytics:', error)
-        }
-      })
+        }).catch(error => {
+          if (process.env.NODE_ENV === 'development') {
+            console.error('❌ Error saving quiz to analytics:', error)
+          }
+        })
+      }
 
       setShowResult(true)
     }
@@ -338,6 +423,26 @@ function CSSQuizContent() {
       setWrongOptions(new Set())
       setShowCorrectAnswer(false)
     }
+  }
+
+  const practiceMistakes = () => {
+    // Store wrong question IDs in session storage
+    sessionStorage.setItem('practiceWrongQuestions', JSON.stringify(wrongQuestionIds))
+
+    // Store original score for comparison
+    sessionStorage.setItem('originalQuizScore', JSON.stringify({
+      correct: score,
+      total: activeMCQs.length
+    }))
+
+    // Navigate to quiz with review mode
+    const params = new URLSearchParams()
+    if (subject) params.append('subject', subject)
+    if (year) params.append('year', year.toString())
+    params.append('reviewMode', 'true')
+
+    // Reload with review mode
+    router.push(`/css/css-practice/quiz?${params.toString()}`)
   }
 
   const restartQuiz = () => {
@@ -359,18 +464,18 @@ function CSSQuizContent() {
     router.refresh()
   }
 
-  if (lazyLoading) {
+  if (activeLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading questions...</p>
+          <p className="mt-4 text-gray-600">{reviewMode ? 'Loading practice questions...' : 'Loading questions...'}</p>
         </div>
       </div>
     )
   }
 
-  if (lazyError) {
+  if (lazyError && !reviewMode) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
@@ -386,7 +491,7 @@ function CSSQuizContent() {
     )
   }
 
-  if (lazyLoadedMcqs.length === 0) {
+  if (activeMCQs.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
@@ -407,15 +512,19 @@ function CSSQuizContent() {
       <>
         <ConfettiCelebration
           trigger={true}
-          intensity={score / lazyLoadedMcqs.length >= 0.8 ? 'high' : 'medium'}
+          intensity={score / activeMCQs.length >= 0.8 ? 'high' : 'medium'}
         />
         <EnhancedResultsScreen
           score={score}
-          total={lazyLoadedMcqs.length}
+          total={activeMCQs.length}
           maxStreak={maxStreak}
           totalPoints={points}
+          wrongQuestionIds={wrongQuestionIds}
           onRestart={restartQuiz}
+          onPracticeMistakes={practiceMistakes}
           onExit={() => router.back()}
+          reviewMode={reviewMode}
+          originalScore={originalScore}
         />
       </>
     )
@@ -451,10 +560,10 @@ function CSSQuizContent() {
                 <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
                 <span className="text-purple-300">/</span>
                 <span className="text-sm sm:text-base text-purple-200">
-                  {totalCount ?? lazyLoadedMcqs.length}
+                  {reviewMode ? activeMCQs.length : (totalCount ?? activeMCQs.length)}
                 </span>
                 {/* Show loading indicator if next batch is being fetched */}
-                {isLoadingNextBatch && (
+                {isLoadingNextBatch && !reviewMode && (
                   <span className="ml-2 text-xs text-purple-300 animate-pulse">
                     Loading...
                   </span>
@@ -487,7 +596,7 @@ function CSSQuizContent() {
             <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
               <div
                 className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
-                style={{ width: `${((currentIndex + 1) / lazyLoadedMcqs.length) * 100}%` }}
+                style={{ width: `${((currentIndex + 1) / activeMCQs.length) * 100}%` }}
               />
             </div>
           </div>
@@ -576,7 +685,7 @@ function CSSQuizContent() {
           </button>
 
           <span className="text-sm sm:text-base text-gray-600 font-semibold px-2 sm:px-3">
-            {currentIndex + 1} / {lazyLoadedMcqs.length}
+            {currentIndex + 1} / {activeMCQs.length}
           </span>
 
           {isLastQuestion ? (
