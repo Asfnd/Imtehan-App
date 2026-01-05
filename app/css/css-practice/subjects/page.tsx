@@ -62,8 +62,8 @@ export default function CSSSubjectMCQsPage() {
           return true
         })
         .map((row: any) => {
-          // Keep all years from RPC except 1975 placeholder
-          const validYears = (row.years || []).filter((y: any) => y && y !== 1975)
+          // Keep all years from RPC (including 1975)
+          const validYears = (row.years || []).filter((y: any) => y)
 
           return {
             subject: row.subject,
@@ -327,16 +327,11 @@ export default function CSSSubjectMCQsPage() {
       console.log('   Year range:', allUniqueYears.length > 0 ? `${Math.min(...allUniqueYears)} to ${Math.max(...allUniqueYears)}` : 'N/A')
       console.log('   All unique years:', allUniqueYears)
 
-      // Count MCQs per year - keep ALL valid years
+      // Count MCQs per year - keep ALL years including 1975
       const yearMap = data.reduce((acc: any, row: any) => {
         // Only skip null/undefined years
         if (!row.year) {
           acc.nullCount = (acc.nullCount || 0) + 1
-          return acc
-        }
-        // Skip only 1975 placeholder
-        if (row.year === 1975) {
-          acc.placeholder1975 = (acc.placeholder1975 || 0) + 1
           return acc
         }
 
@@ -349,14 +344,13 @@ export default function CSSSubjectMCQsPage() {
 
       // Extract actual years and sort
       const yearList = Object.entries(yearMap)
-        .filter(([key]: any) => !['nullCount', 'placeholder1975'].includes(key))
+        .filter(([key]: any) => key !== 'nullCount')
         .map(([_, value]: any) => value)
         .sort((a: any, b: any) => b.year - a.year) // Sort newest first
 
       console.log('📋 Final year list:')
       console.log('   Total years after filtering:', yearList.length)
       console.log('   Records with null year:', yearMap.nullCount || 0)
-      console.log('   Records with 1975:', yearMap.placeholder1975 || 0)
       console.log('   Year details:', yearList)
       console.log('   Years (comma-separated):', yearList.map(y => y.year).join(', '))
       setYears(yearList)
