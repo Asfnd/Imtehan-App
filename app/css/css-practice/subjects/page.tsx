@@ -82,28 +82,15 @@ export default function CSSSubjectMCQsPage() {
       const supabase = createClient()
       const isIdioms = selectedSubject === 'Idioms & Phrases'
 
-      let data, error
+      // For idioms, query with subject 'English (Idioms)'
+      const subjectQuery = isIdioms ? 'English (Idioms)' : selectedSubject
 
-      if (isIdioms) {
-        // Fetch from css_idioms table
-        const result = await supabase
-          .from('css_idioms')
-          .select('year')
-          .order('year', { ascending: false })
-          .limit(1000)
-        data = result.data
-        error = result.error
-      } else {
-        // Fetch from css_mcqs_enhanced table
-        const result = await supabase
-          .from('css_mcqs_enhanced')
-          .select('year')
-          .eq('subject', selectedSubject)
-          .order('year', { ascending: false })
-          .limit(1000)
-        data = result.data
-        error = result.error
-      }
+      const { data, error } = await supabase
+        .from('css_mcqs_enhanced')
+        .select('year')
+        .eq('subject', subjectQuery)
+        .order('year', { ascending: false })
+        .limit(1000)
 
       if (error) throw error
 
@@ -171,10 +158,11 @@ export default function CSSSubjectMCQsPage() {
       const isIdioms = selectedSubject === 'Idioms & Phrases'
 
       if (isIdioms) {
-        // Route to idioms page with year parameter
+        // Route to quiz page with English (Idioms) subject
         const params = new URLSearchParams()
+        params.append('subject', 'English (Idioms)')
         if (selectedYear) params.append('year', selectedYear.toString())
-        router.push(`/css/css-practice/idioms?${params.toString()}`)
+        router.push(`/css/css-practice/quiz?${params.toString()}`)
       } else {
         // Route to regular quiz page
         const params = new URLSearchParams()
