@@ -11,37 +11,31 @@ import { createServerClient } from '@supabase/ssr'
  */
 
 // Simple in-memory rate limiter
+// Note: In serverless/edge, this resets between invocations - that's acceptable
+// Each edge instance maintains its own rate limit, providing distributed protection
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
-
-// Cleanup old entries every minute
-if (typeof setInterval !== 'undefined') {
-  setInterval(() => {
-    const now = Date.now()
-    for (const [key, value] of rateLimitMap.entries()) {
-      if (value.resetAt < now) {
-        rateLimitMap.delete(key)
-      }
-    }
-  }, 60000)
-}
 
 function checkRateLimit(identifier: string): boolean {
   const now = Date.now()
   const limit = 30 // requests
   const window = 10000 // 10 seconds
-  
+
   const record = rateLimitMap.get(identifier)
-  
+
   if (!record || record.resetAt < now) {
+    // Cleanup expired entry if exists
+    if (record && record.resetAt < now) {
+      rateLimitMap.delete(identifier)
+    }
     rateLimitMap.set(identifier, { count: 1, resetAt: now + window })
     return true
   }
-  
+
   if (record.count < limit) {
     record.count++
     return true
   }
-  
+
   return false
 }
 
