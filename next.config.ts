@@ -1,11 +1,5 @@
 import type { NextConfig } from "next";
 
-// Bundle Analyzer for monitoring bundle size
-// Run with: ANALYZE=true npm run build
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
-
 const securityHeaders = [
   // SECURITY: Content Security Policy (re-enabled)
   {
@@ -343,5 +337,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-// Export config wrapped with bundle analyzer
-export default withBundleAnalyzer(nextConfig);
+// Export Next.js config
+export default nextConfig;
