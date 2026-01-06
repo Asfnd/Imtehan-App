@@ -1,7 +1,6 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "buildCommand": "rm -rf .next && next build",
   "headers": [
     {
       "source": "/sitemap.xml",
