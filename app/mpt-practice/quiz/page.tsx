@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import { ArrowLeft, Check, X, Clock } from 'lucide-react'
+import { ArrowLeft, Clock } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
@@ -49,14 +49,96 @@ function MPTQuizContent() {
   const [loading, setLoading] = useState(true)
   const [timeLeft, setTimeLeft] = useState(200 * 60) // 200 minutes in seconds
   const [timerActive, setTimerActive] = useState(false)
-  const [showFeedback, setShowFeedback] = useState<Record<number, boolean>>({}) // Track which questions show feedback
+  const [wrongQuestionIds, setWrongQuestionIds] = useState<number[]>([]) // Track wrong questions for review
+
+  // Review mode state
+  const reviewMode = searchParams.get('reviewMode') === 'true'
+  const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
+  const [reviewLoading, setReviewLoading] = useState(false)
+  const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
+
+  // Determine which MCQs to use (review or regular)
+  const activeMCQs = reviewMode ? reviewMCQs : mcqs
+  const activeLoading = reviewMode ? reviewLoading : loading
 
   useEffect(() => {
     const supabase = createClient()
-    if (testNumber) {
+    if (testNumber && !reviewMode) {
       loadTest()
     }
-  }, [testNumber])
+  }, [testNumber, reviewMode])
+
+  // Load review mode MCQs if in review mode
+  useEffect(() => {
+    if (reviewMode) {
+      const loadReviewMCQs = async () => {
+        try {
+          setReviewLoading(true)
+
+          // Get wrong question IDs from session storage
+          const storedIds = sessionStorage.getItem('mptPracticeWrongQuestions')
+          if (!storedIds) {
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          const questionIds = JSON.parse(storedIds) as number[]
+          if (questionIds.length === 0) {
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          // Get original score from session storage
+          const storedScore = sessionStorage.getItem('mptOriginalQuizScore')
+          if (storedScore) {
+            setOriginalScore(JSON.parse(storedScore))
+          }
+
+          // Fetch MCQs by IDs
+          const supabase = createClient()
+          const { data, error } = await supabase
+            .from('mpt_mcqs')
+            .select('*')
+            .in('id', questionIds)
+            .order('question_number')
+
+          if (error) {
+            console.error('Error loading review MCQs:', error)
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          if (!data || data.length === 0) {
+            setReviewLoading(false)
+            router.back()
+            return
+          }
+
+          setReviewMCQs(data as MCQ[])
+
+          // Reset all quiz state
+          setCurrentIndex(0)
+          setSelectedAnswers({})
+          setShowResults(false)
+          setWrongQuestionIds([])
+          setTimeLeft(200 * 60) // Reset timer for review
+          setTimerActive(false) // Don't auto-start timer in review mode
+
+          setReviewLoading(false)
+
+        } catch (error) {
+          console.error('Error in review mode:', error)
+          setReviewLoading(false)
+          router.back()
+        }
+      }
+
+      loadReviewMCQs()
+    }
+  }, [reviewMode, router])
 
   // Timer effect
   useEffect(() => {
@@ -75,12 +157,12 @@ function MPTQuizContent() {
     return () => clearInterval(interval)
   }, [timerActive, showResults, timeLeft])
 
-  // Start timer when test loads
+  // Start timer when test loads (not in review mode)
   useEffect(() => {
-    if (mcqs.length > 0 && !loading) {
+    if (activeMCQs.length > 0 && !activeLoading && !reviewMode) {
       setTimerActive(true)
     }
-  }, [mcqs, loading])
+  }, [activeMCQs, activeLoading, reviewMode])
 
   const loadTest = async () => {
     try {
@@ -110,15 +192,18 @@ function MPTQuizContent() {
       ...selectedAnswers,
       [currentIndex]: answer
     })
-    // Enable feedback for this question
-    setShowFeedback({
-      ...showFeedback,
-      [currentIndex]: true
-    })
+
+    // Track wrong answers (only in normal mode, not review mode)
+    if (!reviewMode) {
+      const isCorrect = answer === activeMCQs[currentIndex].correct_answer
+      if (!isCorrect) {
+        setWrongQuestionIds(prev => [...prev, activeMCQs[currentIndex].id])
+      }
+    }
   }
 
   const goToNext = () => {
-    if (currentIndex < mcqs.length - 1) {
+    if (currentIndex < activeMCQs.length - 1) {
       setCurrentIndex(currentIndex + 1)
     }
   }
@@ -129,13 +214,32 @@ function MPTQuizContent() {
     }
   }
 
+  const practiceMistakes = () => {
+    // Store wrong question IDs in session storage
+    sessionStorage.setItem('mptPracticeWrongQuestions', JSON.stringify(wrongQuestionIds))
+
+    // Store original score for comparison
+    const score = calculateScore()
+    sessionStorage.setItem('mptOriginalQuizScore', JSON.stringify({
+      correct: score,
+      total: activeMCQs.length
+    }))
+
+    // Navigate to quiz with review mode
+    const params = new URLSearchParams()
+    if (testNumber) params.append('test', testNumber)
+    params.append('reviewMode', 'true')
+
+    router.push(`/mpt-practice/quiz?${params.toString()}`)
+  }
+
   const finishTest = () => {
     setShowResults(true)
   }
 
   const calculateScore = () => {
     let correct = 0
-    mcqs.forEach((mcq, index) => {
+    activeMCQs.forEach((mcq, index) => {
       if (selectedAnswers[index] === mcq.correct_answer) {
         correct++
       }
@@ -157,18 +261,18 @@ function MPTQuizContent() {
     return 'text-red-600 bg-red-50 border-red-200'
   }
 
-  if (loading) {
+  if (activeLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading test...</p>
+          <p className="text-gray-600">{reviewMode ? 'Loading practice questions...' : 'Loading test...'}</p>
         </div>
       </div>
     )
   }
 
-  if (mcqs.length === 0) {
+  if (activeMCQs.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
@@ -184,15 +288,26 @@ function MPTQuizContent() {
     )
   }
 
-  const currentMCQ = mcqs[currentIndex]
-  const progress = ((currentIndex + 1) / mcqs.length) * 100
+  const currentMCQ = activeMCQs[currentIndex]
+  const progress = ((currentIndex + 1) / activeMCQs.length) * 100
   const answeredCount = Object.keys(selectedAnswers).length
+
+  // Calculate improvement if in review mode
+  const improvement = reviewMode && originalScore
+    ? {
+        originalPercentage: Math.round((originalScore.correct / originalScore.total) * 100),
+        newPercentage: Math.round((calculateScore() / activeMCQs.length) * 100),
+        improved: Math.round((calculateScore() / activeMCQs.length) * 100) > Math.round((originalScore.correct / originalScore.total) * 100),
+        difference: Math.round((calculateScore() / activeMCQs.length) * 100) - Math.round((originalScore.correct / originalScore.total) * 100)
+      }
+    : null
 
   if (showResults) {
     const score = calculateScore()
-    const percentage = (score / mcqs.length) * 100
+    const percentage = (score / activeMCQs.length) * 100
     const timeTaken = (200 * 60) - timeLeft
     const timeExpired = timeLeft === 0
+    const wrongCount = wrongQuestionIds.length
 
     return (
       <UltraProtectedContent>
@@ -203,13 +318,43 @@ function MPTQuizContent() {
             </div>
 
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">
-              {timeExpired ? 'Time Up!' : 'Test Complete!'}
+              {timeExpired ? 'Time Up!' : reviewMode ? 'Practice Complete!' : 'Test Complete!'}
             </h2>
-            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">MPT Mock Test {testNumber}</p>
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
+              {reviewMode ? 'Practice Session' : `MPT Mock Test ${testNumber}`}
+            </p>
+
+            {/* Improvement Comparison - Only in Review Mode */}
+            {reviewMode && improvement && (
+              <div className="mb-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-5 border-2 border-green-200/50 animate-slide-up">
+                <div className="text-center mb-3">
+                  <div className="text-2xl mb-2">{improvement.improved ? '🎉' : '💪'}</div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                    {improvement.improved ? 'Great Improvement!' : 'Keep Practicing!'}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {improvement.improved
+                      ? `You improved by ${improvement.difference}%!`
+                      : "You're getting better with each attempt"
+                    }
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-white/70 rounded-xl p-3 text-center">
+                    <div className="text-xs text-gray-500 font-semibold mb-1">Original</div>
+                    <div className="text-2xl font-bold text-gray-700">{improvement.originalPercentage}%</div>
+                  </div>
+                  <div className="bg-white/70 rounded-xl p-3 text-center">
+                    <div className="text-xs text-gray-500 font-semibold mb-1">Practice</div>
+                    <div className="text-2xl font-bold text-green-700">{improvement.newPercentage}%</div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 sm:p-6 text-white mb-4 sm:mb-6 animate-slide-up">
               <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
-                {score}/{mcqs.length}
+                {score}/{activeMCQs.length}
               </div>
               <div className="text-base sm:text-lg md:text-xl">{percentage.toFixed(1)}% Correct</div>
             </div>
@@ -221,7 +366,7 @@ function MPTQuizContent() {
               </div>
               <div className="bg-red-50 rounded-lg p-2 sm:p-3 md:p-4 animate-slide-up">
                 <div className="text-lg sm:text-xl md:text-2xl font-bold text-red-600">
-                  {mcqs.length - score}
+                  {activeMCQs.length - score}
                 </div>
                 <div className="text-xs md:text-sm text-gray-600">Incorrect</div>
               </div>
@@ -232,6 +377,20 @@ function MPTQuizContent() {
                 <div className="text-xs md:text-sm text-gray-600">Time</div>
               </div>
             </div>
+
+            {/* Practice Mistakes Button - Only if there are wrong questions and not in review mode */}
+            {wrongCount > 0 && !reviewMode && (
+              <div className="mb-6 animate-slide-up">
+                <button
+                  onClick={practiceMistakes}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <span>📚</span>
+                  Practice {wrongCount} Incorrect {wrongCount === 1 ? 'Question' : 'Questions'}
+                  <span>→</span>
+                </button>
+              </div>
+            )}
 
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center animate-slide-up">
               <button
@@ -276,15 +435,17 @@ function MPTQuizContent() {
               
               <div className="flex items-center gap-2 sm:gap-3">
                 <span className="text-xs text-gray-600">
-                  {answeredCount}/{mcqs.length}
+                  {answeredCount}/{activeMCQs.length}
                 </span>
-                {/* Timer */}
-                <div
-                  className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border-2 font-mono font-bold transition-all text-xs sm:text-sm ${getTimerColor()}`}
-                >
-                  <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span>{formatTime(timeLeft)}</span>
-                </div>
+                {/* Timer - Hide in review mode */}
+                {!reviewMode && (
+                  <div
+                    className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border-2 font-mono font-bold transition-all text-xs sm:text-sm ${getTimerColor()}`}
+                  >
+                    <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span>{formatTime(timeLeft)}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -319,10 +480,6 @@ function MPTQuizContent() {
                       `option_${option.toLowerCase()}` as keyof MCQ
                     ] as string
                     const isSelected = selectedAnswers[currentIndex] === option
-                    const isCorrect = option === currentMCQ.correct_answer
-                    const shouldShowFeedback = showFeedback[currentIndex]
-                    const showAsCorrect = shouldShowFeedback && isCorrect
-                    const showAsWrong = shouldShowFeedback && isSelected && !isCorrect
 
                     return (
                       <button
@@ -330,11 +487,7 @@ function MPTQuizContent() {
                         onClick={() => handleAnswer(option)}
                         disabled={!!selectedAnswers[currentIndex]}
                         className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 ${
-                          showAsCorrect
-                            ? 'border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 shadow-md'
-                            : showAsWrong
-                            ? 'border-red-500 bg-gradient-to-r from-red-50 to-rose-50 shadow-md animate-shake'
-                            : isSelected
+                          isSelected
                             ? 'border-blue-500 bg-blue-50 shadow-md'
                             : 'border-gray-200 hover:border-gray-300 active:border-blue-300 active:bg-gray-50'
                         } ${selectedAnswers[currentIndex] ? 'cursor-not-allowed' : 'cursor-pointer'}`}
@@ -342,39 +495,16 @@ function MPTQuizContent() {
                         <div className="flex items-start gap-2 sm:gap-3">
                           <span
                             className={`flex-shrink-0 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold transition-all text-sm sm:text-base ${
-                              showAsCorrect
-                                ? 'bg-green-500 text-white shadow-lg'
-                                : showAsWrong
-                                ? 'bg-red-500 text-white shadow-lg'
-                                : isSelected
+                              isSelected
                                 ? 'bg-blue-500 text-white shadow-lg'
                                 : 'bg-gray-100 text-gray-600'
                             }`}
                           >
                             {option}
                           </span>
-                          <span className={`flex-1 text-xs sm:text-sm md:text-base leading-relaxed pt-0.5 sm:pt-1 ${
-                            showAsCorrect ? 'text-green-900 font-semibold' :
-                            showAsWrong ? 'text-red-900' :
-                            'text-gray-700'
-                          }`}>
+                          <span className="flex-1 text-xs sm:text-sm md:text-base leading-relaxed pt-0.5 sm:pt-1 text-gray-700">
                             {optionText}
                           </span>
-                          {/* Check/X icons */}
-                          {showAsCorrect && (
-                            <span className="flex-shrink-0">
-                              <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                              </div>
-                            </span>
-                          )}
-                          {showAsWrong && (
-                            <span className="flex-shrink-0">
-                              <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
-                                <X className="w-4 h-4 text-white" strokeWidth={3} />
-                              </div>
-                            </span>
-                          )}
                         </div>
                       </button>
                     )
@@ -392,15 +522,15 @@ function MPTQuizContent() {
                   </button>
 
                   <span className="text-sm sm:text-base text-gray-600 font-semibold px-3">
-                    {currentIndex + 1} / {mcqs.length}
+                    {currentIndex + 1} / {activeMCQs.length}
                   </span>
 
-                  {currentIndex === mcqs.length - 1 ? (
+                  {currentIndex === activeMCQs.length - 1 ? (
                     <button
                       onClick={finishTest}
                       className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base hover-scale-sm"
                     >
-                      Finish Test ✓
+                      {reviewMode ? 'Finish Practice ✓' : 'Finish Test ✓'}
                     </button>
                   ) : (
                     <button
