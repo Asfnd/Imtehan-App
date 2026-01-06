@@ -223,6 +223,25 @@ function CSSQuizContent() {
           // Shuffle the questions
           const shuffled = [...data].sort(() => Math.random() - 0.5)
           setReviewMCQs(shuffled as MCQ[])
+
+          // CRITICAL: Reset all quiz state to start fresh
+          setCurrentIndex(0)
+          setSelectedAnswer(null)
+          setShowResult(false)
+          setScore(0)
+          setAnswers([])
+          setWrongAttempts(0)
+          setIsCorrect(false)
+          setWrongOptions(new Set())
+          setShowCorrectAnswer(false)
+          setWrongQuestionIds([]) // Don't track nested review
+          setStreak(0)
+          setMaxStreak(0)
+          setPoints(0)
+          setRecentPoints(0)
+          setShowRecentPoints(false)
+          setQuizStartTime(Date.now())
+
           setReviewLoading(false)
 
         } catch (error) {
