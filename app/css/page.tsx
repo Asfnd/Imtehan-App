@@ -12,14 +12,9 @@ import dynamic from 'next/dynamic'
 import NavigationBar from '@/components/NavigationBar'
 import { CourseSchema } from '@/components/seo/StructuredData'
 
-// Lazy load recommendation components
-const TodaysRecommendation = dynamic(() => import('@/components/analytics/TodaysRecommendation'), {
-  loading: () => <div className="animate-pulse bg-gray-200 rounded-2xl h-48" />,
-  ssr: false
-})
-
-const WeakSubjects = dynamic(() => import('@/components/analytics/WeakSubjects'), {
-  loading: () => <div className="animate-pulse bg-gray-200 rounded-2xl h-48" />,
+// Lazy load compact info bar component
+const CompactInfoBar = dynamic(() => import('@/components/analytics/CompactInfoBar'), {
+  loading: () => <div className="animate-pulse bg-gray-200 rounded-xl h-20" />,
   ssr: false
 })
 
@@ -449,16 +444,14 @@ function DashboardContent() {
             </div>
           )}
 
-          {/* Recommendations & Weak Subjects - Only for logged-in users */}
+          {/* Compact Info Bar - Only for logged-in users */}
           {user && !statsLoading && (recommendation || (weakSubjects && weakSubjects.length > 0)) && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              {/* Today's Recommendation */}
-              {recommendation && <TodaysRecommendation recommendation={recommendation} loading={statsLoading} />}
-
-              {/* Weak Subjects */}
-              {weakSubjects && weakSubjects.length > 0 && (
-                <WeakSubjects subjects={weakSubjects} loading={statsLoading} />
-              )}
+            <div className="mb-8">
+              <CompactInfoBar
+                recommendation={recommendation}
+                subjects={weakSubjects}
+                loading={statsLoading}
+              />
             </div>
           )}
 
