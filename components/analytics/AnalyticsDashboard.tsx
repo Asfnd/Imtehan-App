@@ -5,7 +5,7 @@ import { getUserAnalytics } from '@/lib/analytics'
 import type { UserAnalytics } from '@/lib/analytics/types'
 import StatsCards from './StatsCards'
 import StreakCounter from './StreakCounter'
-import CompactRecommendation from './CompactRecommendation'
+import CompactInfoBar from './CompactInfoBar'
 
 export default function AnalyticsDashboard() {
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null)
@@ -73,15 +73,15 @@ export default function AnalyticsDashboard() {
   const recommendation = analytics?.recommendation || null
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Stats Cards - Always visible */}
       <section>
         <StatsCards stats={stats} loading={loading} />
       </section>
 
-      {/* Compact Recommendation + Weak Subjects Combined */}
+      {/* Compact Info Bar - Attached below stats */}
       <section>
-        <CompactRecommendation
+        <CompactInfoBar
           recommendation={recommendation}
           subjects={weakSubjects}
           loading={loading}
@@ -89,7 +89,7 @@ export default function AnalyticsDashboard() {
       </section>
 
       {/* Streak Counter - More compact */}
-      <section>
+      <section className="mt-6">
         <StreakCounter
           currentStreak={stats.current_streak}
           longestStreak={stats.longest_streak}
