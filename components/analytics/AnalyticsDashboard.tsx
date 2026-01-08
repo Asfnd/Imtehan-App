@@ -5,8 +5,7 @@ import { getUserAnalytics } from '@/lib/analytics'
 import type { UserAnalytics } from '@/lib/analytics/types'
 import StatsCards from './StatsCards'
 import StreakCounter from './StreakCounter'
-import WeakSubjects from './WeakSubjects'
-import TodaysRecommendation from './TodaysRecommendation'
+import CompactRecommendation from './CompactRecommendation'
 
 export default function AnalyticsDashboard() {
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null)
@@ -74,28 +73,28 @@ export default function AnalyticsDashboard() {
   const recommendation = analytics?.recommendation || null
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Stats Cards - Always visible */}
       <section>
         <StatsCards stats={stats} loading={loading} />
       </section>
 
-      {/* Today's Recommendation - Most important! */}
+      {/* Compact Recommendation + Weak Subjects Combined */}
       <section>
-        <TodaysRecommendation recommendation={recommendation} loading={loading} />
+        <CompactRecommendation
+          recommendation={recommendation}
+          subjects={weakSubjects}
+          loading={loading}
+        />
       </section>
 
-      {/* Two Column Layout for Streak & Weak Subjects */}
-      <section className="grid md:grid-cols-2 gap-8">
-        {/* Streak Counter */}
+      {/* Streak Counter - More compact */}
+      <section>
         <StreakCounter
           currentStreak={stats.current_streak}
           longestStreak={stats.longest_streak}
           loading={loading}
         />
-
-        {/* Weak Subjects */}
-        <WeakSubjects subjects={weakSubjects} loading={loading} />
       </section>
 
       {/* Refresh Button (for testing) */}
