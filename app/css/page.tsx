@@ -430,6 +430,17 @@ function DashboardContent() {
             </div>
           )}
 
+          {/* Compact Info Bar - Attached below stats */}
+          {user && !statsLoading && (recommendation || (weakSubjects && weakSubjects.length > 0)) && (
+            <div className="mb-6">
+              <CompactInfoBar
+                recommendation={recommendation}
+                subjects={weakSubjects}
+                loading={statsLoading}
+              />
+            </div>
+          )}
+
           {/* Decorative Separator */}
           {user && userStats && (
             <div className="relative mb-8">
@@ -441,17 +452,6 @@ function DashboardContent() {
                   Your Learning Journey
                 </span>
               </div>
-            </div>
-          )}
-
-          {/* Compact Info Bar - Only for logged-in users */}
-          {user && !statsLoading && (recommendation || (weakSubjects && weakSubjects.length > 0)) && (
-            <div className="mb-8">
-              <CompactInfoBar
-                recommendation={recommendation}
-                subjects={weakSubjects}
-                loading={statsLoading}
-              />
             </div>
           )}
 
