@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/StructuredData"
 import "./globals.css"
@@ -105,6 +106,7 @@ export default function RootLayout({
           {children}
         </AuthProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
