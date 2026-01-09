@@ -64,6 +64,20 @@ INSERT INTO guess_papers_2026 (subject, filename, storage_path, file_size) VALUE
 
 Once the SQL is executed, the guess papers will be fully functional and will load from Supabase storage, just like past papers.
 
+## ⚠️ Important: Set Up Cloudflare Cache Rule
+
+To ensure fast loading and reduce bandwidth costs, **you MUST set up a Cloudflare cache rule** for guess papers.
+
+👉 **See detailed instructions in:** `CLOUDFLARE_GUESS_PAPERS_CACHE.md`
+
+**Quick summary:**
+1. Go to Cloudflare Dashboard → Caching → Cache Rules
+2. Create new rule matching: `storage.imtehan.com/storage/v1/object/public/css-guess-papers-2026/*`
+3. Set Edge TTL: 1 month
+4. Set Browser TTL: 4 hours
+
+Without this cache rule, PDFs will load slowly and increase Supabase bandwidth costs.
+
 ## How It Works
 
 1. User clicks a guess paper button on `/css/guess-papers`
