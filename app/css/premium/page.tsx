@@ -97,7 +97,7 @@ export default function PremiumPage() {
                 variant="outline"
                 className="w-full border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2.5"
               >
-                Get Started
+                Select
               </Button>
             </div>
 
@@ -156,7 +156,7 @@ export default function PremiumPage() {
               <Button
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2.5"
               >
-                Get Started
+                Begin CSS
               </Button>
             </div>
 
@@ -209,7 +209,7 @@ export default function PremiumPage() {
                 variant="outline"
                 className="w-full border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2.5"
               >
-                Get Started
+                Select
               </Button>
             </div>
           </div>

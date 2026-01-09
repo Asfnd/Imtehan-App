@@ -105,10 +105,11 @@ function GuessPaperViewerContent() {
       </div>
 
       {/* PDF Viewer */}
-      <div className="h-[calc(100vh-4rem)]">
+      <div className="w-full relative" style={{ height: 'calc(100vh - 4rem)' }}>
         <CleanPDFViewer
           pdfUrl={pdfUrl}
           title={subject ? decodeURIComponent(subject) : 'Guess Paper'}
+          className="w-full h-full"
         />
       </div>
     </div>

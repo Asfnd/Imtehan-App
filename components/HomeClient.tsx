@@ -117,7 +117,7 @@ export function HomeClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/css">
                 <Button size="lg" className="h-[52px] px-8 text-[16px] font-semibold bg-black hover:bg-gray-900 text-white rounded-xl shadow-sm w-full sm:w-auto">
-                  Get Started
+                  Begin CSS
                 </Button>
               </Link>
             </div>
