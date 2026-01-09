@@ -465,7 +465,7 @@ function DashboardContent() {
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">MPT Practice</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
                   Past MPT MCQs + Mock tests
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
@@ -497,8 +497,8 @@ function DashboardContent() {
                   <BookOpen className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">CSS MCQs Practice</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Practice subject-wise MCQs of past CSS exams
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
+                  Subject-wise MCQs from past CSS exams
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
@@ -529,8 +529,8 @@ function DashboardContent() {
                   <FileText className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Past Papers</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Past CSS papers
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
+                  CSS past exam papers
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
@@ -563,8 +563,8 @@ function DashboardContent() {
                   </svg>
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Solved Papers</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  Solved CSS Past Papers
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
+                  Solved CSS past papers
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
@@ -595,8 +595,8 @@ function DashboardContent() {
                   <Star className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Guess Papers</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
-                  CSS 2026 Guess Papers
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
+                  CSS 2026 guess papers
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
