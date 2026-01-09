@@ -70,11 +70,14 @@ To ensure fast loading and reduce bandwidth costs, **you MUST set up a Cloudflar
 
 👉 **See detailed instructions in:** `CLOUDFLARE_GUESS_PAPERS_CACHE.md`
 
-**Quick summary:**
-1. Go to Cloudflare Dashboard → Caching → Cache Rules
-2. Create new rule matching: `storage.imtehan.com/storage/v1/object/public/css-guess-papers-2026/*`
-3. Set Edge TTL: 1 month
-4. Set Browser TTL: 4 hours
+**Quick setup (2 minutes):**
+1. Go to your existing past papers cache rule in Cloudflare
+2. Duplicate it or create new one with same settings
+3. Change the URI Path from `/storage/v1/object/public/css-past-papers/*`
+   to `/storage/v1/object/public/css-guess-papers-2026/*`
+4. Done! ✅
+
+**That's it!** Just use the same hostname and settings as your past papers rule.
 
 Without this cache rule, PDFs will load slowly and increase Supabase bandwidth costs.
 
