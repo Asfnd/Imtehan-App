@@ -14,6 +14,7 @@ const SIGNED_IN_LIMITS = {
   mptPast: 1,
   officialPast: 2,
   solved: 0, // Premium only
+  guessPapers: 0, // Premium only
 }
 
 // Guest limits (stored in localStorage - can be bypassed, but tracks before sign-in)
@@ -25,6 +26,7 @@ const GUEST_LIMITS = {
   mptPast: 1,
   officialPast: 3,
   solved: 0, // Premium only
+  guessPapers: 0, // Premium only
 }
 
 interface DatabaseUsage {
@@ -110,15 +112,15 @@ export function useFreeTrial() {
     }
   }, [user])
 
-  const checkAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved'): boolean => {
+  const checkAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved' | 'guessPapers'): boolean => {
     const isPremium = user?.user_metadata?.is_premium || false
     const isSignedIn = !!user
 
     // Premium users get unlimited access
     if (isPremium) return true
 
-    // Solved papers require premium
-    if (type === 'solved') return false
+    // Solved papers and guess papers require premium
+    if (type === 'solved' || type === 'guessPapers') return false
 
     // For signed-in users, check database usage
     if (isSignedIn && dbUsage) {
@@ -159,15 +161,15 @@ export function useFreeTrial() {
     }
   }
 
-  const requestAccess = async (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved'): Promise<boolean> => {
+  const requestAccess = async (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved' | 'guessPapers'): Promise<boolean> => {
     const isPremium = user?.user_metadata?.is_premium || false
     const isSignedIn = !!user
 
     // Premium users get unlimited access
     if (isPremium) return true
 
-    // Solved papers require premium
-    if (type === 'solved') {
+    // Solved papers and guess papers require premium
+    if (type === 'solved' || type === 'guessPapers') {
       if (isSignedIn) {
         router.push('/css/premium')
       } else {

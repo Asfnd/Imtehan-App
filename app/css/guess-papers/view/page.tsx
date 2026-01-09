@@ -4,12 +4,17 @@ import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { getGuessPaperUrl } from '@/lib/guess-papers-storage'
 import CleanPDFViewer from '@/components/pdf/CleanPDFViewer'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Crown } from 'lucide-react'
+import SignInPopup from '@/components/auth/SignInPopup'
+import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 
 function GuessPaperViewerContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const subject = searchParams.get('subject')
+
+  const { user, loading: authLoading, checkAccess, showSignInPopup, setShowSignInPopup } = useFreeTrial()
+  const isPremium = user?.user_metadata?.is_premium || false
 
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -17,6 +22,15 @@ function GuessPaperViewerContent() {
 
   useEffect(() => {
     const loadPDF = async () => {
+      // Wait for auth to load first
+      if (authLoading) return
+
+      // Check if user has premium access
+      if (!checkAccess('guessPapers')) {
+        setLoading(false)
+        return
+      }
+
       if (!subject) {
         setError('No subject specified')
         setLoading(false)
@@ -40,15 +54,56 @@ function GuessPaperViewerContent() {
     }
 
     loadPDF()
-  }, [subject])
+  }, [subject, authLoading, isPremium])
 
-  if (loading) {
+  // Show loading while checking auth
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600 font-medium">Loading guess paper...</p>
         </div>
+      </div>
+    )
+  }
+
+  // Show premium required message for non-premium users
+  if (!isPremium) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md text-center">
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <Crown className="w-10 h-10 text-white" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-3">Premium Content</h3>
+          <p className="text-gray-600 mb-6">
+            CSS 2026 Guess Papers are available exclusively for premium members. Upgrade now to access expert predictions and boost your preparation.
+          </p>
+          <div className="space-y-3">
+            <button
+              onClick={() => router.push('/css/premium')}
+              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+            >
+              <Crown className="w-5 h-5" />
+              Upgrade to Premium
+            </button>
+            <button
+              onClick={() => router.push('/css/guess-papers')}
+              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Guess Papers
+            </button>
+          </div>
+        </div>
+
+        {/* Sign In Popup */}
+        <SignInPopup
+          isOpen={showSignInPopup}
+          onClose={() => setShowSignInPopup(false)}
+          message="Sign in to access premium features"
+        />
       </div>
     )
   }

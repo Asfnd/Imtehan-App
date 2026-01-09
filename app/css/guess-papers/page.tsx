@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, FileText, BookOpen, Briefcase, Globe, Edit } from 'lucide-react'
+import { ArrowLeft, FileText, BookOpen, Briefcase, Globe, Edit, Lock, Crown } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
+import SignInPopup from '@/components/auth/SignInPopup'
+import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 
 interface GuessPaper {
   id: string
@@ -42,10 +44,16 @@ const guessPapers: GuessPaper[] = [
 export default function GuessPapersPage() {
   const router = useRouter()
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
+  const { user, loading, showSignInPopup, setShowSignInPopup, requestAccess, checkAccess } = useFreeTrial()
 
-  const handleViewPaper = (subject: string) => {
-    const encodedSubject = encodeURIComponent(subject)
-    router.push(`/css/guess-papers/view?subject=${encodedSubject}`)
+  const isPremium = user?.user_metadata?.is_premium || false
+
+  const handleViewPaper = async (subject: string) => {
+    const hasAccess = await requestAccess('guessPapers')
+    if (hasAccess) {
+      const encodedSubject = encodeURIComponent(subject)
+      router.push(`/css/guess-papers/view?subject=${encodedSubject}`)
+    }
   }
 
   return (
@@ -67,7 +75,7 @@ export default function GuessPapersPage() {
         </button>
 
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-900 via-blue-700 to-indigo-900 bg-clip-text text-transparent">
             CSS 2026 Guess Papers
           </h1>
@@ -75,6 +83,29 @@ export default function GuessPapersPage() {
             Select a subject to view guess papers
           </p>
         </div>
+
+        {/* Premium Banner - Show for non-premium users */}
+        {!isPremium && !loading && (
+          <div className="mb-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white shadow-xl">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Crown className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold mb-1">Premium Content</h3>
+                <p className="text-white/90 text-sm">
+                  CSS 2026 Guess Papers are available exclusively for premium members. Upgrade now to access expert predictions.
+                </p>
+              </div>
+              <button
+                onClick={() => router.push('/css/premium')}
+                className="px-6 py-3 bg-white text-orange-600 rounded-xl font-bold text-sm hover:bg-orange-50 transition-colors whitespace-nowrap shadow-lg"
+              >
+                Upgrade
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Guess Papers Grid - Dashboard Style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -86,6 +117,17 @@ export default function GuessPapersPage() {
                 className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                {/* Premium Badge */}
+                {!isPremium && (
+                  <div className="absolute top-3 right-3 z-10">
+                    <div className="flex items-center gap-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+                      <Crown className="w-3 h-3" />
+                      <span>Premium</span>
+                    </div>
+                  </div>
+                )}
+
                 <div className="relative p-6 flex-1 flex flex-col items-center text-center">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
                     <IconComponent className="w-8 h-8 text-white" />
@@ -95,12 +137,26 @@ export default function GuessPapersPage() {
                   </h3>
                   <button
                     onClick={() => handleViewPaper(paper.subject)}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md hover:shadow-lg mt-auto"
+                    disabled={loading}
+                    className={`w-full font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md hover:shadow-lg mt-auto ${
+                      isPremium
+                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
+                        : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white'
+                    }`}
                   >
-                    <span>View Paper</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
+                    {isPremium ? (
+                      <>
+                        <span>View Paper</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </>
+                    ) : (
+                      <>
+                        <Lock className="w-4 h-4" />
+                        <span>Unlock</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -108,6 +164,13 @@ export default function GuessPapersPage() {
           })}
         </div>
       </div>
+
+      {/* Sign In Popup */}
+      <SignInPopup
+        isOpen={showSignInPopup}
+        onClose={() => setShowSignInPopup(false)}
+        message="Sign in to access premium features"
+      />
     </div>
   )
 }
