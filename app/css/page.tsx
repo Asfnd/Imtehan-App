@@ -483,8 +483,8 @@ function DashboardContent() {
                   onClick={() => router.push('/mpt-practice')}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
-                  Start Test
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="truncate">Start Test</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
@@ -515,8 +515,8 @@ function DashboardContent() {
                   onClick={() => router.push('/css/subjects')}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
-                  Start Practice
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="truncate">Start Practice</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
@@ -547,8 +547,8 @@ function DashboardContent() {
                   onClick={() => router.push('/css/past-papers')}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
-                  View Papers
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="truncate">View Papers</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
@@ -581,47 +581,40 @@ function DashboardContent() {
                   onClick={() => router.push('/css/solved-papers')}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
-                  View Solutions
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="truncate">View Solutions</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
 
-            {/* Guess Papers - NEW */}
-            <div className="group relative rounded-xl bg-white border-2 border-yellow-200 hover:border-yellow-400 shadow-lg hover:shadow-xl hover:shadow-yellow-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
-              {/* Special "NEW" badge */}
-              <div className="absolute top-3 right-3 z-10">
-                <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md animate-pulse">
-                  NEW
-                </span>
-              </div>
-
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            {/* Guess Papers */}
+            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mb-4 shadow-md shadow-yellow-500/30 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-yellow-900 transition-colors">Guess Papers</h3>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Guess Papers</h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
                   CSS 2026 Guess Papers
                 </p>
                 <div className="flex items-center gap-3 text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-yellow-600">5</span>
+                    <span className="font-bold text-blue-600">5</span>
                     <span className="text-gray-500">Subjects</span>
                   </div>
                   <div className="w-px h-3 bg-gray-300"></div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-yellow-600">2026</span>
+                    <span className="font-bold text-blue-600">2026</span>
                     <span className="text-gray-500">Edition</span>
                   </div>
                 </div>
                 <button
                   onClick={() => router.push('/css/guess-papers')}
-                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
                 >
-                  View Papers
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="truncate">View Papers</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
