@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { BookOpen, FileText, Target, LogOut, ArrowRight, Award, TrendingUp, Flame, Sparkles } from 'lucide-react'
+import { BookOpen, FileText, Target, LogOut, ArrowRight, Award, TrendingUp, Flame, Star } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
 import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics } from '@/lib/analytics'
@@ -481,7 +481,7 @@ function DashboardContent() {
                 </div>
                 <button
                   onClick={() => router.push('/mpt-practice')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
                 >
                   <span className="truncate">Start Test</span>
                   <ArrowRight className="w-4 h-4 flex-shrink-0" />
@@ -496,7 +496,7 @@ function DashboardContent() {
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
                   <BookOpen className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Practice Past CSS MCQs</h3>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">CSS MCQs Practice</h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
                   Practice subject-wise MCQs of past CSS exams
                 </p>
@@ -513,7 +513,7 @@ function DashboardContent() {
                 </div>
                 <button
                   onClick={() => router.push('/css/subjects')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
                 >
                   <span className="truncate">Start Practice</span>
                   <ArrowRight className="w-4 h-4 flex-shrink-0" />
@@ -545,7 +545,7 @@ function DashboardContent() {
                 </div>
                 <button
                   onClick={() => router.push('/css/past-papers')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
                 >
                   <span className="truncate">View Papers</span>
                   <ArrowRight className="w-4 h-4 flex-shrink-0" />
@@ -579,7 +579,7 @@ function DashboardContent() {
                 </div>
                 <button
                   onClick={() => router.push('/css/solved-papers')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
                 >
                   <span className="truncate">View Solutions</span>
                   <ArrowRight className="w-4 h-4 flex-shrink-0" />
@@ -592,7 +592,7 @@ function DashboardContent() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <Sparkles className="w-6 h-6 text-white" />
+                  <Star className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Guess Papers</h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1">
@@ -611,7 +611,7 @@ function DashboardContent() {
                 </div>
                 <button
                   onClick={() => router.push('/css/guess-papers')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
                 >
                   <span className="truncate">View Papers</span>
                   <ArrowRight className="w-4 h-4 flex-shrink-0" />
