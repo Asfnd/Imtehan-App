@@ -14,7 +14,7 @@ interface PDFPathCacheEntry {
 }
 
 const CACHE_KEY = 'pdf_path_cache_v1'
-const CACHE_TTL = 7 * 24 * 60 * 60 * 1000 // 7 days
+const CACHE_TTL = 30 * 24 * 60 * 60 * 1000 // 30 days
 
 class PDFPathCache {
   private cache: Map<string, PDFPathCacheEntry> = new Map()
