@@ -44,8 +44,13 @@ CREATE INDEX IF NOT EXISTS idx_guess_papers_subject ON guess_papers_2026(subject
 
 ALTER TABLE guess_papers_2026 ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY IF NOT EXISTS "Allow public read access" ON guess_papers_2026
-  FOR SELECT USING (is_available = true);
+-- Drop existing policy if it exists, then create new one
+DO $$
+BEGIN
+  DROP POLICY IF EXISTS "Allow public read access" ON guess_papers_2026;
+  CREATE POLICY "Allow public read access" ON guess_papers_2026
+    FOR SELECT USING (is_available = true);
+END $$;
 
 -- Insert data
 INSERT INTO guess_papers_2026 (subject, filename, storage_path, file_size) VALUES ('Current Affairs', 'Current Affairs.pdf', 'Current Affairs.pdf', 163969) ON CONFLICT (subject) DO NOTHING;
