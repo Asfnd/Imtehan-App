@@ -2,41 +2,45 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
+import { getGuessPaperUrl } from '@/lib/guess-papers-storage'
 import CleanPDFViewer from '@/components/pdf/CleanPDFViewer'
-import { ArrowLeft, Download } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 
 function GuessPaperViewerContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const filename = searchParams.get('file')
-  const title = searchParams.get('title')
+  const subject = searchParams.get('subject')
 
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (filename) {
-      // Construct URL to public folder PDF
-      const url = `/guess-papers-2026/${filename}`
-      setPdfUrl(url)
-      setLoading(false)
-    } else {
-      setError('No file specified')
-      setLoading(false)
-    }
-  }, [filename])
+    const loadPDF = async () => {
+      if (!subject) {
+        setError('No subject specified')
+        setLoading(false)
+        return
+      }
 
-  const handleDownload = () => {
-    if (filename) {
-      const link = document.createElement('a')
-      link.href = `/guess-papers-2026/${filename}`
-      link.download = filename
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
+      console.log('🔍 Loading guess paper for:', subject)
+
+      const result = await getGuessPaperUrl(subject)
+
+      if (result.success && result.url) {
+        console.log('✅ Guess paper loaded successfully')
+        setPdfUrl(result.url)
+        setError(null)
+      } else {
+        console.error('❌ Failed to load guess paper:', result.error)
+        setError(result.error || 'Failed to load guess paper')
+      }
+
+      setLoading(false)
     }
-  }
+
+    loadPDF()
+  }, [subject])
 
   if (loading) {
     return (
@@ -89,19 +93,13 @@ function GuessPaperViewerContent() {
             {/* Center: Title */}
             <div className="flex-1 text-center px-4">
               <h1 className="text-lg font-bold text-gray-900 truncate">
-                {title ? decodeURIComponent(title) : 'Guess Paper'}
+                {subject ? decodeURIComponent(subject) : 'Guess Paper'}
               </h1>
               <p className="text-xs text-gray-500">CSS 2026</p>
             </div>
 
-            {/* Right: Download Button */}
-            <button
-              onClick={handleDownload}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all shadow-md hover:shadow-lg"
-            >
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Download</span>
-            </button>
+            {/* Right: Empty space for symmetry */}
+            <div className="w-24"></div>
           </div>
         </div>
       </div>
@@ -110,7 +108,7 @@ function GuessPaperViewerContent() {
       <div className="h-[calc(100vh-4rem)]">
         <CleanPDFViewer
           pdfUrl={pdfUrl}
-          title={title ? decodeURIComponent(title) : 'Guess Paper'}
+          title={subject ? decodeURIComponent(subject) : 'Guess Paper'}
         />
       </div>
     </div>

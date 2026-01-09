@@ -7,40 +7,34 @@ import NavigationBar from '@/components/NavigationBar'
 
 interface GuessPaper {
   id: string
-  title: string
-  filename: string
+  subject: string
   icon: any
 }
 
 const guessPapers: GuessPaper[] = [
   {
     id: '1',
-    title: 'Current Affairs',
-    filename: 'Current Affairs.pdf',
+    subject: 'Current Affairs',
     icon: Globe
   },
   {
     id: '2',
-    title: 'Essay',
-    filename: 'Essay.pdf',
+    subject: 'Essay',
     icon: Edit
   },
   {
     id: '3',
-    title: 'General Science & Ability',
-    filename: 'General Science & Ability.pdf',
+    subject: 'General Science & Ability',
     icon: Briefcase
   },
   {
     id: '4',
-    title: 'Pakistan Affairs',
-    filename: 'Pakistan Affairs.pdf',
+    subject: 'Pakistan Affairs',
     icon: FileText
   },
   {
     id: '5',
-    title: 'Precis',
-    filename: 'Precis.pdf',
+    subject: 'Precis',
     icon: BookOpen
   }
 ]
@@ -49,10 +43,9 @@ export default function GuessPapersPage() {
   const router = useRouter()
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
 
-  const handleViewPaper = (filename: string, title: string) => {
-    const encodedFilename = encodeURIComponent(filename)
-    const encodedTitle = encodeURIComponent(title)
-    router.push(`/css/guess-papers/view?file=${encodedFilename}&title=${encodedTitle}`)
+  const handleViewPaper = (subject: string) => {
+    const encodedSubject = encodeURIComponent(subject)
+    router.push(`/css/guess-papers/view?subject=${encodedSubject}`)
   }
 
   return (
@@ -98,10 +91,10 @@ export default function GuessPapersPage() {
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg font-bold mb-6 text-gray-900 group-hover:text-blue-900 transition-colors">
-                    {paper.title}
+                    {paper.subject}
                   </h3>
                   <button
-                    onClick={() => handleViewPaper(paper.filename, paper.title)}
+                    onClick={() => handleViewPaper(paper.subject)}
                     className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm shadow-md hover:shadow-lg mt-auto"
                   >
                     <span>View Paper</span>
