@@ -49,6 +49,7 @@ export interface MCQ {
 interface UseLazyLoadMCQsOptions {
   subject?: string
   year?: string
+  paper_type?: string // Optional paper type (e.g., "Paper 1", "Paper 2")
   enableLazyLoad?: boolean // True for subject+year, False for random/MPT
 }
 
@@ -58,7 +59,7 @@ interface LoadedMCQ extends MCQ {
 }
 
 export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
-  const { subject, year, enableLazyLoad = false } = options
+  const { subject, year, paper_type, enableLazyLoad = false } = options
 
   // State management
   const [mcqs, setMcqs] = useState<LoadedMCQ[]>([])
@@ -86,7 +87,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
   const supabase = createClient()
 
   /**
-   * Get count of MCQs for subject+year combination
+   * Get count of MCQs for subject+year combination (and paper_type if provided)
    */
   const getCount = useCallback(async () => {
     if (!subject || !year) return null
@@ -98,11 +99,18 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
     }
 
     try {
-      const { count, error: countError } = await supabase
+      let query = supabase
         .from('css_mcqs_enhanced')
         .select('*', { count: 'exact', head: true })
         .eq('subject', subject)
         .eq('year', parseInt(year))
+
+      // Filter by paper_type if provided
+      if (paper_type) {
+        query = query.eq('paper_type', paper_type)
+      }
+
+      const { count, error: countError } = await query
 
       if (countError) throw countError
       return count || 0
@@ -110,7 +118,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       console.error('Error fetching count:', err)
       return null
     }
-  }, [subject, year])
+  }, [subject, year, paper_type])
 
   /**
    * Load initial batch (20 MCQs) or all MCQs if lazy load disabled
@@ -128,7 +136,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
         return
       }
 
-      console.log('✅ Loading MCQs:', { subject, year, enableLazyLoad })
+      console.log('✅ Loading MCQs:', { subject, year, paper_type, enableLazyLoad })
 
       const columns = 'id, question_text, option_a, option_b, option_c, option_d, correct_answer, subject, year, topic, difficulty'
 
@@ -138,12 +146,13 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
 
       if (subject) query = query.eq('subject', subject)
       if (year) query = query.eq('year', parseInt(year))
+      if (paper_type) query = query.eq('paper_type', paper_type)
 
       // Load 20 for subject+year, 20 for random
       const batchSize = 20
       query = query.limit(batchSize)
 
-      console.log('🔍 Executing query with:', { subject, year, limit: batchSize })
+      console.log('🔍 Executing query with:', { subject, year, paper_type, limit: batchSize })
       const { data, error: queryError } = await query
 
       if (queryError) {
@@ -156,10 +165,10 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       console.log(`✅ Query returned ${data?.length || 0} MCQs`)
 
       if (!data || data.length === 0) {
-        console.warn('⚠️ No MCQs found for:', { subject, year })
+        console.warn('⚠️ No MCQs found for:', { subject, year, paper_type })
         setMcqs([])
         setLoading(false)
-        setError(`No MCQs found for ${subject || 'this selection'}${year ? ` (${year})` : ''}`)
+        setError(`No MCQs found for ${subject || 'this selection'}${year ? ` (${year})` : ''}${paper_type ? ` - ${paper_type}` : ''}`)
         return
       }
 
@@ -189,7 +198,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       setError(err instanceof Error ? err.message : 'Failed to load MCQs')
       setLoading(false)
     }
-  }, [subject, year, enableLazyLoad, supabase, getCount])
+  }, [subject, year, paper_type, enableLazyLoad, supabase, getCount])
 
   /**
    * Load next batch in background (15 MCQs)
@@ -210,12 +219,18 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
 
       const columns = 'id, question_text, option_a, option_b, option_c, option_d, correct_answer, subject, year, topic, difficulty'
 
-      const { data, error: queryError } = await supabase
+      let query = supabase
         .from('css_mcqs_enhanced')
         .select(columns)
         .eq('subject', subject)
         .eq('year', parseInt(year))
-        .range(nextBatchOffset, nextBatchOffset + 14) // Next 15
+
+      // Filter by paper_type if provided
+      if (paper_type) {
+        query = query.eq('paper_type', paper_type)
+      }
+
+      const { data, error: queryError } = await query.range(nextBatchOffset, nextBatchOffset + 14) // Next 15
 
       if (queryError) throw queryError
 
@@ -238,7 +253,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
       setIsLoadingNextBatch(false)
       // Continue gracefully - user can still use loaded MCQs
     }
-  }, [subject, year, nextBatchOffset, isLoadingNextBatch, hasMoreToLoad, supabase])
+  }, [subject, year, paper_type, nextBatchOffset, isLoadingNextBatch, hasMoreToLoad, supabase])
 
   /**
    * Smart trigger: Load next batch when user reaches Q18 (of 20)

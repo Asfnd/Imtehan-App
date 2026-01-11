@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getAuthenticatedUser, verifyUserOwnership, validateInput } from '@/lib/security/request-verification'
+import { csrfProtection } from '@/lib/security/csrf'
 import type { Answer } from '@/lib/supabase/types'
 
 /**
@@ -19,6 +20,10 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       )
     }
+
+    // SECURITY: CSRF protection
+    const csrfError = csrfProtection(request)
+    if (csrfError) return csrfError
 
     const body = await request.json()
     const { userId, quizId, topic, answers, timeTaken } = body as {

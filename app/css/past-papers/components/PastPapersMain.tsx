@@ -158,14 +158,12 @@ export default function PastPapersMain() {
     setSelectedYear(null)
   }
 
-  const startDownload = async () => {
+  const viewPaper = async (year: number) => {
     // Check access and handle free trial limits
     const hasAccess = await requestAccess('officialPast')
     if (hasAccess) {
-      if (selectedSubject && selectedYear) {
-        // selectedSubject is already in kebab-case, use it directly
-        router.push(`/css/past-papers/view?subject=${encodeURIComponent(selectedSubject)}&year=${selectedYear}`)
-      }
+      // selectedSubject is already in kebab-case, use it directly
+      router.push(`/css/past-papers/view?subject=${encodeURIComponent(selectedSubject)}&year=${year}`)
     }
     // If requestAccess returns false, it will show the sign-in popup automatically
   }
@@ -372,49 +370,31 @@ export default function PastPapersMain() {
                       ) : (
                         <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
                           {years.map((yearData) => {
-                            const isSelected = selectedYear === yearData.year
                             const yearIsNew = isNewYear(yearData.year)
 
                             return (
                               <button
                                 key={yearData.year}
-                                onClick={() => setSelectedYear(yearData.year)}
-                                className={`w-full group relative overflow-hidden rounded-xl transition-all duration-200 ${
-                                  isSelected
-                                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg scale-[1.02]'
-                                    : 'bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md'
-                                }`}
+                                onClick={() => viewPaper(yearData.year)}
+                                className="w-full group relative overflow-hidden rounded-xl transition-all duration-200 bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md"
                               >
                                 <div className="flex items-center justify-between p-2.5 sm:p-3">
                                   <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                     {/* Year Badge */}
-                                    <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 ${
-                                      isSelected
-                                        ? 'bg-white/20 text-white'
-                                        : 'bg-blue-200 text-blue-800'
-                                    }`}>
+                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 bg-blue-200 text-blue-800">
                                       {yearData.year.toString().slice(-2)}
                                     </div>
                                     <div className="text-left flex-1 min-w-0">
-                                      <div className={`font-semibold text-sm ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                                      <div className="font-semibold text-sm text-gray-900">
                                         {yearData.year}
                                       </div>
                                       {yearIsNew && (
-                                        <span className={`text-[10px] font-semibold ${isSelected ? 'text-white/80' : 'text-green-600'}`}>
+                                        <span className="text-[10px] font-semibold text-green-600">
                                           New
                                         </span>
                                       )}
                                     </div>
                                   </div>
-
-                                  {/* Checkmark */}
-                                  {isSelected && (
-                                    <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                      </svg>
-                                    </div>
-                                  )}
                                 </div>
                               </button>
                             )
@@ -426,23 +406,6 @@ export default function PastPapersMain() {
                 </div>
               </div>
 
-              {/* Bottom: Premium Download Button */}
-              {selectedSubject && selectedYear && (
-                <div className="p-4 sm:p-5 bg-gradient-to-br from-blue-50/50 via-indigo-50/30 to-transparent border-t border-blue-100/50 flex-shrink-0">
-                  <button
-                    onClick={startDownload}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3.5 px-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl group"
-                  >
-                    <span>View Paper</span>
-                    <span className="group-hover:translate-x-1 transition-transform text-lg">→</span>
-                  </button>
-                  <div className="mt-3 text-center text-xs sm:text-sm text-gray-700">
-                    <span className="font-bold">{subjects.find(s => s.subject === selectedSubject)?.displayName || selectedSubject}</span>
-                    <span className="mx-2 text-blue-400">•</span>
-                    <span className="font-bold">{selectedYear}</span>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
 

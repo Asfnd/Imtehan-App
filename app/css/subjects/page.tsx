@@ -29,6 +29,7 @@ interface Subject {
 interface YearData {
   year: number
   count: number
+  paper_type?: string | null
 }
 
 export default function CSSSubjectMCQsPage() {
@@ -181,7 +182,7 @@ export default function CSSSubjectMCQsPage() {
       while (hasMore) {
         const { data: chunk, error: chunkError } = await supabase
           .from('css_mcqs_enhanced')
-          .select('year')
+          .select('year, paper_type')
           .eq('subject', subjectQuery)
           .range(offset, offset + chunkSize - 1)
 
@@ -327,7 +328,7 @@ export default function CSSSubjectMCQsPage() {
       console.log('   Year range:', allUniqueYears.length > 0 ? `${Math.min(...allUniqueYears)} to ${Math.max(...allUniqueYears)}` : 'N/A')
       console.log('   All unique years:', allUniqueYears)
 
-      // Count MCQs per year - keep ALL years including 1975
+      // Count MCQs per year+paper_type combination
       const yearMap = data.reduce((acc: any, row: any) => {
         // Only skip null/undefined years
         if (!row.year) {
@@ -335,18 +336,31 @@ export default function CSSSubjectMCQsPage() {
           return acc
         }
 
-        if (!acc[row.year]) {
-          acc[row.year] = { year: row.year, count: 0 }
+        // Create unique key: year-paperType (e.g., "2025-Paper 1", "2025-null")
+        const paperType = row.paper_type || null
+        const key = `${row.year}-${paperType}`
+
+        if (!acc[key]) {
+          acc[key] = { year: row.year, count: 0, paper_type: paperType }
         }
-        acc[row.year].count++
+        acc[key].count++
         return acc
       }, {})
 
-      // Extract actual years and sort
+      // Extract actual years and sort (by year DESC, then by paper_type)
       const yearList = Object.entries(yearMap)
         .filter(([key]: any) => key !== 'nullCount')
         .map(([_, value]: any) => value)
-        .sort((a: any, b: any) => b.year - a.year) // Sort newest first
+        .sort((a: any, b: any) => {
+          // First sort by year (descending)
+          if (b.year !== a.year) return b.year - a.year
+
+          // Then sort by paper type (null first, then Paper 1, Paper 2)
+          if (!a.paper_type && !b.paper_type) return 0
+          if (!a.paper_type) return -1 // null first
+          if (!b.paper_type) return 1
+          return a.paper_type.localeCompare(b.paper_type)
+        })
 
       console.log('📋 Final year list:')
       console.log('   Total years after filtering:', yearList.length)
@@ -404,7 +418,7 @@ export default function CSSSubjectMCQsPage() {
     setSelectedYear(null)
   }
 
-  const startPractice = async (year: number) => {
+  const startPractice = async (yearData: YearData) => {
     // Check access and handle free trial limits
     const hasAccess = await requestAccess('cssSubject')
     if (hasAccess) {
@@ -414,7 +428,9 @@ export default function CSSSubjectMCQsPage() {
 
       const params = new URLSearchParams()
       if (subjectForQuery) params.append('subject', subjectForQuery)
-      params.append('year', year.toString())
+      params.append('year', yearData.year.toString())
+      // Pass paper_type if it exists
+      if (yearData.paper_type) params.append('paper_type', yearData.paper_type)
       router.push(`/css/css-practice/quiz?${params.toString()}`)
     }
     // If requestAccess returns false, it will show the sign-in popup or redirect automatically
@@ -622,43 +638,43 @@ export default function CSSSubjectMCQsPage() {
                           No years available
                         </div>
                       ) : (
-                        <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
-                          {years.map((yearData) => {
-                            return (
-                              <button
-                                key={yearData.year}
-                                onClick={() => startPractice(yearData.year)}
-                                className="w-full group relative overflow-hidden rounded-xl transition-all duration-200 bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md"
-                              >
-                                <div className="flex items-center justify-between p-2.5 sm:p-3">
-                                  <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
-                                    {/* Year Badge */}
-                                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 bg-blue-200 text-blue-800">
-                                      {yearData.year.toString().slice(-2)}
-                                    </div>
-                                    <div className="text-left flex-1 min-w-0">
-                                      <div className="font-semibold text-sm text-gray-900">
-                                        {yearData.year}
+                        <>
+                          <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
+                            {years.map((yearData) => (
+                                <button
+                                  key={`${yearData.year}-${yearData.paper_type || 'single'}`}
+                                  onClick={() => startPractice(yearData)}
+                                  className="w-full group relative overflow-hidden rounded-xl transition-all duration-200 bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md"
+                                >
+                                  <div className="flex items-center justify-between p-2.5 sm:p-3">
+                                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                                      {/* Year Badge */}
+                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 bg-blue-200 text-blue-800">
+                                        {yearData.year.toString().slice(-2)}
                                       </div>
-                                      <div className="text-[10px] sm:text-xs mt-0.5 text-gray-600">
-                                        {yearData.count} questions
+                                      <div className="text-left flex-1 min-w-0">
+                                        <div className="font-semibold text-sm text-gray-900">
+                                          {yearData.year}{yearData.paper_type ? ` - ${yearData.paper_type}` : ''}
+                                        </div>
+                                        <div className="text-[10px] sm:text-xs mt-0.5 text-gray-600">
+                                          {yearData.count} questions
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
 
-                                  {/* Tags */}
-                                  <div className="flex items-center gap-1 flex-shrink-0">
-                                    {yearData.year >= 2023 && (
-                                      <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] sm:text-xs font-semibold rounded-full">
-                                        New
-                                      </span>
-                                    )}
+                                    {/* Tags */}
+                                    <div className="flex items-center gap-1 flex-shrink-0">
+                                      {yearData.year >= 2023 && (
+                                        <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] sm:text-xs font-semibold rounded-full">
+                                          New
+                                        </span>
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
-                              </button>
-                            )
-                          })}
-                        </div>
+                                </button>
+                            ))}
+                          </div>
+                        </>
                       )}
                     </>
                   )}

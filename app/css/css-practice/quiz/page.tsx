@@ -71,6 +71,7 @@ function CSSQuizContent() {
   // Get subject and year for lazy loading detection
   const subject = searchParams.get('subject') || undefined
   const year = searchParams.get('year') || undefined
+  const paper_type = searchParams.get('paper_type') || undefined
   const reviewMode = searchParams.get('reviewMode') === 'true'
 
   // Determine if we should enable lazy loading (only for subject+year specific paths, and not in review mode)
@@ -88,6 +89,7 @@ function CSSQuizContent() {
   } = useLazyLoadMCQs({
     subject,
     year,
+    paper_type,
     enableLazyLoad,
   })
 

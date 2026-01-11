@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 
+const BASE_URL = 'https://imtehan.com'
+
 export interface BreadcrumbItem {
   name: string
   url: string
@@ -14,12 +16,20 @@ interface BreadcrumbProps {
 }
 
 /**
+ * Convert relative URL to absolute URL
+ */
+function toAbsoluteUrl(url: string): string {
+  if (url.startsWith('http')) return url
+  return `${BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`
+}
+
+/**
  * Breadcrumb Component with Schema.org Markup
  * Improves SEO and user navigation
  * Generates BreadcrumbList schema for search engines
  */
 export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
-  // Generate BreadcrumbList schema
+  // Generate BreadcrumbList schema with FULL absolute URLs (required by Google)
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -27,7 +37,7 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.url,
+      item: toAbsoluteUrl(item.url),
     })),
   }
 

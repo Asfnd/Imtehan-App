@@ -13,6 +13,12 @@ Disallow: /signin/
 Disallow: /auth/
 Disallow: /quiz/
 
+# Block dynamic view pages (query param based)
+Disallow: /css/past-papers/view
+Disallow: /css/solved-papers/view
+Disallow: /css/guess-papers/view
+Disallow: /mpt-practice/quiz
+
 # Block AI training bots
 User-agent: GPTBot
 Disallow: /

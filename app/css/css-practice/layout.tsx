@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'CSS Practice Tests - 10,000+ MCQs by Subject | Imtehan',
   description: 'Practice CSS exams with 10,000+ MCQs across 50+ subjects including Islamic Studies, Pakistan Affairs, English, Current Affairs, and more. Free practice tests with detailed explanations.',
   alternates: {
-    canonical: 'https://imtehan.com/css/subjects',
+    canonical: 'https://imtehan.com/css/css-practice',
   },
   keywords: [
     'CSS practice tests', 'CSS MCQs', 'CSS exam practice',

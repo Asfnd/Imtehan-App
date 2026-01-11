@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { rateLimit, getClientIP, RATE_LIMITS } from '@/lib/security/rateLimiter'
+import { csrfProtection } from '@/lib/security/csrf'
 import {
   isValidEmail,
   validateName,
@@ -35,6 +36,10 @@ export async function POST(request: NextRequest) {
         }
       )
     }
+
+    // SECURITY: CSRF protection
+    const csrfError = csrfProtection(request)
+    if (csrfError) return csrfError
 
     const body = await request.json()
     const { name, email, subject, message, website } = body as {

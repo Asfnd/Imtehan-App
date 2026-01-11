@@ -1,7 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { rateLimit, getClientIP, RATE_LIMITS } from '@/lib/security/rateLimiter'
+import { csrfProtection } from '@/lib/security/csrf'
 
 export async function POST(request: NextRequest) {
+  // SECURITY: Rate limiting to prevent spam subscriptions
+  const clientIP = getClientIP(request)
+  const rateLimitResult = rateLimit(`newsletter:${clientIP}`, RATE_LIMITS.CONTACT)
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      {
+        error: 'Too many subscription attempts. Please try again later.',
+        retryAfter: Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000)
+      },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': String(Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000))
+        }
+      }
+    )
+  }
+
+  // SECURITY: CSRF protection
+  const csrfError = csrfProtection(request)
+  if (csrfError) return csrfError
+
   try {
     const { email } = await request.json()
 

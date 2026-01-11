@@ -171,7 +171,7 @@ export default function CSSGSAPage() {
           <h2 className="text-lg font-semibold text-gray-900 mb-6">
             Select Year to Practice
           </h2>
-          
+
           {filteredYears.length === 0 ? (
             <p className="text-center text-gray-500 py-8">No years found for this decade</p>
           ) : (
@@ -200,7 +200,7 @@ export default function CSSGSAPage() {
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Hover Arrow */}
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
