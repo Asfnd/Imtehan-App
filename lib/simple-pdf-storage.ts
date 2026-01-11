@@ -181,42 +181,94 @@ export async function getAllPapers(): Promise<{ success: boolean; papers?: PastP
 /**
  * Check if database has papers
  */
-export async function checkDatabaseStatus(): Promise<{ 
+export async function checkDatabaseStatus(): Promise<{
   success: boolean
   hasPapers: boolean
   paperCount: number
-  error?: string 
+  error?: string
 }> {
   try {
     const supabase = createClient()
-    
+
     const { count, error } = await supabase
       .from('past_papers')
       .select('*', { count: 'exact', head: true })
       .eq('is_available', true)
-    
+
     if (error) {
       console.error('❌ Database error:', error)
-      return { 
-        success: false, 
-        hasPapers: false, 
-        paperCount: 0, 
-        error: error.message 
+      return {
+        success: false,
+        hasPapers: false,
+        paperCount: 0,
+        error: error.message
       }
     }
-    
-    return { 
-      success: true, 
-      hasPapers: (count || 0) > 0, 
-      paperCount: count || 0 
+
+    return {
+      success: true,
+      hasPapers: (count || 0) > 0,
+      paperCount: count || 0
     }
   } catch (error) {
     console.error('❌ Error:', error)
-    return { 
-      success: false, 
-      hasPapers: false, 
-      paperCount: 0, 
-      error: 'Failed to check database' 
+    return {
+      success: false,
+      hasPapers: false,
+      paperCount: 0,
+      error: 'Failed to check database'
+    }
+  }
+}
+
+/**
+ * Get Solved Paper URL from storage
+ * Solved papers are stored directly in the css-solved-papers bucket
+ */
+export async function getSolvedPaperUrl(
+  paperId?: string
+): Promise<{ success: boolean; url?: string; error?: string; foundAt?: string }> {
+  try {
+    const supabase = createClient()
+
+    console.log(`🔍 Looking up solved paper: ${paperId || 'default'}`)
+
+    // For solved papers, we use a direct storage lookup
+    // The solved papers are typically stored as PDFs in the bucket
+    const bucketName = 'css-solved-papers'
+
+    // If no paperId provided, use default or list first available
+    let storagePath = paperId ? `${paperId}.pdf` : 'solved-papers.pdf'
+
+    // Get public URL from storage
+    const { data: urlData } = supabase.storage
+      .from(bucketName)
+      .getPublicUrl(storagePath)
+
+    if (!urlData?.publicUrl) {
+      console.error('❌ Failed to get public URL for solved paper')
+      return {
+        success: false,
+        error: `Failed to generate URL for solved paper`
+      }
+    }
+
+    // Convert to custom storage domain (storage.imtehan.com)
+    const finalUrl = useCustomStorageUrl(urlData.publicUrl)
+
+    console.log(`✅ Found solved paper: ${storagePath}`)
+    console.log(`📦 Serving from: ${finalUrl}`)
+
+    return {
+      success: true,
+      url: finalUrl,
+      foundAt: storagePath
+    }
+  } catch (error) {
+    console.error('❌ Error:', error)
+    return {
+      success: false,
+      error: `Failed to get solved paper: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
   }
 }

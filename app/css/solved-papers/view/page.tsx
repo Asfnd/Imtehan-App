@@ -2,7 +2,7 @@
 // Solved Papers PDF Viewer - Based on past papers viewer
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { getSolvedPaperUrl } from '@/lib/pdf-storage'
+import { getSolvedPaperUrl } from '@/lib/simple-pdf-storage'
 import { ArrowLeft } from 'lucide-react'
 import CleanPDFViewer from '@/components/pdf/CleanPDFViewer'
 
