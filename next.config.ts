@@ -15,16 +15,16 @@ const securityHeaders = [
       // Fonts: self and data URIs
       "font-src 'self' data:",
       // API connections to Supabase
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://storage.imtehan.com",
-      // Frames: self + Supabase storage + custom storage domain (for PDF viewer iframes)
-      "frame-src 'self' https://*.supabase.co https://storage.imtehan.com",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com",
+      // Frames: self + Supabase storage (for PDF viewer iframes)
+      "frame-src 'self' https://*.supabase.co",
       // Workers and blobs
       "worker-src 'self' blob:",
-      "child-src 'self' blob: https://*.supabase.co https://storage.imtehan.com",
+      "child-src 'self' blob: https://*.supabase.co",
       // Object/Embed for PDF plugins
-      "object-src 'self' https://*.supabase.co https://storage.imtehan.com blob:",
+      "object-src 'self' https://*.supabase.co blob:",
       // Media sources for PDFs
-      "media-src 'self' https://*.supabase.co https://storage.imtehan.com blob:",
+      "media-src 'self' https://*.supabase.co blob:",
       // Prevent embedding in iframes
       "frame-ancestors 'none'",
       // Base URI: only self

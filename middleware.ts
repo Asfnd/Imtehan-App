@@ -268,10 +268,10 @@ export default async function middleware(request: NextRequest) {
     response.headers.set('Expires', new Date(Date.now() + 2592000000).toUTCString())
   }
 
-  // Preconnect to Supabase and custom storage for faster API/PDF calls
+  // Preconnect to Supabase for faster API/PDF calls
   response.headers.set(
     'Link',
-    '<https://qsrkkvrrxorbgvbgekew.supabase.co>; rel=preconnect; crossorigin, <https://storage.imtehan.com>; rel=preconnect; crossorigin'
+    '<https://qsrkkvrrxorbgvbgekew.supabase.co>; rel=preconnect; crossorigin'
   )
 
   return response
