@@ -175,7 +175,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                   <div className="mt-2">
                     {isPremium ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-semibold">
-                        ✨ Premium Account
+                         Premium Account
                       </span>
                     ) : (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded bg-gray-100 text-gray-600 text-xs font-medium">

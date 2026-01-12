@@ -261,15 +261,17 @@ export default async function middleware(request: NextRequest) {
 
   // OPTIMIZATION: Cache PDF files for 30 days in browser
   // Returning users get instant PDF loads from local cache
-  if (pathname.includes('/storage/v1/object/public/css-past-papers') || pathname.includes('/storage/v1/object/public/css-solved-papers')) {
+  if (pathname.includes('/storage/v1/object/public/css-past-papers') ||
+      pathname.includes('/storage/v1/object/public/css-solved-papers') ||
+      pathname.includes('/storage/v1/object/public/css-guess-papers')) {
     response.headers.set('Cache-Control', 'public, max-age=2592000, immutable') // 30 days
     response.headers.set('Expires', new Date(Date.now() + 2592000000).toUTCString())
   }
-  
-  // Preconnect to Supabase for faster API calls
+
+  // Preconnect to Supabase and custom storage for faster API/PDF calls
   response.headers.set(
     'Link',
-    '<https://qsrkkvrrxorbgvbgekew.supabase.co>; rel=preconnect; crossorigin'
+    '<https://qsrkkvrrxorbgvbgekew.supabase.co>; rel=preconnect; crossorigin, <https://storage.imtehan.com>; rel=preconnect; crossorigin'
   )
 
   return response
