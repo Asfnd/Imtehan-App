@@ -6,8 +6,8 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      // Script sources: self + Google Analytics + Vercel analytics + trusted CDNs
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com https://cdnjs.cloudflare.com",
+      // Script sources: self + Google Analytics + Vercel analytics + trusted CDNs + eval for PDF.js
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com https://cdnjs.cloudflare.com",
       // Style: self + unsafe-inline (needed for Tailwind CSS)
       "style-src 'self' 'unsafe-inline'",
       // Images: self, data URIs, HTTPS, blobs, and Google profile pictures
@@ -15,17 +15,17 @@ const securityHeaders = [
       // Fonts: self and data URIs
       "font-src 'self' data:",
       // API connections to Supabase
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com",
-      // Frames: self + Supabase storage (for PDF viewer iframes)
-      "frame-src 'self' https://*.supabase.co",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com blob: data:",
+      // Frames: self + Supabase storage + blob (for PDF viewer iframes)
+      "frame-src 'self' https://*.supabase.co blob: data:",
       // Workers and blobs
       "worker-src 'self' blob:",
       "child-src 'self' blob: https://*.supabase.co",
-      // Object/Embed for PDF plugins
-      "object-src 'self' https://*.supabase.co blob:",
+      // Object/Embed for PDF plugins - allow all for browser PDF viewer
+      "object-src 'self' https://*.supabase.co blob: data:",
       // Media sources for PDFs
-      "media-src 'self' https://*.supabase.co blob:",
-      // Prevent embedding in iframes
+      "media-src 'self' https://*.supabase.co blob: data:",
+      // Prevent embedding in iframes from external sites
       "frame-ancestors 'none'",
       // Base URI: only self
       "base-uri 'self'",
