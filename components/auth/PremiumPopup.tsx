@@ -90,7 +90,7 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
               <p className="text-center text-sm text-gray-600 mb-1">Starting at</p>
               <p className="text-center text-3xl font-bold text-gray-900">
-                Rs. 999
+                Rs. 1,499
                 <span className="text-sm font-normal text-gray-500">/6 months</span>
               </p>
               <p className="text-center text-xs text-gray-500 mt-1">Save more with yearly plan</p>

@@ -43,10 +43,9 @@ const securityHeaders = [
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
   },
-  {
-    key: 'X-Frame-Options',
-    value: 'DENY',
-  },
+  // SECURITY: X-Frame-Options removed - PDFs served via same-origin proxy (localhost:3000/api/pdf/proxy)
+  // This allows iframes to embed the proxied PDFs without cross-origin restrictions
+  // Original X-Frame-Options: DENY has been replaced with CSP frame-ancestors 'none' for better control
   {
     key: 'X-Content-Type-Options',
     value: 'nosniff',
@@ -253,9 +252,28 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // PDF proxy route - CRITICAL: No X-Frame-Options to allow iframe embedding
       {
-        source: '/:path*',
-        headers: securityHeaders, // Include all security headers including CSP
+        source: '/api/pdf/proxy',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, OPTIONS',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // 1 year
+          },
+          // IMPORTANT: Do NOT set X-Frame-Options here - API route handles it
+        ],
+      },
+      {
+        source: '/:path((?!api/pdf/proxy).*)',  // Exclude /api/pdf/proxy from security headers
+        headers: securityHeaders,
       },
       // Cache static assets (JS, CSS, images)
       {
@@ -277,9 +295,9 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache API routes with shorter duration
+      // Cache API routes with shorter duration (except PDF proxy)
       {
-        source: '/api/:path*',
+        source: '/api/:path((?!pdf/proxy).*)*',
         headers: [
           {
             key: 'Cache-Control',

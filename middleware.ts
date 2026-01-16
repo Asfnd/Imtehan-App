@@ -17,7 +17,7 @@ const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
 
 function checkRateLimit(identifier: string): boolean {
   const now = Date.now()
-  const limit = 30 // requests
+  const limit = 10 // requests
   const window = 10000 // 10 seconds
 
   const record = rateLimitMap.get(identifier)
@@ -241,9 +241,12 @@ export default async function middleware(request: NextRequest) {
   // Performance headers
   response.headers.set('X-DNS-Prefetch-Control', 'on')
   response.headers.set('X-Content-Type-Options', 'nosniff')
-  
+
   // Anti-scraping and security headers
-  response.headers.set('X-Frame-Options', 'SAMEORIGIN') // Prevent iframe embedding
+  // CRITICAL: Skip X-Frame-Options for PDF proxy to allow iframe embedding
+  if (!pathname.startsWith('/api/pdf/proxy')) {
+    response.headers.set('X-Frame-Options', 'SAMEORIGIN') // Prevent iframe embedding
+  }
   response.headers.set('X-XSS-Protection', '1; mode=block') // XSS protection
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin') // Hide referrer
   response.headers.set('Permissions-Policy', 'interest-cohort=()') // Disable FLoC tracking

@@ -57,12 +57,12 @@ export default function PremiumPage() {
 
               <div className="mb-5">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">Rs. 499</span>
+                  <span className="text-3xl font-bold text-gray-900">Rs. 999</span>
                 </div>
-                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 1,050</p>
+                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 1,500</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-green-600 font-semibold">Save Rs. 550</p>
-                  <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">52% OFF</span>
+                  <p className="text-xs text-green-600 font-semibold">Save Rs. 501</p>
+                  <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">33% OFF</span>
                 </div>
               </div>
 
@@ -117,12 +117,12 @@ export default function PremiumPage() {
 
               <div className="mb-5">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">Rs. 1,499</span>
+                  <span className="text-3xl font-bold text-gray-900">Rs. 1,999</span>
                 </div>
-                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 4,200</p>
+                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 4,500</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-blue-600 font-semibold">Save Rs. 2,701</p>
-                  <span className="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-xs font-bold">64% OFF</span>
+                  <p className="text-xs text-blue-600 font-semibold">Save Rs. 2,501</p>
+                  <span className="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-xs font-bold">67% OFF</span>
                 </div>
               </div>
 
@@ -169,12 +169,12 @@ export default function PremiumPage() {
 
               <div className="mb-5">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">Rs. 999</span>
+                  <span className="text-3xl font-bold text-gray-900">Rs. 1,499</span>
                 </div>
-                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 2,100</p>
+                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 3,000</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-green-600 font-semibold">Save Rs. 1,101</p>
-                  <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">52% OFF</span>
+                  <p className="text-xs text-green-600 font-semibold">Save Rs. 1,501</p>
+                  <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">50% OFF</span>
                 </div>
               </div>
 
@@ -234,10 +234,10 @@ export default function PremiumPage() {
                     <p className="font-semibold text-gray-900 mb-3">Transfer Payment</p>
 
                     {/* Bank Transfer Card */}
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-3 hover:border-blue-200 transition-colors">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition-colors">
                       <div className="flex items-center justify-between mb-3">
                         <p className="text-sm font-semibold text-gray-700">United Bank Limited (UBL)</p>
-                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">Recommended</span>
+                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">Bank Transfer</span>
                       </div>
                       <div className="space-y-2.5">
                         {/* IBAN */}
@@ -282,37 +282,6 @@ export default function PremiumPage() {
                         <div>
                           <p className="text-xs text-gray-500 mb-0.5">Account Title</p>
                           <p className="text-sm font-medium text-gray-900">Asfandiyar Safi</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* EasyPaisa Card */}
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition-colors">
-                      <p className="text-sm font-semibold text-gray-700 mb-2.5">EasyPaisa</p>
-                      <div className="space-y-2.5">
-                        {/* Account Number */}
-                        <div className="flex items-center justify-between group">
-                          <div className="flex-1">
-                            <p className="text-xs text-gray-500 mb-0.5">Account Number</p>
-                            <p className="text-base font-medium text-gray-900 tracking-wide">03044244421</p>
-                          </div>
-                          <button
-                            onClick={() => copyToClipboard('03044244421', 'easypaisa')}
-                            className="ml-3 p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
-                            title="Copy EasyPaisa Number"
-                          >
-                            {copiedField === 'easypaisa' ? (
-                              <CheckCircle2 className="w-4 h-4 text-green-600" />
-                            ) : (
-                              <Copy className="w-4 h-4 text-gray-400 group-hover:text-blue-500" />
-                            )}
-                          </button>
-                        </div>
-
-                        {/* Account Title */}
-                        <div>
-                          <p className="text-xs text-gray-500 mb-0.5">Account Title</p>
-                          <p className="text-sm font-medium text-gray-900">Asfand Yar Safi</p>
                         </div>
                       </div>
                     </div>

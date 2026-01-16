@@ -26,11 +26,11 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How do I activate my Premium subscription?",
-    answer: "After making payment via bank transfer or EasyPaisa, send your payment screenshot along with your registered email to our WhatsApp number. We'll activate your premium account within 30 minutes during working hours (9 AM - 11 PM)."
+    answer: "After making payment via UBL bank transfer, send your payment screenshot along with your registered email to our WhatsApp number. We'll activate your premium account within 30 minutes during working hours (9 AM - 11 PM)."
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We accept payments through UBL Bank transfer (IBAN: PK16UNIL0109000339614961) and EasyPaisa (0304-4244421). Simply transfer the amount and send the screenshot via WhatsApp to +92 326 7426824."
+    answer: "We accept payments through UBL Bank transfer only. Use IBAN: PK16UNIL0109000339614961 or Account Number: 7804339614961. Simply transfer the amount and send the screenshot via WhatsApp to +92 326 7426824."
   },
   {
     question: "Can I cancel my Premium subscription?",
