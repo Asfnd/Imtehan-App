@@ -14,7 +14,8 @@ const R2_CONFIG = {
     publicR2: `https://pub-b79915de15ce4fb583c638c3c7043a1f.r2.dev`,
   },
   get baseUrl() {
-    return this.urls.customDomain || this.urls.directR2
+    // Fallback to public R2 if custom domain not set (temporary during migration)
+    return this.urls.customDomain || this.urls.publicR2
   }
 }
 

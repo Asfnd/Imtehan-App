@@ -5,7 +5,8 @@ import { NextRequest, NextResponse } from 'next/server'
  */
 
 const ALLOWED_DOMAINS = [
-  'https://www.imtehan.com',
+  'https://cdn.imtehan.com',
+  'https://www.imtehan.com', // Legacy support during migration
   'https://67225b43c28cc0f6b36a9d5c5ad11b31.r2.cloudflarestorage.com',
   'https://pub-b79915de15ce4fb583c638c3c7043a1f.r2.dev',
 ]
