@@ -295,11 +295,21 @@ export function SidebarCategoryToggle({
       hoverGradient: 'hover:from-blue-100 hover:to-cyan-100',
       textColor: 'text-blue-700',
       borderColor: 'border-blue-200 hover:border-blue-300'
+    },
+    {
+      key: 'idioms' as CategoryFilter,
+      label: 'Idioms',
+      count: categoryCounts.idioms,
+      activeGradient: 'bg-gradient-to-r from-emerald-600 to-teal-600',
+      inactiveGradient: 'bg-gradient-to-r from-emerald-50 to-teal-50',
+      hoverGradient: 'hover:from-emerald-100 hover:to-teal-100',
+      textColor: 'text-emerald-700',
+      borderColor: 'border-emerald-200 hover:border-emerald-300'
     }
   ]
 
   return (
-    <div className={`flex gap-2 ${className}`}>
+    <div className={`grid grid-cols-2 gap-2 ${className}`}>
       {buttons.map((button) => {
         const isActive = activeCategory === button.key
         return (
@@ -308,7 +318,7 @@ export function SidebarCategoryToggle({
             onClick={() => onCategoryChange(button.key)}
             className={`
               flex flex-col items-center justify-center px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-200
-              hover:scale-[1.02] active:scale-[0.98] group relative overflow-hidden border-2 flex-1
+              hover:scale-[1.02] active:scale-[0.98] group relative overflow-hidden border-2
               ${isActive
                 ? `${button.activeGradient} text-white shadow-lg border-transparent`
                 : `${button.inactiveGradient} ${button.hoverGradient} ${button.textColor} ${button.borderColor} shadow-sm hover:shadow-md`
