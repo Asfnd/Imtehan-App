@@ -11,7 +11,7 @@ const R2_CONFIG = {
       ? `https://${process.env.NEXT_PUBLIC_R2_CUSTOM_DOMAIN}`
       : null,
     directR2: `https://67225b43c28cc0f6b36a9d5c5ad11b31.r2.cloudflarestorage.com`,
-    publicR2: `https://pub-67225b43c28cc0f6b36a9d5c5ad11b31.r2.dev`,
+    publicR2: `https://pub-b79915de15ce4fb583c638c3c7043a1f.r2.dev`,
   },
   get baseUrl() {
     return this.urls.customDomain || this.urls.directR2
