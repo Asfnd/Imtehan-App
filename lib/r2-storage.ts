@@ -28,7 +28,13 @@ function encodePathSegment(segment: string): string {
 export function getR2PastPaperUrl(subject: string, year: number, filename: string): string {
   const encodedSubject = encodePathSegment(subject)
   const encodedFilename = encodePathSegment(filename)
-  return `${R2_CONFIG.baseUrl}/${encodedSubject}/${year}/${encodedFilename}`
+  const url = `${R2_CONFIG.baseUrl}/${encodedSubject}/${year}/${encodedFilename}`
+  console.log('📦 Generated R2 URL:', url)
+  console.log('   Base URL:', R2_CONFIG.baseUrl)
+  console.log('   Subject:', subject, '→', encodedSubject)
+  console.log('   Year:', year)
+  console.log('   Filename:', filename, '→', encodedFilename)
+  return url
 }
 
 export function getR2SolvedPaperUrl(filename: string): string {

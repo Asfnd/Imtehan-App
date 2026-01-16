@@ -50,8 +50,17 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Missing PDF URL' }, { status: 400 })
     }
 
+    console.log('📄 PDF Proxy Request:', pdfUrl)
+    console.log('✅ Allowed domains:', ALLOWED_DOMAINS)
+
     if (!ALLOWED_DOMAINS.some(domain => pdfUrl.startsWith(domain))) {
-      return NextResponse.json({ error: 'Invalid PDF source' }, { status: 403 })
+      console.error('❌ Invalid PDF source:', pdfUrl)
+      console.error('   Allowed:', ALLOWED_DOMAINS)
+      return NextResponse.json({
+        error: 'Invalid PDF source',
+        url: pdfUrl,
+        allowed: ALLOWED_DOMAINS
+      }, { status: 403 })
     }
 
     const fetchResponse = await fetchPDFWithFallback(pdfUrl)
