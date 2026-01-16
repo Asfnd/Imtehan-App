@@ -3,7 +3,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client'
-import { useCustomStorageUrl } from '@/lib/storage-config'
+import { getR2GuessPaperUrl } from '@/lib/r2-storage'
 
 export interface GuessPaper {
   id: number
@@ -75,28 +75,16 @@ export async function getGuessPaperUrl(
       }
     }
 
-    // Get public URL from storage using the exact path from database
-    const { data: urlData } = supabase.storage
-      .from('css-guess-papers-2026')
-      .getPublicUrl(data.storage_path)
+    // Generate R2 URL using the filename from database
+    // R2 structure: Guess Papers/{filename}
+    const r2Url = getR2GuessPaperUrl(data.filename)
 
-    if (!urlData?.publicUrl) {
-      console.error('❌ Failed to get public URL')
-      return {
-        success: false,
-        error: `Failed to generate URL for ${subject}`
-      }
-    }
-
-    // Convert to custom storage domain (storage.imtehan.com)
-    const finalUrl = useCustomStorageUrl(urlData.publicUrl)
-
-    console.log(`✅ Found guess paper: ${data.storage_path}`)
-    console.log(`📦 Serving from: ${finalUrl}`)
+    console.log(`✅ Found guess paper: ${data.filename}`)
+    console.log(`📦 Serving from R2: ${r2Url}`)
 
     return {
       success: true,
-      url: finalUrl,
+      url: r2Url,
       paper: data
     }
   } catch (error) {

@@ -8,25 +8,84 @@ interface CleanPDFViewerProps {
   title?: string
   className?: string
   onLoad?: () => void
+  onError?: (error: string) => void
 }
 
-export default function CleanPDFViewer({ 
-  pdfUrl, 
+export default function CleanPDFViewer({
+  pdfUrl,
   className = '',
-  onLoad
+  onLoad,
+  onError
 }: CleanPDFViewerProps) {
   const [error, setError] = useState<string | null>(null)
   const [zoom, setZoom] = useState(100)
   const [rotation, setRotation] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [retryCount, setRetryCount] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
+  // Convert R2 URL to proxy URL
+  const getProxyUrl = (url: string): string => {
+    const encodedUrl = encodeURIComponent(url)
+    // Add cache buster for retries
+    const cacheBuster = retryCount > 0 ? `&retry=${retryCount}` : ''
+    return `/api/pdf/proxy?url=${encodedUrl}${cacheBuster}`
+  }
+
+  const proxiedPdfUrl = getProxyUrl(pdfUrl)
+
+  // Retry loading the PDF
+  const handleRetry = () => {
+    setError(null)
+    setIsLoading(true)
+    setRetryCount(prev => prev + 1)
+  }
+
+  // Monitor iframe loading with error handling
   useEffect(() => {
-    if (onLoad) {
-      onLoad()
+    if (!iframeRef.current) return
+
+    const iframe = iframeRef.current
+    setError(null)
+    setIsLoading(true)
+
+    const loadTimeout = setTimeout(() => {
+      if (isLoading) {
+        console.warn('⚠️  PDF loading timeout')
+        setIsLoading(false)
+        const errorMsg = 'PDF is taking longer than expected to load'
+        setError(errorMsg)
+        if (onError) onError(errorMsg)
+      }
+    }, 30000) // 30 second timeout
+
+    const handleLoad = () => {
+      console.log('✅ PDF loaded successfully')
+      setIsLoading(false)
+      clearTimeout(loadTimeout)
+      if (onLoad) onLoad()
     }
-  }, [pdfUrl, onLoad])
+
+    const handleError = () => {
+      console.error('❌ Failed to load PDF iframe')
+      setIsLoading(false)
+      clearTimeout(loadTimeout)
+      const errorMsg = 'Failed to load PDF. The file may be temporarily unavailable.'
+      setError(errorMsg)
+      if (onError) onError(errorMsg)
+    }
+
+    iframe.addEventListener('load', handleLoad)
+    iframe.addEventListener('error', handleError)
+
+    return () => {
+      clearTimeout(loadTimeout)
+      iframe.removeEventListener('load', handleLoad)
+      iframe.removeEventListener('error', handleError)
+    }
+  }, [pdfUrl, retryCount, onLoad, onError])
 
   const toggleFullscreen = async () => {
     try {
@@ -55,119 +114,53 @@ export default function CleanPDFViewer({
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
   }, [])
 
-  // Comprehensive protection against downloads and printing
-  useEffect(() => {
-    const blockRightClick = (e: MouseEvent) => {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
-    const blockKeyboardShortcuts = (e: KeyboardEvent) => {
-      // Block Ctrl+S, Cmd+S (Save)
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-        e.preventDefault()
-        e.stopPropagation()
-        return false
-      }
-      // Block Ctrl+P, Cmd+P (Print)
-      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-        e.preventDefault()
-        e.stopPropagation()
-        return false
-      }
-      // Block F12, Ctrl+Shift+I, Cmd+Option+I (DevTools)
-      if (
-        e.key === 'F12' ||
-        ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') ||
-        ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'i')
-      ) {
-        e.preventDefault()
-        e.stopPropagation()
-        return false
-      }
-      // Block Ctrl+U, Cmd+U (View Source)
-      if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
-        e.preventDefault()
-        e.stopPropagation()
-        return false
-      }
-      // Block Ctrl+Shift+C, Cmd+Option+C (Inspect Element)
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'c') {
-        e.preventDefault()
-        e.stopPropagation()
-        return false
-      }
-    }
-
-    const blockDragStart = (e: DragEvent) => {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
-    const blockCopy = (e: ClipboardEvent) => {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener('contextmenu', blockRightClick)
-      container.addEventListener('keydown', blockKeyboardShortcuts)
-      container.addEventListener('dragstart', blockDragStart)
-      container.addEventListener('copy', blockCopy)
-      container.addEventListener('cut', blockCopy)
-    }
-
-    // Global print blocking
-    const beforePrint = (e: Event) => {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
-    window.addEventListener('beforeprint', beforePrint)
-
-    return () => {
-      if (container) {
-        container.removeEventListener('contextmenu', blockRightClick)
-        container.removeEventListener('keydown', blockKeyboardShortcuts)
-        container.removeEventListener('dragstart', blockDragStart)
-        container.removeEventListener('copy', blockCopy)
-        container.removeEventListener('cut', blockCopy)
-      }
-      window.removeEventListener('beforeprint', beforePrint)
-    }
-  }, [])
-
   if (error) {
     return (
       <div className={`relative bg-gray-50 flex items-center justify-center ${className}`}>
         <div className="text-center p-8 max-w-md">
           <div className="text-red-600 mb-4 text-6xl">⚠️</div>
           <h3 className="text-xl font-bold text-red-800 mb-3">Failed to Load PDF</h3>
-          <p className="text-sm text-red-600 mb-6">{error}</p>
-          <button
-            onClick={() => {
-              setError(null)
-            }}
-            className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:shadow-lg transition-all font-semibold"
-          >
-            🔄 Try Again
-          </button>
+          <p className="text-sm text-red-600 mb-2">{error}</p>
+          {retryCount > 0 && (
+            <p className="text-xs text-gray-500 mb-4">Retry attempt: {retryCount}</p>
+          )}
+          <p className="text-xs text-gray-600 mb-6">
+            If the problem persists, the PDF may be temporarily unavailable.
+          </p>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={handleRetry}
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:shadow-lg transition-all font-semibold"
+            >
+              🔄 Try Again
+            </button>
+            <a
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold"
+            >
+              📥 Direct Download
+            </a>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div 
-      ref={containerRef}
-      className={`relative bg-gray-900 ${className}`}
-      onContextMenu={(e) => e.preventDefault()}
-    >
+    <div ref={containerRef} className={`relative bg-gray-900 ${className}`}>
+      {/* Loading Indicator */}
+      {isLoading && (
+        <div className="absolute inset-0 z-50 bg-gray-900/95 flex items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mb-4"></div>
+            <p className="text-white text-lg font-semibold">Loading PDF...</p>
+            <p className="text-gray-400 text-sm mt-2">This may take a moment</p>
+          </div>
+        </div>
+      )}
+
       <div className="absolute top-4 right-4 z-40 flex gap-2">
         <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-xl flex items-center gap-1 p-1 border border-gray-200">
           <button
@@ -220,37 +213,8 @@ export default function CleanPDFViewer({
         </button>
       </div>
 
-      <div 
-        className="w-full h-full bg-gray-800 flex items-start justify-center p-4 relative"
-        style={{ overflow: 'hidden' }}
-        onContextMenu={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          return false
-        }}
-      >
-          {/* Scrollable container */}
-          <div 
-            className="absolute inset-0 overflow-auto"
-            style={{ padding: '1rem', zIndex: 10 }}
-            onContextMenu={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              return false
-            }}
-            onMouseDown={(e) => {
-              if (e.button === 2) {
-                e.preventDefault()
-                e.stopPropagation()
-                return false
-              }
-            }}
-            onDragStart={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              return false
-            }}
-          >
+      <div className="w-full h-full bg-gray-800 flex items-start justify-center p-4 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-auto" style={{ padding: '1rem', zIndex: 10 }}>
           <div
             style={{
               transform: `scale(${zoom / 100}) rotate(${rotation}deg)`,
@@ -258,61 +222,21 @@ export default function CleanPDFViewer({
               transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               width: '100%',
               minHeight: '100vh',
-              position: 'relative'
-            }}
-            onContextMenu={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              return false
             }}
           >
             <iframe
               ref={iframeRef}
-              src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
+              src={`${proxiedPdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
               className="w-full border-0 bg-white shadow-2xl"
-              style={{ 
+              style={{
                 display: 'block',
                 height: '100vh',
-                pointerEvents: 'auto',
-                touchAction: 'pan-x pan-y pinch-zoom'
               }}
               title="PDF Viewer"
-              onContextMenu={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                return false
-              }}
             />
           </div>
         </div>
       </div>
-      
-      <style jsx global>{`
-        iframe::-webkit-pdf-viewer-toolbar {
-          display: none !important;
-        }
-        iframe {
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        @media print {
-          body * {
-            visibility: hidden !important;
-          }
-          body::before {
-            content: "Printing is disabled for this content" !important;
-            visibility: visible !important;
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            font-size: 24px !important;
-            color: #000 !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

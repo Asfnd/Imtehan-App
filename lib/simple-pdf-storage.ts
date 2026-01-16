@@ -4,7 +4,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client'
-import { useCustomStorageUrl } from '@/lib/storage-config'
+import { getR2PastPaperUrl, getR2SolvedPaperUrl } from '@/lib/r2-storage'
 
 export interface PastPaper {
   id: number
@@ -112,22 +112,9 @@ export async function getPDFUrl(
       }
     }
     
-    // Get public URL from storage using the exact path from database
-    // Using getPublicUrl instead of createSignedUrl for public bucket access
-    const { data: urlData } = supabase.storage
-      .from('css-past-papers')
-      .getPublicUrl(data.storage_path)
-
-    if (!urlData?.publicUrl) {
-      console.error('❌ Failed to get public URL')
-      return {
-        success: false,
-        error: `Failed to generate URL for ${subject} (${year})`
-      }
-    }
-
-    // Convert to custom storage domain (storage.imtehan.com)
-    const finalUrl = useCustomStorageUrl(urlData.publicUrl)
+    // Generate R2 URL using subject, year, and filename
+    // R2 structure: {subject}/{year}/{filename}
+    const r2Url = getR2PastPaperUrl(data.subject, data.year, data.filename)
 
     // Increment download count
     await supabase
@@ -135,12 +122,12 @@ export async function getPDFUrl(
       .update({ download_count: data.download_count + 1 })
       .eq('id', data.id)
 
-    console.log(`✅ Found PDF: ${data.storage_path}`)
-    console.log(`📦 Serving from: ${finalUrl}`)
+    console.log(`✅ Found PDF: ${data.filename}`)
+    console.log(`📦 Serving from R2: ${r2Url}`)
 
     return {
       success: true,
-      url: finalUrl, // Now uses storage.imtehan.com
+      url: r2Url, // Now served from Cloudflare R2
       paper: data
     }
   } catch (error) {
@@ -222,47 +209,36 @@ export async function checkDatabaseStatus(): Promise<{
 }
 
 /**
- * Get Solved Paper URL from storage
- * Solved papers are stored directly in the css-solved-papers bucket
+ * Get Solved Paper URL from R2
+ * Solved papers are stored in R2 under Solved Paper/ folder
+ * Example filename: jwt_css_solved_paper_2024.pdf
  */
 export async function getSolvedPaperUrl(
   paperId?: string
 ): Promise<{ success: boolean; url?: string; error?: string; foundAt?: string }> {
   try {
-    const supabase = createClient()
-
     console.log(`🔍 Looking up solved paper: ${paperId || 'default'}`)
 
-    // For solved papers, we use a direct storage lookup
-    // The solved papers are typically stored as PDFs in the bucket
-    const bucketName = 'css-solved-papers'
-
-    // If no paperId provided, use default or list first available
-    let storagePath = paperId ? `${paperId}.pdf` : 'solved-papers.pdf'
-
-    // Get public URL from storage
-    const { data: urlData } = supabase.storage
-      .from(bucketName)
-      .getPublicUrl(storagePath)
-
-    if (!urlData?.publicUrl) {
-      console.error('❌ Failed to get public URL for solved paper')
-      return {
-        success: false,
-        error: `Failed to generate URL for solved paper`
-      }
+    // Map paper IDs to actual filenames in R2
+    const paperFiles: Record<string, string> = {
+      '1': 'jwt_css_solved_paper_2024.pdf',
+      'jwt_2024': 'jwt_css_solved_paper_2024.pdf',
+      'default': 'jwt_css_solved_paper_2024.pdf',
     }
 
-    // Convert to custom storage domain (storage.imtehan.com)
-    const finalUrl = useCustomStorageUrl(urlData.publicUrl)
+    // Get filename - use paperId if provided, otherwise default
+    const filename = paperId ? (paperFiles[paperId] || paperFiles['default']) : paperFiles['default']
 
-    console.log(`✅ Found solved paper: ${storagePath}`)
-    console.log(`📦 Serving from: ${finalUrl}`)
+    // Generate R2 URL
+    const r2Url = getR2SolvedPaperUrl(filename)
+
+    console.log(`✅ Found solved paper: ${filename}`)
+    console.log(`📦 Serving from R2: ${r2Url}`)
 
     return {
       success: true,
-      url: finalUrl,
-      foundAt: storagePath
+      url: r2Url,
+      foundAt: `Solved Paper/${filename}`
     }
   } catch (error) {
     console.error('❌ Error:', error)
