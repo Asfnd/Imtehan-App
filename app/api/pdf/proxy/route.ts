@@ -5,14 +5,20 @@ import { NextRequest, NextResponse } from 'next/server'
  */
 
 const ALLOWED_DOMAINS = [
-  'https://www.imtehan.com/',
-  'https://67225b43c28cc0f6b36a9d5c5ad11b31.r2.cloudflarestorage.com/',
-  'https://pub-67225b43c28cc0f6b36a9d5c5ad11b31.r2.dev/',
+  'https://www.imtehan.com',
+  'https://67225b43c28cc0f6b36a9d5c5ad11b31.r2.cloudflarestorage.com',
+  'https://pub-67225b43c28cc0f6b36a9d5c5ad11b31.r2.dev',
 ]
 
 function extractPath(url: string): string | null {
   for (const domain of ALLOWED_DOMAINS) {
-    if (url.startsWith(domain)) return url.substring(domain.length)
+    // Handle both with and without trailing slash
+    if (url.startsWith(domain + '/')) {
+      return url.substring(domain.length + 1)
+    }
+    if (url.startsWith(domain)) {
+      return url.substring(domain.length)
+    }
   }
   return null
 }
@@ -20,7 +26,13 @@ function extractPath(url: string): string | null {
 function getFallbackUrls(originalUrl: string): string[] {
   const path = extractPath(originalUrl)
   if (!path) return [originalUrl]
-  return ALLOWED_DOMAINS.map(domain => `${domain}${path}`)
+  return ALLOWED_DOMAINS.map(domain => `${domain}/${path}`)
+}
+
+function isAllowedDomain(url: string): boolean {
+  return ALLOWED_DOMAINS.some(domain => {
+    return url.startsWith(domain + '/') || url === domain
+  })
 }
 
 async function fetchPDFWithFallback(primaryUrl: string): Promise<Response> {
@@ -53,7 +65,7 @@ export async function GET(request: NextRequest) {
     console.log('📄 PDF Proxy Request:', pdfUrl)
     console.log('✅ Allowed domains:', ALLOWED_DOMAINS)
 
-    if (!ALLOWED_DOMAINS.some(domain => pdfUrl.startsWith(domain))) {
+    if (!isAllowedDomain(pdfUrl)) {
       console.error('❌ Invalid PDF source:', pdfUrl)
       console.error('   Allowed:', ALLOWED_DOMAINS)
       return NextResponse.json({
