@@ -57,7 +57,7 @@ export function SchemaInjector({ schemas }: SchemaInjectorProps) {
  *   return (
  *     <>
  *       <SchemaInjector schemas={schemas} />
- *       {/* Page content */}
+ *       Page content goes here
  *     </>
  *   )
  * }
