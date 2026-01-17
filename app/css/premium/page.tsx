@@ -1,12 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Check, Copy, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 export default function PremiumPage() {
   const [copiedField, setCopiedField] = useState<string | null>(null)
+  const paymentSectionRef = useRef<HTMLDivElement>(null)
+
+  const scrollToPayment = () => {
+    paymentSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   const copyToClipboard = async (text: string, field: string) => {
     try {
@@ -95,6 +100,7 @@ export default function PremiumPage() {
 
               <Button
                 variant="outline"
+                onClick={scrollToPayment}
                 className="w-full border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2.5"
               >
                 Select
@@ -154,6 +160,7 @@ export default function PremiumPage() {
               </ul>
 
               <Button
+                onClick={scrollToPayment}
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2.5"
               >
                 Begin CSS
@@ -207,6 +214,7 @@ export default function PremiumPage() {
 
               <Button
                 variant="outline"
+                onClick={scrollToPayment}
                 className="w-full border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2.5"
               >
                 Select
@@ -215,8 +223,8 @@ export default function PremiumPage() {
           </div>
 
           {/* Payment Instructions */}
-          <div className="max-w-3xl mx-auto mt-8">
-            <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+          <div ref={paymentSectionRef} className="max-w-3xl mx-auto mt-8">
+            <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-8 shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center">
                 How to Activate Your Premium Plan
               </h3>
@@ -226,29 +234,29 @@ export default function PremiumPage() {
 
               <div className="space-y-6">
                 {/* Step 1 - Payment */}
-                <div className="flex gap-4">
+                <div className="flex gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                     1
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900 mb-3">Transfer Payment</p>
 
                     {/* Bank Transfer Card */}
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:border-blue-200 transition-colors">
-                      <div className="flex items-center justify-between mb-3">
-                        <p className="text-sm font-semibold text-gray-700">United Bank Limited (UBL)</p>
-                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">Bank Transfer</span>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 sm:p-4 hover:border-blue-200 transition-colors overflow-hidden">
+                      <div className="flex items-center justify-between mb-3 gap-2">
+                        <p className="text-xs sm:text-sm font-semibold text-gray-700">United Bank Limited (UBL)</p>
+                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap">Bank Transfer</span>
                       </div>
                       <div className="space-y-2.5">
                         {/* IBAN */}
-                        <div className="flex items-center justify-between group">
-                          <div className="flex-1">
+                        <div className="flex items-start sm:items-center justify-between group gap-2">
+                          <div className="flex-1 min-w-0">
                             <p className="text-xs text-gray-500 mb-0.5">IBAN</p>
-                            <p className="text-base font-medium text-gray-900 tracking-wide">PK16UNIL0109000339614961</p>
+                            <p className="text-sm sm:text-base font-medium text-gray-900 tracking-wide break-all">PK16UNIL0109000339614961</p>
                           </div>
                           <button
                             onClick={() => copyToClipboard('PK16UNIL0109000339614961', 'iban')}
-                            className="ml-3 p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
+                            className="flex-shrink-0 p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
                             title="Copy IBAN"
                           >
                             {copiedField === 'iban' ? (
@@ -260,14 +268,14 @@ export default function PremiumPage() {
                         </div>
 
                         {/* Account Number */}
-                        <div className="flex items-center justify-between group">
-                          <div className="flex-1">
+                        <div className="flex items-start sm:items-center justify-between group gap-2">
+                          <div className="flex-1 min-w-0">
                             <p className="text-xs text-gray-500 mb-0.5">Account Number</p>
-                            <p className="text-base font-medium text-gray-900 tracking-wide">7804339614961</p>
+                            <p className="text-sm sm:text-base font-medium text-gray-900 tracking-wide break-all">7804339614961</p>
                           </div>
                           <button
                             onClick={() => copyToClipboard('7804339614961', 'account')}
-                            className="ml-3 p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
+                            className="flex-shrink-0 p-2 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
                             title="Copy Account Number"
                           >
                             {copiedField === 'account' ? (
@@ -279,9 +287,9 @@ export default function PremiumPage() {
                         </div>
 
                         {/* Account Title */}
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-xs text-gray-500 mb-0.5">Account Title</p>
-                          <p className="text-sm font-medium text-gray-900">Asfandiyar Safi</p>
+                          <p className="text-sm font-medium text-gray-900 break-words">Asfandiyar Safi</p>
                         </div>
                       </div>
                     </div>
@@ -289,38 +297,38 @@ export default function PremiumPage() {
                 </div>
 
                 {/* Step 2 - Send Screenshot */}
-                <div className="flex gap-4">
+                <div className="flex gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                     2
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900 mb-3">Send Payment Screenshot</p>
                     <a
                       href="https://wa.me/923267426824?text=Hi!%20I%20just%20paid%20for%20Premium%20plan.%0A%0AEmail:%20%0APlan:%20%0AAmount:%20%0A%0A(Attaching%20screenshot)"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2.5 bg-green-500 hover:bg-green-600 text-white px-6 py-3.5 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg hover:scale-105"
+                      className="inline-flex items-center gap-2 sm:gap-2.5 bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-3 sm:py-3.5 rounded-lg text-sm sm:text-base font-semibold transition-all shadow-md hover:shadow-lg hover:scale-105"
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                       </svg>
-                      <span>Send via WhatsApp</span>
+                      <span className="truncate">Send via WhatsApp</span>
                     </a>
-                    <p className="text-xs text-gray-500 mt-2.5 flex items-start gap-1.5">
-                      <svg className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <p className="text-sm sm:text-base text-gray-700 mt-2.5 flex items-start gap-1.5">
+                      <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
                       </svg>
-                      <span>Include: Your registered email, chosen plan, and payment screenshot</span>
+                      <span className="font-medium">Include: Your registered email, chosen plan, and payment screenshot</span>
                     </p>
                   </div>
                 </div>
 
                 {/* Step 3 - Activation */}
-                <div className="flex gap-4">
+                <div className="flex gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                     3
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900 mb-2">Get Instant Activation</p>
                     <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
                       <div className="flex items-start gap-2">

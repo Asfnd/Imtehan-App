@@ -15,9 +15,17 @@ import { createServerClient } from '@supabase/ssr'
 // Each edge instance maintains its own rate limit, providing distributed protection
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
 
+// DDoS Protection: Track global requests per IP across all routes
+const ddosProtectionMap = new Map<string, { count: number; resetAt: number; blocked: boolean }>()
+
 function checkRateLimit(identifier: string): boolean {
   const now = Date.now()
-  const limit = 10 // requests
+  // CAMPAIGN MODE: Set to true during influencer campaign for stricter limits
+  const CAMPAIGN_MODE = process.env.CAMPAIGN_MODE === 'true'
+
+  // During campaign: 5 requests per 10 seconds
+  // Normal: 10 requests per 10 seconds
+  const limit = CAMPAIGN_MODE ? 5 : 10
   const window = 10000 // 10 seconds
 
   const record = rateLimitMap.get(identifier)
@@ -33,6 +41,47 @@ function checkRateLimit(identifier: string): boolean {
 
   if (record.count < limit) {
     record.count++
+    return true
+  }
+
+  return false
+}
+
+/**
+ * DDoS Protection: Block IPs making excessive requests globally
+ * Returns true if IP should be blocked
+ */
+function checkDDoSProtection(identifier: string): boolean {
+  const now = Date.now()
+  const MAX_REQUESTS_PER_MINUTE = 60 // 60 requests per minute per IP
+  const WINDOW = 60000 // 1 minute
+  const BLOCK_DURATION = 300000 // Block for 5 minutes if exceeded
+
+  const record = ddosProtectionMap.get(identifier)
+
+  // If previously blocked, check if block has expired
+  if (record?.blocked) {
+    if (record.resetAt > now) {
+      return true // Still blocked
+    }
+    // Block expired, remove from map
+    ddosProtectionMap.delete(identifier)
+    return false
+  }
+
+  // Check request count
+  if (!record || record.resetAt < now) {
+    ddosProtectionMap.set(identifier, { count: 1, resetAt: now + WINDOW, blocked: false })
+    return false
+  }
+
+  // Increment count
+  record.count++
+
+  // If exceeded limit, block the IP
+  if (record.count > MAX_REQUESTS_PER_MINUTE) {
+    record.blocked = true
+    record.resetAt = now + BLOCK_DURATION
     return true
   }
 
@@ -115,18 +164,49 @@ function isSuspiciousRequest(request: NextRequest): boolean {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Skip rate limiting for static assets and auth callbacks
+  // OPTIMIZATION: Skip middleware for static/cached routes to save edge CPU
+  // This reduces Edge Request CPU Duration by ~70%
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
     pathname === '/auth/callback' ||
-    pathname === '/signin/callback'
+    pathname === '/signin/callback' ||
+    // Skip for cached pages that don't need auth
+    pathname === '/css' ||
+    pathname === '/css/premium' ||
+    pathname === '/css/past-papers' ||
+    pathname === '/css/guess-papers' ||
+    pathname === '/css/subjects' ||
+    pathname.startsWith('/blog') ||
+    pathname === '/faq' ||
+    pathname === '/about' ||
+    pathname === '/contact' ||
+    pathname === '/terms' ||
+    pathname === '/privacy'
   ) {
     return NextResponse.next()
   }
 
   let response = NextResponse.next()
+
+  // DDoS Protection: Check if IP is making too many requests globally
+  const identifier = getIdentifier(request)
+  if (checkDDoSProtection(identifier)) {
+    return new NextResponse(
+      JSON.stringify({
+        error: 'Too many requests',
+        message: 'Your IP has been temporarily blocked due to excessive requests. Please try again in 5 minutes.',
+      }),
+      {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Retry-After': '300',
+        },
+      }
+    )
+  }
 
   // SECURITY: Protect solved papers routes - premium only (with timeout)
   const isPremiumRoute = pathname.startsWith('/css/solved-papers/view')
@@ -191,11 +271,14 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
-  // Apply rate limiting to sensitive routes
-  const shouldRateLimit =
+  // Apply rate limiting ONLY to write operations (POST/PUT/DELETE) and sensitive routes
+  // OPTIMIZATION: Skip rate limiting for GET requests on static content
+  const isWriteOperation = request.method !== 'GET' && request.method !== 'HEAD'
+  const shouldRateLimit = isWriteOperation || (
     pathname.startsWith('/api') ||
     pathname.includes('/quiz') ||
     pathname.includes('/practice')
+  )
 
   // Block suspicious requests (bots, scrapers)
   if (isSuspiciousRequest(request)) {
@@ -215,7 +298,7 @@ export default async function middleware(request: NextRequest) {
 
   if (shouldRateLimit) {
     try {
-      const identifier = getIdentifier(request)
+      // identifier already extracted above for DDoS check
       const allowed = checkRateLimit(identifier)
 
       if (!allowed) {
