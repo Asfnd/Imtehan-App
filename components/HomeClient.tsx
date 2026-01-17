@@ -95,14 +95,12 @@ export function HomeClient() {
     <>
       <NavigationBar />
 
+      {/* CSS Exam Countdown - Below Nav */}
+      <CSSExamCountdown />
+
       <section className="relative bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-16 md:pt-32 md:pb-20">
           <div className="max-w-5xl mx-auto text-center">
-            {/* CSS Exam Countdown */}
-            <div className="flex justify-center mb-6">
-              <CSSExamCountdown />
-            </div>
-
             <h1 className="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight mb-8 leading-[1.2] text-black">
               <div className="text-center">Prepare for competitive exams</div>
               <div className="text-center mt-1 pl-0 sm:pl-12 md:pl-24">

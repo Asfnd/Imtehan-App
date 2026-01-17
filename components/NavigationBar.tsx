@@ -119,6 +119,22 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
 
         {/* Right Side - Desktop */}
         <div className="hidden md:flex items-center gap-3">
+          {/* Date Sheet Button (only on CSS dashboard) */}
+          {showEligibilityButton && (
+            <a
+              href="https://cdn.imtehan.com/Date%20Sheet%202026/2026-01-09-10-49-05-Date-Sheet-_-Written-CSS-CE-_-2026_compressed_compressed.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-background border hover:bg-muted rounded-lg transition-colors duration-200 font-medium text-sm whitespace-nowrap"
+              title="Download CSS 2026 Date Sheet"
+            >
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>Date Sheet</span>
+            </a>
+          )}
+
           {/* CSS Eligibility Button (only on CSS dashboard) */}
           {showEligibilityButton && (
             <button
@@ -255,6 +271,36 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                   <span>MDCAT</span>
                   <span className="text-xs bg-gray-200 px-2 py-0.5 rounded-full">Soon</span>
                 </div>
+              </div>
+            )}
+
+            {/* CSS Action Buttons (Date Sheet & Eligibility) */}
+            {showEligibilityButton && (
+              <div className="space-y-2 pb-3 border-b border-gray-100">
+                <a
+                  href="https://cdn.imtehan.com/Date%20Sheet%202026/2026-01-09-10-49-05-Date-Sheet-_-Written-CSS-CE-_-2026_compressed_compressed.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-[15px] font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Date Sheet</span>
+                </a>
+                <button
+                  onClick={() => {
+                    onEligibilityClick?.()
+                    setMobileMenuOpen(false)
+                  }}
+                  className="w-full flex items-center gap-2 px-4 py-3 text-[15px] font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Check Eligibility</span>
+                </button>
               </div>
             )}
 

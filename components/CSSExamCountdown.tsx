@@ -9,7 +9,11 @@ interface TimeLeft {
   seconds: number
 }
 
-export function CSSExamCountdown() {
+interface CSSExamCountdownProps {
+  variant?: 'home' | 'css'
+}
+
+export function CSSExamCountdown({ variant = 'home' }: CSSExamCountdownProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [mounted, setMounted] = useState(false)
 
@@ -17,8 +21,8 @@ export function CSSExamCountdown() {
     setMounted(true)
 
     const calculateTimeLeft = () => {
-      // CSS Exam: February 4, 2025 at 9:00 AM PKT
-      const examDate = new Date('2025-02-04T09:00:00+05:00')
+      // CSS Exam: February 4, 2026 at 9:00 AM PKT
+      const examDate = new Date('2026-02-04T09:00:00+05:00')
       const now = new Date()
       const difference = examDate.getTime() - now.getTime()
 
@@ -55,26 +59,65 @@ export function CSSExamCountdown() {
     return null
   }
 
+  // Different backgrounds for different pages
+  const bgClass = variant === 'css'
+    ? 'bg-gradient-to-br from-blue-50 via-white to-blue-50/30'
+    : 'bg-white'
+
   return (
-    <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-cyan-500/10 border border-purple-200/30 backdrop-blur-sm shadow-sm">
-      <span className="text-sm font-medium text-purple-700">
-        🎓 CSS 2025
-      </span>
-      <div className="h-4 w-px bg-purple-300/40"></div>
-      <div className="flex items-center gap-1.5">
-        <div className="flex items-baseline gap-0.5">
-          <span className="text-lg font-bold text-purple-900 tabular-nums">{timeLeft.days}</span>
-          <span className="text-[10px] font-medium text-purple-600">d</span>
+    <div className={`w-full ${bgClass}`}>
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        {/* CSS Exam label - Before timer */}
+        <div className="text-center mb-4">
+          <span className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">CSS 2026</span>
         </div>
-        <span className="text-purple-400">:</span>
-        <div className="flex items-baseline gap-0.5">
-          <span className="text-lg font-bold text-purple-900 tabular-nums">{String(timeLeft.hours).padStart(2, '0')}</span>
-          <span className="text-[10px] font-medium text-purple-600">h</span>
-        </div>
-        <span className="text-purple-400">:</span>
-        <div className="flex items-baseline gap-0.5">
-          <span className="text-lg font-bold text-purple-900 tabular-nums">{String(timeLeft.minutes).padStart(2, '0')}</span>
-          <span className="text-[10px] font-medium text-purple-600">m</span>
+
+        <div className="flex items-center justify-center gap-6 sm:gap-8">
+          {/* Days */}
+          <div className="flex flex-col items-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tabular-nums">
+              {timeLeft.days}
+            </div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-gray-500 font-medium mt-1 uppercase tracking-wide">
+              DAYS
+            </div>
+          </div>
+
+          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-300">:</div>
+
+          {/* Hours */}
+          <div className="flex flex-col items-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tabular-nums">
+              {String(timeLeft.hours).padStart(2, '0')}
+            </div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-gray-500 font-medium mt-1 uppercase tracking-wide">
+              HOURS
+            </div>
+          </div>
+
+          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-300">:</div>
+
+          {/* Minutes */}
+          <div className="flex flex-col items-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tabular-nums">
+              {String(timeLeft.minutes).padStart(2, '0')}
+            </div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-gray-500 font-medium mt-1 uppercase tracking-wide">
+              MINUTES
+            </div>
+          </div>
+
+          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-300">:</div>
+
+          {/* Seconds */}
+          <div className="flex flex-col items-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tabular-nums">
+              {String(timeLeft.seconds).padStart(2, '0')}
+            </div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-gray-500 font-medium mt-1 uppercase tracking-wide">
+              SECONDS
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -89,7 +132,8 @@ export function CSSExamCountdownSimple() {
     setMounted(true)
 
     const calculateDays = () => {
-      const examDate = new Date('2025-02-04T09:00:00+05:00')
+      // CSS Exam: February 4, 2026 at 9:00 AM PKT
+      const examDate = new Date('2026-02-04T09:00:00+05:00')
       const now = new Date()
       const difference = examDate.getTime() - now.getTime()
 
@@ -112,7 +156,7 @@ export function CSSExamCountdownSimple() {
 
   return (
     <span className="text-sm text-gray-600">
-      📅 CSS 2025 Exam in <span className="font-semibold text-purple-600">{days} days</span>
+      CSS 2026 Exam in <span className="font-semibold text-black">{days} days</span>
     </span>
   )
 }

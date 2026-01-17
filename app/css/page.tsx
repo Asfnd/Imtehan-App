@@ -11,6 +11,7 @@ import type { UserStats, TodaysRecommendation as RecommendationType, WeakSubject
 import dynamic from 'next/dynamic'
 import NavigationBar from '@/components/NavigationBar'
 import { CourseSchema } from '@/components/seo/StructuredData'
+import { CSSExamCountdown } from '@/components/CSSExamCountdown'
 
 // Lazy load compact info bar component
 const CompactInfoBar = dynamic(() => import('@/components/analytics/CompactInfoBar'), {
@@ -234,6 +235,9 @@ function DashboardContent() {
         onEligibilityClick={() => setShowEligibilityChecker(true)}
         showCenterNav={false}
       />
+
+      {/* CSS Exam Countdown */}
+      <CSSExamCountdown variant="css" />
 
       {/* Main Content Area */}
       <div className="flex-1 py-8 md:py-16 bg-gradient-to-br from-blue-50 via-white to-blue-50/30">
