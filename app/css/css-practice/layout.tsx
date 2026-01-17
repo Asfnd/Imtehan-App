@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
   title: 'CSS Practice Tests - 10,000+ MCQs by Subject | Imtehan',
@@ -25,5 +26,14 @@ export default function CSSPracticeLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <SchemaRenderer pageType="practice" breadcrumbs={[
+        { name: 'Home', url: 'https://imtehan.com' },
+        { name: 'CSS Preparation', url: 'https://imtehan.com/css' },
+        { name: 'Practice Tests', url: 'https://imtehan.com/css/css-practice' },
+      ]} />
+      {children}
+    </>
+  )
 }

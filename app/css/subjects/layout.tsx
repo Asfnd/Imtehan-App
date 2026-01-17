@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
   title: 'CSS MCQs Practice - 40+ Subjects | Imtehan',
@@ -24,5 +25,14 @@ export default function SubjectsLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <SchemaRenderer pageType="subjects" breadcrumbs={[
+        { name: 'Home', url: 'https://imtehan.com' },
+        { name: 'CSS Preparation', url: 'https://imtehan.com/css' },
+        { name: 'Subjects MCQs', url: 'https://imtehan.com/css/subjects' },
+      ]} />
+      {children}
+    </>
+  )
 }

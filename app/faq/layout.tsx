@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | Imtehan',
@@ -19,5 +20,13 @@ export default function FAQLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <SchemaRenderer breadcrumbs={[
+        { name: 'Home', url: 'https://imtehan.com' },
+        { name: 'FAQ', url: 'https://imtehan.com/faq' },
+      ]} />
+      {children}
+    </>
+  )
 }

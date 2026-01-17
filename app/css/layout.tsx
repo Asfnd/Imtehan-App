@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
   title: 'CSS Exam Preparation - MCQs, Past Papers & More | Imtehan',
@@ -24,5 +25,13 @@ export default function CSSLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <SchemaRenderer pageType="css-hub" breadcrumbs={[
+        { name: 'Home', url: 'https://imtehan.com' },
+        { name: 'CSS Preparation', url: 'https://imtehan.com/css' },
+      ]} />
+      {children}
+    </>
+  )
 }

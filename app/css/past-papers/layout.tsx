@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
   title: 'CSS Past Papers 2015-2023 with Solutions | Imtehan',
@@ -25,5 +26,14 @@ export default function PastPapersLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      <SchemaRenderer pageType="past-papers" breadcrumbs={[
+        { name: 'Home', url: 'https://imtehan.com' },
+        { name: 'CSS Preparation', url: 'https://imtehan.com/css' },
+        { name: 'Past Papers', url: 'https://imtehan.com/css/past-papers' },
+      ]} />
+      {children}
+    </>
+  )
 }
