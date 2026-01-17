@@ -8,6 +8,7 @@ import ProtectedContent from '@/components/security/ProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
+import { CSSExamCountdownSimple } from '@/components/CSSExamCountdown'
 
 export default function CSSPracticeMain() {
   const router = useRouter()
@@ -90,6 +91,11 @@ export default function CSSPracticeMain() {
           {/* Main Content */}
           <div className="flex-1 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto">
+              {/* CSS Exam Countdown */}
+              <div className="flex justify-center mb-8">
+                <CSSExamCountdownSimple />
+              </div>
+
               {/* Practice Cards */}
               <div className="flex justify-center">
                 {practiceTypes.map((type) => {
