@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/StructuredData"
+import GoogleAnalytics from "@/components/GoogleAnalytics"
 import "./globals.css"
 
 const inter = Inter({
@@ -98,6 +99,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <GoogleAnalytics />
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
