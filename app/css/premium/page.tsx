@@ -62,9 +62,9 @@ export default function PremiumPage() {
 
               <div className="mb-5">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">Rs. 999</span>
+                  <span className="text-3xl font-bold text-gray-900">Rs. 1,999</span>
                 </div>
-                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 1,500</p>
+                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 2,500</p>
                 <div className="flex items-center gap-2">
                   <p className="text-xs text-green-600 font-semibold">Save Rs. 501</p>
                   <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">33% OFF</span>
@@ -123,11 +123,11 @@ export default function PremiumPage() {
 
               <div className="mb-5">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">Rs. 1,999</span>
+                  <span className="text-3xl font-bold text-gray-900">Rs. 3,999</span>
                 </div>
-                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 4,500</p>
+                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 5,500</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-blue-600 font-semibold">Save Rs. 2,501</p>
+                  <p className="text-xs text-blue-600 font-semibold">Save Rs. 1,501</p>
                   <span className="bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-xs font-bold">67% OFF</span>
                 </div>
               </div>
@@ -176,11 +176,11 @@ export default function PremiumPage() {
 
               <div className="mb-5">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">Rs. 1,499</span>
+                  <span className="text-3xl font-bold text-gray-900">Rs. 2,999</span>
                 </div>
-                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 3,000</p>
+                <p className="text-xs text-gray-400 line-through mb-1">Regular Rs. 4,000</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-green-600 font-semibold">Save Rs. 1,501</p>
+                  <p className="text-xs text-green-600 font-semibold">Save Rs. 1,001</p>
                   <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-bold">50% OFF</span>
                 </div>
               </div>
