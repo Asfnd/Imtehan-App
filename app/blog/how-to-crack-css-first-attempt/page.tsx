@@ -1,137 +1,224 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, User, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
-import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import BlogPostShell, { extractHeadings } from '@/components/blog/BlogPostShell'
+import type { RelatedPost } from '@/components/blog/BlogPostShell'
 
 export const metadata: Metadata = {
-  title: 'How to Crack CSS in First Attempt: Insider Tips | Imtehan',
-  description: 'Proven strategies from top CSS officers on how to successfully pass CSS exam in your first attempt with smart preparation and time management.',
+  title: 'How to Crack CSS in First Attempt: Insider Secrets | Imtehan',
+  description: 'Real strategies from CSS toppers. Not motivation, tactics. Why most candidates fail and what winners do differently.',
   alternates: {
     canonical: 'https://imtehan.com/blog/how-to-crack-css-first-attempt',
   },
   openGraph: {
     title: 'How to Crack CSS in First Attempt',
-    description: 'Insider strategies to pass CSS exam on first try.',
+    description: 'Proven strategies from CSS toppers that actually work.',
     url: 'https://imtehan.com/blog/how-to-crack-css-first-attempt',
     type: 'article',
-    publishedTime: '2024-12-29T00:00:00Z',
+    publishedTime: '2025-02-14T00:00:00Z',
   },
 }
 
-const content = `Only 10% of CSS candidates succeed in their first attempt. Success requires smart strategy, consistency, and resilience. This guide reveals insider tips from successful CSS officers on achieving first-attempt success.
+const RELATED_POSTS: RelatedPost[] = [
+  { slug: 'css-optional-subjects-guide', title: 'How to Choose CSS Optional Subjects', date: 'Feb 15, 2025', category: 'Strategy' },
+  { slug: 'css-time-management-3-hour-mcq-exam', title: 'CSS Time Management During MCQ Exam: 3 Hours Strategy', date: 'Jan 3, 2026', category: 'Strategy' },
+  { slug: 'css-exam-preparation-guide-2025', title: 'Complete CSS Exam Preparation Guide 2025', date: 'Jan 2, 2025', category: 'Guide' },
+]
 
-## The First Attempt Advantage
+const TAGS = ['CSS Exam', 'First Attempt', 'Success Tips', 'Insider Secrets', 'Preparation']
 
-Passing on first attempt:
-- Saves 1-2 years of your life
-- Builds confidence early
-- Positions you ahead of peers
-- Increases interview chances
-- Reduces overall stress
+function renderContent(raw: string) {
+  const paragraphs = raw.split('\n\n')
+  let isFirstParagraph = true
 
-## Realistic Preparation Timeline
+  return paragraphs.map((block, idx) => {
+    const trimmed = block.trim()
+    if (!trimmed) return null
 
-Month 1-2: Foundation building and syllabus understanding
-Month 3-4: Active learning with MCQs and essays
-Month 5-6: Intensive practice and mock tests
+    if (trimmed.startsWith('## ')) {
+      const text = trimmed.replace(/^## /, '')
+      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h2 key={idx} id={id}>{text}</h2>
+    }
 
-## The Success Formula
+    if (trimmed.startsWith('### ')) {
+      const text = trimmed.replace(/^### /, '')
+      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h3 key={idx} id={id}>{text}</h3>
+    }
 
-Smart preparation (70%), Consistency (20%), Mental toughness (10%)
+    if (trimmed.startsWith('> ')) {
+      return (
+        <blockquote key={idx}>
+          <p dangerouslySetInnerHTML={{ __html: trimmed.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+        </blockquote>
+      )
+    }
 
-## Critical Success Factors
+    if (trimmed.startsWith('- ')) {
+      return (
+        <ul key={idx}>
+          {trimmed.split('\n').filter(l => l.startsWith('- ')).map((item, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: item.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+          ))}
+        </ul>
+      )
+    }
 
-1. Newspaper reading - absolutely essential
-2. MCQ practice - 500+ per month minimum
-3. Essay writing - 8-10 essays per month
-4. Past paper analysis - understand patterns
+    if (/^\d+\./.test(trimmed)) {
+      return (
+        <ol key={idx}>
+          {trimmed.split('\n').filter(l => /^\d+\./.test(l)).map((item, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: item.replace(/^\d+\.\s*/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+          ))}
+        </ol>
+      )
+    }
 
-## Scoring Targets for Success
+    const isFirst = isFirstParagraph
+    if (isFirstParagraph) isFirstParagraph = false
 
-English: 60+, Pakistan Affairs: 60+, Islamic Studies: 60+, Optional: 70+
+    return (
+      <p
+        key={idx}
+        className={isFirst ? '' : undefined}
+        dangerouslySetInnerHTML={{ __html: trimmed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}
+      />
+    )
+  })
+}
 
-## Common Mistakes to Avoid
+const CONTENT = `Only about 1 in 500 CSS candidates crack it in their first attempt. Not because the exam is impossibly hard. But because most candidates prepare for a year using someone else's strategy instead of their own.
 
-Starting late, ignoring newspapers, weak writing, poor time management, overconfidence, isolation from study groups.
+The candidates who make it aren't smarter. They prepare differently. Here's exactly what they do.
 
-## Frequently Asked Questions
+## The Selection Mistake (Month 1)
 
-**Q: How much time before the exam should I start preparation?**
-Ideally 6-8 months. This allows: 2 months for syllabus understanding and concept building, 2-3 months for active learning with MCQs and essays, 1-2 months for intensive mock testing and revision. Starting with 4 months is possible if you study 7-8 hours daily. Starting with less than 4 months significantly reduces your chances. Full-time candidates can succeed with 5-6 months. Working professionals need 7-8 months minimum.
+Most candidates spend their first month deciding what to study. They read three books on CSS, watch YouTube videos about preparation, and discuss with friends. They accomplish zero learning.
 
-**Q: What's the pass mark for CSS exam?**
-CSS doesn't publish exact passing percentages, but analysis shows: Total marks for written exam = 1200 (multiple subjects). Historically, candidates scoring 50%+ (600 marks) typically advance to interview. Strong candidates score 60-70%. To crack in first attempt, target 65%+ overall (780+ marks), which positions you competitively.
+Winners decide in one week. They choose:
 
-**Q: Should I join coaching or self-study?**
-Both can work. Coaching advantages: Structure, mentor guidance, peer learning. Self-study advantages: Flexibility, cost-effective, self-paced. Most first-attempt successes combine: 70% self-study (books, past papers, MCQs), 30% coaching (for concept clarification). Join coaching for weak subjects only. Use Imtehan's online resources as your MCQ bank.
+- Two optional subjects with overlap to compulsories (History + Geography, or History + Political Science)
+- A newspaper for current affairs (Dawn or The News, not multiple ones)
+- Two textbooks per subject maximum
+- One mock test platform (not switching between three different ones)
 
-**Q: How do I manage health during 6-8 months preparation?**
-Critical for first-attempt success. Schedule: 1-hour exercise daily (running, gym, sports), 7-hour sleep minimum (90% of toppers slept 7-8 hours), 3 balanced meals daily, 1 day off weekly (Sunday for most candidates). Physical fitness improves mental clarity. Candidates who ignored health scored 10-15% lower. Mental health: Maintain positive mindset, avoid toxic comparisons, seek support from family.
+These aren't perfect choices. They're good enough. Speed matters more than perfection at month one.
 
-**Q: Which optional subject should I choose?**
-Choose based on: Your background (commerce→Economics, science→Physics, humanities→History), Personal interest (you'll study 6-8 months—choose what excites you), Availability of resources and mentors. Most first-attempt successes choose 1 optional they're naturally strong in. Don't choose based on "easy/hard" reputation—difficulty varies per candidate. Popular first-attempt optionals: Economics, History, Islamic Studies (due to resource availability).
+Then they start studying.
 
-**Q: How often should I take mock tests?**
-Start week 12 of preparation. Schedule: Month 5: 1 mock per week, Month 6: 2 mocks per week, Final 4 weeks: Full mock exam 2-3 times weekly under exam conditions (3 hours MCQs, 3 hours essays/précis). Analyze every mock: Identify weak subjects, check time management, review wrong answers. Improvement trajectory: Mock 1 = 45-50%, Mock 5 = 55-65%, Final mocks = 65-75%. This progression indicates first-attempt readiness.
+## The Actual Study Pattern (Months 2-4)
 
-Success in first attempt is achievable with dedication and Imtehan's resources!`
+Here's where candidates diverge completely.
+
+**Weak candidates:** Read a chapter, take notes, move to next chapter. When exam approaches, they start MCQs and realize they forgot the first chapters.
+
+**Strong candidates:** Read a chapter once, immediately solve 50 MCQs on that chapter. Then move on. The MCQ solving reinforces the chapter instantly.
+
+This is called **active recall** and it's non-negotiable. If you're reading textbooks without matching MCQ solving, you're wasting reading time. Most of that knowledge evaporates within days.
+
+The system winners use:
+
+1. Read a chapter (1-2 hours)
+2. Solve 50-100 relevant MCQs immediately (1-2 hours)
+3. Note which topics you got wrong
+4. Review those topics from the textbook (30 min)
+5. Move to next chapter
+
+Repeat this 5 days a week. That's 4-5 hours daily. Sustainable, effective, builds real knowledge.
+
+## The Plateau Problem (Months 5-6)
+
+By month 5, you've covered the textbooks twice. Your MCQ accuracy is 65-70%. Most candidates think they're done.
+
+This is the critical mistake. You're at the plateau where knowledge exists but recall is slow. Exam day, you'll waste time remembering things.
+
+What winners do differently: they start solving full MCQ tests. Not one chapter at a time. Full 100-question tests under timed conditions. They do 2-3 tests weekly.
+
+From solving questions to solving tests is the jump from knowing to performing. This takes another 4-6 weeks minimum. Most candidates skip this entirely.
+
+## The Mental Game (Final Month)
+
+Your knowledge is there. Your speed is decent. But examination anxiety wipes out 15-20% of your capability if you haven't trained for it.
+
+What winners do:
+
+- They study past papers—not just the answers, but the patterns. Which subjects get repeated? Which topics always appear?
+- They solve mock tests the exact same way the real exam works—strict timing, no breaks, sitting in one place
+- They read their wrong answers and understand not just the right answer, but why they chose the wrong one
+- They stop studying 3 days before the exam and only review weak topics
+
+## The Three Non-Negotiables
+
+**You cannot crack CSS without:**
+
+1. **Consistent study 5+ days per week** — weekends off kill momentum. Weekend studies are usually inefficient anyway.
+
+2. **Solving actual MCQs immediately after reading** — reading without MCQs is forgetting in slow motion.
+
+3. **Full mock tests in final 2 months** — knowing concepts is different from performing under pressure. You need both.
+
+Miss any of these three, and you're in the 99% of candidates who don't crack it first attempt.
+
+## What Actually Differentiates Winners
+
+It's not intelligence. It's not starting early (many winners start with 6 months). It's not expensive coaching (many self-study candidates top the exam).
+
+It's this: **Winners start with a system and stay with it. They don't optimize endlessly.**
+
+They pick decent materials and study consistently. When they get 60% on a mock test, they analyze patterns instead of panicking. When they get 75%, they don't celebrate prematurely—they identify the 25% of weak areas.
+
+They treat CSS preparation like a job, not an adventure. Three hours minimum daily, structured, tracked.
+
+## The Twelve-Month Timeline (If Starting Now)
+
+- **Months 1-4:** Complete compulsory subjects and optionals (read + MCQs simultaneously)
+- **Month 5:** Start full MCQ tests, 2-3 weekly. Continue covering weak topics
+- **Month 6:** Pure test-taking. 3-4 full tests weekly. Analyze patterns
+- **Months 7-10:** Mock tests alternate with current affairs reading. Maintain core knowledge
+- **Months 11-12:** Intense revision of past papers and weak topics. 2 tests weekly. Recent news updates daily
+
+This isn't arbitrary. This is the timeline that works for full-time students and working professionals who've actually cleared CSS.
+
+> The first attempt success rate is low not because CSS is hard, but because most people study from motivation instead of discipline. Motivation fluctuates. Discipline is consistent.
+
+## What Happens If You Don't Crack It
+
+Here's the insider secret: Even if you don't crack it first attempt, the preparation isn't wasted. You've built genuine knowledge. Your second attempt is much stronger because you're refining, not rebuilding.
+
+But the mental cost of a second attempt is significant. The year wasted. The resumed studying. The doubt.
+
+This is why getting it right the first time matters. Not because you're incapable of a second attempt, but because one attempt well-executed beats two attempts half-hearted.
+
+The candidates who crack CSS aren't superhuman. They're ordinary people who prepared with a real system, stayed consistent, and analyzed their weak areas ruthlessly.
+
+You can be that candidate. But only if you start with strategy, not hope.`
 
 export default function BlogPost() {
-  const articleSchema = {
-    title: 'How to Crack CSS in First Attempt',
-    description: 'Proven strategies to pass CSS on first try.',
-    content,
-    publishDate: '2024-12-29',
-    url: 'https://imtehan.com/blog/how-to-crack-css-first-attempt',
-  }
+  const headings = extractHeadings(CONTENT)
 
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema {...articleSchema} />
-      <NavigationBar />
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Breadcrumb items={[{ name: 'Home', url: '/' }, { name: 'Blog', url: '/blog' }, { name: 'First Attempt Success', url: '#' }]} className="mb-8" />
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-6"><ArrowLeft className="w-4 h-4" /> Back to Blog</Link>
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">How to Crack CSS in First Attempt</h1>
-        <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2"><Calendar className="w-5 h-5" /><span>December 29, 2024</span></div>
-          <div className="flex items-center gap-2"><User className="w-5 h-5" /><span>Imtehan Team</span></div>
-          <div className="flex items-center gap-2"><Clock className="w-5 h-5" /><span>12 min read</span></div>
-        </div>
-        <div className="prose prose-lg max-w-none mb-12"><p className="text-gray-700 leading-relaxed">{content}</p></div>
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Essential Resources for First Attempt Success</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Link href="/blog/css-exam-preparation-guide-2025" className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-              <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Exam Preparation Guide 2025</h3>
-              <p className="text-sm text-gray-600">Complete guide with timeline, subjects, and winning strategies</p>
-            </Link>
-            <Link href="/blog/css-time-management-3-hour-mcq-exam" className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-              <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Time Management Strategy</h3>
-              <p className="text-sm text-gray-600">Master 90-second rule and exam time allocation</p>
-            </Link>
-            <Link href="/blog/css-past-papers-analysis-trends" className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-              <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS Past Papers Analysis</h3>
-              <p className="text-sm text-gray-600">Understand patterns from 2015-2023 papers</p>
-            </Link>
-            <Link href="/blog/css-english-essay-structure-examples" className="group p-6 bg-blue-50 rounded-lg border border-blue-200 hover:border-blue-400 transition-all">
-              <h3 className="font-bold text-gray-900 group-hover:text-blue-600 mb-2">CSS English Essay Structure</h3>
-              <p className="text-sm text-gray-600">Real examples and scoring breakdown</p>
-            </Link>
-          </div>
-        </div>
-
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to crack CSS in first attempt?</h3>
-          <p className="text-gray-700 mb-4">Join thousands of successful candidates using Imtehan's platform. Access 10,000+ MCQs, past papers, and performance analytics.</p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/css" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Free Trial</Link>
-            <Link href="/css/past-papers" className="inline-block bg-white text-blue-600 border border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50">View Past Papers</Link>
-          </div>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="How to Crack CSS in First Attempt"
+        description="Insider strategies from CSS toppers. Real tactics, not motivation."
+        content={CONTENT}
+        publishDate="2025-02-14"
+        url="https://imtehan.com/blog/how-to-crack-css-first-attempt"
+      />
+      <BlogPostShell
+        title="How to Crack CSS in First Attempt: Insider Tactics That Actually Work"
+        subtitle="Most candidates fail not because CSS is hard, but because they prepare from motivation instead of discipline. Here's the exact system winners use."
+        author="Imtehan Team"
+        date="February 14, 2025"
+        readTime="11 min read"
+        category="Strategy"
+        tags={TAGS}
+        slug="how-to-crack-css-first-attempt"
+        headings={headings}
+        otherPosts={RELATED_POSTS}
+      >
+        {renderContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

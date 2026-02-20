@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Lora } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
@@ -12,6 +12,12 @@ const inter = Inter({
   subsets: ["latin"],
   display: 'swap',
   variable: '--font-inter',
+})
+
+const lora = Lora({
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-lora',
 })
 
 export const metadata: Metadata = {
@@ -97,13 +103,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${lora.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>

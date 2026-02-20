@@ -1,283 +1,251 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, User, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
-import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import BlogPostShell, { extractHeadings } from '@/components/blog/BlogPostShell'
+import type { RelatedPost } from '@/components/blog/BlogPostShell'
 
 export const metadata: Metadata = {
-  title: 'How to Prepare for CSS English Essay: Tips & Strategies | Imtehan',
-  description: 'Master CSS English essay writing with proven techniques. Learn structure, argumentation, and writing strategies used by successful CSS candidates.',
+  title: 'CSS English Essay: Why You\'re Failing and How to Fix It | Imtehan',
+  description: 'Most candidates approach CSS essays wrong. Here\'s the exact framework that gets 80+.',
   alternates: {
     canonical: 'https://imtehan.com/blog/css-english-essay-preparation',
   },
   openGraph: {
-    title: 'CSS English Essay Preparation Guide',
-    description: 'Expert tips to excel in CSS English essay writing.',
+    title: 'CSS English Essay Preparation',
+    description: 'The framework that actually gets high scores in CSS essays.',
     url: 'https://imtehan.com/blog/css-english-essay-preparation',
     type: 'article',
-    publishedTime: '2024-12-25T00:00:00Z',
+    publishedTime: '2025-02-13T00:00:00Z',
   },
 }
 
-const content = `CSS English essay section can make or break your overall score. Unlike MCQs, essays require originality, depth, and articulate expression. This guide reveals the strategies used by top CSS candidates.
+const RELATED_POSTS: RelatedPost[] = [
+  { slug: 'css-english-essay-structure-examples', title: 'CSS English Essay Structure and Examples', date: 'Jan 3, 2026', category: 'Writing Guide' },
+  { slug: 'how-to-crack-css-first-attempt', title: 'How to Crack CSS in First Attempt', date: 'Feb 14, 2025', category: 'Strategy' },
+  { slug: 'css-exam-preparation-guide-2025', title: 'Complete CSS Exam Preparation Guide 2025', date: 'Jan 2, 2025', category: 'Guide' },
+]
 
-## Understanding CSS English Essay Requirements
+const TAGS = ['CSS Essay', 'English Preparation', 'Writing Tips', 'Essay Structure', 'CSS Exam']
 
-The CSS exam expects:
-- Clear thesis statement and argument
-- Well-organized paragraphs with logical flow
-- Evidence, examples, and supporting details
-- Proper academic language and tone
-- Awareness of current events and historical context
+function renderContent(raw: string) {
+  const paragraphs = raw.split('\n\n')
+  let isFirstParagraph = true
 
-## The Essay Structure That Works
+  return paragraphs.map((block, idx) => {
+    const trimmed = block.trim()
+    if (!trimmed) return null
 
-### Introduction (10% of words)
-- Hook: Start with an interesting fact or question
-- Background: Provide context on the topic
-- Thesis: State your main argument clearly
-- Roadmap: Outline main points you'll discuss
+    if (trimmed.startsWith('## ')) {
+      const text = trimmed.replace(/^## /, '')
+      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h2 key={idx} id={id}>{text}</h2>
+    }
 
-### Body Paragraphs (70% of words)
-- Topic sentence: State the paragraph's main point
-- Evidence: Use examples, statistics, or quotes
-- Analysis: Explain how evidence supports your thesis
-- Link to thesis: Connect back to your main argument
+    if (trimmed.startsWith('### ')) {
+      const text = trimmed.replace(/^### /, '')
+      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h3 key={idx} id={id}>{text}</h3>
+    }
 
-### Conclusion (20% of words)
-- Restate thesis in fresh language
-- Summarize main points
-- Provide broader implications
-- End with memorable thought
+    if (trimmed.startsWith('> ')) {
+      return (
+        <blockquote key={idx}>
+          <p dangerouslySetInnerHTML={{ __html: trimmed.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+        </blockquote>
+      )
+    }
 
-## Proven Writing Techniques
+    if (trimmed.startsWith('- ')) {
+      return (
+        <ul key={idx}>
+          {trimmed.split('\n').filter(l => l.startsWith('- ')).map((item, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: item.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+          ))}
+        </ul>
+      )
+    }
 
-### 1. Use Varied Sentence Structure
-Don't: "The economy is important. The economy affects jobs. The economy affects prices."
-Do: "The economy fundamentally affects employment levels and pricing mechanisms, creating ripple effects throughout society."
+    if (/^\d+\./.test(trimmed)) {
+      return (
+        <ol key={idx}>
+          {trimmed.split('\n').filter(l => /^\d+\./.test(l)).map((item, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: item.replace(/^\d+\.\s*/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+          ))}
+        </ol>
+      )
+    }
 
-### 2. Show, Don't Tell
-Don't: "Climate change is bad."
-Do: "Rising temperatures have displaced 20 million people annually, destroyed agricultural livelihoods, and intensified water scarcity in 50+ countries."
+    const isFirst = isFirstParagraph
+    if (isFirstParagraph) isFirstParagraph = false
 
-### 3. Balance Global and Local Examples
-- Use international examples for breadth
-- Reference Pakistani context for relevance
-- Show awareness of global interconnections
+    return (
+      <p
+        key={idx}
+        className={isFirst ? '' : undefined}
+        dangerouslySetInnerHTML={{ __html: trimmed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}
+      />
+    )
+  })
+}
 
-### 4. Develop Arguments Logically
-Build from:
-- Definition → Historical context → Current situation → Future implications
-- Cause → Effect → Counter-arguments → Your position → Conclusion
+const CONTENT = `CSS candidates treat essays like extended MCQs. They memorize facts, list them chronologically, and hope for a good score. Then they get 50 out of 100, confused why their knowledge didn't translate to marks.
 
-## Common Essay Topics in CSS
+The gap between knowing content and writing a strong essay is exactly where most candidates fail. Here's the framework that actually works.
 
-- Role of technology in modern society
-- Impact of social media on youth
-- Globalization: benefits and challenges
-- Education reform in Pakistan
-- Environmental degradation and solutions
-- Democracy and governance
-- Women's role in development
-- Religious tolerance in modern world
+## What CSS Examiners Actually Want
 
-## Time Management During Exam
+First, understand what examiners are marking:
 
-Total time: 3 hours for 2 essays
+- **Thinking clarity (40%):** Can you form an argument? Do you understand the question deeply?
+- **Organization (30%):** Does your essay flow? Is it easy to follow your logic?
+- **Evidence (20%):** Do you support claims with examples, data, or reasoning?
+- **Writing quality (10%):** Grammar, syntax, vocabulary—important but not dominant.
 
-- **First 10 minutes**: Understand all essay options, choose two
-- **First essay (90 minutes)**:
-  - 15 min: Plan and outline
-  - 60 min: Write
-  - 15 min: Review and correct
-- **Second essay (90 minutes)**: Same pattern
-- **Final 10 minutes**: Final review
+Most candidates over-invest in writing quality and under-invest in thinking clarity. They write beautifully formatted sentences that don't form a coherent argument.
 
-## Quality Over Quantity
+The examiners don't care if your comma placement is perfect. They care if you've thought deeply about the question.
 
-Writing 3-4 pages with depth beats writing 5 weak pages.
+## The Problem With Memorization
 
-Focus on:
-- **Fewer, stronger arguments** (2-3 main points)
-- **Deeper analysis** (explain the "why")
-- **Better examples** (relevant and specific)
+You've probably memorized essay outlines. Six paragraphs, introduction, three body, conclusion. Standard structure.
 
-## Pre-Exam Practice Routine
+Here's the trap: You memorize "The advantages of X," "The disadvantages of X," "Conclusion," and you fill it with facts. You produce a competent essay that says nothing new.
 
-### Weekly Schedule
-- **Monday & Wednesday**: Write two timed essays
-- **Tuesday & Thursday**: Read current affairs and analyze arguments
-- **Friday**: Review past CSS essays and identify techniques
-- **Weekend**: Read books/articles on essay topics
+Examiners read 200+ essays on the same prompt. They recognize memorized structures instantly. Your essay becomes background noise.
 
-### Monthly Focus
-- Month 1: Master essay structure
-- Month 2: Develop argument depth
-- Month 3: Improve writing speed
-- Month 4: Polish style and originality
+What differentiates high-scoring essays is **original thinking within structure.** Not novel content. Not rare facts. But a perspective that shows you've actually processed the question.
 
-## Revision Techniques
+## The Framework That Works
 
-After writing each essay:
-1. Read aloud to catch awkward phrasing
-2. Check for argument flow between paragraphs
-3. Verify each paragraph has evidence
-4. Improve weak sentences
-5. Check spelling and grammar
+Before writing, ask yourself these three questions:
 
-## Learning from Successful Essays
+**1. What is the actual question asking?** Not the surface question. The deep question.
 
-Study CSS toppers' essays to identify:
-- How they build arguments progressively
-- Types of examples they use
-- Balance between theory and practice
-- How they handle counterarguments
-- Their use of academic vocabulary
+If the prompt is "Discuss the role of technology in education," the surface question is "what role?" The deep question is "is this role positive, and what conditions determine that?"
 
-## Final Success Tips
+Spend 5 minutes clarifying the real question.
 
-1. **Read Widely**: Books, journals, quality newspapers
-2. **Think Critically**: Don't just accept information, question it
-3. **Practice Regularly**: Write at least 8 essays per month
-4. **Get Feedback**: Have someone review your essays
-5. **Study Economics**: Many essays relate to economic concepts
-6. **Follow Current Events**: Subscribe to quality news sources
-7. **Build Vocabulary**: Learn synonyms and academic phrases
+**2. What is my argument?** Not a list. An **argument.** A single coherent claim that answers the deep question.
 
-CSS English essay success requires consistent practice combined with deep reading. Start building your writing habits today to excel in the exam!`
+"Technology improves learning outcomes when properly implemented with teacher training, but creates new inequalities without equitable access."
+
+That's not fact-listing. That's an argument with nuance.
+
+**3. How will I prove this argument?** Not with five random examples. With 2-3 strategic pieces of evidence.
+
+An example of successful implementation. An example of failure without teacher training. One statistic on access inequality.
+
+This is the framework. Question clarity, single argument, strategic proof.
+
+## The Essay Structure That Supports This
+
+Now you structure around your argument:
+
+**Paragraph 1 (Introduction):** State your argument directly. No vague setup. The examiner knows what your essay claims by sentence two.
+
+**Paragraph 2 (Context):** Why does this question matter? What's the current debate? Use 2-3 sentences. Don't waste space.
+
+**Paragraph 3 (First evidence):** Your strongest proof. One example or data point that clearly supports your argument.
+
+**Paragraph 4 (Second evidence):** A different angle or counterargument you address. This shows nuance.
+
+**Paragraph 5 (Third evidence):** Final supporting point or real-world implication.
+
+**Paragraph 6 (Conclusion):** Restate your argument in light of the evidence. What do these proofs show?
+
+Notice: No separate "advantages and disadvantages" sections. Your argument already reflects nuance. Your evidence proves it. Done.
+
+## How to Build This in Practice
+
+Stop writing practice essays by memorizing templates. Instead:
+
+**Week 1:** Practice questions—spend 10 minutes planning (question clarification, argument, three proofs). Write nothing yet. Just plan.
+
+**Week 2:** Plan + write outline (topic sentence per paragraph). Again, don't write full prose yet.
+
+**Week 3:** Plan + outline + write. Full essay.
+
+**Week 4:** Plan + write directly. Skip outlining, move at exam speed.
+
+Most candidates skip planning entirely. They sit down and write. This is why their essays lack coherence. You're thinking while writing, which means you're writing while confused.
+
+Plan first. Always.
+
+## Common Mistakes That Kill Scores
+
+**1. Restating the question as your argument**
+
+Wrong: "Technology has both advantages and disadvantages."
+
+That's not an argument. That's a tautology. Every position has pros and cons.
+
+Right: "Technology's impact on learning depends entirely on implementation quality and teacher preparation, not on the technology itself."
+
+See the difference? One shows thinking. One shows you didn't.
+
+**2. Listing without connecting**
+
+You write five paragraphs about five different benefits. Each paragraph is accurate. Together they're directionless.
+
+Connect each paragraph to your central argument. "This benefit only occurs when..." "This limitation exists because..."
+
+**3. Forgetting the question mid-essay**
+
+You start with a clear argument about education technology. By paragraph 4, you're writing about government funding in general.
+
+Reread the prompt before each paragraph. Stay locked on the specific question.
+
+**4. Using jargon to hide weak thinking**
+
+"The paradigmatic shift in pedagogical methodology manifests in...
+
+Just say what you mean. "Teachers now focus on..." If your thinking is clear, complex vocabulary isn't needed.
+
+## The Timing Strategy
+
+CSS essay exam: 3 hours for 3 essays. 60 minutes per essay.
+
+- 10 minutes: Plan (clarify question, form argument, gather evidence)
+- 40 minutes: Write full essay
+- 10 minutes: Review and edit
+
+Most candidates spend 50 minutes writing and 10 minutes panicking. Flip this. Planning is your insurance policy.
+
+## Why This Works
+
+This framework works because examiners aren't looking for essay perfection. They're looking for evidence that you understand the question deeply and can defend a position logically.
+
+A perfectly written essay that says nothing scores 40. A slightly rough essay with clear thinking and good evidence scores 75.
+
+Train your brain toward clarity first, eloquence second. That's the shift that gets you from average essay candidate to strong one.
+
+> The best essay isn't the longest or most beautifully written. It's the one where your thinking is clearest and your argument is most defensible.`
 
 export default function BlogPost() {
-  const articleSchema = {
-    title: 'How to Prepare for CSS English Essay: Tips & Strategies',
-    description: 'Master CSS English essay writing with proven techniques.',
-    content,
-    publishDate: '2024-12-25',
-    url: 'https://imtehan.com/blog/css-english-essay-preparation',
-  }
+  const headings = extractHeadings(CONTENT)
 
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema {...articleSchema} />
-      <NavigationBar />
-
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Breadcrumb
-          items={[
-            { name: 'Home', url: '/' },
-            { name: 'Blog', url: '/blog' },
-            { name: 'English Essay', url: '#' },
-          ]}
-          className="mb-8"
-        />
-
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Blog
-        </Link>
-
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          How to Prepare for CSS English Essay: Tips & Strategies
-        </h1>
-
-        <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5" />
-            <span>December 25, 2024</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <User className="w-5 h-5" />
-            <span>Imtehan Team</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Clock className="w-5 h-5" />
-            <span>10 min read</span>
-          </div>
-        </div>
-
-        <div className="prose prose-lg max-w-none mb-12">
-          {content.split('\n\n').map((paragraph, index) => {
-            if (paragraph.startsWith('##')) {
-              return (
-                <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-                  {paragraph.replace('## ', '')}
-                </h2>
-              )
-            }
-            if (paragraph.startsWith('###')) {
-              return (
-                <h3 key={index} className="text-xl font-semibold text-gray-900 mt-6 mb-3">
-                  {paragraph.replace('### ', '')}
-                </h3>
-              )
-            }
-            if (paragraph.includes('Don\'t:') || paragraph.includes('Do:')) {
-              return (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg my-4">
-                  <p className="text-gray-700 font-mono text-sm">{paragraph}</p>
-                </div>
-              )
-            }
-            if (paragraph.startsWith('- ') || paragraph.startsWith('1.')) {
-              const isList = paragraph.startsWith('- ')
-              return (
-                <ul key={index} className={isList ? "list-disc list-inside space-y-2 text-gray-700" : "list-decimal list-inside space-y-2 text-gray-700"}>
-                  {paragraph.split('\n').map((item, i) => (
-                    <li key={i}>{item.replace(/^[-\d.]\s*/, '')}</li>
-                  ))}
-                </ul>
-              )
-            }
-            return (
-              <p key={index} className="text-gray-700 leading-relaxed">
-                {paragraph}
-              </p>
-            )
-          })}
-        </div>
-
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Ready to ace your CSS essays?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Practice with Imtehan's comprehensive resources and track your progress.
-          </p>
-          <Link
-            href="/css"
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Start Your Journey
-          </Link>
-        </div>
-      </article>
-
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 py-16 border-t">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Related Articles</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <Link
-            href="/blog/css-exam-preparation-guide-2025"
-            className="group p-6 bg-white rounded-lg border hover:shadow-lg transition-all"
-          >
-            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
-              CSS Exam Preparation Guide
-            </h3>
-            <p className="text-gray-600 text-sm">Complete strategy for CSS success.</p>
-          </Link>
-          <Link
-            href="/blog/best-css-preparation-books-resources"
-            className="group p-6 bg-white rounded-lg border hover:shadow-lg transition-all"
-          >
-            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 mb-2">
-              CSS Preparation Resources
-            </h3>
-            <p className="text-gray-600 text-sm">Best books and resources for CSS.</p>
-          </Link>
-        </div>
-      </section>
-    </main>
+    <>
+      <ArticleSchema
+        title="CSS English Essay Preparation"
+        description="Framework for writing high-scoring CSS essays through clear thinking and strategic argument."
+        content={CONTENT}
+        publishDate="2025-02-13"
+        url="https://imtehan.com/blog/css-english-essay-preparation"
+      />
+      <BlogPostShell
+        title="CSS English Essay: Why You're Failing and How to Fix It"
+        subtitle="Most candidates approach essays wrong. They memorize structures and facts. Here's the framework that gets 80+ by focusing on thinking clarity first."
+        author="Imtehan Team"
+        date="February 13, 2025"
+        readTime="10 min read"
+        category="Writing Guide"
+        tags={TAGS}
+        slug="css-english-essay-preparation"
+        headings={headings}
+        otherPosts={RELATED_POSTS}
+      >
+        {renderContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }
