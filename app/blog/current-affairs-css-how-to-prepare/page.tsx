@@ -1,34 +1,86 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
+import BlogPostShell, { extractHeadings, renderBlogContent } from '@/components/blog/BlogPostShell'
+import type { RelatedPost } from '@/components/blog/BlogPostShell'
 
 export const metadata: Metadata = {
-  title: 'Current Affairs for CSS: How to Prepare Effectively | Imtehan',
-  description: 'Master current affairs for CSS exam with proven study strategies, newspaper reading tips, and MCQ practice methods.',
+  title: 'Current Affairs for CSS: How to Stay on Top Without Drowning | Imtehan',
+  description: 'Current affairs is the most open-ended part of CSS prep. Here is a focused system that keeps you informed without wasting hours daily.',
   alternates: { canonical: 'https://imtehan.com/blog/current-affairs-css-how-to-prepare' },
-  openGraph: { title: 'Current Affairs for CSS', description: 'Effective strategies for CSS current affairs.', url: 'https://imtehan.com/blog/current-affairs-css-how-to-prepare', type: 'article', publishedTime: '2024-12-24T00:00:00Z' },
+  openGraph: {
+    title: 'Current Affairs for CSS',
+    description: 'A focused system for staying on top of current affairs.',
+    url: 'https://imtehan.com/blog/current-affairs-css-how-to-prepare',
+    type: 'article',
+    publishedTime: '2025-02-12T00:00:00Z',
+  },
 }
 
+const RELATED: RelatedPost[] = [
+  { slug: 'css-exam-preparation-guide-2025',  title: 'CSS Exam Preparation Guide 2025',    date: 'Jan 2, 2025',  category: 'Guide'    },
+  { slug: 'how-to-crack-css-first-attempt',   title: 'How to Crack CSS in First Attempt',  date: 'Feb 14, 2025', category: 'Strategy' },
+  { slug: 'css-compulsory-subjects-overview', title: 'CSS Compulsory Subjects Overview',   date: 'Feb 10, 2025', category: 'Guide'    },
+  { slug: 'css-past-papers-analysis-trends',  title: 'What CSS Past Papers Reveal',        date: 'Feb 11, 2025', category: 'Analysis' },
+]
+
+const TAGS = ['Current Affairs', 'CSS Strategy', 'News Reading', 'Preparation']
+
+const CONTENT = `Current affairs is the subject CSS candidates either master or abandon. It has no fixed syllabus, no definitive textbook, and it changes every month. This openness is what makes it feel unmanageable. But the same openness is what makes it predictable — certain categories of news have always mattered for CSS, and they always will.
+
+## What CSS Actually Tests in Current Affairs
+
+The exam does not ask you to recall news the way a quiz does. It tests whether you understand events in context — causes, consequences, Pakistan's position, international implications. A question about a bilateral trade agreement is not asking for the agreement's date. It is asking whether you understand what that agreement means for regional dynamics.
+
+This context-based testing changes how you should read the news. You are not trying to memorize facts. You are building a mental map of ongoing stories: how they started, how they connect to each other, and what they mean for Pakistan specifically.
+
+## A System That Does Not Consume Your Day
+
+The most sustainable current affairs routine for CSS is thirty to forty minutes daily from one newspaper — Dawn is the standard choice. Not multiple newspapers. Not three news apps. One source, read consistently.
+
+During that thirty minutes, focus on:
+
+- Editorial and opinion columns — these model the kind of analytical thinking CSS essays require
+- Foreign policy and regional developments — SAARC, China-Pakistan relations, India-Pakistan dynamics
+- Economic indicators — budget announcements, inflation data, trade figures
+- Any domestic legislation or constitutional developments
+
+Keep a notebook. One page per week. Not verbatim notes — four to five bullet points summarizing the week's important stories and your own interpretation of their significance.
+
+> The candidate who reads one newspaper carefully every day for six months will always outperform the candidate who reads five sources inconsistently.
+
+## Connecting Current Affairs to Other Subjects
+
+The real efficiency gain comes from treating current affairs as a connector subject, not a standalone one. A story about water scarcity connects to Geography, Pakistan Affairs, and Environmental Science. A story about electoral reform connects to Political Science and Pakistan Affairs. A story about the IMF agreement connects to Economics and Current Affairs.
+
+When you encounter a news story that overlaps with your optional or compulsory subject, note both the news angle and the academic angle. This dual framing is exactly how CSS essay questions are often structured — they present a current event and ask for deeper analysis.
+
+By month four of preparation, your daily newspaper reading should feel less like studying and more like reinforcement of what you already know. That is when you know the system is working.`
+
 export default function BlogPost() {
+  const headings = extractHeadings(CONTENT)
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema title="Current Affairs for CSS" description="Master current affairs preparation." content="Current Affairs (100 marks) appears in CSS exam and demands daily reading habit. Strategy: Read newspapers daily (Dawn, The News), focus on editorials not just news, make monthly notes, understand context not just facts, connect current events to historical/political context, solve 30+ MCQs daily, follow international news (BBC, Reuters), watch news analysis programs, understand economic policies, track government initiatives like CPEC, be aware of environmental issues, know important treaties and agreements. High-frequency topics: Pakistan-India relations, CPEC progress, economic policies, climate initiatives, parliamentary activities, international law developments, trade agreements, defense policies. Time allocation: 1-2 hours daily, 45 minutes newspaper reading, 15 minutes MCQ practice. Sources: Newspapers (essential), news websites, TV analysis shows, magazines (The Economist, National Geographic). Success tip: Current affairs cannot be crammed - develop consistent daily reading habit. Use Imtehan's current affairs MCQs for regular practice!" publishDate="2024-12-24" url="https://imtehan.com/blog/current-affairs-css-how-to-prepare" />
-      <NavigationBar />
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 mb-6"><ArrowLeft className="w-4 h-4" /> Back</Link>
-        <h1 className="text-4xl font-bold mb-6">Current Affairs for CSS: How to Prepare Effectively</h1>
-        <div className="flex gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2"><Calendar className="w-5 h-5" /><span>December 24, 2024</span></div>
-          <div className="flex items-center gap-2"><Clock className="w-5 h-5" /><span>9 min read</span></div>
-        </div>
-        <p className="text-gray-700 leading-relaxed">Current Affairs (100 marks) is a crucial CSS subject that tests awareness of recent national and international developments. Unlike other subjects, current affairs cannot be crammed - it requires consistent daily reading habit. Essential strategy: Read newspapers daily focusing on editorials and analysis sections. Recommended newspapers: Dawn, The News, Express Tribune. Additional sources: BBC, Reuters for international news, The Economist for economic analysis. Make monthly current affairs notes highlighting important developments, government initiatives, international relations changes, economic policy announcements. Practice 30+ MCQs daily on Imtehan to build familiarity with question patterns. High-frequency topics that appear frequently: Pakistan-India relations and tensions, CPEC (China-Pakistan Economic Corridor) progress, government economic policies, climate change initiatives, parliamentary activities, international law developments, trade agreements, defense and security policies, regional conflicts. Time management: Allocate 1-2 hours daily - 45 minutes newspaper reading and 15 minutes MCQ practice. Additional tips: Watch news analysis programs for deeper understanding, read magazine articles for comprehensive coverage, understand causes and effects not just facts, connect current events to historical context. Success probability increases with consistent reading habit combined with regular MCQ practice!</p>
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Practice current affairs MCQs</h3>
-          <Link href="/css/subjects" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Practice</Link>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="Current Affairs for CSS"
+        description="A focused system for staying on top of current affairs without overloading."
+        content={CONTENT}
+        publishDate="2025-02-12"
+        url="https://imtehan.com/blog/current-affairs-css-how-to-prepare"
+      />
+      <BlogPostShell
+        title="Current Affairs for CSS: How to Stay on Top Without Drowning"
+        subtitle="Current affairs has no syllabus and never stops changing. Here is the focused daily system that keeps you informed without consuming your entire prep time."
+        author="Imtehan Team"
+        date="February 12, 2025"
+        readTime="5 min read"
+        category="Strategy"
+        tags={TAGS}
+        slug="current-affairs-css-how-to-prepare"
+        headings={headings}
+        otherPosts={RELATED}
+      >
+        {renderBlogContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

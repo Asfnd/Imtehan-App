@@ -1,34 +1,81 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
+import BlogPostShell, { extractHeadings, renderBlogContent } from '@/components/blog/BlogPostShell'
+import type { RelatedPost } from '@/components/blog/BlogPostShell'
 
 export const metadata: Metadata = {
-  title: 'Time Management During CSS Exam: Strategic Tips | Imtehan',
-  description: 'Master time management for CSS exam. Learn how to allocate time wisely, manage essay writing, and maximize MCQ attempts.',
+  title: 'Time Management During the CSS Exam | Imtehan',
+  description: 'Three hours sounds like enough time until you are sitting in the hall. Here is how to pace yourself through the CSS MCQ paper without running out of time.',
   alternates: { canonical: 'https://imtehan.com/blog/time-management-css-exam' },
-  openGraph: { title: 'CSS Exam Time Management', description: 'Expert time management strategies for CSS exam.', url: 'https://imtehan.com/blog/time-management-css-exam', type: 'article', publishedTime: '2024-12-19T00:00:00Z' },
+  openGraph: {
+    title: 'Time Management During the CSS Exam',
+    description: 'How to pace yourself through three hours of CSS MCQs.',
+    url: 'https://imtehan.com/blog/time-management-css-exam',
+    type: 'article',
+    publishedTime: '2025-02-09T00:00:00Z',
+  },
 }
 
+const RELATED: RelatedPost[] = [
+  { slug: 'how-to-crack-css-first-attempt',   title: 'How to Crack CSS in First Attempt',    date: 'Feb 14, 2025', category: 'Strategy' },
+  { slug: 'css-exam-preparation-guide-2025',  title: 'CSS Exam Preparation Guide 2025',      date: 'Jan 2, 2025',  category: 'Guide'    },
+  { slug: 'css-past-papers-analysis-trends',  title: 'What CSS Past Papers Reveal',          date: 'Feb 11, 2025', category: 'Analysis' },
+  { slug: 'css-english-essay-preparation',    title: 'CSS Essay Writing: A Framework',       date: 'Feb 13, 2025', category: 'Writing'  },
+]
+
+const TAGS = ['Exam Strategy', 'Time Management', 'MCQ Paper', 'CSS Tactics']
+
+const CONTENT = `Three hours sounds like enough. Then you are forty questions in, you have spent four minutes on one question, and the math stops working. Time pressure in CSS is not about the overall duration — it is about how quickly individual questions accumulate. One slow question is fine. Ten of them means you are finishing the last twenty questions in a rush or leaving them blank.
+
+## The Two-Pass Method
+
+The most reliable approach is a deliberate two-pass structure. In the first pass, move at one minute per question and skip anything that requires more than thirty seconds of thought. Mark it, move on. Your goal is to answer every question you know confidently before spending time on the ones you are uncertain about.
+
+In the second pass, return to the marked questions with whatever time remains. At this stage you are not reading from scratch — you have already processed the question once. Many candidates find that answers surface more easily on the second reading simply because the initial anxiety has passed.
+
+This structure ensures you never leave behind a question you knew just because you ran out of time chasing one you did not.
+
+## How Preparation Time Affects Exam Time
+
+Candidates who practice timed mock tests before the exam consistently outperform those who do not — not because they know more, but because they have calibrated their internal pace. After five or six full mock tests, you develop an accurate sense of how long one minute per question actually feels under pressure.
+
+Without that practice, exam day is the first time you discover your real pace. That discovery is expensive when it happens in an actual exam.
+
+> Speed in the exam room is a trained skill. It does not come from knowledge alone — it comes from practicing under the same constraints.
+
+## Subject-by-Subject Pacing
+
+Not all sections of the CSS MCQ paper are equal in time cost. Pakistan Affairs and Islamic Studies questions tend to be longer reads. General Knowledge and Everyday Science questions are typically shorter. Current Affairs questions can vary widely depending on the specific topic.
+
+When you identify a slow section during mock tests, practice specifically on that section under timed conditions. The goal is not to rush those questions — it is to reduce the reading time through familiarity so the thinking time stays intact.
+
+On exam day, keep a simple rule: if you cannot select an answer within ninety seconds, mark it and move. No single question is worth the compounding cost of getting behind.`
+
 export default function BlogPost() {
+  const headings = extractHeadings(CONTENT)
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema title="Time Management During CSS Exam" description="Master time management for CSS exam." content="CSS exam spans 6-7 hours across multiple papers. Poor time management can lead to incomplete papers costing you hundreds of marks. Strategy: MCQ paper (3 hours) - allocate 90 seconds per question maximum, skip difficult questions initially and return later, review answers only if time permits. Essay papers (6 hours total) - dedicate 90 minutes per essay including planning, use 15 minutes for outlining your essay, write for 60 minutes focusing on quality not speed, reserve 15 minutes for review and corrections. Critical time management tips: 1) Start with confidence-building questions, 2) Mark difficult questions and skip temporarily, 3) Use timer or clock to track time, 4) Avoid spending excessive time on single question, 5) Plan essays before writing, 6) Reserve 10 minutes before paper end for final review. Pre-exam practice: Always solve papers in timed conditions, practice with timer on desk, gradually increase speed while maintaining quality, track average time per question. Common time management mistakes: Spending too much time on difficult questions, insufficient essay planning, rushing through answers, not reviewing, panic-driven decisions. Exam day management: Read all questions first (2 min), decide attempt order (3 min), tackle easier questions first for confidence, move strategically through paper. Success formula: Speed + Accuracy = High Score. Regular timed practice on Imtehan helps you develop this critical skill!" publishDate="2024-12-19" url="https://imtehan.com/blog/time-management-css-exam" />
-      <NavigationBar />
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 mb-6"><ArrowLeft className="w-4 h-4" /> Back</Link>
-        <h1 className="text-4xl font-bold mb-6">Time Management During CSS Exam</h1>
-        <div className="flex gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2"><Calendar className="w-5 h-5" /><span>December 19, 2024</span></div>
-          <div className="flex items-center gap-2"><Clock className="w-5 h-5" /><span>10 min read</span></div>
-        </div>
-        <p className="text-gray-700 leading-relaxed">CSS exam time management is crucial. Spanning 6-7 hours across papers, poor time allocation can result in incomplete papers and lost marks. MCQ paper strategy (3 hours for ~100 questions): Allocate 90 seconds maximum per question, quickly read and answer confident questions first, mark difficult ones temporarily and skip, calculate remaining time for skipped questions, use last 10 minutes strategically. Essay paper strategy (90 minutes per essay): Spend 15 minutes understanding and planning essay, write substantive essay for 60 minutes focusing on quality argument, reserve 15 minutes for review and corrections. Critical tips: Always practice in timed conditions, use desk timer or watch to track time, maintain consistent speed without sacrificing quality, avoid panic when questions are difficult, read all questions before deciding attempt order, tackle easier questions for initial confidence. Pre-exam practice routine: Solve complete past papers in exam conditions weekly, gradually increase speed while maintaining answer quality, identify your average time per question type, practice timed essay writing extensively. Common mistakes: Spending excessive time on single difficult question, insufficient essay planning leading to rushed writing, not reviewing answers, panic-driven wrong decisions. Exam day management: Read all questions quickly (2 min), decide overall strategy (3 min), allocate time per question based on difficulty. Success formula: Speed + Accuracy = High Score. Regular timed practice on Imtehan helps develop this essential exam skill!</p>
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Practice with timed tests</h3>
-          <Link href="/css/css-practice/quiz" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Take Timed Test</Link>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="Time Management During the CSS Exam"
+        description="How to pace yourself through three hours of CSS MCQs."
+        content={CONTENT}
+        publishDate="2025-02-09"
+        url="https://imtehan.com/blog/time-management-css-exam"
+      />
+      <BlogPostShell
+        title="Time Management During the CSS Exam"
+        subtitle="Three hours sounds generous until question forty. Here is the pacing system that ensures you reach the end with time to spare."
+        author="Imtehan Team"
+        date="February 9, 2025"
+        readTime="4 min read"
+        category="Strategy"
+        tags={TAGS}
+        slug="time-management-css-exam"
+        headings={headings}
+        otherPosts={RELATED}
+      >
+        {renderBlogContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

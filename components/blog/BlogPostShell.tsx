@@ -43,6 +43,81 @@ export function extractHeadings(content: string): Heading[] {
     })
 }
 
+function bold(html: string) {
+  return html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+}
+
+/** Shared renderer — use this in every blog page instead of a local renderContent */
+export function renderBlogContent(raw: string) {
+  const paragraphs = raw.split('\n\n')
+  let isFirst = true
+
+  return paragraphs.map((block, idx) => {
+    const trimmed = block.trim()
+    if (!trimmed) return null
+
+    if (trimmed.startsWith('## ')) {
+      const text = trimmed.replace(/^## /, '')
+      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h2 key={idx} id={id}>{text}</h2>
+    }
+
+    if (trimmed.startsWith('### ')) {
+      const text = trimmed.replace(/^### /, '')
+      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h3 key={idx} id={id}>{text}</h3>
+    }
+
+    // Pull-quote (blockquote)
+    if (trimmed.startsWith('> ')) {
+      return (
+        <div key={idx} className="pull-quote">
+          {trimmed.slice(2)}
+        </div>
+      )
+    }
+
+    // Bullet list
+    if (trimmed.startsWith('- ')) {
+      return (
+        <ul key={idx}>
+          {trimmed.split('\n').filter(l => l.startsWith('- ')).map((item, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: bold(item.slice(2)) }} />
+          ))}
+        </ul>
+      )
+    }
+
+    // Numbered list
+    if (/^\d+\./.test(trimmed)) {
+      return (
+        <ol key={idx}>
+          {trimmed.split('\n').filter(l => /^\d+\./.test(l)).map((item, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: bold(item.replace(/^\d+\.\s*/, '')) }} />
+          ))}
+        </ol>
+      )
+    }
+
+    // First paragraph — explicit drop cap span
+    if (isFirst) {
+      isFirst = false
+      const firstChar = trimmed[0]
+      const rest = bold(trimmed.slice(1))
+      return (
+        <p key={idx}>
+          <span className="drop-cap">{firstChar}</span>
+          <span dangerouslySetInnerHTML={{ __html: rest }} />
+        </p>
+      )
+    }
+
+    return (
+      <p key={idx} dangerouslySetInnerHTML={{ __html: bold(trimmed) }} />
+    )
+  })
+}
+
 export default function BlogPostShell({
   title,
   subtitle,

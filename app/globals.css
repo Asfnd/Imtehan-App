@@ -389,13 +389,14 @@
 .article-body p {
   margin-bottom: 32px;
 }
-.article-body p:first-child::first-letter {
+/* Drop cap — explicit span, matching reference HTML exactly */
+.drop-cap {
   float: left;
   font-size: 84px;
-  font-weight: 700;
   line-height: 0.7;
   margin-right: 12px;
   margin-top: 8px;
+  font-weight: 700;
   color: #000;
   font-family: var(--font-libre-baskerville), Georgia, serif;
 }
@@ -437,20 +438,17 @@
   margin-bottom: 12px;
   line-height: 1.7;
 }
-.article-body blockquote {
+/* Pull-quote — matches reference HTML .pull-quote exactly */
+.pull-quote {
   border-left: 3px solid #2563EB;
   padding-left: 24px;
-  margin: 48px 0;
   font-style: italic;
-}
-.article-body blockquote p {
   font-size: 26px;
-  color: #111;
-  margin-bottom: 0;
   line-height: 1.4;
+  color: #111;
+  margin: 48px -40px 48px 0;
+  font-family: var(--font-libre-baskerville), Georgia, serif;
 }
-.article-body blockquote p::before { content: ''; }
-.article-body blockquote p::after  { content: ''; }
 
 /* ── Tags ── */
 .blog-tag-pill {
