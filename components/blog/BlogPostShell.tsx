@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Heart, Bookmark, Share2 } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import BlogComments from './BlogComments'
 
@@ -33,7 +32,6 @@ interface BlogPostShellProps {
   children: React.ReactNode
 }
 
-/** Extract ## headings from a markdown-like content string */
 export function extractHeadings(content: string): Heading[] {
   return content
     .split('\n')
@@ -48,28 +46,44 @@ export function extractHeadings(content: string): Heading[] {
 export default function BlogPostShell({
   title,
   subtitle,
-  author      = 'Imtehan Team',
+  author     = 'Imtehan Team',
   authorBio,
   date,
   readTime,
   category,
-  tags        = [],
+  tags       = [],
   slug,
-  headings    = [],
-  otherPosts  = [],
+  headings   = [],
+  otherPosts = [],
   children,
 }: BlogPostShellProps) {
-  const [liked, setLiked]         = useState(false)
-  const [likes, setLikes]         = useState(0)
-  const [bookmarked, setBookmarked] = useState(false)
-  const [copied, setCopied]       = useState(false)
+  const [activeHeading, setActiveHeading] = useState('')
+  const [clapped, setClapped]             = useState(false)
+  const [claps, setClaps]                 = useState(0)
+  const [saved, setSaved]                 = useState(false)
+  const [copied, setCopied]               = useState(false)
 
-  const initials = author
-    .split(' ')
-    .map(w => w[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2)
+  useEffect(() => {
+    if (headings.length === 0) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveHeading(entry.target.id)
+            break
+          }
+        }
+      },
+      { rootMargin: '-80px 0px -65% 0px' }
+    )
+    headings.forEach(h => {
+      const el = document.getElementById(h.id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [headings])
+
+  const initials = author.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
 
   const handleShare = () => {
     if (typeof window !== 'undefined') {
@@ -79,177 +93,151 @@ export default function BlogPostShell({
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const toggleLike = () => {
-    setLikes(n => liked ? n - 1 : n + 1)
-    setLiked(l => !l)
-  }
-
   return (
     <div className="min-h-screen bg-white">
       <NavigationBar />
 
-      {/* ── Article header ── */}
-      <header className="max-w-3xl mx-auto px-6 pt-10 pb-0">
-        {/* Author row */}
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-600 flex-shrink-0 border border-gray-100">
-            {initials}
+      <div className="blog-layout">
+
+        {/* ── LEFT — action bar ── */}
+        <aside className="blog-action-bar">
+          <button
+            onClick={() => { setClaps(n => clapped ? n - 1 : n + 1); setClapped(c => !c) }}
+            className={`blog-action-icon${clapped ? ' text-black' : ''}`}
+            title="Clap"
+          >
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} width={24} height={24}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+            </svg>
+            {claps > 0 && <span>{claps}</span>}
+          </button>
+
+          <button className="blog-action-icon" title="Comment">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} width={24} height={24}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+          </button>
+
+          <div className="relative">
+            <button onClick={handleShare} className="blog-action-icon" title="Share">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} width={24} height={24}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+            </button>
+            {copied && (
+              <span className="absolute left-9 top-1/2 -translate-y-1/2 text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded whitespace-nowrap">
+                Copied!
+              </span>
+            )}
           </div>
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <span className="text-sm font-medium text-gray-900 truncate">{author}</span>
-            <span className="text-xs font-medium text-gray-500 border border-gray-300 rounded-full px-3 py-0.5 hover:border-gray-500 hover:text-gray-700 cursor-pointer transition-colors flex-shrink-0">
-              Follow
-            </span>
-          </div>
-          <span className="text-xs text-gray-400 flex-shrink-0 whitespace-nowrap">
-            {date} · {readTime}
-          </span>
-        </div>
 
-        {/* Title */}
-        <h1 className="text-3xl md:text-[2.4rem] font-bold text-gray-900 leading-tight mb-4 tracking-tight">
-          {title}
-        </h1>
+          <button
+            onClick={() => setSaved(s => !s)}
+            className={`blog-action-icon${saved ? ' text-black' : ''}`}
+            title="Save"
+          >
+            <svg fill={saved ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} width={24} height={24}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+          </button>
+        </aside>
 
-        {/* Subtitle */}
-        {subtitle && (
-          <p className="text-lg text-gray-500 leading-relaxed mb-7 font-normal">
-            {subtitle}
-          </p>
-        )}
+        {/* ── CENTER — article ── */}
+        <main className="blog-main">
 
-        <div className="border-b border-gray-100" />
-      </header>
-
-      {/* ── 3-column body ── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex gap-6 lg:gap-10">
-
-          {/* LEFT — floating action bar */}
-          <div className="hidden md:flex flex-col items-center gap-5 pt-10 sticky top-24 self-start w-11 flex-shrink-0">
-            <button onClick={toggleLike} className="flex flex-col items-center gap-0.5 group">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${liked ? 'text-red-500' : 'text-gray-400 hover:text-gray-600'}`}>
-                <Heart className={`w-5 h-5 transition-all ${liked ? 'fill-red-500 scale-110' : ''}`} />
+          {/* Author meta */}
+          <div className="blog-author-meta">
+            <div className="blog-avatar">{initials}</div>
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="blog-author-name">{author}</span>
+                <span style={{ color: '#ccc' }}>·</span>
+                <button className="blog-follow-btn">Follow</button>
               </div>
-              {likes > 0 && <span className="text-[11px] text-gray-400">{likes}</span>}
-            </button>
-
-            <button
-              onClick={() => setBookmarked(b => !b)}
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${bookmarked ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
-            >
-              <Bookmark className={`w-5 h-5 ${bookmarked ? 'fill-blue-600' : ''}`} />
-            </button>
-
-            <div className="relative">
-              <button
-                onClick={handleShare}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
-                title="Copy link"
-              >
-                <Share2 className="w-5 h-5" />
-              </button>
-              {copied && (
-                <span className="absolute left-10 top-1/2 -translate-y-1/2 text-[10px] text-green-700 font-medium bg-green-50 border border-green-200 px-2 py-1 rounded-lg whitespace-nowrap">
-                  Copied!
-                </span>
-              )}
+              <div className="blog-date-read">{date} · {readTime}</div>
             </div>
           </div>
 
-          {/* CENTER — article */}
-          <main className="flex-1 min-w-0 pt-10 pb-20">
-            <div className="article-body text-[18px] leading-[1.9] text-gray-700">
-              {children}
-            </div>
+          {/* Title */}
+          <h1 className="blog-title">{title}</h1>
 
-            {/* Tags */}
-            {tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-gray-100">
-                {tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 cursor-pointer transition-colors"
+          {/* Subtitle */}
+          {subtitle && <p className="blog-subtitle">{subtitle}</p>}
+
+          {/* Body */}
+          <article className="article-body">
+            {children}
+          </article>
+
+          {/* Tags */}
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-12 mb-4">
+              {tags.map(tag => (
+                <span key={tag} className="blog-tag-pill">{tag}</span>
+              ))}
+            </div>
+          )}
+
+          {/* Bottom author card */}
+          <div className="blog-author-card">
+            <div className="blog-avatar blog-avatar-lg">{initials}</div>
+            <div className="flex-1">
+              <div className="blog-author-card-name">Written by {author}</div>
+              <p className="blog-author-card-bio">
+                {authorBio ?? "CSS & competitive exam expert. Helping aspirants ace Pakistan's toughest civil service exams with structured preparation strategies and high-yield MCQs."}
+              </p>
+              <button className="blog-follow-btn-primary">Follow</button>
+            </div>
+          </div>
+
+          {/* Comments */}
+          <BlogComments slug={slug} />
+        </main>
+
+        {/* ── RIGHT — sidebar ── */}
+        <aside className="blog-sidebar">
+
+          {headings.length > 0 && (
+            <div className="mb-12">
+              <p className="blog-sidebar-title">On this page</p>
+              <ul className="blog-toc-list">
+                {headings.map(h => (
+                  <li
+                    key={h.id}
+                    className={activeHeading === h.id ? 'blog-toc-item blog-toc-active' : 'blog-toc-item'}
                   >
-                    {tag}
-                  </span>
+                    <a href={`#${h.id}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {otherPosts.length > 0 && (
+            <div>
+              <p className="blog-sidebar-title">Related Reads</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {otherPosts.slice(0, 5).map(post => (
+                  <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
+                    <p style={{
+                      fontFamily: 'var(--font-inter), system-ui, sans-serif',
+                      fontWeight: 600,
+                      fontSize: '14px',
+                      lineHeight: 1.4,
+                      color: '#111',
+                      marginBottom: '4px',
+                    }}
+                    className="group-hover:text-gray-500 transition-colors line-clamp-2">
+                      {post.title}
+                    </p>
+                    <p style={{ color: '#52525B', fontSize: '12px' }}>{post.date}</p>
+                  </Link>
                 ))}
               </div>
-            )}
-
-            {/* Author bio card */}
-            <div className="flex items-start gap-4 mt-10 p-5 border border-gray-100 rounded-2xl bg-gray-50/50">
-              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-base font-bold text-gray-600 flex-shrink-0 border border-gray-100">
-                {initials}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="font-semibold text-gray-900 text-sm">{author}</span>
-                  <span className="text-xs font-medium text-gray-500 border border-gray-300 rounded-full px-3 py-0.5 hover:border-gray-500 hover:text-gray-700 cursor-pointer transition-colors">
-                    Follow
-                  </span>
-                </div>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {authorBio ?? "CSS & competitive exam expert. Helping aspirants ace Pakistan's toughest civil service exams with structured preparation strategies and high-yield MCQs."}
-                </p>
-              </div>
             </div>
+          )}
 
-            {/* Comments */}
-            <BlogComments slug={slug} />
-          </main>
-
-          {/* RIGHT — sidebar */}
-          <aside className="hidden lg:block w-56 xl:w-64 flex-shrink-0 pt-10">
-            <div className="sticky top-24 space-y-9">
-
-              {/* On This Page */}
-              {headings.length > 0 && (
-                <div>
-                  <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase mb-3">
-                    On This Page
-                  </p>
-                  <nav className="space-y-1.5">
-                    {headings.map((h) => (
-                      <a
-                        key={h.id}
-                        href={`#${h.id}`}
-                        className="block text-[13px] text-gray-500 hover:text-gray-900 transition-colors leading-snug"
-                      >
-                        {h.text}
-                      </a>
-                    ))}
-                  </nav>
-                </div>
-              )}
-
-              {/* All Other Posts */}
-              {otherPosts.length > 0 && (
-                <div>
-                  <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase mb-3">
-                    All Other Posts
-                  </p>
-                  <div className="space-y-5">
-                    {otherPosts.slice(0, 5).map(post => (
-                      <Link
-                        key={post.slug}
-                        href={`/blog/${post.slug}`}
-                        className="block group"
-                      >
-                        <p className="text-[13px] font-medium text-gray-800 group-hover:text-gray-900 transition-colors leading-snug mb-1 line-clamp-2">
-                          {post.title}
-                        </p>
-                        <p className="text-[11px] text-gray-400">{post.date}</p>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-            </div>
-          </aside>
-
-        </div>
+        </aside>
       </div>
     </div>
   )

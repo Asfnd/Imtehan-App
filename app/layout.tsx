@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Lora } from "next/font/google"
+import { Inter, Libre_Baskerville } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
@@ -14,10 +14,12 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const lora = Lora({
+const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   display: 'swap',
-  variable: '--font-lora',
+  variable: '--font-libre-baskerville',
 })
 
 export const metadata: Metadata = {
@@ -109,7 +111,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
-      <body className={`${inter.className} ${lora.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} ${libreBaskerville.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>
