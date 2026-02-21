@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { BookOpen, FileText, Target, LogOut, ArrowRight, Award, TrendingUp, Flame, Star } from 'lucide-react'
+import { BookOpen, FileText, Target, LogOut, ArrowRight, TrendingUp, Flame, Star, Play, Award } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
 import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics } from '@/lib/analytics'
@@ -459,9 +459,50 @@ function DashboardContent() {
             </div>
           )}
 
-          {/* Practice Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-            {/* MPT Practice */}
+          {/* Practice Cards — ordered by priority */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
+            {/* 1 — Most Repeated MCQs */}
+            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative p-5 flex-1 flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Most Repeated MCQs</h3>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">High-yield questions that appear most often in CSS exams</p>
+                <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
+                  <div className="text-center"><span className="font-bold text-blue-600 block">5,000+</span><span className="text-gray-500">MCQs</span></div>
+                  <div className="w-px h-6 bg-gray-200"></div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">6</span><span className="text-gray-500">Subjects</span></div>
+                </div>
+                <button onClick={() => router.push('/exams/css-mpt?mode=most-repeated')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">Start Practice</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
+                </button>
+              </div>
+            </div>
+
+            {/* 2 — Most Important MCQs */}
+            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative p-5 flex-1 flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
+                  <Star className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Most Important MCQs</h3>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Expert-curated must-know questions for CSS compulsory subjects</p>
+                <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
+                  <div className="text-center"><span className="font-bold text-blue-600 block">3,000+</span><span className="text-gray-500">MCQs</span></div>
+                  <div className="w-px h-6 bg-gray-200"></div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">6</span><span className="text-gray-500">Subjects</span></div>
+                </div>
+                <button onClick={() => router.push('/exams/css-mpt?mode=most-important')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">Start Practice</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
+                </button>
+              </div>
+            </div>
+
+            {/* 3 — MPT Practice */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -469,63 +510,19 @@ function DashboardContent() {
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">MPT Practice</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
-                  Past MPT MCQs + Mock tests
-                </p>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Past MPT MCQs + full-length timed mock tests</p>
                 <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">1,000+</span>
-                    <span className="text-gray-500">MCQs</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">1,000+</span><span className="text-gray-500">MCQs</span></div>
                   <div className="w-px h-6 bg-gray-200"></div>
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">Timed</span>
-                    <span className="text-gray-500">Tests</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">Timed</span><span className="text-gray-500">Tests</span></div>
                 </div>
-                <button
-                  onClick={() => router.push('/mpt-practice')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
-                >
-                  <span className="truncate">Start Test</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                <button onClick={() => router.push('/mpt-practice')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">Start Test</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
 
-            {/* Guess Papers */}
-            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative p-5 flex-1 flex flex-col">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <Star className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">2026 Guess Papers</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
-                  CSS 2026 guess papers
-                </p>
-                <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">5</span>
-                    <span className="text-gray-500">Subjects</span>
-                  </div>
-                  <div className="w-px h-6 bg-gray-200"></div>
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">2026</span>
-                    <span className="text-gray-500">Edition</span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => router.push('/css/guess-papers')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
-                >
-                  <span className="truncate">View Papers</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                </button>
-              </div>
-            </div>
-
-            {/* CSS Subject Practice */}
+            {/* 4 — Past MCQs Practice */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -533,31 +530,59 @@ function DashboardContent() {
                   <BookOpen className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Past MCQs Practice</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
-                  Subject-wise MCQs from past CSS exams
-                </p>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Subject-wise MCQs from past CSS exams</p>
                 <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">10,000+</span>
-                    <span className="text-gray-500">MCQs</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">10,000+</span><span className="text-gray-500">MCQs</span></div>
                   <div className="w-px h-6 bg-gray-200"></div>
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">40+</span>
-                    <span className="text-gray-500">Subjects</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">40+</span><span className="text-gray-500">Subjects</span></div>
                 </div>
-                <button
-                  onClick={() => router.push('/css/subjects')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
-                >
-                  <span className="truncate">Start Practice</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                <button onClick={() => router.push('/css/subjects')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">Start Practice</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
 
-            {/* Past Papers */}
+            {/* 5 — 2026 Guess Papers */}
+            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative p-5 flex-1 flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
+                  <Flame className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">2026 Guess Papers</h3>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">CSS 2026 expected questions and guess papers</p>
+                <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
+                  <div className="text-center"><span className="font-bold text-blue-600 block">5</span><span className="text-gray-500">Subjects</span></div>
+                  <div className="w-px h-6 bg-gray-200"></div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">2026</span><span className="text-gray-500">Edition</span></div>
+                </div>
+                <button onClick={() => router.push('/css/guess-papers')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">View Papers</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
+                </button>
+              </div>
+            </div>
+
+            {/* 6 — Practice Mode */}
+            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative p-5 flex-1 flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-4 shadow-md shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
+                  <Play className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Practice Mode</h3>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Mixed random sets from all question types — pick any subject</p>
+                <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
+                  <div className="text-center"><span className="font-bold text-blue-600 block">Mixed</span><span className="text-gray-500">Sets</span></div>
+                  <div className="w-px h-6 bg-gray-200"></div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">All</span><span className="text-gray-500">Subjects</span></div>
+                </div>
+                <button onClick={() => router.push('/exams/css-mpt')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">Start Practice</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
+                </button>
+              </div>
+            </div>
+
+            {/* 7 — Past Papers */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -565,31 +590,19 @@ function DashboardContent() {
                   <FileText className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Past Papers</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
-                  CSS past exam papers
-                </p>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">CSS past exam papers from previous years</p>
                 <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">1,000+</span>
-                    <span className="text-gray-500">Papers</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">1,000+</span><span className="text-gray-500">Papers</span></div>
                   <div className="w-px h-6 bg-gray-200"></div>
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">50+</span>
-                    <span className="text-gray-500">Subjects</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">50+</span><span className="text-gray-500">Subjects</span></div>
                 </div>
-                <button
-                  onClick={() => router.push('/css/past-papers')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
-                >
-                  <span className="truncate">View Papers</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                <button onClick={() => router.push('/css/past-papers')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">View Papers</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
 
-            {/* Solved Papers */}
+            {/* 8 — Solved Papers */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -599,29 +612,18 @@ function DashboardContent() {
                   </svg>
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Solved Papers</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">
-                  Solved CSS past papers
-                </p>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Fully solved CSS past papers with explanations</p>
                 <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">Full</span>
-                    <span className="text-gray-500">Coverage</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">Full</span><span className="text-gray-500">Coverage</span></div>
                   <div className="w-px h-6 bg-gray-200"></div>
-                  <div className="text-center">
-                    <span className="font-bold text-blue-600 block">6</span>
-                    <span className="text-gray-500">Subjects</span>
-                  </div>
+                  <div className="text-center"><span className="font-bold text-blue-600 block">6</span><span className="text-gray-500">Subjects</span></div>
                 </div>
-                <button
-                  onClick={() => router.push('/css/solved-papers')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden"
-                >
-                  <span className="truncate">View Solutions</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                <button onClick={() => router.push('/css/solved-papers')} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
+                  <span className="truncate">View Solutions</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>
+
           </div>
 
         </div>

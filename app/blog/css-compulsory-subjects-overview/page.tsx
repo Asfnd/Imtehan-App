@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { ArticleSchema } from '@/components/seo/StructuredData'
-import BlogPostShell, { extractHeadings, renderBlogContent } from '@/components/blog/BlogPostShell'
-import type { RelatedPost } from '@/components/blog/BlogPostShell'
+import BlogPostShell from '@/components/blog/BlogPostShell'
+import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils'
+import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
   title: 'CSS Compulsory Subjects: What You Are Actually Dealing With | Imtehan',

@@ -65,7 +65,7 @@ export const EncouragementMessage = memo(function EncouragementMessage({
       case 'incorrect':
         return 'bg-gradient-to-r from-orange-500 to-amber-500'
       case 'milestone':
-        return 'bg-gradient-to-r from-purple-500 to-pink-500'
+        return 'bg-gradient-to-r from-blue-500 to-indigo-600'
       default:
         return 'bg-gradient-to-r from-blue-500 to-indigo-500'
     }

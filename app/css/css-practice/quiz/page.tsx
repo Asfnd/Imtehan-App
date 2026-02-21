@@ -28,9 +28,9 @@ import { AnswerOption } from './components/AnswerOption'
 // Only lazy load the heavy components that are used conditionally
 const EnhancedResultsScreen = dynamic(() => import('./components/EnhancedResultsScreen').then(mod => ({ default: mod.EnhancedResultsScreen })), {
   loading: () => (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
         <p className="text-gray-600">Loading results...</p>
       </div>
     </div>
@@ -487,9 +487,9 @@ function CSSQuizContent() {
 
   if (activeLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">{reviewMode ? 'Loading practice questions...' : 'Loading questions...'}</p>
         </div>
       </div>
@@ -498,12 +498,12 @@ function CSSQuizContent() {
 
   if (lazyError && !reviewMode) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
           <p className="text-xl text-gray-700 mb-4">Error: {lazyError}</p>
           <button
             onClick={() => router.back()}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Go Back
           </button>
@@ -514,12 +514,12 @@ function CSSQuizContent() {
 
   if (activeMCQs.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
           <p className="text-xl text-gray-700 mb-4">No MCQs found for your selection</p>
           <button
             onClick={() => router.back()}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Go Back
           </button>
@@ -564,7 +564,7 @@ function CSSQuizContent() {
           <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">
       <div className="max-w-3xl mx-auto">
         {/* Modern Dark Header - Mobile Responsive */}
-        <div className="bg-gradient-to-r from-slate-800 via-purple-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-purple-500/30">
+        <div className="bg-gradient-to-r from-slate-800 via-blue-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-blue-500/30">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <button
               onClick={() => router.back()}
@@ -577,15 +577,15 @@ function CSSQuizContent() {
             <div className="flex items-center gap-2 sm:gap-4">
               {/* Question Counter - Shows total or dynamic count if lazy loading */}
               <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20">
-                <span className="text-xs font-medium text-purple-300">Q</span>
+                <span className="text-xs font-medium text-blue-300">Q</span>
                 <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
-                <span className="text-purple-300">/</span>
-                <span className="text-sm sm:text-base text-purple-200">
+                <span className="text-blue-300">/</span>
+                <span className="text-sm sm:text-base text-blue-200">
                   {reviewMode ? activeMCQs.length : (totalCount ?? activeMCQs.length)}
                 </span>
                 {/* Show loading indicator if next batch is being fetched */}
                 {isLoadingNextBatch && !reviewMode && (
-                  <span className="ml-2 text-xs text-purple-300 animate-pulse">
+                  <span className="ml-2 text-xs text-blue-300 animate-pulse">
                     Loading...
                   </span>
                 )}
@@ -616,7 +616,7 @@ function CSSQuizContent() {
           <div className="mt-2 sm:mt-3">
             <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
               <div
-                className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
+                className="bg-gradient-to-r from-blue-400 to-blue-600 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
                 style={{ width: `${((currentIndex + 1) / activeMCQs.length) * 100}%` }}
               />
             </div>
@@ -755,9 +755,9 @@ function CSSQuizContent() {
 export default function CSSQuizPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading quiz...</p>
         </div>
       </div>

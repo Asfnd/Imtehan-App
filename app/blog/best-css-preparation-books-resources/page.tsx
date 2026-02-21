@@ -1,319 +1,82 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, User, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
-import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import BlogPostShell from '@/components/blog/BlogPostShell'
+import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils'
+import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Best CSS Preparation Books & Online Resources 2025 | Imtehan',
-  description: 'Comprehensive list of recommended books, websites, and resources for CSS exam preparation covering all subjects with expert reviews.',
-  alternates: {
-    canonical: 'https://imtehan.com/blog/best-css-preparation-books-resources',
-  },
+  title: 'CSS Preparation Books: What to Actually Use and What to Skip | Imtehan',
+  description: 'The market for CSS preparation books is flooded. Here is an honest guide to the resources that are genuinely useful and the ones that waste your time.',
+  alternates: { canonical: 'https://imtehan.com/blog/best-css-preparation-books-resources' },
   openGraph: {
-    title: 'Best CSS Preparation Books & Resources',
-    description: 'Expert-recommended resources for CSS exam preparation.',
+    title: 'Best CSS Preparation Books and Resources',
+    description: 'An honest guide to CSS books that actually help.',
     url: 'https://imtehan.com/blog/best-css-preparation-books-resources',
     type: 'article',
-    publishedTime: '2024-12-18T00:00:00Z',
+    publishedTime: '2025-02-03T00:00:00Z',
   },
 }
 
-const content = `Choosing the right preparation resources is crucial for CSS success. With countless books and websites available, it's easy to get overwhelmed. This guide recommends proven resources used by top CSS candidates.
+const RELATED: RelatedPost[] = [
+  { slug: 'css-exam-preparation-guide-2025',  title: 'CSS Exam Preparation Guide 2025',     date: 'Jan 2, 2025',  category: 'Guide'    },
+  { slug: 'how-to-crack-css-first-attempt',   title: 'How to Crack CSS in First Attempt',   date: 'Feb 14, 2025', category: 'Strategy' },
+  { slug: 'css-optional-subjects-guide',      title: 'How to Choose CSS Optional Subjects', date: 'Feb 15, 2025', category: 'Guide'    },
+  { slug: 'css-compulsory-subjects-overview', title: 'CSS Compulsory Subjects Overview',    date: 'Feb 10, 2025', category: 'Guide'    },
+]
 
-## English Language Books
+const TAGS = ['CSS Books', 'Resources', 'Preparation Material', 'Study Guide']
 
-### Grammar & Composition
-- **"A Dictionary of Modern English Usage" by H.W. Fowler**
-  - Comprehensive grammar reference
-  - Essential for essays and comprehension
-  - Investment: PKR 1,500-2,000
+const CONTENT = `Every CSS preparation forum has a thread asking for the best books. The answers are usually the same long list, and most candidates buy several of them. By month three, half sit unfinished on the shelf. The problem is not that the books are bad — some are very good — but that candidates treat book selection as a substitute for a study plan. The right book for a disorganized preparation is not better than the wrong book in a disciplined one.
 
-- **"English Grammar in Use" by Raymond Murphy**
-  - Practical exercises
-  - Clear explanations
-  - Investment: PKR 800-1,200
+## What to Look For
 
-### Essay Writing
-- **"The Art of Essay Writing" by Khalid Hassan**
-  - CSS-specific essay techniques
-  - Sample essays with analysis
-  - Investment: PKR 600-900
+The best CSS preparation material has two qualities: it covers content at the depth the exam requires, and it is written to be used, not displayed. Thin books with dense MCQ coverage are more useful than thick volumes that explain everything in depth but leave nothing for you to practice. The exam tests recall under pressure, and that only develops through active practice, not passive reading.
 
-## Islamic Studies Resources
+For compulsory subjects, locally published guides that organize content around past paper patterns are genuinely useful — not because they are academically superior, but because they match the exam's actual scope. A comprehensive academic textbook on Pakistan Affairs covers far more than CSS tests and can become a distraction.
 
-### Recommended Books
-- **"Seerat-ul-Nabi" by Allama Ibn-e-Hisham** (Urdu translation)
-  - Prophet Muhammad's life
-  - Historical accuracy
-  - Investment: PKR 1,000-1,500
+## Subject-by-Subject Guidance
 
-- **"Islamic Law and Constitution" by Maududi**
-  - Political system understanding
-  - Jurisprudence basics
-  - Investment: PKR 800-1,200
+For Pakistan Affairs, any guide that organizes content around the major constitutional and political milestones works. The goal is not academic depth but exam-appropriate coverage. Supplement with Dawn's archive for recent developments.
 
-## Pakistan Affairs & Current Affairs
+For Islamic Studies, a guide that addresses both the textual foundations and the contemporary governance applications of Islamic principles will serve you better than purely religious texts. The exam's analytical dimension needs both.
 
-### Essential Reading
-- **Newspapers**: Dawn, The News, Express Tribune
-  - Daily current affairs
-  - Cost: PKR 20-30/day
-  - Frequency: Essential daily reading
+> The best preparation book is the one you will actually finish and practice from. Not the most comprehensive one.
 
-- **"Administrative History of Pakistan" by Riaz Hassan**
-  - Governance structure
-  - Government organization
-  - Investment: PKR 1,200-1,800
+For optionals like History and Geography, standard textbooks used in Pakistani universities — Akbar S. Ahmed for Pakistan studies, standard O-level and A-level Geography texts — provide the right depth without over-extending into content the exam does not test.
 
-- **"Pakistan: Geography, Economy, Politics" by Stephen P. Cohen**
-  - International perspective
-  - Comprehensive overview
-  - Investment: PKR 2,000-2,800
+## What to Avoid
 
-## General Knowledge & History
+Avoid buying multiple books on the same subject with the intention of comparing them. It sounds thorough. In practice, it creates paralysis. Candidates spend time cross-referencing instead of learning. One good source per subject, finished and practiced, produces better results than three sources partially read.
 
-### Reference Books
-- **"History of Pakistan" by K.K. Aziz**
-  - Detailed historical events
-  - Independence to present
-  - Investment: PKR 1,500-2,200
+Also avoid the practice of collecting PDF notes from online groups as a primary preparation strategy. These notes are inconsistent in quality, often outdated, and tend to encourage passive reading rather than active practice. Use them to supplement gaps in your primary material, not as the foundation.
 
-- **"Oxford Dictionary of World History"**
-  - Global context
-  - Easy reference
-  - Investment: PKR 2,000-2,500
-
-## Online Resources (Free/Paid)
-
-### Free Websites
-- **Wikipedia**: Quick reference on any topic
-- **BBC Learning English**: Grammar and vocabulary
-- **TED Talks**: Current affairs and thinking
-- **Coursera**: Subject-specific courses (free audit)
-- **YouTube Channels**:
-  - CSS MCQs channels (Pakistan-based)
-  - TED-Ed (educational videos)
-  - Geography and history channels
-
-### Paid Platforms
-- **Imtehan**:
-  - 10,000+ MCQs
-  - Past papers 2015-2023
-  - Performance analytics
-  - Cost: Subscription-based
-
-- **Online Academies**:
-  - Khan Academy
-  - Coursera specializations
-  - Cost: PKR 500-2,000/month
-
-## Magazines & Journals
-
-### Important Publications
-- **"The Economist"**: Global current affairs
-- **"National Geographic"**: Geography and environment
-- **"Science Magazine"**: Science and innovation updates
-- **Monthly Digest of Pakistan**: Local current affairs
-  - Cost: PKR 500-800/month
-
-## Study Strategy for Resources
-
-### Phase 1: Foundation (Months 1-2)
-- Read core subject books
-- Build vocabulary
-- Learn essay structure
-- Understand history timelines
-
-### Phase 2: Practice (Months 3-4)
-- Solve MCQs from Imtehan
-- Read newspaper editorials
-- Analyze past papers
-- Write practice essays
-
-### Phase 3: Revision (Months 5-6)
-- Review notes
-- Solve more MCQs
-- Read recent current affairs
-- Mock tests
-
-## Budget-Friendly Approach
-
-**Total investment: PKR 10,000-15,000**
-- Core books: PKR 6,000-8,000
-- Newspaper subscriptions: PKR 3,000-5,000
-- Online platform: PKR 1,000-2,000
-
-**Free Resources**
-- University libraries
-- Online free courses
-- Government publications
-- YouTube channels
-
-## Digital vs Physical Books
-
-### Digital Advantages
-- Searchable content
-- Portable on devices
-- Often cheaper
-- Updates easier
-
-### Physical Advantages
-- Better retention
-- Distraction-free reading
-- Easier annotation
-- Reference ease
-
-## Expert Recommendations
-
-Top CSS candidates use:
-1. **Quality newspapers daily** (Non-negotiable)
-2. **Subject-specific reference books** (For depth)
-3. **MCQ platforms** (For practice)
-4. **Past papers** (For patterns)
-5. **Selective online courses** (For weak areas)
-
-Don't fall for the trap of buying too many books. Focus on recommended ones and practice consistently.
-
-## Final Tips
-
-- **Prioritize newspapers**: Most important resource
-- **Use libraries**: Borrow instead of buying
-- **Share resources**: Split costs with study group
-- **Focus on practice**: Resources matter only if you practice
-- **Quality over quantity**: Few quality books beat many mediocre ones
-
-## Frequently Asked Questions
-
-**Q: Should I buy all recommended books or can I skip some?**
-Skip generously. Focus on: (1) ONE comprehensive book per compulsory subject (typically Hasty & Aziz's guides for Pakistan/Islamic Studies), (2) English grammar reference (Wren & Martin or similar), (3) Newspapers daily (non-negotiable). Optional subjects: Choose 1-2 books in your optional subject only. Total budget: Rs. 5,000-8,000 maximum. Most students overspend on books; practice platforms matter more. Use library copies to preview before buying.
-
-**Q: Is Imtehan sufficient or do I need external books?**
-Imtehan is excellent for MCQ practice and time management. Books are essential for: (1) Concept understanding (MCQs test, books explain), (2) Essay writing (books provide examples and context), (3) Historical facts (Pakistan Studies requires chronology). Combined approach: Books for learning (months 1-3), Imtehan for practice (months 2-6), Newspapers throughout. Don't rely on Imtehan alone; it's a tool, not a complete replacement for reading.
-
-**Q: How many hours should I spend reading newspapers vs books?**
-Daily breakdown: Newspapers (1 hour minimum) > Subject books (3-4 hours) > MCQ platforms (2-3 hours). Newspapers are most time-efficient (covers current affairs, general knowledge, Pakistan affairs simultaneously). Books require deeper focus but build conceptual understanding. Optimize: Read newspapers for breakfast/commute, study books during peak mental hours, practice MCQs during evening. This schedule maximizes productivity across different resource types.
-
-**Q: Can I depend entirely on YouTube lectures instead of books?**
-Partially possible but risky. YouTube advantages: Visual learning, concept clarity, subject-specific channels. Disadvantages: Time-consuming, lacks depth, unpredictable quality, no systematic coverage. Strategy: Use YouTube for weak concepts only (30 minutes per week), not as primary resource. Books provide systematic, comprehensive coverage; videos supplement. Never replace books entirely; combine both. YouTube should be 10% of study, not 40%.
-
-**Q: Which newspaper is best for CSS Current Affairs?**
-Top choices: (1) Dawn (English, comprehensive, excellent op-eds), (2) The News (balanced coverage), (3) Express (local focus), read one consistently. Supplement with: BBC, Reuters, Al Jazeera (international perspectives). Time investment: 45-60 minutes daily. Focus areas: Pakistan national news, international relations, economic policy, scientific discoveries. Keep monthly notes; review before exam. Single newspaper read thoroughly beats multiple papers read casually.
-
-**Q: Is buying an expensive reference library necessary for success?**
-No. Spend Rs. 3,000-5,000 on 2-3 quality books per subject, rest on newspapers. Most expensive libraries are ego purchases, not study necessities. Successful candidates use: 1 good book per subject + newspapers + MCQ platform. Library access is better than ownership (borrow books, save money). What matters: Consistent newspaper reading, focused book study, regular MCQ practice. Resources are enablers; discipline is everything. A Rs. 500 notebook with consistent daily practice beats a Rs. 50,000 library unused.
-
-Success comes from smart resource selection and consistent practice, not from expensive materials. Use Imtehan's comprehensive platform to complement your reading!`
+The single most underrated preparation resource for CSS is Dawn newspaper. A daily habit of reading the editorial and opinion pages develops the analytical thinking, current affairs knowledge, and formal writing exposure that the exam rewards across multiple subjects simultaneously.`
 
 export default function BlogPost() {
-  const articleSchema = {
-    title: 'Best CSS Preparation Books & Online Resources 2025',
-    description: 'Comprehensive list of recommended books and resources for CSS exam preparation.',
-    content,
-    publishDate: '2024-12-18',
-    url: 'https://imtehan.com/blog/best-css-preparation-books-resources',
-  }
-
+  const headings = extractHeadings(CONTENT)
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema {...articleSchema} />
-      <NavigationBar />
-
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Breadcrumb
-          items={[
-            { name: 'Home', url: '/' },
-            { name: 'Blog', url: '/blog' },
-            { name: 'CSS Resources', url: '#' },
-          ]}
-          className="mb-8"
-        />
-
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Blog
-        </Link>
-
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Best CSS Preparation Books & Online Resources 2025
-        </h1>
-
-        <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5" />
-            <span>December 18, 2024</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <User className="w-5 h-5" />
-            <span>Imtehan Team</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Clock className="w-5 h-5" />
-            <span>11 min read</span>
-          </div>
-        </div>
-
-        <div className="prose prose-lg max-w-none mb-12">
-          {content.split('\n\n').map((paragraph, index) => {
-            if (paragraph.startsWith('##')) {
-              return (
-                <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-                  {paragraph.replace('## ', '')}
-                </h2>
-              )
-            }
-            if (paragraph.startsWith('###')) {
-              return (
-                <h3 key={index} className="text-xl font-semibold text-gray-900 mt-6 mb-3">
-                  {paragraph.replace('### ', '')}
-                </h3>
-              )
-            }
-            if (paragraph.startsWith('- **"')) {
-              return (
-                <ul key={index} className="list-disc list-inside space-y-3 text-gray-700">
-                  {paragraph.split('\n').map((item, i) => (
-                    <li key={i} className="ml-4">{item.replace('- ', '')}</li>
-                  ))}
-                </ul>
-              )
-            }
-            if (paragraph.startsWith('1.') || paragraph.startsWith('- ')) {
-              return (
-                <ul key={index} className="list-disc list-inside space-y-2 text-gray-700">
-                  {paragraph.split('\n').map((item, i) => (
-                    <li key={i}>{item.replace(/^[-\d.]\s*/, '')}</li>
-                  ))}
-                </ul>
-              )
-            }
-            return (
-              <p key={index} className="text-gray-700 leading-relaxed">
-                {paragraph}
-              </p>
-            )
-          })}
-        </div>
-
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Start practicing with quality resources
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Use Imtehan alongside books for comprehensive CSS preparation.
-          </p>
-          <Link
-            href="/css/subjects"
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Access All Resources
-          </Link>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="Best CSS Preparation Books and Resources"
+        description="An honest guide to CSS preparation material that actually helps."
+        content={CONTENT}
+        publishDate="2025-02-03"
+        url="https://imtehan.com/blog/best-css-preparation-books-resources"
+      />
+      <BlogPostShell
+        title="CSS Preparation Books: What to Actually Use and What to Skip"
+        subtitle="The market for CSS books is flooded and most candidates buy too many. Here is an honest guide to what is genuinely useful and what wastes time."
+        author="Imtehan Team"
+        date="February 3, 2025"
+        readTime="5 min read"
+        category="Guide"
+        tags={TAGS}
+        slug="best-css-preparation-books-resources"
+        headings={headings}
+        otherPosts={RELATED}
+      >
+        {renderBlogContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

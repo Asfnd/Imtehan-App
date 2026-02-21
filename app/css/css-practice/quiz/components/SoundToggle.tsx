@@ -45,7 +45,7 @@ export function SoundToggle() {
       onClick={toggleSound}
       className={`p-2.5 rounded-lg transition-all ${
         enabled
-          ? 'bg-purple-100 hover:bg-purple-200 text-purple-700'
+          ? 'bg-blue-100 hover:bg-blue-200 text-blue-700'
           : 'bg-gray-100 hover:bg-gray-200 text-gray-400'
       } ${hoverAnimation}`}
       title={enabled ? 'Mute sounds' : 'Unmute sounds'}

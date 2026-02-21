@@ -66,14 +66,14 @@ export const AnswerOption = memo(function AnswerOption({
     if (isSelected && !isRevealed) {
       return 'bg-gradient-to-r from-blue-50 to-indigo-50'
     }
-    return 'bg-gray-50 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50'
+    return 'bg-gray-50 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50'
   }
 
   const getLabelColor = () => {
     if (showCorrect) return 'bg-green-500 text-white'
     if (showIncorrect) return 'bg-red-500 text-white'
     if (isSelected && !isRevealed) return 'bg-blue-500 text-white'
-    return 'bg-gradient-to-br from-purple-100 to-blue-100 text-purple-700'
+    return 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700'
   }
 
   return (

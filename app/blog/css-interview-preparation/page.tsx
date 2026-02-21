@@ -1,35 +1,84 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, User, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
+import BlogPostShell from '@/components/blog/BlogPostShell'
+import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils'
+import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Interview Preparation: Tips & Strategies | Imtehan',
-  description: 'Comprehensive guide for CSS viva voce interview preparation with insider tips, common questions, and success strategies from CSS officers.',
+  title: 'CSS Viva Voce: What the Interview Actually Tests | Imtehan',
+  description: 'The CSS viva is not a knowledge test. It is a character and composure test. Most candidates prepare for the wrong thing.',
   alternates: { canonical: 'https://imtehan.com/blog/css-interview-preparation' },
-  openGraph: { title: 'CSS Interview Preparation', description: 'Master CSS interview with proven strategies.', url: 'https://imtehan.com/blog/css-interview-preparation', type: 'article', publishedTime: '2024-12-26T00:00:00Z' },
+  openGraph: {
+    title: 'CSS Interview Preparation',
+    description: 'What the CSS viva actually tests and how to prepare.',
+    url: 'https://imtehan.com/blog/css-interview-preparation',
+    type: 'article',
+    publishedTime: '2025-02-18T00:00:00Z',
+  },
 }
 
+const RELATED: RelatedPost[] = [
+  { slug: 'how-to-crack-css-first-attempt',   title: 'How to Crack CSS in First Attempt',     date: 'Feb 14, 2025', category: 'Strategy' },
+  { slug: 'css-exam-preparation-guide-2025',  title: 'CSS Exam Preparation Guide 2025',       date: 'Jan 2, 2025',  category: 'Guide'    },
+  { slug: 'css-optional-subjects-guide',      title: 'How to Choose CSS Optional Subjects',   date: 'Feb 15, 2025', category: 'Guide'    },
+  { slug: 'current-affairs-css-how-to-prepare', title: 'Current Affairs for CSS',             date: 'Feb 12, 2025', category: 'Strategy' },
+]
+
+const TAGS = ['CSS Interview', 'Viva Voce', 'FPSC', 'Interview Tips']
+
+const CONTENT = `The CSS viva voce is the final stage of the selection process, and it is evaluated very differently from the written exam. The written papers test what you know. The interview tests who you are — your composure under pressure, your ability to reason out loud, and whether you can hold a position when challenged. Preparing for it the same way you prepared for the written exam will not work.
+
+## What the Panel Is Looking For
+
+FPSC interview panels are experienced civil servants. They have heard every rehearsed answer about your reasons for joining the CSS and your vision for Pakistan. These answers land flatly. What they remember is how a candidate handles a question they do not know the answer to, or how they respond when a panelist directly challenges something they have said.
+
+Composure is the primary quality being assessed. A candidate who says calmly "I am not certain about that, but my understanding is..." scores better than one who stumbles, over-explains, or becomes visibly rattled. Honesty about the limits of your knowledge is a strength in an interview context. It signals self-awareness — exactly what a senior civil servant needs to demonstrate.
+
+## Preparing Your Positions
+
+You will be asked about current issues, Pakistan's foreign policy, economic challenges, and governance problems. These are not questions with single correct answers. The panel wants to see that you can reason about complex situations, not that you have memorized a position.
+
+Prepare by reading Dawn editorials and forming your own views on five or six major ongoing issues. Not for the purpose of reciting those views, but so that when asked, you have genuinely thought through the question. Candidates who have actually formed opinions are noticeably different from those reciting what they think the panel wants to hear.
+
+> Panels can tell within two minutes whether a candidate is thinking or recalling. The ones who think out loud — even imperfectly — make a stronger impression.
+
+## Your Optional Subjects
+
+Expect questions on your optional subjects. This is where many candidates are caught off guard after spending months on compulsories. The panel may ask you to explain a key concept, discuss a contemporary application, or defend a position within your optional subject's framework.
+
+Review the core themes of your optional subjects before the interview — not to memorize facts, but to be able to speak about them conversationally. The standard being applied is: does this person actually know their subject, or did they just study for an exam?
+
+## The Practical Preparation
+
+Mock interviews with someone who will genuinely challenge you are far more valuable than solo preparation. If you know someone who has cleared CSS or has interviewing experience, ask them. If not, practice answering questions out loud, alone, and time yourself. The physical experience of speaking your reasoning under a time constraint is very different from thinking it through quietly.
+
+Your presentation — how you dress, how you sit, how you speak — matters proportionally less than candidates assume, but it matters. Dress conservatively and professionally. Speak at a measured pace. The substance of what you say will determine the outcome.`
+
 export default function BlogPost() {
+  const headings = extractHeadings(CONTENT)
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema title="CSS Interview Preparation" description="Master CSS viva interview." content="CSS interview (viva voce) accounts for 50 marks and is your final hurdle. Success depends on knowledge, confidence, and communication skills. Tips: Thorough current affairs knowledge, clear articulation, confidence in your answers, honesty about weak areas, understand your optional subject deeply, prepare for HOT questions on recent events, practice mock interviews, maintain composed body language, establish eye contact, speak fluently and clearly." publishDate="2024-12-26" url="https://imtehan.com/blog/css-interview-preparation" />
-      <NavigationBar />
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-6"><ArrowLeft className="w-4 h-4" /> Back</Link>
-        <h1 className="text-4xl font-bold mb-6">CSS Interview Preparation</h1>
-        <div className="flex gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2"><Calendar className="w-5 h-5" /><span>December 26, 2024</span></div>
-          <div className="flex items-center gap-2"><Clock className="w-5 h-5" /><span>10 min read</span></div>
-        </div>
-        <p className="prose prose-lg text-gray-700">CSS interview preparation is crucial. The viva voce tests your depth of knowledge, confidence, communication skills, and current affairs awareness. Success requires: 1) Thorough knowledge of all subjects, 2) Updated current affairs, 3) Clear articulation and communication, 4) Confidence in your answers, 5) Honesty when unsure, 6) Strong optional subject expertise, 7) Regular mock interview practice. Common questions include: Tell us about current political situation, explain impact of CPEC, discuss recent economic policy, comment on international relations, share your views on climate change. Interview tips: Speak confidently, maintain eye contact, be concise but detailed, admit when you don't know, stay calm under pressure, dress professionally, reach early, smile genuinely. Success comes from combining written exam excellence with interview readiness on Imtehan!</p>
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Clear written exam first</h3>
-          <p className="mb-4 text-gray-700">Master all subjects on Imtehan to be fully prepared.</p>
-          <Link href="/css" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Now</Link>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="CSS Interview Preparation"
+        description="What the CSS viva actually tests — and how to prepare for it."
+        content={CONTENT}
+        publishDate="2025-02-18"
+        url="https://imtehan.com/blog/css-interview-preparation"
+      />
+      <BlogPostShell
+        title="CSS Viva Voce: What the Interview Actually Tests"
+        subtitle="The written exam tests knowledge. The viva tests composure, reasoning, and self-awareness. Most candidates prepare for the wrong thing."
+        author="Imtehan Team"
+        date="February 18, 2025"
+        readTime="5 min read"
+        category="Strategy"
+        tags={TAGS}
+        slug="css-interview-preparation"
+        headings={headings}
+        otherPosts={RELATED}
+      >
+        {renderBlogContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

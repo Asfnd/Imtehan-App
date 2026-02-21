@@ -98,8 +98,8 @@ export function EnhancedResultsScreen({
         emoji: '⭐',
         title: 'OUTSTANDING!',
         subtitle: "Exceptional Work!",
-        gradient: 'from-blue-600 to-purple-600',
-        ringColor: 'from-blue-500 to-purple-500',
+        gradient: 'from-blue-600 to-indigo-600',
+        ringColor: 'from-blue-500 to-indigo-500',
       }
     } else if (percentage >= 80) {
       return {
@@ -114,8 +114,8 @@ export function EnhancedResultsScreen({
         emoji: '💪',
         title: 'WELL DONE!',
         subtitle: 'Good Job!',
-        gradient: 'from-purple-600 to-indigo-600',
-        ringColor: 'from-purple-500 to-indigo-500',
+        gradient: 'from-blue-600 to-sky-600',
+        ringColor: 'from-blue-500 to-sky-500',
       }
     } else if (percentage >= 60) {
       return {
@@ -130,8 +130,8 @@ export function EnhancedResultsScreen({
         emoji: '🚀',
         title: 'KEEP GOING!',
         subtitle: "You're Improving!",
-        gradient: 'from-indigo-600 to-purple-600',
-        ringColor: 'from-indigo-500 to-purple-500',
+        gradient: 'from-slate-700 to-blue-700',
+        ringColor: 'from-slate-600 to-blue-600',
       }
     }
   }
@@ -144,7 +144,7 @@ export function EnhancedResultsScreen({
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 -left-4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
         <div className="absolute top-0 -right-4 w-96 h-96 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Content Card */}
@@ -190,7 +190,7 @@ export function EnhancedResultsScreen({
                 />
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" className={`${performance.gradient.includes('blue-600') ? 'text-blue-500' : 'text-purple-500'}`} stopColor="currentColor" />
+                    <stop offset="0%" className="text-blue-500" stopColor="currentColor" />
                     <stop offset="100%" className={`${performance.gradient.includes('indigo-600') ? 'text-indigo-500' : 'text-blue-500'}`} stopColor="currentColor" />
                   </linearGradient>
                 </defs>
@@ -259,13 +259,13 @@ export function EnhancedResultsScreen({
                 </div>
               )}
 
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-2xl p-3 border border-purple-200/50">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-100/50 rounded-2xl p-3 border border-blue-200/50">
                 <div className="flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center mb-2">
                     <Star className="w-4 h-4 text-white" fill="white" />
                   </div>
                   <div className="text-xs text-gray-500 font-semibold mb-1">Points</div>
-                  <div className="text-lg font-bold text-purple-900">{totalPoints}</div>
+                  <div className="text-lg font-bold text-blue-900">{totalPoints}</div>
                 </div>
               </div>
             </div>

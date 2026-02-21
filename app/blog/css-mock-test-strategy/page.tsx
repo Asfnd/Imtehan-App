@@ -1,34 +1,88 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
+import BlogPostShell from '@/components/blog/BlogPostShell'
+import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils'
+import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Mock Test Strategy: Practice Like Real Exam | Imtehan',
-  description: 'Maximize your CSS preparation with effective mock test strategies. Learn how to analyze results and identify improvement areas.',
+  title: 'CSS Mock Tests: How to Use Them So They Actually Help | Imtehan',
+  description: 'Most candidates take mock tests and move on. The ones who improve spend more time on the review than the test itself.',
   alternates: { canonical: 'https://imtehan.com/blog/css-mock-test-strategy' },
-  openGraph: { title: 'CSS Mock Test Strategy', description: 'Effective mock test strategies for CSS.', url: 'https://imtehan.com/blog/css-mock-test-strategy', type: 'article', publishedTime: '2024-12-17T00:00:00Z' },
+  openGraph: {
+    title: 'CSS Mock Test Strategy',
+    description: 'How to use mock tests to actually improve your CSS score.',
+    url: 'https://imtehan.com/blog/css-mock-test-strategy',
+    type: 'article',
+    publishedTime: '2025-02-08T00:00:00Z',
+  },
 }
 
+const RELATED: RelatedPost[] = [
+  { slug: 'how-to-crack-css-first-attempt',   title: 'How to Crack CSS in First Attempt',     date: 'Feb 14, 2025', category: 'Strategy' },
+  { slug: 'time-management-css-exam',         title: 'Time Management During the CSS Exam',   date: 'Feb 9, 2025',  category: 'Strategy' },
+  { slug: 'css-past-papers-analysis-trends',  title: 'What CSS Past Papers Reveal',           date: 'Feb 11, 2025', category: 'Analysis' },
+  { slug: 'css-exam-preparation-guide-2025',  title: 'CSS Exam Preparation Guide 2025',       date: 'Jan 2, 2025',  category: 'Guide'    },
+]
+
+const TAGS = ['Mock Tests', 'CSS Strategy', 'Practice Tests', 'Exam Preparation']
+
+const CONTENT = `Taking a mock test and checking your score is not practice — it is measurement. Practice is what happens in the thirty minutes after the test when you go through every question you got wrong and understand exactly why. Most candidates skip this completely. They see their score, feel either encouraged or discouraged, and move on to more reading. Their scores on subsequent tests barely improve.
+
+## When to Start Mock Tests
+
+The right time to start full mock tests is when you have covered the compulsory subjects at least once. Starting earlier produces scores so low they discourage more than they inform. Starting later compresses the time you have to act on what the tests reveal.
+
+Month four or five of a twelve-month preparation is typically right. By then you have enough content knowledge for the test to show meaningful patterns rather than just general gaps. Earlier than that, almost everything is a gap and the test tells you nothing specific.
+
+## The Review Is the Practice
+
+After every mock test, before looking at the answer key, go back through the questions you were uncertain about and try to reason through them again. This second attempt, unaided, is valuable — it trains the kind of thinking you need in the actual exam.
+
+Then use the answer key. For every wrong answer, ask two questions: why did I choose what I chose, and why is the correct answer correct? The first question reveals your reasoning errors. The second builds knowledge. Both matter.
+
+Keep a log of wrong answers by subject. After three or four tests you will see a pattern — two or three subjects consistently dragging your score down. Those subjects need focused study, not more mock tests.
+
+> The test tells you what is weak. The review tells you why. Without the review, you are just measuring the same weakness repeatedly.
+
+## Simulating Real Conditions
+
+A mock test taken casually — phone nearby, breaks allowed, open notes — tells you almost nothing useful. Exam-day conditions are strict, and your performance under those conditions is genuinely different from your performance in comfortable ones.
+
+Set a timer. Sit at a desk. No interruptions for the full duration. This is uncomfortable, especially early in preparation. That discomfort is exactly the point — you are training your concentration, not just your knowledge.
+
+After five or six tests under real conditions, sitting through three hours of focused work stops feeling extraordinary. By exam day it feels routine. That shift in familiarity is worth more than any amount of additional content study.
+
+## Frequency
+
+Two full mock tests per week in the final two months is the right cadence. Any more and you are not leaving enough time for the review and focused study that should follow each one. Any fewer and you are not building the stamina and pacing that make exam day manageable.
+
+Earlier in preparation, one test per fortnight is sufficient — enough to measure progress without consuming time better spent on content.`
+
 export default function BlogPost() {
+  const headings = extractHeadings(CONTENT)
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema title="CSS Mock Test Strategy" description="Maximize preparation with mock tests." content="Mock tests are practice ground for real CSS exam. Effective use determines exam day performance. Mock test frequency: Month 1-2 (quiz-based), Month 3-4 (subject-wise tests), Month 5-6 (full-length papers). Strategy: Take mock in exam conditions - same time, same environment, strictly timed, no interruptions. Pre-mock checklist: Gather all materials, silence phone, inform family not to disturb, start at fixed exam time, have water and light refreshment ready. During mock: Answer as if real exam, don't cheat or check answers, manage time strictly, maintain exam-like pressure. Post-mock analysis (crucial): Review all wrong answers, understand mistake reasons, identify knowledge gaps vs careless errors, track improvement trend, note weak topics, compare with previous mocks. Analysis template: Total attempted: X, Correct: Y, Wrong: Z, Accuracy: Y/X%, Weak subjects: List, Knowledge gaps: List, Time management: Good/Needs work. Monthly targets: Month 3 (60%), Month 4 (65%), Month 5 (70%), Month 6 (75%+). Mock test platforms: Use past papers as mocks, Imtehan's full-length tests, coaching institute papers. Common mistakes: Not taking mocks seriously, ignoring analysis, repeating same mistakes, not tracking improvement. Success metric: Consistent improvement trend matters more than individual scores. Mock tests build exam confidence and identify last-minute preparation needs!" publishDate="2024-12-17" url="https://imtehan.com/blog/css-mock-test-strategy" />
-      <NavigationBar />
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 mb-6"><ArrowLeft className="w-4 h-4" /> Back</Link>
-        <h1 className="text-4xl font-bold mb-6">CSS Mock Test Strategy: Practice Like Real Exam</h1>
-        <div className="flex gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2"><Calendar className="w-5 h-5" /><span>December 17, 2024</span></div>
-          <div className="flex items-center gap-2"><Clock className="w-5 h-5" /><span>9 min read</span></div>
-        </div>
-        <p className="text-gray-700 leading-relaxed">Mock tests are essential practice ground for CSS exam. How you approach mocks determines exam day readiness. Frequency: Months 1-2 (quiz-based practice), Months 3-4 (subject-wise full tests), Months 5-6 (complete full-length papers simulating real exam). Pre-mock preparation: Gather all materials in advance, silence mobile phone, inform family not to disturb, prepare desk like exam hall, have timer ready, ensure good lighting. Taking the mock: Treat it as real exam with same seriousness, don't peek at answers, stick to time limits strictly, maintain examination pressure and focus, complete the paper even if difficult. Post-mock analysis (most important): Identify all incorrect answers, understand WHY you made mistakes - knowledge gap or careless error, categorize weak topics, track improvement trend over time, compare performance with previous mocks. Effective analysis format: Total marks: X/Y, Correct answers: A, Wrong answers: B, Accuracy: A/(A+B)%, Weakest subjects: List, Knowledge gaps vs careless errors: Breakdown, Time management issues: Yes/No, Areas for improvement. Progression targets: Month 3 mock aim 60%, Month 4 aim 65%, Month 5 aim 70%, Month 6 aim 75%+. Mock test sources: Past papers from 2015-2023, Imtehan's comprehensive test series, coaching institute practice papers. Critical success factors: Take mocks seriously and consistently, conduct detailed post-test analysis, learn from every mistake, track improvement trends monthly, adjust preparation based on weak areas. Common mistakes: Not taking mocks seriously, skipping analysis, not tracking improvements, repeating same mistakes in subsequent tests. Remember: Your mock test score reflects your real exam readiness. Regular quality mocks combined with proper analysis significantly boost actual exam performance!</p>
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Ready to practice with mock tests?</h3>
-          <Link href="/css/css-practice/quiz" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Start Mock Tests</Link>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="CSS Mock Test Strategy"
+        description="How to use mock tests to actually improve your CSS score."
+        content={CONTENT}
+        publishDate="2025-02-08"
+        url="https://imtehan.com/blog/css-mock-test-strategy"
+      />
+      <BlogPostShell
+        title="CSS Mock Tests: How to Use Them So They Actually Help"
+        subtitle="Taking a test and checking your score is measurement, not practice. The improvement happens in the review — and most candidates skip it entirely."
+        author="Imtehan Team"
+        date="February 8, 2025"
+        readTime="5 min read"
+        category="Strategy"
+        tags={TAGS}
+        slug="css-mock-test-strategy"
+        headings={headings}
+        otherPosts={RELATED}
+      >
+        {renderBlogContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

@@ -2,12 +2,93 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
-import { ArrowRight, BookOpen, BarChart3, Users, Trophy, Target, Clock } from "lucide-react"
-import { useState } from "react"
+import { ArrowRight, BookOpen, BarChart3, Users, Trophy, Target, Clock, ChevronDown } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { InfiniteMarquee } from "@/components/InfiniteMarquee"
 import { AnimatedText } from "@/components/AnimatedText"
 import NavigationBar from "@/components/NavigationBar"
 import { CSSExamCountdown } from "@/components/CSSExamCountdown"
+
+const MEDICAL_CATEGORIES = [
+  { key: 'mdcat', label: 'MDCAT',          href: '/mdcat' },
+  { key: 'fsc',   label: 'FSc Pre-Medical', href: '/fsc'   },
+]
+
+const COMPETITIVE_CATEGORIES = [
+  { key: 'national',   label: 'CSS / PMS',     href: '/css' },
+  { key: 'ppsc',       label: 'PPSC',           href: '/exams?category=ppsc' },
+  { key: 'fpsc',       label: 'FPSC',           href: '/exams?category=fpsc' },
+  { key: 'provincial', label: 'Provincial',     href: '/exams?category=provincial' },
+  { key: 'police',     label: 'Police',         href: '/exams?category=police' },
+  { key: 'military',   label: 'Military',       href: '/exams?category=military' },
+  { key: 'nts',        label: 'NTS',            href: '/exams?category=nts' },
+  { key: 'ots',        label: 'OTS',            href: '/exams?category=ots' },
+  { key: 'etea',       label: 'ETEA',           href: '/exams?category=etea' },
+  { key: 'railways',   label: 'Railways',       href: '/exams?category=railways' },
+  { key: 'banks',      label: 'Banks',          href: '/exams?category=banks' },
+  { key: 'judiciary',  label: 'Judiciary',      href: '/exams?category=judiciary' },
+  { key: 'devauth',    label: 'Dev Authority',  href: '/exams?category=devauth' },
+  { key: 'rescue',     label: 'Rescue 1122',    href: '/exams?category=rescue' },
+  { key: 'revenue',    label: 'Revenue Auth',   href: '/exams?category=revenue' },
+]
+
+function ExamPicker() {
+  const router = useRouter()
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  return (
+    <div ref={ref} className="relative inline-block">
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="flex items-center gap-2.5 h-[52px] px-8 text-[16px] font-semibold bg-black hover:bg-gray-900 text-white rounded-xl shadow-sm transition-colors"
+      >
+        Start Preparing
+        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      {open && (
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[92vw] max-w-[380px]">
+          {/* Medical */}
+          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Medical</p>
+          <div className="grid grid-cols-2 gap-1 mb-3">
+            {MEDICAL_CATEGORIES.map(cat => (
+              <button
+                key={cat.key}
+                onClick={() => { router.push(cat.href); setOpen(false) }}
+                className="text-left px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+          {/* Competitive */}
+          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Competitive Exams</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1">
+            {COMPETITIVE_CATEGORIES.map(cat => (
+              <button
+                key={cat.key}
+                onClick={() => { router.push(cat.href); setOpen(false) }}
+                className="text-left px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 function NewsletterSection() {
   const [email, setEmail] = useState('')
@@ -99,9 +180,9 @@ export function HomeClient() {
       <CSSExamCountdown />
 
       <section className="relative bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-16 md:pt-32 md:pb-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 sm:pt-20 sm:pb-16 md:pt-32 md:pb-20">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-[44px] md:text-[56px] lg:text-[64px] font-bold tracking-tight mb-8 leading-[1.2] text-black">
+            <h1 className="text-[28px] sm:text-[38px] md:text-[52px] lg:text-[64px] font-bold tracking-tight mb-6 sm:mb-8 leading-[1.2] text-black">
               <div className="text-center">Prepare for competitive exams</div>
               <div className="text-center mt-1 pl-0 sm:pl-12 md:pl-24">
                 <span className="inline-flex items-baseline gap-3">
@@ -114,81 +195,103 @@ export function HomeClient() {
               </div>
             </h1>
 
-            <p className="text-[17px] md:text-[19px] text-gray-600 mb-10 leading-[1.6] max-w-2xl mx-auto font-normal">
+            <p className="text-[15px] sm:text-[17px] md:text-[19px] text-gray-600 mb-8 sm:mb-10 leading-[1.6] max-w-2xl mx-auto font-normal px-2 sm:px-0">
               A comprehensive learning platform designed to help you excel in competitive examinations through effective practice, personalized insights, and proven strategies.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/css">
-                <Button size="lg" className="h-[52px] px-8 text-[16px] font-semibold bg-black hover:bg-gray-900 text-white rounded-xl shadow-sm w-full sm:w-auto">
-                  Begin CSS
-                </Button>
-              </Link>
+            <div className="flex justify-center">
+              <ExamPicker />
             </div>
+
           </div>
         </div>
       </section>
 
-      <section className="py-12 md:py-16 border-y bg-[#FAFAFA] overflow-hidden">
+      <section className="py-12 md:py-16 border-b bg-[#FAFAFA] overflow-hidden">
         <div className="mb-6">
           <InfiniteMarquee
             direction="right"
             speed={50}
             items={[
-              { text: "Islamic Studies", subtext: "500+ Questions" },
-              { text: "Pakistan Affairs", subtext: "600+ Questions" },
-              { text: "Current Affairs", subtext: "800+ Questions" },
-              { text: "English (Précis & Composition)", subtext: "450+ Questions" },
-              { text: "General Knowledge", subtext: "700+ Questions" },
-              { text: "International Relations", subtext: "550+ Questions" },
+              { text: "General Knowledge",          subtext: "8,500+ MCQs" },
+              { text: "English",                    subtext: "8,000+ MCQs" },
+              { text: "Pakistan Affairs",           subtext: "7,000+ MCQs" },
+              { text: "Current Affairs",            subtext: "6,500+ MCQs" },
+              { text: "Everyday Science",           subtext: "5,500+ MCQs" },
+              { text: "Computer Science",           subtext: "5,000+ MCQs" },
+              { text: "Mathematics",                subtext: "5,000+ MCQs" },
+              { text: "Islamic Studies",            subtext: "4,500+ MCQs" },
+              { text: "Geography",                  subtext: "3,500+ MCQs" },
+              { text: "Urdu",                       subtext: "3,500+ MCQs" },
+              { text: "CSS / MPT Mock Tests",       subtext: "20 per exam" },
+              { text: "PPSC — 50+ Posts",           subtext: "All subjects" },
+              { text: "FPSC — 15+ Posts",           subtext: "All subjects" },
+              { text: "Police — All Provinces",     subtext: "SI & Constable" },
+              { text: "Banks — NBP · SBP · HBL",   subtext: "Officer grade" },
             ]}
           />
         </div>
         <div>
           <InfiniteMarquee
             direction="left"
-            speed={70}
+            speed={60}
             isReview={true}
             items={[
               {
-                text: "Best decision for CSS prep. The practice tests mirror actual exam difficulty perfectly. Highly recommend!",
-                subtext: "Ayesha Rahman, CSS 2024"
+                text: "Cleared PPSC Assistant BS-16 first attempt. All 20 mocks matched the actual paper structure exactly.",
+                subtext: "Sana Malik, PPSC Assistant, Faisalabad"
               },
               {
-                text: "Past papers with detailed solutions are gold. Saved me so much time compared to academy notes.",
-                subtext: "Ali Raza, PMS Officer"
+                text: "Scored 138/200 in CSS MPT after 6 weeks here. The mock tests are incredibly accurate.",
+                subtext: "Junaid Alam, CSS 2025 Qualifier, Lahore"
               },
               {
-                text: "Being able to practice anywhere on my phone was a lifesaver during my job. Finally cleared CSS!",
-                subtext: "Hassan Ahmed, Karachi"
+                text: "Analytics showed I was weak in Current Affairs. Fixed it before the Punjab Police SI test. First attempt.",
+                subtext: "Bilal Hussain, Punjab Police SI, Multan"
               },
               {
-                text: "The subject-wise analytics showed exactly what to focus on. My scores improved dramatically.",
-                subtext: "Zara Khan, Lahore"
+                text: "NBP Officer cleared first go. The mocks here are tougher than the real exam. Ideal prep.",
+                subtext: "Fareeha Tariq, NBP Officer, Karachi"
               },
               {
-                text: "Tried other platforms but this one has the most authentic CSS-style questions. Really well done.",
-                subtext: "Usman Tariq, Islamabad"
+                text: "PPSC PST 2025 passed. Urdu and GK mocks were a near-perfect match for the actual paper.",
+                subtext: "Nadia Sultana, PPSC PST 2025, Bahawalpur"
               },
               {
-                text: "The explanations actually help you understand concepts instead of just cramming. Worth it!",
-                subtext: "Mariam Siddiqui, NUST"
+                text: "NTS WAPDA sets got me to 76% accuracy. Passed comfortably. Science and math focus is spot on.",
+                subtext: "Asad Mehmood, WAPDA, Peshawar"
+              },
+              {
+                text: "Cleared LHC Clerk first attempt. English-heavy mocks built the reading speed I needed.",
+                subtext: "Hina Akhtar, LHC Clerk, Lahore"
+              },
+              {
+                text: "Joined PAF using Imtehan. The 60-minute mock format matched the actual academic test perfectly.",
+                subtext: "Imran Gul, PAF Airman, Rawalpindi"
+              },
+              {
+                text: "Cleared FPSC UDC without coaching, studying during lunch breaks. Bite-sized sets work perfectly.",
+                subtext: "Rabia Anwar, FPSC UDC, Islamabad"
+              },
+              {
+                text: "Rescue 1122 Rescuer passed. Science-heavy mocks covered every emergency management question.",
+                subtext: "Tariq Mehmood, Rescue 1122, Gujranwala"
               },
             ]}
           />
         </div>
       </section>
 
-      <section id="features" className="py-24 md:py-32 bg-[#F9FAFB]">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">Built for serious learners</h2>
-            <p className="text-lg text-muted-foreground text-pretty">
+      <section id="features" className="py-14 md:py-24 lg:py-32 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 md:mb-16 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-balance">Built for serious learners</h2>
+            <p className="text-base sm:text-lg text-muted-foreground text-pretty">
               Everything you need to prepare effectively and efficiently
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             <Link href="/css/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <Target className="w-5.5 h-5.5 text-primary" />
@@ -239,27 +342,27 @@ export function HomeClient() {
               </p>
             </Link>
 
-            <Link href="/css/subjects" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
+            <Link href="/exams" className="group p-8 rounded-xl bg-white border hover:shadow-md transition-all duration-200">
               <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                 <BookOpen className="w-5.5 h-5.5 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold mb-2.5">Comprehensive library</h3>
+              <h3 className="text-lg font-semibold mb-2.5">Massive question bank</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                10,000+ practice questions across 50+ test subjects
+                70,000+ MCQs across 195 exams — CSS, PPSC, FPSC, Police, Banks & more
               </p>
             </Link>
           </div>
         </div>
       </section>
 
-      <section id="how-it-works" className="py-24 md:py-32 bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">How it works</h2>
-            <p className="text-lg text-muted-foreground">Simple steps to exam success</p>
+      <section id="how-it-works" className="py-14 md:py-24 lg:py-32 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 md:mb-16 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">How it works</h2>
+            <p className="text-base sm:text-lg text-muted-foreground">Simple steps to exam success</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary font-semibold text-lg mb-4">
                 1
@@ -293,10 +396,10 @@ export function HomeClient() {
         </div>
       </section>
 
-      <section className="py-24 md:py-32 bg-[#F9FAFB]">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-5 text-balance">Ready to start practicing?</h2>
-          <p className="text-lg text-muted-foreground mb-8 text-pretty">
+      <section className="py-14 md:py-24 lg:py-32 bg-[#F9FAFB]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 sm:mb-5 text-balance">Ready to start practicing?</h2>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 text-pretty">
             Join thousands of students achieving their exam goals
           </p>
           <Link href="/css">
@@ -310,9 +413,9 @@ export function HomeClient() {
 
       <NewsletterSection />
 
-      <footer className="border-t py-16 bg-[#F9FAFB]">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="grid md:grid-cols-6 gap-12 mb-12">
+      <footer className="border-t py-10 sm:py-16 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
                 <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
@@ -441,7 +544,7 @@ export function HomeClient() {
           </div>
 
           <div className="pt-4 flex justify-center items-center">
-            <p className="text-sm text-muted-foreground">&copy; 2025 Imtehan. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">&copy; 2026 Imtehan. All rights reserved.</p>
           </div>
         </div>
       </footer>

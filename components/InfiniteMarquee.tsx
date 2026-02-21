@@ -30,17 +30,17 @@ export function InfiniteMarquee({ items, direction = 'left', speed = 40, isRevie
             key={index}
             className={`flex-shrink-0 ${
               isReview
-                ? 'bg-white border border-gray-100 rounded-lg px-5 py-4 shadow-sm hover:shadow-md transition-shadow w-[280px] h-[140px] flex flex-col justify-between'
+                ? 'bg-white border border-gray-100 rounded-lg px-4 py-3.5 shadow-sm hover:shadow-md transition-shadow w-[240px] flex flex-col gap-2.5'
                 : 'flex flex-col items-center justify-center min-w-[200px] md:min-w-[240px]'
             }`}
           >
             {isReview ? (
               <>
-                <p className="text-[13px] md:text-sm text-gray-700 leading-snug line-clamp-4">
+                <p className="text-[12.5px] text-gray-700 leading-snug line-clamp-3">
                   {item.text}
                 </p>
                 {item.subtext && (
-                  <p className="text-xs text-gray-500 font-medium mt-2">
+                  <p className="text-[11px] text-gray-400 font-medium truncate">
                     {item.subtext}
                   </p>
                 )}
@@ -62,8 +62,8 @@ export function InfiniteMarquee({ items, direction = 'left', speed = 40, isRevie
       </div>
 
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent pointer-events-none" />
     </div>
   )
 }

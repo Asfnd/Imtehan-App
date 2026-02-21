@@ -4,18 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import NavigationBar from '@/components/NavigationBar'
 import BlogComments from './BlogComments'
+import { createClient } from '@/lib/supabase/client'
+import type { Heading, RelatedPost } from './blog-utils'
 
-export interface Heading {
-  id: string
-  text: string
-}
-
-export interface RelatedPost {
-  slug: string
-  title: string
-  date: string
-  category: string
-}
+export type { Heading, RelatedPost }
 
 interface BlogPostShellProps {
   title: string
@@ -32,90 +24,13 @@ interface BlogPostShellProps {
   children: React.ReactNode
 }
 
-export function extractHeadings(content: string): Heading[] {
-  return content
-    .split('\n')
-    .filter(line => line.startsWith('## '))
-    .map(line => {
-      const text = line.replace(/^#{1,3}\s/, '')
-      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-      return { id, text }
-    })
-}
-
-function bold(html: string) {
-  return html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-}
-
-/** Shared renderer — use this in every blog page instead of a local renderContent */
-export function renderBlogContent(raw: string) {
-  const paragraphs = raw.split('\n\n')
-  let isFirst = true
-
-  return paragraphs.map((block, idx) => {
-    const trimmed = block.trim()
-    if (!trimmed) return null
-
-    if (trimmed.startsWith('## ')) {
-      const text = trimmed.replace(/^## /, '')
-      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-      return <h2 key={idx} id={id}>{text}</h2>
-    }
-
-    if (trimmed.startsWith('### ')) {
-      const text = trimmed.replace(/^### /, '')
-      const id   = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-      return <h3 key={idx} id={id}>{text}</h3>
-    }
-
-    // Pull-quote (blockquote)
-    if (trimmed.startsWith('> ')) {
-      return (
-        <div key={idx} className="pull-quote">
-          {trimmed.slice(2)}
-        </div>
-      )
-    }
-
-    // Bullet list
-    if (trimmed.startsWith('- ')) {
-      return (
-        <ul key={idx}>
-          {trimmed.split('\n').filter(l => l.startsWith('- ')).map((item, i) => (
-            <li key={i} dangerouslySetInnerHTML={{ __html: bold(item.slice(2)) }} />
-          ))}
-        </ul>
-      )
-    }
-
-    // Numbered list
-    if (/^\d+\./.test(trimmed)) {
-      return (
-        <ol key={idx}>
-          {trimmed.split('\n').filter(l => /^\d+\./.test(l)).map((item, i) => (
-            <li key={i} dangerouslySetInnerHTML={{ __html: bold(item.replace(/^\d+\.\s*/, '')) }} />
-          ))}
-        </ol>
-      )
-    }
-
-    // First paragraph — explicit drop cap span
-    if (isFirst) {
-      isFirst = false
-      const firstChar = trimmed[0]
-      const rest = bold(trimmed.slice(1))
-      return (
-        <p key={idx}>
-          <span className="drop-cap">{firstChar}</span>
-          <span dangerouslySetInnerHTML={{ __html: rest }} />
-        </p>
-      )
-    }
-
-    return (
-      <p key={idx} dangerouslySetInnerHTML={{ __html: bold(trimmed) }} />
-    )
-  })
+function getSessionId(): string {
+  let id = localStorage.getItem('blog_session_id')
+  if (!id) {
+    id = crypto.randomUUID()
+    localStorage.setItem('blog_session_id', id)
+  }
+  return id
 }
 
 export default function BlogPostShell({
@@ -137,6 +52,37 @@ export default function BlogPostShell({
   const [claps, setClaps]                 = useState(0)
   const [saved, setSaved]                 = useState(false)
   const [copied, setCopied]               = useState(false)
+
+  // Load clap count + whether this session has clapped
+  useEffect(() => {
+    async function loadClaps() {
+      const supabase   = createClient()
+      const sessionId  = getSessionId()
+
+      const [{ count }, { data: mine }] = await Promise.all([
+        supabase
+          .from('blog_claps')
+          .select('*', { count: 'exact', head: true })
+          .eq('post_slug', slug),
+        supabase
+          .from('blog_claps')
+          .select('id')
+          .eq('post_slug', slug)
+          .eq('session_id', sessionId)
+          .maybeSingle(),
+      ])
+
+      setClaps(count ?? 0)
+      setClapped(!!mine)
+    }
+    loadClaps()
+  }, [slug])
+
+  // Load saved state from localStorage
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('blog_saved') ?? '[]')
+    setSaved(saved.includes(slug))
+  }, [slug])
 
   useEffect(() => {
     if (headings.length === 0) return
@@ -160,6 +106,36 @@ export default function BlogPostShell({
 
   const initials = author.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
 
+  const handleClap = async () => {
+    const supabase  = createClient()
+    const sessionId = getSessionId()
+
+    if (clapped) {
+      setClapped(false)
+      setClaps(n => Math.max(0, n - 1))
+      await supabase
+        .from('blog_claps')
+        .delete()
+        .eq('post_slug', slug)
+        .eq('session_id', sessionId)
+    } else {
+      setClapped(true)
+      setClaps(n => n + 1)
+      await supabase
+        .from('blog_claps')
+        .insert({ post_slug: slug, session_id: sessionId })
+    }
+  }
+
+  const handleSave = () => {
+    const list    = JSON.parse(localStorage.getItem('blog_saved') ?? '[]') as string[]
+    const updated = saved
+      ? list.filter(s => s !== slug)
+      : [...list, slug]
+    localStorage.setItem('blog_saved', JSON.stringify(updated))
+    setSaved(!saved)
+  }
+
   const handleShare = () => {
     if (typeof window !== 'undefined') {
       navigator.clipboard.writeText(window.location.href)
@@ -177,7 +153,7 @@ export default function BlogPostShell({
         {/* ── LEFT — action bar ── */}
         <aside className="blog-action-bar">
           <button
-            onClick={() => { setClaps(n => clapped ? n - 1 : n + 1); setClapped(c => !c) }}
+            onClick={handleClap}
             className={`blog-action-icon${clapped ? ' text-black' : ''}`}
             title="Clap"
           >
@@ -207,7 +183,7 @@ export default function BlogPostShell({
           </div>
 
           <button
-            onClick={() => setSaved(s => !s)}
+            onClick={handleSave}
             className={`blog-action-icon${saved ? ' text-black' : ''}`}
             title="Save"
           >

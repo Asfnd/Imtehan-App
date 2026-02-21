@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const securityHeaders = [
   // SECURITY: Content Security Policy (re-enabled)
@@ -75,6 +76,8 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  // Fix: multiple lockfiles warning — pin the tracing root to this project
+  outputFileTracingRoot: path.join(__dirname),
   // Production optimizations
   productionBrowserSourceMaps: false, // Disable source maps in production for faster builds
   poweredByHeader: false, // Remove X-Powered-By header

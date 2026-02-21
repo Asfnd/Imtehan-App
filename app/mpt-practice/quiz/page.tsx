@@ -1,29 +1,12 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
+import { useEffect, useState, Suspense, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import dynamic from 'next/dynamic'
-import { ArrowLeft, Clock } from 'lucide-react'
+import { Clock, Flag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
-
-// Lazy load heavy components for better performance
-const QuizTimer = dynamic(() => Promise.resolve(() => (
-  <div className="flex items-center gap-2 px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-bold">
-    <Clock className="w-4 h-4" />
-    <span id="timer-display">Loading...</span>
-  </div>
-)), {
-  loading: () => (
-    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg">
-      <div className="w-4 h-4 bg-gray-300 animate-pulse rounded"></div>
-      <div className="w-16 h-4 bg-gray-300 animate-pulse rounded"></div>
-    </div>
-  ),
-  ssr: false
-})
 
 interface MCQ {
   id: number
@@ -50,6 +33,7 @@ function MPTQuizContent() {
   const [timeLeft, setTimeLeft] = useState(200 * 60) // 200 minutes in seconds
   const [timerActive, setTimerActive] = useState(false)
   const [wrongQuestionIds, setWrongQuestionIds] = useState<number[]>([]) // Track wrong questions for review
+  const [showReportToast, setShowReportToast] = useState(false)
 
   // Review mode state
   const reviewMode = searchParams.get('reviewMode') === 'true'
@@ -215,8 +199,12 @@ function MPTQuizContent() {
   }
 
   const practiceMistakes = () => {
-    // Store wrong question IDs in session storage
-    sessionStorage.setItem('mptPracticeWrongQuestions', JSON.stringify(wrongQuestionIds))
+    // Include wrong answers + unanswered questions
+    const unansweredIds = activeMCQs
+      .filter((_, idx) => !selectedAnswers[idx])
+      .map((mcq) => mcq.id)
+    const allPracticeIds = [...new Set([...wrongQuestionIds, ...unansweredIds])]
+    sessionStorage.setItem('mptPracticeWrongQuestions', JSON.stringify(allPracticeIds))
 
     // Store original score for comparison
     const score = calculateScore()
@@ -256,10 +244,26 @@ function MPTQuizContent() {
 
   const getTimerColor = () => {
     const percentLeft = (timeLeft / (200 * 60)) * 100
-    if (percentLeft > 50) return 'text-green-600 bg-green-50 border-green-200'
-    if (percentLeft > 20) return 'text-yellow-600 bg-yellow-50 border-yellow-200'
-    return 'text-red-600 bg-red-50 border-red-200'
+    if (percentLeft > 50) return 'text-green-400'
+    if (percentLeft > 20) return 'text-yellow-400'
+    return 'text-red-400 animate-pulse'
   }
+
+  const handleReport = useCallback(async () => {
+    if (!activeMCQs[currentIndex]) return
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      await supabase.from('question_reports').insert({
+        question_id:   activeMCQs[currentIndex].id,
+        question_type: 'mpt',
+        subject:       'MPT',
+        user_id:       user?.id || null,
+      })
+    } catch (_) { /* silent */ }
+    setShowReportToast(true)
+    setTimeout(() => setShowReportToast(false), 3000)
+  }, [activeMCQs, currentIndex])
 
   if (activeLoading) {
     return (
@@ -307,7 +311,7 @@ function MPTQuizContent() {
     const percentage = (score / activeMCQs.length) * 100
     const timeTaken = (200 * 60) - timeLeft
     const timeExpired = timeLeft === 0
-    const wrongCount = wrongQuestionIds.length
+    const wrongCount = wrongQuestionIds.length + activeMCQs.filter((_, idx) => !selectedAnswers[idx]).length
 
     return (
       <UltraProtectedContent>
@@ -418,134 +422,174 @@ function MPTQuizContent() {
     )
   }
 
+  // Answer state helpers (same design as CSS quiz)
+  const getOptionState = (option: string) => {
+    const ua = selectedAnswers[currentIndex]
+    if (!ua) return 'default'
+    if (option === currentMCQ.correct_answer) return 'correct'
+    if (option === ua) return 'wrong'
+    return 'dimmed'
+  }
+  const OPTION_STYLES: Record<string, string> = {
+    default: 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50 cursor-pointer',
+    correct: 'border-green-500 bg-green-50 cursor-default',
+    wrong:   'border-red-500 bg-red-50 cursor-default',
+    dimmed:  'border-gray-200 bg-gray-50 opacity-50 cursor-default',
+  }
+  const BADGE_STYLES: Record<string, string> = {
+    default: 'bg-gray-100 text-gray-600',
+    correct: 'bg-green-500 text-white',
+    wrong:   'bg-red-500 text-white',
+    dimmed:  'bg-gray-100 text-gray-400',
+  }
+
   return (
-    <UltraProtectedContent>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex flex-col">
-        <div className="flex-1 flex flex-col px-3 sm:px-4 py-3 sm:py-4 max-w-4xl mx-auto w-full">
-          {/* Compact Header */}
-          <div className="mb-3 flex-shrink-0">
-            <div className="flex items-center justify-between mb-2 sm:mb-3">
-              <button
-                onClick={() => router.back()}
-                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-xs sm:text-sm"
-              >
-                <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                Back
-              </button>
-              
-              <div className="flex items-center gap-2 sm:gap-3">
-                <span className="text-xs text-gray-600">
-                  {answeredCount}/{activeMCQs.length}
-                </span>
-                {/* Timer - Hide in review mode */}
-                {!reviewMode && (
-                  <div
-                    className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border-2 font-mono font-bold transition-all text-xs sm:text-sm ${getTimerColor()}`}
-                  >
+    <>
+      <UltraProtectedContent>
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">
+          <div className="max-w-3xl mx-auto">
+
+            {/* Dark Blue Header */}
+            <div className="bg-gradient-to-r from-slate-800 via-blue-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-blue-500/30">
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => router.back()}
+                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-white/10 active:bg-white/20 rounded-lg sm:rounded-xl transition-colors text-xs sm:text-sm font-semibold text-white shadow-lg border border-white/20"
+                >
+                  <span>←</span>
+                  <span className="hidden sm:inline">Exit</span>
+                </button>
+
+                <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20">
+                  <span className="text-xs font-medium text-blue-300">Q</span>
+                  <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
+                  <span className="text-blue-300">/</span>
+                  <span className="text-sm sm:text-base text-blue-200">{activeMCQs.length}</span>
+                </div>
+
+                {!reviewMode ? (
+                  <div className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 rounded-lg sm:rounded-xl border border-white/20 font-mono font-bold text-xs sm:text-sm ${getTimerColor()}`}>
                     <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>{formatTime(timeLeft)}</span>
                   </div>
+                ) : (
+                  <div className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 rounded-lg sm:rounded-xl border border-white/20 text-xs text-blue-200">
+                    {answeredCount} answered
+                  </div>
                 )}
               </div>
-            </div>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-1.5">
-              <div
-                className="bg-gradient-to-r from-blue-500 to-indigo-600 h-1.5 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Question Card - Scrollable content */}
-          <div className="flex-1 overflow-y-auto mb-3 min-h-0 overscroll-contain">
-            <div
-              key={currentIndex}
-              className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-lg animate-slide-left"
-            >
-                <div className="mb-3 sm:mb-4">
-                  <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
-                    Question {currentMCQ.question_number}
-                  </span>
-                </div>
-
-                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-4 sm:mb-5 leading-relaxed">
-                  {currentMCQ.question_text}
-                </h3>
-
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                  {['A', 'B', 'C', 'D'].map((option) => {
-                    const optionText = currentMCQ[
-                      `option_${option.toLowerCase()}` as keyof MCQ
-                    ] as string
-                    const isSelected = selectedAnswers[currentIndex] === option
-
-                    return (
-                      <button
-                        key={option}
-                        onClick={() => handleAnswer(option)}
-                        disabled={!!selectedAnswers[currentIndex]}
-                        className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 ${
-                          isSelected
-                            ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 hover:border-gray-300 active:border-blue-300 active:bg-gray-50'
-                        } ${selectedAnswers[currentIndex] ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                      >
-                        <div className="flex items-start gap-2 sm:gap-3">
-                          <span
-                            className={`flex-shrink-0 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold transition-all text-sm sm:text-base ${
-                              isSelected
-                                ? 'bg-blue-500 text-white shadow-lg'
-                                : 'bg-gray-100 text-gray-600'
-                            }`}
-                          >
-                            {option}
-                          </span>
-                          <span className="flex-1 text-xs sm:text-sm md:text-base leading-relaxed pt-0.5 sm:pt-1 text-gray-700">
-                            {optionText}
-                          </span>
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* Navigation - Inside card, right after options */}
-                <div className="flex items-center justify-between pt-4 sm:pt-5 border-t border-gray-100">
-                  <button
-                    onClick={goToPrevious}
-                    disabled={currentIndex === 0}
-                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold hover-scale-sm"
-                  >
-                    ← Previous
-                  </button>
-
-                  <span className="text-sm sm:text-base text-gray-600 font-semibold px-3">
-                    {currentIndex + 1} / {activeMCQs.length}
-                  </span>
-
-                  {currentIndex === activeMCQs.length - 1 ? (
-                    <button
-                      onClick={finishTest}
-                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base hover-scale-sm"
-                    >
-                      {reviewMode ? 'Finish Practice ✓' : 'Finish Test ✓'}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={goToNext}
-                      className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 active:from-blue-700 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base font-semibold hover-scale-sm"
-                    >
-                      Next →
-                    </button>
-                  )}
+              {/* Progress Bar */}
+              <div className="mt-2 sm:mt-3">
+                <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
+                  <div
+                    className="bg-gradient-to-r from-blue-400 to-blue-600 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  />
                 </div>
               </div>
+            </div>
+
+            {/* Question Card */}
+            <div
+              key={currentIndex}
+              className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 mb-2 sm:mb-3 border-2 border-gray-100"
+            >
+              {/* Q label + Report */}
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 sm:px-3 py-1 rounded-full border border-blue-200">
+                  Question {currentMCQ.question_number}
+                </span>
+                <button
+                  onClick={handleReport}
+                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-red-50 text-red-600 active:bg-red-100 rounded-full text-xs font-semibold transition-colors border border-red-200"
+                  title="Report an issue"
+                >
+                  <Flag className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span className="hidden sm:inline">Report</span>
+                  <span className="sm:hidden">⚠️</span>
+                </button>
+              </div>
+
+              <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-3 sm:mb-4 leading-relaxed">
+                {currentMCQ.question_text}
+              </h3>
+
+              <div className="space-y-2">
+                {(['A', 'B', 'C', 'D'] as const).map((option) => {
+                  const optionText = currentMCQ[`option_${option.toLowerCase()}` as keyof MCQ] as string
+                  const state = getOptionState(option)
+                  return (
+                    <button
+                      key={option}
+                      onClick={() => handleAnswer(option)}
+                      disabled={!!selectedAnswers[currentIndex]}
+                      className={`w-full text-left p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-150 ${OPTION_STYLES[state]}`}
+                    >
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <span className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all ${BADGE_STYLES[state]}`}>
+                          {option}
+                        </span>
+                        <span className="flex-1 text-xs sm:text-sm leading-relaxed pt-0.5 sm:pt-1 text-gray-700">
+                          {optionText}
+                        </span>
+                        {state === 'correct' && <span className="text-green-500 text-base flex-shrink-0 mt-0.5">✓</span>}
+                        {state === 'wrong'   && <span className="text-red-500 text-base flex-shrink-0 mt-0.5">✗</span>}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between pt-1 sm:pt-2 mb-3">
+              <button
+                onClick={goToPrevious}
+                disabled={currentIndex === 0}
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold"
+              >
+                ← Previous
+              </button>
+
+              <span className="text-sm sm:text-base text-gray-600 font-semibold px-2 sm:px-3">
+                {currentIndex + 1} / {activeMCQs.length}
+              </span>
+
+              {currentIndex === activeMCQs.length - 1 ? (
+                <button
+                  onClick={finishTest}
+                  className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg font-bold text-sm sm:text-base"
+                >
+                  {reviewMode ? 'Finish Practice ✓' : 'Finish Test ✓'}
+                </button>
+              ) : (
+                <button
+                  onClick={goToNext}
+                  className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all shadow-lg text-sm sm:text-base font-semibold"
+                >
+                  Next →
+                </button>
+              )}
+            </div>
+
           </div>
         </div>
-      </div>
-    </UltraProtectedContent>
+      </UltraProtectedContent>
+
+      {/* Report Toast */}
+      {showReportToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-white/20">
+            <span className="text-xl">✓</span>
+            <div>
+              <div className="font-bold">Question Flagged!</div>
+              <div className="text-xs text-white/90">Thanks for helping us improve</div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

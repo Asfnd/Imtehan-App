@@ -1,23 +1,70 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { LogOut, Menu, X } from 'lucide-react'
+import { LogOut, Menu, X, LayoutGrid, ChevronDown, MessageSquare } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { Button } from '@/components/ui/Button'
+import { EXAM_CONFIGS } from '@/lib/exam-configs'
+import { trackLogin } from '@/lib/analytics/events'
+
+const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
+  national:   { label: 'CSS / PMS',    href: '/css' },
+  ppsc:       { label: 'PPSC',         href: '/exams?category=ppsc' },
+  fpsc:       { label: 'FPSC',         href: '/exams?category=fpsc' },
+  provincial: { label: 'Provincial',   href: '/exams?category=provincial' },
+  police:     { label: 'Police',       href: '/exams?category=police' },
+  military:   { label: 'Military',     href: '/exams?category=military' },
+  nts:        { label: 'NTS',          href: '/exams?category=nts' },
+  ots:        { label: 'OTS',          href: '/exams?category=ots' },
+  etea:       { label: 'ETEA',         href: '/exams?category=etea' },
+  railways:   { label: 'Railways',     href: '/exams?category=railways' },
+  banks:      { label: 'Banks',        href: '/exams?category=banks' },
+  judiciary:  { label: 'Judiciary',    href: '/exams?category=judiciary' },
+  devauth:    { label: 'Dev Authority',href: '/exams?category=devauth' },
+  rescue:     { label: 'Rescue 1122', href: '/exams?category=rescue' },
+  revenue:    { label: 'Revenue Auth',href: '/exams?category=revenue' },
+}
+
+const CATEGORY_ORDER = [
+  'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
+  'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
+  'rescue', 'revenue',
+]
+
+// Compute category exam counts from static config (runs once at module load)
+const examsByCategory = Object.values(EXAM_CONFIGS).reduce((acc, config) => {
+  acc[config.category] = (acc[config.category] || 0) + 1
+  return acc
+}, {} as Record<string, number>)
+
+const availableCategories = CATEGORY_ORDER.filter((cat) => examsByCategory[cat] > 0)
 
 interface NavigationBarProps {
   showEligibilityButton?: boolean
   onEligibilityClick?: () => void
   showCenterNav?: boolean
+  centerContent?: React.ReactNode
 }
 
-export default function NavigationBar({ showEligibilityButton = false, onEligibilityClick, showCenterNav = true }: NavigationBarProps) {
+export default function NavigationBar({ showEligibilityButton = false, onEligibilityClick, showCenterNav = true, centerContent }: NavigationBarProps) {
   const router = useRouter()
   const { user, loading } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [examDropdownOpen, setExamDropdownOpen] = useState(false)
+  const examDropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (examDropdownRef.current && !examDropdownRef.current.contains(e.target as Node)) {
+        setExamDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleSignOut = async () => {
     const supabase = createClient()
@@ -31,6 +78,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
     const supabase = createClient()
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL || ''
     const currentPath = window.location.pathname
+    trackLogin('google')
 
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -97,28 +145,85 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
           <span className="font-bold text-base sm:text-lg md:text-xl text-gray-900 leading-none whitespace-nowrap">Imtehan</span>
         </Link>
 
-        {/* Centered Navigation - Desktop Only */}
-        {showCenterNav && (
-          <div className="hidden md:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
-            <Link
-              href="/css"
-              className="px-4 py-2 text-[15px] font-medium text-gray-900 hover:text-gray-700 transition-colors"
-            >
-              CSS
-            </Link>
-            <div className="px-4 py-2 text-[15px] font-medium text-gray-400 cursor-not-allowed flex items-center gap-1.5">
-              FPSC
-              <span className="text-xs bg-gray-100 px-2 py-0.5 rounded-full">Soon</span>
-            </div>
-            <div className="px-4 py-2 text-[15px] font-medium text-gray-400 cursor-not-allowed flex items-center gap-1.5">
-              MDCAT
-              <span className="text-xs bg-gray-100 px-2 py-0.5 rounded-full">Soon</span>
-            </div>
-          </div>
-        )}
+        {/* Center — Browse Exams + Blog + Community, or custom centerContent */}
+        <div className={`hidden md:flex items-center gap-3 absolute left-1/2 -translate-x-1/2 ${!showCenterNav && !centerContent ? 'invisible' : ''}`}>
+          {centerContent ? centerContent : (
+            <>
+              {/* Browse Exams dropdown */}
+              <div ref={examDropdownRef} className="relative">
+                <button
+                  onClick={() => setExamDropdownOpen((v) => !v)}
+                  className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all duration-200 text-sm font-semibold whitespace-nowrap"
+                >
+                  <LayoutGrid className="w-4 h-4 flex-shrink-0" />
+                  <span>Browse Exams</span>
+                  <ChevronDown className={`w-3.5 h-3.5 opacity-80 transition-transform duration-200 ${examDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {examDropdownOpen && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[400px]">
+                    {/* Medical */}
+                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Medical</p>
+                    <div className="grid grid-cols-2 gap-1 mb-3">
+                      <Link
+                        href="/mdcat"
+                        onClick={() => setExamDropdownOpen(false)}
+                        className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                      >
+                        MDCAT
+                      </Link>
+                      <Link
+                        href="/fsc"
+                        onClick={() => setExamDropdownOpen(false)}
+                        className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                      >
+                        FSc Pre-Medical
+                      </Link>
+                    </div>
+                    {/* Competitive */}
+                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Competitive Exams</p>
+                    <div className="grid grid-cols-3 gap-1">
+                      {availableCategories.map((cat) => {
+                        const cfg = CATEGORY_CONFIG[cat]
+                        return (
+                          <Link
+                            key={cat}
+                            href={cfg.href}
+                            onClick={() => setExamDropdownOpen(false)}
+                            className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                          >
+                            {cfg.label}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Blog */}
+              <Link
+                href="/blog"
+                className="px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition-all duration-200 text-sm font-semibold whitespace-nowrap"
+              >
+                Blog
+              </Link>
+
+              {/* Community */}
+              <Link
+                href="/community"
+                className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition-all duration-200 text-sm font-semibold whitespace-nowrap"
+              >
+                <MessageSquare className="w-4 h-4" />
+                Community Chat
+              </Link>
+            </>
+          )}
+        </div>
 
         {/* Right Side - Desktop */}
         <div className="hidden md:flex items-center gap-3">
+
           {/* Date Sheet Button (only on CSS dashboard) */}
           {showEligibilityButton && (
             <a
@@ -255,22 +360,62 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
           <div className="px-6 py-4 space-y-3">
             {/* Navigation Links */}
             {showCenterNav && (
-              <div className="space-y-2 pb-3 border-b border-gray-100">
+              <div className="pb-3 border-b border-gray-100">
+                <p className="px-1 pt-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Medical</p>
+                <div className="grid grid-cols-2 gap-1 mb-3">
+                  <Link
+                    href="/mdcat"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                  >
+                    MDCAT
+                  </Link>
+                  <Link
+                    href="/fsc"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                  >
+                    FSc Pre-Medical
+                  </Link>
+                </div>
+                <p className="px-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Competitive Exams</p>
+                <div className="grid grid-cols-3 gap-1">
+                  {availableCategories.map((cat) => {
+                    const cfg = CATEGORY_CONFIG[cat]
+                    return (
+                      <Link
+                        key={cat}
+                        href={cfg.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                      >
+                        {cfg.label}
+                      </Link>
+                    )
+                  })}
+                </div>
                 <Link
-                  href="/css"
+                  href="/community"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-3 text-[15px] font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                  className="flex items-center gap-3 px-3 py-2.5 mt-2 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
                 >
-                  CSS
+                  <MessageSquare className="w-4 h-4 text-blue-500" />
+                  Community Chat
+                  <span className="ml-auto flex items-center gap-1 text-xs text-green-600 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse" />
+                    Live
+                  </span>
                 </Link>
-                <div className="px-4 py-3 text-[15px] font-medium text-gray-400 cursor-not-allowed flex items-center justify-between rounded-lg bg-gray-50">
-                  <span>FPSC</span>
-                  <span className="text-xs bg-gray-200 px-2 py-0.5 rounded-full">Soon</span>
-                </div>
-                <div className="px-4 py-3 text-[15px] font-medium text-gray-400 cursor-not-allowed flex items-center justify-between rounded-lg bg-gray-50">
-                  <span>MDCAT</span>
-                  <span className="text-xs bg-gray-200 px-2 py-0.5 rounded-full">Soon</span>
-                </div>
+                <Link
+                  href="/blog"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z" />
+                  </svg>
+                  Blog
+                </Link>
               </div>
             )}
 

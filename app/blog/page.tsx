@@ -1,21 +1,8 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowRight, Calendar, User } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
-import { Breadcrumb, breadcrumbTrails } from '@/components/seo/Breadcrumb'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'CSS & MPT Exam Preparation Blog - Study Guides & Tips | Imtehan',
-  description: 'Expert guides on CSS and MPT exam preparation. Learn essay writing, time management, subject strategies, and insider tips from successful candidates. 20+ in-depth articles.',
-  alternates: { canonical: 'https://imtehan.com/blog' },
-  openGraph: {
-    title: 'CSS & MPT Exam Blog - Expert Guides & Study Tips',
-    description: 'Comprehensive blog covering CSS exam preparation, strategies, and subject guides.',
-    url: 'https://imtehan.com/blog',
-    type: 'website',
-    siteName: 'Imtehan',
-  },
-}
+import { useState } from 'react'
+import Link from 'next/link'
+import NavigationBar from '@/components/NavigationBar'
 
 interface BlogPost {
   slug: string
@@ -32,43 +19,43 @@ const blogPosts: BlogPost[] = [
     slug: 'css-english-essay-structure-examples',
     title: 'CSS English Essay Structure and Examples',
     excerpt: 'Master CSS English essay with perfect structure. Real examples, template, and scoring breakdown. Learn the exact formula top scorers use.',
-    date: 'January 3, 2026',
+    date: 'Jan 3, 2026',
     author: 'Imtehan Team',
     readTime: '12 min read',
     category: 'Writing Guide',
   },
   {
     slug: 'css-time-management-3-hour-mcq-exam',
-    title: 'CSS Time Management During MCQ Exam: 3 Hours Strategy',
-    excerpt: 'Master CSS 3-hour MCQ exam time management. Minute-by-minute breakdown, question strategies, and techniques to maximize your score.',
-    date: 'January 3, 2026',
+    title: 'CSS MCQ Exam: Managing Three Hours Without Running Out of Time',
+    excerpt: 'The CSS MCQ paper gives you three hours for one hundred questions. The three hours is always enough — the pacing is the problem.',
+    date: 'Feb 19, 2025',
     author: 'Imtehan Team',
-    readTime: '11 min read',
+    readTime: '5 min read',
     category: 'Strategy',
   },
   {
     slug: 'css-english-precis-composition-tips',
     title: 'CSS English Précis and Composition: Tips with Practice',
     excerpt: 'Master CSS English Précis & Composition section. Grammar rules, writing techniques, and practice questions to score 80+ marks.',
-    date: 'January 3, 2026',
+    date: 'Jan 3, 2026',
     author: 'Imtehan Team',
     readTime: '10 min read',
     category: 'Writing Guide',
   },
   {
     slug: 'css-past-papers-analysis-trends',
-    title: 'CSS Past Papers 2015-2023: Important Questions & Trend Analysis',
-    excerpt: 'Analyze CSS past papers 2015-2023. Identify recurring topics, question patterns, scoring trends. Essential strategy for exam preparation.',
-    date: 'January 3, 2026',
+    title: 'What CSS Past Papers Actually Reveal',
+    excerpt: 'Analyze CSS past papers 2015–2023. Identify recurring topics, question patterns, scoring trends. Essential strategy for exam preparation.',
+    date: 'Feb 11, 2025',
     author: 'Imtehan Team',
-    readTime: '13 min read',
+    readTime: '6 min read',
     category: 'Analysis',
   },
   {
     slug: 'pakistan-affairs-important-facts-by-year',
-    title: 'Pakistan Affairs: Important Facts by Year (1947-2025)',
+    title: 'Pakistan Affairs: Important Facts by Year (1947–2025)',
     excerpt: 'Essential Pakistan Affairs facts organized by year. Partition, wars, constitutions, key figures, and important events for CSS exam.',
-    date: 'January 3, 2026',
+    date: 'Jan 3, 2026',
     author: 'Imtehan Team',
     readTime: '14 min read',
     category: 'Subject Guide',
@@ -77,7 +64,7 @@ const blogPosts: BlogPost[] = [
     slug: 'css-exam-preparation-guide-2025',
     title: 'Complete CSS Exam Preparation Guide 2025',
     excerpt: 'Master the CSS examination with our comprehensive guide covering syllabus, study strategies, time management, and success tips from top CSS officers.',
-    date: 'January 2, 2025',
+    date: 'Jan 2, 2025',
     author: 'Imtehan Team',
     readTime: '12 min read',
     category: 'Guide',
@@ -86,7 +73,7 @@ const blogPosts: BlogPost[] = [
     slug: 'css-compulsory-subjects-overview',
     title: 'CSS Compulsory Subjects: Complete Overview & Study Tips',
     excerpt: 'Master all 7 CSS compulsory subjects including English, Urdu, Islamic Studies, Pakistan Affairs, Current Affairs, General Knowledge, and Everyday Science.',
-    date: 'January 1, 2025',
+    date: 'Jan 1, 2025',
     author: 'Imtehan Team',
     readTime: '13 min read',
     category: 'Subject Guide',
@@ -95,7 +82,7 @@ const blogPosts: BlogPost[] = [
     slug: 'best-css-preparation-books-resources',
     title: 'Best CSS Preparation Books & Online Resources 2025',
     excerpt: 'Comprehensive list of recommended books, websites, and resources for CSS exam preparation covering all subjects.',
-    date: 'December 29, 2024',
+    date: 'Dec 29, 2024',
     author: 'Imtehan Team',
     readTime: '11 min read',
     category: 'Resources',
@@ -104,16 +91,16 @@ const blogPosts: BlogPost[] = [
     slug: 'how-to-crack-css-first-attempt',
     title: 'How to Crack CSS in First Attempt: Insider Tips',
     excerpt: 'Proven strategies from top CSS officers on how to successfully pass CSS exam in your first attempt with smart preparation.',
-    date: 'December 29, 2024',
+    date: 'Feb 14, 2025',
     author: 'Imtehan Team',
-    readTime: '12 min read',
+    readTime: '6 min read',
     category: 'Strategy',
   },
   {
     slug: 'pakistan-affairs-mcqs-top-100-questions',
     title: 'Pakistan Affairs MCQs: Top 100 Questions with Answers',
     excerpt: 'Practice essential Pakistan Affairs MCQs that frequently appear in CSS exams. Includes detailed explanations and topic-wise categorization.',
-    date: 'December 28, 2024',
+    date: 'Dec 28, 2024',
     author: 'Imtehan Team',
     readTime: '15 min read',
     category: 'Practice',
@@ -122,25 +109,25 @@ const blogPosts: BlogPost[] = [
     slug: 'css-interview-preparation',
     title: 'CSS Interview Preparation: Tips & Strategies',
     excerpt: 'Comprehensive guide for CSS viva voce interview preparation with insider tips and success strategies from CSS officers.',
-    date: 'December 26, 2024',
+    date: 'Dec 26, 2024',
     author: 'Imtehan Team',
     readTime: '10 min read',
-    category: 'Interview',
+    category: 'Strategy',
   },
   {
     slug: 'css-english-essay-preparation',
     title: 'How to Prepare for CSS English Essay: Tips & Strategies',
     excerpt: 'Learn proven techniques to excel in CSS English essay writing. Master structure, argumentation, and writing techniques used by successful candidates.',
-    date: 'December 25, 2024',
+    date: 'Dec 25, 2024',
     author: 'Imtehan Team',
     readTime: '10 min read',
-    category: 'Subject Guide',
+    category: 'Writing Guide',
   },
   {
     slug: 'current-affairs-css-how-to-prepare',
     title: 'Current Affairs for CSS: How to Prepare Effectively',
     excerpt: 'Master current affairs for CSS exam with proven study strategies, newspaper reading tips, and MCQ practice methods.',
-    date: 'December 24, 2024',
+    date: 'Dec 24, 2024',
     author: 'Imtehan Team',
     readTime: '9 min read',
     category: 'Subject Guide',
@@ -149,16 +136,16 @@ const blogPosts: BlogPost[] = [
     slug: 'css-eligibility-criteria-registration',
     title: 'CSS Eligibility Criteria & Registration: Complete Guide',
     excerpt: 'Complete guide to CSS eligibility criteria, registration process, deadlines, and requirements for 2025 examination.',
-    date: 'December 23, 2024',
+    date: 'Dec 23, 2024',
     author: 'Imtehan Team',
     readTime: '8 min read',
-    category: 'Information',
+    category: 'Guide',
   },
   {
     slug: 'islamic-studies-css-complete-syllabus',
     title: 'Islamic Studies for CSS: Complete Syllabus & Topics',
     excerpt: 'Detailed breakdown of Islamic Studies syllabus for CSS exam. Understand key topics, important themes, and effective study approach.',
-    date: 'December 22, 2024',
+    date: 'Dec 22, 2024',
     author: 'Imtehan Team',
     readTime: '13 min read',
     category: 'Subject Guide',
@@ -167,7 +154,7 @@ const blogPosts: BlogPost[] = [
     slug: 'css-optional-subjects-guide',
     title: 'CSS Optional Subjects Guide: Choose Smart',
     excerpt: 'Complete guide to choosing and preparing for CSS optional subjects. Compare history, geography, economics, and more.',
-    date: 'December 21, 2024',
+    date: 'Dec 21, 2024',
     author: 'Imtehan Team',
     readTime: '11 min read',
     category: 'Subject Guide',
@@ -175,157 +162,215 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'css-past-papers-analysis-what-to-expect',
     title: 'CSS Past Papers Analysis: Patterns & What to Expect',
-    excerpt: 'Analyze CSS past papers from 2015-2023. Understand exam patterns, recurring topics, and scoring analysis to better prepare.',
-    date: 'December 20, 2024',
+    excerpt: 'Analyze CSS past papers from 2015–2023. Understand exam patterns, recurring topics, and scoring analysis to better prepare.',
+    date: 'Dec 20, 2024',
     author: 'Imtehan Team',
     readTime: '14 min read',
     category: 'Analysis',
   },
   {
     slug: 'time-management-css-exam',
-    title: 'Time Management During CSS Exam: Strategic Tips',
+    title: 'Time Management During the CSS Exam',
     excerpt: 'Master time management for CSS exam. Learn how to allocate time wisely, manage essays, and maximize MCQ attempts.',
-    date: 'December 19, 2024',
+    date: 'Feb 9, 2025',
     author: 'Imtehan Team',
-    readTime: '10 min read',
+    readTime: '5 min read',
     category: 'Strategy',
   },
   {
     slug: 'css-mock-test-strategy',
-    title: 'CSS Mock Test Strategy: Practice Like Real Exam',
+    title: 'CSS Mock Tests: How to Use Them Properly',
     excerpt: 'Maximize your CSS preparation with effective mock test strategies. Learn how to analyze results and identify improvements.',
-    date: 'December 17, 2024',
+    date: 'Feb 8, 2025',
     author: 'Imtehan Team',
-    readTime: '9 min read',
+    readTime: '5 min read',
     category: 'Practice',
   },
   {
     slug: 'general-knowledge-css-exam',
     title: 'General Knowledge for CSS Exam: Topics & Preparation',
     excerpt: 'Master General Knowledge for CSS exam with comprehensive topic coverage and effective study strategies.',
-    date: 'December 16, 2024',
+    date: 'Dec 16, 2024',
     author: 'Imtehan Team',
     readTime: '10 min read',
     category: 'Subject Guide',
   },
 ]
 
-export default function BlogPage() {
+const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
+  Strategy:      { bg: '#DBEAFE', text: '#1D4ED8' },
+  'Subject Guide': { bg: '#D1FAE5', text: '#047857' },
+  'Writing Guide': { bg: '#EDE9FE', text: '#6D28D9' },
+  Analysis:      { bg: '#FEF3C7', text: '#B45309' },
+  Practice:      { bg: '#CCFBF1', text: '#0F766E' },
+  Resources:     { bg: '#FEF9C3', text: '#A16207' },
+  Guide:         { bg: '#E0F2FE', text: '#0369A1' },
+}
+
+const ALL_CATEGORIES = ['All Articles', ...Array.from(new Set(blogPosts.map(p => p.category)))]
+
+function CategoryPill({ category }: { category: string }) {
+  const color = CATEGORY_COLORS[category] ?? { bg: '#F3F4F6', text: '#52525B' }
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
+    <span
+      style={{ backgroundColor: color.bg, color: color.text }}
+      className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+    >
+      {category}
+    </span>
+  )
+}
+
+export default function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState('All Articles')
+
+  const filtered = activeCategory === 'All Articles'
+    ? blogPosts
+    : blogPosts.filter(p => p.category === activeCategory)
+
+  return (
+    <div className="min-h-screen bg-white">
       <NavigationBar />
 
-      {/* Hero Section */}
-      <section className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-16 md:pt-32 md:pb-20">
-          <div className="flex justify-between items-start gap-8">
-            <div className="flex-1">
-              <Breadcrumb
-                items={[
-                  { name: 'Home', url: '/' },
-                  { name: 'Blog', url: '/blog' }
-                ]}
-                className="mb-6"
-              />
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                CSS & MPT Exam Blog
-              </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Expert guides, study tips, and in-depth analysis to help you ace your CSS and MPT examinations. Learn from experienced educators and successful candidates.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div
+        style={{
+          maxWidth: '960px',
+          margin: '0 auto',
+          padding: '48px 24px 80px',
+          display: 'grid',
+          gridTemplateColumns: '168px 1fr',
+          gap: '48px',
+          alignItems: 'start',
+        }}
+      >
+        {/* ── Left sidebar ── */}
+        <aside style={{ position: 'sticky', top: '88px' }}>
+          <p style={{
+            fontFamily: 'var(--font-inter), system-ui, sans-serif',
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: '#71717A',
+            marginBottom: '16px',
+          }}>
+            Topics
+          </p>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            {ALL_CATEGORIES.map(cat => (
+              <li key={cat}>
+                <button
+                  onClick={() => setActiveCategory(cat)}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'left',
+                    background: 'none',
+                    border: 'none',
+                    padding: '6px 0',
+                    fontFamily: 'var(--font-inter), system-ui, sans-serif',
+                    fontSize: '14px',
+                    fontWeight: activeCategory === cat ? 600 : 400,
+                    color: activeCategory === cat ? '#111111' : '#52525B',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {cat}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </aside>
 
-      {/* Blog Posts Grid */}
-      <section className="py-16 md:py-20 max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
+        {/* ── Article feed ── */}
+        <main>
+          {filtered.map((post, idx) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300"
+              style={{
+                display: 'block',
+                textDecoration: 'none',
+                paddingTop: idx === 0 ? 0 : '32px',
+                paddingBottom: '32px',
+                borderBottom: idx < filtered.length - 1 ? '1px solid #E4E4E7' : 'none',
+              }}
+              className="group"
             >
-              <div className="p-6 flex flex-col h-full">
-                {/* Category Tag */}
-                <div className="inline-flex w-fit mb-4">
-                  <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
-                    {post.category}
-                  </span>
-                </div>
+              {/* Category + date */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                <CategoryPill category={post.category} />
+                <span style={{
+                  fontFamily: 'var(--font-inter), system-ui, sans-serif',
+                  fontSize: '13px',
+                  color: '#A1A1AA',
+                }}>
+                  {post.date}
+                </span>
+              </div>
 
-                {/* Title */}
-                <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                  {post.title}
-                </h2>
+              {/* Title */}
+              <h2 style={{
+                fontFamily: 'var(--font-libre-baskerville), Georgia, serif',
+                fontSize: '22px',
+                fontWeight: 700,
+                lineHeight: 1.35,
+                color: '#111111',
+                marginBottom: '8px',
+                transition: 'color 0.15s',
+              }}
+              className="group-hover:text-blue-700"
+              >
+                {post.title}
+              </h2>
 
-                {/* Excerpt */}
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
-                  {post.excerpt}
-                </p>
+              {/* Excerpt */}
+              <p style={{
+                fontFamily: 'var(--font-inter), system-ui, sans-serif',
+                fontSize: '15px',
+                lineHeight: 1.6,
+                color: '#52525B',
+                marginBottom: '14px',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}>
+                {post.excerpt}
+              </p>
 
-                {/* Meta Info */}
-                <div className="space-y-2 border-t border-gray-100 pt-4">
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
-                    <Calendar className="w-4 h-4" />
-                    <span>{post.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
-                    <User className="w-4 h-4" />
-                    <span>{post.author}</span>
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {post.readTime}
-                  </div>
-                </div>
-
-                {/* Read More */}
-                <div className="mt-4 flex items-center gap-2 text-blue-600 font-semibold group-hover:gap-3 transition-all">
-                  Read More
-                  <ArrowRight className="w-4 h-4" />
+              {/* Author + read time + arrow */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{
+                  fontFamily: 'var(--font-inter), system-ui, sans-serif',
+                  fontSize: '13px',
+                  color: '#A1A1AA',
+                }}>
+                  By {post.author} · {post.readTime}
+                </span>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  border: '1px solid #E4E4E7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#A1A1AA',
+                  flexShrink: 0,
+                  transition: 'border-color 0.15s, color 0.15s',
+                }}
+                className="group-hover:border-blue-600 group-hover:text-blue-600"
+                >
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </div>
               </div>
             </Link>
           ))}
-        </div>
-      </section>
-
-      {/* Newsletter CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Get Study Tips & Updates
-          </h2>
-          <p className="text-blue-100 text-lg mb-8">
-            Subscribe to receive new guides, study tips, and exam preparation resources directly in your inbox.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email"
-              className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-blue-400"
-              required
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <footer className="border-t py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Have a blog topic suggestion? <Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link>
-            </p>
-          </div>
-        </div>
-      </footer>
-    </main>
+        </main>
+      </div>
+    </div>
   )
 }

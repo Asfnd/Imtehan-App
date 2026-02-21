@@ -1,34 +1,78 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Clock, Calendar } from 'lucide-react'
-import NavigationBar from '@/components/NavigationBar'
 import { ArticleSchema } from '@/components/seo/StructuredData'
+import BlogPostShell from '@/components/blog/BlogPostShell'
+import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils'
+import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'General Knowledge for CSS Exam: Topics & Preparation | Imtehan',
-  description: 'Master General Knowledge for CSS exam with comprehensive topic coverage, high-frequency questions, and effective study strategies.',
+  title: 'General Knowledge for CSS: Why Candidates Underestimate It | Imtehan',
+  description: 'General Knowledge feels manageable until you start solving MCQs. Here is how to prepare it properly without it consuming your entire schedule.',
   alternates: { canonical: 'https://imtehan.com/blog/general-knowledge-css-exam' },
-  openGraph: { title: 'General Knowledge for CSS', description: 'Complete CSS General Knowledge guide.', url: 'https://imtehan.com/blog/general-knowledge-css-exam', type: 'article', publishedTime: '2024-12-16T00:00:00Z' },
+  openGraph: {
+    title: 'General Knowledge for CSS',
+    description: 'How to prepare General Knowledge for CSS without underestimating it.',
+    url: 'https://imtehan.com/blog/general-knowledge-css-exam',
+    type: 'article',
+    publishedTime: '2025-02-07T00:00:00Z',
+  },
 }
 
+const RELATED: RelatedPost[] = [
+  { slug: 'css-compulsory-subjects-overview',   title: 'CSS Compulsory Subjects Overview',       date: 'Feb 10, 2025', category: 'Guide'    },
+  { slug: 'current-affairs-css-how-to-prepare', title: 'Current Affairs for CSS',                date: 'Feb 12, 2025', category: 'Strategy' },
+  { slug: 'css-exam-preparation-guide-2025',    title: 'CSS Exam Preparation Guide 2025',        date: 'Jan 2, 2025',  category: 'Guide'    },
+  { slug: 'css-past-papers-analysis-trends',    title: 'What CSS Past Papers Reveal',            date: 'Feb 11, 2025', category: 'Analysis' },
+]
+
+const TAGS = ['General Knowledge', 'CSS Compulsory', 'GK Preparation', 'Civil Services']
+
+const CONTENT = `General Knowledge is the subject CSS candidates consistently underestimate. The content feels familiar — international organizations, geography, science milestones, world history — and that familiarity creates a false confidence. Candidates allocate little preparation time to it and then discover in the MCQ paper that the questions are specific enough to punish shallow knowledge. A question about which year the NPT was signed, or the current Secretary General of the SCO, or the exact membership of ASEAN requires precision that casual reading does not build.
+
+## What GK Actually Covers
+
+For CSS purposes, General Knowledge clusters into four broad areas. International organizations — their founding, membership, mandate, and current leadership — constitute a significant portion. World geography, including capitals, major rivers, borders, and significant geopolitical regions, is tested regularly. Scientific milestones and Nobel Prize history appear in some form every year. And world history from the 20th century onward, particularly relating to major conflicts, independence movements, and international agreements, rounds out the scope.
+
+Each of these areas has a depth level the exam actually tests. Knowing that the United Nations exists is not sufficient. Knowing when it was founded, what its main bodies are, and how the Security Council functions — that is the level CSS requires.
+
+## A Preparation Method That Works
+
+The most effective approach to GK is organized note-making, not passive reading. Read a topic — say, the United Nations system — and then write a one-page summary of the key facts: founding year, headquarters, Secretary General, main organs, recent resolutions relevant to Pakistan. That summary becomes your revision material.
+
+Do this for twenty to twenty-five major topics over two months, and you have a GK revision bank that covers eighty percent of what the exam actually asks. Combine this with weekly MCQ practice on the topics you have covered.
+
+> The candidates who struggle with GK in CSS are not less intelligent. They are less organized. The subject rewards systematic preparation over general reading.
+
+## Connecting GK to Other Subjects
+
+Like Current Affairs, GK does not sit in isolation. A question about the UN Security Council connects to Pakistan Affairs and foreign policy. A question about the World Bank connects to Current Affairs and Economics. A question about historical treaties connects to History optionals.
+
+When a GK topic has obvious connections to your other subjects, note both angles. This cross-referencing reduces the total study time and strengthens recall — when you encounter the topic in one context, it activates knowledge from the other. Over months of preparation, these connections accumulate into a genuinely integrated understanding of world affairs that serves multiple subjects simultaneously.`
+
 export default function BlogPost() {
+  const headings = extractHeadings(CONTENT)
   return (
-    <main className="min-h-screen bg-[#F9FAFB]">
-      <ArticleSchema title="General Knowledge for CSS Exam" description="Master CSS General Knowledge." content="General Knowledge (100 marks) tests broad factual knowledge across diverse topics. Strategy: Read multiple newspapers daily (30-45 min), follow news analysis for current developments, read quality magazines (National Geographic, The Economist), track important dates and facts, develop systematic note-making habit. High-frequency topics: World geography (capitals, borders, major features), Historical facts and dates, Scientific discoveries and innovations, Important personalities and achievements, International organizations (UN, NATO, WTO, IMF), Awards and recipients (Nobel Prize, Oscars), World records and firsts, Space exploration, Medical and health discoveries, Sports achievements and records. Knowledge areas to cover: Geography - world capitals, major deserts/mountains, important rivers, population data, Economics - major trade blocs, currencies, stock indices, Personalities - world leaders, scientists, authors, Artists, Science - recent discoveries, technology advances, medical breakthroughs, History - important treaties, wars, revolutions, movements. Preparation method: Read widely from diverse sources not just textbooks, watch documentary programs (BBC, National Geographic), follow weekly news magazines, maintain general knowledge notebook, solve MCQs to test knowledge, join current affairs discussions, Read The Economist for global perspective. Practice approach: Solve 30-50 MCQs daily, identify weak areas, focus on recent developments (last 5 years), learn facts with context not just isolated information. Time allocation: 30 minutes newspaper reading daily, 30 minutes MCQ practice daily, 30 minutes weekend magazine reading. Success tips: Develop reading habit, broaden general interest in world affairs, stay curious about diverse topics, organize knowledge in mind, connect facts to create understanding. Scoring potential: General Knowledge offers 60-70% achievability through consistent reading and practice!" publishDate="2024-12-16" url="https://imtehan.com/blog/general-knowledge-css-exam" />
-      <NavigationBar />
-      <article className="max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 mb-6"><ArrowLeft className="w-4 h-4" /> Back</Link>
-        <h1 className="text-4xl font-bold mb-6">General Knowledge for CSS Exam: Topics & Preparation</h1>
-        <div className="flex gap-8 text-gray-600 mb-8 pb-8 border-b">
-          <div className="flex items-center gap-2"><Calendar className="w-5 h-5" /><span>December 16, 2024</span></div>
-          <div className="flex items-center gap-2"><Clock className="w-5 h-5" /><span>10 min read</span></div>
-        </div>
-        <p className="text-gray-700 leading-relaxed">General Knowledge (100 marks) in CSS exam tests broad factual knowledge across diverse topics beyond specific subject areas. Unlike compulsory subjects, General Knowledge requires wide reading from multiple sources. Preparation strategy: Read multiple newspapers daily (30-45 minutes), focus on analysis and editorial sections, follow international news sources, read quality magazines (National Geographic, The Economist), maintain systematic notes of important facts, develop learning habit from diverse sources. High-frequency topics that repeat: World geography (capitals, borders, major geographical features), Historical facts and important dates, Recent scientific discoveries and innovations, Important international personalities and achievements, International organizations (UN, NATO, WTO, IMF), Major awards recipients (Nobel Prize, Oscar awards), World records and first achievements, Space exploration milestones, Medical and health discoveries, Sports achievements and world records. Knowledge areas to cover: World Geography - major capitals, significant deserts and mountains, important river systems, population distribution, international borders. Economics and Business - major trade blocs and agreements, currency types and rates, stock exchange indices, important trade statistics. Personalities and Leadership - world leaders and their achievements, renowned scientists and contributions, famous authors and works, notable artists. Science and Technology - recent scientific breakthroughs, technology innovations, medical discoveries, space missions. History - important historical treaties, major wars and conflicts, revolutions and movements, historical personalities. Preparation methods: Read widely from diverse reputable sources, watch documentary programs on BBC and National Geographic, follow weekly news magazines, maintain general knowledge notebook with organized facts, solve MCQs regularly to test knowledge, join discussions on current affairs. Practice routine: Solve 30-50 MCQs daily, identify weak knowledge areas, focus on recent developments (last 3-5 years), learn facts with context and understanding. Time allocation: 30 minutes daily newspaper reading, 30 minutes daily MCQ practice, 1 hour weekend magazine reading. Critical success factors: Develop consistent reading habit, maintain genuine curiosity about world affairs, organize knowledge systematically, connect related facts, review regularly. Scoring potential: General Knowledge realistically achievable 65-70% through consistent quality reading combined with MCQ practice!</p>
-        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mt-8">
-          <h3 className="font-semibold mb-2">Test your General Knowledge</h3>
-          <Link href="/css/subjects" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Practice MCQs</Link>
-        </div>
-      </article>
-    </main>
+    <>
+      <ArticleSchema
+        title="General Knowledge for CSS"
+        description="How to prepare General Knowledge without underestimating it."
+        content={CONTENT}
+        publishDate="2025-02-07"
+        url="https://imtehan.com/blog/general-knowledge-css-exam"
+      />
+      <BlogPostShell
+        title="General Knowledge for CSS: Why Candidates Underestimate It"
+        subtitle="GK feels familiar until the MCQs start. The questions are more specific than candidates expect — and the preparation needs to match."
+        author="Imtehan Team"
+        date="February 7, 2025"
+        readTime="5 min read"
+        category="Guide"
+        tags={TAGS}
+        slug="general-knowledge-css-exam"
+        headings={headings}
+        otherPosts={RELATED}
+      >
+        {renderBlogContent(CONTENT)}
+      </BlogPostShell>
+    </>
   )
 }

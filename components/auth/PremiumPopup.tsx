@@ -50,8 +50,8 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
                   <Sparkles className="w-3 h-3 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Unlimited Practice Quizzes</p>
-                  <p className="text-xs text-gray-500">All subjects, topics, and years</p>
+                  <p className="text-sm font-medium text-gray-900">Unlimited Practice Sets</p>
+                  <p className="text-xs text-gray-500">All exams, subjects, and modes</p>
                 </div>
               </div>
 
@@ -60,8 +60,8 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
                   <Sparkles className="w-3 h-3 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Solved Past Papers</p>
-                  <p className="text-xs text-gray-500">Step-by-step solutions</p>
+                  <p className="text-sm font-medium text-gray-900">All 20 Mock Tests</p>
+                  <p className="text-xs text-gray-500">Per exam, full and quick formats</p>
                 </div>
               </div>
 
@@ -98,7 +98,7 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
 
             {/* CTA Buttons */}
             <div className="space-y-2">
-              <Link href="/css/premium" className="block">
+              <Link href="/premium" className="block">
                 <Button
                   size="lg"
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg"
