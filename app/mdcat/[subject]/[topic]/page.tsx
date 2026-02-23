@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ArrowLeft, Play, Zap, Target, Flame } from 'lucide-react'
+import { ArrowLeft, Play, Zap, Target, Flame, Lock } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import SignInPopup from '@/components/auth/SignInPopup'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology'           },
@@ -35,6 +37,10 @@ export default function MDCATTopicOrDifficultyPage() {
 
   // Display label: for difficulty use the label, for topic use the decoded topic name
   const displayLabel = isDifficulty ? difficultyCfg.label : topic
+
+  const { user } = useAuth()
+  const isPremium = !!user?.user_metadata?.is_premium
+  const [showSignIn, setShowSignIn] = useState(false)
 
   const [totalMCQs, setTotalMCQs]         = useState(0)
   const [loading, setLoading]             = useState(true)
@@ -71,6 +77,23 @@ export default function MDCATTopicOrDifficultyPage() {
   const startSet    = (selectedBatch - 1) * SETS_PER_BATCH + 1
   const endSet      = Math.min(selectedBatch * SETS_PER_BATCH, totalSets)
   const setsInBatch = Array.from({ length: Math.max(0, endSet - startSet + 1) }, (_, i) => startSet + i)
+
+  const handleSetClick = (setNum: number) => {
+    if (setNum <= 2 || isPremium) {
+      router.push(`/mdcat/${subject}/${encodeURIComponent(topic)}/set/${setNum}`)
+      return
+    }
+    if (!user) {
+      setShowSignIn(true)
+      return
+    }
+    if (setNum >= 4) {
+      router.push('/premium')
+      return
+    }
+    // Set 3, signed-in, not premium → allow
+    router.push(`/mdcat/${subject}/${encodeURIComponent(topic)}/set/${setNum}`)
+  }
 
   if (loading) {
     return (
@@ -173,25 +196,44 @@ export default function MDCATTopicOrDifficultyPage() {
 
               <div className="space-y-2">
                 {setsInBatch.map((setNum) => {
-                  const startMCQ = (setNum - 1) * MCQS_PER_SET + 1
-                  const endMCQ   = Math.min(setNum * MCQS_PER_SET, totalMCQs)
+                  const startMCQ  = (setNum - 1) * MCQS_PER_SET + 1
+                  const endMCQ    = Math.min(setNum * MCQS_PER_SET, totalMCQs)
+                  const isSignIn     = setNum === 3
+                  const isPremiumSet = setNum >= 4
+                  const isLocked     = (isSignIn && !user) || (isPremiumSet && !isPremium)
                   return (
                     <button
                       key={setNum}
-                      onClick={() => router.push(`/mdcat/${subject}/${encodeURIComponent(topic)}/set/${setNum}`)}
-                      className="w-full text-left px-4 py-3 rounded-xl border border-slate-100 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 transition-all group"
+                      onClick={() => handleSetClick(setNum)}
+                      className={`w-full text-left px-4 py-3 rounded-xl border transition-all group ${
+                        isLocked
+                          ? 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300'
+                          : 'border-slate-100 bg-slate-50 hover:bg-blue-50 hover:border-blue-200'
+                      }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-blue-600 hover:bg-blue-700 flex items-center justify-center flex-shrink-0 transition-colors">
-                            <span className="text-white text-sm font-bold">{setNum}</span>
+                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                            isLocked ? 'bg-slate-300' : 'bg-blue-600'
+                          }`}>
+                            {isLocked
+                              ? <Lock className="w-4 h-4 text-white" />
+                              : <span className="text-white text-sm font-bold">{setNum}</span>
+                            }
                           </div>
                           <div>
-                            <p className="font-semibold text-sm text-slate-900 group-hover:text-blue-800 transition-colors">Set {setNum}</p>
+                            <p className={`font-semibold text-sm transition-colors ${isLocked ? 'text-slate-500' : 'text-slate-900 group-hover:text-blue-800'}`}>
+                              Set {setNum}
+                              {isSignIn && !user && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
+                              {isPremiumSet && !isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
+                            </p>
                             <p className="text-xs text-slate-400">Q {startMCQ}–{endMCQ} · {MCQS_PER_SET} MCQs</p>
                           </div>
                         </div>
-                        <Play className="w-4 h-4 text-slate-300 group-hover:text-blue-600 fill-current transition-colors flex-shrink-0" />
+                        {isLocked
+                          ? <Lock className="w-4 h-4 text-slate-300 flex-shrink-0" />
+                          : <Play className="w-4 h-4 text-slate-300 group-hover:text-blue-600 fill-current transition-colors flex-shrink-0" />
+                        }
                       </div>
                     </button>
                   )
@@ -201,6 +243,12 @@ export default function MDCATTopicOrDifficultyPage() {
           </div>
         </div>
       </div>
+
+      <SignInPopup
+        isOpen={showSignIn}
+        onClose={() => setShowSignIn(false)}
+        message="Sign in free to unlock Set 3 — then upgrade for full access"
+      />
     </div>
   )
 }
