@@ -358,6 +358,12 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white shadow-lg">
           <div className="px-6 py-4 space-y-3">
+            {/* Custom center content (e.g. Grade My Essay button) */}
+            {centerContent && (
+              <div className="pb-3 border-b border-gray-100">
+                {centerContent}
+              </div>
+            )}
             {/* Navigation Links */}
             {showCenterNav && (
               <div className="pb-3 border-b border-gray-100">
