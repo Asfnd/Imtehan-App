@@ -215,7 +215,6 @@ function buildLongAnswerPrompt(subject: string, question: string, marks: number,
     'History of Pakistan & India':   'Specific dates, personalities, treaties, and historical significance are required. Avoid vague generalisations.',
     'Sociology':                     'Reference sociological theories and theorists (Durkheim, Weber, Marx), empirical data, and Pakistan\'s social context.',
     'Law':                           'Cite specific legislation, case law where relevant, constitutional articles, and legal principles.',
-    'Economics': 'Include data: GDP, inflation, fiscal/current account figures. Pakistan Economic Survey and IMF data expected.',
   }
 
   const subjectNote = subjectGuidance[subject] ?? `Apply ${subject}-specific terminology, cite relevant theories or frameworks, include empirical examples, and where applicable reference Pakistan\'s context.`
