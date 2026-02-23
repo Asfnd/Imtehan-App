@@ -7,6 +7,8 @@ import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import SignInPopup from '@/components/auth/SignInPopup'
 
 interface MCQ {
   id: number
@@ -61,6 +63,23 @@ export default function QuizInterface({
   setNumber,
 }: QuizInterfaceProps) {
   const router = useRouter()
+
+  const { user, loading: authLoading } = useAuth()
+  const isPremium = !!user?.user_metadata?.is_premium
+
+  const [showSignIn, setShowSignIn] = useState(false)
+
+  // Access gate: sets 1-2 = free, set 3 = sign-in required, set 4+ = premium page
+  useEffect(() => {
+    if (authLoading) return
+    if (setNumber >= 4 && !isPremium) {
+      router.replace('/premium')
+    } else if (setNumber === 3 && !user) {
+      setShowSignIn(true)
+    }
+  }, [authLoading, user, isPremium, setNumber])
+
+  const backUrl = `/${examSlug}/${subjectSlug}/${mode}`
 
   // Core quiz state
   const [currentIndex, setCurrentIndex]     = useState(0)
@@ -325,6 +344,11 @@ export default function QuizInterface({
 
   return (
     <>
+      {/* Access gate popups */}
+      <SignInPopup
+        isOpen={showSignIn}
+        onClose={() => { setShowSignIn(false); router.push(backUrl) }}
+      />
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">
         <div className="max-w-3xl mx-auto">
 

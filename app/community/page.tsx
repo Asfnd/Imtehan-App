@@ -151,7 +151,7 @@ function ReactionsBar({ msgId, reactions, myId, onToggle, loggedIn }: {
   }, [mode])
 
   const grouped: { emoji: string; count: number; mine: boolean }[] = []
-  reactions.forEach((r) => {
+  reactions.filter((r) => r.message_id === msgId).forEach((r) => {
     const existing = grouped.find((g) => g.emoji === r.emoji)
     if (existing) { existing.count++; if (r.user_id === myId) existing.mine = true }
     else grouped.push({ emoji: r.emoji, count: 1, mine: r.user_id === myId })

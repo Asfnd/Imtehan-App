@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ArrowLeft, Play, Clock, FileText, CheckCircle, AlertTriangle } from 'lucide-react'
+import { ArrowLeft, Play, Clock, FileText, CheckCircle, AlertTriangle, Lock } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 
 const VARIANT_META: Record<string, {
@@ -187,26 +187,47 @@ export default function MDCATMockListingPage() {
                 {meta.total} MCQs · {meta.duration} · Unique non-overlapping questions per mock
               </p>
               <div className="space-y-2">
-                {mocksInBatch.map((mockNum) => (
-                  <button
-                    key={mockNum}
-                    onClick={() => router.push(`/mdcat/mock/${variant}/${mockNum}`)}
-                    className={`w-full text-left px-4 py-3 rounded-xl border ${meta.accentBorder} ${meta.accentBg} ${meta.accentHover} hover:shadow-sm transition-all group`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${meta.headerBg} flex items-center justify-center flex-shrink-0`}>
-                          <span className="text-white text-sm font-bold">{mockNum}</span>
+                {mocksInBatch.map((mockNum) => {
+                  const isSignIn  = mockNum === 2
+                  const isPremium = mockNum >= 3
+                  const isLocked  = isSignIn || isPremium
+                  return (
+                    <button
+                      key={mockNum}
+                      onClick={() => router.push(`/mdcat/mock/${variant}/${mockNum}`)}
+                      className={`w-full text-left px-4 py-3 rounded-xl border hover:shadow-sm transition-all group ${
+                        isLocked
+                          ? 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300'
+                          : `${meta.accentBorder} ${meta.accentBg} ${meta.accentHover}`
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                            isLocked ? 'bg-slate-300' : `bg-gradient-to-br ${meta.headerBg}`
+                          }`}>
+                            {isLocked
+                              ? <Lock className="w-4 h-4 text-white" />
+                              : <span className="text-white text-sm font-bold">{mockNum}</span>
+                            }
+                          </div>
+                          <div>
+                            <p className={`font-semibold text-sm ${isLocked ? 'text-slate-500' : 'text-slate-900'}`}>
+                              Mock Test {mockNum}
+                              {isSignIn && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
+                              {isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
+                            </p>
+                            <p className="text-xs text-slate-400">{meta.total} MCQs · {meta.duration}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold text-sm text-slate-900">Mock Test {mockNum}</p>
-                          <p className="text-xs text-slate-400">{meta.total} MCQs · {meta.duration}</p>
-                        </div>
+                        {isLocked
+                          ? <Lock className="w-4 h-4 text-slate-300 flex-shrink-0" />
+                          : <Play className={`w-4 h-4 text-slate-300 ${meta.playHover} fill-current transition-colors flex-shrink-0`} />
+                        }
                       </div>
-                      <Play className={`w-4 h-4 text-slate-300 ${meta.playHover} fill-current transition-colors flex-shrink-0`} />
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           </div>

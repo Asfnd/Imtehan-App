@@ -7,6 +7,8 @@ import {
   ArrowLeft, ArrowRight, Clock, CheckCircle2, XCircle,
   Lightbulb, Flag, Send, RotateCcw, BookOpen,
 } from 'lucide-react'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import SignInPopup from '@/components/auth/SignInPopup'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -208,6 +210,21 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   const router = useRouter()
   const config = MOCK_CONFIGS[variant]
 
+  const { user, loading: authLoading } = useAuth()
+  const isPremium = !!user?.user_metadata?.is_premium
+
+  const [showSignIn, setShowSignIn] = useState(false)
+
+  // Access gate: mock 1 = free, mock 2 = sign-in required, mock 3+ = premium page
+  useEffect(() => {
+    if (!mockNumber || authLoading) return
+    if (mockNumber >= 3 && !isPremium) {
+      router.replace('/premium')
+    } else if (mockNumber === 2 && !user) {
+      setShowSignIn(true)
+    }
+  }, [authLoading, user, isPremium, mockNumber])
+
   const [phase, setPhase]                     = useState<Phase>('loading')
   const [mcqs, setMcqs]                       = useState<MockMCQ[]>([])
   const [answers, setAnswers]                 = useState<Record<number, string>>({})
@@ -310,6 +327,11 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+        {/* Access gate popups */}
+        <SignInPopup
+          isOpen={showSignIn}
+          onClose={() => { setShowSignIn(false); router.push(`/mdcat/mock/${variant}`) }}
+        />
         <div className="max-w-lg w-full">
           <button
             onClick={() => router.push(mockNumber ? `/mdcat/mock/${variant}` : '/mdcat')}

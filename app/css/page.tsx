@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { BookOpen, FileText, Target, LogOut, ArrowRight, TrendingUp, Flame, Star, Play, Award } from 'lucide-react'
+import { BookOpen, FileText, Target, LogOut, ArrowRight, TrendingUp, Flame, Star, Play, Award, PenLine } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
 import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics } from '@/lib/analytics'
@@ -234,6 +234,16 @@ function DashboardContent() {
         showEligibilityButton={true}
         onEligibilityClick={() => setShowEligibilityChecker(true)}
         showCenterNav={false}
+        centerContent={
+          <button
+            onClick={() => router.push('/css/essay-grader')}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 active:translate-y-0.5 text-white text-sm font-bold whitespace-nowrap shadow-[0_4px_0_#6b21a8] active:shadow-none transition-all duration-75"
+          >
+            <PenLine className="w-4 h-4 flex-shrink-0" />
+            <span>Grade My Essay</span>
+            <span className="text-[9px] font-black bg-white/20 px-1.5 py-0.5 rounded-full uppercase tracking-widest leading-none">New</span>
+          </button>
+        }
       />
 
       {/* CSS Exam Countdown */}
@@ -251,6 +261,7 @@ function DashboardContent() {
               </h1>
             </div>
           )}
+
 
           {/* Interactive Analytics Bar */}
           {user ? (
@@ -623,6 +634,7 @@ function DashboardContent() {
                 </button>
               </div>
             </div>
+
 
           </div>
 

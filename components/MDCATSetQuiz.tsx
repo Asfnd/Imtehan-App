@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CheckCircle2, XCircle, Lightbulb } from 'lucide-react'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import SignInPopup from '@/components/auth/SignInPopup'
 
 interface MCQ {
   id: number
@@ -84,6 +86,21 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
   const router  = useRouter()
   const t       = THEME[theme]
   const backUrl = backPath ?? `/mdcat/${subject}/${encodeURIComponent(difficulty)}`
+
+  const { user, loading: authLoading } = useAuth()
+  const isPremium = !!user?.user_metadata?.is_premium
+
+  const [showSignIn, setShowSignIn] = useState(false)
+
+  // Access gate: sets 1-2 = free, set 3 = sign-in required, set 4+ = premium page
+  useEffect(() => {
+    if (authLoading) return
+    if (setNumber >= 4 && !isPremium) {
+      router.replace('/premium')
+    } else if (setNumber === 3 && !user) {
+      setShowSignIn(true)
+    }
+  }, [authLoading, user, isPremium, setNumber])
 
   const [currentIndex, setCurrentIndex]   = useState(0)
   const [answers, setAnswers]             = useState<Record<number, string>>({})
@@ -180,6 +197,11 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${t.pageBg} py-2 px-2 sm:px-4`}>
+      {/* Access gate popups */}
+      <SignInPopup
+        isOpen={showSignIn}
+        onClose={() => { setShowSignIn(false); router.push(backUrl) }}
+      />
       <div className="max-w-3xl mx-auto">
 
         {/* Header */}

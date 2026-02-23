@@ -6,7 +6,6 @@ import { Play, Lock } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
 import { getExamConfig } from '@/lib/exam-configs'
-import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
 
 const MODE_CONFIG = {
@@ -36,8 +35,7 @@ export default function BatchSetSelector() {
   const [totalMCQs, setTotalMCQs]         = useState(0)
   const [loading, setLoading]             = useState(true)
   const [user, setUser]                   = useState<any>(null)
-  const [showSignIn, setShowSignIn]       = useState(false)
-  const [showPremium, setShowPremium]     = useState(false)
+  const [showSignIn, setShowSignIn] = useState(false)
 
   const modeConfig = MODE_CONFIG[mode as keyof typeof MODE_CONFIG]
 
@@ -58,10 +56,17 @@ export default function BatchSetSelector() {
       return
     }
     if (!user) {
+      // Set 3+ without being signed in → sign-in
       setShowSignIn(true)
-    } else {
-      setShowPremium(true)
+      return
     }
+    if (setNum >= 4) {
+      // Set 4+ with user but no premium → premium
+      router.push('/premium')
+      return
+    }
+    // Set 3 with user signed in → allow
+    router.push(`/exams/${examSlug}/${subjectSlug}/${mode}/set/${setNum}`)
   }
 
   useEffect(() => {
@@ -171,9 +176,11 @@ export default function BatchSetSelector() {
 
               <div className="space-y-2">
                 {setsInBatch.map((setNum) => {
-                  const startMCQ = (setNum - 1) * 20 + 1
-                  const endMCQ   = Math.min(setNum * 20, totalMCQs)
-                  const isSetLocked = setNum > 2 && !isPremium
+                  const startMCQ   = (setNum - 1) * 20 + 1
+                  const endMCQ     = Math.min(setNum * 20, totalMCQs)
+                  const needSignIn = setNum === 3 && !user
+                  const needPremium = setNum >= 4 && !isPremium
+                  const isSetLocked = needSignIn || needPremium
 
                   return (
                     <button
@@ -194,9 +201,16 @@ export default function BatchSetSelector() {
                             }
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className={`font-semibold text-xs md:text-sm ${isSetLocked ? 'text-gray-400' : 'text-gray-900'}`}>Set {setNum}</div>
+                            <div className={`font-semibold text-xs md:text-sm ${isSetLocked ? 'text-gray-400' : 'text-gray-900'}`}>
+                              Set {setNum}
+                              {needSignIn && <span className="ml-1.5 text-[9px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
+                              {needPremium && <span className="ml-1.5 text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
+                            </div>
                             <div className="text-[10px] md:text-xs text-gray-400 mt-0.5">
-                              {isSetLocked ? 'Premium required' : `Q ${startMCQ}–${endMCQ} • 20 MCQs`}
+                              {isSetLocked
+                                ? needSignIn ? 'Sign in free to unlock' : 'Premium required'
+                                : `Q ${startMCQ}–${endMCQ} • 20 MCQs`
+                              }
                             </div>
                           </div>
                         </div>
@@ -216,14 +230,16 @@ export default function BatchSetSelector() {
         {!isPremium && (
           <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-blue-900">Sets 3 and beyond require Premium</p>
-              <p className="text-xs text-blue-600 mt-0.5">Unlock unlimited sets, all mock tests, and solved papers</p>
+              <p className="text-sm font-semibold text-blue-900">
+                {!user ? 'Sign in free to unlock Set 3 · Premium unlocks everything' : 'Set 4+ requires Premium'}
+              </p>
+              <p className="text-xs text-blue-600 mt-0.5">Unlimited sets, all mock tests, and solved papers</p>
             </div>
             <button
-              onClick={() => user ? setShowPremium(true) : setShowSignIn(true)}
+              onClick={() => user ? router.push('/premium') : setShowSignIn(true)}
               className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
             >
-              Upgrade
+              {user ? 'Upgrade' : 'Sign In'}
             </button>
           </div>
         )}
@@ -231,7 +247,6 @@ export default function BatchSetSelector() {
     </div>
 
     <SignInPopup isOpen={showSignIn} onClose={() => setShowSignIn(false)} message="Sign in to access more practice sets" />
-    <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
     </>
   )
 }
