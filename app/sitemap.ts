@@ -86,6 +86,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog/ppsc-fpsc-general-knowledge-strategy`,  lastModified: '2026-02-20', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/blog/smart-guessing-mcq-strategy`,           lastModified: '2026-02-20', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/blog/social-studying-community-chat-strategy`,lastModified: '2026-02-20', changeFrequency: 'monthly', priority: 0.75 },
+    // Feb 2026 batch — strategy, MDCAT, FSc, PPSC, IELTS, NTS, engineering
+    { url: `${baseUrl}/blog/forgetting-curve-spaced-repetition`,    lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/mdcat-chemistry-high-yield-topics`,     lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/css-current-affairs-dawn-reading-strategy`, lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/night-before-exam-strategy`,            lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/ppsc-paper-pattern-decoded`,            lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/fsc-chemistry-organic-tips`,            lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/why-smart-students-fail-exams`,         lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/ielts-7-band-without-coaching`,         lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/nts-test-preparation-strategy`,         lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/negative-marking-exam-strategy`,        lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/how-to-study-with-no-motivation`,       lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/engineering-entry-test-pakistan`,       lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/is-coaching-academy-worth-it`,          lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/mdcat-drop-year-decision`,              lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/css-vs-corporate-career`,               lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/css-6-month-preparation-plan`,          lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/what-css-toppers-actually-do`,          lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/css-preparation-while-working`,         lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/fsc-marks-mdcat-trap`,                  lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/why-you-fail-mock-tests`,               lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog/exam-prep-myths-pakistan`,              lastModified: '2026-02-24', changeFrequency: 'monthly', priority: 0.8 },
   ]
 
   // Info pages
