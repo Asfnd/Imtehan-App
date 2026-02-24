@@ -26,6 +26,7 @@ interface Props {
   subjectGradient: string
   difficulty: string  // could be 'easy'/'medium'/'hard' OR an actual topic name
   setNumber: number
+  totalSets?: number  // if provided, "Next Set" is hidden on the last set
   theme?: 'blue' | 'green'
   backPath?: string  // optional back URL override
 }
@@ -82,7 +83,7 @@ const THEME = {
   },
 }
 
-export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, setNumber, theme = 'blue', backPath }: Props) {
+export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, setNumber, totalSets, theme = 'blue', backPath }: Props) {
   const router  = useRouter()
   const t       = THEME[theme]
   const backUrl = backPath ?? `/mdcat/${subject}/${encodeURIComponent(difficulty)}`
@@ -110,6 +111,20 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
   const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
 
   const activeMCQs = reviewMode ? reviewMCQs : mcqs
+
+  // Guard: parent page should prevent this, but protect against empty data
+  if (!activeMCQs || activeMCQs.length === 0) {
+    return (
+      <div className={`min-h-screen bg-gradient-to-br ${t.pageBg} flex items-center justify-center`}>
+        <div className="text-center">
+          <p className="text-slate-500 mb-4">No questions available for this set.</p>
+          <button onClick={() => router.push(backUrl)} className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+            ← Back to Sets
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   const handleAnswer = useCallback((opt: string) => {
     if (answers[currentIndex]) return
@@ -177,12 +192,14 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
                 Practice Mistakes ({wrongMCQs.length} MCQs)
               </button>
             )}
-            <button
-              onClick={() => router.push(`${backUrl.replace(/\/set\/\d+$/, '')}/set/${setNumber + 1}`)}
-              className={`w-full bg-gradient-to-r ${t.btn} text-white py-3 rounded-xl font-semibold transition-all`}
-            >
-              Next Set →
-            </button>
+            {(!totalSets || setNumber < totalSets) && (
+              <button
+                onClick={() => router.push(`${backUrl}/set/${setNumber + 1}`)}
+                className={`w-full bg-gradient-to-r ${t.btn} text-white py-3 rounded-xl font-semibold transition-all`}
+              >
+                Next Set →
+              </button>
+            )}
             <button
               onClick={() => router.push(backUrl)}
               className="w-full border-2 border-slate-200 text-slate-600 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-colors"

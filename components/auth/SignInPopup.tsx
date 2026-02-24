@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { X, Lock } from 'lucide-react'
-import { useAnimation } from '@/lib/hooks/useAnimation'
 
 interface SignInPopupProps {
   isOpen: boolean
@@ -41,8 +40,10 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
       })
       
       if (error) {
-        console.error('❌ OAuth error:', error)
-        
+        if (process.env.NODE_ENV === 'development') {
+          console.error('OAuth error:', error)
+        }
+
         // Provide more helpful error messages
         let errorMessage = error.message
         if (error.message.includes('redirect_uri_mismatch')) {

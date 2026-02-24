@@ -43,21 +43,22 @@ export default async function MDCATSetPage({
 
   const supabase = await createServerSupabaseClient()
 
-  const { data, error } = difficulty
-    ? await supabase
-        .from(subjectCfg.table)
-        .select(COLS)
-        .eq('difficulty', difficulty)
-        .order('id')
-        .range(offset, offset + MCQS_PER_SET - 1)
-    : await supabase
-        .from(subjectCfg.table)
-        .select(COLS)
-        .eq('topic', topic)
-        .order('id')
-        .range(offset, offset + MCQS_PER_SET - 1)
+  const baseQuery = difficulty
+    ? supabase.from(subjectCfg.table).select(COLS).eq('difficulty', difficulty)
+    : supabase.from(subjectCfg.table).select(COLS).eq('topic', topic)
+
+  const countQuery = difficulty
+    ? supabase.from(subjectCfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', difficulty)
+    : supabase.from(subjectCfg.table).select('*', { count: 'exact', head: true }).eq('topic', topic)
+
+  const [{ data, error }, { count }] = await Promise.all([
+    baseQuery.order('id').range(offset, offset + MCQS_PER_SET - 1),
+    countQuery,
+  ])
 
   if (error || !data || data.length === 0) notFound()
+
+  const totalSets = count ? Math.ceil(count / MCQS_PER_SET) : undefined
 
   return (
     <MDCATSetQuiz
@@ -67,6 +68,7 @@ export default async function MDCATSetPage({
       subjectGradient="from-blue-600 to-blue-700"
       difficulty={topic}
       setNumber={setNumber}
+      totalSets={totalSets}
     />
   )
 }

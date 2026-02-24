@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ArrowLeft, Check, Copy, CheckCircle2, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
@@ -55,6 +55,7 @@ const FEATURES = [
 const EXAMS_COVERED = ['CSS / MPT', 'MDCAT', 'FSc', 'PPSC', 'NTS', 'ETEA', 'NUMS', 'AKU']
 
 export default function PremiumPage() {
+  const router = useRouter()
   const [copiedField, setCopiedField] = useState<string | null>(null)
   const paymentSectionRef = useRef<HTMLDivElement>(null)
 
@@ -77,13 +78,13 @@ export default function PremiumPage() {
       {/* Navigation */}
       <div className="border-b bg-white sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 h-16 flex items-center">
-          <Link
-            href="/"
+          <button
+            onClick={() => router.back()}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm font-medium">Back</span>
-          </Link>
+          </button>
         </div>
       </div>
 

@@ -77,6 +77,9 @@ export default function MockTestInterface({
   const [reviewMCQs, setReviewMCQs]       = useState<MCQ[]>([])
   const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
 
+  // Submit confirm
+  const [showSubmitConfirm, setShowSubmitConfirm] = useState(false)
+
   // Report toast
   const [showReportToast, setShowReportToast] = useState(false)
 
@@ -179,19 +182,21 @@ export default function MockTestInterface({
   useEffect(() => {
     if (!showResults || reviewMode) return
     setResultPct(calcScore().pct)
-    if (typeof window !== 'undefined' && !sessionStorage.getItem('feedback_shown')) {
-      const t = setTimeout(() => {
+    try {
+      if (typeof window !== 'undefined' && !sessionStorage.getItem('feedback_shown')) {
         sessionStorage.setItem('feedback_shown', '1')
-        setShowFeedback(true)
-      }, 1500)
-      return () => clearTimeout(t)
+        const t = setTimeout(() => setShowFeedback(true), 1500)
+        return () => clearTimeout(t)
+      }
+    } catch {
+      // sessionStorage unavailable (private browsing) — skip feedback popup
     }
   }, [showResults, reviewMode])
 
   const practiceMistakes = () => {
     const wrong = activeMCQs.filter((mcq, idx) => {
       const ua = answers[idx]
-      return !ua || ua !== mcq.correct_answer
+      return !!ua && ua !== mcq.correct_answer
     })
     let correct = 0
     activeMCQs.forEach((mcq, idx) => { if (answers[idx] === mcq.correct_answer) correct++ })
@@ -212,7 +217,7 @@ export default function MockTestInterface({
 
     const wrongCount = activeMCQs.filter((mcq, idx) => {
       const ua = answers[idx]
-      return !ua || ua !== mcq.correct_answer
+      return !!ua && ua !== mcq.correct_answer
     }).length
 
     const improvement = reviewMode && originalScore
@@ -453,7 +458,7 @@ export default function MockTestInterface({
             </button>
 
             <button
-              onClick={handleSubmit}
+              onClick={() => setShowSubmitConfirm(true)}
               className="px-3 sm:px-4 py-2 bg-white/80 border border-gray-200 text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 rounded-xl text-xs font-medium transition-all"
             >
               Submit early
@@ -487,6 +492,37 @@ export default function MockTestInterface({
             <div>
               <div className="font-bold">Question Flagged!</div>
               <div className="text-xs text-white/90">Thanks for helping us improve</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Submit Early Confirm Modal */}
+      {showSubmitConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Submit Test Early?</h3>
+            <p className="text-gray-600 text-sm mb-1">
+              {Object.keys(answers).length} of {activeMCQs.length} questions answered.
+            </p>
+            {activeMCQs.length - Object.keys(answers).length > 0 && (
+              <p className="text-amber-600 text-sm font-medium">
+                {activeMCQs.length - Object.keys(answers).length} unanswered questions will count as wrong.
+              </p>
+            )}
+            <div className="flex gap-3 mt-5">
+              <button
+                onClick={() => setShowSubmitConfirm(false)}
+                className="flex-1 border-2 border-gray-200 text-gray-700 py-2.5 rounded-xl font-medium hover:bg-gray-50"
+              >
+                Continue
+              </button>
+              <button
+                onClick={() => { setShowSubmitConfirm(false); handleSubmit() }}
+                className="flex-1 bg-red-600 text-white py-2.5 rounded-xl font-semibold hover:bg-red-700"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>

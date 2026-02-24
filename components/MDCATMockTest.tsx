@@ -296,7 +296,15 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   if (!config) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600">Test not found.</p>
+        <div className="text-center">
+          <p className="text-gray-600 mb-4">Test not found.</p>
+          <button
+            onClick={() => router.push('/mdcat/mock')}
+            className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+          >
+            ← Back to MDCAT Mocks
+          </button>
+        </div>
       </div>
     )
   }
@@ -394,7 +402,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
                   <li>Flag questions to revisit later</li>
                   <li>Test auto-submits when time expires</li>
                   {config.negativeMarking
-                    ? <li className="font-semibold">⚠ Negative marking: −1 for each wrong answer</li>
+                    ? <li className="font-semibold">⚠ Negative marking: −0.25 for each wrong answer</li>
                     : <li>No negative marking</li>
                   }
                 </ul>
@@ -627,7 +635,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   if (phase === 'results') {
     const totalCorrect = mcqs.filter((mcq, idx) => answers[idx] === mcq.correct_answer).length
     const totalWrong   = mcqs.filter((mcq, idx) => answers[idx] && answers[idx] !== mcq.correct_answer).length
-    const rawScore     = config.negativeMarking ? totalCorrect - totalWrong : totalCorrect
+    const rawScore     = config.negativeMarking ? totalCorrect - (totalWrong * 0.25) : totalCorrect
     const maxScore     = config.negativeMarking ? mcqs.length : mcqs.length
     const totalPercent = mcqs.length > 0 ? (Math.max(0, rawScore) / maxScore * 100).toFixed(1) : '0.0'
     const passed = parseFloat(totalPercent) >= config.passingPercent
@@ -646,6 +654,11 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
 
     // Review mode — show wrong answers one by one
     if (reviewMode) {
+      // Guard: if somehow reviewMode is active with no wrong items, exit cleanly
+      if (wrongItems.length === 0 || reviewIndex >= wrongItems.length) {
+        setReviewMode(false)
+        return null
+      }
       const { mcq, userAnswer } = wrongItems[reviewIndex]
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">

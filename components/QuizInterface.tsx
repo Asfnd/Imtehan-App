@@ -117,12 +117,14 @@ export default function QuizInterface({
     let correct = 0
     activeMCQs.forEach((mcq, idx) => { if (answers[idx] === mcq.correct_answer) correct++ })
     setResultPct(Math.round((correct / activeMCQs.length) * 100))
-    if (typeof window !== 'undefined' && !sessionStorage.getItem('feedback_shown')) {
-      const t = setTimeout(() => {
+    try {
+      if (typeof window !== 'undefined' && !sessionStorage.getItem('feedback_shown')) {
         sessionStorage.setItem('feedback_shown', '1')
-        setShowFeedback(true)
-      }, 1500)
-      return () => clearTimeout(t)
+        const t = setTimeout(() => setShowFeedback(true), 1500)
+        return () => clearTimeout(t)
+      }
+    } catch {
+      // sessionStorage unavailable (private browsing) — skip feedback popup
     }
   }, [showResults, reviewMode])
 
@@ -195,10 +197,10 @@ export default function QuizInterface({
   }
 
   const practiceMistakes = () => {
-    // Collect wrong MCQs
+    // Collect only answered-wrong MCQs (not unanswered/skipped)
     const wrong = activeMCQs.filter((mcq, idx) => {
       const ua = answers[idx]
-      return !ua || ua !== mcq.correct_answer
+      return !!ua && ua !== mcq.correct_answer
     })
     // Save original score for comparison
     let correct = 0
@@ -220,10 +222,10 @@ export default function QuizInterface({
     const unanswered = activeMCQs.length - Object.keys(answers).length
     const percentage = Math.round((correct / activeMCQs.length) * 100)
 
-    // Count wrong + unanswered from this attempt
+    // Count only answered-wrong (not unanswered/skipped)
     const wrongCount = activeMCQs.filter((mcq, idx) => {
       const ua = answers[idx]
-      return !ua || ua !== mcq.correct_answer
+      return !!ua && ua !== mcq.correct_answer
     }).length
 
     // Improvement data for review mode

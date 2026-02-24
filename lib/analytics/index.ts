@@ -22,7 +22,6 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
-    console.warn('⚠️ Cannot save quiz results: User not logged in')
     return null
   }
 
@@ -39,21 +38,17 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
     })
 
     if (error) {
-      console.error('❌ Database error while saving quiz:', error)
-      console.error('Error details:', {
-        code: error.code,
-        message: error.message,
-        details: error.details
-      })
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Database error while saving quiz:', error)
+      }
       throw error
     }
 
     return data as SaveQuizResponse
 
   } catch (error) {
-    console.error('❌ Failed to save quiz results:', error)
-    if (error instanceof Error) {
-      console.error('Error stack:', error.stack)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Failed to save quiz results:', error)
     }
     return null
   }
@@ -78,21 +73,17 @@ export async function getUserAnalytics(): Promise<UserAnalytics | null> {
     })
 
     if (error) {
-      console.error('❌ Database error loading analytics:', error)
-      console.error('Error details:', {
-        code: error.code,
-        message: error.message,
-        details: error.details
-      })
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Database error loading analytics:', error)
+      }
       throw error
     }
 
     return data as UserAnalytics
 
   } catch (error) {
-    console.error('❌ Failed to load analytics:', error)
-    if (error instanceof Error) {
-      console.error('Error stack:', error.stack)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Failed to load analytics:', error)
     }
     return null
   }

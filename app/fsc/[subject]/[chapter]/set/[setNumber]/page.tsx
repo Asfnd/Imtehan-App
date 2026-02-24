@@ -34,14 +34,14 @@ export default async function FSCSetPage({
 
   const supabase = await createServerSupabaseClient()
 
-  const { data, error } = await supabase
-    .from(subjectCfg.table)
-    .select(COLS)
-    .eq('topic', chapter)
-    .order('id')
-    .range(offset, offset + MCQS_PER_SET - 1)
+  const [{ data, error }, { count }] = await Promise.all([
+    supabase.from(subjectCfg.table).select(COLS).eq('topic', chapter).order('id').range(offset, offset + MCQS_PER_SET - 1),
+    supabase.from(subjectCfg.table).select('*', { count: 'exact', head: true }).eq('topic', chapter),
+  ])
 
   if (error || !data || data.length === 0) notFound()
+
+  const totalSets = count ? Math.ceil(count / MCQS_PER_SET) : undefined
 
   return (
     <MDCATSetQuiz
@@ -51,6 +51,7 @@ export default async function FSCSetPage({
       subjectGradient="from-emerald-600 to-teal-700"
       difficulty={chapter}
       setNumber={setNumber}
+      totalSets={totalSets}
       theme="green"
       backPath={`/fsc/${subject}/${rawChapter}`}
     />
