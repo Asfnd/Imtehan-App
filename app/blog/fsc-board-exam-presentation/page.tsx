@@ -59,7 +59,9 @@ It also prevents them from missing a short answer if you've written two on the s
 
 Most students practice *writing* answers but never practice *presenting* them. Once a week, take a full-length mock test on Imtehan. But don't just solve the MCQs online—write out the subjective portion on paper exactly as you would in the exam hall. Time yourself. Can you draw that diagram in under 2 minutes? Can you switch markers without losing your flow?
 
-Presentation is a motor skill. If you don't practice it, your hand will cramp and your handwriting will deteriorate by question 5. Train for the performance, not just the knowledge.`
+Presentation is a motor skill. If you don't practice it, your hand will cramp and your handwriting will deteriorate by question 5. Train for the performance, not just the knowledge.
+
+Use the [FSc chapter-wise MCQ sets on Imtehan](/fsc/biology) to test your Biology content knowledge before focusing on presentation — knowing the material deeply makes your structure more natural and confident.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

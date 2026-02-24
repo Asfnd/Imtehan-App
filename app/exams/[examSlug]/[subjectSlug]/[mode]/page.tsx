@@ -7,6 +7,8 @@ import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
 import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
@@ -37,7 +39,9 @@ export default function BatchSetSelector() {
   const [user, setUser]                   = useState<any>(null)
   const [showSignIn, setShowSignIn] = useState(false)
 
-  const modeConfig = MODE_CONFIG[mode as keyof typeof MODE_CONFIG]
+  const modeConfig  = MODE_CONFIG[mode as keyof typeof MODE_CONFIG]
+  const examConfig  = getExamConfig(examSlug)
+  const sectionCfg  = examConfig?.sections.find((s) => s.slug === subjectSlug)
 
   useEffect(() => {
     async function fetchUser() {
@@ -104,6 +108,21 @@ export default function BatchSetSelector() {
 
   if (!modeConfig) return null
 
+  const faqItems = [
+    {
+      question: `How many ${examConfig?.name || examSlug} ${sectionCfg?.label || subjectSlug} ${modeConfig.label} MCQs are available?`,
+      answer: `Imtehan has ${totalMCQs.toLocaleString()} ${modeConfig.label} MCQs for ${examConfig?.name || examSlug} ${sectionCfg?.label || subjectSlug}, organised in sets of 20 questions each for focused exam preparation.`,
+    },
+    {
+      question: `Are these ${sectionCfg?.label || subjectSlug} ${modeConfig.label} MCQs useful for ${examConfig?.name || examSlug}?`,
+      answer: `Yes — these MCQs are curated specifically for ${examConfig?.name || examSlug} candidates. ${modeConfig.description}. Practising set by set builds confidence and improves your score systematically.`,
+    },
+    {
+      question: `How should I use these ${modeConfig.label} sets for ${examConfig?.name || examSlug} preparation?`,
+      answer: `Start from Set 1 and complete each set in one session. Review every explanation — especially for wrong answers — before moving to the next set. Consistency across multiple sets is key to strong exam performance.`,
+    },
+  ]
+
   const totalSets   = Math.ceil(totalMCQs / 20)
   const totalBatches = Math.ceil(totalSets / SETS_PER_BATCH)
   const startSet    = (selectedBatch - 1) * SETS_PER_BATCH + 1
@@ -115,6 +134,18 @@ export default function BatchSetSelector() {
     <div className="min-h-screen bg-gray-50">
       <NavigationBar />
 
+      {/* Breadcrumb */}
+      <div className="container mx-auto px-4 max-w-7xl pt-3 pb-1">
+        <Breadcrumb items={[
+          { name: 'Home',                                  url: '/' },
+          { name: examConfig?.name || examSlug,            url: `/exams/${examSlug}` },
+          { name: sectionCfg?.label || subjectSlug,        url: `/exams/${examSlug}/${subjectSlug}` },
+          { name: modeConfig.label,                        url: `/exams/${examSlug}/${subjectSlug}/${mode}` },
+        ]} />
+      </div>
+
+      <FAQSchema items={faqItems} />
+
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
         <div className="mb-6">
@@ -123,6 +154,9 @@ export default function BatchSetSelector() {
             {modeConfig.description} •{' '}
             <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>
             {' '}across <span className="font-medium text-gray-700">{totalBatches} batches</span>
+          </p>
+          <p className="text-sm text-slate-600 mt-2 leading-relaxed max-w-2xl">
+            Practice {sectionCfg?.label || subjectSlug} {modeConfig.label.toLowerCase()} MCQs for {examConfig?.name || examSlug} in sets of 20 with instant feedback and detailed explanations.
           </p>
         </div>
 

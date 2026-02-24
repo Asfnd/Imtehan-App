@@ -49,7 +49,7 @@ Not all chapters are created equal. To study efficiently, you should spend 70% o
 Instead of passive reading, use the Triple-Read technique combined with the Imtehan question bank:
 
 1.  **The Overview:** Quickly read a chapter to understand the big picture. Don't highlight anything yet.
-2.  **The Deep Dive:** Read for detail. Now, start using the Imtehan topic-wise filters to solve 20-30 MCQs *as you read*. If you get a question wrong, go back to the text immediately.
+2.  **The Deep Dive:** Read for detail. Now, start using the [Imtehan Biology topic-wise sets](/mdcat/biology) to solve 20-30 MCQs *as you read*. If you get a question wrong, go back to the text immediately.
 3.  **The Consolidation:** Close the book and try to explain the entire concept to a peer or in the Imtehan Community Chat. If you can't explain it, you haven't mastered it.
 
 > Memorizing facts is easy; mastering connections is where the winners are made.
@@ -60,7 +60,7 @@ One of the most powerful features of our new update is the detailed analytics. A
 
 Use this data to pivot. Instead of studying what you already know (which feels good but is unproductive), dive back into the "Cell Biology" module. Use our **Community Chat** to ask for mnemonics or simplified explanations from other students who have already mastered that topic.
 
-The 2026 MDCAT will be more competitive than ever. By moving away from mindless memorization and toward a data-driven, test-first strategy, you aren’t just hoping for success—you’re planning for it. Start with a diagnostic Biology test today and see where you truly stand.`
+The 2026 MDCAT will be more competitive than ever. By moving away from mindless memorization and toward a data-driven, test-first strategy, you aren’t just hoping for success—you’re planning for it. [Start practising MDCAT Biology MCQs on Imtehan](/mdcat/biology) today and see where you truly stand.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

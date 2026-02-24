@@ -11,7 +11,11 @@ Disallow: /admin/
 Disallow: /profile/
 Disallow: /signin/
 Disallow: /auth/
-Disallow: /quiz/
+
+# Block thin quiz set pages (noindex via metadata as well)
+Disallow: /mdcat/*/*/set/
+Disallow: /fsc/*/*/set/
+Disallow: /exams/*/*/*/set/
 
 # Block dynamic view pages (query param based)
 Disallow: /css/past-papers/view

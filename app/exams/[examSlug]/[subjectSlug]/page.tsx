@@ -7,6 +7,8 @@ import { ArrowLeft, Flame, Star, FileText, Target } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
 import { createClient } from '@/lib/supabase/client'
 import NavigationBar from '@/components/NavigationBar'
+import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 const roundMCQs = (n: number) => {
   if (n >= 10000) return `${Math.floor(n / 1000)}k+`
@@ -90,6 +92,21 @@ export default function SubjectModesPage() {
 
   const totalPracticeCount = counts.pastCount + counts.importantCount + counts.repeatedCount
 
+  const faqItems = [
+    {
+      question: `How many ${config.name} ${section.label} MCQs are available on Imtehan?`,
+      answer: `Imtehan has ${(counts.pastCount + counts.importantCount + counts.repeatedCount).toLocaleString()} ${config.name} ${section.label} MCQs across Most Repeated, Most Important, and Past Papers categories — all organised in sets of 20 for efficient exam preparation.`,
+    },
+    {
+      question: `Which ${config.name} ${section.label} practice mode should I start with?`,
+      answer: `Start with Most Repeated MCQs to cover the highest-yield questions first, then move to Most Important for core concepts, and finally Past MCQs to practise actual exam questions from 2015 to 2026.`,
+    },
+    {
+      question: `Are ${config.name} ${section.label} MCQs on Imtehan updated for 2026?`,
+      answer: `Yes — Imtehan's ${config.name} ${section.label} question bank is continuously updated with the latest past papers and high-priority MCQs to help you score higher in the upcoming examinations.`,
+    },
+  ]
+
   const modes = [
     {
       slug: 'most-repeated',
@@ -148,6 +165,17 @@ export default function SubjectModesPage() {
     <div className="min-h-screen bg-gray-50">
       <NavigationBar />
 
+      {/* Breadcrumb */}
+      <div className="container mx-auto px-4 max-w-7xl pt-3 pb-1">
+        <Breadcrumb items={[
+          { name: 'Home',          url: '/' },
+          { name: config.name,     url: `/exams/${examSlug}` },
+          { name: section.label,   url: `/exams/${examSlug}/${subjectSlug}` },
+        ]} />
+      </div>
+
+      <FAQSchema items={faqItems} />
+
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Title Section */}
         <div className="text-center mb-8">
@@ -155,6 +183,9 @@ export default function SubjectModesPage() {
             {section.label}
           </h1>
           <p className="text-gray-600">Choose your practice mode</p>
+          <p className="text-sm text-slate-500 mt-2 max-w-xl mx-auto leading-relaxed">
+            Practice {config.name} {section.label} MCQs in sets of 20. Select a mode below to start with most-repeated, most-important, or past paper questions.
+          </p>
         </div>
 
         {/* Mode Cards */}

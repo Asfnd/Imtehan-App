@@ -1,7 +1,12 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import MockTestInterface from '@/components/MockTestInterface'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+}
 
 /**
  * qTypes controls which DB question types are fetched for each mock.

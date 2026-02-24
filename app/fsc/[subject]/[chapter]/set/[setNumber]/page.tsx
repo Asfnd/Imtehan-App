@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import MDCATSetQuiz from '@/components/MDCATSetQuiz'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+}
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   biology:   { name: 'Biology',   table: 'mdcat_biology'   },

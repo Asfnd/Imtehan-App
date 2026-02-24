@@ -7,6 +7,8 @@ import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology'           },
@@ -106,9 +108,36 @@ export default function MDCATTopicOrDifficultyPage() {
     )
   }
 
+  const faqItems = [
+    {
+      question: `How many MDCAT ${subjectCfg.name} ${displayLabel} MCQs are available on Imtehan?`,
+      answer: `Imtehan has ${totalMCQs.toLocaleString()} MDCAT ${subjectCfg.name} ${displayLabel} MCQs organised in ${totalSets} practice sets of 20 questions each. Every question includes a detailed explanation.`,
+    },
+    {
+      question: `Is ${displayLabel} important for MDCAT 2026?`,
+      answer: `${displayLabel} is a regularly tested area in MDCAT ${subjectCfg.name}. Practising topic-wise MCQ sets on Imtehan helps you score higher in PMC, ETEA, NUMS, and AKU entry tests.`,
+    },
+    {
+      question: `How should I prepare ${displayLabel} for MDCAT?`,
+      answer: `Begin with Set 1 to assess your level, then work through sets systematically. Read the explanation for every incorrect answer. Aim to complete at least 3 sets per session for strong retention.`,
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50">
       <NavigationBar showCenterNav={false} />
+
+      {/* Breadcrumb */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-3 pb-1">
+        <Breadcrumb items={[
+          { name: 'Home',           url: '/' },
+          { name: 'MDCAT',          url: '/mdcat' },
+          { name: subjectCfg.name,  url: `/mdcat/${subject}` },
+          { name: displayLabel,     url: `/mdcat/${subject}/${topic}` },
+        ]} />
+      </div>
+
+      <FAQSchema items={faqItems} />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         {/* Back */}
@@ -121,7 +150,7 @@ export default function MDCATTopicOrDifficultyPage() {
         </button>
 
         {/* Header */}
-        <div className="mb-6">
+        <div className="mb-3">
           <div className="flex items-center gap-2.5 mb-1">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center">
               {DiffIcon
@@ -137,6 +166,14 @@ export default function MDCATTopicOrDifficultyPage() {
             {totalMCQs.toLocaleString()} MCQs · {totalSets} sets · {totalBatches} batches · {MCQS_PER_SET} MCQs per set
           </p>
         </div>
+
+        {/* SEO intro */}
+        <p className="text-sm text-slate-600 mb-5 leading-relaxed">
+          {isDifficulty
+            ? `Practice MDCAT ${subjectCfg.name} ${difficultyCfg!.label.toLowerCase()} difficulty MCQs in sets of 20. Each set has detailed explanations to help you master this level for PMC, ETEA, and NUMS entry tests.`
+            : `Practice MDCAT ${subjectCfg.name} — ${displayLabel} MCQs in topic-wise sets of 20. All questions include detailed explanations covering key concepts tested in PMC, ETEA, and NUMS medical entry tests.`
+          }
+        </p>
 
         {/* Batch selector — horizontal scroll on mobile, vertical sidebar on md+ */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 md:hidden">

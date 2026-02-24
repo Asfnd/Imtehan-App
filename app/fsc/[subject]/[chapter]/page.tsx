@@ -7,6 +7,8 @@ import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string }> = {
   biology:   { name: 'Biology',   table: 'mdcat_biology',   color: 'from-emerald-600 to-teal-700'  },
@@ -89,9 +91,36 @@ export default function FSCChapterPage() {
     )
   }
 
+  const faqItems = [
+    {
+      question: `How many FSc ${subjectCfg.name} ${decoded} MCQs are available on Imtehan?`,
+      answer: `Imtehan has ${totalMCQs.toLocaleString()} FSc ${subjectCfg.name} ${decoded} MCQs in ${totalSets} practice sets of 20 questions each. All sets are aligned with the Punjab Board curriculum.`,
+    },
+    {
+      question: `Is ${decoded} important for FSc board exams?`,
+      answer: `${decoded} is a key chapter in FSc ${subjectCfg.name}. Practising chapter-wise MCQs on Imtehan helps you prepare effectively for Punjab Board exams and MDCAT entry tests.`,
+    },
+    {
+      question: `How can I practice ${decoded} MCQs for FSc?`,
+      answer: `Start with Set 1 and work through sets in order. Each set has 20 MCQs with detailed explanations. Regular practice across multiple sets strengthens your understanding of the chapter.`,
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50">
       <NavigationBar showCenterNav={false} />
+
+      {/* Breadcrumb */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-3 pb-1">
+        <Breadcrumb items={[
+          { name: 'Home',          url: '/' },
+          { name: 'FSc',           url: '/fsc' },
+          { name: subjectCfg.name, url: `/fsc/${subject}` },
+          { name: decoded,         url: `/fsc/${subject}/${chapter}` },
+        ]} />
+      </div>
+
+      <FAQSchema items={faqItems} />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
 
@@ -105,7 +134,7 @@ export default function FSCChapterPage() {
         </button>
 
         {/* Header */}
-        <div className="mb-6">
+        <div className="mb-3">
           <div className="flex items-center gap-2.5 mb-1">
             <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${subjectCfg.color} flex items-center justify-center`}>
               <span className="text-white text-xs font-bold">Ch</span>
@@ -116,6 +145,11 @@ export default function FSCChapterPage() {
             {totalMCQs.toLocaleString()} MCQs · {totalSets} sets · {totalBatches} batches · {MCQS_PER_SET} MCQs per set
           </p>
         </div>
+
+        {/* SEO intro */}
+        <p className="text-sm text-slate-600 mb-5 leading-relaxed">
+          Practice FSc {subjectCfg.name} — {decoded} MCQs in chapter-wise sets of 20. Questions aligned with Punjab Board curriculum for board exam and MDCAT preparation.
+        </p>
 
         {/* Batch selector — horizontal scroll on mobile */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 md:hidden">

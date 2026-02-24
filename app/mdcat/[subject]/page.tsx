@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, BookOpen, Zap, Target, Flame, ChevronRight } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
+import { Breadcrumb } from '@/components/seo/Breadcrumb'
+import { FAQSchema } from '@/components/seo/StructuredData'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; icon: string }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology',           icon: '🧬' },
@@ -98,9 +100,35 @@ export default function MDCATSubjectPage() {
 
   const total = counts ? counts.Easy + counts.Medium + counts.Hard : 0
 
+  const faqItems = [
+    {
+      question: `How many MDCAT ${cfg.name} MCQs are available on Imtehan?`,
+      answer: `Imtehan has ${total.toLocaleString()} MDCAT ${cfg.name} MCQs across ${topics.length} topics, organised in sets of 20. Questions cover Easy, Medium, and Hard difficulty levels for complete PMC, ETEA, NUMS, and AKU entry test preparation.`,
+    },
+    {
+      question: `What topics are covered in MDCAT ${cfg.name} on Imtehan?`,
+      answer: `Imtehan covers ${topics.length} MDCAT ${cfg.name} topics with over ${total.toLocaleString()} MCQs in total. Each topic has its own dedicated sets with detailed explanations to help you master every concept tested in medical entry exams.`,
+    },
+    {
+      question: `How should I study MDCAT ${cfg.name} for 2026?`,
+      answer: `Start with Easy difficulty sets to build your foundation, then progress to Medium and Hard for comprehensive preparation. Use topic-wise sets to focus on areas where you need improvement before sitting PMC, ETEA, or NUMS entry tests.`,
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50">
       <NavigationBar showCenterNav={false} />
+
+      {/* Breadcrumb */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-3 pb-1">
+        <Breadcrumb items={[
+          { name: 'Home',   url: '/' },
+          { name: 'MDCAT',  url: '/mdcat' },
+          { name: cfg.name, url: `/mdcat/${subject}` },
+        ]} />
+      </div>
+
+      <FAQSchema items={faqItems} />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
         {/* Back */}
@@ -125,6 +153,11 @@ export default function MDCATSubjectPage() {
             </div>
           </div>
         </div>
+
+        {/* SEO intro */}
+        <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+          Practice MDCAT {cfg.name} MCQs in topic-wise and difficulty-based sets of 20. All questions include detailed explanations covering key concepts tested in PMC, ETEA, NUMS, and AKU medical entry tests.
+        </p>
 
         {/* Difficulty modes */}
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Practice Sets by Difficulty</h2>

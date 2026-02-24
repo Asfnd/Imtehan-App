@@ -45,7 +45,7 @@ Most students write out the formula, plug in "2r," and calculate. The smart stud
 *   Action: If r doubles, F must halve. 
 *   Answer: F/2.
 
-You can practice this skill specifically on Imtehan. Filter our Physics bank for "Ratio Questions" and challenge yourself to solve them without picking up a pen.
+You can practice this skill specifically on Imtehan. [Filter MDCAT Physics sets by topic](/mdcat/physics) and challenge yourself to solve ratio questions without picking up a pen.
 
 ## Approximation is Your Best Friend
 
@@ -68,7 +68,7 @@ Examiners love graphs because they look scary. But graphs are usually just askin
 
 If you see a Velocity-Time graph, don't panic. Just ask: "Do I need the slope (Acceleration) or the area (Displacement)?" Once you simplify the question to that binary choice, the answer becomes obvious.
 
-Physics isn't about math; it's about relationships. Use the 250,000+ questions on Imtehan to test your conceptual understanding, not your ability to be a human calculator.`
+Physics isn't about math; it's about relationships. [Use the MDCAT Physics question bank on Imtehan](/mdcat/physics) to test your conceptual understanding, not your ability to be a human calculator.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

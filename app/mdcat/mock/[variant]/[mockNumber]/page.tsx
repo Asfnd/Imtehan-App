@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import MDCATMockTest from '@/components/MDCATMockTest'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+}
 
 // Must stay in sync with maxMocks values in MDCATMockTest.tsx
 const MAX_MOCKS: Record<string, number> = {

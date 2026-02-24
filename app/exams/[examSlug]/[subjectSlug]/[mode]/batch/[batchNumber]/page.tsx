@@ -1,9 +1,14 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Play, Lock } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
 import NavigationBar from '@/components/NavigationBar'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+}
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated', icon: '🔥', type: 'most_repeated' },
