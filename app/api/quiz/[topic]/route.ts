@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/client'
+import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { rateLimit, getClientIP, RATE_LIMITS } from '@/lib/security/rateLimiter'
 import { validateInput } from '@/lib/security/request-verification'
 
@@ -27,7 +27,7 @@ export async function GET(
   }
 
   try {
-    const supabase = createClient()
+    const supabase = await createServerSupabaseClient()
     const { topic } = await params
 
     // SECURITY: Validate topic parameter to prevent SQL injection

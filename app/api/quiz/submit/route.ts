@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
       .select()
       .single()
 
-    if (historyError) {
+    if (historyError && process.env.NODE_ENV === 'development') {
       console.error('Quiz history save error:', historyError)
     }
 
@@ -219,16 +219,8 @@ export async function POST(request: NextRequest) {
         })
         .eq('id', authUser.id)
 
-      if (updateError) {
+      if (updateError && process.env.NODE_ENV === 'development') {
         console.error('User update error:', updateError)
-      } else {
-        console.log('User profile updated successfully:', {
-          newXP,
-          newLevel,
-          leveledUp,
-          newStreak,
-          daysSinceLastQuiz: lastQuizDate ? Math.floor((today.getTime() - lastQuizDate.getTime()) / (1000 * 60 * 60 * 24)) : 'first quiz',
-        })
       }
     }
 

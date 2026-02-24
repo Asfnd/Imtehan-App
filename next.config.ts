@@ -298,13 +298,13 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache API routes with shorter duration (except PDF proxy)
+      // API routes: no public caching — authenticated responses must not be cached by CDN
       {
         source: '/api/:path((?!pdf/proxy).*)*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=300, s-maxage=600',
+            value: 'private, no-store',
           },
         ],
       },
