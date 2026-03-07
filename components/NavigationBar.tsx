@@ -178,14 +178,14 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                       <Link
                         href="/mdcat"
                         onClick={() => setExamDropdownOpen(false)}
-                        className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                        className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                       >
                         MDCAT
                       </Link>
                       <Link
                         href="/fsc"
                         onClick={() => setExamDropdownOpen(false)}
-                        className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                        className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                       >
                         FSc Pre-Medical
                       </Link>
@@ -198,7 +198,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                           key={item.key}
                           href={item.href}
                           onClick={() => setExamDropdownOpen(false)}
-                          className="px-3 py-2.5 rounded-lg hover:bg-orange-50 border border-transparent hover:border-orange-200 transition-all text-sm font-medium text-gray-800"
+                          className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                         >
                           {item.label}
                         </Link>
@@ -214,7 +214,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                             key={cat}
                             href={cfg.href}
                             onClick={() => setExamDropdownOpen(false)}
-                            className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                            className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                           >
                             {cfg.label}
                           </Link>
@@ -396,14 +396,14 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                   <Link
                     href="/mdcat"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                    className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                   >
                     MDCAT
                   </Link>
                   <Link
                     href="/fsc"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                    className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                   >
                     FSc Pre-Medical
                   </Link>
@@ -415,7 +415,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                       key={item.key}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="px-3 py-2.5 rounded-lg hover:bg-orange-50 border border-transparent hover:border-orange-200 transition-all text-sm font-medium text-gray-800"
+                      className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                     >
                       {item.label}
                     </Link>
@@ -430,7 +430,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                         key={cat}
                         href={cfg.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+                        className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
                       >
                         {cfg.label}
                       </Link>
