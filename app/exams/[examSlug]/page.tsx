@@ -9,7 +9,7 @@ import {
   Zap, Trophy, Award, Clock, Shield, Layers, BarChart2,
   Cpu, Activity, Crosshair, Brain, Flag, CheckCircle, Lock
 } from 'lucide-react'
-import { getExamConfig } from '@/lib/exam-configs'
+import { getExamConfig, ExamConfig } from '@/lib/exam-configs'
 import { createClient } from '@/lib/supabase/client'
 import NavigationBar from '@/components/NavigationBar'
 import { PremiumPopup } from '@/components/auth/PremiumPopup'
@@ -76,6 +76,7 @@ function ExamDashboard() {
   const [loading, setLoading] = useState(true)
   const [showSignIn, setShowSignIn] = useState(false)
   const [showPremium, setShowPremium] = useState(false)
+  const [pendingMockId, setPendingMockId] = useState<number | null>(null)
   const [stats, setStats] = useState<UserStats>({
     totalQuestions: 0,
     totalQuizzes: 0,
@@ -109,7 +110,7 @@ function ExamDashboard() {
 
   const handleMockClick = (mockId: number) => {
     if (mockId === 1 || isPremium) {
-      router.push(`/exams/${examSlug}/mock/${mockId}`)
+      setPendingMockId(mockId)
       return
     }
     if (!user) {
@@ -580,6 +581,151 @@ function ExamDashboard() {
 
     <SignInPopup isOpen={showSignIn} onClose={() => setShowSignIn(false)} message="Sign in to access more mock tests and practice sets" />
     <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
+    {pendingMockId && (
+      <MockPatternPopup
+        config={config}
+        examSlug={examSlug}
+        mockId={pendingMockId}
+        onConfirm={() => { router.push(`/exams/${examSlug}/mock/${pendingMockId}`); setPendingMockId(null) }}
+        onClose={() => setPendingMockId(null)}
+      />
+    )}
     </>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Mock Pattern Popup
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MOCK_TITLES: Record<number, string> = {
+  1: 'Full Exam Simulation', 2: 'Past Paper Pattern', 3: 'Subject-wise Balanced',
+  4: 'Core Concepts Focus', 5: '75% Warm-up', 6: 'Mixed Topics', 7: 'Quick 50% Revision',
+  8: 'Advanced Full Sim', 9: 'High-Yield Focus', 10: 'Comprehensive Deep-Dive',
+  11: '75% Analytical', 12: 'Speed & Pressure', 13: 'Intensive Practice', 14: 'Rapid Fire',
+  15: 'Expert Full Test', 16: 'Ultimate Challenge', 17: '75% Champions', 18: 'Final Review',
+  19: 'Grand Master', 20: 'Final Assessment',
+}
+
+const MOCK_MULTIPLIERS: Record<number, number> = {
+  1:1,2:1,3:1,4:1,5:.75,6:.75,7:.5,
+  8:1,9:1,10:1,11:.75,12:.5,13:1,14:.25,
+  15:1,16:1,17:.75,18:1,19:1,20:1,
+}
+
+const BAR_COLORS = ['bg-blue-500','bg-violet-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500']
+const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-amber-600','text-rose-600','text-cyan-600']
+
+// Official exam notes per exam slug
+const EXAM_NOTES: Record<string, { negative: boolean; passMark: string; note?: string }> = {
+  'ecat':               { negative: false, passMark: '50%', note: 'UET Lahore + affiliated engineering colleges' },
+  'net-engineering':    { negative: false, passMark: '50%', note: 'Used by NUST, PAF-KIET & other NTS-based unis' },
+  'nust':               { negative: false, passMark: '50%', note: 'NUST NET — 200 MCQs, 3 hrs (incl. intelligence)' },
+  'giki-pieas':         { negative: false, passMark: '60%', note: 'GIKI & PIEAS joint entry test' },
+  'lums-engineering':   { negative: false, passMark: '60%', note: 'SAT-style test; Math-heavy pattern' },
+  'comsats-engineering':{ negative: false, passMark: '50%', note: 'COMSATS own admission test' },
+  'fast-nuces':         { negative: false, passMark: '50%', note: 'FAST NU own test — heavy on Math & IQ' },
+  'paf-initial':        { negative: false, passMark: '50%', note: 'PAF commissioned officer initial screening' },
+  'pma-long-course':    { negative: false, passMark: '50%', note: 'Pakistan Military Academy academic test' },
+  'nts-nat-ie':         { negative: false, passMark: '50%', note: 'NTS NAT-IE for Engineering admissions' },
+  'muet':               { negative: false, passMark: '50%', note: 'Mehran UET, Jamshoro' },
+  'air-university':     { negative: false, passMark: '50%', note: 'Air University Islamabad own entry test' },
+  'nts-gat':            { negative: false, passMark: '50%', note: 'NTS GAT-General for postgrad admissions' },
+}
+
+function MockPatternPopup({
+  config, examSlug, mockId, onConfirm, onClose,
+}: {
+  config: ExamConfig
+  examSlug: string
+  mockId: number
+  onConfirm: () => void
+  onClose: () => void
+}) {
+  const multiplier = MOCK_MULTIPLIERS[mockId] ?? 1
+  const totalQs = Math.round(config.totalMCQs * multiplier)
+  const duration = Math.round(config.duration * multiplier)
+  const total = config.sections.reduce((s, x) => s + x.count, 0)
+  const examNote = EXAM_NOTES[examSlug]
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center p-4" onClick={onClose}>
+      <div
+        className="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="bg-gradient-to-r from-slate-800 to-blue-900 px-5 py-4">
+          <p className="text-[11px] text-blue-300 font-medium uppercase tracking-wider mb-0.5">Mock {mockId}</p>
+          <h3 className="text-base font-bold text-white">{MOCK_TITLES[mockId]}</h3>
+          <p className="text-xs text-blue-200 mt-0.5">{examNote?.note ?? config.name}</p>
+        </div>
+
+        {/* Pattern */}
+        <div className="px-5 py-4">
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Official Pattern</p>
+
+          {/* Distribution bar */}
+          <div className="flex rounded-full overflow-hidden h-2 mb-3">
+            {config.sections.map((sec, i) => (
+              <div key={sec.slug} className={BAR_COLORS[i % BAR_COLORS.length]} style={{ width: `${(sec.count/total)*100}%` }} />
+            ))}
+          </div>
+
+          {/* Subject rows */}
+          <div className="space-y-2 mb-4">
+            {config.sections.map((sec, i) => {
+              const qs = Math.round(sec.count * multiplier)
+              const pct = Math.round((sec.count/total)*100)
+              return (
+                <div key={sec.slug} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${BAR_COLORS[i % BAR_COLORS.length]}`} />
+                    <span className="text-sm text-gray-700">{sec.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-400">{pct}%</span>
+                    <span className={`text-sm font-bold ${TEXT_COLORS[i % TEXT_COLORS.length]}`}>{qs}q</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Stats row */}
+          <div className="flex gap-3 mb-4">
+            <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+              <div className="text-base font-bold text-gray-900">{totalQs}</div>
+              <div className="text-[10px] text-gray-400">Questions</div>
+            </div>
+            <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+              <div className="text-base font-bold text-gray-900">{duration}m</div>
+              <div className="text-[10px] text-gray-400">Duration</div>
+            </div>
+            <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+              <div className="text-base font-bold text-gray-900">{config.passingPercentage}%</div>
+              <div className="text-[10px] text-gray-400">Pass Mark</div>
+            </div>
+          </div>
+
+          {config.negativeMarking && (
+            <div className="flex items-center gap-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2 mb-4">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+              <span className="text-xs text-red-600 font-medium">Negative marking applies</span>
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="flex gap-2">
+            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+              Cancel
+            </button>
+            <button onClick={onConfirm} className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors">
+              Start Mock {mockId}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
