@@ -87,6 +87,46 @@ export async function generateMetadata({
   }
 }
 
-export default function ExamLayout({ children }: { children: React.ReactNode }) {
-  return children
+export default async function ExamLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ examSlug: string }>
+}) {
+  const { examSlug } = await params
+  const config = getExamConfig(examSlug)
+
+  const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
+  const description = config
+    ? `Practice ${examName} MCQs subject-wise. ${config.totalMCQs}+ questions with answers and explanations for complete exam preparation.`
+    : `Practice ${examName} MCQs with answers on Imtehan.`
+
+  const courseJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    'name': `${examName} Exam Preparation`,
+    'description': description,
+    'url': `https://imtehan.com/exams/${examSlug}`,
+    'provider': { '@type': 'Organization', 'name': 'Imtehan', 'url': 'https://imtehan.com' },
+    'hasCourseInstance': {
+      '@type': 'CourseInstance',
+      'courseMode': 'online',
+      'url': `https://imtehan.com/exams/${examSlug}`,
+    },
+    ...(config?.sections?.length ? {
+      'teaches': config.sections.map(s => s.label),
+      'numberOfCredits': config.totalMCQs,
+    } : {}),
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
+      />
+      {children}
+    </>
+  )
 }

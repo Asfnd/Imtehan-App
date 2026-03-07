@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { EXAM_CONFIGS } from '@/lib/exam-configs'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://imtehan.com'
@@ -119,6 +120,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/terms`,   lastModified: currentDate, changeFrequency: 'yearly',  priority: 0.5 },
   ]
 
+  // Dynamically generated exam + subject pages from all 211 exam configs
+  const examPages: MetadataRoute.Sitemap = []
+
+  // /exams browse page
+  examPages.push({ url: `${baseUrl}/exams`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 })
+
+  for (const [slug, config] of Object.entries(EXAM_CONFIGS)) {
+    // Exam hub page
+    examPages.push({
+      url: `${baseUrl}/exams/${slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    })
+    // Subject pages
+    for (const section of config.sections) {
+      examPages.push({
+        url: `${baseUrl}/exams/${slug}/${section.slug}`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
+        priority: 0.75,
+      })
+    }
+  }
+
   return [
     ...mainPages,
     ...cssPages,
@@ -127,5 +153,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...fscPages,
     ...blogPages,
     ...infoPages,
+    ...examPages,
   ]
 }
