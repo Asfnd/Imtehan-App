@@ -171,55 +171,37 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                 </button>
 
                 {examDropdownOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[440px]">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border border-gray-200/70 rounded-2xl shadow-xl z-50 p-5 w-[460px]">
                     {/* Medical */}
-                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Medical</p>
-                    <div className="grid grid-cols-2 gap-1 mb-3">
-                      <Link
-                        href="/mdcat"
-                        onClick={() => setExamDropdownOpen(false)}
-                        className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                      >
-                        MDCAT
-                      </Link>
-                      <Link
-                        href="/fsc"
-                        onClick={() => setExamDropdownOpen(false)}
-                        className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                      >
-                        FSc Pre-Medical
-                      </Link>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      <Link href="/mdcat" onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">MDCAT</Link>
+                      <Link href="/fsc"   onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">FSc Pre-Medical</Link>
                     </div>
                     {/* Engineering */}
-                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Engineering</p>
-                    <div className="grid grid-cols-3 gap-1 mb-3">
-                      {ENGINEERING_NAV.map((item) => (
-                        <Link
-                          key={item.key}
-                          href={item.href}
-                          onClick={() => setExamDropdownOpen(false)}
-                          className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
+                    <div className="border-t border-gray-100 pt-4 mb-4">
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {ENGINEERING_NAV.map((item) => (
+                          <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                     {/* Competitive */}
-                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Competitive Exams</p>
-                    <div className="grid grid-cols-3 gap-1">
-                      {availableCategories.filter(c => c !== 'engineering').map((cat) => {
-                        const cfg = CATEGORY_CONFIG[cat]
-                        return (
-                          <Link
-                            key={cat}
-                            href={cfg.href}
-                            onClick={() => setExamDropdownOpen(false)}
-                            className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                          >
-                            {cfg.label}
-                          </Link>
-                        )
-                      })}
+                    <div className="border-t border-gray-100 pt-4">
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Competitive Exams</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {availableCategories.filter(c => c !== 'engineering').map((cat) => {
+                          const cfg = CATEGORY_CONFIG[cat]
+                          return (
+                            <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                              {cfg.label}
+                            </Link>
+                          )
+                        })}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -391,51 +373,33 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
             {/* Navigation Links */}
             {showCenterNav && (
               <div className="pb-3 border-b border-gray-100">
-                <p className="px-1 pt-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Medical</p>
-                <div className="grid grid-cols-2 gap-1 mb-3">
-                  <Link
-                    href="/mdcat"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                  >
-                    MDCAT
-                  </Link>
-                  <Link
-                    href="/fsc"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                  >
-                    FSc Pre-Medical
-                  </Link>
+                <p className="px-1 pt-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Medical</p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  <Link href="/mdcat" onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">MDCAT</Link>
+                  <Link href="/fsc"   onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">FSc Pre-Medical</Link>
                 </div>
-                <p className="px-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Engineering</p>
-                <div className="grid grid-cols-3 gap-1 mb-3">
-                  {ENGINEERING_NAV.map((item) => (
-                    <Link
-                      key={item.key}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-                <p className="px-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Competitive Exams</p>
-                <div className="grid grid-cols-3 gap-1">
-                  {availableCategories.filter(c => c !== 'engineering').map((cat) => {
-                    const cfg = CATEGORY_CONFIG[cat]
-                    return (
-                      <Link
-                        key={cat}
-                        href={cfg.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                      >
-                        {cfg.label}
+                <div className="border-t border-gray-100 pt-3 mb-4">
+                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Engineering</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {ENGINEERING_NAV.map((item) => (
+                      <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                        {item.label}
                       </Link>
-                    )
-                  })}
+                    ))}
+                  </div>
+                </div>
+                <div className="border-t border-gray-100 pt-3 mb-1">
+                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Competitive Exams</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {availableCategories.filter(c => c !== 'engineering').map((cat) => {
+                      const cfg = CATEGORY_CONFIG[cat]
+                      return (
+                        <Link key={cat} href={cfg.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                          {cfg.label}
+                        </Link>
+                      )
+                    })}
+                  </div>
                 </div>
                 <Link
                   href="/community"

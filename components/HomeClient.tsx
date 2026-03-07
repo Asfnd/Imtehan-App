@@ -68,45 +68,40 @@ function ExamPicker() {
       </button>
 
       {open && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[92vw] max-w-[420px]">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border border-gray-200/70 rounded-2xl shadow-xl z-50 p-5 w-[92vw] max-w-[440px]">
           {/* Medical */}
-          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Medical</p>
-          <div className="grid grid-cols-2 gap-1 mb-3">
+          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
+          <div className="flex flex-wrap gap-1.5 mb-4">
             {MEDICAL_CATEGORIES.map(cat => (
-              <button
-                key={cat.key}
-                onClick={() => { router.push(cat.href); setOpen(false) }}
-                className="text-left px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-              >
+              <button key={cat.key} onClick={() => { router.push(cat.href); setOpen(false) }}
+                className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
                 {cat.label}
               </button>
             ))}
           </div>
           {/* Engineering */}
-          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Engineering</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
-            {ENGINEERING_CATEGORIES.map(cat => (
-              <button
-                key={cat.key}
-                onClick={() => { router.push(cat.href); setOpen(false) }}
-                className="text-left px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-              >
-                {cat.label}
-              </button>
-            ))}
+          <div className="border-t border-gray-100 pt-4 mb-4">
+            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
+            <div className="flex flex-wrap gap-1.5">
+              {ENGINEERING_CATEGORIES.map(cat => (
+                <button key={cat.key} onClick={() => { router.push(cat.href); setOpen(false) }}
+                  className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
           {/* Competitive */}
-          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Competitive Exams</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1">
-            {COMPETITIVE_CATEGORIES.map(cat => (
-              <button
-                key={cat.key}
-                onClick={() => { router.push(cat.href); setOpen(false) }}
-                className="text-left px-3 py-2 rounded-md border border-gray-200 bg-white text-xs font-medium text-gray-700 hover:border-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all"
-              >
-                {cat.label}
-              </button>
-            ))}
+          <div className="border-t border-gray-100 pt-4">
+            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Competitive Exams</p>
+            <div className="flex flex-wrap gap-1.5">
+              {COMPETITIVE_CATEGORIES.map(cat => (
+                <button key={cat.key} onClick={() => { router.push(cat.href); setOpen(false) }}
+                  className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
