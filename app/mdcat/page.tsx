@@ -27,7 +27,7 @@ const EXAM_VARIANTS = [
     accentBg: 'bg-blue-50',
     accentBorder: 'border-blue-200',
     accentHover: 'hover:border-blue-400',
-    headerBg: 'from-blue-700 to-blue-900',
+    headerBg: 'from-slate-800 to-blue-900',
     badgeBg: 'bg-blue-100 text-blue-700',
     btnBg: 'bg-blue-600 hover:bg-blue-700',
     distribution: [
@@ -52,7 +52,7 @@ const EXAM_VARIANTS = [
     accentBg: 'bg-emerald-50',
     accentBorder: 'border-emerald-200',
     accentHover: 'hover:border-emerald-400',
-    headerBg: 'from-emerald-700 to-teal-900',
+    headerBg: 'from-slate-800 to-emerald-900',
     badgeBg: 'bg-emerald-100 text-emerald-700',
     btnBg: 'bg-emerald-600 hover:bg-emerald-700',
     distribution: [
@@ -76,7 +76,7 @@ const EXAM_VARIANTS = [
     accentBg: 'bg-slate-50',
     accentBorder: 'border-slate-300',
     accentHover: 'hover:border-slate-500',
-    headerBg: 'from-slate-700 to-slate-900',
+    headerBg: 'from-slate-800 to-slate-900',
     badgeBg: 'bg-slate-200 text-slate-700',
     btnBg: 'bg-slate-700 hover:bg-slate-800',
     distribution: [
@@ -100,7 +100,7 @@ const EXAM_VARIANTS = [
     accentBg: 'bg-rose-50',
     accentBorder: 'border-rose-200',
     accentHover: 'hover:border-rose-400',
-    headerBg: 'from-rose-700 to-rose-900',
+    headerBg: 'from-slate-800 to-rose-900',
     badgeBg: 'bg-rose-100 text-rose-700',
     btnBg: 'bg-rose-600 hover:bg-rose-700',
     distribution: [

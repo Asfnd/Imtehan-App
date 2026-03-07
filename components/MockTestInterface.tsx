@@ -17,6 +17,7 @@ interface MCQ {
   option_d: string
   correct_answer: string
   subject: string
+  explanation?: string
 }
 
 interface MockTestInterfaceProps {
@@ -28,6 +29,7 @@ interface MockTestInterfaceProps {
   examSlug: string
   mockNumber?: number
   mockTitle?: string
+  sections?: { label: string; count: number; slug: string }[]
 }
 
 type AnswerState = 'default' | 'correct' | 'wrong' | 'dimmed'
@@ -62,15 +64,19 @@ export default function MockTestInterface({
   examSlug,
   mockNumber,
   mockTitle,
+  sections,
 }: MockTestInterfaceProps) {
   const router = useRouter()
+
+  // Intro screen shown before timer starts
+  const [showIntro, setShowIntro] = useState(true)
 
   // Core quiz state — answers locked per question on first click
   const [currentIndex, setCurrentIndex]   = useState(0)
   const [answers, setAnswers]             = useState<Record<number, string>>({})
   const [showResults, setShowResults]     = useState(false)
   const [timeLeft, setTimeLeft]           = useState(duration * 60)
-  const [timerActive, setTimerActive]     = useState(true)
+  const [timerActive, setTimerActive]     = useState(false) // starts paused until intro dismissed
 
   // Review mode state
   const [reviewMode, setReviewMode]       = useState(false)
@@ -207,6 +213,84 @@ export default function MockTestInterface({
     setAnswers({})
     setShowResults(false)
     setTimerActive(false)
+  }
+
+  // ── Intro / pattern screen ─────────────────────────────────────────────────
+  if (showIntro) {
+    const total = sections?.reduce((s, x) => s + x.count, 0) ?? mcqs.length
+    const BAR_COLORS = ['bg-blue-500','bg-violet-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500']
+    const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-amber-600','text-rose-600','text-cyan-600']
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-slate-800 to-blue-900 px-5 py-5">
+            {mockNumber && <p className="text-[11px] text-blue-300 font-medium uppercase tracking-wider mb-0.5">Mock {mockNumber}</p>}
+            <h2 className="text-base font-bold text-white">{mockTitle ?? 'Mock Test'}</h2>
+            <p className="text-xs text-blue-200 mt-0.5">{examName}</p>
+          </div>
+
+          <div className="px-5 py-5">
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Exam Pattern</p>
+
+            {/* Distribution bar */}
+            {sections && sections.length > 0 && (
+              <>
+                <div className="flex rounded-full overflow-hidden h-2 mb-3">
+                  {sections.map((sec, i) => (
+                    <div key={sec.slug} className={BAR_COLORS[i % BAR_COLORS.length]} style={{ width: `${(sec.count/total)*100}%` }} />
+                  ))}
+                </div>
+                <div className="space-y-2 mb-4">
+                  {sections.map((sec, i) => (
+                    <div key={sec.slug} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${BAR_COLORS[i % BAR_COLORS.length]}`} />
+                        <span className="text-sm text-gray-700">{sec.label}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-400">{Math.round((sec.count/total)*100)}%</span>
+                        <span className={`text-sm font-bold ${TEXT_COLORS[i % TEXT_COLORS.length]}`}>{sec.count}q</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Stats */}
+            <div className="flex gap-3 mb-4">
+              <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+                <div className="text-base font-bold text-gray-900">{mcqs.length}</div>
+                <div className="text-[10px] text-gray-400">Questions</div>
+              </div>
+              <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+                <div className="text-base font-bold text-gray-900">{duration}m</div>
+                <div className="text-[10px] text-gray-400">Duration</div>
+              </div>
+              <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+                <div className="text-base font-bold text-gray-900">{passingPercentage}%</div>
+                <div className="text-[10px] text-gray-400">Pass Mark</div>
+              </div>
+            </div>
+
+            {negativeMarking && (
+              <div className="flex items-center gap-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2 mb-4">
+                <div className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="text-xs text-red-600 font-medium">Negative marking applies</span>
+              </div>
+            )}
+
+            <button
+              onClick={() => { setShowIntro(false); setTimerActive(true) }}
+              className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
+            >
+              Start Test →
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   // ── Results screen ────────────────────────────────────────────────────────────
@@ -447,7 +531,13 @@ export default function MockTestInterface({
             </div>
           </div>
 
-          {/* Navigation */}
+          {/* Explanation — shown after answer is locked or in review mode */}
+          {(!!userAnswer || reviewMode) && currentMCQ.explanation && (
+            <div className="mx-4 sm:mx-6 mb-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
+              <p className="text-[11px] font-semibold text-blue-500 uppercase tracking-wider mb-1">Explanation</p>
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">{currentMCQ.explanation}</p>
+            </div>
+          )}
           <div className="flex items-center justify-between pt-1 sm:pt-2 mb-3">
             <button
               onClick={goPrevious}
