@@ -18,6 +18,7 @@ interface MCQ {
   option_c: string
   option_d: string
   correct_answer: string
+  explanation?: string
 }
 
 interface QuizInterfaceProps {
@@ -439,6 +440,14 @@ export default function QuizInterface({
               })}
             </div>
           </div>
+
+          {/* Explanation — shown immediately after answering */}
+          {userAnswer && currentMCQ.explanation && (
+            <div className="mx-0 mb-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
+              <p className="text-[11px] font-semibold text-blue-500 uppercase tracking-wider mb-1">Explanation</p>
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">{currentMCQ.explanation}</p>
+            </div>
+          )}
 
           {/* Navigation */}
           <div className="flex items-center justify-between pt-1 sm:pt-2 mb-3">
