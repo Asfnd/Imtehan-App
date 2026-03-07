@@ -11,6 +11,7 @@ import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { trackLogin } from '@/lib/analytics/events'
 
 const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
+  engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
   national:   { label: 'CSS / PMS',    href: '/css' },
   ppsc:       { label: 'PPSC',         href: '/exams?category=ppsc' },
   fpsc:       { label: 'FPSC',         href: '/exams?category=fpsc' },
@@ -28,8 +29,17 @@ const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   revenue:    { label: 'Revenue Auth',href: '/exams?category=revenue' },
 }
 
+const ENGINEERING_NAV = [
+  { key: 'ecat',             label: 'ECAT',        href: '/exams?category=engineering&exam=ecat' },
+  { key: 'net-engineering',  label: 'NET',          href: '/exams?category=engineering&exam=net-engineering' },
+  { key: 'giki-pieas',       label: 'GIKI / PIEAS', href: '/exams?category=engineering&exam=giki-pieas' },
+  { key: 'lums-engineering', label: 'LUMS SAT',     href: '/exams?category=engineering&exam=lums-engineering' },
+  { key: 'nust',             label: 'NUST',         href: '/exams?category=engineering&exam=nust' },
+  { key: 'comsats',          label: 'COMSATS',      href: '/exams?category=engineering&exam=comsats-engineering' },
+]
+
 const CATEGORY_ORDER = [
-  'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
+  'engineering', 'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]
@@ -161,7 +171,7 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                 </button>
 
                 {examDropdownOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[400px]">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[440px]">
                     {/* Medical */}
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Medical</p>
                     <div className="grid grid-cols-2 gap-1 mb-3">
@@ -180,10 +190,24 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                         FSc Pre-Medical
                       </Link>
                     </div>
+                    {/* Engineering */}
+                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Engineering</p>
+                    <div className="grid grid-cols-3 gap-1 mb-3">
+                      {ENGINEERING_NAV.map((item) => (
+                        <Link
+                          key={item.key}
+                          href={item.href}
+                          onClick={() => setExamDropdownOpen(false)}
+                          className="px-3 py-2.5 rounded-lg hover:bg-orange-50 border border-transparent hover:border-orange-200 transition-all text-sm font-medium text-gray-800"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
                     {/* Competitive */}
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Competitive Exams</p>
                     <div className="grid grid-cols-3 gap-1">
-                      {availableCategories.map((cat) => {
+                      {availableCategories.filter(c => c !== 'engineering').map((cat) => {
                         const cfg = CATEGORY_CONFIG[cat]
                         return (
                           <Link
@@ -384,9 +408,22 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                     FSc Pre-Medical
                   </Link>
                 </div>
+                <p className="px-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Engineering</p>
+                <div className="grid grid-cols-3 gap-1 mb-3">
+                  {ENGINEERING_NAV.map((item) => (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-3 py-2.5 rounded-lg hover:bg-orange-50 border border-transparent hover:border-orange-200 transition-all text-sm font-medium text-gray-800"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
                 <p className="px-1 pb-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Competitive Exams</p>
                 <div className="grid grid-cols-3 gap-1">
-                  {availableCategories.map((cat) => {
+                  {availableCategories.filter(c => c !== 'engineering').map((cat) => {
                     const cfg = CATEGORY_CONFIG[cat]
                     return (
                       <Link

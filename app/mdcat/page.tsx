@@ -139,15 +139,15 @@ export default function MDCATPage() {
           <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Full Mock Tests</h2>
 
           {/* Exam tabs */}
-          <div className="flex gap-2 flex-wrap mb-4">
+          <div className="grid grid-cols-4 gap-2 mb-4 bg-white border border-gray-200 rounded-xl p-1.5">
             {EXAM_VARIANTS.map(e => (
               <button
                 key={e.variant}
                 onClick={() => setActiveTab(e.variant)}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
+                className={`py-2.5 rounded-lg text-sm font-bold transition-all ${
                   activeTab === e.variant
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-500 hover:text-blue-600 hover:bg-blue-50'
                 }`}
               >
                 {e.variant.toUpperCase()}

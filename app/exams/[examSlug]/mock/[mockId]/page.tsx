@@ -131,6 +131,7 @@ export default async function MockTestPage({
         examSlug={examSlug}
         mockNumber={mockNumber}
         mockTitle={spec.title}
+        sections={config.sections.map(s => ({ label: s.label, count: Math.max(1, Math.round(s.count * multiplier)), slug: s.slug }))}
       />
     </>
   )

@@ -1,0 +1,92 @@
+import type { Metadata } from 'next'
+import { getExamConfig } from '@/lib/exam-configs'
+
+const EXAM_SEO: Record<string, {
+  description: string
+  keywords: string[]
+}> = {
+  'css-mpt': {
+    description: 'Practice CSS MPT (Mandatory Preliminary Test) MCQs by subject — English, General Knowledge, Pakistan Affairs, Islamic Studies, Current Affairs & more. Topic-wise sets with answers.',
+    keywords: [
+      'CSS MPT MCQs', 'CSS MPT preparation', 'CSS mandatory preliminary test',
+      'CSS screening test MCQs', 'CSS English MCQs', 'CSS general knowledge MCQs',
+      'CSS Pakistan affairs MCQs', 'CSS Islamic studies MCQs', 'FPSC CSS MCQ practice',
+    ],
+  },
+  'ppsc-assistant': {
+    description: 'Practice PPSC Assistant (BS-16) MCQs with subject-wise sets — General Knowledge, Pakistan Affairs, English, Islamic Studies & more. Full mock test preparation.',
+    keywords: [
+      'PPSC assistant MCQs', 'PPSC BS-16 preparation', 'PPSC assistant past papers',
+      'PPSC general knowledge MCQs', 'PPSC pakistan affairs MCQs', 'PPSC english MCQs',
+    ],
+  },
+  'ppsc-sub-inspector': {
+    description: 'Practice PPSC Sub Inspector Police MCQs — General Knowledge, Pakistan Affairs, English, Current Affairs & more. Subject-wise sets for complete exam preparation.',
+    keywords: [
+      'PPSC sub inspector MCQs', 'PPSC police MCQs', 'PPSC sub inspector preparation',
+      'PPSC sub inspector past papers', 'Punjab police MCQ test',
+    ],
+  },
+  'ppsc-patwari': {
+    description: 'Practice PPSC Patwari (Revenue) MCQs — General Knowledge, Mathematics, Pakistan Affairs, English & more. Subject-wise sets for complete preparation.',
+    keywords: [
+      'PPSC Patwari MCQs', 'PPSC revenue patwari preparation', 'PPSC patwari past papers',
+      'patwari test MCQs Pakistan', 'Punjab patwari MCQ test',
+    ],
+  },
+  'ppsc-tehsildar': {
+    description: 'Practice PPSC Tehsildar MCQs — General Knowledge, Pakistan Affairs, Current Affairs, Islamic Studies & more. Subject-wise MCQ sets with answers.',
+    keywords: [
+      'PPSC tehsildar MCQs', 'PPSC tehsildar preparation', 'PPSC tehsildar past papers',
+      'Punjab tehsildar MCQ test', 'PPSC revenue MCQs',
+    ],
+  },
+}
+
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  national: ['CSS MCQs', 'FPSC MCQ preparation', 'competitive exam Pakistan', 'CSS MPT practice'],
+  ppsc: ['PPSC MCQs', 'Punjab Public Service Commission', 'PPSC preparation', 'PPSC past papers'],
+  fpsc: ['FPSC MCQs', 'Federal Public Service Commission', 'FPSC preparation'],
+  medical: ['MDCAT MCQs', 'medical entry test Pakistan', 'PMC MCQ practice'],
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ examSlug: string }>
+}): Promise<Metadata> {
+  const { examSlug } = await params
+  const config = getExamConfig(examSlug)
+
+  if (!config) return { title: 'Exam Practice | Imtehan' }
+
+  const seo = EXAM_SEO[examSlug]
+  const categoryKws = CATEGORY_KEYWORDS[config.category] ?? []
+  const description = seo?.description
+    ?? `Practice ${config.name} MCQs subject-wise. ${config.totalMCQs}+ questions with answers and explanations for complete exam preparation.`
+
+  return {
+    title: `${config.name} MCQs — Practice Sets with Answers | Imtehan`,
+    description,
+    keywords: [
+      ...(seo?.keywords ?? []),
+      ...categoryKws,
+      `${config.name} MCQ practice`,
+      'MCQ practice Pakistan',
+      'Imtehan exam preparation',
+    ],
+    alternates: {
+      canonical: `https://imtehan.com/exams/${examSlug}`,
+    },
+    openGraph: {
+      title: `${config.name} MCQs | Imtehan`,
+      description,
+      url: `https://imtehan.com/exams/${examSlug}`,
+      type: 'website',
+    },
+  }
+}
+
+export default function ExamLayout({ children }: { children: React.ReactNode }) {
+  return children
+}

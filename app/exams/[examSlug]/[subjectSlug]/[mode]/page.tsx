@@ -13,7 +13,7 @@ import { FAQSchema } from '@/components/seo/StructuredData'
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
   'most-important': { label: 'Most Important', description: 'Critical must-know MCQs',              dbType: 'most_important' as string | null },
-  'past-papers':    { label: 'Past MCQs',      description: 'Actual exam questions (2015 onwards)',  dbType: 'practice'      as string | null },
+  'past-papers':    { label: 'Past Papers',   description: 'Past exam questions from a sister exam board',  dbType: 'practice'      as string | null },
   'practice':       { label: 'Practice Mode',  description: 'Mixed random sets from all types',     dbType: null },
 }
 
@@ -84,7 +84,9 @@ export default function BatchSetSelector() {
         .from(section.dbTable)
         .select('*', { count: 'exact', head: true })
 
-      if (modeConfig.dbType) {
+      if (mode === 'past-papers' && config?.pastPapersExam) {
+        query = query.eq('target_exam', config.pastPapersExam)
+      } else if (modeConfig.dbType) {
         query = query.eq('type', modeConfig.dbType)
       }
 

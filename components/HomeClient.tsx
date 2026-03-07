@@ -15,6 +15,17 @@ const MEDICAL_CATEGORIES = [
   { key: 'fsc',   label: 'FSc Pre-Medical', href: '/fsc'   },
 ]
 
+const ENGINEERING_CATEGORIES = [
+  { key: 'ecat',             label: 'ECAT',          href: '/exams?category=engineering&exam=ecat' },
+  { key: 'net-engineering',  label: 'NET',            href: '/exams?category=engineering&exam=net-engineering' },
+  { key: 'giki-pieas',       label: 'GIKI / PIEAS',   href: '/exams?category=engineering&exam=giki-pieas' },
+  { key: 'lums-engineering', label: 'LUMS SAT',       href: '/exams?category=engineering&exam=lums-engineering' },
+  { key: 'nust',             label: 'NUST',           href: '/exams?category=engineering&exam=nust' },
+  { key: 'comsats',          label: 'COMSATS',        href: '/exams?category=engineering&exam=comsats-engineering' },
+  { key: 'fast',             label: 'FAST-NUCES',     href: '/exams?category=engineering&exam=fast-nuces' },
+  { key: 'paf',              label: 'PAF Initial',    href: '/exams?category=engineering&exam=paf-initial' },
+]
+
 const COMPETITIVE_CATEGORIES = [
   { key: 'national',   label: 'CSS / PMS',     href: '/css' },
   { key: 'ppsc',       label: 'PPSC',           href: '/exams?category=ppsc' },
@@ -57,7 +68,7 @@ function ExamPicker() {
       </button>
 
       {open && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[92vw] max-w-[380px]">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-100 rounded-xl shadow-lg z-50 p-4 w-[92vw] max-w-[420px]">
           {/* Medical */}
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Medical</p>
           <div className="grid grid-cols-2 gap-1 mb-3">
@@ -66,6 +77,19 @@ function ExamPicker() {
                 key={cat.key}
                 onClick={() => { router.push(cat.href); setOpen(false) }}
                 className="text-left px-3 py-2.5 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-sm font-medium text-gray-800"
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+          {/* Engineering */}
+          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Engineering</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
+            {ENGINEERING_CATEGORIES.map(cat => (
+              <button
+                key={cat.key}
+                onClick={() => { router.push(cat.href); setOpen(false) }}
+                className="text-left px-3 py-2.5 rounded-lg hover:bg-orange-50 border border-transparent hover:border-orange-200 transition-all text-sm font-medium text-gray-800"
               >
                 {cat.label}
               </button>

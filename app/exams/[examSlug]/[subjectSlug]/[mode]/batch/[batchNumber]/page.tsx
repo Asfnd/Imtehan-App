@@ -63,6 +63,12 @@ export default async function BatchSetsPage({
       .from(section.dbTable)
       .select('*', { count: 'exact', head: true })
     totalMCQs = count || 0
+  } else if (mode === 'past-papers' && config.pastPapersExam) {
+    const { count } = await supabase
+      .from(section.dbTable)
+      .select('*', { count: 'exact', head: true })
+      .eq('target_exam', config.pastPapersExam)
+    totalMCQs = count || 0
   } else {
     const { count } = await supabase
       .from(section.dbTable)

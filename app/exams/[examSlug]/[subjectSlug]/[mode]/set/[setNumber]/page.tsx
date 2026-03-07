@@ -76,6 +76,19 @@ export default async function QuizSetPage({
       const hashB = (String(b.id).charCodeAt(0) * seed) % 1000
       return hashA - hashB
     })
+  } else if (mode === 'past-papers' && config.pastPapersExam) {
+    // Engineering cross-exam past papers: fetch from sibling exam's bank
+    const { data, error } = await supabase
+      .from(section.dbTable)
+      .select('*')
+      .eq('target_exam', config.pastPapersExam)
+      .range(offset, offset + limit - 1)
+
+    if (error || !data || data.length === 0) {
+      notFound()
+    }
+
+    mcqs = data
   } else {
     // For specific modes, filter by type
     const { data, error } = await supabase
