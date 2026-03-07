@@ -13,6 +13,11 @@ export interface ExamConfig {
   passingPercentage: number
   negativeMarking: boolean
   sections: ExamSection[]
+  pastPapersExam?: string
+  targetExam?: string       // DB target_exam value to scope MCQs to this exam only
+  mockOnly?: boolean
+  sourceExam?: string
+  sourceExamLabel?: string
 }
 
 export const EXAM_CONFIGS: Record<string, ExamConfig> = {
@@ -3304,6 +3309,240 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       { slug: 'everyday-science',  label: 'Everyday Science',   dbTable: 'everyday_science',  count: 20 },
       { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 20 },
       { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 10 },
+    ]
+  },
+
+  // ============================================================
+  // ENGINEERING — Primary Exams (full 4-module practice)
+  // ============================================================
+
+  'ecat': {
+    name: 'ECAT (Engineering College Admission)',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    pastPapersExam: 'NET',
+    sections: [
+      { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',          count: 30 },
+      { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics',      count: 30 },
+      { slug: 'chemistry',   label: 'Chemistry',    dbTable: 'engineering_chemistry',        count: 30 },
+      { slug: 'english',     label: 'English',      dbTable: 'engineering_english',          count: 10 },
+    ]
+  },
+
+  'net-engineering': {
+    name: 'NET (NTS Engineering Test)',
+    category: 'engineering',
+    totalMCQs: 5647,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    pastPapersExam: 'ECAT',
+    sections: [
+      { slug: 'physics',          label: 'Physics',           dbTable: 'engineering_physics',          count: 25 },
+      { slug: 'mathematics',      label: 'Mathematics',        dbTable: 'engineering_mathematics',      count: 25 },
+      { slug: 'chemistry',        label: 'Chemistry',          dbTable: 'engineering_chemistry',        count: 25 },
+      { slug: 'computer-science', label: 'Computer Science',   dbTable: 'engineering_computer_science', count: 25 },
+    ]
+  },
+
+  'giki-pieas': {
+    name: 'GIKI / PIEAS Entry Test',
+    category: 'engineering',
+    totalMCQs: 5001,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    pastPapersExam: 'LUMS_SAT',
+    sections: [
+      { slug: 'physics',       label: 'Physics',       dbTable: 'engineering_physics',       count: 30 },
+      { slug: 'mathematics',   label: 'Mathematics',    dbTable: 'engineering_mathematics',   count: 30 },
+      { slug: 'chemistry',     label: 'Chemistry',      dbTable: 'engineering_chemistry',     count: 30 },
+      { slug: 'intelligence',  label: 'Intelligence',   dbTable: 'engineering_intelligence',  count: 10 },
+    ]
+  },
+
+  'lums-engineering': {
+    name: 'LUMS SAT Engineering',
+    category: 'engineering',
+    totalMCQs: 5215,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    pastPapersExam: 'GIKI_PIEAS',
+    sections: [
+      { slug: 'mathematics',   label: 'Mathematics',    dbTable: 'engineering_mathematics',      count: 40 },
+      { slug: 'physics',       label: 'Physics',        dbTable: 'engineering_physics',          count: 30 },
+      { slug: 'chemistry',     label: 'Chemistry',      dbTable: 'engineering_chemistry',        count: 20 },
+      { slug: 'english',       label: 'English',        dbTable: 'engineering_english',          count: 15 },
+      { slug: 'intelligence',  label: 'Intelligence',   dbTable: 'engineering_intelligence',     count: 15 },
+    ]
+  },
+
+  // ============================================================
+  // ENGINEERING — Secondary Exams (mock tests only)
+  // ============================================================
+
+  'nust': {
+    name: 'NUST Entry Test',
+    category: 'engineering',
+    totalMCQs: 5647,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'net-engineering',
+    sourceExamLabel: 'NET',
+    sections: [
+      { slug: 'physics',          label: 'Physics',         dbTable: 'engineering_physics',          count: 30 },
+      { slug: 'mathematics',      label: 'Mathematics',      dbTable: 'engineering_mathematics',      count: 30 },
+      { slug: 'chemistry',        label: 'Chemistry',        dbTable: 'engineering_chemistry',        count: 30 },
+      { slug: 'computer-science', label: 'Computer Science', dbTable: 'engineering_computer_science', count: 10 },
+    ]
+  },
+
+  'comsats-engineering': {
+    name: 'COMSATS Entry Test',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'ecat',
+    sourceExamLabel: 'ECAT',
+    sections: [
+      { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',      count: 30 },
+      { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',          count: 20 },
+      { slug: 'chemistry',     label: 'Chemistry',    dbTable: 'engineering_chemistry',        count: 20 },
+      { slug: 'english',       label: 'English',      dbTable: 'engineering_english',          count: 15 },
+      { slug: 'intelligence',  label: 'Intelligence', dbTable: 'engineering_intelligence',     count: 15 },
+    ]
+  },
+
+  'fast-nuces': {
+    name: 'FAST-NUCES Entry Test',
+    category: 'engineering',
+    totalMCQs: 2344,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'lums-engineering',
+    sourceExamLabel: 'LUMS SAT',
+    sections: [
+      { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
+      { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 30 },
+      { slug: 'intelligence',  label: 'Intelligence', dbTable: 'engineering_intelligence', count: 30 },
+    ]
+  },
+
+  'paf-initial': {
+    name: 'PAF Initial Test',
+    category: 'engineering',
+    totalMCQs: 4255,
+    duration: 60,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'net-engineering',
+    sourceExamLabel: 'NET',
+    sections: [
+      { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',      count: 20 },
+      { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
+      { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 20 },
+      { slug: 'intelligence',  label: 'Intelligence', dbTable: 'engineering_intelligence', count: 20 },
+    ]
+  },
+
+  'pma-long-course': {
+    name: 'PMA Long Course',
+    category: 'engineering',
+    totalMCQs: 2344,
+    duration: 45,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'lums-engineering',
+    sourceExamLabel: 'LUMS SAT',
+    sections: [
+      { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
+      { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 20 },
+      { slug: 'intelligence',  label: 'Intelligence', dbTable: 'engineering_intelligence', count: 20 },
+    ]
+  },
+
+  'nts-nat-ie': {
+    name: 'NTS NAT-IE (Engineering Track)',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'ecat',
+    sourceExamLabel: 'ECAT',
+    sections: [
+      { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 30 },
+      { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics', count: 30 },
+      { slug: 'chemistry',   label: 'Chemistry',   dbTable: 'engineering_chemistry',   count: 30 },
+      { slug: 'english',     label: 'English',     dbTable: 'engineering_english',     count: 10 },
+    ]
+  },
+
+  'muet': {
+    name: 'MUET / Sukkur IBA Engineering',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'ecat',
+    sourceExamLabel: 'ECAT',
+    sections: [
+      { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 25 },
+      { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics', count: 25 },
+      { slug: 'chemistry',   label: 'Chemistry',   dbTable: 'engineering_chemistry',   count: 25 },
+      { slug: 'english',     label: 'English',     dbTable: 'engineering_english',     count: 25 },
+    ]
+  },
+
+  'air-university': {
+    name: 'Air University Entry Test',
+    category: 'engineering',
+    totalMCQs: 5376,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'giki-pieas',
+    sourceExamLabel: 'GIKI / PIEAS',
+    sections: [
+      { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 30 },
+      { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',      count: 30 },
+      { slug: 'chemistry',     label: 'Chemistry',    dbTable: 'engineering_chemistry',    count: 20 },
+      { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 10 },
+      { slug: 'intelligence',  label: 'Intelligence', dbTable: 'engineering_intelligence', count: 10 },
+    ]
+  },
+
+  'nts-gat': {
+    name: 'NTS GAT General',
+    category: 'engineering',
+    totalMCQs: 2344,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    mockOnly: true,
+    sourceExam: 'lums-engineering',
+    sourceExamLabel: 'LUMS SAT',
+    sections: [
+      { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 40 },
+      { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
+      { slug: 'intelligence',  label: 'Intelligence', dbTable: 'engineering_intelligence', count: 20 },
     ]
   },
 

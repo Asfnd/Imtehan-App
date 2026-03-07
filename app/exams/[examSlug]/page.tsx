@@ -298,25 +298,22 @@ function ExamDashboard() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Sign In Banner for Non-Logged In Users */}
         {!user && (
-          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 mb-8 shadow-lg">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                  <TrendingUp className="w-6 h-6 text-white" />
+          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-4 sm:p-6 mb-8 shadow-lg">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-1">Track Your Progress</h3>
-                  <p className="text-sm text-blue-100">
-                    Sign in to unlock performance analytics, streak tracking & personalized insights
-                  </p>
+                  <h3 className="text-base font-bold text-white">Track Your Progress</h3>
+                  <p className="text-xs text-blue-100">Sign in for analytics, streak tracking & insights</p>
                 </div>
               </div>
               <button
                 onClick={() => router.push('/dashboard')}
-                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2 whitespace-nowrap"
+                className="self-end sm:self-auto px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold text-sm hover:bg-blue-50 transition-colors flex items-center gap-1.5"
               >
-                Sign In
-                <ChevronRight className="w-5 h-5" />
+                Sign In <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -482,7 +479,7 @@ function ExamDashboard() {
                   <span className={`text-xs font-semibold ${color}`}>{group}</span>
                   <div className="flex-1 h-px bg-gray-100" />
                 </div>
-                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                   {mocks.map(({ id, icon: Icon, title, desc, pct }) => {
                     const qs = Math.round(config.totalMCQs * pct)
                     const mins = Math.round(config.duration * pct)
@@ -491,24 +488,23 @@ function ExamDashboard() {
                       <button
                         key={id}
                         onClick={() => handleMockClick(id)}
-                        className={`group relative flex flex-col items-center text-center border rounded-xl p-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 ${
+                        className={`group relative flex flex-col items-center text-center border rounded-xl p-2 sm:p-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 ${
                           locked
                             ? 'bg-gray-50 border-gray-200 cursor-pointer hover:border-gray-300'
                             : 'bg-white border-gray-200 hover:border-blue-400 hover:shadow-md'
                         }`}
                       >
                         {locked && (
-                          <div className="absolute top-2 right-2">
-                            <Lock className="w-3 h-3 text-gray-400" />
+                          <div className="absolute top-1.5 right-1.5">
+                            <Lock className="w-2.5 h-2.5 text-gray-400" />
                           </div>
                         )}
-                        <div className={`w-9 h-9 rounded-lg ${locked ? 'bg-gray-100 border-gray-200' : bg} border ${locked ? 'border-gray-200' : border} flex items-center justify-center mb-2 group-hover:scale-105 transition-transform`}>
-                          <Icon className={`w-4 h-4 ${locked ? 'text-gray-400' : color}`} />
+                        <div className={`w-8 h-8 rounded-lg ${locked ? 'bg-gray-100 border-gray-200' : bg} border ${locked ? 'border-gray-200' : border} flex items-center justify-center mb-1.5 group-hover:scale-105 transition-transform`}>
+                          <Icon className={`w-3.5 h-3.5 ${locked ? 'text-gray-400' : color}`} />
                         </div>
-                        <span className={`text-xs font-semibold leading-tight ${locked ? 'text-gray-400' : 'text-gray-900'}`}>{title}</span>
-                        <span className="text-[10px] text-gray-400 mt-0.5 leading-tight">{desc}</span>
-                        <div className={`mt-2 px-2 py-0.5 rounded-full text-[10px] font-medium ${locked ? 'bg-gray-100 text-gray-400 border-gray-200' : `${bg} ${color} border ${border}`}`}>
-                          {locked ? 'Premium' : `${qs}Q · ${mins}m`}
+                        <span className={`text-[11px] font-semibold leading-tight ${locked ? 'text-gray-400' : 'text-gray-900'}`}>{title}</span>
+                        <div className={`mt-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium ${locked ? 'bg-gray-100 text-gray-400 border border-gray-200' : `${bg} ${color} border ${border}`}`}>
+                          {locked ? 'Premium' : `${qs}Q`}
                         </div>
                       </button>
                     )
@@ -552,29 +548,26 @@ function ExamDashboard() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                  <div className="relative p-5 text-center">
-                    <div className="w-10 h-10 mx-auto rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-3 shadow-sm group-hover:scale-105 transition-all duration-300">
-                      <Icon className="w-5 h-5 text-white" />
+                  <div className="relative p-4 text-center">
+                    <div className="w-9 h-9 mx-auto rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-2.5 shadow-sm group-hover:scale-105 transition-all duration-300">
+                      <Icon className="w-4 h-4 text-white" />
                     </div>
 
                     <h3 className="text-sm font-semibold text-gray-900 mb-1 group-hover:text-blue-900 transition-colors leading-tight">{section.label}</h3>
 
-                    <div className="bg-blue-50 rounded-lg p-2.5 my-3 border border-blue-100">
+                    <div className="bg-blue-50 rounded-lg p-2 my-2 border border-blue-100">
                       {user && progress ? (
                         <>
-                          <div className="text-lg font-bold text-blue-600">{progress.accuracy}%</div>
-                          <div className="text-[10px] text-gray-500">{progress.attempted} attempted</div>
+                          <div className="text-base font-bold text-blue-600">{progress.accuracy}%</div>
+                          <div className="text-[10px] text-gray-500">{progress.attempted} done</div>
                         </>
                       ) : (
-                        <>
-                          <div className="text-sm font-semibold text-blue-600">MCQ + Practice</div>
-                          <div className="text-[10px] text-gray-500">3 modes available</div>
-                        </>
+                        <div className="text-xs font-semibold text-blue-600">Practice</div>
                       )}
                     </div>
 
                     <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-1.5 px-3 rounded-md font-medium text-xs transition-all">
-                      {user && progress ? 'Continue' : 'Practice'}
+                      {user && progress ? 'Continue' : 'Start'}
                     </button>
                   </div>
                 </div>

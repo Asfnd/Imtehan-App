@@ -7,8 +7,9 @@ import { FileText, ChevronDown, LayoutGrid } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 
 const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; description: string }> = {
-  medical:    { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'Medical & Dental College Admission Test — UHS, NUMS, AKU' },
-  national:   { label: 'CSS / PMS',    shortLabel: 'CSS / PMS',    description: 'Central Superior Services & Provincial Management Services' },
+  medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'Medical & Dental College Admission Test — UHS, NUMS, AKU' },
+  engineering: { label: 'Engineering',  shortLabel: 'Engineering',  description: 'NUST, COMSATS, FAST, GIKI, PIEAS, LUMS, Air University & more' },
+  national:    { label: 'CSS / PMS',    shortLabel: 'CSS / PMS',    description: 'Central Superior Services & Provincial Management Services' },
   ppsc:       { label: 'PPSC',         shortLabel: 'PPSC',         description: 'Punjab Public Service Commission — all posts' },
   fpsc:       { label: 'FPSC',         shortLabel: 'FPSC',         description: 'Federal Public Service Commission — all posts' },
   provincial: { label: 'Provincial',   shortLabel: 'Provincial',   description: 'PMS Punjab, Sindh, KPK — KPPSC, SPSC, BPSC, AJKPSC, GBPSC' },
@@ -26,7 +27,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
 }
 
 const CATEGORY_ORDER = [
-  'medical', 'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
+  'medical', 'engineering', 'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]
@@ -93,7 +94,7 @@ function ExamsInner() {
 
       {/* Dropdown panel */}
       {dropdownOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-3 grid grid-cols-3 gap-1.5 w-[420px]">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-3 grid grid-cols-3 gap-1.5 w-[min(420px,calc(100vw-24px))]">
           {availableCategories.map((cat) => {
             const isActive = cat === activeCategory
             return (
