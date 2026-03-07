@@ -28,35 +28,31 @@ interface QuizInterfaceProps {
   setNumber: number
 }
 
-type AnswerState = 'default' | 'selected' | 'correct' | 'wrong' | 'dimmed'
+type AnswerState = 'default' | 'correct' | 'wrong' | 'dimmed'
 
 function getOptionState(
   option: string,
   userAnswer: string | undefined,
-  correctAnswer: string,
-  revealed: boolean,
+  correctAnswer: string
 ): AnswerState {
   if (!userAnswer) return 'default'
-  if (!revealed) return option === userAnswer ? 'selected' : 'default'
   if (option === correctAnswer) return 'correct'
   if (option === userAnswer) return 'wrong'
   return 'dimmed'
 }
 
 const OPTION_STYLES: Record<AnswerState, string> = {
-  default:  'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50 cursor-pointer',
-  selected: 'border-blue-500 bg-blue-50 cursor-pointer',
-  correct:  'border-green-500 bg-green-50 cursor-default',
-  wrong:    'border-red-500 bg-red-50 cursor-default',
-  dimmed:   'border-gray-200 bg-gray-50 opacity-50 cursor-default',
+  default: 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50 cursor-pointer',
+  correct: 'border-green-500 bg-green-50 cursor-default',
+  wrong:   'border-red-500 bg-red-50 cursor-default',
+  dimmed:  'border-gray-200 bg-gray-50 opacity-50 cursor-default',
 }
 
 const BADGE_STYLES: Record<AnswerState, string> = {
-  default:  'bg-gray-100 text-gray-600',
-  selected: 'bg-blue-600 text-white',
-  correct:  'bg-green-500 text-white',
-  wrong:    'bg-red-500 text-white',
-  dimmed:   'bg-gray-100 text-gray-400',
+  default: 'bg-gray-100 text-gray-600',
+  correct: 'bg-green-500 text-white',
+  wrong:   'bg-red-500 text-white',
+  dimmed:  'bg-gray-100 text-gray-400',
 }
 
 export default function QuizInterface({
@@ -134,6 +130,7 @@ export default function QuizInterface({
 
   // ── Actions ─────────────────────────────────────────────────────────────────
   const handleAnswer = (option: string) => {
+    if (userAnswer) return
     setAnswers(prev => ({ ...prev, [currentIndex]: option }))
   }
 
@@ -417,12 +414,12 @@ export default function QuizInterface({
             {/* Options */}
             <div className="space-y-2">
               {options.map(({ label, text }) => {
-                const state = getOptionState(label, userAnswer, currentMCQ.correct_answer, reviewMode)
+                const state = getOptionState(label, userAnswer, currentMCQ.correct_answer)
                 return (
                   <button
                     key={label}
                     onClick={() => handleAnswer(label)}
-                    disabled={reviewMode}
+                    disabled={!!userAnswer}
                     className={`w-full text-left p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-150 ${OPTION_STYLES[state]}`}
                   >
                     <div className="flex items-start gap-2 sm:gap-3">

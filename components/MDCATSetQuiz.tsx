@@ -31,27 +31,24 @@ interface Props {
   backPath?: string  // optional back URL override
 }
 
-type AnswerState = 'default' | 'selected' | 'correct' | 'wrong' | 'dimmed'
+type AnswerState = 'default' | 'correct' | 'wrong' | 'dimmed'
 
 const OPTION_STYLES: Record<AnswerState, string> = {
-  default:  'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50/50 cursor-pointer',
-  selected: 'border-blue-500 bg-blue-50 cursor-pointer',
-  correct:  'border-green-500 bg-green-50 cursor-default',
-  wrong:    'border-red-500 bg-red-50 cursor-default',
-  dimmed:   'border-gray-200 bg-gray-50 opacity-50 cursor-default',
+  default: 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50/50 cursor-pointer',
+  correct: 'border-green-500 bg-green-50 cursor-default',
+  wrong:   'border-red-500 bg-red-50 cursor-default',
+  dimmed:  'border-gray-200 bg-gray-50 opacity-50 cursor-default',
 }
 
 const BADGE_STYLES: Record<AnswerState, string> = {
-  default:  'bg-gray-100 text-gray-600',
-  selected: 'bg-blue-600 text-white',
-  correct:  'bg-green-500 text-white',
-  wrong:    'bg-red-500 text-white',
-  dimmed:   'bg-gray-100 text-gray-400',
+  default: 'bg-gray-100 text-gray-600',
+  correct: 'bg-green-500 text-white',
+  wrong:   'bg-red-500 text-white',
+  dimmed:  'bg-gray-100 text-gray-400',
 }
 
-function getOptionState(opt: string, userAnswer: string | undefined, correct: string, revealed: boolean): AnswerState {
+function getOptionState(opt: string, userAnswer: string | undefined, correct: string): AnswerState {
   if (!userAnswer) return 'default'
-  if (!revealed) return opt === userAnswer ? 'selected' : 'default'
   if (opt === correct) return 'correct'
   if (opt === userAnswer) return 'wrong'
   return 'dimmed'
@@ -130,12 +127,15 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
   }
 
   const handleAnswer = useCallback((opt: string) => {
+    if (answers[currentIndex]) return
     setAnswers(prev => ({ ...prev, [currentIndex]: opt }))
-  }, [currentIndex])
+  }, [answers, currentIndex])
 
   const score      = Object.entries(answers).filter(([i, a]) => a === activeMCQs[+i]?.correct_answer).length
   const currentMCQ = activeMCQs[currentIndex]
   const userAnswer = answers[currentIndex]
+  const isCorrect  = userAnswer === currentMCQ?.correct_answer
+
   const topicLabel = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
 
   // Results screen
@@ -274,13 +274,13 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
 
           <div className="space-y-2.5">
             {(['A', 'B', 'C', 'D'] as const).map(opt => {
-              const state   = getOptionState(opt, userAnswer, currentMCQ.correct_answer, reviewMode)
+              const state   = getOptionState(opt, userAnswer, currentMCQ.correct_answer)
               const optText = currentMCQ[`option_${opt.toLowerCase()}` as keyof MCQ] as string
               return (
                 <button
                   key={opt}
                   onClick={() => handleAnswer(opt)}
-                  disabled={reviewMode}
+                  disabled={!!userAnswer}
                   className={`w-full flex items-start gap-3 p-3.5 rounded-xl border-2 transition-all text-left ${OPTION_STYLES[state].replace('hover:border-blue-400 hover:bg-blue-50/50', t.optHover)}`}
                 >
                   <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 font-semibold text-sm border-2 border-current ${BADGE_STYLES[state]}`}>
@@ -294,12 +294,13 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
             })}
           </div>
 
-          {/* Explanation — only in review mode */}
-          {reviewMode && userAnswer && currentMCQ.explanation && (
-            <div className="mt-4 p-3.5 rounded-xl border-2 bg-blue-50 border-blue-200">
+          {userAnswer && currentMCQ.explanation && (
+            <div className={`mt-4 p-3.5 rounded-xl border-2 ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'}`}>
               <div className="flex items-start gap-2">
-                <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5 text-blue-600" />
-                <p className="text-sm leading-relaxed text-blue-900">{currentMCQ.explanation}</p>
+                <Lightbulb className={`w-4 h-4 flex-shrink-0 mt-0.5 ${isCorrect ? 'text-green-600' : 'text-amber-600'}`} />
+                <p className={`text-sm leading-relaxed ${isCorrect ? 'text-green-800' : 'text-amber-800'}`}>
+                  {currentMCQ.explanation}
+                </p>
               </div>
             </div>
           )}
