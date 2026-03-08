@@ -60,7 +60,6 @@ EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 CREATE TABLE IF NOT EXISTS subject_performance (
   id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id             UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  exam_slug           TEXT NOT NULL DEFAULT 'global',
   subject             TEXT NOT NULL,
   questions_attempted INTEGER DEFAULT 0,
   questions_correct   INTEGER DEFAULT 0,
@@ -71,6 +70,10 @@ CREATE TABLE IF NOT EXISTS subject_performance (
   created_at          TIMESTAMPTZ DEFAULT NOW(),
   updated_at          TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Add exam_slug column if it doesn't exist yet (handles partial previous runs)
+ALTER TABLE subject_performance
+  ADD COLUMN IF NOT EXISTS exam_slug TEXT NOT NULL DEFAULT 'global';
 
 -- Drop any old unique constraint and add the correct per-exam one
 ALTER TABLE subject_performance
