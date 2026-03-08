@@ -5,10 +5,19 @@
 -- ============================================================
 
 -- ── 1. Extend quiz_attempts ──────────────────────────────────
-ALTER TABLE quiz_attempts
-  ALTER COLUMN subject_slug DROP NOT NULL,
-  ALTER COLUMN mode         DROP NOT NULL,
-  ALTER COLUMN set_number   DROP NOT NULL;
+-- Drop NOT NULL on legacy columns only if they exist
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='quiz_attempts' AND column_name='subject_slug') THEN
+    ALTER TABLE quiz_attempts ALTER COLUMN subject_slug DROP NOT NULL;
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='quiz_attempts' AND column_name='mode') THEN
+    ALTER TABLE quiz_attempts ALTER COLUMN mode DROP NOT NULL;
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='quiz_attempts' AND column_name='set_number') THEN
+    ALTER TABLE quiz_attempts ALTER COLUMN set_number DROP NOT NULL;
+  END IF;
+END $$;
 
 ALTER TABLE quiz_attempts
   ADD COLUMN IF NOT EXISTS quiz_type        TEXT CHECK (quiz_type IN ('subject','past-paper','mpt','mock','practice')),
