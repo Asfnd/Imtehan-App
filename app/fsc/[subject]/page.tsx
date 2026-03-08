@@ -44,19 +44,31 @@ export default function FSCSubjectPage() {
 
   useEffect(() => {
     if (!cfg) return
-    const supabase = createClient()
-    supabase.from(cfg.table).select('topic').then(({ data }) => {
-      if (data) {
-        const c: Record<string, number> = {}
+    async function loadChapters() {
+      const supabase = createClient()
+      const PAGE = 1000
+      const c: Record<string, number> = {}
+      let from = 0
+      let totalRows = 0
+      while (true) {
+        const { data, error } = await supabase
+          .from(cfg.table)
+          .select('topic')
+          .range(from, from + PAGE - 1)
+        if (error || !data || data.length === 0) break
         data.forEach((r: any) => { c[r.topic] = (c[r.topic] || 0) + 1 })
-        const sorted = Object.entries(c)
-          .map(([topic, count]) => ({ topic, count }))
-          .sort((a, b) => a.topic.localeCompare(b.topic))
-        setChapters(sorted)
-        setTotal(data.length)
+        totalRows += data.length
+        if (data.length < PAGE) break
+        from += PAGE
       }
+      const sorted = Object.entries(c)
+        .map(([topic, count]) => ({ topic, count }))
+        .sort((a, b) => a.topic.localeCompare(b.topic))
+      setChapters(sorted)
+      setTotal(totalRows)
       setLoading(false)
-    })
+    }
+    loadChapters()
   }, [subject]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!cfg) {

@@ -157,9 +157,7 @@ export default function BatchSetSelector() {
             <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>
             {' '}across <span className="font-medium text-gray-700">{totalBatches} batches</span>
           </p>
-          <p className="text-sm text-slate-600 mt-2 leading-relaxed max-w-2xl">
-            Practice {sectionCfg?.label || subjectSlug} {modeConfig.label.toLowerCase()} MCQs for {examConfig?.name || examSlug} in sets of 20 with instant feedback and detailed explanations.
-          </p>
+
         </div>
 
         <div className="grid grid-cols-12 gap-4 md:gap-6">
@@ -207,7 +205,7 @@ export default function BatchSetSelector() {
                 <h2 className="text-base md:text-lg font-bold text-gray-900">
                   Batch {selectedBatch} — Practice Sets
                 </h2>
-                <p className="text-xs text-gray-500 mt-1">20 MCQs per set</p>
+
               </div>
 
               <div className="space-y-2">

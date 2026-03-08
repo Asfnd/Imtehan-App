@@ -32,13 +32,14 @@ export default function MDCATTopicOrDifficultyPage() {
   const router  = useRouter()
   const subject = params.subject as string
   const topic   = params.topic   as string
+  const decodedTopic = decodeURIComponent(topic)
 
   const subjectCfg    = SUBJECT_CONFIG[subject]
   const difficultyCfg = DIFFICULTY_CONFIG[topic]
   const isDifficulty  = !!difficultyCfg
 
   // Display label: for difficulty use the label, for topic use the decoded topic name
-  const displayLabel = isDifficulty ? difficultyCfg.label : topic
+  const displayLabel = isDifficulty ? difficultyCfg.label : decodedTopic
 
   const { user } = useAuth()
   const isPremium = !!user?.user_metadata?.is_premium
@@ -51,9 +52,8 @@ export default function MDCATTopicOrDifficultyPage() {
   useEffect(() => {
     if (!subjectCfg) return
 
-    const supabase     = createClient()
-    const decodedTopic = decodeURIComponent(topic)
-    const base         = supabase.from(subjectCfg.table).select('*', { count: 'exact', head: true })
+    const supabase = createClient()
+    const base     = supabase.from(subjectCfg.table).select('*', { count: 'exact', head: true })
 
     const countQuery = isDifficulty
       ? base.eq('difficulty', difficultyCfg!.dbKey)
@@ -82,7 +82,7 @@ export default function MDCATTopicOrDifficultyPage() {
 
   const handleSetClick = (setNum: number) => {
     if (setNum <= 2 || isPremium) {
-      router.push(`/mdcat/${subject}/${encodeURIComponent(topic)}/set/${setNum}`)
+      router.push(`/mdcat/${subject}/${encodeURIComponent(decodedTopic)}/set/${setNum}`)
       return
     }
     if (!user) {
@@ -94,7 +94,7 @@ export default function MDCATTopicOrDifficultyPage() {
       return
     }
     // Set 3, signed-in, not premium → allow
-    router.push(`/mdcat/${subject}/${encodeURIComponent(topic)}/set/${setNum}`)
+    router.push(`/mdcat/${subject}/${encodeURIComponent(decodedTopic)}/set/${setNum}`)
   }
 
   if (loading) {
@@ -162,18 +162,7 @@ export default function MDCATTopicOrDifficultyPage() {
               {subjectCfg.name} — {displayLabel}
             </h1>
           </div>
-          <p className="text-sm text-slate-500">
-            {totalMCQs.toLocaleString()} MCQs · {totalSets} sets · {totalBatches} batches · {MCQS_PER_SET} MCQs per set
-          </p>
         </div>
-
-        {/* SEO intro */}
-        <p className="text-sm text-slate-600 mb-5 leading-relaxed">
-          {isDifficulty
-            ? `Practice MDCAT ${subjectCfg.name} ${difficultyCfg!.label.toLowerCase()} difficulty MCQs in sets of 20. Each set has detailed explanations to help you master this level for PMC, ETEA, and NUMS entry tests.`
-            : `Practice MDCAT ${subjectCfg.name} — ${displayLabel} MCQs in topic-wise sets of 20. All questions include detailed explanations covering key concepts tested in PMC, ETEA, and NUMS medical entry tests.`
-          }
-        </p>
 
         {/* Batch selector — horizontal scroll on mobile, vertical sidebar on md+ */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 md:hidden">
@@ -228,8 +217,7 @@ export default function MDCATTopicOrDifficultyPage() {
           {/* Sets panel */}
           <div className="col-span-12 md:col-span-9">
             <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-              <h2 className="font-bold text-slate-900 mb-0.5">Batch {selectedBatch} — Practice Sets</h2>
-              <p className="text-xs text-slate-400 mb-4">{MCQS_PER_SET} MCQs per set · {displayLabel}</p>
+              <h2 className="font-bold text-slate-900 mb-4">Batch {selectedBatch} — Practice Sets</h2>
 
               <div className="space-y-2">
                 {setsInBatch.map((setNum) => {

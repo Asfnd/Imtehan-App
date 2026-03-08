@@ -141,15 +141,7 @@ export default function FSCChapterPage() {
             </div>
             <h1 className="text-xl font-bold text-slate-900 line-clamp-1">{decoded}</h1>
           </div>
-          <p className="text-sm text-slate-500">
-            {totalMCQs.toLocaleString()} MCQs · {totalSets} sets · {totalBatches} batches · {MCQS_PER_SET} MCQs per set
-          </p>
         </div>
-
-        {/* SEO intro */}
-        <p className="text-sm text-slate-600 mb-5 leading-relaxed">
-          Practice FSc {subjectCfg.name} — {decoded} MCQs in chapter-wise sets of 20. Questions aligned with Punjab Board curriculum for board exam and MDCAT preparation.
-        </p>
 
         {/* Batch selector — horizontal scroll on mobile */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 md:hidden">
@@ -204,8 +196,7 @@ export default function FSCChapterPage() {
           {/* Sets panel */}
           <div className="col-span-12 md:col-span-9">
             <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-              <h2 className="font-bold text-slate-900 mb-0.5">Batch {selectedBatch} — Practice Sets</h2>
-              <p className="text-xs text-slate-400 mb-4">{MCQS_PER_SET} MCQs per set · Chapter Practice</p>
+              <h2 className="font-bold text-slate-900 mb-4">Batch {selectedBatch} — Practice Sets</h2>
               <div className="space-y-2">
                 {setsInBatch.map((setNum) => {
                   const startMCQ  = (setNum - 1) * MCQS_PER_SET + 1

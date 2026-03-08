@@ -74,20 +74,39 @@ export default function MDCATSubjectPage() {
   useEffect(() => {
     if (!cfg) return
     const supabase = createClient()
-    Promise.all([
-      supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Easy'),
-      supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Medium'),
-      supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Hard'),
-      supabase.from(cfg.table).select('topic'),
-    ]).then(([easy, medium, hard, topicRes]) => {
+    async function loadData() {
+      const supabase = createClient()
+
+      const [easy, medium, hard] = await Promise.all([
+        supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Easy'),
+        supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Medium'),
+        supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Hard'),
+      ])
       setCounts({ Easy: easy.count ?? 0, Medium: medium.count ?? 0, Hard: hard.count ?? 0 })
-      if (topicRes.data) {
-        const c: Record<string, number> = {}
-        topicRes.data.forEach((r: any) => { c[r.topic] = (c[r.topic] || 0) + 1 })
-        setTopics(Object.entries(c).map(([topic, count]) => ({ topic, count })).sort((a, b) => a.topic.localeCompare(b.topic)))
+
+      // Paginate through all rows to count topics (Supabase default limit is 1000/page)
+      const PAGE = 1000
+      const topicCounts: Record<string, number> = {}
+      let from = 0
+      while (true) {
+        const { data, error } = await supabase
+          .from(cfg.table)
+          .select('topic')
+          .range(from, from + PAGE - 1)
+        if (error || !data || data.length === 0) break
+        data.forEach((r: any) => { topicCounts[r.topic] = (topicCounts[r.topic] || 0) + 1 })
+        if (data.length < PAGE) break
+        from += PAGE
       }
+
+      setTopics(
+        Object.entries(topicCounts)
+          .map(([topic, count]) => ({ topic, count }))
+          .sort((a, b) => a.topic.localeCompare(b.topic))
+      )
       setLoading(false)
-    })
+    }
+    loadData()
   }, [subject]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!cfg) {
@@ -154,10 +173,7 @@ export default function MDCATSubjectPage() {
           </div>
         </div>
 
-        {/* SEO intro */}
-        <p className="text-sm text-slate-600 mb-6 leading-relaxed">
-          Practice MDCAT {cfg.name} MCQs in topic-wise and difficulty-based sets of 20. All questions include detailed explanations covering key concepts tested in PMC, ETEA, NUMS, and AKU medical entry tests.
-        </p>
+
 
         {/* Difficulty modes */}
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Practice Sets by Difficulty</h2>
