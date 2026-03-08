@@ -63,7 +63,7 @@ export default function FSCSubjectPage() {
       }
       const sorted = Object.entries(c)
         .map(([topic, count]) => ({ topic, count }))
-        .sort((a, b) => a.topic.localeCompare(b.topic))
+        .sort((a, b) => b.count - a.count)
       setChapters(sorted)
       setTotal(totalRows)
       setLoading(false)

@@ -102,7 +102,7 @@ export default function MDCATSubjectPage() {
       setTopics(
         Object.entries(topicCounts)
           .map(([topic, count]) => ({ topic, count }))
-          .sort((a, b) => a.topic.localeCompare(b.topic))
+          .sort((a, b) => b.count - a.count)
       )
       setLoading(false)
     }
