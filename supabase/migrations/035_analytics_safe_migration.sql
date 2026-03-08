@@ -116,6 +116,7 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- ── 5. RPC: calculate_streak ─────────────────────────────────
+DROP FUNCTION IF EXISTS calculate_streak(UUID) CASCADE;
 CREATE OR REPLACE FUNCTION calculate_streak(p_user_id UUID)
 RETURNS INTEGER LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 DECLARE
@@ -142,6 +143,19 @@ BEGIN
 END; $$;
 
 -- ── 6. RPC: save_quiz_and_update_analytics ───────────────────
+-- Drop ALL overloaded versions before recreating
+DO $$ DECLARE r RECORD;
+BEGIN
+  FOR r IN SELECT oid::regprocedure FROM pg_proc WHERE proname = 'save_quiz_and_update_analytics'
+  LOOP EXECUTE 'DROP FUNCTION IF EXISTS ' || r.oid::regprocedure || ' CASCADE'; END LOOP;
+  FOR r IN SELECT oid::regprocedure FROM pg_proc WHERE proname = 'get_weak_subjects'
+  LOOP EXECUTE 'DROP FUNCTION IF EXISTS ' || r.oid::regprocedure || ' CASCADE'; END LOOP;
+  FOR r IN SELECT oid::regprocedure FROM pg_proc WHERE proname = 'get_todays_recommendation'
+  LOOP EXECUTE 'DROP FUNCTION IF EXISTS ' || r.oid::regprocedure || ' CASCADE'; END LOOP;
+  FOR r IN SELECT oid::regprocedure FROM pg_proc WHERE proname = 'get_user_analytics'
+  LOOP EXECUTE 'DROP FUNCTION IF EXISTS ' || r.oid::regprocedure || ' CASCADE'; END LOOP;
+END $$;
+
 CREATE OR REPLACE FUNCTION save_quiz_and_update_analytics(
   p_user_id         UUID,
   p_quiz_type       TEXT,
