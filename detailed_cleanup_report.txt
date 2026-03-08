@@ -1,0 +1,20 @@
+============================================================
+DETAILED DUPLICATE FILTERING REPORT
+============================================================
+Starting Rows:    578
+Duplicate Rows Removed: 1
+Cleaned Rows Remaining: 577
+
+REMOVAL BREAKDOWN:
+- LinkedIn URL Match: 0
+- Domain/Website Match: 1
+- Name + Location Match: 0
+
+----------------------------------------
+FILTERING LOGIC USED:
+----------------------------------------
+1. IDENTICAL LINKEDIN URLs: Rows sharing the same LinkedIn profile were merged.
+2. IDENTICAL DOMAINS: Rows sharing the same website domain were merged.
+3. NAME + LOCATION MATCH: Rows with nearly identical names in the same city.
+4. DATA QUALITY: For every duplicate found, the row with the most filled columns was kept.
+5. EMPTY FIELDS IGNORED: Missing URLs or domains were NOT treated as duplicates.

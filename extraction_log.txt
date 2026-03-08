@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/asfandiyarsafi/Desktop/CSS App/Claude/quiz-app/extract_v3.py", line 8, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'

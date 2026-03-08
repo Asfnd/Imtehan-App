@@ -160,6 +160,7 @@ export default function MockTestInterface({
     const timeTaken = (duration * 60) - timeLeft
     saveQuizResults({
       quizType:       'mock',
+      examSlug:       examSlug,
       subject:        mockTitle || examSlug,
       totalQuestions: activeMCQs.length,
       correctAnswers: correct,

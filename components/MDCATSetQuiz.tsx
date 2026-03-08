@@ -22,6 +22,7 @@ interface MCQ {
 
 interface Props {
   mcqs: MCQ[]
+  examSlug: string
   subject: string
   subjectName: string
   subjectGradient: string
@@ -84,7 +85,7 @@ const THEME = {
   },
 }
 
-export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, setNumber, totalSets, theme = 'blue', backPath }: Props) {
+export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, difficulty, setNumber, totalSets, theme = 'blue', backPath }: Props) {
   const router  = useRouter()
   const t       = THEME[theme]
   const backUrl = backPath ?? `/mdcat/${subject}/${encodeURIComponent(difficulty)}`
@@ -333,6 +334,7 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
                   const correct = Object.entries(answers).filter(([i, a]) => a === mcqs[+i]?.correct_answer).length
                   await saveQuizResults({
                     quizType:       'subject',
+                    examSlug:       examSlug,
                     subject:        subjectName,
                     totalQuestions: mcqs.length,
                     correctAnswers: correct,

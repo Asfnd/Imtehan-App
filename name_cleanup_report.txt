@@ -1,0 +1,26 @@
+============================================================
+NAME-WISE DEDUPLICATION REPORT
+============================================================
+Starting Rows:    578
+Unique Names:     574
+Duplicates Removed: 4
+
+----------------------------------------
+DETAILED LIST OF MERGED ENTITIES:
+----------------------------------------
+
+[GROUP] Advanced Dermatology, LLC
+  - Row 560: nan | https://www.linkedin.com/company/advanced-dermatology-llc
+  - Row 556: nan | https://www.linkedin.com/company/advanced-dermatology-pc
+
+[GROUP] Dermatology Specialists
+  - Row 109: Boulder, Colorado | https://www.linkedin.com/company/dermatology-specialists-of-boulder
+  - Row 500: nan | https://www.linkedin.com/company/dermatology-specialists
+
+[GROUP] Natural Body Spa + Med Spa
+  - Row 543: nan | https://www.linkedin.com/company/natural-body-spa-and-med-spa
+  - Row 546: nan | https://www.linkedin.com/company/natural-body-spa-and-shop
+
+[GROUP] Windermere Medical Spa & Laser Institute
+  - Row 499: nan | https://www.linkedin.com/company/windermeremedicalspa
+  - Row 492: nan | https://www.linkedin.com/company/windermere-dental-and-medical-spa

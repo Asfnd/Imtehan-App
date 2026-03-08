@@ -24,7 +24,7 @@ export default function ExamAnalytics() {
   if (!config) notFound()
 
   useEffect(() => {
-    getUserAnalytics().then(data => {
+    getUserAnalytics(examSlug).then(data => {
       if (data) { setAnalytics(data); setSignedIn(true) }
       setLoading(false)
     })

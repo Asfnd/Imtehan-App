@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imtehan Minimalist Vertical Posts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oxford-blue: #0f172a;
+            --jade-green: #10b981;
+            --soft-gray: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background: #cbd5e1;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 100px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 150px;
+        }
+
+        /* 1080 x 1440 Vertical Container */
+        .post {
+            width: 1080px;
+            height: 1440px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 100px;
+            box-sizing: border-box;
+        }
+
+        /* Helper Utilities */
+        .line { width: 80px; height: 6px; background: var(--jade-green); margin-bottom: 40px; }
+        .logo { font-weight: 800; font-size: 36px; letter-spacing: -1px; color: var(--oxford-blue); margin-bottom: 120px; }
+        .footer-url { position: absolute; bottom: 100px; left: 100px; font-weight: 600; font-size: 28px; color: var(--text-muted); }
+
+        /* POST 1: THE MANIFESTO */
+        .manifesto h1 { font-size: 84px; font-weight: 800; line-height: 1.1; margin: 0 0 60px 0; color: var(--oxford-blue); }
+        .feature-item { border-bottom: 1px solid var(--border-color); padding: 40px 0; display: flex; justify-content: space-between; align-items: center; }
+        .feature-item span { font-size: 32px; font-weight: 600; color: var(--oxford-blue); }
+        .feature-item .tag { background: var(--soft-gray); color: var(--jade-green); padding: 10px 20px; border-radius: 8px; font-size: 20px; font-weight: 800; }
+
+        /* POST 2: THE SCALE */
+        .scale-post { background: var(--oxford-blue); color: white; justify-content: center; align-items: center; text-align: center; }
+        .scale-post .big-num { font-size: 280px; font-weight: 800; line-height: 1; letter-spacing: -10px; margin-bottom: 20px; color: var(--jade-green); }
+        .scale-post .desc { font-size: 48px; font-weight: 300; max-width: 700px; opacity: 0.8; }
+        .scale-post .footer-url { color: white; opacity: 0.5; left: 50%; transform: translateX(-50%); }
+
+        /* POST 3: THE ECOSYSTEM */
+        .ecosystem h1 { font-size: 72px; font-weight: 800; margin-bottom: 20px; }
+        .ecosystem p { font-size: 32px; color: var(--text-muted); margin-bottom: 80px; max-width: 700px; }
+        .exam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .exam-card { border: 1px solid var(--border-color); padding: 50px; border-radius: 24px; }
+        .exam-card h3 { font-size: 42px; margin: 0 0 10px 0; color: var(--oxford-blue); }
+        .exam-card p { font-size: 24px; margin: 0; }
+
+        /* POST 4: THE COMMUNITY */
+        .community-post { background: var(--soft-gray); }
+        .chat-ui { background: white; border-radius: 40px; padding: 60px; box-shadow: 0 30px 60px rgba(0,0,0,0.05); flex: 1; display: flex; flex-direction: column; gap: 30px; }
+        .bubble { height: 60px; border-radius: 20px; background: #f1f5f9; width: 80%; }
+        .bubble.right { align-self: flex-end; background: var(--jade-green); width: 60%; }
+        .bubble.blue { background: var(--oxford-blue); width: 70%; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. THE MANIFESTO -->
+    <div class="post manifesto">
+        <div class="logo">IMTEHAN</div>
+        <div class="line"></div>
+        <h1>The New <br>Standard in <br>Exam Prep.</h1>
+        
+        <div class="feature-item">
+            <span>70,000+ MCQs</span>
+            <div class="tag">BIGGEST</div>
+        </div>
+        <div class="feature-item">
+            <span>195+ Competitive Exams</span>
+            <div class="tag">COVERAGE</div>
+        </div>
+        <div class="feature-item">
+            <span>MDCAT & FSc Hub</span>
+            <div class="tag">NEW</div>
+        </div>
+        <div class="feature-item">
+            <span>Live Community Chat</span>
+            <div class="tag">SOCIAL</div>
+        </div>
+        <div class="feature-item">
+            <span>Expert Blog Redesign</span>
+            <div class="tag">INSIGHTS</div>
+        </div>
+
+        <div class="footer-url">www.imtehan.com</div>
+    </div>
+
+    <!-- 2. THE SCALE -->
+    <div class="post scale-post">
+        <div class="big-num">70K</div>
+        <div class="desc">Verified questions. One goal: Your success.</div>
+        <div class="footer-url">IMTEHAN.COM</div>
+    </div>
+
+    <!-- 3. THE ECOSYSTEM -->
+    <div class="post ecosystem">
+        <div class="logo">IMTEHAN</div>
+        <h1>Your Exam, <br>Our Mission.</h1>
+        <p>Comprehensive preparation for every major goal in Pakistan.</p>
+
+        <div class="exam-grid">
+            <div class="exam-card" style="border-left: 10px solid var(--oxford-blue)">
+                <h3>CSS/PMS</h3>
+                <p>Civil Services</p>
+            </div>
+            <div class="exam-card" style="border-left: 10px solid var(--jade-green)">
+                <h3>MDCAT</h3>
+                <p>Medical Entry</p>
+            </div>
+            <div class="exam-card" style="border-left: 10px solid var(--jade-green)">
+                <h3>PPSC/FPSC</h3>
+                <p>Govt Jobs</p>
+            </div>
+            <div class="exam-card" style="border-left: 10px solid var(--oxford-blue)">
+                <h3>FSc</h3>
+                <p>Intermediate</p>
+            </div>
+        </div>
+
+        <div class="footer-url">Join 50,000+ Students</div>
+    </div>
+
+    <!-- 4. THE COMMUNITY -->
+    <div class="post community-post">
+        <div class="logo">IMTEHAN</div>
+        <h1 style="font-size: 72px; margin-bottom: 20px;">Never Study <br>Alone Again.</h1>
+        <p style="font-size: 32px; color: var(--text-muted); margin-bottom: 80px;">Join live discussion groups for every subject.</p>
+        
+        <div class="chat-ui">
+            <div class="bubble blue"></div>
+            <div class="bubble"></div>
+            <div class="bubble right"></div>
+            <div class="bubble"></div>
+            <div style="margin-top: auto; border-top: 1px solid #eee; padding-top: 40px; color: var(--text-muted); font-weight: 600;">Type a message...</div>
+        </div>
+
+        <div class="footer-url">Community Chat Live Now</div>
+    </div>
+
+</body>
+</html>

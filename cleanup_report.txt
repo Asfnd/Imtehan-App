@@ -1,0 +1,13 @@
+============================================================
+DEEP DUPLICATE CLEANUP REPORT
+============================================================
+Original Row Count: 578
+Final Row Count:    448
+Total Removed:      130
+
+----------------------------------------
+REMOVAL BREAKDOWN
+----------------------------------------
+1. Exact URL Duplicates:    0
+2. Shared Domain Duplicates: 1
+3. Normalized Name Matches:  0

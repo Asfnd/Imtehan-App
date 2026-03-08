@@ -1,0 +1,470 @@
+Question_Number,Question,Option_A,Option_B,Option_C,Option_D,Correct_Answer
+6,Which of the following is a binary number?,1001,1002,1005,1006,A
+7,"If a + b = -2, then (a+b)³ = ?",6,-8,10,-12,B
+8,"A takes 6 days less than the time taken by B to finish a piece of work. If both A and B together can finish it in 4 days, find the time taken by B to finish the work.",10 days,12 days,14 days,16 days,B
+9,"The salaries of A, B and C are in the ratio 1:3:4. If the salaries are increased by 5 percent, 10 percent and 15 percent respectively, then the increased salaries will be in the ratio?",21:66:92,0.7878125,32:67:93,None of these,A
+10,"When you divide 0.7 by 10, what will you get?",7,0.07,70,0.007,B
+11,"When a student weighing 45 kg left a class, the average weight of the remaining 59 students increased by 200g. What is the average weight of the remaining 59 students?",57 kg,58 kg,59 kg,60 kg,A
+12,"If a class has 56 boys and the total class strength is 140, then find the percentage of boys:",30 percent,40 percent,20 percent,None of these,B
+13,How much distance in kilometers will a cyclist cover from 11:10 am to 11:50 am while cycling at the speed of 15 kilometers per hour?,10,11,12,13,A
+14,The sum of the reciprocals of A's ages (in years) 2 years ago and 2 years from now is 2/3. The present age of A is?,2 years,7 years,4 years,5 years,C
+15,"A 2-digit number that, if taken 3 times and then 45 is subtracted, has its digits reversed:",-24,26,27,None of these,B
+16,"The ratio of two numbers a and b is 3:5. If 2 is added to both the numbers, the ratio becomes 2:3. Find b?",15,10,8,5,B
+17,Evaluate: √6084,78,72,66,65,A
+18,294 is multiplied by which positive integer to give a perfect square?,6,7,8,None of these,A
+19,"In a sequence 35, 45, 55, ______, the 10th term of this sequence is:",115,120,125,350,C
+20,"Which one of the numbers completes the series: 2, 5, 8, 11, 14, ____.",18,17,19,16,B
+21,"The ratio of the ages of two students is 3:2. If one is 5 years older than the other, then the age of the younger student is:",5,15,10,None of these,C
+22,"If 54 is subtracted from three times a certain number, the result is 36. Find the number.",20,25,30,None of these,C
+23,"If A's income is 40' percent less than B's income, then how much percent is B's income more than A's income?",66.66 percent,68.66 percent,69.66 percent,None of these,A
+24,"Working 5 hours a day, A can complete a work in 8 days, and working 6 hours a day, B can complete the same work in 10 days. Working 8 hours a day, they can jointly complete the work in:",3 days,4 days,4.5 days,None of these,A
+25,"If Amir is to the North of Bilal, and Saad is to the West of Bilal, in which direction is Amir with respect to Saad?",West South,West-North,North-East,North,C
+26,"If a heart beats 72 times in one minute, then in how many seconds does it beat 210 times?",170,175,180,None of these,B
+27,"A fruit basket comprises oranges, peaches and strawberries. The ratio of oranges to peaches to strawberries is 2:3:4. If there are 8 oranges, how many total fruit items are there in the basket?",16,32,36,48,C
+28,"Complete the number series: 4, 9, 13, 22, 35, ____",57,63,70,75,A
+29,(7x - 1) = (4x + 8). What will the value of x be?,3,4,1,None of these,A
+30,"What is x in the series 24, 29, 36, 41, x, 53?",45,47,48,46,C
+31,"Aaron has 3 times as much money as Josh. If Aaron gives Josh $50, Josh will then have 3 times as much money as Aaron. How much money do the two of them have together?",$100,$110,$135,$150,A
+32,Simplify: 0.04 x 0.0162 x 0.001 = ?,6.48 x 10⁻³,6.48 x 10⁻⁵,6.48 x 10⁻⁶,6.48 x 10⁻⁷,D
+33,"If the average arithmetic mean of 8, 12, 15, 21, x, and 11 is 17, then what is x?",3,15,17,35,D
+34,"If 7/21 of a number is 6, what is 14/21 of that number?",12,14,8,11,A
+35,'Laila is four times as old as her 2-year-old brother Mansoor. How old will Mansoor be when he is half the age of his older sister Laila?,4,6,5,7,A
+36,"A man sells two items for the same price of $100 each. On one item, he makes a profit of 20 percent, and on the other, he incurs a loss of 20 percent. What is his overall profit or loss percentage?","No profit, no loss",4 percent profit,4 percent loss,8 percent loss,C
+37,Which of the following is not a perfect square?,2809,2218,2916,3136,B
+38,"If Gohar's salary is 25 percent less than Babar's salary, then by how much percent is Babar's salary greater than Gohar's?",105/3,100/3,95/3,None of these,B
+39,((2.39)^2 - (1.61)^2) / (2.39 - 1.61),3,4,5,None of these,B
+40,"A ladder 15 meters long just reaches the top of a vertical wall. If the ladder makes an angle of 60° with the wall, find the height of the wall.",7 m,7.5 m,8 m,8.5 m,B
+41,"A village has 5860 voters, of whom 7 percent usually forget to vote. In order to win an election, a candidate must gain at least 50 percent of the remaining votes. How many votes does he need in order to win?",2725,5450,5449,None of these,A
+42,A patient requires a 30 percent decrease in the dosage of his medication. His current dosage is 340 mg. What will his dosage be after the decrease?,70 mg,238 mg,270 mg,340 mg,B
+43,"If A:B:C = 2:3:4, then A/B : B/C : C/A is equal to:",'4:9:16,'8:9:12,'8:9:24,None of these,C
+44,A car is moving with a speed of 120 km/h. How much distance does the car cover in 4 hours and 30 minutes?,540,550,570,580,A
+45,"If 4 out of 25 candidates failed a driving test, the percentage of passed candidates is:",0.04,0.21,0.42,0.84,D
+46,"A bag contains 50 paise, 1 rupee and 2 rupee coins in the ratio 2:5:8. If the total amount is Rs. 352, find the total number of coins in the bag.",160,200,250,240,D
+47,"A and B can do a piece of work in 12 days, B and C in 15 days, and C and A in 20 days. Then the number of days taken by A, B, and C together to finish the work is:",10 days,12 days,14 days,None of these,A
+48,The product of two numbers is 72. Find the other number when one number is 9.,10,8,6,None of these,B
+49,"In the xy-plane, points (-3,5) and (6,8) lie on line l. Which of the following points is also on line l?","(0,6)","(3,8)","(9,10)","(12,11)",A
+50,How many numbers of two digits are divisible by 9?,9,10,11,12,B
+51,5 ¹/5 + 4 ¹/2 + 4 ¹/3 = ?,14  1/10,13 1/5,30,14  1/30,D
+52,"If one-third of one-fourth of a number is 15, then three-tenths of that number is:",40,45,54,None of these,C
+53,Multiply: 9.5 x 6 =,57,56,58,59,A
+54,What is the value of x in 3x - 15 - 6 = 0?,6,7,9,-9,B
+55,The average run of a cricket player in 10 innings was 33. How many runs must he make in his next innings so as to increase his average of runs by 3?,66,68,76,None of these,A
+56,(0.49)⁴ × (0.343)⁴ ÷ (0.2401)⁴ = (70 ÷ 100)<?+3>,1,2,3,4,D
+57,A person bought an item for Rs. 2500 and sold it at a 15 percent discount. What was the selling price after the discount?,Rs. 2025,Rs. 2125,Rs. 2250,None of these,B
+58,Find the height of a parallelogram whose area is 54 cm² and the base is 15 cm.,3.6 cm,4.6 cm,5.6 cm,6.6 cm,A
+59,(4 x 3 + 5 x 6) / (18 x 2 - 22) = ?,12-Jul,07-Apr,3,Jul-60,C
+60,(-3)³ = ?,-27,27,9,-9,A
+61,X and Y can do a piece of work in 20 days and 12 days respectively. X started the work alone and then after 4 days Y joined him till the completion of the work. How long did the work last?,6 days,10 days,15 days,20 days,B
+63,Which of the following is wrong?,227 = 3.2,33/11=3,22/7=3.14,22/11=2,A
+64,"H = 100 - 4T. The equation above can be used to model the number of hours H until a gallon of milk held at a temperature of T, in degrees Celsius, goes sour. Based on the model, which of the following is the best interpretation of the number 4 in the equation?",An increase of 1 degree Celsius will make a gallon of milk go sour 4 hours faster.,An increase of 1 degree Celsius will make 4 gallons of milk go sour 1 hour faster.,An increase of 4 degrees Celsius will make a gallon of milk go sour 1 hour faster.,An increase of 4 degrees Celsius will make a gallon of milk go sour 4 hours faster.,A
+65,"Find the volume of a cuboid having 3 cm length, 3 cm width, and 3 cm height.",18,25,27,35,C
+66,"A and B together can complete a work in 3 days. They start together but, after 2 days, B left the work. If the work is completed after 2 more days, B alone could do the work in:",04 days,06 days,08 days,None of these,B
+67,"At 3:00 AM, the temperature was 13°C below zero, but by noon it had risen to 32°C. Therefore, the average hourly increase in temperature was:",5°C,7.5°C,45°C,(19/6)°C,A
+68,Which of the following fractions has the smallest value?,01-Jul,01-Aug,02-Sep,05-Nov,D
+69,"Object A is 5kg heavier than Object B, and the mass of Object C is twice the mass of Object A. If the total mass of the three objects is 255kg, find the mass of Object C.",120 kg,130 kg,135 kg,140 kg,B
+70,"If 30 men working 9 hours per day can reap a field in 16 days, in how many days will 36 men reap the field working 8 hours per day?",15,25,18,10,A
+71,Simplify: 32^(-2/5),45661,-0.25,45665,-0.125,A
+72,"If '4^(4x+1) = 1/64, then the value of x is:",1,-1,2,3,B
+73,30 percent of 100 is equal to 3 percent of:,3000,2000,1000,750,C
+74,"What is the average of the numbers: 0, 0, 4, 10, 5, and 5?",2,4,6,None of these,B
+75,"If 2ˣ/2ʸ = 2³, what is the value of x?",y-3,y+3,2y,y-1,B
+76,A pile of 108 identical books weighs 30 kg. How many books weigh 40 kg?,128,144,150,122,B
+77,What is the price of a 12x6 carpet if an 8x3 carpet costs Rs. 6288?,Rs. 16654,Rs. 18864,Rs. 21345,Rs. 12768,B
+78,"What is the missing number in the sequence: 4, 6, 10, 18, _____, 66.",22,34,45,54,B
+79,Hassan borrowed 5000 with simple interest for five years. He paid an extra 500. Then how much percent did he pay per annum?,2 percent,3 percent,3.5 percent,None of these,A
+80,"If the radius of a circle is 1 cm, then the area of the circle is:",314 mm,314 cm²,314 mm²,None of these,C
+81,"The sum of two numbers is 138, and their difference is 68. What is the smallest number?",68,35,70,103,B
+82,"If, x - y = 6 and x + y = 16, then",x=5 and y=3,x=8 and y=5,x=10 and y=3,x=11 and y=5,C
+83,"If we multiply a fraction by itself and divide the product by its reciprocal, the fraction thus obtained is 18 26/27. What is the original fraction?",1.33,3.66,2.67,None of these,C
+84,"10 men have ration for 21 days in the camp. If 3 men leave the camp, for how many days will the ration be sufficient for the remaining men?",20 days,30 days,45 days,None of these,B
+85,"A solution is to be prepared by combining chemicals X, Y, and Z in the ratio 18:3:2. What is the total volume of the solution that can be prepared using 36 litres of X?",44 litres,46 litres,45 litres,47 litres,B
+86,What is the LCM of the 6th and 7th term in a_n = 3n+2?,360,460,520,620,B
+87,A class had 14 boys with an average height of 5.3 feet. A new boy joined the class. Now the average of the 15 boys in the class was 5.25 feet. How tall was the new boy?,3.55 feet,4.55 feet,5.55 feet,None of these,B
+88,"What is the percentage of failure if a student scores 80 percent in English and 85 percent in Math, if in both subjects the passing percentage is 75 percent?",6 percent,7 percent,8 percent,0 percent,D
+89,The price of a share in the stock exchange dropped from Rs. 62.50 to Rs. 52.50 in a week. What was the percentage change in the price of the share?,0.1,0.12,0.14,0.16,D
+90,"What number comes in the series: 5, 4, 9, 13, 22, 35, ______?",53,60,57,63,C
+91,A milkman adds 10 litres of water to 10 litres of milk. His son takes 15 litres of the mixture and adds 5 litres of water to it. Find out the amount of water in litres in this milk.,11,11.5,12,12.5,D
+92,Three hundredths is the same as:,0.3,300,300,0.03,D
+93,"A toy is sold for Rs. 220. What was the cost, if the rate of profit was 10 percent of the cost?",Rs. 198,Rs. 200,Rs. 210,Rs. 240,B
+94,What is the simplified result of the expression: X+1/7 - X-1/8?,20455,56/1,17533,48/1,A
+95,10 people standing in a row shake hands with each other. How many total handshakes occur?,55,45,35,None of above,B
+96,The volume of a right circular cylinder in cm³ having a radius of 2 cm and height of 7 cm is:,14 cm³,28 cm³,88 cm³,7 cm³,C
+97,"A steam shovel excavates 2 cubic yards every 40 seconds. At this rate, the amount excavated in 45 minutes is:",90 Cu Yd,135 Cu Yd,270 Cu Yd,1200 Cu Yd,B
+98,How many millimeters are there in one centimeter?,10,20,500,1000,A
+99,"To convert a decimal number into a binary number, we use the method of repeated:",Multiplication,Division,Addition,Subtraction,B
+100,"The true discount on Rs. 1,760 due after a certain time at 12 percent per annum is Rs. 160. The time after which it is due is:",5 months,10 months,15 months,20 months,B
+101,A shopkeeper buys a watch for Rs. 350/- and sells it for Rs. 392/-. Find his percentage of profit.,9 percent,10 percent,11 percent,12 percent,D
+102,"If 500 kg of meat feeds 20 lions at a zoo for a week, for how many days will 200 kg of meat feed 14 lions?",4,5,6,8,A
+103,The length of the diagonals of a rhombus are 24 cm and 18 cm. Find the length of each side of the rhombus:,15 cm,13 cm,16 cm,17 cm,A
+104,What is 9/11 + 5/7?,45660,45718,118/77,None of these,C
+105,"Complete the series: 11, 15, 24, _____, 65, 101",39,40,48,50,B
+106,"If an orange costs Rs. 20 and an apple costs Rs. 16, what is the ratio of the cost of an orange to the cost of an apple?",5:04,4:05,4:16,20:04,A
+107,"If (7ᵃ)(7ᵇ) = (7ᶜ)/(7ᵈ), what is d in terms of a, b, and c?",c/ab,c - a - b,a + b - c,c - ab,B
+108,'Solve: 1/10 x 3/5 x 6/5 = ?,9/225,9/125,2/125,7/125,B
+109,The circumference of a circle whose diameter is 7 inches is approximately:,22 inches,28 inches,38 inches,154 inches,A
+110,"The ratio of two numbers a and b is 3:5. If 2 is added to both the numbers, the ratio becomes 2:3. Find b?",15,10,8,5,B
+111,"If a - b = 3 and a² + b² = 29, what is the value of ab?",10,12,15,18,A
+112,A hockey team won 6 games and lost 8. What is the ratio of wins to the total number of games?,6:08,8:06,3:07,6:14,A
+113,The value of (-25) + 3(-4) + 2(-9) is:,13,-13,171,-55,D
+114,The average runs of a cricket player for 10 innings was 32. How many runs must he make in his next innings to increase his average runs by 4?,72,76,80,None of these,B
+115,"Complete the series: 1, 8, 4, 27, 9, ____",8,9,64,16,C
+116,"The average weight of 7 people is 70 kg. If one person weighing 80 kg is replaced by a person weighing 60 kg, what will the new average weight be?",60 kg,67 kg,72 kg,80 kg,B
+117,"Complete the series: 1, 1, 8, 4, 27, 9, __________.",64,20,60,16,A
+118,An observer 1.6m tall is 20√3m away from a tower. The angle of elevation from his eye to the top of the tower is 30°. The height of the tower is:,21.6 m,24.72 m,27.8 m,None of these,A
+119,"There are two sections A and B of a class, consisting of 36 and 44 students respectively. If the average weight of section A is 40kg and that of section B is 35kg, find the average weight of the whole class.",30 kg,35 kg,37.25 kg,42.50 kg,C
+120,(-3)³ = ?,-27,27,9,-9,A
+121,"'In a triangle ABC, ∠A = 30° and ∠B = 60°. The length of side AB is 10 cm. What is the length of side BC?",5√3 cm,10√3 cm,5 cm,20 cm,C
+122,I spend 20 hours to clean my garden. How long will it take if 4 people come to join me?,3 hours,6 hours,5 hours,4 hours,C
+123,"Ali's shell collection share is 80 percent more than Aslam's. If Aslam has 80 more shells, then the total number of shells will be:",620,720,320,None of these,B
+124,The area of the square whose side is the hypotenuse is equal to the sum of the areas of the squares on the other two sides. This describes:,Binomial,Pythagoras,Angle Bisector,None of these,B
+125,"A is two years older than B, who is twice as old as C. If the sum of the ages of A, B and C is 27, how old is B?",8,10,11,12,B
+126,One kilometer is equal to ______ meters.,10,100,1000,10000,A
+127,"Find the average of 277, 278, 279, 280, 281, 282, and 283.",280,281,283,284,A
+128,"y= a/b x+c y= d/e x+c The equations of two perpendicular lines in the xy -plane are shown above, where a, b, c, d, and e are constants. If 0<1, which of the following must be true?",d/e<1,#NAME?,0<1,d/c>1,B
+129,2''⁵ means:,2 x 5,2 + 5,2 x 2 x 2 x 2 x 2,2 ÷ 5,C
+130,"A sum of Rs 95,000 is to be divided among A, B, and C in such a way that A:B is 2:3 and",35000,C is 2:3. What will be the share of A? 20000,15000,None of these,D
+131,1 km equals how many metres?,100 metres,1000 metres,10000 metres,None of these,B
+132,How many pieces of 13.2 cm can be cut from a 330 cm long rod?,250,25,43.56,2.5,B
+133,What number increased by 20 percent of itself is equal to 102?,85,90,75,185,A
+134,"Find the next number in the given number series - 1 , -5 , 11 , -19 , -35 , -65 , -131 , _ , 196 , 197","-67, -131",-259,"65, 131",155,B
+135,The value of log5 (125)(625)/25 is equal to:,725,64,5,None of these,C
+136,A worker is paid Rs.2130 for 6 days. If his total wage during a month is Rs.9230 find the number of days he worked in the month are?,26,24,22,None of these,A
+137,"A is the father of B, but B is not the son of A. Then what is B?",Daughter,Nephew,Daughter-in-law,Nephew-in-law,A
+138,The sum of ages of two children is 12 and their product is 32. The age of the elder one:,6 years,8 years,10 years,12 years,B
+139,"A man borrowed 60,000 at a simple interest rate of 9 percent per year. What was the total amount (principal and interest) he repaid after 3 years?",16200,76200,70200,None of these,B
+140,"'The average weight of A, B and C is 45 kg. If the average weight of A and B is 40 kg and that of B and C is 43 kg, then the weight of B is:",17 kg,20 kg,26 kg,31 kg,D
+141,"If all the members of a team are juniors or seniors, and if the ratio of juniors to seniors on the team is 3:5, what percent of team members are seniors?",37.5 percent,40 percent,60 percent,62.5 percent,D
+142,"If Mary traveled 116 miles on day 1, 130 miles on day 2, and 114 miles on day 3, how many miles per day did she average?",120,115,116,114,A
+143,Which of the following ratios is the largest?,21:29,7:15,15:23,17:25,A
+144,A man buys an article for Rs. 27.50 and sells it for Rs. 28.60. Find his gain percent:,1 percent.,2 percent.,3 percent.,4 percent.,D
+145,What is 45 percent of 225?,71,77,81,None of these,D
+147,If 15:7::x:560 then x =,1200,1300,1000,1400,A
+149,"If A:B = 2:3 and B:C = 4:5, then A:B:C is:",5:04:06,2:03:05,8:12:15,None of these,C
+150,"If 4^(4x + 1) = 1/64, then the value of x is:",0,1,-1,None of these,C
+151,"The mean of 5 numbers is 34. Three of these numbers are 29, 26, and 35. If the remaining two numbers are in the ratio 1:3, find the numbers?","10, 40","20, 60","35, 45",None of these,B
+153,Sam bought a 12-pack of soda for $5.40. How much did he pay per can of soda?,$0.45,$0.54,$0.40,$2.22,A
+154,Solve: 840 ÷ 14 + 40 = ?,50,60,100,120,C
+155,"A school has four classes. They have 10, 20, 30 and 40 students respectively. Students' pass percentage is 20 percent, 30 percent, 60 percent and 100 percent. What is the pass percentage of the entire school?",46 percent,66 percent,86 percent,None of these,A
+156,Express 0.286 as a percentage:,28.6 percent,2.8 percent,0.28 percent,None of these,A
+157,A circle that touches the triangle from inside is called:,Excircle or escribed Circle,Incircle or inscribed Circle,Tangent line of a circle,Trigonometric Rules,B
+158,The value of 3.5 x 1.4 / 0.7 is:,7,0.7,0.07,None of these,A
+159,What percentage is 12 of 36?,35 percent.,33.33 percent.,30 percent.,40 percent.,B
+160,"The average of 20 students is 12 years. If the teacher's age is included, the average increases by one. The age of the teacher is:",30 years,28 years,33 years,35 years,C
+161,A car travels a distance of 510 km in 6 hours. What is the average speed of the car?,80 km/h,85 km/h,90 km/h,95 km/h,B
+162,Solve: 1/4 - 1/4 = ?,0,-1,1,4,A
+163,A college organised a function in which 1/3rd of boys and 1/2 of girls are present. The total number of students present is:,90,110,125,Data inadequate,B
+164,"In a zoo there are rabbits and pigeons. If heads are counted, there are 200, and if legs are counted, there are 580. How many pigeons are there?",90,100,120,110,D
+165,0.014 x 0.014 = ?,0.196,19.6,0.00196,0.000196,D
+166,"A man takes 50 minutes to cover a certain distance at a speed of 6 km/hr. If he walks with a speed of 10 km/hr, he covers the same distance in:",1 hour,30 minutes,20 minutes,10 minutes,B
+167,The cash difference between the selling prices of an article at a profit of 4' percent and 6' percent is Rs. 3. The ratio of the two selling prices is:,51:52:00,52:53:00,53:54:00,54:55:00,B
+168,"Complete the series: 2, 4, 3, 9, 4, 16, 5, 25, 6, ____.",30,33,36,40,C
+169,Three-fourths of a number is 60 more than one-third of the same number. The number is:,60,144,120,None of these,B
+170,"If Y < 30, and X:Y = 7:5, then the value of X is:",21,31,41,51,C
+171,"Think of a number, divide it by 4, and add 9 to it. If the result is 15, what is the number?",20,24,26,28,B
+172,"A and B do a job together in two hours. If A completes the job alone in 5 hours, how long will it take B to complete the job?",Two hours,10/3 hours (3 hours 20 minutes),Four hours,Seven hours,B
+173,"A hollow iron pipe is 21 cm long and its external diameter is 8 cm. If the thickness of the pipe is 1 cm and iron weighs 8 g/cm³, then the weight of the pipe is:",3.6 kg,3.696 kg,36 kg,None of these,B
+174,"The price of an article is cut by 20 percent. To restore the reduced price to the original value, by how much must the reduced price be increased?",20 percent,25 percent,30 percent,None of these,B
+175,"A mason fixed black, square-shaped tiles around a square room. There are 21 tiles on each side of a room. How many tiles did he need altogether?",66,78,80,None of these,C
+176,"Find the odd one out: 8, 27, 64, 100, 125, 216, 343",27,100,125,343,B
+177,"If k ≤ x ≤ 3k + 12, which of the following must be true?\nI. x - 12 ≤ 3k\nII. k ≥ -6\nIII. x - k ≥ 0",I only,I and II only,II and III only,"I, II and III",D
+178,Find the value of x if 31 : x :: 12 : 20.,5,6,7,None of these,D
+179,"The next number in the series is 1/5, 1/9, 1/13, 1/17",on Jan 19,on Jan 20,on Jan 21,on Jan 24,C
+180,"On a certain item, the price is decreased to 0.42 from 0.62. What is the actual percentage of discount?",0.31,0.32,0.33,0.34,B
+181,"If x and y are two positive real numbers and X^(1/3) = Y^(1/4), then which of the following relations is true?",X³=Y⁴,X³=Y,X=Y⁴,None of these,D
+182,"The number of elements in the power set {1, 2, 3} is:",5,6,7,8,D
+183,"Three-fifths of students speak Spanish, and one-fourth speak Italian. What percentage speaks French?",15 percent,35 percent,40 percent,45 percent,A
+184,A sum of money at simple interest amounts to Rs. 815 in 3 years and to Rs. 854 in 4 years. The sum is:,Rs. 690,Rs. 650,Rs. 698,Rs. 700,C
+185,"If a shirt that costs 20 dollars is reduced by 20 percent, how much will the new price be?",16 Dollars,17 Dollars,20 Dollars,30 dollars,A
+186,A trader mixes 26 kg of rice at Rs. 20 per kg with 30 kg of rice of another variety at Rs. 36 per kg and sells the mixture at Rs. 30 per kg. His profit percent is?,5 percent,8 percent,10 percent,None of these,A
+187,Which of the following fractions is the smallest?,Nov-13,09-Nov,03-Apr,05-Jul,D
+188,A milkman adds 10 liters of water to 10 liters of milk. His son takes 15 liters of this milk and adds 5 liters of water to it. Find out the amount of water in liters in this milk:,10,12.5,13.8,15,A
+189,"Two numbers are in the ratio 7:9. If the sum of the numbers is 112, then the larger number is:",49,72,63,42,C
+190,Solve: 30 percent of 3300,330,990,700,1100,B
+191,Which number can replace both the question marks in 2/? = ?/50?,5,10,25,100,B
+192,"Complete the series: 2, 6, 12, 20, 30, 42, _____.",50,52,54,56,D
+193,"If the volume of a sphere and a cone are equal with the same radius (r), then calculate the height (h) of the cone.",h=4r,h=2r,h=r,None of these,A
+194,What is the value of compound interest after n years is?,P=A(1-r/n)^(n+1),A=P(1+r/n)^n,A=P(1-r/n)^n,None of these,B
+195,"A meter of a car records 2 miles while the car covers 3 miles. If it shows 48 km, what is the actual run of the car?",62 km,72 km,82 km,100 km,B
+196,"Village X has a population of 68000, which is decreasing at the rate of 1200 per year. Village Y has a population of 40,000 which is increasing at the rate of 800 per year. In how many years will the population of the two villages be equal?",12,13,14,15,B
+197,The number whose 7 percent is 42 is:,300,400,500,600,D
+198,"For the series, what is the next term? 36, 34, 30, 28, 24, ____",20,22,23,26,B
+199,"If (3x+3)/(4x-4) = 5/4, the value of x is:",3,4,5,6,D
+200,30 percent of 100 is equal to 3 percent of which digit?,100,10,1000,10000,C
+201,The average of 5 quantities is 6. The average of 3 of them is 4. What is the average of the remaining 2 numbers?,9,10,8,9.5,A
+202,A fruit seller purchases oranges at the rate of 3 for Rs. 5 and sells them at 2 for Rs. 4. His profit in the transaction is:,25 percent.,15 percent.,20 percent.,10 percent.,C
+203,The angle of depression of a point situated at a distance of 70m from the base of a tower is 60°. The height of the tower is:,35√3 m,70√3/3 m,70m,70√3 m,D
+204,"Complete the series: 3, 4, 6, 9, 13, ......",16,17,18,None of these,C
+205,Which of the following fractions is greater than 3/4 and less than 5/6?,0.5,0.666666667,0.8,None of these,C
+206,"The average age of A and B is 30 years, that of B and C is 32 years, and the average age of C and A is 34 years. The age of C is:",33 years,34 years,35 years,36 years,D
+207,"A, B and C can complete a work in 20, 12 and 8 days respectively. In how many days can",and B together complete that work? 60/8 days (or 7.5 days),41/4 days,71/3 days,50/4 days,A
+208,21 binders can bind 1400 books in 15 days. How many binders will be required to bind 800 books in 20 days?,7,9,12,14,B
+209,A train left a station at 8:35 a.m. and arrived at its destination at 3:12 p.m. How long did the journey take?,5 hours and 37 minutes,4 hours and 37 minutes,6 hours and 37 minutes,10 hours and 37 minutes,C
+210,"What will be the simple interest on Rs. 4,000 at 12.5 percent per annum for the period from 4th February 2005 to 18th April 2005?",Rs. 215,Rs. 120,Rs. 200,Rs. 100,D
+211,How many cubes of 1 cm side length can be cut from a cuboid of the dimensions 10cm x 12cm x 15cm?,180,1800,160,1600,B
+212,One kilometer is equal to how many miles?,0.85,0.5,0.62,1.6,C
+213,The sum of the angles inside a triangle is always:,360 degrees,240 degrees,180 degrees,145 degrees,C
+214,What is the fractional equivalent of 12.5 percent?,1/4.,2/9.,1/5.,1/8.,D
+215,"Complete the number series: 1, 2, 2, 5, 3, 8, ?",3,7,6,4,A
+216,"6 men, 7 women, and 5 children complete a job for Rs. 4400. If their individual wages be in the ratio 4:3:2, the total money earned by 5 children is:",800,880,980,990,A
+217,"If Rs. 4 becomes Rs. 10 in 50 years at simple interest, then the rate of interest is:",2.5 percent,3 percent,5 percent,None of these,B
+218,In how many ways can 2 students be chosen from a class of 20 students?,190,180,240,360,A
+219,The horizontal demand curve parallel to the X-axis implies that the elasticity of demand is:,Zero,Infinite,Equal to one,Greater than zero,B
+220,"When 52416 is divided by 312, the quotient is 168. What will be the quotient when 52.416 is divided by 0.0168?",3.12,312,3120,None of these,C
+221,"If log 2 = 0.312, log 10 = 1, then log 5 512 is?",3.875,4.252,5.751,None of these,A
+222,"If 35 laborers dig 805 cubic meters of earth in 5 hours, how much earth will 30 laborers dig in 6 hours?",728 m³,828 m³,928 m³,None of these,B
+223,"If ""x"" and ""y"" are directly proportional and x = 8, y = 2. If y = 10, find value of ""x"":",40,50,60,None of above,A
+224,"The length and width of a field are in the ratio 5:3. If the width of the field is 42 m, then its length is:",100 m,80 m,50 m,70 m,D
+225,The difference between the circumference and radius of a circle is 37 cm. The area of the circle is:,111 cm²,184 cm²,154 cm²,259 cm²,C
+226,A man buys an article for $27.50 and sells it for $28.60. What is his gain percent?,3 percent,4 percent,6 percent,None of these,B
+227,"What is the value of ""x"" in 3x - 15 - 6 = 0?",6,7,8,9,B
+228,"A steam shovel excavates 2 cubic yards every 40 seconds. At this rate, the amount excavated in 45 minutes is:",90 Cu Yd,135 Cu Yd,270 Cu Yd,1200 Cu Yd,B
+229,The price of 357 mangoes is Rs. 1517.25. What will be the approximate price of 49 dozen such mangoes?,2000,2500,4000,None of these,B
+230,"If books bought at prices ranging from Rs. 150 to Rs. 300 are sold at prices ranging from Rs. 250 to Rs. 350, what is the greatest possible profit that might be made in selling 15 books?",Rs. 2000,Rs. 2500,Rs. 3000,Rs. 3500,C
+231,Solve for ?: √729 - √441 = √? + 1,49,36,25,16,C
+232,"What is 3.4 percent (calculated percentage) of the number 1,000?",24,34,38,40,B
+233,"Kriya deposits an amount of Rs. 65,800 to obtain simple interest at the rate of 14 percent per annum for 4 years. What total amount will Kriya get at the end of 4 years?","Rs. 102,648","Rs. 115,246","Rs. 125,578","Rs. 110,324",A
+234,"In a 100 m race, A covers the distance in 36 seconds and B in 45 seconds. In this, A beats",20 m,by: 24 m,28 m,30 m,A
+235,3.275 is equal to:,'13/35,'3 11/40,'2 2/7,None of these,B
+236,Evaluate: 0.213 ÷ 0.00213.,10,50,100,1000,C
+237,"Find the interest on Rs. 40,000 at the rate of 3 percent annually for a 4-year investment:",Rs. 5000,Rs. 4700,Rs. 4800,Rs. 4900,C
+238,"In a class, each student learns a foreign language. If 1/5th of the studen learn Spanish, one-fourth of the students learn Italian, and the remaining students learn French, what percentage of the class is learning French?",10 percent,55 percent,20 percent,None of these,D
+239,"'Which digit is considered to be the mode in the data set: 3,5,2,0,0,1,6,6,3,1,0,7,9?",3,0,1,9,B
+240,"If 2m 60cm of cloth is required for one shirt, then the cloth required for 7 shirts is:",18m 20cm,15m 14cm,20m 20cm,None of these,A
+241,"The sum of the squares of two numbers is 97, and the square of their difference is 25. The product of the two numbers is:",36,63,45,54,A
+242,How many tiles of dimension 10 square inches are required to cover a floor of dimensions 5 feet by 4 feet?,28,280,2880,288,D
+243,"If Ali gets 25' percent profit by selling an article for 250 rupees, what is the original price of the article?",200,230,240,None of these,A
+244,"The average marks of four subjects is 120. If 33 was misread as 13 during the calculation, what will be the correct average?",122,125,128,None of these,B
+245,"Complete the number series: 6, 11, 21, 36, 56, ____",81,80,89,85,A
+246,A fruit seller had some mangoes. He sells 30 percent of the mangoes and still has 280 mangoes. Find the number of mangoes he had.,400 mangoes,588 mangoes,600 mangoes,388 mangoes,A
+247,The sum of two numbers is 45. 4 times the first number is 9 less than 5 times the second. What are the two numbers?,24 and 21,22 and 23,25 and 20,26 and 21,A
+248,For what value of 'a' will the expression x + (1/4)√x + a² be a perfect square?,±1/18,±1/8,45662,45661,B
+249,A batsman makes a score of 87 runs in the 17th inning and thus increases his average by 3. Find his average after the 17th inning.,33,35,37,39,D
+250,"A certain number of two digits is three times the sum of its digits, and if 45 is added to it, its digits are reversed. Find the number?",27,39,45,None of these,A
+251,(3/5)³ x (3/5)⁻⁶ = (3/5)²ˣ⁻¹. What is the value of x?,0,1,-1,None of these,C
+252,"How many terms are there in 20, 25, 30 ... 140?",22,23,24,25,D
+253,A square region has an area of 2304 m². Find its perimeter.,24 m,96 m,144 m,192 m,D
+254,"The length and breadth of a rectangular drawing room of a house are 18 ft and 13 ft respectively. The height of the house is 10 ft. If the cost of painting the four walls is Rs. 40 per square ft, find the cost of painting the drawing room.","Rs. 76,860","Rs. 68,160","Rs. 24,800","Rs. 7,686",C
+255,What is the sum of the first 5 composite numbers?,25,33,37,43,C
+256,"Aslia has three types of balls: red, green, and blue. If their ratio is 2:3:5, what percent of balls are green?",20 percent,30 percent,45 percent,50 percent,B
+257,"A fraction becomes 4/5 when 1 is added to each of the numerator and denominator. However, if 5 is subtracted from each, then it becomes 1/2. The fraction is:",05-Aug,05-Jun,07-Sep,13/16,C
+258,"If x - 4 = 9, what is the value of x² - 4?",21,77,81,165,D
+259,"1/2, 2/3, 3/4, and 4/5 are like fractions are:","30/60, 40/60, 45/60 and 48/60","40/60, 30/60, 45/60 and 48/60","40/60, 30/60, 48/60 and 45/60",None of these,A
+260,Which number increases 8 in the ratio 7:9?,22,24,26,28,D
+261,"Find the average of 8, 13, 25, 43, and 11.",20,32,27,19,A
+262,9 is 1/3 percent of what number?,2700,300,27,30,A
+263,"The height of a right triangle is 4 cm less than its base, and the hypotenuse measures 10 cm. Find the length of the two sides.","Base = 8.8 cm, Height = 4.8 cm","Base = 8.2 cm, Height = 4.2 cm","Base = 7.4 cm, Height = 3.4 cm","Base = 6 cm, Height = 2 cm",A
+264,Ali earns Rs 7500 in 2 weeks. What will he earn in 2 days if he works 6 days a week?,1300,1250,1200,None of these,B
+265,1 kilometer is equal to how many centimeters?,100 cm,"10,000 cm","10,000 cm","100,000 cm",D
+266,"A tank is 25 m long, 12 m wide and 6 m deep. The cost of plastering its walls and bottom at 75 paise per sq. m is:",456,458,558,568,C
+267,The area of a circle is 98.56 cm². Find its circumference.,35.2 cm,37.2 cm,39.2 cm,None of these,A
+268,4.036 divided by 0.04 gives ______.,100.9,1.009,10.09,None of these,A
+269,"If 15 cattle can graze a field in 20 days, how many days will it take for 20 cattle to graze 3 such fields?",40,45,50,None of these,B
+270,Six-tenths is the same as:,0.6,0.6,6,0.06,A
+271,"In one hour, Jason can install at least 6 windows but no more than 8 windows. Which of the following could be a possible amount of time, in hours, that Jason takes to install 100 windows in a home?",12,16,17,18,B
+272,"If x = 0.5 and y = 0.2, then the value of √(0.6 × (3y)^x) is:",1,0.6,0.5,None of these,B
+273,"A man's annual production sells for 3,481,600. A 10 percent share of this will be ____.",35000,34816,34670,None of these,B
+274,Simplify the equation: 5 + 2 x 6 ÷ 3(2) = ?,9,12,7,5,C
+275,"The sum of the squares of three numbers is 138, and the sum of their products, taken two at a time, is 15. What is the sum of the three numbers?",15,12.96,20,None of these,B
+276,"If a line segment is divided into a ratio of 4:6, then the number of division portion is:",6,9,10,18,C
+277,"If log10 2 = 0.3010, then log2 10 is equal to:",1/0.3010,1000/301,0.301,None of these,A
+278,"If 6Pr = 360 and 6Cr = 15, find r:",3,4,5,6,B
+279,"The fuel after the 4th lap is 22 and it is 18 after 7th laps, then how many laps are made at the end?",10,12,14,16,D
+280,"The average age of A, B, C, D and E is 40 years. The average age of A and B is 35 years and the average of C and D is 42 years. The age of E is:",48 years,46 years,42 years,45 years,B
+281,"If a person left a $10.47 tip on a breakfast that cost $87.25, what percentage was the tip?",10 percent,11 percent,12 percent,13 percent,B
+282,The sum of the ages of 5 children born at intervals of 3 years each is 50 years. What is the age of the youngest child?,3 years,5 years,4 years,6 years,C
+283,The farthest number from -1 on the number line is:,-10,10,5,1,B
+284,"If x = 3, then x³ = ?",6,9,27,81,C
+285,"Three quantities a, b, c, if a:b = 1:2, and b:c = 2:3, then it continues as ____",0.127835648,0.085462963,0.043090278,None of these,C
+286,"The ratio of two numbers, a and b, is 3:5. If 2 is added to both numbers, the ratio becomes 2:3. What is the value of b?",8,10,15,5,B
+287,The ratio of 3.5 kg to 280 gm is:,12:04,20:03,25:02:00,None of these,C
+288,"What is the average of 1/2, 5/6, 3/4, 5/12?",07-Aug,02-May,05-Aug,21-Feb,C
+289,The length and breadth of a square are increased by 30 percent and 20 percent respectively. By what percent does the area of the rectangle so formed exceed the area of the square?,56 percent,46 percent,56 percent,26 percent,A
+290,"If a = (√5 - 1)/(√5 + 1) and b = (√5 + 1)/(√5 - 1), find a+b.",2,3,8,(Empty),B
+291,"Complete the series: 3, 5, 10, 12, 24, 26, _______.",52,30,28,48,A
+292,Given that 543 × 21 = 11403. Find the value of: 1140.3 ÷ 5.43.,210,150,120,200,A
+293,"Complete the number series: 1, 6, 13, 22, 33, ____.",44,45,46,47,C
+294,A motorcyclist travels 200 km in 1 hour. How many minutes would it take him to travel 120 km?,72 minutes,50 minutes,36 minutes,24 minutes,C
+295,"If 15 toys cost Rs. 234, what do 35 toys cost:",Rs. 556,Rs. 546,Rs. 536,Rs. 526,B
+296,(25 × 10) / (5(6 - 4)²) = ?,200,50,12.5,25,C
+297,A train running at a speed of 60 km/h crosses a pole in 9 seconds. What is the length of the train?,120 m,140 m,150 m,160 m,C
+298,"If the perimeter of a sector of a circle of radius 6.5 cm is 29 cm, then its area is:",52 cm²,25 cm²,56 cm²,58 cm²,A
+299,"Find the value of x and y by solving the given equations: 2x+y=20, 6x-5y=12","x=5, y=6","x=7, y=6","x=4, y=5","x=9, y=8",B
+300,"If A:B = 2:3 and B:C = 4:5, then A:B:C = _____.",0.341840278,0.085474537,0.086168981,0.256423611,A
+301,"A boy read 3/8 of a book on one day and 4/5 of the remainder on the other day. If there were 40 pages unread, how many pages did the book contain?",320 pages,240 pages,120 pages,60 pages,A
+302,"If Rs. 1000 is divided among Rabail and Amna in the proportion of 2:3 respectively, how much will Rabail receive?",300,350,400,600,C
+303,Round off the following digit: 38.23,38,39,37,40,A
+304,2/3 x 3/4 x 4/5 = ?,01-May,02-May,03-Apr,05-Apr,B
+305,"Complete the number series: 3, 7, 6, 5, 9, 3, 12, 1, 15, ____",21,-3,-1,13,C
+306,"The total cost of 12 pens and 5 pencils is equal to 111. Also, the cost of 1 pencil is 5 less than the cost of 1 pen. What will be the cost of 8 pens and 9 pencils?",89,97,91,78,C
+307,"A train covers 32 kilometers in 14.5 minutes. If it continues to travel at the same rate, which of the following is closest to the distance it will travel in 2 hours?",54 kilometers,265 kilometers,364 kilometers,928 kilometers,B
+308,"Twelve children take sixteen days to complete a work which can be completed by 8 adults in 12 days. After working for 3 days, sixteen adults left, and six adults and four children joined them. How many days will they take to complete the remaining work?",3 days,6 days,8 days,9 days,C
+309,"Solve the series 2, 4, 8, 16,...?",64,32,42,81,B
+310,The sum of five consecutive even numbers of Set X is 440. Find the sum of a different set of five consecutive integers whose second-least number is 121 less than double the least number of Set X.,240,248,228,None of these,A
+311,A rubber ball is dropped from a height of 27 meters. Each time that it hits the ground it bounces to a height 2/3 of the time from which it fell. Find the distance that it travels up to the time that it hits the ground for the 5th time. what is the the total distance travelled,115 m,125 m,135 m,145 m,C
+312,"Complete the series: 3, 4, 7, 8, 11, 12, ...?",15,18,20,21,A
+313,Three-fourths of a number is 60 more than its one-third. The number is:,120,135,144,None of these,C
+314,If x:y = 7:3 then the value of (xy + x^2) / (x^2 - y^2) =,45659,45691,45720,45662,B
+315,A rectangle has a length of 10 cm and a perimeter of 30 cm. Find the width of the rectangle:,5 cm,10 cm,15 cm,20 cm,A
+316,"The value of an article is 12,000. Each year it depreciates by 5 percent. What will be the value of the article after 4 years of depreciation?",10870,9774,8990,9765,B
+317,"If the initial population of rats was 20 and grew to 25 after the first year, which of the following functions best models the population of rats P with respect to the number of years t, if the population growth of rats is considered to be exponential?",P=20(1.25)^t,P=5t+20,P=20(1.125)^t,P=20(5)t,A
+318,"'If 2^x/2^y=2^3, then the value of x is:",y+3,y³,3-y,3y,A
+319,"If 1 inch = 60, then 2.5 inches is equal to?",150,120,180,140,A
+320,12.5 percent is equal to which fraction?,01-May,01-Jun,01-Aug,01-Oct,C
+321,"The strength of a class was 6,000 in 1994; what was the strength in 1970 if enrollment doubled every 8 years?",750,850,950,1050,A
+322,"If 2x + 7 = 19, then x = ?",7,6,8,10,B
+323,What is 9/11 - 5/7?,Apr-77,Jun-77,Aug-77,None of these,C
+324,60 men can do a work in 40 days. How long will it take 40 men to complete the same work?,30 days,29 days,23 days,60 days,D
+325,"In 7 years, Asim will be twice as old as he was 8 years ago. How old is he now?",12,21,32,23,D
+326,"If 100 kg of meat is divided into packages of 4/7 kg each, the total number of packages will be:",125,175,100,150,B
+327,A railway engine crosses 240 m at 24 seconds. How many seconds does it take to cross 650 m?,594,875,693,None of above,D
+328,"Find the sum of two consecutive even numbers, the difference of whose squares is 84?",42,44,46,None of these,A
+329,What is the sum of all angles of a triangle?,270 degrees,180 degrees,90 degrees,none of these,B
+330,What is the radius of a basketball with a volume of 6400 cm³?,10.52 cm,11.52 cm,12.52 cm,None of these,B
+331,"The price of a car, including a 6 percent sales tax, is Rs. 154431.40. What is the market price of the car without tax?",145500,145000,150000,145690,D
+332,888 ÷ 0.8 x 8 = ?,8880,0.8007,8800,88.8,A
+333,"A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years after interest. What is the rate of interest?",3 percent,5 percent,6 percent,7 percent,C
+334,"Salman bought a TV for Rs. 8,800 including GST at 10 percent. What is the original cost of the TV?",Rs. 8800,Rs. 8000,Rs. 7920,Rs. 8200,B
+335,"Complete the sequence: 6, 11, ____, 27.",16,17,18,19,C
+336,Solve: 12 ÷ 20 = ?,6,2.4,0.6,24,C
+337,What is the square root of 0.16?,0.4,0.5,0.6,0.7,A
+338,"Reeya obtained 65, 67, 78, 82, and 85 out of 100 in different subjects. What will be the average:",70,75,80,85,B
+339,892''² '= ?,"795,664","1,784","798,654","1,942",A
+340,"If Jack needs 2.5 pints of cream to make a dessert, how many pints will he need to make 3 desserts?",7.5,3,4,5.5,A
+341,The measures of the angles of a triangle are in the ratio 5:4:3. Find the smallest angle of the triangle:,45°,60°,75°,105°,A
+342,Find the mean proportion between 5 and 45.,9,15,25,50,A
+343,A horse runs around a square ground twice and covers a distance of 8 km. One side of the square ground is:,8 km,4 km,2 km,1 km,D
+344,√3 / √12 is:,Natural number,Integer,Rational number,Irrational number,C
+345,"ax+2y=5 & 3x-6y=20. In the system of equations above, a is a constant. If the system has one solution, which of the following CANNOT be the value of a?",-1,1,2,-3,A
+346,"If x = 3 + √8, find the value of x² + 1/x².",32,34,36,None of these,B
+347,21 binders can bind 1400 books in 15 days. How many binders will be required to bind 800 books in 20 days?,9,11,13,None of these,A
+348,"If a 162 km long road can be constructed in 9 months, how many months are required to construct a 306 km long road?",15,17,19,None of these,B
+349,"If one of the angles of a triangle is 90 degrees, what would be the value of the other two angles?",60 and 30 degrees,50 and 40 degrees,70 and 20 degrees,45 and 45 degrees,D
+350,"Which term of the AP 2, 11, 20, 29...... is 290?",33,34,32,35,A
+351,"If a man's salary is increased by 1/5 and his current pay is 60,000, what will be the increased pay?",70000,72000,75000,80000,B
+352,"In a cyclic group of infinite order, identity has order:",1,3,2,7,A
+353,The square of the standard deviation is called:,Variance,Dispersion,Range,Mean,A
+354,A positive number when decreased by 4 becomes 21 times its reciprocal. The number is:,5,6,7,8,A
+355,Find the relationship. Left : Right :: East : __?,South,North,West,Coast,C
+356,a³ + b³ =,(a + b) (a² - ab + b²),(a - b) (a² - ab + b²),(a - b) (a² + ab - b²),None of these,A
+357,"The angles of a triangle are (x-35), (x-25), and (x/2 '-10). Find x.",80,90,100,None of these,C
+358,A farmer bought toffees at 6 for a rupee. How many for a rupee must he sell to gain 20' percent?,3,5,4,6,B
+359,The sum of two numbers 10 is and their product is 20. What is the sum of their reciprocals:,on Jan 10,on Jan 02,on 1,on 2,B
+360,Two concentric circles are of radii 10 cm and 06 cm. Find the length of the chord of the larger circle which touches the smaller circle.,8 cm,12 cm,16 cm,09 cm,C
+361,The product of 0.003 x 0.02 =,0.6,0.006,0.0006,6.00E-05,D
+362,"By converting 75 percent into a fraction, the answer will be:",3/4.,2/3.,1/3.,1/4.,A
+363,"If x - 4 = 11, then the value of x - 8 is:",-15,-7,7,15,C
+364,The mean proportional of 4 and 16 is:,'±8,'±16,'±9,None of these,A
+365,Ahmad is as much younger than Saeed as he is older than Tanveer. If the sum of the ages of Saeed and Tanveer is 48 years. What is the age of Ahmad?,21,22,23,24,D
+366,7.5 million in numbers is written as:,750000,7500000,75000000,None of these,B
+367,"Find the annual income derived from Rs. 2400, 8 percent stock at 96:",Rs0.10 ,Rs0.15 ,Rs0.20 ,Rs0.25 ,C
+368,An army camp of 200 men has enough food for 60 days. How long will the food last if the number of men in the camp is reduced to 160?,80,75,70,None of these,B
+369,"A man takes a loan of 65,000 at an annual interest rate of 3 percent. In how many years will the amount become 68,900?",2,3,4,None of these,A
+370,"If A = (√5+1)/(√5-1) and B = (√5-1)/(√5+1), then A+B is:",3,2,1,None of these,A
+371,"A can do a piece of work in 4 days and B can do it in 12 days. In how many days will they finish the work, both working together?",4 days,2 days,3 days,6 days,C
+372,"Given f(x)=-3(x²)-2(x)+1, Find |f(1)|",1,2,3,4,B
+373,"When 20 percent of a number is added to itself to give 102, find the number.",85,90,75,185,A
+374,The angle between the hour and minute hand at 8:30 is:,60°,45°,75°,None of these,C
+375,What is the value of 5 + 6 × 3 - 2 + 2?,20,23,28,None of these,B
+376,3² + 3² + ? = 250. Find the value of x:,2,2,3,4,A
+377,"If the radius of a circle is increased by 2 percent, then what is the percentage increase in its area?",'100/121,'97/25,'101/25,None of these,C
+378,"If A and B together can complete a piece of work in 15 days and B alone in 20 days, in how many days can A alone complete the work?",60,45,40,None of these,A
+379,"Find the missing number: 6, 7, 21, 33, 48, ______, 112.",70,69,68,71,A
+380,1/10 =,0.01,0.1,1,10,B
+381,"In a 100 m race, A covers the distance in 36 seconds and B in 45 seconds. In this race, A beats B by:",20 m,24 m,28 m,30 m,A
+382,"Find the missing term 16, 24, ___, 54",30,36,48,50,B
+383,The price of an article is Rs. 945 with 5 percent GST. The original price of the article is:,920,915,905,900,D
+384,A 5 m long ladder is placed against a wall with its foot 2 m from the wall. How high up the wall does the ladder reach?,√16 m,√17 m,√19 m,√21 m,D
+385,"Complete the series: 3, 4, 7, 8, 11, 12, ____",7,10,14,15,D
+386,"What is the product of -2, -3 and -10?",-50,-60,-70,-30,B
+387,"The mean of five numbers is 18. If one number is excluded, then their mean is 16. The excluded number is ____.",24,26,28,None of these,B
+388,"If the cost of tiles is Rs. 5 for 50 sq.m, what will be the cost of 400 sq.m?",Rs. 30,Rs. 40,Rs. 50,Rs. 80,B
+389,"A ladder makes an angle of 60 degrees with the ground against a wall. If the foot of the ladder is 2m away from the wall, the length of the ladder is:",2m,4m,6m,None of these,B
+390,There are 56 boys in a class of 140 students. What percent of the students are boys?,30 percent,35 percent,40 percent,55 percent,C
+391,"If the amount of a 15 percent sales tax paid on an article comes to Rs. 1500, what is the actual price of the article?",Rs. 1000,Rs. 1500,"Rs. 10,000","Rs. 15,500",C
+392,42 women can do a piece of work in 18 days. How many women would be required to do the same piece of work in 21 days?,34,35,36,None of these,C
+393,Find the marked price of a uniform shirt if it is sold for Rs. 1311 after a discount of 5 percent?,Rs. 1380,Rs. 1520,Rs. 1320,Rs. 1460,A
+394,One-fourth of 15 is?,3.72,3.73,3.75,3.8,C
+395,A hockey team won 6 games and lost 8. What is the ratio of wins to the number of games played?,6:08,8:06,3:07,8:14,C
+396,Simplify: 2² × 3 × 2⁴ × 2² × 2,3 × 2⁸,3 × 2¹⁶,3 × 2³²,3 × 2⁹,D
+397,Solve (√2 - 1/√2)^2 =,1,'1/2,'1/4,'1/6,B
+398,"Which term of the AP 2, 11, 20, 29...... is 290?",33,34,32,35,A
+399,"2x - 10 = 20, then x - 5 = ?",5,10,15,20,B
+400,To fill a tank 25 buckets of water are required. How many buckets of water will be required to fill the same tank if the capacity of the bucket is reduced to two-fifths of its present capacity?,30,35,62.5,None of these,C
+401,Animation schemes can be applied to ____ in the presentation.,All slides,Select slides,Current slide,All of these,D
+402,A ratio equivalent to 3:7 is:,3:09,6:10,9:21,18:49,C
+403,The prime numbers between 64 and 81 are:,2,3,4,5,C
+404,"If x : y = 3 : 4, then (7x + 3y) : (7x - 3y) is equal to?",11:03,6:03,7:03,1:03,A
+405,"If 4' percent of a number is 120, the number is:",2000,3000,5000,4000,B
+406,"Maqbool got a life insurance policy of Rs. 500,000. The rate of annual premium is 4.5 percent of the total amount of the policy, whereas the policy fee is at the rate of 0.25 percent. Find the annual premium of the policy.","Rs. 23,750","Rs. 24,640","Rs. 25,530","Rs. 26,420",A
+407,"If Z^X = 32, what is X²?",5,10,25,1024,C
+408,The angle of elevation of the sun when the length of the shadow of a tree is equal to the height of the tree is:,90°,45°,75°,None of these,B
+409,A ____ is a representation of a frequency distribution by means of rectangles whose widths represent class intervals and whose areas are proportional to the corresponding frequencies.,Pictograph,Histogram,Pie Chart,Bar Chart,B
+410,The sum of the squares of two positive integers is 100 and their difference of their square is 28. The sum of the numbers is?,10,12,14,None of these,C
+411,"If a car leaves at 21:15 PM on Wednesday and reaches the destination after 5 1/2 hours, find the time when it reached the destination.",2:45 AM on Thursday,3:00 AM on Thursday,3:15 AM on Thursday,None of these,D
+412,"'Solve and find the value of x, if (30x + 70) / x = 100:",2,4,1,3,C
+413,"The price of a bicycle is Rupees 6480, inclusive of 8 percent GST. What is the original price of the bicycle?",6000,5900,6200,None of these,D
+414,"The cost of paint is Rs. 36.50 per kg. If one kg of paint covers 16 square feet, how much will it cost to paint the outside of a cube having each side of 8 feet?",Rs. 850,Rs. 860,Rs. 876,Rs. 886,C
+415,"Considering the following pattern: 2² + 1 = 5, 3² + 1 = 10, 4² + 1 = 17, 5² + 1 = 26, ..., the 8th line in the pattern is:",7² + 1 = 50,9² + 1 = 82,8² + 1 = 65,10² + 1 = 101,B
+416,"'If 2^x/2^y=2^3, then the value of x is:",y+3,'y³,3-y,3y,A
+417,"Which term is wrong in this series: 140, 340, 540, 730, 940, 1140?",540,730,940,1140,B
+418,A sum of money doubles in 3 years at compound interest compounded annually at the same rate. In how many years will it become four times itself?,4,5,6,None of these,C
+419,"If the average marks of three batches of 55, 60 and 45 students respectively is 50, 55, and 60, then the average marks of all the students is:",53.33,54.68,55,None of these,B
+420,"If a:b = 2:3 and b:c = 4:3, then find a:b:c.",8:12:09,2:03:08,2:03:09,2:03:12,A
+421,"In a group of 550 students, 42 percent go on a tour. How many students go on the tour?",213,177,231,210,C
+422,A speed of 14 meters per second is the same as:,45.5 km/h,50.4 km/h,52.2 km/h,55.5 km/h,B
+423,"If the angle of elevation of a tower from a distance of 100 meters from its foot is 60°, then the height of the tower is:",'100√2 m,'100√3 m,'50√3 m,None of these,B
+424,Two numbers are respectively 20 percent and 50 percent more than a third number. The ratio of the two numbers is:,2:03,3:04,4:05,5:06,C
+425,"If 1 day work = 1/20, then the time required to finish the job (in days) is:",20,10,25,30,A
+426,One kilometer is equal to how many miles?,0.62,0.72,0.82,0.92,A
+427,18 is '75 percent of which value?,34,24,22,20,B
+428,Abdul purchased 20 dozen toys at the rate of Rs. 375 per dozen. He sold each toy for Rs. 33. What was his percentage profit?,3.5 percent,4.5 percent,5.6 percent,6.5 percent,C
+429,"For the series, what is the next term: 4, 6, 9, 13, ____",15,12,18,17,C
+430,"Given that 10.48 = x, 10.70 = y, and x² = y², then the value of z is closest to:",1.45,1.88,2.9,None of these,C
+431,"If x:y = 5:2, then (8x+9y):(8x+2y) is:",26:61,29:22:00,22:29,None of these,B
+432,"A student obtains 75 percent, 80 percent, and 85 percent in three subjects. If the marks of another subject are added, their average score cannot be less than:",60 percent,70 percent,80 percent,None of these,A
+433,"If 0.009/x = 0.01, find the value of x.",0.09,0.9,0.009,None of these,B
+434,Solve for X in the equation: X + 3 / X + 4 = 5 / 4,-9,-85,9,8,D
+435,There are twice as many boys as there are girls. If 30 percent of the boys and 45 percent of the girls failed in the exams then what percentage of the class passed the exams?,35 percent,40 percent,52 percent,None of these,D
+436,What is the reciprocal of the sum of the reciprocals of 2 and 3?,0.47,0.2,0.77,None of these,D
+437,"If 40 is 25 percent of a number, what is the number?",100,120,160,200,C
+438,"If x + y = 6, 'y + z = 7, and 'z + x = 9, the average (arithmetic mean) of x, y and z is:",11-Mar,11-Feb,22-Mar,11,A
+439,"If a number is multiplied by two-thirds of itself, and the value so obtained is 864, what is the number?",34,35,36,None of these,C
+440,A scientist counts 80 cells in a petri dish and finds that each one splits into two new cells every hour. He uses the function A(t)=crᵗ to calculate the total number of cells in the petri dish after t hours. Which of the following assigns the correct values of c and r?,"c=40, r=2","c=80, r=0.5","c=80, r=2","c=80, r=1.5",C
+441,1/Log3 60 + 1/Log4 60 + 1/Log5 60 = ____,0,1,5,None of these,B
+442,A right cylinder and a right circular cone have the same radius and the same volume. What is the ratio of the height of the cylinder to that of the cone?,1:03,3:01,2:03,3:02,A
+443,"If x + y = 6, y + z = 7, and z + x = 9, the average (arithmetic mean) of x, y, and z is:",11-Mar,11-Feb,22-Mar,11,A
+444,In how many ways can 4 boys and 3 girls be seated in a row so that they are alternate?,144,288,12,256,A
+445,"If A is two years older than B and B is twice as old as C. If the sum of the ages of A, B and",10,9,is 27 then how old is B? 11,12,A
+446,"A is the father of B, but B is not A's son. What is the relationship of B to A?",Son,Daughter,Cousin,Sister,B
+447,"Shahwaiz has 20 football cards, and Azhaan has 44 baseball cards. They agree to trade such that Azhaan gives Shahwaiz 2 baseball cards for every card Shahwaiz gives to Azhaan. After how many such trades will Shahwaiz and Azhaan each have an equal",11,12,14,8,D
+448,"The angle of depression of a car, standing on the ground, from the top of a 75 m high tower, is 30°. The distance of the car from the base of the tower (in m) is:",25√3,50√3,75√3,None of these,C
+449,A washerman irons 4 shirts in 12 minutes. How many shirts can he iron in one hour?,15,20,25,None of these,B
+450,423 is divisible by:,21,47,17,43,B
+451,"The distance between two cities is 203 miles, and the journey takes 3 1/2 hours. What is the average speed of the vehicle?",50 mph,53 mph,58 mph,62 mph,C
+452,"A ladder 15m long just reaches the top of a vertical wall. If the ladder makes an angle of 60 degrees with the wall, then the length of the wall is:",15 √3 m,15 √2 m,15/2 m,15/√7 m,A
+453,Simplify: (x²-4x+4)-(x²-6x+9)/(x-3),2x+5/x-3,2x-5/x-3,x-3,2x+5,B
+454,"If person A completes a work in 12 days and person B completes it in 6 days, and they start working together, then in how many days will they complete the work?",3,4,5,None of these,B
+455,"When 3⁵ⁿ⁻⁹ = 3ⁿ⁺¹, then n is:",5,6,4,None of these,B
+456,"Julie has a square fence that enclosed her garden. She decided to expand her garden by making each side of the fence 10 percent longer. After this expansion, the area of Julie's garden will have increased by what percent?",21,23,25,27,D
+457,"Complete the series: 36, 34, 30, 28, 24, ____",20,22,23,26,B
+458,A table listed at Rs. 160 is marked 20 percent off. What is the sale price?,Rs. 125,Rs. 128,Rs. 120,Rs. 130,B
+459,"In the following alphabet series, one term is missing as shown by a question mark. Choose the missing term from the options: ABDG?",M,L,K,H,C
+460,P is 6 times greater than Q then by what per cent is Q smaller than P?,84 percent,85.5 percent,80 percent,None of these,D
+461,"If 3x + 2 = 2(2), find the value of (√x) - 1/(√x).",±2,±1,±4,None of these,A
+462,"Two numbers are in the ratio 3:5. If 9 is subtracted from each, the new numbers are in the ratio 12:23. The smaller original number is:",31,33,35,None of these,B
+463,"If Principal = Rs. 1,00,000, Rate of interest = 10 percent compounded half-yearly. Find the amount after one year.","Rs. 1,10,024","Rs. 1,10,250","Rs. 1,00,400","Rs. 1,10,850",B
+464,The cube root of 0.000216 is:,0.6,0.06,0.006,0.0006,B
+465,The value of x satisfying the equation 7x + 1 = 4x - 8 is:,400,380,-3,340,C
+466,"If 220 percent of a number X is 44, what is 44 percent of X?",8.8,44,8.6,None of these,A
+467,"x, 9, 25, 49, 81, 121. Find the value of x.",5,1,4,3,C
+468,A toy is sold for Rs. 220. What was the cost if the rate of profit was 10 percent of the cost?,198,202,200,201,C
+469,"A carpenter lays x bricks per hour for y hours and then lays x/2 bricks for 2y more hours. In terms of x and y, how many bricks did he lay in total?",xy,2xy,3xy,4xy,B
+470,"1,280 kilometers are nearly equal to:",1000 miles,800 miles,940 miles,None of these,B
+471,"If 6n - 2 = 2n - 1, find the value of n:",2n+2,3n-5,2n-2,None of these,D
+472,"The average of 6 numbers is 30. If the average of the first four is 25 and that of the last three is 35, the fourth number is:",25,30,35,None of these,A
+473,Solve: √64 + 3 =,8,3,4,11,D
+474,"If the average of five numbers is 6.92, then the sum of numbers is:",34,34.6,34.4,34.8,B
+475,How many subsets does an empty set have?,0,1,2,10,B
+476,"Complete the series: 2, 4, 10, 28, ''''",64,70,76,82,D
+477,What is 70 percent of 900?,600,610,620,630,D
+478,"If you borrow an amount of 300 Rs for one month, the borrower charged 6 Rs. The rate of interest is:",20 percent,22 percent,24 percent,26 percent,C

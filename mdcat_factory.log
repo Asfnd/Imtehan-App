@@ -1,0 +1,1776 @@
+
+═════════════════════════════════════════════════════════════════
+  🚀 MDCAT FACTORY — PMDC 2025 National
+  Model   : meta-llama/llama-4-maverick-17b-128e-instruct
+  Topics  : 63  ([63] per worker)
+  Workers : 1  (parallel, shared OpenAI key)
+  Target  : 19,075 MCQs  (~$1.30 estimated cost)
+  Started : 2026-02-19 15:24:49
+═════════════════════════════════════════════════════════════════
+
+  ✅ SKIP  Biology/Bioenergetics  (507/500)  [W1]
+  ✅ SKIP  Biology/Acellular Life  (140/125)  [W1]
+
+▶  Biology/Biological Molecules  (489 done → 1 batches)  [W1]
+  ✓  [01/01] Biology/Biological Molecules  [4]  → 19 saved  (1 low-quality dropped)  (total: 508)
+  🏁  Biology/Biological Molecules  → 508/500 on disk  [W1]
+  ✅ SKIP  Biology/Cell Structure and Function  (444/425)  [W1]
+
+▶  Biology/Coordination and Control  (233 done → 14 batches)  [W1]
+  ✓  [01/14] Biology/Coordination and Control  [4]  → 20 saved  (total: 253)
+  ✓  [02/14] Biology/Coordination and Control  [4]  → 16 saved  (4 low-quality dropped)  (total: 269)
+  ✓  [03/14] Biology/Coordination and Control  [4]  → 20 saved  (total: 289)
+  ✓  [04/14] Biology/Coordination and Control  [4]  → 20 saved  (total: 309)
+  ✓  [05/14] Biology/Coordination and Control  [4]  → 20 saved  (total: 329)
+  ✓  [06/14] Biology/Coordination and Control  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 347)
+  ✓  [07/14] Biology/Coordination and Control  [4]  → 18 saved  (2 dupes dropped)  (total: 365)
+  ✓  [08/14] Biology/Coordination and Control  [4]  → 19 saved  (1 dupes dropped)  (total: 384)
+  ✓  [09/14] Biology/Coordination and Control  [4]  → 19 saved  (1 dupes dropped)  (total: 403)
+  ✓  [10/14] Biology/Coordination and Control  [4]  → 18 saved  (2 dupes dropped)  (total: 421)
+  ✓  [11/14] Biology/Coordination and Control  [4]  → 20 saved  (total: 441)
+  ✓  [12/14] Biology/Coordination and Control  [4]  → 18 saved  (2 dupes dropped)  (total: 459)
+  ✓  [13/14] Biology/Coordination and Control  [4]  → 16 saved  (4 dupes dropped)  (total: 475)
+  ✓  [14/14] Biology/Coordination and Control  [4]  → 20 saved  (total: 495)
+  🏁  Biology/Coordination and Control  → 495/500 on disk  [W1]
+
+▶  Biology/Enzymes  (193 done → 7 batches)  [W1]
+  ✓  [01/07] Biology/Enzymes  [4]  → 16 saved  (4 low-quality dropped)  (total: 209)
+  ✓  [02/07] Biology/Enzymes  [4]  → 19 saved  (1 dupes dropped)  (total: 228)
+  ✓  [03/07] Biology/Enzymes  [4]  → 20 saved  (total: 248)
+  ✓  [04/07] Biology/Enzymes  [4]  → 14 saved  (2 low-quality dropped, 4 dupes dropped)  (total: 262)
+  ✓  [05/07] Biology/Enzymes  [4]  → 19 saved  (1 low-quality dropped)  (total: 281)
+  ✓  [06/07] Biology/Enzymes  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 299)
+  ✓  [07/07] Biology/Enzymes  [4]  → 16 saved  (4 dupes dropped)  (total: 315)
+  🏁  Biology/Enzymes  → 315/325 on disk  [W1]
+
+▶  Biology/Evolution  (162 done → 9 batches)  [W1]
+  ✓  [01/09] Biology/Evolution  [4]  → 18 saved  (2 low-quality dropped)  (total: 180)
+  ✓  [02/09] Biology/Evolution  [4]  → 20 saved  (total: 200)
+  ✓  [03/09] Biology/Evolution  [4]  → 19 saved  (1 low-quality dropped)  (total: 219)
+  ✓  [04/09] Biology/Evolution  [4]  → 19 saved  (1 dupes dropped)  (total: 238)
+  ✓  [05/09] Biology/Evolution  [4]  → 17 saved  (3 low-quality dropped)  (total: 255)
+  ✓  [06/09] Biology/Evolution  [4]  → 18 saved  (2 dupes dropped)  (total: 273)
+  ✓  [07/09] Biology/Evolution  [4]  → 18 saved  (2 dupes dropped)  (total: 291)
+  ✓  [08/09] Biology/Evolution  [4]  → 17 saved  (3 dupes dropped)  (total: 308)
+  ✓  [09/09] Biology/Evolution  [4]  → 20 saved  (total: 328)
+  🏁  Biology/Evolution  → 328/325 on disk  [W1]
+
+▶  Biology/Reproduction  (170 done → 11 batches)  [W1]
+  ✓  [01/11] Biology/Reproduction  [4]  → 20 saved  (total: 190)
+  ✓  [02/11] Biology/Reproduction  [4]  → 19 saved  (1 low-quality dropped)  (total: 209)
+  ✓  [03/11] Biology/Reproduction  [4]  → 20 saved  (total: 229)
+  ✗  [llama-4-maverick-17b-128e-instruct] [Reproduction] attempt 1: 1 validation error for MCQBatch
+mcqs.3.explanation
+  Field required [type=missing, input_value={'question': 'Spermatogen
+  ✓  [04/11] Biology/Reproduction  [4]  → 20 saved  (total: 249)
+  ✓  [05/11] Biology/Reproduction  [4]  → 19 saved  (1 dupes dropped)  (total: 268)
+  ✓  [06/11] Biology/Reproduction  [4]  → 20 saved  (total: 288)
+  ✓  [07/11] Biology/Reproduction  [4]  → 18 saved  (2 dupes dropped)  (total: 306)
+  ✗  [llama-4-maverick-17b-128e-instruct] [Reproduction] attempt 1: 1 validation error for MCQBatch
+mcqs.11.correct_answer
+  Field required [type=missing, input_value={'question': "A woman
+  ✓  [08/11] Biology/Reproduction  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 324)
+  ✓  [09/11] Biology/Reproduction  [4]  → 20 saved  (total: 344)
+  ✓  [10/11] Biology/Reproduction  [4]  → 10 saved  (7 low-quality dropped, 3 dupes dropped)  (total: 354)
+  ✓  [11/11] Biology/Reproduction  [4]  → 16 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 370)
+  🏁  Biology/Reproduction  → 370/375 on disk  [W1]
+
+▶  Biology/Support and Movement  (20 done → 18 batches)  [W1]
+  ✓  [01/18] Biology/Support and Movement  [4]  → 20 saved  (total: 40)
+  ✓  [02/18] Biology/Support and Movement  [4]  → 20 saved  (total: 60)
+  ✓  [03/18] Biology/Support and Movement  [4]  → 17 saved  (3 dupes dropped)  (total: 77)
+  ✓  [04/18] Biology/Support and Movement  [4]  → 20 saved  (total: 97)
+  ✓  [05/18] Biology/Support and Movement  [4]  → 18 saved  (2 dupes dropped)  (total: 115)
+  ✓  [06/18] Biology/Support and Movement  [4]  → 19 saved  (1 dupes dropped)  (total: 134)
+  ✓  [07/18] Biology/Support and Movement  [4]  → 15 saved  (1 low-quality dropped, 4 dupes dropped)  (total: 149)
+  ✓  [08/18] Biology/Support and Movement  [4]  → 20 saved  (total: 169)
+  ✓  [09/18] Biology/Support and Movement  [4]  → 14 saved  (6 dupes dropped)  (total: 183)
+  ✓  [10/18] Biology/Support and Movement  [4]  → 20 saved  (total: 203)
+  ✓  [11/18] Biology/Support and Movement  [4]  → 15 saved  (2 low-quality dropped, 3 dupes dropped)  (total: 218)
+  ✓  [12/18] Biology/Support and Movement  [4]  → 20 saved  (total: 238)
+  ✓  [13/18] Biology/Support and Movement  [4]  → 17 saved  (3 dupes dropped)  (total: 255)
+  ✓  [14/18] Biology/Support and Movement  [4]  → 20 saved  (total: 275)
+  ✓  [15/18] Biology/Support and Movement  [4]  → 18 saved  (2 dupes dropped)  (total: 293)
+  ✓  [16/18] Biology/Support and Movement  [4]  → 18 saved  (2 dupes dropped)  (total: 311)
+  ✓  [17/18] Biology/Support and Movement  [4]  → 18 saved  (2 dupes dropped)  (total: 329)
+  ✓  [18/18] Biology/Support and Movement  [4]  → 16 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 345)
+  🏁  Biology/Support and Movement  → 345/375 on disk  [W1]
+
+▶  Biology/Inheritance  (92 done → 21 batches)  [W1]
+  ✓  [01/21] Biology/Inheritance  [4]  → 19 saved  (1 low-quality dropped)  (total: 111)
+  ✓  [02/21] Biology/Inheritance  [4]  → 17 saved  (3 low-quality dropped)  (total: 128)
+  ✓  [03/21] Biology/Inheritance  [4]  → 19 saved  (1 dupes dropped)  (total: 147)
+  ✓  [04/21] Biology/Inheritance  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 165)
+  ✓  [05/21] Biology/Inheritance  [4]  → 16 saved  (4 dupes dropped)  (total: 181)
+  ✓  [06/21] Biology/Inheritance  [4]  → 17 saved  (3 dupes dropped)  (total: 198)
+  ✓  [07/21] Biology/Inheritance  [4]  → 16 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 214)
+  ✓  [08/21] Biology/Inheritance  [4]  → 20 saved  (total: 234)
+  ✓  [09/21] Biology/Inheritance  [4]  → 19 saved  (1 dupes dropped)  (total: 253)
+  ✓  [10/21] Biology/Inheritance  [4]  → 15 saved  (2 low-quality dropped, 3 dupes dropped)  (total: 268)
+  ✓  [11/21] Biology/Inheritance  [4]  → 12 saved  (1 low-quality dropped, 7 dupes dropped)  (total: 280)
+  ✓  [12/21] Biology/Inheritance  [4]  → 16 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 296)
+  ✓  [13/21] Biology/Inheritance  [4]  → 12 saved  (1 low-quality dropped, 7 dupes dropped)  (total: 308)
+  ✓  [14/21] Biology/Inheritance  [4]  → 17 saved  (3 dupes dropped)  (total: 325)
+  ✓  [15/21] Biology/Inheritance  [4]  → 19 saved  (1 dupes dropped)  (total: 344)
+  ✓  [16/21] Biology/Inheritance  [4]  → 12 saved  (1 low-quality dropped, 7 dupes dropped)  (total: 356)
+  ✓  [17/21] Biology/Inheritance  [4]  → 18 saved  (2 dupes dropped)  (total: 374)
+  ✓  [18/21] Biology/Inheritance  [4]  → 14 saved  (1 low-quality dropped, 5 dupes dropped)  (total: 388)
+  ✓  [19/21] Biology/Inheritance  [4]  → 16 saved  (4 dupes dropped)  (total: 404)
+  ✗  [llama-4-maverick-17b-128e-instruct] [Inheritance] attempt 1: 1 validation error for MCQBatch
+mcqs.17.subtopic
+  Field required [type=missing, input_value={'question': 'A genetic c..
+  ✓  [20/21] Biology/Inheritance  [4]  → 19 saved  (1 dupes dropped)  (total: 423)
+  ✓  [21/21] Biology/Inheritance  [4]  → 19 saved  (1 dupes dropped)  (total: 442)
+  🏁  Biology/Inheritance  → 442/500 on disk  [W1]
+
+▶  Biology/Circulation  (0 done → 19 batches)  [W1]
+  ✓  [01/19] Biology/Circulation  [4]  → 20 saved  (total: 20)
+  ✓  [02/19] Biology/Circulation  [4]  → 20 saved  (total: 40)
+  ✓  [03/19] Biology/Circulation  [4]  → 18 saved  (2 low-quality dropped)  (total: 58)
+  ✓  [04/19] Biology/Circulation  [4]  → 19 saved  (1 dupes dropped)  (total: 77)
+  ✓  [05/19] Biology/Circulation  [4]  → 19 saved  (1 dupes dropped)  (total: 96)
+  ✓  [06/19] Biology/Circulation  [4]  → 17 saved  (3 dupes dropped)  (total: 113)
+  ✓  [07/19] Biology/Circulation  [4]  → 15 saved  (1 low-quality dropped, 4 dupes dropped)  (total: 128)
+  ✓  [08/19] Biology/Circulation  [4]  → 19 saved  (1 dupes dropped)  (total: 147)
+  ✓  [09/19] Biology/Circulation  [4]  → 19 saved  (1 low-quality dropped)  (total: 166)
+  ✓  [10/19] Biology/Circulation  [4]  → 16 saved  (4 dupes dropped)  (total: 182)
+  ✓  [11/19] Biology/Circulation  [4]  → 18 saved  (2 dupes dropped)  (total: 200)
+  ✓  [12/19] Biology/Circulation  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 218)
+  ✓  [13/19] Biology/Circulation  [4]  → 13 saved  (1 low-quality dropped, 5 dupes dropped)  (total: 231)
+  ✓  [14/19] Biology/Circulation  [4]  → 19 saved  (1 low-quality dropped)  (total: 250)
+  ✓  [15/19] Biology/Circulation  [4]  → 18 saved  (2 dupes dropped)  (total: 268)
+  ✓  [16/19] Biology/Circulation  [4]  → 16 saved  (4 dupes dropped)  (total: 284)
+  ✓  [17/19] Biology/Circulation  [4]  → 13 saved  (7 dupes dropped)  (total: 297)
+  ✓  [18/19] Biology/Circulation  [4]  → 19 saved  (1 dupes dropped)  (total: 316)
+  ✗  [llama-4-maverick-17b-128e-instruct] [Circulation] attempt 1: 1 validation error for MCQBatch
+mcqs.2.correct_answer
+  Field required [type=missing, input_value={'question': 'What is 
+  ✓  [19/19] Biology/Circulation  [4]  → 13 saved  (1 low-quality dropped, 6 dupes dropped)  (total: 329)
+  🏁  Biology/Circulation  → 329/375 on disk  [W1]
+
+▶  Biology/Immunity  (0 done → 17 batches)  [W1]
+  ✓  [01/17] Biology/Immunity  [4]  → 19 saved  (1 low-quality dropped)  (total: 19)
+  ✓  [02/17] Biology/Immunity  [4]  → 18 saved  (2 low-quality dropped)  (total: 37)
+  ✓  [03/17] Biology/Immunity  [4]  → 20 saved  (total: 57)
+  ✓  [04/17] Biology/Immunity  [4]  → 19 saved  (1 dupes dropped)  (total: 76)
+  ✓  [05/17] Biology/Immunity  [4]  → 15 saved  (1 low-quality dropped, 4 dupes dropped)  (total: 91)
+  ✓  [06/17] Biology/Immunity  [4]  → 19 saved  (1 low-quality dropped)  (total: 110)
+  ✓  [07/17] Biology/Immunity  [4]  → 17 saved  (1 low-quality dropped, 2 dupes dropped)  (total: 127)
+  ✓  [08/17] Biology/Immunity  [4]  → 19 saved  (1 low-quality dropped)  (total: 146)
+  ✓  [09/17] Biology/Immunity  [4]  → 17 saved  (3 dupes dropped)  (total: 163)
+  ✓  [10/17] Biology/Immunity  [4]  → 16 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 179)
+  ✓  [11/17] Biology/Immunity  [4]  → 14 saved  (6 dupes dropped)  (total: 193)
+  ✓  [12/17] Biology/Immunity  [4]  → 18 saved  (2 dupes dropped)  (total: 211)
+  ✓  [13/17] Biology/Immunity  [4]  → 18 saved  (2 dupes dropped)  (total: 229)
+  ✓  [14/17] Biology/Immunity  [4]  → 20 saved  (total: 249)
+  ✓  [15/17] Biology/Immunity  [4]  → 19 saved  (1 dupes dropped)  (total: 268)
+  ✓  [16/17] Biology/Immunity  [4]  → 18 saved  (2 dupes dropped)  (total: 286)
+  ✓  [17/17] Biology/Immunity  [4]  → 11 saved  (1 low-quality dropped, 8 dupes dropped)  (total: 297)
+  🏁  Biology/Immunity  → 297/325 on disk  [W1]
+
+▶  Biology/Respiration  (0 done → 17 batches)  [W1]
+  ✓  [01/17] Biology/Respiration  [4]  → 19 saved  (1 low-quality dropped)  (total: 19)
+  ✓  [02/17] Biology/Respiration  [4]  → 20 saved  (total: 39)
+  ✓  [03/17] Biology/Respiration  [4]  → 20 saved  (total: 59)
+  ✓  [04/17] Biology/Respiration  [4]  → 18 saved  (2 dupes dropped)  (total: 77)
+  ✓  [05/17] Biology/Respiration  [4]  → 17 saved  (3 dupes dropped)  (total: 94)
+  ✓  [06/17] Biology/Respiration  [4]  → 17 saved  (1 low-quality dropped, 2 dupes dropped)  (total: 111)
+  ✓  [07/17] Biology/Respiration  [4]  → 14 saved  (1 low-quality dropped, 5 dupes dropped)  (total: 125)
+  ✓  [08/17] Biology/Respiration  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 143)
+  ✓  [09/17] Biology/Respiration  [4]  → 15 saved  (1 low-quality dropped, 4 dupes dropped)  (total: 158)
+  ✓  [10/17] Biology/Respiration  [4]  → 19 saved  (1 low-quality dropped)  (total: 177)
+  ✓  [11/17] Biology/Respiration  [4]  → 16 saved  (4 dupes dropped)  (total: 193)
+  ✓  [12/17] Biology/Respiration  [4]  → 15 saved  (5 dupes dropped)  (total: 208)
+  ✓  [13/17] Biology/Respiration  [4]  → 15 saved  (5 dupes dropped)  (total: 223)
+  ✓  [14/17] Biology/Respiration  [4]  → 19 saved  (1 dupes dropped)  (total: 242)
+  ✓  [15/17] Biology/Respiration  [4]  → 19 saved  (1 dupes dropped)  (total: 261)
+  ✓  [16/17] Biology/Respiration  [4]  → 18 saved  (2 dupes dropped)  (total: 279)
+  ✓  [17/17] Biology/Respiration  [4]  → 15 saved  (1 low-quality dropped, 4 dupes dropped)  (total: 294)
+  🏁  Biology/Respiration  → 294/325 on disk  [W1]
+
+▶  Biology/Digestion  (0 done → 20 batches)  [W1]
+  ✓  [01/20] Biology/Digestion  [4]  → 20 saved  (total: 20)
+  ✓  [02/20] Biology/Digestion  [4]  → 20 saved  (total: 40)
+  ✓  [03/20] Biology/Digestion  [4]  → 19 saved  (1 dupes dropped)  (total: 59)
+  ✓  [04/20] Biology/Digestion  [4]  → 20 saved  (total: 79)
+  ✓  [05/20] Biology/Digestion  [4]  → 20 saved  (total: 99)
+  ✓  [06/20] Biology/Digestion  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 117)
+  ✓  [07/20] Biology/Digestion  [4]  → 15 saved  (5 dupes dropped)  (total: 132)
+  ✓  [08/20] Biology/Digestion  [4]  → 16 saved  (2 low-quality dropped, 2 dupes dropped)  (total: 148)
+  ✓  [09/20] Biology/Digestion  [4]  → 18 saved  (2 dupes dropped)  (total: 166)
+  ✓  [10/20] Biology/Digestion  [4]  → 18 saved  (2 dupes dropped)  (total: 184)
+  ✓  [11/20] Biology/Digestion  [4]  → 19 saved  (1 low-quality dropped)  (total: 203)
+  ✓  [12/20] Biology/Digestion  [4]  → 18 saved  (2 dupes dropped)  (total: 221)
+  ✓  [13/20] Biology/Digestion  [4]  → 11 saved  (2 low-quality dropped, 7 dupes dropped)  (total: 232)
+  ✓  [14/20] Biology/Digestion  [4]  → 19 saved  (1 dupes dropped)  (total: 251)
+  ✓  [15/20] Biology/Digestion  [4]  → 15 saved  (4 low-quality dropped, 1 dupes dropped)  (total: 266)
+  ✓  [16/20] Biology/Digestion  [4]  → 18 saved  (2 dupes dropped)  (total: 284)
+  ✓  [17/20] Biology/Digestion  [4]  → 20 saved  (total: 304)
+  ✓  [18/20] Biology/Digestion  [4]  → 17 saved  (3 dupes dropped)  (total: 321)
+  ✗  [llama-4-maverick-17b-128e-instruct] [Digestion] attempt 1: 1 validation error for MCQBatch
+mcqs.2.explanation
+  Field required [type=missing, input_value={'question': 'A patient w
+  ✓  [19/20] Biology/Digestion  [4]  → 12 saved  (2 low-quality dropped, 6 dupes dropped)  (total: 333)
+  ✓  [20/20] Biology/Digestion  [4]  → 20 saved  (total: 353)
+  🏁  Biology/Digestion  → 353/400 on disk  [W1]
+
+▶  Biology/Homeostasis  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Biology/Homeostasis  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Biology/Homeostasis  [4]  → 20 saved  (total: 40)
+  ✓  [03/15] Biology/Homeostasis  [4]  → 20 saved  (total: 60)
+  ✓  [04/15] Biology/Homeostasis  [4]  → 18 saved  (2 dupes dropped)  (total: 78)
+  ✓  [05/15] Biology/Homeostasis  [4]  → 16 saved  (2 low-quality dropped, 2 dupes dropped)  (total: 94)
+  ✓  [06/15] Biology/Homeostasis  [4]  → 19 saved  (1 low-quality dropped)  (total: 113)
+  ✓  [07/15] Biology/Homeostasis  [4]  → 20 saved  (total: 133)
+  ✓  [08/15] Biology/Homeostasis  [4]  → 20 saved  (total: 153)
+  ✓  [09/15] Biology/Homeostasis  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 171)
+  ✓  [10/15] Biology/Homeostasis  [4]  → 19 saved  (1 low-quality dropped)  (total: 190)
+  ✓  [11/15] Biology/Homeostasis  [4]  → 20 saved  (total: 210)
+  ✓  [12/15] Biology/Homeostasis  [4]  → 18 saved  (2 dupes dropped)  (total: 228)
+  ✓  [13/15] Biology/Homeostasis  [4]  → 18 saved  (2 dupes dropped)  (total: 246)
+  ✓  [14/15] Biology/Homeostasis  [4]  → 19 saved  (1 dupes dropped)  (total: 265)
+  ✓  [15/15] Biology/Homeostasis  [4]  → 15 saved  (3 low-quality dropped, 2 dupes dropped)  (total: 280)
+  🏁  Biology/Homeostasis  → 280/300 on disk  [W1]
+
+▶  Biology/Biotechnology  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Biology/Biotechnology  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Biology/Biotechnology  [4]  → 18 saved  (2 low-quality dropped)  (total: 38)
+  ✓  [03/15] Biology/Biotechnology  [4]  → 20 saved  (total: 58)
+  ✓  [04/15] Biology/Biotechnology  [4]  → 19 saved  (1 low-quality dropped)  (total: 77)
+  ✓  [05/15] Biology/Biotechnology  [4]  → 17 saved  (1 low-quality dropped, 2 dupes dropped)  (total: 94)
+  ✓  [06/15] Biology/Biotechnology  [4]  → 19 saved  (1 low-quality dropped)  (total: 113)
+  ✓  [07/15] Biology/Biotechnology  [4]  → 17 saved  (2 low-quality dropped, 1 dupes dropped)  (total: 130)
+  ✓  [08/15] Biology/Biotechnology  [4]  → 19 saved  (1 dupes dropped)  (total: 149)
+  ✓  [09/15] Biology/Biotechnology  [4]  → 18 saved  (2 low-quality dropped)  (total: 167)
+  ✓  [10/15] Biology/Biotechnology  [4]  → 18 saved  (2 low-quality dropped)  (total: 185)
+  ✓  [11/15] Biology/Biotechnology  [4]  → 17 saved  (2 low-quality dropped, 1 dupes dropped)  (total: 202)
+  ✓  [12/15] Biology/Biotechnology  [4]  → 18 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 220)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Biotechnology] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 5: list index out of range
+  ✗✗ GAVE UP  Biology/Biotechnology batch 13  [W1]
+  ✗  [qwen3-32b] [Biotechnology] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 5: list index out of range
+  ✗✗ GAVE UP  Biology/Biotechnology batch 14  [W1]
+  ✗  [qwen3-32b] [Biotechnology] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Biotechnology] attempt 5: list index out of range
+  ✗✗ GAVE UP  Biology/Biotechnology batch 15  [W1]
+  🏁  Biology/Biotechnology  → 497/300 on disk  [W1]
+
+▶  Chemistry/Fundamental Concepts  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Chemistry/Fundamental Concepts  [4]  → 19 saved  (1 low-quality dropped)  (total: 19)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 2  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 3  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 4  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 5  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 6  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 7  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 8  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 9  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 10  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 11  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 12  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: Error code: 400 - {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 13  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 14  [W1]
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 1: Error code: 400 - {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Fundamental Concepts] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Fundamental Concepts batch 15  [W1]
+  🏁  Chemistry/Fundamental Concepts  → 1161/300 on disk  [W1]
+
+▶  Chemistry/Atomic Structure  (20 done → 18 batches)  [W1]
+  ✓  [01/18] Chemistry/Atomic Structure  [4]  → 20 saved  (total: 40)
+  ✓  [02/18] Chemistry/Atomic Structure  [4]  → 20 saved  (total: 60)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 3  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 4  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 5  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 6  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: 1 validation error for MCQBatch
+  Input should be an object [type=model_type, input_value=[{'question': 'A student ..., 
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 7  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: 1 validation error for MCQBatch
+  Input should be an object [type=model_type, input_value=[{'question': 'A hydrogen..., 
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 8  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 9  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: 1 validation error for MCQBatch
+  Input should be an object [type=model_type, input_value=[{'question': 'An electro...'d
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: Error code: 400 - {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✗  [qwen3-32b] [Atomic Structure] attempt 5: list index out of range
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 10  [W1]
+  ✗  [qwen3-32b] [Atomic Structure] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Structure] attempt 4: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✗✗ GAVE UP  Chemistry/Atomic Structure batch 11  [W1]
+  ✓  [12/18] Chemistry/Atomic Structure  [70b]  → 20 saved  (1 low-quality dropped)  (total: 798)
+  ✓  [13/18] Chemistry/Atomic Structure  [70b]  → 18 saved  (3 low-quality dropped)  (total: 816)
+  ✓  [14/18] Chemistry/Atomic Structure  [70b]  → 19 saved  (1 dupes dropped)  (total: 835)
+  ✓  [15/18] Chemistry/Atomic Structure  [70b]  → 4 saved  (14 low-quality dropped, 1 dupes dropped)  (total: 839)
+  ✓  [16/18] Chemistry/Atomic Structure  [70b]  → 21 saved  (total: 860)
+  ✓  [17/18] Chemistry/Atomic Structure  [70b]  → 20 saved  (4 low-quality dropped, 1 dupes dropped)  (total: 880)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [18/18] Chemistry/Atomic Structure  [8b]  → 9 saved  (11 dupes dropped)  (total: 889)
+  🏁  Chemistry/Atomic Structure  → 889/375 on disk  [W1]
+
+▶  Chemistry/Gases  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Chemistry/Gases  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Chemistry/Gases  [4]  → 19 saved  (1 dupes dropped)  (total: 39)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Gases] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [03/15] Chemistry/Gases  [8b]  → 15 saved  (2 dupes dropped)  (total: 71)
+  ✓  [04/15] Chemistry/Gases  [8b]  → 7 saved  (9 dupes dropped)  (total: 78)
+  ✓  [05/15] Chemistry/Gases  [8b]  → 15 saved  (1 dupes dropped)  (total: 93)
+  ✗  [llama-3.1-8b-instant] [Gases] attempt 1: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ✓  [06/15] Chemistry/Gases  [8b]  → 18 saved  (1 dupes dropped)  (total: 111)
+  ✓  [07/15] Chemistry/Gases  [8b]  → 13 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 124)
+  ✓  [08/15] Chemistry/Gases  [8b]  → 14 saved  (2 dupes dropped)  (total: 138)
+  ✓  [09/15] Chemistry/Gases  [8b]  → 17 saved  (total: 155)
+  ✓  [10/15] Chemistry/Gases  [8b]  → 12 saved  (3 dupes dropped)  (total: 167)
+  ✓  [11/15] Chemistry/Gases  [8b]  → 8 saved  (7 dupes dropped)  (total: 175)
+  ✓  [12/15] Chemistry/Gases  [8b]  → 16 saved  (2 dupes dropped)  (total: 191)
+  ✓  [13/15] Chemistry/Gases  [8b]  → 14 saved  (1 dupes dropped)  (total: 205)
+  ✓  [14/15] Chemistry/Gases  [8b]  → 15 saved  (total: 220)
+  ✓  [15/15] Chemistry/Gases  [8b]  → 10 saved  (10 dupes dropped)  (total: 230)
+  🏁  Chemistry/Gases  → 230/300 on disk  [W1]
+
+▶  Chemistry/Liquids  (0 done → 8 batches)  [W1]
+  ✓  [01/08] Chemistry/Liquids  [4]  → 20 saved  (total: 20)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Liquids] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/08] Chemistry/Liquids  [8b]  → 11 saved  (total: 45)
+  ✓  [03/08] Chemistry/Liquids  [8b]  → 9 saved  (1 low-quality dropped)  (total: 54)
+  ✓  [04/08] Chemistry/Liquids  [8b]  → 10 saved  (5 dupes dropped)  (total: 64)
+  ✓  [05/08] Chemistry/Liquids  [8b]  → 9 saved  (1 dupes dropped)  (total: 73)
+  ✓  [06/08] Chemistry/Liquids  [8b]  → 11 saved  (7 dupes dropped)  (total: 84)
+  ✓  [07/08] Chemistry/Liquids  [8b]  → 11 saved  (total: 95)
+  ✓  [08/08] Chemistry/Liquids  [8b]  → 14 saved  (2 dupes dropped)  (total: 109)
+  🏁  Chemistry/Liquids  → 109/150 on disk  [W1]
+
+▶  Chemistry/Solids  (20 done → 7 batches)  [W1]
+  ✓  [01/07] Chemistry/Solids  [4]  → 19 saved  (1 low-quality dropped)  (total: 39)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Solids] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/07] Chemistry/Solids  [8b]  → 15 saved  (total: 66)
+  ✓  [03/07] Chemistry/Solids  [8b]  → 13 saved  (2 dupes dropped)  (total: 79)
+  ✗  [llama-3.1-8b-instant] [Solids] attempt 1: 10 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, inpu
+  ✓  [04/07] Chemistry/Solids  [8b]  → 16 saved  (1 dupes dropped)  (total: 95)
+  ✓  [05/07] Chemistry/Solids  [8b]  → 8 saved  (total: 103)
+  ✓  [06/07] Chemistry/Solids  [8b]  → 13 saved  (1 dupes dropped)  (total: 116)
+  ✓  [07/07] Chemistry/Solids  [8b]  → 9 saved  (1 dupes dropped)  (total: 125)
+  🏁  Chemistry/Solids  → 125/150 on disk  [W1]
+
+▶  Chemistry/Chemical Equilibrium  (100 done → 20 batches)  [W1]
+  ✓  [01/20] Chemistry/Chemical Equilibrium  [4]  → 20 saved  (total: 120)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Chemical Equilibrium] attempt 2: 1 validation error for MCQBatch
+mcqs.2.correct_answer
+  Field required [type=missing, input_value={'question': 'A buffer
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [02/20] Chemistry/Chemical Equilibrium  [70b]  → 19 saved  (1 dupes dropped)  (total: 139)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [03/20] Chemistry/Chemical Equilibrium  [8b]  → 16 saved  (2 dupes dropped)  (total: 155)
+  ✓  [04/20] Chemistry/Chemical Equilibrium  [8b]  → 11 saved  (6 dupes dropped)  (total: 166)
+  ✓  [05/20] Chemistry/Chemical Equilibrium  [8b]  → 10 saved  (3 low-quality dropped, 5 dupes dropped)  (total: 176)
+  ✓  [06/20] Chemistry/Chemical Equilibrium  [8b]  → 6 saved  (5 low-quality dropped, 6 dupes dropped)  (total: 182)
+  ✓  [07/20] Chemistry/Chemical Equilibrium  [8b]  → 17 saved  (1 dupes dropped)  (total: 199)
+  ✓  [08/20] Chemistry/Chemical Equilibrium  [8b]  → 15 saved  (2 dupes dropped)  (total: 214)
+  ✓  [09/20] Chemistry/Chemical Equilibrium  [8b]  → 12 saved  (4 dupes dropped)  (total: 226)
+  ✓  [10/20] Chemistry/Chemical Equilibrium  [8b]  → 13 saved  (5 dupes dropped)  (total: 239)
+  ✓  [11/20] Chemistry/Chemical Equilibrium  [8b]  → 15 saved  (4 dupes dropped)  (total: 254)
+  ✓  [12/20] Chemistry/Chemical Equilibrium  [8b]  → 16 saved  (4 dupes dropped)  (total: 270)
+  ✓  [13/20] Chemistry/Chemical Equilibrium  [8b]  → 15 saved  (3 dupes dropped)  (total: 285)
+  ✓  [14/20] Chemistry/Chemical Equilibrium  [8b]  → 16 saved  (1 dupes dropped)  (total: 301)
+  ✓  [15/20] Chemistry/Chemical Equilibrium  [8b]  → 12 saved  (7 dupes dropped)  (total: 313)
+  ✓  [16/20] Chemistry/Chemical Equilibrium  [8b]  → 19 saved  (1 dupes dropped)  (total: 332)
+  ✓  [17/20] Chemistry/Chemical Equilibrium  [8b]  → 6 saved  (14 dupes dropped)  (total: 338)
+  ✓  [18/20] Chemistry/Chemical Equilibrium  [8b]  → 12 saved  (9 dupes dropped)  (total: 350)
+  ✓  [19/20] Chemistry/Chemical Equilibrium  [8b]  → 6 saved  (14 dupes dropped)  (total: 356)
+  ✓  [20/20] Chemistry/Chemical Equilibrium  [8b]  → 15 saved  (4 dupes dropped)  (total: 371)
+  🏁  Chemistry/Chemical Equilibrium  → 371/500 on disk  [W1]
+
+▶  Chemistry/Reaction Kinetics  (20 done → 14 batches)  [W1]
+  ✓  [01/14] Chemistry/Reaction Kinetics  [4]  → 19 saved  (1 low-quality dropped)  (total: 39)
+  ✓  [02/14] Chemistry/Reaction Kinetics  [4]  → 20 saved  (total: 59)
+  ✓  [03/14] Chemistry/Reaction Kinetics  [4]  → 19 saved  (1 low-quality dropped)  (total: 78)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Reaction Kinetics] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Reaction Kinetics] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [04/14] Chemistry/Reaction Kinetics  [70b]  → 19 saved  (total: 135)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [05/14] Chemistry/Reaction Kinetics  [8b]  → 10 saved  (6 dupes dropped)  (total: 145)
+  ✓  [06/14] Chemistry/Reaction Kinetics  [8b]  → 11 saved  (6 dupes dropped)  (total: 156)
+  ✓  [07/14] Chemistry/Reaction Kinetics  [8b]  → 15 saved  (1 dupes dropped)  (total: 171)
+  ✓  [08/14] Chemistry/Reaction Kinetics  [8b]  → 12 saved  (1 dupes dropped)  (total: 183)
+  ✓  [09/14] Chemistry/Reaction Kinetics  [8b]  → 16 saved  (1 dupes dropped)  (total: 199)
+  ✓  [10/14] Chemistry/Reaction Kinetics  [8b]  → 16 saved  (total: 215)
+  ✓  [11/14] Chemistry/Reaction Kinetics  [8b]  → 13 saved  (3 dupes dropped)  (total: 228)
+  ✗  [llama-3.1-8b-instant] [Reaction Kinetics] attempt 1: 2 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input
+  ✓  [12/14] Chemistry/Reaction Kinetics  [8b]  → 13 saved  (5 dupes dropped)  (total: 241)
+  ✓  [13/14] Chemistry/Reaction Kinetics  [8b]  → 14 saved  (2 dupes dropped)  (total: 255)
+  ✓  [14/14] Chemistry/Reaction Kinetics  [8b]  → 16 saved  (2 dupes dropped)  (total: 271)
+  🏁  Chemistry/Reaction Kinetics  → 271/300 on disk  [W1]
+
+▶  Chemistry/Thermochemistry  (20 done → 14 batches)  [W1]
+  ✗  [llama-4-maverick-17b-128e-instruct] [Thermochemistry] attempt 1: 1 validation error for MCQBatch
+mcqs.3.correct_answer
+  Field required [type=missing, input_value={'question': "Hess's L
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Thermochemistry] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✗✗ GAVE UP  Chemistry/Thermochemistry batch 1  [W1]
+  ✗  [llama-3.1-8b-instant] [Thermochemistry] attempt 1: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ✓  [02/14] Chemistry/Thermochemistry  [8b]  → 11 saved  (6 low-quality dropped, 1 dupes dropped)  (total: 50)
+  ✓  [03/14] Chemistry/Thermochemistry  [8b]  → 15 saved  (3 dupes dropped)  (total: 65)
+  ✓  [04/14] Chemistry/Thermochemistry  [8b]  → 15 saved  (1 dupes dropped)  (total: 80)
+  ✓  [05/14] Chemistry/Thermochemistry  [8b]  → 14 saved  (1 dupes dropped)  (total: 94)
+  ✓  [06/14] Chemistry/Thermochemistry  [8b]  → 13 saved  (2 low-quality dropped, 2 dupes dropped)  (total: 107)
+  ✓  [07/14] Chemistry/Thermochemistry  [8b]  → 17 saved  (1 dupes dropped)  (total: 124)
+  ✓  [08/14] Chemistry/Thermochemistry  [8b]  → 14 saved  (total: 138)
+  ✓  [09/14] Chemistry/Thermochemistry  [8b]  → 12 saved  (1 dupes dropped)  (total: 150)
+  ✗  [llama-3.1-8b-instant] [Thermochemistry] attempt 1: Error code: 400 - {'error': {'message': "Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✓  [10/14] Chemistry/Thermochemistry  [8b]  → 12 saved  (2 dupes dropped)  (total: 162)
+  ✓  [11/14] Chemistry/Thermochemistry  [8b]  → 17 saved  (total: 179)
+  ✗  [llama-3.1-8b-instant] [Thermochemistry] attempt 1: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ✓  [12/14] Chemistry/Thermochemistry  [8b]  → 12 saved  (11 dupes dropped)  (total: 191)
+  ✓  [13/14] Chemistry/Thermochemistry  [8b]  → 14 saved  (4 dupes dropped)  (total: 205)
+  ✓  [14/14] Chemistry/Thermochemistry  [8b]  → 12 saved  (11 dupes dropped)  (total: 217)
+  🏁  Chemistry/Thermochemistry  → 217/300 on disk  [W1]
+
+▶  Chemistry/Electrochemistry  (20 done → 14 batches)  [W1]
+  ✓  [01/14] Chemistry/Electrochemistry  [4]  → 19 saved  (1 low-quality dropped)  (total: 39)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Electrochemistry] attempt 2: 1 validation error for MCQBatch
+mcqs.3.correct_answer
+  Field required [type=missing, input_value={'question': 'An elect
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/14] Chemistry/Electrochemistry  [8b]  → 18 saved  (total: 57)
+  ✓  [03/14] Chemistry/Electrochemistry  [8b]  → 14 saved  (3 dupes dropped)  (total: 71)
+  ✓  [04/14] Chemistry/Electrochemistry  [8b]  → 11 saved  (8 dupes dropped)  (total: 82)
+  ✓  [05/14] Chemistry/Electrochemistry  [8b]  → 11 saved  (5 dupes dropped)  (total: 93)
+  ✓  [06/14] Chemistry/Electrochemistry  [8b]  → 7 saved  (12 dupes dropped)  (total: 100)
+  ✓  [07/14] Chemistry/Electrochemistry  [8b]  → 11 saved  (5 dupes dropped)  (total: 111)
+  ✓  [08/14] Chemistry/Electrochemistry  [8b]  → 16 saved  (total: 127)
+  ✓  [09/14] Chemistry/Electrochemistry  [8b]  → 8 saved  (11 dupes dropped)  (total: 135)
+  ✗  [llama-3.1-8b-instant] [Electrochemistry] attempt 1: 19 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, inpu
+  ✗  [llama-3.1-8b-instant] [Electrochemistry] attempt 2: Error code: 400 - {'error': {'message': "Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✓  [10/14] Chemistry/Electrochemistry  [8b]  → 9 saved  (6 dupes dropped)  (total: 144)
+  ✓  [11/14] Chemistry/Electrochemistry  [8b]  → 8 saved  (8 dupes dropped)  (total: 152)
+  ✓  [12/14] Chemistry/Electrochemistry  [8b]  → 13 saved  (2 dupes dropped)  (total: 165)
+  ✓  [13/14] Chemistry/Electrochemistry  [8b]  → 16 saved  (1 dupes dropped)  (total: 181)
+  ✓  [14/14] Chemistry/Electrochemistry  [8b]  → 12 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 193)
+  🏁  Chemistry/Electrochemistry  → 193/300 on disk  [W1]
+
+▶  Chemistry/Chemical Bonding  (239 done → 14 batches)  [W1]
+  ✓  [01/14] Chemistry/Chemical Bonding  [4]  → 18 saved  (2 low-quality dropped)  (total: 257)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Chemical Bonding] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [02/14] Chemistry/Chemical Bonding  [70b]  → 19 saved  (1 dupes dropped)  (total: 284)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [03/14] Chemistry/Chemical Bonding  [8b]  → 16 saved  (3 dupes dropped)  (total: 300)
+  ✓  [04/14] Chemistry/Chemical Bonding  [8b]  → 16 saved  (1 dupes dropped)  (total: 316)
+  ✓  [05/14] Chemistry/Chemical Bonding  [8b]  → 14 saved  (5 dupes dropped)  (total: 330)
+  ✓  [06/14] Chemistry/Chemical Bonding  [8b]  → 21 saved  (1 dupes dropped)  (total: 351)
+  ✓  [07/14] Chemistry/Chemical Bonding  [8b]  → 19 saved  (2 dupes dropped)  (total: 370)
+  ✓  [08/14] Chemistry/Chemical Bonding  [8b]  → 20 saved  (2 dupes dropped)  (total: 390)
+  ✓  [09/14] Chemistry/Chemical Bonding  [8b]  → 10 saved  (10 dupes dropped)  (total: 400)
+  ✓  [10/14] Chemistry/Chemical Bonding  [8b]  → 16 saved  (1 dupes dropped)  (total: 416)
+  ✓  [11/14] Chemistry/Chemical Bonding  [8b]  → 16 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 432)
+  ✓  [12/14] Chemistry/Chemical Bonding  [8b]  → 17 saved  (2 dupes dropped)  (total: 449)
+  ✓  [13/14] Chemistry/Chemical Bonding  [8b]  → 8 saved  (11 dupes dropped)  (total: 457)
+  ✓  [14/14] Chemistry/Chemical Bonding  [8b]  → 20 saved  (1 dupes dropped)  (total: 477)
+  🏁  Chemistry/Chemical Bonding  → 477/500 on disk  [W1]
+
+▶  Chemistry/S and P Block Elements  (120 done → 14 batches)  [W1]
+  ✓  [01/14] Chemistry/S and P Block Elements  [4]  → 17 saved  (3 low-quality dropped)  (total: 137)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [S and P Block Elements] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✗  [llama-3.1-8b-instant] [S and P Block Elements] attempt 5: 3 validation errors for MCQBatch
+mcqs.2.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input
+  ✗✗ GAVE UP  Chemistry/S and P Block Elements batch 2  [W1]
+  ✓  [03/14] Chemistry/S and P Block Elements  [8b]  → 3 saved  (total: 153)
+  ✓  [04/14] Chemistry/S and P Block Elements  [8b]  → 13 saved  (1 dupes dropped)  (total: 166)
+  ✓  [05/14] Chemistry/S and P Block Elements  [8b]  → 5 saved  (total: 171)
+  ✓  [06/14] Chemistry/S and P Block Elements  [8b]  → 7 saved  (1 dupes dropped)  (total: 178)
+  ✓  [07/14] Chemistry/S and P Block Elements  [8b]  → 8 saved  (total: 186)
+  ✓  [08/14] Chemistry/S and P Block Elements  [8b]  → 15 saved  (2 dupes dropped)  (total: 201)
+  ✓  [09/14] Chemistry/S and P Block Elements  [8b]  → 13 saved  (2 dupes dropped)  (total: 214)
+  ✓  [10/14] Chemistry/S and P Block Elements  [8b]  → 14 saved  (3 dupes dropped)  (total: 228)
+  ✓  [11/14] Chemistry/S and P Block Elements  [8b]  → 13 saved  (5 dupes dropped)  (total: 241)
+  ✓  [12/14] Chemistry/S and P Block Elements  [8b]  → 17 saved  (total: 258)
+  ✓  [13/14] Chemistry/S and P Block Elements  [8b]  → 11 saved  (6 dupes dropped)  (total: 269)
+  ✓  [14/14] Chemistry/S and P Block Elements  [8b]  → 17 saved  (1 dupes dropped)  (total: 286)
+  🏁  Chemistry/S and P Block Elements  → 286/400 on disk  [W1]
+
+▶  Chemistry/Transition Elements  (20 done → 14 batches)  [W1]
+  ✓  [01/14] Chemistry/Transition Elements  [4]  → 20 saved  (total: 40)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Transition Elements] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/14] Chemistry/Transition Elements  [8b]  → 14 saved  (4 dupes dropped)  (total: 68)
+  ✓  [03/14] Chemistry/Transition Elements  [8b]  → 14 saved  (3 dupes dropped)  (total: 82)
+  ✓  [04/14] Chemistry/Transition Elements  [8b]  → 16 saved  (1 dupes dropped)  (total: 98)
+  ✓  [05/14] Chemistry/Transition Elements  [8b]  → 11 saved  (7 dupes dropped)  (total: 109)
+  ✓  [06/14] Chemistry/Transition Elements  [8b]  → 15 saved  (1 dupes dropped)  (total: 124)
+  ✓  [07/14] Chemistry/Transition Elements  [8b]  → 10 saved  (8 dupes dropped)  (total: 134)
+  ✓  [08/14] Chemistry/Transition Elements  [8b]  → 13 saved  (1 dupes dropped)  (total: 147)
+  ✓  [09/14] Chemistry/Transition Elements  [8b]  → 15 saved  (3 dupes dropped)  (total: 162)
+  ✗  [llama-3.1-8b-instant] [Transition Elements] attempt 1: 13 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, inpu
+  ✓  [10/14] Chemistry/Transition Elements  [8b]  → 14 saved  (1 dupes dropped)  (total: 176)
+  ✓  [11/14] Chemistry/Transition Elements  [8b]  → 14 saved  (3 dupes dropped)  (total: 190)
+  ✓  [12/14] Chemistry/Transition Elements  [8b]  → 15 saved  (2 dupes dropped)  (total: 205)
+  ✓  [13/14] Chemistry/Transition Elements  [8b]  → 10 saved  (7 dupes dropped)  (total: 215)
+  ✓  [14/14] Chemistry/Transition Elements  [8b]  → 10 saved  (10 dupes dropped)  (total: 225)
+  🏁  Chemistry/Transition Elements  → 225/300 on disk  [W1]
+
+▶  Chemistry/Fundamental Principles of Organic Chemistry  (239 done → 7 batches)  [W1]
+  ✓  [01/07] Chemistry/Fundamental Principles of Organic Chemistry  [4]  → 20 saved  (total: 259)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Fundamental Principles of Organic Chemistry] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [02/07] Chemistry/Fundamental Principles of Organic Chemistry  [70b]  → 8 saved  (12 low-quality dropped)  (total: 283)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [03/07] Chemistry/Fundamental Principles of Organic Chemistry  [8b]  → 14 saved  (3 dupes dropped)  (total: 297)
+  ✓  [04/07] Chemistry/Fundamental Principles of Organic Chemistry  [8b]  → 13 saved  (5 dupes dropped)  (total: 310)
+  ✓  [05/07] Chemistry/Fundamental Principles of Organic Chemistry  [8b]  → 10 saved  (9 dupes dropped)  (total: 320)
+  ✗  [llama-3.1-8b-instant] [Fundamental Principles of Organic Chemistry] attempt 1: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ✓  [06/07] Chemistry/Fundamental Principles of Organic Chemistry  [8b]  → 15 saved  (4 dupes dropped)  (total: 335)
+  ✓  [07/07] Chemistry/Fundamental Principles of Organic Chemistry  [8b]  → 7 saved  (12 dupes dropped)  (total: 342)
+  🏁  Chemistry/Fundamental Principles of Organic Chemistry  → 342/375 on disk  [W1]
+
+▶  Chemistry/Hydrocarbons  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Chemistry/Hydrocarbons  [4]  → 20 saved  (total: 20)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Hydrocarbons] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/15] Chemistry/Hydrocarbons  [8b]  → 15 saved  (total: 52)
+  ✓  [03/15] Chemistry/Hydrocarbons  [8b]  → 8 saved  (9 dupes dropped)  (total: 60)
+  ✓  [04/15] Chemistry/Hydrocarbons  [8b]  → 13 saved  (4 dupes dropped)  (total: 73)
+  ✓  [05/15] Chemistry/Hydrocarbons  [8b]  → 14 saved  (4 dupes dropped)  (total: 87)
+  ✓  [06/15] Chemistry/Hydrocarbons  [8b]  → 17 saved  (1 dupes dropped)  (total: 104)
+  ✓  [07/15] Chemistry/Hydrocarbons  [8b]  → 15 saved  (1 dupes dropped)  (total: 119)
+  ✓  [08/15] Chemistry/Hydrocarbons  [8b]  → 15 saved  (1 dupes dropped)  (total: 134)
+  ✓  [09/15] Chemistry/Hydrocarbons  [8b]  → 14 saved  (3 dupes dropped)  (total: 148)
+  ✓  [10/15] Chemistry/Hydrocarbons  [8b]  → 13 saved  (3 dupes dropped)  (total: 161)
+  ✓  [11/15] Chemistry/Hydrocarbons  [8b]  → 9 saved  (9 dupes dropped)  (total: 170)
+  ✓  [12/15] Chemistry/Hydrocarbons  [8b]  → 15 saved  (1 dupes dropped)  (total: 185)
+  ✓  [13/15] Chemistry/Hydrocarbons  [8b]  → 13 saved  (5 dupes dropped)  (total: 198)
+  ✓  [14/15] Chemistry/Hydrocarbons  [8b]  → 18 saved  (2 dupes dropped)  (total: 216)
+  ✓  [15/15] Chemistry/Hydrocarbons  [8b]  → 13 saved  (4 dupes dropped)  (total: 229)
+  🏁  Chemistry/Hydrocarbons  → 229/300 on disk  [W1]
+  ✅ SKIP  Chemistry/Alkyl Halides  (160/150)  [W1]
+
+▶  Chemistry/Alcohols and Phenols  (80 done → 11 batches)  [W1]
+  ✓  [01/11] Chemistry/Alcohols and Phenols  [4]  → 20 saved  (total: 100)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Alcohols and Phenols] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/11] Chemistry/Alcohols and Phenols  [8b]  → 16 saved  (total: 133)
+  ✓  [03/11] Chemistry/Alcohols and Phenols  [8b]  → 14 saved  (1 dupes dropped)  (total: 147)
+  ✓  [04/11] Chemistry/Alcohols and Phenols  [8b]  → 16 saved  (total: 163)
+  ✓  [05/11] Chemistry/Alcohols and Phenols  [8b]  → 12 saved  (4 dupes dropped)  (total: 175)
+  ✓  [06/11] Chemistry/Alcohols and Phenols  [8b]  → 15 saved  (1 dupes dropped)  (total: 190)
+  ✓  [07/11] Chemistry/Alcohols and Phenols  [8b]  → 15 saved  (1 dupes dropped)  (total: 205)
+  ✓  [08/11] Chemistry/Alcohols and Phenols  [8b]  → 15 saved  (total: 220)
+  ✓  [09/11] Chemistry/Alcohols and Phenols  [8b]  → 11 saved  (6 dupes dropped)  (total: 231)
+  ✓  [10/11] Chemistry/Alcohols and Phenols  [8b]  → 15 saved  (3 dupes dropped)  (total: 246)
+  ✓  [11/11] Chemistry/Alcohols and Phenols  [8b]  → 12 saved  (8 dupes dropped)  (total: 258)
+  🏁  Chemistry/Alcohols and Phenols  → 258/300 on disk  [W1]
+
+▶  Chemistry/Aldehydes and Ketones  (199 done → 6 batches)  [W1]
+  ✓  [01/06] Chemistry/Aldehydes and Ketones  [4]  → 19 saved  (1 low-quality dropped)  (total: 218)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Aldehydes and Ketones] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [02/06] Chemistry/Aldehydes and Ketones  [70b]  → 18 saved  (2 dupes dropped)  (total: 250)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✗  [llama-3.1-8b-instant] [Aldehydes and Ketones] attempt 2: 2 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input
+  ✓  [03/06] Chemistry/Aldehydes and Ketones  [8b]  → 12 saved  (4 dupes dropped)  (total: 262)
+  ✓  [04/06] Chemistry/Aldehydes and Ketones  [8b]  → 16 saved  (1 dupes dropped)  (total: 278)
+  ✓  [05/06] Chemistry/Aldehydes and Ketones  [8b]  → 10 saved  (8 dupes dropped)  (total: 288)
+  ✓  [06/06] Chemistry/Aldehydes and Ketones  [8b]  → 12 saved  (4 dupes dropped)  (total: 300)
+  🏁  Chemistry/Aldehydes and Ketones  → 300/300 on disk  [W1]
+
+▶  Chemistry/Carboxylic Acids  (0 done → 8 batches)  [W1]
+  ✓  [01/08] Chemistry/Carboxylic Acids  [4]  → 18 saved  (2 low-quality dropped)  (total: 18)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Carboxylic Acids] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/08] Chemistry/Carboxylic Acids  [8b]  → 12 saved  (total: 50)
+  ✓  [03/08] Chemistry/Carboxylic Acids  [8b]  → 12 saved  (2 dupes dropped)  (total: 62)
+  ✓  [04/08] Chemistry/Carboxylic Acids  [8b]  → 9 saved  (1 dupes dropped)  (total: 71)
+  ✓  [05/08] Chemistry/Carboxylic Acids  [8b]  → 12 saved  (3 dupes dropped)  (total: 83)
+  ✓  [06/08] Chemistry/Carboxylic Acids  [8b]  → 14 saved  (2 dupes dropped)  (total: 97)
+  ✓  [07/08] Chemistry/Carboxylic Acids  [8b]  → 13 saved  (1 dupes dropped)  (total: 110)
+  ✓  [08/08] Chemistry/Carboxylic Acids  [8b]  → 10 saved  (1 dupes dropped)  (total: 120)
+  🏁  Chemistry/Carboxylic Acids  → 120/150 on disk  [W1]
+
+▶  Chemistry/Macromolecules  (139 done → 6 batches)  [W1]
+  ✓  [01/06] Chemistry/Macromolecules  [4]  → 20 saved  (total: 159)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Macromolecules] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/06] Chemistry/Macromolecules  [8b]  → 13 saved  (4 dupes dropped)  (total: 192)
+  ✓  [03/06] Chemistry/Macromolecules  [8b]  → 15 saved  (1 dupes dropped)  (total: 207)
+  ✓  [04/06] Chemistry/Macromolecules  [8b]  → 14 saved  (2 dupes dropped)  (total: 221)
+  ✓  [05/06] Chemistry/Macromolecules  [8b]  → 18 saved  (1 dupes dropped)  (total: 239)
+  ✓  [06/06] Chemistry/Macromolecules  [8b]  → 16 saved  (1 dupes dropped)  (total: 255)
+  🏁  Chemistry/Macromolecules  → 255/250 on disk  [W1]
+
+▶  Physics/Vectors and Equilibrium  (280 done → 1 batches)  [W1]
+  ✓  [01/01] Physics/Vectors and Equilibrium  [4]  → 20 saved  (total: 300)
+  🏁  Physics/Vectors and Equilibrium  → 300/300 on disk  [W1]
+
+▶  Physics/Force and Motion  (0 done → 25 batches)  [W1]
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Force and Motion] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [01/25] Physics/Force and Motion  [8b]  → 18 saved  (1 dupes dropped)  (total: 38)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [02/25] Physics/Force and Motion  [8b]  → 16 saved  (1 dupes dropped)  (total: 54)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [03/25] Physics/Force and Motion  [8b]  → 14 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 68)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [04/25] Physics/Force and Motion  [8b]  → 19 saved  (2 dupes dropped)  (total: 87)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [05/25] Physics/Force and Motion  [8b]  → 11 saved  (11 dupes dropped)  (total: 98)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [06/25] Physics/Force and Motion  [8b]  → 15 saved  (1 dupes dropped)  (total: 113)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [07/25] Physics/Force and Motion  [8b]  → 13 saved  (2 low-quality dropped, 1 dupes dropped)  (total: 126)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [08/25] Physics/Force and Motion  [8b]  → 18 saved  (1 dupes dropped)  (total: 144)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [09/25] Physics/Force and Motion  [8b]  → 17 saved  (1 dupes dropped)  (total: 161)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [10/25] Physics/Force and Motion  [8b]  → 13 saved  (4 dupes dropped)  (total: 174)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [11/25] Physics/Force and Motion  [8b]  → 18 saved  (1 dupes dropped)  (total: 192)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [12/25] Physics/Force and Motion  [8b]  → 22 saved  (1 dupes dropped)  (total: 214)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [13/25] Physics/Force and Motion  [8b]  → 19 saved  (total: 233)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [14/25] Physics/Force and Motion  [8b]  → 15 saved  (2 dupes dropped)  (total: 248)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Force and Motion] attempt 3: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 80s
+  ✓  [15/25] Physics/Force and Motion  [8b]  → 17 saved  (1 low-quality dropped)  (total: 265)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Force and Motion] attempt 3: 13 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, inpu
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 80s
+  ✓  [16/25] Physics/Force and Motion  [8b]  → 14 saved  (3 dupes dropped)  (total: 279)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [17/25] Physics/Force and Motion  [8b]  → 19 saved  (1 dupes dropped)  (total: 298)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [18/25] Physics/Force and Motion  [8b]  → 16 saved  (4 dupes dropped)  (total: 314)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [19/25] Physics/Force and Motion  [8b]  → 16 saved  (1 dupes dropped)  (total: 330)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [20/25] Physics/Force and Motion  [8b]  → 15 saved  (4 dupes dropped)  (total: 345)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [21/25] Physics/Force and Motion  [8b]  → 17 saved  (1 dupes dropped)  (total: 362)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [22/25] Physics/Force and Motion  [8b]  → 21 saved  (3 dupes dropped)  (total: 383)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [23/25] Physics/Force and Motion  [8b]  → 16 saved  (3 dupes dropped)  (total: 399)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [24/25] Physics/Force and Motion  [8b]  → 17 saved  (3 dupes dropped)  (total: 416)
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Force and Motion] → waiting 40s
+  ✓  [25/25] Physics/Force and Motion  [8b]  → 15 saved  (4 dupes dropped)  (total: 431)
+  🏁  Physics/Force and Motion  → 431/500 on disk  [W1]
+
+▶  Physics/Work and Energy  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Work and Energy  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Physics/Work and Energy  [4]  → 20 saved  (total: 40)
+  ✓  [03/15] Physics/Work and Energy  [4]  → 20 saved  (total: 60)
+  ✓  [04/15] Physics/Work and Energy  [4]  → 20 saved  (total: 80)
+  ✓  [05/15] Physics/Work and Energy  [4]  → 20 saved  (total: 100)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Work and Energy] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Work and Energy] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Work and Energy] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Work and Energy] attempt 5: list index out of range
+  ✗✗ GAVE UP  Physics/Work and Energy batch 6  [W1]
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [07/15] Physics/Work and Energy  [70b]  → 17 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 198)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [08/15] Physics/Work and Energy  [8b]  → 16 saved  (total: 214)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✓  [09/15] Physics/Work and Energy  [8b]  → 16 saved  (total: 230)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✓  [10/15] Physics/Work and Energy  [8b]  → 11 saved  (5 dupes dropped)  (total: 241)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✓  [11/15] Physics/Work and Energy  [8b]  → 10 saved  (8 dupes dropped)  (total: 251)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Work and Energy] attempt 3: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 80s
+  ✓  [12/15] Physics/Work and Energy  [8b]  → 10 saved  (9 dupes dropped)  (total: 261)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✓  [13/15] Physics/Work and Energy  [8b]  → 14 saved  (1 dupes dropped)  (total: 275)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✓  [14/15] Physics/Work and Energy  [8b]  → 15 saved  (2 dupes dropped)  (total: 290)
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Work and Energy] → waiting 40s
+  ✓  [15/15] Physics/Work and Energy  [8b]  → 14 saved  (2 dupes dropped)  (total: 304)
+  🏁  Physics/Work and Energy  → 304/300 on disk  [W1]
+
+▶  Physics/Rotational and Circular Motion  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Rotational and Circular Motion  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Physics/Rotational and Circular Motion  [4]  → 20 saved  (total: 40)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Rotational and Circular Motion] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Rotational and Circular Motion] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [03/15] Physics/Rotational and Circular Motion  [70b]  → 20 saved  (total: 95)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [04/15] Physics/Rotational and Circular Motion  [8b]  → 15 saved  (4 dupes dropped)  (total: 110)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [05/15] Physics/Rotational and Circular Motion  [8b]  → 15 saved  (2 dupes dropped)  (total: 125)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [06/15] Physics/Rotational and Circular Motion  [8b]  → 10 saved  (7 dupes dropped)  (total: 135)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [07/15] Physics/Rotational and Circular Motion  [8b]  → 12 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 147)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [08/15] Physics/Rotational and Circular Motion  [8b]  → 14 saved  (2 dupes dropped)  (total: 161)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [09/15] Physics/Rotational and Circular Motion  [8b]  → 15 saved  (2 dupes dropped)  (total: 176)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [10/15] Physics/Rotational and Circular Motion  [8b]  → 15 saved  (2 dupes dropped)  (total: 191)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [11/15] Physics/Rotational and Circular Motion  [8b]  → 13 saved  (4 dupes dropped)  (total: 204)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [12/15] Physics/Rotational and Circular Motion  [8b]  → 13 saved  (3 dupes dropped)  (total: 217)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [13/15] Physics/Rotational and Circular Motion  [8b]  → 17 saved  (total: 234)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [14/15] Physics/Rotational and Circular Motion  [8b]  → 15 saved  (2 dupes dropped)  (total: 249)
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Rotational and Circular Motion] → waiting 40s
+  ✓  [15/15] Physics/Rotational and Circular Motion  [8b]  → 9 saved  (8 dupes dropped)  (total: 258)
+  🏁  Physics/Rotational and Circular Motion  → 258/300 on disk  [W1]
+
+▶  Physics/Fluid Dynamics  (20 done → 14 batches)  [W1]
+  ✓  [01/14] Physics/Fluid Dynamics  [4]  → 19 saved  (1 low-quality dropped)  (total: 39)
+  ✓  [02/14] Physics/Fluid Dynamics  [4]  → 20 saved  (total: 59)
+  ✓  [03/14] Physics/Fluid Dynamics  [4]  → 20 saved  (total: 79)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Fluid Dynamics] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Fluid Dynamics] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [04/14] Physics/Fluid Dynamics  [70b]  → 17 saved  (4 dupes dropped)  (total: 137)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [05/14] Physics/Fluid Dynamics  [8b]  → 15 saved  (4 dupes dropped)  (total: 152)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [06/14] Physics/Fluid Dynamics  [8b]  → 16 saved  (total: 168)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [07/14] Physics/Fluid Dynamics  [8b]  → 15 saved  (1 dupes dropped)  (total: 183)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [08/14] Physics/Fluid Dynamics  [8b]  → 16 saved  (total: 199)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [09/14] Physics/Fluid Dynamics  [8b]  → 15 saved  (1 dupes dropped)  (total: 214)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [10/14] Physics/Fluid Dynamics  [8b]  → 13 saved  (total: 227)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [11/14] Physics/Fluid Dynamics  [8b]  → 15 saved  (1 dupes dropped)  (total: 242)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [12/14] Physics/Fluid Dynamics  [8b]  → 14 saved  (4 dupes dropped)  (total: 256)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ✓  [13/14] Physics/Fluid Dynamics  [8b]  → 15 saved  (total: 271)
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Fluid Dynamics] → waiting 40s
+  ✓  [14/14] Physics/Fluid Dynamics  [8b]  → 14 saved  (total: 285)
+  🏁  Physics/Fluid Dynamics  → 285/300 on disk  [W1]
+
+▶  Physics/Waves  (0 done → 25 batches)  [W1]
+  ✓  [01/25] Physics/Waves  [4]  → 20 saved  (total: 20)
+  ✓  [02/25] Physics/Waves  [4]  → 20 saved  (total: 40)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Waves] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Waves] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [03/25] Physics/Waves  [70b]  → 24 saved  (total: 103)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [04/25] Physics/Waves  [8b]  → 17 saved  (total: 120)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [05/25] Physics/Waves  [8b]  → 16 saved  (total: 136)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [06/25] Physics/Waves  [8b]  → 13 saved  (4 dupes dropped)  (total: 149)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [07/25] Physics/Waves  [8b]  → 20 saved  (total: 169)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [08/25] Physics/Waves  [8b]  → 13 saved  (1 dupes dropped)  (total: 182)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [09/25] Physics/Waves  [8b]  → 17 saved  (1 dupes dropped)  (total: 199)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [10/25] Physics/Waves  [8b]  → 15 saved  (2 dupes dropped)  (total: 214)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [11/25] Physics/Waves  [8b]  → 12 saved  (5 dupes dropped)  (total: 226)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [12/25] Physics/Waves  [8b]  → 15 saved  (2 dupes dropped)  (total: 241)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [13/25] Physics/Waves  [8b]  → 17 saved  (2 dupes dropped)  (total: 258)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [14/25] Physics/Waves  [8b]  → 16 saved  (1 dupes dropped)  (total: 274)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [15/25] Physics/Waves  [8b]  → 8 saved  (2 dupes dropped)  (total: 282)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [16/25] Physics/Waves  [8b]  → 17 saved  (1 dupes dropped)  (total: 299)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [17/25] Physics/Waves  [8b]  → 17 saved  (1 dupes dropped)  (total: 316)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [18/25] Physics/Waves  [8b]  → 11 saved  (6 dupes dropped)  (total: 327)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [19/25] Physics/Waves  [8b]  → 19 saved  (2 dupes dropped)  (total: 346)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [20/25] Physics/Waves  [8b]  → 14 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 360)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [21/25] Physics/Waves  [8b]  → 12 saved  (8 dupes dropped)  (total: 372)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [22/25] Physics/Waves  [8b]  → 14 saved  (4 dupes dropped)  (total: 386)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [23/25] Physics/Waves  [8b]  → 19 saved  (1 dupes dropped)  (total: 405)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [24/25] Physics/Waves  [8b]  → 18 saved  (1 dupes dropped)  (total: 423)
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Waves] → waiting 40s
+  ✓  [25/25] Physics/Waves  [8b]  → 17 saved  (2 dupes dropped)  (total: 440)
+  🏁  Physics/Waves  → 440/500 on disk  [W1]
+
+▶  Physics/Thermodynamics  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Thermodynamics  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Physics/Thermodynamics  [4]  → 18 saved  (2 dupes dropped)  (total: 38)
+  ✓  [03/15] Physics/Thermodynamics  [4]  → 17 saved  (1 low-quality dropped, 2 dupes dropped)  (total: 55)
+  ✓  [04/15] Physics/Thermodynamics  [4]  → 20 saved  (total: 75)
+  ✓  [05/15] Physics/Thermodynamics  [4]  → 17 saved  (3 dupes dropped)  (total: 92)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Thermodynamics] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Thermodynamics] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Thermodynamics] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Thermodynamics] attempt 5: list index out of range
+  ✗✗ GAVE UP  Physics/Thermodynamics batch 6  [W1]
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [07/15] Physics/Thermodynamics  [70b]  → 14 saved  (6 low-quality dropped)  (total: 184)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✗  [llama-3.1-8b-instant] [Thermodynamics] attempt 2: 1 validation error for MCQBatch
+mcqs.8.difficulty
+  Input should be 'Easy', 'Medium' or 'Hard' [type=literal_error, inpu
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 60s
+  ✓  [08/15] Physics/Thermodynamics  [8b]  → 12 saved  (3 dupes dropped)  (total: 196)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [09/15] Physics/Thermodynamics  [8b]  → 13 saved  (2 dupes dropped)  (total: 209)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [10/15] Physics/Thermodynamics  [8b]  → 14 saved  (2 dupes dropped)  (total: 223)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [11/15] Physics/Thermodynamics  [8b]  → 13 saved  (3 dupes dropped)  (total: 236)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [12/15] Physics/Thermodynamics  [8b]  → 13 saved  (3 dupes dropped)  (total: 249)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [13/15] Physics/Thermodynamics  [8b]  → 11 saved  (4 dupes dropped)  (total: 260)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [14/15] Physics/Thermodynamics  [8b]  → 12 saved  (6 dupes dropped)  (total: 272)
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Thermodynamics] → waiting 40s
+  ✓  [15/15] Physics/Thermodynamics  [8b]  → 14 saved  (2 dupes dropped)  (total: 286)
+  🏁  Physics/Thermodynamics  → 286/300 on disk  [W1]
+
+▶  Physics/Electrostatics  (0 done → 19 batches)  [W1]
+  ✓  [01/19] Physics/Electrostatics  [4]  → 19 saved  (1 low-quality dropped)  (total: 19)
+  ✓  [02/19] Physics/Electrostatics  [4]  → 20 saved  (total: 39)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Electrostatics] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Electrostatics] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [03/19] Physics/Electrostatics  [70b]  → 20 saved  (total: 95)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [04/19] Physics/Electrostatics  [8b]  → 17 saved  (1 dupes dropped)  (total: 112)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [05/19] Physics/Electrostatics  [8b]  → 5 saved  (total: 117)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [06/19] Physics/Electrostatics  [8b]  → 18 saved  (1 dupes dropped)  (total: 135)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [07/19] Physics/Electrostatics  [8b]  → 16 saved  (total: 151)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [08/19] Physics/Electrostatics  [8b]  → 14 saved  (4 dupes dropped)  (total: 165)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [09/19] Physics/Electrostatics  [8b]  → 16 saved  (1 dupes dropped)  (total: 181)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [10/19] Physics/Electrostatics  [8b]  → 14 saved  (2 dupes dropped)  (total: 195)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Electrostatics] attempt 3: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 80s
+  ✓  [11/19] Physics/Electrostatics  [8b]  → 13 saved  (4 dupes dropped)  (total: 208)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [12/19] Physics/Electrostatics  [8b]  → 16 saved  (2 dupes dropped)  (total: 224)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [13/19] Physics/Electrostatics  [8b]  → 14 saved  (2 dupes dropped)  (total: 238)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [14/19] Physics/Electrostatics  [8b]  → 10 saved  (7 low-quality dropped)  (total: 248)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [15/19] Physics/Electrostatics  [8b]  → 14 saved  (2 dupes dropped)  (total: 262)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [16/19] Physics/Electrostatics  [8b]  → 15 saved  (1 dupes dropped)  (total: 277)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [17/19] Physics/Electrostatics  [8b]  → 9 saved  (9 dupes dropped)  (total: 286)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [18/19] Physics/Electrostatics  [8b]  → 14 saved  (5 dupes dropped)  (total: 300)
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electrostatics] → waiting 40s
+  ✓  [19/19] Physics/Electrostatics  [8b]  → 16 saved  (1 dupes dropped)  (total: 316)
+  🏁  Physics/Electrostatics  → 316/375 on disk  [W1]
+
+▶  Physics/Current Electricity  (0 done → 19 batches)  [W1]
+  ✓  [01/19] Physics/Current Electricity  [4]  → 17 saved  (3 low-quality dropped)  (total: 17)
+  ✓  [02/19] Physics/Current Electricity  [4]  → 20 saved  (total: 37)
+  ✓  [03/19] Physics/Current Electricity  [4]  → 20 saved  (total: 57)
+  ✓  [04/19] Physics/Current Electricity  [4]  → 20 saved  (total: 77)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Current Electricity] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Current Electricity] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Current Electricity] attempt 4: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✗✗ GAVE UP  Physics/Current Electricity batch 5  [W1]
+  ✓  [06/19] Physics/Current Electricity  [70b]  → 11 saved  (9 low-quality dropped)  (total: 148)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [07/19] Physics/Current Electricity  [8b]  → 19 saved  (total: 167)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [08/19] Physics/Current Electricity  [8b]  → 14 saved  (1 dupes dropped)  (total: 181)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [09/19] Physics/Current Electricity  [8b]  → 18 saved  (1 low-quality dropped)  (total: 199)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [10/19] Physics/Current Electricity  [8b]  → 10 saved  (8 dupes dropped)  (total: 209)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [11/19] Physics/Current Electricity  [8b]  → 8 saved  (8 dupes dropped)  (total: 217)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [12/19] Physics/Current Electricity  [8b]  → 9 saved  (12 dupes dropped)  (total: 226)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [13/19] Physics/Current Electricity  [8b]  → 15 saved  (4 dupes dropped)  (total: 241)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [14/19] Physics/Current Electricity  [8b]  → 12 saved  (5 dupes dropped)  (total: 253)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Current Electricity] attempt 3: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 80s
+  ✓  [15/19] Physics/Current Electricity  [8b]  → 13 saved  (6 dupes dropped)  (total: 266)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [16/19] Physics/Current Electricity  [8b]  → 15 saved  (1 dupes dropped)  (total: 281)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [17/19] Physics/Current Electricity  [8b]  → 16 saved  (1 dupes dropped)  (total: 297)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [18/19] Physics/Current Electricity  [8b]  → 12 saved  (7 dupes dropped)  (total: 309)
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Current Electricity] → waiting 40s
+  ✓  [19/19] Physics/Current Electricity  [8b]  → 18 saved  (1 low-quality dropped)  (total: 327)
+  🏁  Physics/Current Electricity  → 327/375 on disk  [W1]
+
+▶  Physics/Electromagnetism  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Electromagnetism  [4]  → 17 saved  (3 low-quality dropped)  (total: 17)
+  ✓  [02/15] Physics/Electromagnetism  [4]  → 20 saved  (total: 37)
+  ✓  [03/15] Physics/Electromagnetism  [4]  → 19 saved  (1 dupes dropped)  (total: 56)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Electromagnetism] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Electromagnetism] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [04/15] Physics/Electromagnetism  [70b]  → 18 saved  (1 dupes dropped)  (total: 115)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [05/15] Physics/Electromagnetism  [8b]  → 7 saved  (10 dupes dropped)  (total: 122)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [06/15] Physics/Electromagnetism  [8b]  → 15 saved  (1 dupes dropped)  (total: 137)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [07/15] Physics/Electromagnetism  [8b]  → 18 saved  (total: 155)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [08/15] Physics/Electromagnetism  [8b]  → 12 saved  (4 dupes dropped)  (total: 167)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [09/15] Physics/Electromagnetism  [8b]  → 12 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 179)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [10/15] Physics/Electromagnetism  [8b]  → 11 saved  (3 dupes dropped)  (total: 190)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [11/15] Physics/Electromagnetism  [8b]  → 11 saved  (7 dupes dropped)  (total: 201)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [12/15] Physics/Electromagnetism  [8b]  → 12 saved  (6 dupes dropped)  (total: 213)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [13/15] Physics/Electromagnetism  [8b]  → 16 saved  (total: 229)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [14/15] Physics/Electromagnetism  [8b]  → 15 saved  (1 dupes dropped)  (total: 244)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetism] → waiting 40s
+  ✓  [15/15] Physics/Electromagnetism  [8b]  → 11 saved  (2 low-quality dropped, 5 dupes dropped)  (total: 255)
+  🏁  Physics/Electromagnetism  → 255/300 on disk  [W1]
+
+▶  Physics/Electromagnetic Induction  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Electromagnetic Induction  [4]  → 18 saved  (2 low-quality dropped)  (total: 18)
+  ✓  [02/15] Physics/Electromagnetic Induction  [4]  → 20 saved  (total: 38)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Electromagnetic Induction] attempt 2: 1 validation error for MCQBatch
+mcqs.8.correct_answer
+  Field required [type=missing, input_value={'question': 'A transf
+  ✗  [qwen3-32b] [Electromagnetic Induction] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [03/15] Physics/Electromagnetic Induction  [70b]  → 19 saved  (1 dupes dropped)  (total: 75)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [04/15] Physics/Electromagnetic Induction  [8b]  → 13 saved  (4 dupes dropped)  (total: 88)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [05/15] Physics/Electromagnetic Induction  [8b]  → 12 saved  (4 dupes dropped)  (total: 100)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [06/15] Physics/Electromagnetic Induction  [8b]  → 13 saved  (5 dupes dropped)  (total: 113)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [07/15] Physics/Electromagnetic Induction  [8b]  → 13 saved  (1 dupes dropped)  (total: 126)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [08/15] Physics/Electromagnetic Induction  [8b]  → 9 saved  (total: 135)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [09/15] Physics/Electromagnetic Induction  [8b]  → 9 saved  (8 dupes dropped)  (total: 144)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [10/15] Physics/Electromagnetic Induction  [8b]  → 14 saved  (2 dupes dropped)  (total: 158)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [11/15] Physics/Electromagnetic Induction  [8b]  → 12 saved  (4 dupes dropped)  (total: 170)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [12/15] Physics/Electromagnetic Induction  [8b]  → 15 saved  (1 dupes dropped)  (total: 185)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [13/15] Physics/Electromagnetic Induction  [8b]  → 16 saved  (1 dupes dropped)  (total: 201)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [14/15] Physics/Electromagnetic Induction  [8b]  → 7 saved  (10 dupes dropped)  (total: 208)
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electromagnetic Induction] → waiting 40s
+  ✓  [15/15] Physics/Electromagnetic Induction  [8b]  → 13 saved  (4 dupes dropped)  (total: 221)
+  🏁  Physics/Electromagnetic Induction  → 221/300 on disk  [W1]
+
+▶  Physics/Alternating Current  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Alternating Current  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Physics/Alternating Current  [4]  → 21 saved  (total: 41)
+  ✓  [03/15] Physics/Alternating Current  [4]  → 20 saved  (total: 61)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Alternating Current] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Alternating Current] attempt 3: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [04/15] Physics/Alternating Current  [70b]  → 17 saved  (3 low-quality dropped)  (total: 118)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✗  [llama-3.1-8b-instant] [Alternating Current] attempt 2: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 60s
+  ✗  [llama-3.1-8b-instant] [Alternating Current] attempt 4: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 100s
+  ✗✗ GAVE UP  Physics/Alternating Current batch 5  [W1]
+  ✓  [06/15] Physics/Alternating Current  [8b]  → 10 saved  (8 dupes dropped)  (total: 128)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [07/15] Physics/Alternating Current  [8b]  → 17 saved  (total: 145)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Alternating Current] attempt 3: 1 validation error for MCQBatch
+mcqs.1.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 80s
+  ✓  [08/15] Physics/Alternating Current  [8b]  → 15 saved  (1 dupes dropped)  (total: 160)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [09/15] Physics/Alternating Current  [8b]  → 17 saved  (total: 177)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [10/15] Physics/Alternating Current  [8b]  → 15 saved  (3 dupes dropped)  (total: 192)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [11/15] Physics/Alternating Current  [8b]  → 12 saved  (6 dupes dropped)  (total: 204)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [12/15] Physics/Alternating Current  [8b]  → 4 saved  (16 dupes dropped)  (total: 208)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [13/15] Physics/Alternating Current  [8b]  → 14 saved  (total: 222)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [14/15] Physics/Alternating Current  [8b]  → 16 saved  (total: 238)
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Alternating Current] → waiting 40s
+  ✓  [15/15] Physics/Alternating Current  [8b]  → 13 saved  (1 dupes dropped)  (total: 251)
+  🏁  Physics/Alternating Current  → 251/300 on disk  [W1]
+
+▶  Physics/Electronics  (0 done → 15 batches)  [W1]
+  ✓  [01/15] Physics/Electronics  [4]  → 20 saved  (total: 20)
+  ✓  [02/15] Physics/Electronics  [4]  → 20 saved  (total: 40)
+  ✓  [03/15] Physics/Electronics  [4]  → 19 saved  (1 low-quality dropped)  (total: 59)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Electronics] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Electronics] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Electronics] attempt 4: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✗✗ GAVE UP  Physics/Electronics batch 4  [W1]
+  ✓  [05/15] Physics/Electronics  [70b]  → 19 saved  (total: 138)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [06/15] Physics/Electronics  [8b]  → 9 saved  (10 dupes dropped)  (total: 147)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [07/15] Physics/Electronics  [8b]  → 15 saved  (1 dupes dropped)  (total: 162)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [08/15] Physics/Electronics  [8b]  → 13 saved  (3 dupes dropped)  (total: 175)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [09/15] Physics/Electronics  [8b]  → 14 saved  (1 dupes dropped)  (total: 189)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [10/15] Physics/Electronics  [8b]  → 15 saved  (total: 204)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [11/15] Physics/Electronics  [8b]  → 16 saved  (1 dupes dropped)  (total: 220)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [12/15] Physics/Electronics  [8b]  → 14 saved  (1 dupes dropped)  (total: 234)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [13/15] Physics/Electronics  [8b]  → 11 saved  (1 low-quality dropped, 4 dupes dropped)  (total: 245)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [14/15] Physics/Electronics  [8b]  → 10 saved  (3 low-quality dropped, 1 dupes dropped)  (total: 255)
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Electronics] → waiting 40s
+  ✓  [15/15] Physics/Electronics  [8b]  → 16 saved  (total: 271)
+  🏁  Physics/Electronics  → 271/300 on disk  [W1]
+
+▶  Physics/Modern Physics  (0 done → 19 batches)  [W1]
+  ✓  [01/19] Physics/Modern Physics  [4]  → 20 saved  (total: 20)
+  ✓  [02/19] Physics/Modern Physics  [4]  → 20 saved  (total: 40)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Modern Physics] attempt 2: Error code: 400 - {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✗  [qwen3-32b] [Modern Physics] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Modern Physics] attempt 4: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✗✗ GAVE UP  Physics/Modern Physics batch 3  [W1]
+  ✓  [04/19] Physics/Modern Physics  [70b]  → 10 saved  (11 low-quality dropped)  (total: 82)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [05/19] Physics/Modern Physics  [8b]  → 14 saved  (4 dupes dropped)  (total: 96)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [06/19] Physics/Modern Physics  [8b]  → 12 saved  (7 dupes dropped)  (total: 108)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [07/19] Physics/Modern Physics  [8b]  → 15 saved  (1 dupes dropped)  (total: 123)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [08/19] Physics/Modern Physics  [8b]  → 17 saved  (8 dupes dropped)  (total: 140)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [09/19] Physics/Modern Physics  [8b]  → 8 saved  (10 dupes dropped)  (total: 148)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [10/19] Physics/Modern Physics  [8b]  → 16 saved  (total: 164)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [11/19] Physics/Modern Physics  [8b]  → 14 saved  (1 low-quality dropped, 3 dupes dropped)  (total: 178)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [12/19] Physics/Modern Physics  [8b]  → 11 saved  (10 dupes dropped)  (total: 189)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [13/19] Physics/Modern Physics  [8b]  → 8 saved  (8 dupes dropped)  (total: 197)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [14/19] Physics/Modern Physics  [8b]  → 9 saved  (8 dupes dropped)  (total: 206)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [15/19] Physics/Modern Physics  [8b]  → 6 saved  (12 dupes dropped)  (total: 212)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [16/19] Physics/Modern Physics  [8b]  → 18 saved  (total: 230)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [17/19] Physics/Modern Physics  [8b]  → 15 saved  (2 dupes dropped)  (total: 245)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [18/19] Physics/Modern Physics  [8b]  → 18 saved  (1 dupes dropped)  (total: 263)
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Modern Physics] → waiting 40s
+  ✓  [19/19] Physics/Modern Physics  [8b]  → 17 saved  (total: 280)
+  🏁  Physics/Modern Physics  → 280/375 on disk  [W1]
+
+▶  Physics/Atomic Spectra  (0 done → 13 batches)  [W1]
+  ✓  [01/13] Physics/Atomic Spectra  [4]  → 20 saved  (total: 20)
+  ✓  [02/13] Physics/Atomic Spectra  [4]  → 20 saved  (total: 40)
+  ✓  [03/13] Physics/Atomic Spectra  [4]  → 16 saved  (4 dupes dropped)  (total: 56)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Atomic Spectra] attempt 2: 2 validation errors for MCQBatch
+mcqs.18.option_a
+  Field required [type=missing, input_value={'question': 'Why do cert.
+  ✗  [qwen3-32b] [Atomic Spectra] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Atomic Spectra] attempt 4: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✗✗ GAVE UP  Physics/Atomic Spectra batch 4  [W1]
+  ✓  [05/13] Physics/Atomic Spectra  [70b]  → 16 saved  (4 dupes dropped)  (total: 109)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [06/13] Physics/Atomic Spectra  [8b]  → 12 saved  (4 dupes dropped)  (total: 121)
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Atomic Spectra] attempt 3: Error code: 400 - {'error': {'message': "Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 80s
+  ✗  [llama-3.1-8b-instant] [Atomic Spectra] attempt 5: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ✗✗ GAVE UP  Physics/Atomic Spectra batch 7  [W1]
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Atomic Spectra] attempt 3: Error code: 400 - {'error': {'message': "Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 80s
+  ✗  [llama-3.1-8b-instant] [Atomic Spectra] attempt 5: 14 validation errors for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, inpu
+  ✗✗ GAVE UP  Physics/Atomic Spectra batch 8  [W1]
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✓  [09/13] Physics/Atomic Spectra  [8b]  → 7 saved  (1 low-quality dropped, 7 dupes dropped)  (total: 128)
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✓  [10/13] Physics/Atomic Spectra  [8b]  → 14 saved  (total: 142)
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✓  [11/13] Physics/Atomic Spectra  [8b]  → 16 saved  (total: 158)
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✓  [12/13] Physics/Atomic Spectra  [8b]  → 8 saved  (9 dupes dropped)  (total: 166)
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Atomic Spectra] → waiting 40s
+  ✓  [13/13] Physics/Atomic Spectra  [8b]  → 7 saved  (7 dupes dropped)  (total: 173)
+  🏁  Physics/Atomic Spectra  → 173/250 on disk  [W1]
+
+▶  Physics/Nuclear Physics  (0 done → 19 batches)  [W1]
+  ✓  [01/19] Physics/Nuclear Physics  [4]  → 20 saved  (total: 20)
+  ✓  [02/19] Physics/Nuclear Physics  [4]  → 20 saved  (total: 40)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Nuclear Physics] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Nuclear Physics] attempt 3: 1 validation error for MCQBatch
+  Input should be an object [type=model_type, input_value=[{'question': 'A radioact...'d
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [03/19] Physics/Nuclear Physics  [70b]  → 19 saved  (1 dupes dropped)  (total: 75)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [04/19] Physics/Nuclear Physics  [8b]  → 18 saved  (total: 93)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [05/19] Physics/Nuclear Physics  [8b]  → 13 saved  (6 dupes dropped)  (total: 106)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [06/19] Physics/Nuclear Physics  [8b]  → 18 saved  (1 dupes dropped)  (total: 124)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [07/19] Physics/Nuclear Physics  [8b]  → 16 saved  (3 dupes dropped)  (total: 140)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [08/19] Physics/Nuclear Physics  [8b]  → 14 saved  (3 dupes dropped)  (total: 154)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Nuclear Physics] attempt 3: 1 validation error for MCQBatch
+mcqs.3.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 80s
+  ✓  [09/19] Physics/Nuclear Physics  [8b]  → 12 saved  (6 low-quality dropped, 1 dupes dropped)  (total: 166)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✗  [llama-3.1-8b-instant] [Nuclear Physics] attempt 3: 3 validation errors for MCQBatch
+mcqs.1.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 80s
+  ✓  [10/19] Physics/Nuclear Physics  [8b]  → 14 saved  (3 dupes dropped)  (total: 180)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [11/19] Physics/Nuclear Physics  [8b]  → 14 saved  (3 dupes dropped)  (total: 194)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [12/19] Physics/Nuclear Physics  [8b]  → 15 saved  (2 dupes dropped)  (total: 209)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [13/19] Physics/Nuclear Physics  [8b]  → 9 saved  (9 dupes dropped)  (total: 218)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [14/19] Physics/Nuclear Physics  [8b]  → 6 saved  (11 low-quality dropped, 1 dupes dropped)  (total: 224)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [15/19] Physics/Nuclear Physics  [8b]  → 13 saved  (5 dupes dropped)  (total: 237)
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Nuclear Physics] → waiting 40s
+  ✓  [16/19] Physics/Nuclear Physics  [8b]  → 17 saved  (total: 254)
+  ✓  [17/19] Physics/Nuclear Physics  [8b]  → 17 saved  (1 dupes dropped)  (total: 271)
+  ✓  [18/19] Physics/Nuclear Physics  [8b]  → 15 saved  (1 dupes dropped)  (total: 286)
+  ✓  [19/19] Physics/Nuclear Physics  [8b]  → 11 saved  (9 dupes dropped)  (total: 297)
+  🏁  Physics/Nuclear Physics  → 297/375 on disk  [W1]
+
+▶  English/Reading and Thinking Skills  (0 done → 5 batches)  [W1]
+  ✓  [01/05] English/Reading and Thinking Skills  [4]  → 20 saved  (total: 20)
+  ✓  [02/05] English/Reading and Thinking Skills  [4]  → 19 saved  (1 dupes dropped)  (total: 39)
+  ✓  [03/05] English/Reading and Thinking Skills  [4]  → 20 saved  (total: 59)
+  ✓  [04/05] English/Reading and Thinking Skills  [4]  → 20 saved  (total: 79)
+  ✓  [05/05] English/Reading and Thinking Skills  [4]  → 17 saved  (1 low-quality dropped, 2 dupes dropped)  (total: 96)
+  🏁  English/Reading and Thinking Skills  → 96/100 on disk  [W1]
+
+▶  English/Transitional Devices  (0 done → 5 batches)  [W1]
+  ✓  [01/05] English/Transitional Devices  [4]  → 20 saved  (total: 20)
+  ✓  [02/05] English/Transitional Devices  [4]  → 20 saved  (total: 40)
+  ✓  [03/05] English/Transitional Devices  [4]  → 20 saved  (total: 60)
+  ✓  [04/05] English/Transitional Devices  [4]  → 20 saved  (total: 80)
+  ✓  [05/05] English/Transitional Devices  [4]  → 20 saved  (total: 100)
+  🏁  English/Transitional Devices  → 100/100 on disk  [W1]
+
+▶  English/Active and Passive Voice  (0 done → 7 batches)  [W1]
+  ✓  [01/07] English/Active and Passive Voice  [4]  → 20 saved  (total: 20)
+  ✓  [02/07] English/Active and Passive Voice  [4]  → 19 saved  (1 dupes dropped)  (total: 39)
+  ✓  [03/07] English/Active and Passive Voice  [4]  → 20 saved  (total: 59)
+  ✓  [04/07] English/Active and Passive Voice  [4]  → 20 saved  (total: 79)
+  ✓  [05/07] English/Active and Passive Voice  [4]  → 20 saved  (total: 99)
+  ✓  [06/07] English/Active and Passive Voice  [4]  → 20 saved  (total: 119)
+  ✓  [07/07] English/Active and Passive Voice  [4]  → 20 saved  (total: 139)
+  🏁  English/Active and Passive Voice  → 139/125 on disk  [W1]
+
+▶  English/Direct and Indirect Speech  (0 done → 7 batches)  [W1]
+  ✓  [01/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 20)
+  ✓  [02/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 40)
+  ✓  [03/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 60)
+  ✓  [04/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 80)
+  ✓  [05/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 100)
+  ✓  [06/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 120)
+  ✓  [07/07] English/Direct and Indirect Speech  [4]  → 20 saved  (total: 140)
+  🏁  English/Direct and Indirect Speech  → 140/125 on disk  [W1]
+
+▶  English/Sentence Inversion  (0 done → 5 batches)  [W1]
+  ✓  [01/05] English/Sentence Inversion  [4]  → 19 saved  (1 dupes dropped)  (total: 19)
+  ✓  [02/05] English/Sentence Inversion  [4]  → 20 saved  (total: 39)
+  ✓  [03/05] English/Sentence Inversion  [4]  → 21 saved  (total: 60)
+  ✓  [04/05] English/Sentence Inversion  [4]  → 20 saved  (total: 80)
+  ✓  [05/05] English/Sentence Inversion  [4]  → 20 saved  (total: 100)
+  🏁  English/Sentence Inversion  → 100/100 on disk  [W1]
+
+▶  English/Vocabulary and Lexical Aspects  (0 done → 8 batches)  [W1]
+  ✓  [01/08] English/Vocabulary and Lexical Aspects  [4]  → 20 saved  (total: 20)
+  ✓  [02/08] English/Vocabulary and Lexical Aspects  [4]  → 20 saved  (total: 40)
+  ✓  [03/08] English/Vocabulary and Lexical Aspects  [4]  → 20 saved  (total: 60)
+  ✓  [04/08] English/Vocabulary and Lexical Aspects  [4]  → 20 saved  (total: 80)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 4: Error code: 400 - {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 5: list index out of range
+  ✗✗ GAVE UP  English/Vocabulary and Lexical Aspects batch 5  [W1]
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 5: list index out of range
+  ✗✗ GAVE UP  English/Vocabulary and Lexical Aspects batch 6  [W1]
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 5: list index out of range
+  ✗✗ GAVE UP  English/Vocabulary and Lexical Aspects batch 7  [W1]
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 3: Error code: 400 - {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Vocabulary and Lexical Aspects] attempt 5: list index out of range
+  ✗✗ GAVE UP  English/Vocabulary and Lexical Aspects batch 8  [W1]
+  🏁  English/Vocabulary and Lexical Aspects  → 350/150 on disk  [W1]
+
+▶  Logical_Reasoning/Critical Thinking  (0 done → 10 batches)  [W1]
+  ✓  [01/10] Logical_Reasoning/Critical Thinking  [4]  → 20 saved  (total: 20)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Critical Thinking] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 5: list index out of range
+  ✗✗ GAVE UP  Logical_Reasoning/Critical Thinking batch 2  [W1]
+  ✗  [qwen3-32b] [Critical Thinking] attempt 1: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 2: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 3: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 4: list index out of range
+  ✗  [qwen3-32b] [Critical Thinking] attempt 5: list index out of range
+  ✗✗ GAVE UP  Logical_Reasoning/Critical Thinking batch 3  [W1]
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [04/10] Logical_Reasoning/Critical Thinking  [70b]  → 10 saved  (1 low-quality dropped, 8 dupes dropped)  (total: 202)
+  ✓  [05/10] Logical_Reasoning/Critical Thinking  [70b]  → 18 saved  (1 dupes dropped)  (total: 220)
+  ✓  [06/10] Logical_Reasoning/Critical Thinking  [70b]  → 20 saved  (total: 240)
+  ✓  [07/10] Logical_Reasoning/Critical Thinking  [70b]  → 20 saved  (total: 260)
+  ✓  [08/10] Logical_Reasoning/Critical Thinking  [70b]  → 14 saved  (5 dupes dropped)  (total: 274)
+  ✓  [09/10] Logical_Reasoning/Critical Thinking  [70b]  → 18 saved  (2 low-quality dropped)  (total: 292)
+  ✓  [10/10] Logical_Reasoning/Critical Thinking  [70b]  → 6 saved  (14 low-quality dropped)  (total: 298)
+  🏁  Logical_Reasoning/Critical Thinking  → 298/200 on disk  [W1]
+
+▶  Logical_Reasoning/Letter and Symbol Series  (0 done → 13 batches)  [W1]
+  ✓  [01/13] Logical_Reasoning/Letter and Symbol Series  [4]  → 20 saved  (total: 20)
+  ✓  [02/13] Logical_Reasoning/Letter and Symbol Series  [4]  → 20 saved  (total: 40)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Letter and Symbol Series] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [03/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 15 saved  (4 dupes dropped)  (total: 75)
+  ✓  [04/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 8 saved  (10 dupes dropped)  (total: 83)
+  ✓  [05/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 9 saved  (7 dupes dropped)  (total: 92)
+  ✓  [06/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 16 saved  (total: 108)
+  ✓  [07/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 12 saved  (5 dupes dropped)  (total: 120)
+  ✓  [08/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 12 saved  (5 dupes dropped)  (total: 132)
+  ✓  [09/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 14 saved  (2 dupes dropped)  (total: 146)
+  ✓  [10/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 12 saved  (4 dupes dropped)  (total: 158)
+  ✓  [11/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 16 saved  (1 dupes dropped)  (total: 174)
+  ✓  [12/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 17 saved  (total: 191)
+  ✓  [13/13] Logical_Reasoning/Letter and Symbol Series  [8b]  → 13 saved  (2 dupes dropped)  (total: 204)
+  🏁  Logical_Reasoning/Letter and Symbol Series  → 204/250 on disk  [W1]
+
+▶  Logical_Reasoning/Logical Deductions  (0 done → 10 batches)  [W1]
+  ✓  [01/10] Logical_Reasoning/Logical Deductions  [4]  → 20 saved  (total: 20)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Logical Deductions] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/10] Logical_Reasoning/Logical Deductions  [8b]  → 15 saved  (total: 55)
+  ✓  [03/10] Logical_Reasoning/Logical Deductions  [8b]  → 16 saved  (total: 71)
+  ✓  [04/10] Logical_Reasoning/Logical Deductions  [8b]  → 13 saved  (2 dupes dropped)  (total: 84)
+  ✓  [05/10] Logical_Reasoning/Logical Deductions  [8b]  → 15 saved  (total: 99)
+  ✓  [06/10] Logical_Reasoning/Logical Deductions  [8b]  → 9 saved  (7 dupes dropped)  (total: 108)
+  ✓  [07/10] Logical_Reasoning/Logical Deductions  [8b]  → 10 saved  (4 dupes dropped)  (total: 118)
+  ✓  [08/10] Logical_Reasoning/Logical Deductions  [8b]  → 10 saved  (3 low-quality dropped, 1 dupes dropped)  (total: 128)
+  ✓  [09/10] Logical_Reasoning/Logical Deductions  [8b]  → 12 saved  (2 dupes dropped)  (total: 140)
+  ✓  [10/10] Logical_Reasoning/Logical Deductions  [8b]  → 14 saved  (1 dupes dropped)  (total: 154)
+  🏁  Logical_Reasoning/Logical Deductions  → 154/200 on disk  [W1]
+
+▶  Logical_Reasoning/Logical Problems  (0 done → 10 batches)  [W1]
+  ✓  [01/10] Logical_Reasoning/Logical Problems  [4]  → 20 saved  (total: 20)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Logical Problems] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [02/10] Logical_Reasoning/Logical Problems  [8b]  → 12 saved  (3 dupes dropped)  (total: 52)
+  ✗  [llama-3.1-8b-instant] [Logical Problems] attempt 1: 1 validation error for MCQBatch
+mcqs.0.correct_answer
+  Input should be 'A', 'B', 'C' or 'D' [type=literal_error, input_
+  ✓  [03/10] Logical_Reasoning/Logical Problems  [8b]  → 12 saved  (4 dupes dropped)  (total: 64)
+  ✓  [04/10] Logical_Reasoning/Logical Problems  [8b]  → 10 saved  (5 dupes dropped)  (total: 74)
+  ✓  [05/10] Logical_Reasoning/Logical Problems  [8b]  → 14 saved  (1 low-quality dropped, 1 dupes dropped)  (total: 88)
+  ✓  [06/10] Logical_Reasoning/Logical Problems  [8b]  → 15 saved  (1 dupes dropped)  (total: 103)
+  ✓  [07/10] Logical_Reasoning/Logical Problems  [8b]  → 14 saved  (1 dupes dropped)  (total: 117)
+  ✓  [08/10] Logical_Reasoning/Logical Problems  [8b]  → 11 saved  (4 dupes dropped)  (total: 128)
+  ✓  [09/10] Logical_Reasoning/Logical Problems  [8b]  → 13 saved  (3 dupes dropped)  (total: 141)
+  ✓  [10/10] Logical_Reasoning/Logical Problems  [8b]  → 15 saved  (1 dupes dropped)  (total: 156)
+  🏁  Logical_Reasoning/Logical Problems  → 156/200 on disk  [W1]
+
+▶  Logical_Reasoning/Course of Action  (0 done → 10 batches)  [W1]
+  ✓  [01/10] Logical_Reasoning/Course of Action  [4]  → 20 saved  (total: 20)
+  🔄  TPD limit → switching to qwen/qwen3-32b  [W1]
+  ✗  [qwen3-32b] [Course of Action] attempt 2: list index out of range
+  🔄  TPD limit → switching to llama-3.3-70b-versatile  [W1]
+  ✓  [02/10] Logical_Reasoning/Course of Action  [70b]  → 23 saved  (total: 63)
+  🔄  TPD limit → switching to llama-3.1-8b-instant  [W1]
+  ✓  [03/10] Logical_Reasoning/Course of Action  [8b]  → 10 saved  (5 dupes dropped)  (total: 73)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 40s
+  ✓  [04/10] Logical_Reasoning/Course of Action  [8b]  → 14 saved  (total: 87)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 40s
+  ✓  [05/10] Logical_Reasoning/Course of Action  [8b]  → 14 saved  (1 dupes dropped)  (total: 101)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 40s
+  ✓  [06/10] Logical_Reasoning/Course of Action  [8b]  → 14 saved  (1 dupes dropped)  (total: 115)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 40s
+  ✓  [07/10] Logical_Reasoning/Course of Action  [8b]  → 16 saved  (total: 131)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 40s
+  ✓  [08/10] Logical_Reasoning/Course of Action  [8b]  → 12 saved  (total: 143)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 40s
+  ✓  [09/10] Logical_Reasoning/Course of Action  [8b]  → 15 saved  (total: 158)
+  ⚠  429 [llama-3.1-8b-instant] [Course of Action] → waiting 20s
+  ✓  [10/10] Logical_Reasoning/Course of Action  [8b]  → 13 saved  (1 dupes dropped)  (total: 171)
+  🏁  Logical_Reasoning/Course of Action  → 171/200 on disk  [W1]
+
+▶  Logical_Reasoning/Cause and Effect  (0 done → 10 batches)  [W1]
+  ✓  [01/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 20)
+  ✓  [02/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 40)
+  ✓  [03/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 60)
+  ✓  [04/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 80)
+  ✓  [05/10] Logical_Reasoning/Cause and Effect  [4]  → 19 saved  (1 low-quality dropped)  (total: 99)
+  ✓  [06/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 119)
+  ✓  [07/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 139)
+  ✓  [08/10] Logical_Reasoning/Cause and Effect  [4]  → 19 saved  (1 low-quality dropped)  (total: 158)
+  ✓  [09/10] Logical_Reasoning/Cause and Effect  [4]  → 20 saved  (total: 178)
+  ✓  [10/10] Logical_Reasoning/Cause and Effect  [4]  → 19 saved  (1 low-quality dropped)  (total: 197)
+  🏁  Logical_Reasoning/Cause and Effect  → 197/200 on disk  [W1]
+
+═════════════════════════════════════════════════════════════════
+  🏁 ALL SUBJECTS COMPLETE
+  Time taken    : 22:17:25
+  MCQs on disk  : 18,962 / 19,075
+  Generated now : 14,816
+  Failed batches: 43
+  Finished      : 2026-02-20 13:42:15
+═════════════════════════════════════════════════════════════════
+

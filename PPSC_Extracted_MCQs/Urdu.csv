@@ -1,0 +1,1262 @@
+Question_Number,Question,Option_A,Option_B,Option_C,Option_D,Correct_Answer
+1,Tota Kahani ka Urdu tarjuma kis ne kiya?,Prem Chand,Imtiaz Ali Taj,Haider Bakhsh Haidari,In mein se koi nahi,C
+2,Iblees ki Majlis-e-Shura nazm:,Nasir Kazmi,Molana Zafar Ali Khan,Allama Iqbal,In mein se koi nahi,C
+3,Mahawre ke liye kitne lafzon ka hona zaroori hai?,Do,Aik,Teen,In mein se koi nahi,A
+4,Bahadur Shah Zafar ko kahan qaid kiya gaya?,Mumbai,Delhi,Rangoon,In mein se koi nahi,C
+5,Ghalat imla ka intikhab karein.,Jinhon,Tumhein,Unhon,In mein se koi nahi,C
+6,Shayari mein ibtizal se kya muraad hai?,Aamiyana,Tazad,Laf-o-Nashr,In mein se koi nahi,A
+7,Kata aur ...... zarb-ul-misl mukammal karein.,Le bhaaga,Le bhaago,Le bhagay,In mein se koi nahi (le daudi),D
+8,Allama Iqbal ki kisi Farsi kitab ka deebacha Urdu mein hai?,Armaghan-e-Hijaz,Payam-e-Mashriq,Zarb-e-Kaleem,In mein se koi nahi,B
+9,Hayat-e-Saadi ki sanf kya hai?,Nazm,Novel,Afsana,Sawaneh Umari,D
+10,"Hamd, naat aur qasida ke sab se dil aawiz sher ko kya kehte hain?",Bait-ul-Ghazal,Shah Bait,Shah Noor,In mein se koi nahi,B
+11,Chah-e-zanakhdaan ka kya matlab hai?,Thori ka garha,Zakhm lagna,Ruswai hona,In mein se koi nahi,A
+12,"Yeh sab tumhara karam hai aaqa ke baat ab tak bani hui hai, yeh naat kis ne likhi hai?",Iqbal Azim,Khalid Mahmood Naqshbandi,Muzaffar Waris,In mein se koi nahi,B
+13,"""Jotiyan chatkhana"" muhawara hai, iska mafhoom hai:",Nai jooti zaib pa karna,Jotiyan baghal mein de lena,Drana dhamkana,Mare mare phirna,D
+14,Taray gin'na muhawaray ka kya matlab hai?,Soye rehna,Jagte rehna,Raat bhar jagte rehna,In mein se koi nahi,C
+15,"Aisa fail jis mein kisi kaam ka karna ya hona guzray huay zamane ka pata de lekin yeh maloom na ho ke guzra hua zamana qareeb ka hai ya door ka, qawaid ki ro se ise kya kahen ge?",Fail-e-Mazi,Mazi Mutliq,Mazi Istimrari,Mazi Shakya,B
+16,Arastu se Eliot tak kis ki kitab hai?,Dr. Jameel Jalibi,Ghafoor Shah,Waheed Qazi,In mein se koi nahi,A
+17,'Urdu shairi ke ilawa Mirza Ghalib ne kis sanf-e-nasr mein naam paida kiya?,Aap Beeti,Khutoot,Dastan,In mein se koi nahi,B
+18,Pakistan ka qaumi tarana Hafeez Jalandhari ki kaun si kitab mein hai?,Roshan chiragh,Chiragh-e-Asr,Chiragh-e-Sehar,In mein se koi nahi,C
+19,Iqbal aur us ka ahd kis ne likhi?,Abul Kalam Azad,Jagan Nath Azad,Maulvi Abdul Haq,Muhammad Hussain Azad,B
+20,"""Swadeshi Rail"" kis ka mazahiya mazmoon hai?",Shaukat Thanvi,Majeed Lahori,Pitras Bukhari,Mushtaq Ahmed Yousufi,A
+21,'Hayat-e-Saadi kis ne likhi hai?,Altaf Hussain Hali,Sir Syed Ahmed Khan,Molana Shibli Naumani,In mein se koi nahi,A
+22,Jungle ki Shehzadi kis ki nazm hai?,Zameer Jafri,Kernal Muhammad Khan,Naseem Hijazi,Josh Malihabadi,D
+23,Urdu zaban ka lafz kis zaban se mushtaq hai?,Turki,Arabi,Farsi,In mein se koi nahi,A
+24,"""Aatish Kada"" kis mashhoor shair ka majmua-e-kalam hai?",Allama Iqbal,Mirza Ghalib,Dr. Muhammad Deen Taseer,Altaf Hussain Hali,C
+25,Durust zarb-ul-misl ki nishandahi karein:,Bakray ki nani kab tak khair manaye gi,Bakray ki maan kab tak khair manaye gi,Bakray ki dadi kab tak khair manaye gi,In mein se koi nahi,B
+26,Inkar ki shaira batain?,Noshi Gilani,Parveen Shakir,Ada Jafri,Rehana Qamar,B
+27,'Is sher mein ilm-e-bayan ki kaun si soorat aayi hai? Boo-e-gul le gayi bairun-e- chaman raaz-e-chaman kya qayamat hai ke khud phool hain ghamaaz-e-chaman,Tashbeeh,Isti'ara,Majaz Mursal,Kinaya,B
+28,Urdu adab ki mashhoor shakhsiyat Qurat-ul-Ain Haider ki wajah-e-shoharat kya hai?,Shairi,Novel Nigari,Mazah Nigari,Safar Nigari,B
+29,Allama Iqbal ne qanoon aur PhD ke ilawa konsi degree Europe se li?,M.A.,B.A.,M.Phil,In mein se koi nahi,B
+30,Umrao Jan Ada kis ki tahreer hai?,Sir Syed,Hadi Raswa,Rafiq Ahmed,Prem Chand,B
+31,"Drama ""____"" kis zaban ka lafz hai?",Yunani,Latini,Farsi,French,A
+32,Mandarjah zail mein se Huroof-e-Inbasat ki nishandahi karen:,Haye haye,Wah wah,Haif sad haif,In mein se koi nahi,B
+33,Woh subah aur woh chaaon sitaron ki aur woh noor dekhe to ghash kare arne goi ooj- e-toor is sher mein ilm-e-bayan ki kaun si soorat aayi hai?,Tashbeeh,Isti'ara,Majaz Mursal,Kinaya,B
+34,Raees-ul-Mutaghazzilin kis shair ko kaha jata hai?,Nasir Kazmi,Allama Iqbal,Jigar Moradabadi,Daagh Dehlvi,C
+35,Durust zarb-ul-misl ki nishandahi karein:,Cheel ke ghonslay mein maas kahan,Cheel ke ghonslay mein booty kahan,Cheel ke ghonslay mein gosht kahan,In mein se koi nahi,A
+36,Iqbal ka kaun sa majmua Urdu aur Farsi mein hai?,Armaghan-e-Hijaz,Bang-e-Dara,Zaboor-e-Ajam,In mein se koi nahi,A
+37,"""Ism-e-Tasgheer"" talash karein:",Aankh,Bagh,Pyali,Tokra,C
+38,Mirza Ghalib ko kis naam se pukara jata tha?,Mirza Khan,Mirza Nosha,Mirza Badshah,Mirza Jan,B
+39,"Pata pata boota boota haal hamara jaane hai, jaane na jaane hai gul hi na jaane hai bagh to saara jaane hai - yeh sher kis ka hai?",Allama Iqbal,Meer Taqi Meer,Ghalib,In mein se koi nahi,B
+40,Urdu ki aakhri kitaab kis ki tasneef hai?,Deputy Nazir Ahmad,Shafi Muhammad Chaudhry,Abdul Haleem Sharar,Ibn-e-Insha,D
+41,"Zair, zabar, paish lagane ko Urdu mein kya kehte hain?",Ramooz-e-auqaaf,Waween,A'raab,In mein se koi nahi,C
+42,Allama Iqbal ka kaun sa majmua-e-kalam un ki wafat ke baad shaya hua?,Bang-e-Dra,Zaboor-e-Ajam,Zarb Kaleem,Armaghan Hijaz,D
+43,"Tum mere paas hotay ho goya jab koi doosra nahi hota, yeh sher kis ka hai?",Ghalib,Meer Taqi Meer,Meer Dard,(No option D in original),C
+44,"Woh alfaaz jo talaffuz ke aitbaar se to mukhtalif hon magar un ke ma'ani aik hi hon, maslan: gham, alam, huzn waghera - kya kehlate hain?",Mutaradif,Mutazaad,Hum Awaz,Mohmil,A
+45,"""Taara chamakna"" ka kya matlab hai?",Neeche girna,Urooj aana,Sitaare ki chamak,Sust ho jana,B
+46,Durust zarb-ul-misal ki nishandahi karein:,Ek machhli saare paani ko gandah karti hai,Ek machhli saare jal ko gandah karti hai,Ek machhli saare talaab ko gandah karti hai,In mein se koi nahi,B
+47,"""Yusuf-e be karwan"" ka mafhoom kya hai?",Mazloom o Matoob,Akeela,Lathani,Rahbar o Rehnuma,B
+48,"Molana Hali ki taweel nazm ""Musaddas-e-Hali"" ka mauzoo kya hai?",Musalmanon ka tabnak maazi,Mad o jazar-e-Islam,Hayat-e-Tayyiba,Khulafa-e-Rashideen ka zamana,A
+49,Muashra Arabi zaban ka lafz hai. Is ke lughwi maani kya hain?,Bohat sare logon ka majma,Mil jul kar rehna,Khandaan,In mein se koi nahi,B
+50,Faseel-e-Shab kis shair ki tahreer hai?,Hafeez Jalandhari,Muhammad Hussain Azad,Allama Iqbal,Mirza Adeeb,D
+51,Baba-e-Urdu kis shakhsiyat ko kaha jata hai?,Maulvi Abdul Haq,Maulana Zafar Ali Khan,Sir Syed Ahmad Khan,In mein se koi nahi,A
+52,Mu'tariza ya ghair mu'tariz jumlon ki wazaahat ke liye kaunsi alamat istemal ki jati hai?,Qosain,Sakta,Waween,In mein se koi nahi,A
+53,"Istilah mein deomalai, sahiri aur mazhab ke aisa ilm jis ne haal-e-insan ke ilawa jadeed adab aur nafsiyaat par gehray nuqosh muratib kiye, kehlata hai?",Asatir,Balagat,Insaniyat,Imayat,A
+54,Rabia Basri was born in which Hijri:,85 A.H,90 A.H,95 A.H,None of these,C
+55,"Allama Iqbal ki mashhoor nazm ""Adam ko jannat se nikala gaya aur rooh-e-ard ne un ka istiqbal kiya"" un ke kis majmua-e-kalam mein hai?",Asrar-e-Khudi,Bang-e-Dra,Baal Jibril,Zarb Kaleem,C
+56,Kalaam mein shair jab munasibat walay alfaaz istemaal kare to kaun si sanat kehlaye gi?,Sanat-e-Laf o Nashr,Marat-un-Nazir,Sanat-e-Tarse'e,In mein se koi nahi,B
+57,"Din ko bhi yahan shab ki siyahi ka samaan hai, kehte hain yeh aaram gah-e-Noor Jahan hai. Yeh sher kis ka hai?",Talok Chand Mehroom,Insha Allah Khan Insha,Haider Ali Atish,In mein se koi nahi,A
+58,Idiom Pros and Cons ke durust matlab ka intikhab kijiye.,Aam log,Khote sikay,Mashini zindagi,Muwafiq o Khilaf baatein,D
+59,"""Naqsh-e-Faryadi"" kis ka shairi majmua hai?",Muneer Niazi,Ahmad Nadeem Qasmi,Nasir Kazmi,Faiz Ahmed Faiz,D
+60,"""Be-neel maraam"" se kya muraad hai?",Baghair kisi talab ke,Bewafa,Be-adab,Nakaam o naamuraad,D
+61,Durust zarb-ul-misl kaun si hai?,Ghareeb ki joru sab ki khalah,Ghareeb ki joru sab ki bhabhi,Ghareeb ki joru sab ki tai,In mein se koi nahi,B
+62,Rekhta ke maani kya hain?,Bayan karna,Ijaad karna,Khush hona,In mein se koi nahi,D
+63,"Bas ke dushwaar hai har kaam ka asan hona, aadmi ko bhi mayassar nahin insaan hona, darj zail sher kis ka hai?",Allama Muhammad Iqbal,Altaf Hussain Hali,Asadullah Khan Ghalib,Faiz Ahmed Faiz,C
+64,Mast Taukali kis zaban ke mashhoor shair hain?,Brahvi,Balochi,Sindhi,Pashto,B
+65,Meer Taqi Meer ki mashhoor masnavi kaun si hai?,Khawab-o-Khayaal,Shola-e-Ishq,Darya-e-Ishq,In mein se koi nahi,C
+66,Amrao Jan Ada kis ka novel hai?,Rajinder Singh Bedi,Saadat Hasan Manto,Mirza Hadi Ruswa,Mumtaz Mufti,C
+67,Sifar ka mutazad kya hai?,Garm,Kibar,Afdal,Silm,B
+68,"TV ke mashhoor drama serial ""Sona Chaandi"" ke musannif ka naam batayein:",Manubhai,Amjad Islam Amjad,Doctor Anwar Sajjad,Haseena Moeen,A
+69,Zaiq mein parna se murad hai,Adawat rakhna,Lalach mein aana,Waqt mein parna,In mein se koi nahi,C
+70,"Ali Wajoodi, Toor Ma'na, Kalam Junoobi waghera kisi tareekhi novel ke maroof kirdar hain?",Amar Bel,Firdos-e-Bareen,Raja Gidh,In mein se koi nahi,B
+71,"Nazm ""Munajat Biwa"" kis ne likhi?",Altaf Hussain Hali,Mir Taqi Mir,Mirza Ghalib,In mein se koi nahi,A
+72,"""Amaajgah"" Urdu mein mustamil tarkeeb hai is ka kya matlab hai?",Maidan-e-Karzaar,Khaarzaar,Ibadat gah,In mein se koi nahi,A
+73,Adab ki woh istilah jis mein alfaaz ko maanoos aur ajnabiyat ke sath likha jata hai?,Dakhliyat,Gharabat,Alaqaiyat,In mein se koi nahi,B
+74,Urdu ka pehla drama kaun sa tha?,Anarkali,Andar Sabha,Tobat-un-Nasooh,In mein se koi nahi,B
+75,Durust jumlay ka intikhab karein.,Ilaj se marz barhti gayi.,Ilaj se marz barh gayi.,Ilaj se marz barhta gaya.,Ilaj se marz barhti rahi.,C
+76,"Pal parna muhawara hai, is ke maani hain:",Sar par paon rakh kar bhaagna,Behas mubhasah karna,Ghour o fikar karna,Hamla karna ya toot parna,D
+77,No Terah baen batana ka matlab hai?,Saaf jawab dena,Larai karwana,Taal dena,In mein se koi nahi,C
+78,Adab ki istilah mein tanqeed ke maani kya hain?,Tashreeh,Nukta Cheeni,Wasf,In mein se koi nahi,A
+79,Faiz Ahmed Faiz kaun si tehreek ka hissa thay?,Halqa Arbab-e-Zauq,Romantic Tehreek,Taraqqi Pasand,Anjuman Taraqqi Urdu,C
+80,"Daman pe koi chheent na khanjar pe koi daagh, tum qatl karo ho ke karamat karo ho"" yeh kis ka sher hai?",Shaukat Ali,Sahir Ludhianvi,Kaleem Aajiz,Jon Elia,C
+81,Paidha uthana ka kya matlab hai?,Mushkil kaam se bhagna,Kisi mushkil kaam ko sar anjam dene ka zimma,Musibat mein kaam aana,In mein se koi nahi,B
+82,Qawaid ki ro se Qaed-e-Azam kya hai?,Laqab,Khitaab,Kunyat,Urf,B
+83,Mirza Soda ke kis novel ko pehla nafsiyati novel qarar diya gaya?,Badan ka tawaaf,Aag ka Darya,Umrao Jan Ada,Dasht-e-Soos,C
+84,Urdu ki kaun si tehreek ke baad Islaah-e-Urdu ki tehreek chali?,Iham goi,Romaniyat,Jadeediyat,In mein se koi nahi,A
+85,"""Footpath ki ghaas"" kis ke dramon ka majmua hai?",Ashfaq Ahmed,Bano Qudsia,Intizar Hussain,Mirza Adeeb,B
+86,Alif Noon kis ki takhleeq hai?,Younas Javed,Kamal Ahmed Rizvi,Haseena Moin,Ahmad Nadeem Qasmi,B
+87,Musaddas-e-Hali kis bahr mein likhi gayi hai?,Bahr-e-Hazaj,Bahr-e-Mutadark,Bahr-e-Kamil,Bahr-e-Ramal,D
+88,Ye sher kis ka hai:\nMain ne jab likhna seekha tha pehle tera naam likha tha,Ghalib,Mohsin Bhopali,Nasir Kazmi,In mein se koi nahi,C
+89,Khuda-e-Sukhan kis ko kehte hain?,Asadullah Khan Ghalib,Ibn-e-Insha,Meer Taqi Meer,Meer Dard,C
+90,Chahar shamba hafte ka kaunsa din hai?,Itwaar,Peer,Mangal,Budh,D
+91,Intizar Hussain ka kaun sa afsana hai jis mein tasawwuf ko buniyad banaya gaya?,Zaru Kutta,Kaya Palat,Akri,Aakhri Aadmi,D
+92,Ye sher kis ka hai:\nTum mere paas hotay ho goya jab koi doosra nahi hota,Ghalib,Momin Khan Momin,Faiz Ahmed Faiz,In mein se koi nahi,B
+93,Shair-e-Shabab kis shair ko kaha jata hai?,Hasrat Mohani,Agha Hashar Kashmiri,Josh Malihabadi,In mein se koi nahi,C
+94,Darj zail mein se Master status kaun sa hai?,Professor,Hamsayah,Baap,Sab,C
+95,Khaak aur Khoon kis ka novel hai?,Naseem Hijazi,Maulvi Abdul Haq,Prem Chand,In mein se koi nahi,A
+96,"Allama Iqbal ki mashhoor nazmon ""shikwa"" aur ""jawab-e-shikwa"" ki haiyat kya hai?",Musaddas,Mukhmas,Marba,In mein se koi nahi,A
+97,Novel kis zaban ka lafz hai?,Italwi,Farsi,Angrezi,In mein se koi nahi,A
+98,Firdos-e-Bareen kis ka novel hai?,Jameela Hashmi,Abdullah Hussain,Abdul Haleem Sharar,In mein se koi nahi,C
+99,Jumla mukammal kijiye: ____ tooti ki sada kaun sunta hai.,Shor mein,Naqqar Khane mein,Banaye mein,Ghusl Khane mein,B
+100,'Khali jagah pur kijiye: Aam ke aam ---------- ke daam.,Beejon,Guthliyon,Guthli,In mein se koi nahi,B
+101,"""Balaaye taaq rakhna"" ka kya matlab hai?",Nazar andaz karna,Naraz hona,Bohat khush hona,In mein se koi nahi,A
+102,Sheikh Ali Wajoodi Kazim Junoobi kis novel ke kirdar hain?,Aag ka Darya,Aangan,Firdos-e-Bareen,In mein se koi nahi,C
+103,Aisi sunf-e-sukhan nazm ko kehte hain jis ke sher mein dono misray hum qafiya hon aur har dosray sher mein qafiya badal jata hai?,Musaddas,Masnavi,Mukhammas,In mein se koi nahi,B
+104,'Durust muhawara hai: Aabru par ........ lagana.,Batta,Mitti,Barmati,In mein se koi nahi,A
+105,Mundarja zail mein se durust jumla kaun sa hai?,Ilaaj se marz barhti gayi.,Ilaaj se marz barhta gaya.,Ilaaj se marz barh gayi.,Ilaaj se marz barhti rahi.,B
+106,Zarb-ul-misl mukammal karein: Okhli mein ____ dena,Dhar,Sar,Dar,Zar,B
+107,Dil rakhna ka kya matlab hai?,Kisi ko naraz karna,Kisi ki dil azari karna,Dil ki bimaari ka shikar hona,Tasalli dena,D
+108,Baap ka gunah kis ki kitaab hai?,Dr. Saad Siddiqui,Hifz-ur-Rehman Seoharvi,Ameen Islahi,Hakeem Shuja Ahmad,D
+109,"""Bulbul ka bacha paalna"" se kya muraad hai?",Apna mukhalif paalna,Apna humdard paalna,Apne sar dard lena,Hoshmandana tareeqa apnana,C
+110,"""Ya Khuda"" aur ""Maan Ji"" kis ke mashhoor afsanay hain?",Ahmad Nadeem Qasmi,Dr. Ibadat Barelvi,Qudratullah Shahab,Dr. Syed Abdullah,C
+111,Walid Iqbal ne Allama Iqbal ki aap beeti kis naam se likhi?,Iqbal Nama,Zinda Rood,Iqbal ki Zindagi,In mein se koi nahi,A
+112,Nazeer Ahmad ke kis novel par un ko hukumat ki taraf se aik hazaar ka inaam mila tha?,Tauba-tun-Nusuh,Mir'at-ul-Aroos,Fasana-e-Mubtala,Banat-un-Na'ash,B
+113,Mushtaq Ahmed Yousufi ki wajah-e-shoharat kya hai?,Drama Nigari,Tanqeed Nigari,Mazah Nigari,In mein se koi nahi,C
+114,Shibli Naumani ka mazar kahan hai?,Shakargarh,Azamgarh,Qasim Garh,In mein se koi nahi,B
+115,"Woh ghadi jis ka intezaar tha, ____ .",Aan pohanchi,Aapohanchi,Aan pohoncha,In mein se koi nahi,B
+116,Firdos-e-Bareen kis adeeb ka mashhoor tareekhi novel hai?,Sadiq-ul-Khairi,Diya Shankar Naseem,Nazir Ahmad,Abdul Haleem Sharar,D
+117,Aankhein pherna se kya muraad hai?,Dushmani,Zakhm Dena,Wafadar Rehna,In mein se koi nahi,D
+118,Juwari kis ki kahani hai?,Ghulam Abbas,Ahmad Nadeem Qasmi,Saleem Akhtar,In mein se koi nahi,A
+119,"""Bint-ul-Anab"" se kya murad hai?",Joon ka pani,Angoor ki sharab,Angoor ka sirka,Angoor ka pani,B
+120,Durust talafuz ka intikhab karein?,Assalam o Alaikum,Assalam Alaikum,Salaam Alaikum,In mein se koi nahi,B
+121,Diyaar-e-Ishq mein apna maqam paida kar kis shair ka misra hai?,Meer Taqi Meer,Ghalib,Iqbal,Faiz,C
+122,Raal tapakna ka kya matlab hai?,Mushkil nazar aana,Munh se pani aana,Ji bharna,In mein se koi nahi,C
+123,"Eent se eent bajana muhawara hai, iska kya matlab hai?",Umeed poori hona,Tabah o barbaad karna,Be izzat karna,Bohat zyada shor karna,B
+124,Akbar Allahabadi ki shairi ki khususiyaat kya hai?,Maghrabi taqleed ki mukhalifat,Lisaniyat,Afsanay ki shairi,In mein se koi nahi,A
+125,Taraqqi pasand tehreek ka aaghaz kab hua?,1936,1915,1930,1932,A
+126,"Aisa jumla ya alfaaz ka majmua jis mein aik bama'ani lafz ke sath be-maani ya ghair zaroori lafz istemaal kiya jaye, kya kehlata hai?",Tabe mehmal,Murakkab Ishari,Murakkab Tabe Mehmal,Tabe Mauzoo,C
+127,Distant drums sound sweeter ke durust tarjume ka intikhab kijiye.,Doori se pyar barhta hai,Ghar ki doori se ghar ki qadr hoti hai,Door ke dhol hi achay,Door ke dhol suhane,D
+128,"Maulana Hali ki taweel nazm ""Masaddas Hali"" ka asal unwan hai.",Mad o jazr-e-Islam,Muslimano ka tabnak maazi,Hayat Tayyiba SAW,Muslimoon ke urooj o zawal ki dastaan,A
+129,"Anisiyat Mir Anis ki shakhsiyat aur un ke kalaam ke hawalay se badi mo'tabar tasneef hai, is ke musannif hain?",Masood Hasan Rizvi Adeeb,Qaisar Barahwi,Shamsur Rahman Faruqi,Naseem Amrohvi,A
+130,"Darj zail sher kis ka hai? ""Nisar main teri galiyon ke aye watan ke jahan chali hai rasm ke koi na sar utha ke chale""",Allama Iqbal,Ahmad Faraz,Faiz Ahmed Faiz,Habib Jalib,C
+131,"Yeh arzo thi tujhe gul ke roobaru karte, hum aur bulbul-e-baitab guftagu karte, yeh sher kis ka hai?",Haider Ali Atish,Allama Iqbal,Ghalib,In mein se koi nahi hai,A
+132,Makra aur Makhi kis ki nazm hai?,Ibrahim Zauq,Mirza Ghalib,Mir Taqi Mir,Allama Iqbal,D
+133,'Bechare log kis ka novel hai?,Dostoevsky,'Muhammad Hameed Shahid,'Hamid Ali,'In mein se koi nahi,A
+134,Saheefa kis idaray ka jareeda hai?,Academy Adabiat,Majlis Taraqqi Adab,Muqtadra Qaumi Zaban,In mein se koi nahi,B
+135,Qazi Ji Urdu ka mashhoor mazahiya kirdar kis ki takhleeq hai?,Prem Chand,Bano Qudsia,Ashfaq Ahmed,Shaukat Thanvi,D
+136,Mundarja zail mein se durust fiqray ki nishandahi karein?,Ilaj se marz barhti gayi,Ilaj se marz barhta gaya,Ilaj se marz barh gayi,Ilaj se marz barhti rahi,B
+137,Masood kis mazmoon ke ustad hain?,Urdu,Farsi,Punjabi,In mein se koi nahi,B
+138,Tasdeeq ka mutazad kya hai?,Taghzeeb,Takzeeb,Inkar,In mein se koi nahi,B
+139,"Tasadduq Hussain Khalid, Meera Ji aur N. M. Rashid mein kya cheez mushtarik hai?",Mazah Nigari,Ma'ari Nazm,Azaad Nazm,In mein se koi nahi,C
+140,Qahwa-e-ibarat se kya murad hai?,Ibaarat ki talkhees,Ibaarat ka mafhoom,Ibaarat ka tarjuma,In mein se koi nahi,B
+141,"""Sabz qadam hona"" muhawara hai, iska mafhoom kya hai?",Mubarak hona,Chaaron taraf sabza hona,Manhoos hona,In mein se koi nahi,C
+142,Urdu Braj Bhasha se nikli hai. Yeh kis adeeb se mansoob hai?,Molana Muhammad Hussain Azad,Molana Altaf Hussain Hali,Maqsood Hussain,In mein se koi nahi,A
+143,Mushfiq Khawaja kis unwan se column likhte rahe hain?,Sukhan dar sukhan,Khaama bagoosh,Harf o Hikaayat,In mein se koi nahi,B
+144,Ghubar-e-Khatir sanf ke aitbaar se hai?,Khutoot ka majmua,Khaaka,Sawaneh Nigari,In mein se koi nahi,A
+145,Sajad Zaheer ka naam kis tehreek ke hawalay se liya jata hai?,Taraqqi Pasand Tehreek,Halqa Arbab-e-Zauq,Adabi Duniya,In mein se koi nahi,A
+146,Iqbal-e-jurm kis kitaab ka deebacha hai?,Surkh Feeta,Shahab Nama,Nafsane,In mein se koi nahi,B
+147,Kulliyat-e-Yagana ke musannif hain:,Mushfiq Khawaja,Ismat Chughtai,Farhat Ishtiaq,In mein se koi nahi,A
+148,Urdu dramay ka aaghaz kis ne kiya?,Agha Hashar Kashmiri,Imtiaz Ali Taj,Munshi Prem Chand,Rajinder Singh Bedi,A
+149,Maghribi tanqeed mein nazriya-e-ilwiyat kis ka hai?,Arastu,Longinus,Sidney,In mein se koi nahi,B
+150,"""Baala baika karna"" muhawara hai, iska matlab hai:",Baal ki khaal utarna,Katrabiyoonat karna,Faida pohanchana,Nuqsan pohanchana,D
+151,Abdul Hameed Adam ko Urdu zaban ka Khayyam kyu kaha jata hai?,Mazah Nigari,Tareekh Seerat Nigari,Almiya Shairi,Rubaiyat,D
+152,"Risala ""Tahzeeb-ul-Akhlaq"" kis ne jari kiya?",Anjuman Himayat-e-Islam,Anjuman Islamiya Amritsar,Sir Syed Ahmed Khan,Molana Maududi,C
+153,Bagh-o-Bahar mashhoor dastan hai. Musannif ka naam batayiye:,Meer Aman Dehlvi,Imtiaz Ali Taj,Nazir Ahmad,Agha Hashar,A
+154,Darj zail mein se kaun si shakhsiyat Iqbal shanas shair thi?,Niaz Fatehpuri,Nisar Ahmed Farooqi,Rafiuddin Hashmi,Wazir Agha,C
+155,Rooh ko bhi to qalam ki nok tez aur dil kitab kis ki hai?,Zunun Mashriq,Israr Khudi,Baal e Jibreel,Armaghan e Hijaz,C
+156,"Qabristan, bhoot, chudail kis shair ke mauzoo shairi thay?",Jon Elia,Muneer Niazi,Shaukat Siddiqui,In mein se koi nahi,B
+157,Mukammal karein: Kaata aur le ______.,Bhaga,Bhagay,Bhagi,In mein se koi nahi,C
+158,Risaala Funoon ke mudeer kaun thay?,Ahmad Nadeem Qasmi,Mushtaq Yousufi,Atta-ul-Haq Qasmi,In mein se koi nahi,A
+159,Durust zarb-ul-misal kaunsi hai?,Parhe na likhe naam Muhammad Alam,Parhe na likhe naam Ilm Deen,Parhe na likhe naam Fazil,Parhe na likhe naam Muhammad Fazil,D
+160,"Aks-e-khushbu hoon bikharne se na rokey koi, aur bikhar jaun to mujh ko na sametay koi, yeh sher kis ka hai?",Meer Taqi Meer,Parveen Shakir,Hasrat Mohani,In mein se koi nahi,B
+161,Hayat-e-Javed kis ki sawaneh umri hai?,Javed Iqbal,Javed Miandad,Sir Syed Ahmed,Molana Hali,C
+162,"Aisa fail jis mein mojood zamane ke mutaliq bataya jaye aur aindah mustaqbil ka hona maloom ho, kya kehlata hai?",Fail-e-Maazi,Fail-e-Muzaare,Fail-e-Haal,Fail-e-Amr,B
+163,Ghazal ke matla mein shair kis cheez ka lehaaz rakhta hai?,Radeef,Qafia,Lafz gari,In mein se koi nahi,B
+164,Sharar aur Sarshar ne Urdu adab mein konsa rawaiya mutaarif karwaya?,Qanootiyat,Fasat bo diet,Romanticiyat,Jamhuriyat,C
+165,"Yeh mashhoor sher kis shair ki takhleeq hai? ""Acha hai dil ke sath rahe pasban-e-aql lekin, kabhi kabhi ise tanha bhi chhod de""",Mirza Ghalib,Allama Iqbal,Altaf Hussain Hali,Mohsin Naqvi,B
+166,Gurg aashnaai ki tarkeeb Urdu mein mustamil hai jis ka mafhoom hai?,Jangal ka qanoon,Bhediyon ki si darindagi,"Bazahir dosti, baatin dushmani",Aman chain se rehna,C
+167,"""Bint al-anab"" ka mafhoom kya hai?",Angoor ki beti (sharab),Maifrosh ki beti,Kisan ki beti,Brahman zadi,A
+168,Taweel nazm ko kya kehte hain?,Azad nazm,Masnavi,Rubai,Rekhti,B
+169,"Sir Syed Ahmed Khan ke baray mein ""Hayat-e-Javed"" kis ne likhi hai?",Altaf Hussain Hali,Maulana Shibli Naumani,Ibrahim Zauq,In mein se koi nahi,A
+170,Hindustan mein Taraqqi Pasand Tehreek ka aaghaz kab hua?,1936,1945,1941,1938,A
+171,1857 se 1914 kis adeeb ka daur-e-hayat hai?,Maulvi Abdul Haq,Shibli Naumani,Wazir Agha,In mein se koi nahi,B
+172,"Woh wasfi naam jo kisi khoobi ya khaas wasf ki bunyaad par qoum ki taraf se diya jaye, qawaid ki ro se kehlata hai:",Khitaab,Luqab,Urf,Takhallus,C
+173,Panwari ke shair kaun hain?,Majeed Amjad,N M Rashid,Mustansar Hussain Tarar,In mein se koi nahi,A
+174,Aab-e-Hayat bara maroof tazkira hai. Is ke musannif kaun hain?,Molana Muhammad Hussain Azad,Hamid Hasan Qadri,Hasan Askari,In mein se koi nahi,A
+175,Bar-e-Sagheer Pak-o-Hind mein Urdu ko sarkari zaban ka darja kab haasil hua?,1832,1837,1833,1834,A
+176,Tamk toiiyan marne se kya murad hai?,Mushkil se kaam lena.,Atkal se kaam lena.,Bewaqoofi se kaam lena.,Andazay se kaam lena.,B
+177,"'Narmi, tareeki, bedari grammar ki ro se kya hain?",Ism-e-Zarf-e-Makan,Ism-e-Zarf-e-Zaman,Ism-e-Kifiyat,In mein se koi nahi,C
+178,Sir Syed Ahmed Khan kahan madfan hain?,Dehli,Mumbai,Ali Garh,Agra,C
+179,Ma wara kis shair ka majmua-e-kalam hai?,N. M. Rashid,Nasir Kazmi,Ahmad Faraz,Amjad Islam Amjad,A
+180,Khan Bahadur qawaid ki ro se kya hai?,Harf,Luqab,Khitaab,Kuniyat,B
+181,Pakistan ka qaumi tarana kis ne likha hai?,Sir Syed Ahmed Khan,Hafeez Jalandhari,Allama Iqbal,Molana Shibli Naumani,B
+182,Jadeed hikmat ki misaal kis ki kitaab hai?,Waheed Qureshi,Dr. Munir Anwar Ansir,Hayatullah Ansari,Muhammad Hasan Askari,A
+183,"Mera tareeqa amiri nahi faqiri hai, khudi na bech ghareebi mein naam paida kar. Yeh sher kis ka hai?",Faiz Ahmed Faiz,Allama Muhammad Iqbal,Ata Shad,Ahmed Nadeem Qasmi,B
+184,Durust imla ka intikhab karein?,Lijiye,Lijhe,Lahje,In mein se koi nahi,A
+185,Urdu ka ahd-e-zareen kaunsi sadi ka daur kehlaya jata hai?,16veen sadi,17veen sadi,18veen sadi,In mein se koi nahi,C
+186,"Ahl-e-Lahore ko ""Zinda Dilan-e-Lahore"" ka laqab kis ne diya?",Pitras Bukhari,Khuwaja Hasan Nizami,Allama Iqbal,Sir Syed Ahmad Khan,D
+187,Mashhoor novel 'Udas Naslain' kis ki tasneef hai?,Qurat ul Ain Haider,Ashfaq Ahmed,Abdullah Hussain,Bano Qudsia,C
+188,"Idiom ""Pros and Cons"" ke durust matlab ka intikhab kijiye.",Aam log,Khotay sikke,Masheen ki zindagi,Muwafiq o khilaf baatein,D
+189,Ghazal ke hum aawaz alfaaz ko kya kehte hain?,Radeef,Tarkeeb,Qafia,In mein se koi nahi,C
+190,"""Aab-e-Hayat"" bara maroof tazkira hai. Is ke musannif kaun hain?",Molana Muhammad Hussain Azad,Hasan Askari,Hamid Hasan Qadri,Nazir Ludhianvi,C
+191,Punjab mein Urdu kis ki kitaab hai?,Akhter Shirani,Zahid Shirani,Mehmood Shirani,In mein se koi nahi,C
+192,1913 mein Roznama Hamdard ka aaghaz kis ne kiya?,Zafar Ali Khan,Muhammad Ali Johar,Shaukat Ali,In mein se koi nahi,B
+193,"Umar daraz maang ke laye thay chaar din, do aarzu mein kat gaye do intezar mein, yeh sher kis ka hai?",Imam Bakhsh Nasikh,Bahadur Shah Zafar,Haider Ali Atish,In mein se koi nahi,B
+194,Husn Koza Gar kitne hisson par mushtamil hai?,Teen,Chaar,Paanch,Chay,B
+196,"Urdu mein ""Guldasta"" mein kaisi tahreeren hoti hain?",Mukhtalif shora ki khud navisht,Mukhtalif shora ki shairi,Mukhtalif shora ke kisi khaas mazmoon par khayalat,In mein se koi nahi,B
+197,She'r ke auzan ki sehat jaanchne ka ilm kya kehlata hai?,Ilm-e-Arooz,Ilm-e-Badee,Ilm-e-Bayan,In mein se koi nahi,A
+198,"""Nadar log"" kis ka novel hai?",Agha Hasan Amanat,Saadat Hasan Manto,Abdullah Hussain,Imtiaz Ali Taj,C
+199,"""Hayat-e-Javed"" kis ki tahreer hai?",Altaf Hussain Hali,Muhammad Hussain Azad,Sir Syed,Molana Shibli Naumani,A
+200,""" Aab o dana uth jana "" muhawara hai is ka kya matlab hai ?",Fot ho jana,Jangal mein chale jana,Chalaak hona,In mein se koi nahi,A
+201,Akhtar Hussain Raipuri ka taalluq kis adabi tehreek se tha?,Taraqqi Pasand Tehreek,Rawayati Tehreek,Islami Adab ki Tehreek,Aligarh Tehreek,A
+202,Afsanay ka bawa Adam kis ko kaha jata hai?,Saadat Hasan Manto,Rashid Khairi,Ghulam Abbas,Prem Chand,D
+203,Zahir Dar Baig ka kirdar kis afsane se milta hai?,Fasana-e-Mubtala,Tauba-tun-Nusuh,Fasana-e-Azad,In mein se koi nahi,B
+204,"Mashhoor Hamd ""Wohi Khuda Hai"" kis shair ki hai?",Ijaz Rehmani,Muzaffar Waris,Riaz Majeed,Yusuf Memon,B
+205,"'Sher mein kisi shakhs, maqam, ya waqia ki taraf ishara kya kehlata hai?",Talmeeh,Tashbeeh,Isti'ara,In mein se koi nahi,A
+206,Aud-e-Hindi sanf ke aitbaar se kya hai?,Khutoot,Sawaneh Umri,Aap beeti,In mein se koi nahi,A
+207,"Lafz ""Mafar"" ka mutazad kya hai?",Asfar,Hazar,Sifar,Hazar,B
+208,Urdu ka ahd-e-zareen kaunsi sadi ka dour kehlata hai?,16veen sadi,17veen sadi,18veen sadi,In mein se koi nahi,C
+209,Ghar se ghar tak kis tehreek ki tasneef hai?,Altaf Hussain Hali,Deputy Nazir Ahmad,Ahmad Nadeem Qasmi,Imtiaz Ali Taj,C
+210,"Qawaid ka woh hissa jis mein murakkab jumlon aur ibaraton ki madad se bahas ki jati hai, kehlata hai:",Sarf,Nahw,Qawaid,Ilm-e-Insha,B
+211,"""Bread the line"" ka Urdu tarjuma kya hai?",Munh par mukhalfat karna,Mazaq urana,Be-sar-o-pa,-,C
+212,Na munh mein daant na pait mein ____,Chanp,Dil,Aant,In mein se koi nahi,C
+213,"Allama Iqbal ne parindon mein ""Shaheen"" ko jin sifat ki bunyad par pasand kiya hai, un mein se aham tareen sifat yeh hai ke Shaheen",Parindon ka badshah hai,Fiza mein shikar karta hai,Buland parwaz hai,Kai kai din bhooka reh sakta hai,C
+214,Karbala par mabni nazm ko sanf ke aitbaar se kya kaha jata hai?,Qasida,Marsiya,Manqabat,Rubai,B
+215,'Masjid Qurtuba kis ki nazm hai?,Molana Zafar Ali Khan,Allama Iqbal,Hasrat Mohani,In mein se koi nahi,B
+216,"Allama Iqbal ne ""Shair-e-Kashmir"" aur ""Mujaddid-e-Kashmir"" ke alqabat kis shair ko diye the?",Chaudhry Khushi Muhammad Nazir,Molana Zafar Ali Khan,Muhammad Deen Fauq,Agha Hashar Kashmiri,C
+217,Iqbal ki woh nazm jo paband nazm ki meraaj hai?,Tariq ki dua,Javed ke naam,Tulo-e-Islam,In mein se koi nahi,C
+218,Aangan kis ka novel hai?,Prem Chand,Khadija Mastoor,Agha Hashar Kashmiri,In mein se koi nahi,B
+219,Jumla mukammal kijiye: Yak na shud ____,Sifar shud,Aik shud,Do shud,Teen shud,C
+220,Badshahon ke tazkira ke liye mashhoor kitaab kis ki hai?,Siraj Shams Afif,Mahmood Tabrizi,Waheed Qamar,In mein se koi nahi,A
+221,Rubai mein kitne misray hotay hain?,Aik,Do,Teen,Chaar,D
+222,Drama ki tareef sab se pehle kis ne ki?,Masood Salman,Arastu,Wali Dakni,Ameer Khusro,B
+223,Andher Nagri Chopat Raj ka kya matlab hai?,Apna matlab nikalna,Nakhre rakhna,Adal ki hukmarani,Be-insafi ka daur daura,D
+224,"""Gudriya"" kis ne likha?",Muhammad Saleem,Ashfaq Ahmed,Bano Qudsia,Shaukat Siddiqui,B
+225,Pamaal raaston ko tark kar ke aik takhleeqi jazbe ke taht nai qadron ki talash mein munhamik hone ke amal ko adab ki istilah mein kya kaha jata hai?,Arfiyat,Classiciyat,Romanticiyat,Imayat,C
+226,Rekhta ke maani kya hain?,Bayan karna,Ijad karna,Khush hona,In mein se koi nahi,B
+227,Maria bohat zaheen talaba hai. Is mein zaheen talaba kya hai?,Murakkab Tauseefi,Murakkab Adadi,Murakkab Izafi,In mein se koi nahi,A
+228,Taqseem-e-Hind ke mauzoo par novel kaun sa hai?,Baku,Aag ka Darya,Andar Umrila,In mein se koi nahi,B
+229,Iqbal ka qayam Europe ka arsa kaunsa hai?,1905-1908,1909-1912,1910-1914,1915-1918,A
+230,Burha Tota se kya murad hai?,Aqalmand admi,Tajurba kar admi,Emaandar admi,Be-wuqoof admi,D
+231,Gul Bakawli ka zikar kis masnavi mein hai?,Sehr-ul-Bayan,Gulzar-e-Naseem,Zehar-e-Ishq,In mein se koi nahi,B
+232,"""Poke one's nose"" ke kya ma'ni hain?",Khwamakhwa mudakhlat karna,Nuqsan uthana,Khud ko museebat mein daalna,Zulm karna,A
+233,Oudh Punch risaalay ke editor kaun thay?,Munshi Sajjad Hussain,Abdul Majeed Salik,Qazi Abdul Ghaffar,In mein se koi nahi,A
+234,A Nandi kis ka afsana hai?,Ahmad Nadeem Qasmi,Ghulam Abbas,Muhammad Hussain Azad,In mein se koi nahi,B
+235,"Mahnama ""Makhzan"" kahan se jari hua?",Lahore,Lucknow,Delhi,Calcutta,A
+236,Urdu nasr mein tanqeed ka aaghaz sab se pehle kis ne kiya?,Mulla Vajhi,Khwaja Meer Dard,Sauda,Ibn-e-Insha,A
+237,"Saqliyah (Jazeera Sicily) Allama Iqbal ka maroof shehar aashoob hai, yeh un ke kis majmua mein shamil hai?",Bang-e-Dara,Baal-e-Jibril,Zarb-e-Kaleem,Armaghan-e-Hijaz,A
+238,Urdu adab mein fun paray ki khoobi ya khami bayan karna kehlata hai?,Tanqeed,Tabsarah,Meyaar,In mein se koi nahi,A
+239,"""Aawaz Dost"" kis ki tasneef hai?",Bano Qudsia,Qudratullah Shahab,Ashfaq Ahmed,Mukhtar Masood,D
+240,"""Panj Shanbeh"" haftay ka kaun sa din hai?",Peer,Budh,Jumeraat,Hafta,C
+241,"'School, college aur university qawaid ki ro se kya hain?",Ism-e-Zarf-e-Zaman,Ism-e-Zarf-e-Makan,Ism-e-Zarf,In mein se koi nahi,B
+242,"Tujhe is qoum ne pala hai aaghosh-e-mohabbat mein, kuchal dala tha jis ne paon mein taj-e-sar-e-dara Iqbal ke is sher mein koi lafz aafat istemal hua hai?",Tashbeeh,Talmih,Istiara,In mein se koi nahi,A
+243,Baal-e-Jibril kab chhapi?,1932,1933,1935,In mein se koi nahi,C
+244,Sawaneh umri likhne mein Hali ke ilawa doosra ahem naam kis ka hai?,Shibli Naumani,Ahmad Nadeem Qasmi,Sir Syed Ahmad Khan,In mein se koi nahi,A
+245,"Hindi sanf-e-nazm ""Doha"" mushtamil hota hai.",Faqat aik she'r par,Do ashaaron par,Chaar ashaaron par,Tuwalat par pabandi nahi,A
+246,Zarb-ul-misl mukammal karein: Ek panth ____ kaaj,Do,Teen,Chaar,In mein se koi nahi,A
+247,Durust zarb-ul-misl batain.,Aik aik gyarah,Aik aik do barah,Aik aur aik gyarah,In mein se koi nahi,C
+248,Qazi Abdul Ghaffar ka kaun sa novel hai?,Hakeemak Safar,Udas Naslain,Laila ke Khutoot,In mein se koi nahi,C
+249,Qawaid ke kitne hisay hain?,8,6,4,2,D
+250,"Kaleem-ud-Din Ahmed ki kitaab ""Urdu Shayari Par Aik Nazar"" ki sanf kya hai?",Tadveen,Tahqeeq,Tanqeed,In mein se koi nahi,C
+251,Zarb-ul-misl ka intikhab karein?,Tang tangey marna,Naach na janay aangan tedha,Taray dikhai dena,In mein se koi nahi,B
+252,Kasheeda khaatir ki tarkeeb ka mafhoom hai?,Khush hona,Naraz hona,Pareshan hona,In mein se koi nahi,B
+253,Nazm ki woh sanf jis ke har sher hum qafia hum radeef ho aur har sher qafia aur radeef ke liaaz se jadagana ho:,Qata,Marsiya,Masnavi,Musaddas,C
+254,Urdu zaban ka pehla awaami shair kise kaha jata hai?,Allama Iqbal,Nazeer Akbarabadi,Habib Jalib,Sahir Ludhianvi,C
+255,Talkhaba Sheereen ke shayar ka naam batayein.,Akhtar Sherani,Hafeez Jalandhari,Hasrat Mohani,Asghar Gondvi,B
+256,Shaitaan ki aant hona muhawaray ka kya matlab hai?,Bhooka hona,Shararti hona,Taweel hona,In mein se koi nahi,C
+257,"""Aapay se bahar hona"" is muhawaray ka matlab kya hai?",Sharminda hona,Aab aab hona,Bohat ghusse mein hona,Bohat ameer hona,C
+258,Zarqa film ki heroin ka naam kya tha?,Nashu,Neelo,Firdous,Zaiba,B
+259,"""Do gaz zameen bhi na mili kooye yaar mein"" yeh misra kis shair ka hai?",Mirza Ghalib,Meer Taqi Meer,Bahadur Shah Zafar,Ahmad Faraz,C
+260,"Shairi majmua ""Khushbu"" kis ka hai?",Parveen Shakir,Bushra,Shabnam Shakeel,Manwar Sultana,A
+261,Maidan-e-Amal kis ki kitab hai?,Prem Chand,Ahmad Nadeem Qasmi,Jameela Hashmi,In mein se koi nahi,A
+262,"Safar-e-Ishq, Khushbu ka Safar kis ke safarnamay hain?",Ashfaq Ahmed Warak,Tariq Mirza,Naseer Aslam,In mein se koi nahi,B
+263,Dosto Veski ke novel Brothers Karamazov ka Urdu tarjuma kis adeeb ne kiya?,Shahid Hameed,Masood Hussain Khan,Muhammad Ali Qasuri,Hijab Imtiaz Ali,A
+264,Mujalla Naqoosh ke mudeer kaun thay?,Abdul Hameed Adam,Mukhtar Siddiqui,Muhammad Tufail,In mein se koi nahi,C
+265,Muthi garam karna ka kya matlab hai?,Cheech ya kaante ko garmi se bachana,Rishwat dena,Haathon se mitti ki shakal dena,In mein se koi nahi,B
+266,"""Shagofa chhorna"" muhawara hai, iska mafhoom hai:",Dhaaren maar maar kar rona,Khul khula kar hansna,Buri aadat tark kar dena,Anokhi ya fitna fasad wali baat karna,D
+267,"Mashhoor qaumi naghma ""Jeevay Jeevay Pakistan"" kis ne likha?",Masroor Anwar,Jameeluddin Aali,Qateel Shifai,Muneer Niazi,B
+268,Hajra Masroor kis hawale se apni shanakht rakhti hain?,Maktoob,Afsana nigari,Drama nigari,In mein se koi nahi,B
+269,Urdu adab mein kis shakhsiyat ne bachon ke liye sab se zyada likha?,Hali,Nazeer Akbarabadi,Akbar Allahabadi,Ismail Meeruthi,D
+270,"Aus parna muhawara hai, is ka mafhoom kya hai?",Mayusi ki haalat,Safar ki tayyari,Khushi ki kefiyat,Aadhi raat ke baad ka waqt,A
+271,"""Deed-o-aadeed"" se kya muraad hai?",Dekhna bhalna,Nazar churana,Mulaqaat,Mehboob ki soorat dekhna,C
+272,Hassan Manzar ka kaunsa novel Saudi Arab ki muashrat aur maeeshat ko mauzoo banata hai?,Habs,Al-Asifah,Dawam,Dhani Bakhsh ke betay,B
+273,Istiara ke lughwi maani kya hain?,Tashbeeh dena,Udhar lena,Qarz dena,Khushk paida karna,B
+274,Kaun sa jumla durust hai?,Barae meherbani kal zaroor aayen,Barae meherbani kar ke kal zaroor aayen,Brah meherbani kal zaroor aayen,Brah meherbani kar ke kal zaroor aayen,C
+275,"Yeh sher kis ka hai? ""Deewar kya giri mere khasta makaan ki, logon ne mere sehan se raste bana liye""",Ghalib,Sibt Ali Saba,Faiz Ahmed Faiz,In mein se koi nahi,B
+276,"Hum ne maana ke taghafful na karoge lekin, khaak ho jayenge hum tum ko khabar hotay tak. Yeh mashhoor sher kis shair ka hai?",Altaf Hussain Hali,Mirza Ghalib,Allama Iqbal,Meer Taqi Meer,B
+277,Nawab Wajid Ali Shah kya takhallus karte the?,Wajid,Roshan,Akhtar,Nair,C
+278,Aakhri Shab Ka Humsafar kis ka novel hai?,Qurat-ul-Ain Haider,Jameela Hashmi,Hajra Masroor,In mein se koi nahi,A
+279,"""Nan-e-shair"" ki tarkeeb ka mafhoom hai:",Gandum ki roti,Jo ki roti,Khameeri roti,Nan nafaqa,B
+280,Bang-e-Dara ki pehli nazm ka kya naam hai?,Raat aur shair,Tarana Milli,Himalah,In mein se koi nahi,C
+281,Chaar misron ki nazm ko kya kehte hain?,Mukhmas,Musaddas,Rubai,Qata,C
+282,Charity begins at home ke durust matlab ka intikhab kijiye.,Awwal khwaish baad darwaish,Her kaam ghar se hi shuru karna chahiye,Pehle apne ghar ko dost karna,Khud gharz ki koi had nahi hoti,A
+283,Mandarja zail mein se kaun sa lafz imla ke itibar se sahi hai?,Abajaan! Assalam o Alaikum,Abajaan! Islam Alaikum,Abajaan! Islam Alaikum,Abajaan! Islam o Alaikum,A
+284,Risaala Majalla Funoon kis ki idarat mein shaya hua?,Ahmad Nadeem Qasmi,Atta ul Haq Qasmi,Wazir Agha,In mein se koi nahi,A
+285,Allama Iqbal kis shakhsiyat ke shagird thay?,Rafiuddin Hashmi,Maulana Altaf Hussain Hali,Muhammad Hussain Azad,Rasheed Ahmed Siddiqui,A
+286,Darj zail mein se durust lafz ki nishan dahi kijiye:,Assalam o Alaikum,Islam Alaikum,Assalam Alaikum,Islam-o-Alaikum,C
+287,"Insha Allah Khan Insha ki kitaab ""Dariya-e-Lataafat"" ka mauzoo kya hai?",Khutoot,Qawaid o Grammar,Rudad,In mein se koi nahi,B
+288,"""Bint al-anab"" se kya murad hai?",Joon ka pani,Angoor ki sharab,Angoor ka sirka,Angoor ka pani,B
+289,Allama Iqbal ki kaunsi tasneef un ke inteqal ke baad shaya hui?,Armaghan-e-Hijaz,Zarb-e-Kaleem,Baal-e-Jibreel,In mein se koi nahi,A
+290,"Aisa kalma jisko ahl-e-zaban ne munaasibat ya ghair munaasibat ke hisaab se kisi khaas maani mein istemaal kiya ho, kya kehlata hai?",Maqoola,Zarb-ul-Misal,Muhawra,Kahawat,C
+291,"Aam ke aam, guthliyon ke daam is zarb-ul-misl ka kya matlab hai?",Dohra faida,Nuqsan,Dohra nuqsan,In mein se koi nahi,A
+292,Rehman Baba kis zaban ke shair hain?,Pashto,Sindhi,Punjabi,Balochi,A
+293,"Khakoon par mabni maroof kitabon: ""Aur Okhay Log"", ""Okhay Oulray"" ke musannif hain.",Muhammad Tufail,Mujtaba Hussain,Mumtaz Mufti,Doctor Aftab Ahmed,B
+294,Urdu ke pehle nasr nigar ka naam kya hai?,Ameer Khusro,Meer Taqi Meer,Ibrahim Zauq,Quli Qutub Shah,A
+295,Durust fiqra batain:,Bhookay maren to daaka hi daalain ge.,Bhookay maren ge to daaka hi daalain ge.,Bhookay maren ge to daakay hi daalain ge.,In mein se koi nahi,B
+296,Tehreer mein kisi bhi nooh ke jazbe ke izhaar ke liye rumooz-e-auqaf ki jo alamat istemal hoti hai woh _____________ kehlati hai.,Waqfa,Rabita,Nidaiah,Fajaiya,D
+297,Bisalamat Ravi safar nama kis ki tasneef hai?,Zameer Jafri,Kernal Muhammad Khan,Naseem Hijazi,Naseem Hijazi,B
+298,Awami shaair ke laqab se kis shaair ko yaad kiya jata hai?,Maulvi Abdul Haq,Nazeer Akbarabadi,Mirza Asadullah Ghalib,Akbar Allahabadi,B
+299,"""Dasht-e-Soos"" kis ka novel hai?",Khadija Mastoor,Jameela Hashmi,Bano Qudsia,Kishwar Naheed,B
+300,Ibn-e-Khattab grammar ki ro se kya hai?,Kuniyat,Luqab,Khitaab,Urf,A
+301,"Lafz ""Urdu"" kis zaban se musta'ar liya gaya?",Arabi,Turki,Farsi,In mein se koi nahi,B
+302,Kaghaz ki nao sada nahi behti is zarb-ul-misl se kya murad hai?,Dhoka har waqt nahi chalta,Jhoot hamesha nahi chalta,Mustaqil kaam mustaqil bunyadon par hi qaim hotay hain,In mein se koi nahi,A
+303,Tota Kahani kis ki dastan hai?,Haider Bakhsh Haidari,Nihal Chand,Meer Aman Dehlvi,Rajab Ali Baig,A
+304,"Qalmi o dushmani, Khaaka Nigari, Khaaka Zani kis ki kitaben hain?",Aali Lucknowi,Ahmad Faraz,Ashfaq Ahmed Warak,In mein se koi nahi,C
+305,Asadullah Khan ka laqab kya tha?,Ghalib,Azam,Shoaib,In mein se koi nahi,A
+306,Ghar ki murghi is dramai tasneef ka musannif kaun hai?,Shibli Naumani,Karbal Muhammad Khan,Asar Naumani,Jafar Ahmed Jafri,C
+307,Shikwa aur Jawab-e-Shikwa Iqbal ke kaun se kalaam mein hain?,Baal-e-Jibril,Bang-e-Dara,Aab Beeti,Tazkira,B
+308,"""Lohe Ayyam"" kis ki takhleeq hai?",Waheeda Naseem,Mukhtar Masood,Samiullah,Shaukat Siddiqui,B
+309,Urdu zaban ka taalluq zabanon ke kis groh se hai?,Hind-Europee,Hind Cheeni,Dravidi,Sawahili,A
+310,In mein se zarb-ul-misl kaun hai?,Khudai khawar,Dhoom machana,Boorhi ghori laal lagaam,In mein se koi nahi,C
+311,"Aisi sanat jis ke alfaaz hum shakal hon magar maani mukhtalif hon, kehlati hai?",Sanat-e-Tajnis,Sanat-e-Tarsee,Sanat-e-Tazad,In mein se koi nahi,A
+312,Urdu Tanqeed par aik nazar kis ki tasneef hai?,Kaleem-ud-Din Ahmed,Dr. Muhammad Hassan,Zaheer Kashmiri,In mein se koi nahi,A
+313,London ki aik raat kis ki tehreer hai?,Shaukat Siddiqui,Sajjad Zaheer,Rashid Hasan Khan,In mein se koi nahi,B
+314,Maqta ke lughwi maani kya hain?,Kaat dena,Shuru karna,Tafseel se bayan karna,Subh ki pehli kiran,A
+315,Ghazal ka pehla sher kya kehlata hai?,Matla,Husn-e-matla,Maqta,In mein se koi nahi,A
+316,"Aapay se bahar hona muhawara hai, is ka kya matlab hai?",Libas poora na aana,Sakht sharminda hona,Bohat ghusse mein hona,In mein se koi nahi,C
+317,Latiya dabona ke maani hain?,Hansi o mazaaq,Nuqsan karna,Tanz karna,In mein se koi nahi,B
+318,"""Maut ki Kitaab"" Khalid Javed ki kis sinf-e-adab se taalluq rakhti hai?",Shayari,Afsana,Novel,Tanqeed,C
+319,Umrao Jaan Ada kis ka novel hai?,Prem Chand,Hadi Soda,Shaukat Siddiqui,In mein se koi nahi,B
+320,Ism-e-zarf ki kitni aqsam hain?,Aik,Do,Teen,Chaar,B
+321,Mufrad bahron ki tadaad kitni hai?,Saat,Paanch,Gyaarah,Nau,D
+322,Ahmad Nadeem Qasmi ka afsana kaunsa hai?,Alhamdulillah,Baghole,Kitba,In mein se koi nahi,B
+323,Aasman par urhna se kya murad hai?,Ghuroor karna,Galiyan dena,Taalna,Ghuroor ka sar necha,A
+324,Kalma ki kitni aqsam hain?,Do,Teen,Gyarah,No,B
+325,Khabar ki jama hai?,Khabrain,Akhyaar,Akhbar,In mein se koi nahi,C
+326,"Bachon ki nazm ""Toot Batoot"" kis shaair ne likhi hai?",Dilawar Figar,Mirza Adeeb,Sufi Tabassum,Altaf Hussain Hali,C
+327,Punctuation ko Urdu mein kya kehte hain?,Ramooz-e-auqaaf,Waween,A'raab,In mein se koi nahi,A
+328,Is aabaad kharabe mein kis ki khud navisht hai?,Kaleem Aajiz,Akhtar-ul-Iman,Abdul Majeed Salik,Azhar Waqar Azim,B
+329,Rekhtay ke tumhein ustad nahi ho Ghalib yeh sher Mirza Ghalib ne kis ke liye kaha?,Momin Khan Momin,Mir Taqi Mir,Ibn-e-Insha,In mein se koi nahi,A
+330,Kisi doosre shair ke sher ko apni nazm mein daakhil karna kya kehlata hai?,Takhreeb,Tahneed,Tahreer,Tazmeen,D
+331,Safar Waseela-e-Zafar kis ka safarnama hai?,Shaukat Ali,Musarrat Paracha,Dr. Wazeer Agha,Rehana Abdullah,D
+332,In mein se imla ke lehaaz se kaunsa fiqra durust hai?,Sada aish dauraan dikhata nahi hai,Sada aish dauraan dekhata nahi hai,Sada aish dauraan dikhata nahi hai,In mein se koi nahi,A
+333,"Yeh arzo thi tujhe gul ke roobaru karte, hum aur bulbul-e-baitab guftagu karte, yeh sher kis ka hai?",Ghalib,Haider Ali Atish,Nasir Kazmi,In mein se koi nahi,B
+334,Seer-e-Kohsar kis ki tasneef hai?,Agha Hashar,Munshi Prem Chand,Ratan Nath Sarshar,In mein se koi nahi,C
+335,Aisa ism jo ism ya ism ki jagah par jo istemal hota hai kehlata hai?,Ism-e-Zameer,Ism-e-Jaamid,Ism-e-Nakira,In mein se koi nahi,A
+336,Shairi meri ijaad hai yeh kis ka jumla hai?,Afzal Hussain,Ilahi Bakhsh,Mirza Ghalib,In mein se koi nahi,A
+337,Bang-e-Dra kitne adwaar par mushtamil hai?,Aik,Do,Teen,In mein se koi nahi,C
+338,'Risala Tahzeeb-ul-Akhlaq kis risalay ke tarz par tha?,East and West,"Spectator, Tatler",Zamana,In mein se koi nahi,B
+339,"Khawaja Hassan Nizami ki tasneef ""Sipara Dil"" ke mazameen ki bunyadi khususiyat kya hai?",Har mazmoon mein tasawwuf zaroor hai.,Tamam mazameen tarjuma shuda hain.,Bazurgan-e-Deen ka zikr hai.,Jang-e-Azadi ke bare mein hai.,A
+340,"Idiom: ""Through Thick and Thin"" ka darust matlab:",Har Mushkil Mein,Achy Bury Waqat Mein,Har Haal Mein,Choti Barhi Baatein,B
+341,Fort William College kab bana?,1800,1700,1900,In mein se koi nahi,A
+342,Ghalib Shikan aur Yagana kis ki tasneef hai?,Saleem Akhtar,Najeeb Jamal,Yusuf Anjum,In mein se koi nahi,B
+343,Jadeed tanqeed par Urdu ki pehli kitab kaun si hai?,Muqaddama Shaer-o-Shairi,Aab-e-Hayat,Shaer-ul-Ajam,In mein se koi nahi,A
+344,"""Fakhta uraana"" muhawra hai, iska matlab hai?",Haank lagaana,Mazay uraana,Shoor machaana,Tehas nehas karna,B
+345,"Woh nazm jis mein Sahaba Karam ki tareef, buzurgan-e-deen aur auliya karam ki khoobiyaan bayan ki jayen, kehlati hai?",Naat,Qasida,Manqabat,Marsiya,C
+346,"Allama Iqbal ki nazm ""Khizr-e-Rah"" mein Khizr se kitne sawalat kiye gaye hain?",Do,Teen,Chaar,Paanch,D
+347,Urdu ka pehla drama kaun sa hai?,Rustam Sohrab,Inder Sabha,Ham Nawa,Waris,B
+348,Tayyab khatir ka matlab hai?,Khushi se,Gham se,Narazi se,In mein se koi nahi,A
+349,"Sir Syed Ahmed Khan ka risala ""Tahzeeb-ul-Akhlaq"" ka aakhri shumara kab shaya hua?",1895,1897,1898,In mein se koi nahi,B
+350,Urdu lafz ka kya matlab hai?,Jhund,Alihadgi,Lashkar,In mein se koi nahi,C
+351,Mutriba falak sayara kis sayaray ko kehte hain?,Akbar Shah,Zuhal,Zohra,Mushtari,C
+352,"""Utho wagarna hashr nahi hoga phir kabhi, daudo zamana chaal qayamat ki chal gaya."" Is zaban zad aam sher ke khaliq hain:",Justice Shah Deen Humayun,Zahir Kashmiri,Qateel Shifai,Ahmed Nadeem Qasmi,A
+353,"Us diary ya notebook ko jis mein shair apna takhallus ya muntakhib ashaar bayan karta hai, kehte hain?",Bayaz,Diwan,Kulliyat,In mein se koi nahi,A
+354,Seerat-un-Nabi PBUH kis ne mukammal ki?,Allama Shibli Naumani,Syed Sulaiman Nadvi,Syed Ali Naumani,In mein se koi nahi,B
+355,Musaddas ka har band kitne ashaar par mushtamil hota hai?,Do,Chaar,Chay,In mein se koi nahi,C
+356,Kis shair ne 1825 mein maktub nawisi se mutaliq Farsi mein aik risala likha?,Mirza Ghalib,Momin Khan Momin,Sir Syed Ahmed Khan,Abul Kalam Azad,A
+357,Qabil-e-deed se kya murad hai?,Qabil hona,Na laiq hona,Dekhne wali aankhen,Dekhne ke qabil,D
+358,"Daman pe koi chheent na khanjar pe koi daagh, tum qatl karo ho ya karamat karo ho, yeh mashhoor sher kis shair ka hai?",Shaukat Ali,Sahir Ludhianvi,Jon Elia,Kaleem Aajiz,D
+359,"Qawaid ka woh hissa, jis mein murakkab jumlon aur ibarat se bahas ki jati hai, kehlata hai.",Sarf,Nahw,Qawaid,Imla o Insha,B
+360,Urdu adab mein kisi kitab ki khoobiyaan khamiyan kehlati hai?,Tahseen,Takhleeq,Tanqeed,Tareef,C
+361,"""Musawwir-e-Gham"" kise kaha jata hai?",Rashid Khairi,Sajjad Haider Yaldram,Mirza Muhammad Saeed,In mein se koi nahi,A
+362,Ismail Meeruthi ke ustad kaun the?,Sir Syed Ahmed Khan,Ibrahim Zauq,Mirza Ghalib,In mein se koi nahi,C
+363,Aan daftar ra gaao khord se kya murad hai?,Gaya guzra hona,Khatm ho jana,Tabah o barbaad hona,In mein se koi nahi,C
+364,Neeli Baar aur us se mulhaq ilaqe ki zaban aur muhawaray mein novel likhne ke liye kaun si khatoon mashhoor hain?,Neelofar Iqbal,Neelofar Sikandar,Tahira Iqbal,Tahira Sikandar,C
+365,Munshi Kanwal Kishore ne urdu ki khidmat kis maidan mein ki?,Novel Nawisi,Akhbar Nawisi,Tibaat Quran Pak,Adabi Tareekh Nawisi,B
+366,Nawabi darbar (Syed Muhammad Azad) kya hai?,Qasida,Drama,Novel,Dastan,C
+367,"Firqah Batniyah ke mauzo par klasiki novel ""Firdous Bareen"" ke musannif ka naam hai:",Deputy Nazir Ahmed,Maulana Abdul Halim Sharar,Mirza Hadi Ruswa,Munshi Prem Chand,B
+368,Wali Dakni ko Jamal Dost ka laqab kis muhaqiq ne diya?,Mehmood Sherani,Dr. Jameel Jalibi,Naseeruddin Hashmi,Dr. Syed Abdullah,D
+369,"Baal-e-Jibril ka doosra naam ""Jabreel Udaari"" ke naam se kis ne kiya?",Aseer Abid,Khuwaja Muhammad Zakariya,Maulvi Abdul Haq,In mein se koi nahi,A
+370,Shair-e-mazdoor kise kaha jata hai?,Ehsan Danish,Nazeer Akbarabadi,Majeed Amjad,Faiz Ahmed Faiz,A
+371,Aud-e-Hindi ka taalluq Urdu ke kis sanf se hai?,Ghazal,Nazm,Khutoot,Sawaneh nigari,C
+372,Baywa ki munajat kis ki nazm hai?,Molana Altaf Hussain Hali,Ghalib,Hasrat Mohani,In mein se koi nahi,A
+373,Bint-ul-naab se kya murad hai?,Badshah ki beti,Angoor ki beti (sharab),Laeeb ki beti,In mein se koi nahi,B
+374,Darj zail mein kaun sa muhawara sahi hai?,Subh Banaras Shaam Oudh,Subh Banaras Shaam Dehli,Subh Banaras Shaam Lucknow,Subh Banaras Shaam Agra,A
+375,Who was the first poet of the Urdu language?,Quli Qutab Shah,Daagh Dehlvi,Meer Taqi Meer,Ameer Khusro,A
+376,Umrao Jan Ada kis ki tasneef hai?,Prem Chand,Mirza Hadi Ruswa,Allama Rashid Khairi,In mein se koi nahi,B
+377,Mehmood Sherani ne kis shair ko Urdu ka pehla sahib-e-deewan shair qarar diya?,Ameer Khusro,Masood Saad Salman,Quli Qutub Shah,In mein se koi nahi,C
+378,Girez kis sanf ka juz hai?,Masnavi,Marsiya,Qasida,Nazm,C
+379,Urdu adab mein Jameela Hashmi kis cheez ke liye mashhoor hain?,Insha Pardazi,Tanqeed,Novel Nigari,Ghazal Goi,B
+380,Khaak aur Khoon kis ka novel hai?,Naseem Hijazi,Qurat ul Ain,Bano Qudsia,In mein se koi nahi,A
+381,"Majeed Amjad ne nazm ""Autograph"" kis cricketer ki tasveer dekh kar likhi?",Javed Miandad,Fazal Mahmood,Abdul Hafeez Kardar,Nazar Muhammad,B
+382,Kulliyat kise kehte hain?,Kitabon ka majmua,Shairi majmua,Afsanon ka majmua,In mein se koi nahi,B
+383,Raat din aik karna se kya murad hai?,Sakht mehnat karna,Raat ko ghar mein zyada roshni rakhna,Din ko sote rehna,Raat ko jagte rehna,A
+384,"""Aag ka Darya"" kis ka mashhoor novel hai?",Ismat Chughtai,Qurat ul Ain Haider,Khadija Mastoor,Bano Qudsia,B
+385,Hafeez Taib ki wajah-e-shoharat kya thi?,She'r Goi,Ghazal Goi,Naat Goi,Column Nigari,C
+386,Daar-ul-Saltanat qawaid ki ro se kya hai?,Ism-e-Zarf-e-Makan,Ism-e-Lamakan,Ism-e-Bayan,In mein se koi nahi,A
+387,Udas Naslain kis ki takhleeq hai?,Mumtaz Mufti,Raziya Butt,Abdullah Hussain,Jameela Hashmi,C
+388,"Bue gul le gayi bairun-e-chaman raaz-e-chaman, kya qayamat hai ke khud phool hain ghammaz-e-chaman. Is sher mein 'ghammaz-e-chaman' kya hai?",Tashbih,Istiara,Kinaya,In mein se koi nahi,B
+389,Urdu kaise likhein kis ki tasneef hai?,Mirza Ghalib,Wali Dakni,Rashid Hasan Khan,In mein se koi nahi,C
+390,Alipur ka Aili novel kis ne likha?,Mustansar Hussain Tarar,Ashfaq Ahmed,Mumtaz Mufti,Abdullah Hussain,C
+391,To carry coal to Newcastle ke durust matlab ka intikhab kijiye?,Buray ko us ke ghar tak pohanchana,Mushkil tareen kaam karna,Billi ka ghar wapas aana,Ulta Baans Bareli ko,D
+392,Hayat-e-Saadi kis ki kitaab hai?,Molana Altaf Hussain Hali,Muhammad Hussain Azad,Shibli Naumani,In mein se koi nahi,A
+393,Aangan kis ka novel hai?,Khadija Mastoor,Hajra Masroor,Jameela Hashmi,M. Aslam,A
+394,"""Andalus mein ajnabi"" aur ""Khana Badosh"" kis ki tasaneef hain?",Ibn-e-Insha,Mustansar Hussain Tarar,Ashfaq Ahmed,Saadat Hasan Manto,B
+395,"Urdu adab ka aik shahkar afsana ""Aakhri Aadmi"" kis ki tasneef hai?",Intizar Hussain,Abdullah Hussain,Deputy Nazir Ahmed,In mein se koi nahi,A
+396,Hum Safeer se kya murad hai?,Hum asr,Hum aawaz,Hum safar,In mein se koi nahi,B
+397,Fiqra mukammal karein: Usay qay ____ to bahar chala gaya.,Lagi,Pari,Hui,In mein se koi nahi,C
+398,"Qalmi nuskhe, dastaveez ya ghair matbooa kitaab ko kehte hain?",Makhzoota,Muqaddima,Musahiba,Zameema,A
+399,Imam-ul-khutooth kis shair ko kehte hain?,Hafeez Jalandhari,Meer Taqi Meer,Mirza Ghalib,In mein se koi nahi,C
+400,"Mashhoor novel ""Khuda Ki Basti"" ke musannif ka naam kya hai?",Waqar Azeem,Shaukat Siddiqui,Aal Ahmad Sarwar,Amjad Islam Amjad,B
+401,Tumhara mushkil se paala na pade ke maani batayiye?,Wasta na pare,Jarana hona,Naafiz hona,In mein se koi nahi,A
+402,"Dastan ""Sehr-ul-Bayan"" kis shair ne likhi?",Meer Hasan Dehlvi,Shamsur Rahman Faruqi,Meer Sher Ali Afsos,In mein se koi nahi,A
+403,"""Qaab-e-Qosain"" ka Urdu mein mafhoom batayein:",Nihayat qareeb,Door o qareeb,Door daraaz,Door ke dhol,A
+404,Chaand ka mutaradif kya hai?,Suraj,Mehtab,Sitara,In mein se koi nahi,B
+405,Urdu mein maktub nigari ka aaghaz kis ne kiya?,Deputy Nazir Ahmad,Maulvi Abdul Haq,Mirza Ghalib,In mein se koi nahi,C
+406,Mere chand so ja main ilm-e-bayan ki kaun si soorat bayan hui hai?,Tashbeeh,Isti'ara,Kinaya,Majaz Mursal,B
+407,Aain bain shain karne se kya murad hai?,Baal mein baal nikalna,Bahas karna,Tal matol karna,In mein se koi nahi,C
+408,Allama Iqbal ki kaun si kitaab mein un ka Urdu aur Farsi kalam akhatta chhapa hai?,Zarb-e-Kaleem,Bang-e-Dara,Baal-e-Jibril,Armaghan-e-Hijaz,D
+409,Faiz Ahmed Faiz ke pehle majmue ka kya naam tha?,Naqsh-e-Faryadi,Dast-e-Teh-e-Sang,Shaam-e-Shehr-e-Yaran,Zindan Nama,A
+410,Mashhoor nazm And-o-Jazar-e-Islam kis ne likhi hai?,Allama Iqbal,Sir Syed Ahmed Khan,Altaf Hussain Hali,Mirza Ghalib,C
+411,In mein se durust jumla kaun sa hai?,Bhoke log daka na daalen to aur kya karein,Bhoke log daka na daalen to aur kya karein,Bhoke log daak na daalen to aur kya karein,In mein se koi nahi,C
+412,Oudh Punchab ke mudeer kaun thay?,Zarif Lucknavi,Mehdi Afadi,Munshi Sajjad Hussain,Munshi Sanaullah,C
+413,Allama Iqbal ki kaun si kitaab mein un ka Urdu aur Farsi kalam akhatta chhapa hai?,Zarb-e-Kaleem,Armaghan-e-Hijaz,Bang-e-Dara,Baal-e-Jibril,B
+414,Arastu se Eliot tak kis ki kitab hai?,Hasan Askari,Jameel Jalibi,Akhtar Hussain,In mein se koi nahi,B
+415,Darya mein rehna aur ______ se bair,Magar machh,Pani,Machhli,In mein se koi nahi,A
+416,Qadam Rao Padam Rao Urdu adab ki qadeem masnavi hai. Is ke musannif ka naam kya hai?,Fakhruddin Nizami,Maulvi Noor Ahmed,Ram Chandar,In mein se koi nahi,A
+417,Riwayat aur infiradi salahiyat ka nazriya kis ne diya?,William Henry,Stephenson,T. S. Eliot,In mein se koi nahi,C
+418,"""Aab aab hona"" qawaid ki ro se kya hai?",Muhawara,Sirf roz marra hai,Muhawara bhi hai aur roz marra bhi,Na muhawara hai aur na roz marra,B
+419,"""Alipur ka Aili"" kis ki tasneef hai?",Ashfaq Ahmed,Raziya Butt,Shaukat Siddiqui,Mumtaz Mufti,D
+420,"""Shanay se shana chhalna"" muhawara hai. Is ka kya matlab hai?",Bohat khush hona,Bohat mushkil hona,Bohat bheer hona,In mein se koi nahi,C
+421,"Golar ka phool khilna muhawara hai, is se kya murad hai?",Ashya ka arzaan milna,Anhoni baat hona,Raaz mankashif hona,Khushi ka izhar karna,B
+422,"""Tifl-e-Maktab"" tarkeeb ka mafhoom hai?",Tajurba kar,Na-tajurba-kar,Farigh-ut-taleem,Parha likha,B
+423,Fe'l-e-mutaddi kise kehte hain?,Jo fa'il ko chahe,Jo maf'ool ko chahe,Jo fa'il ke ilawa maf'ool ki bhi zarurat mehsoos kare,In mein se koi nahi,C
+424,Urdu adab ki taweel tareen tareekh kis ne tehreer ki hai?,Dr. Saleem Akhtar,Dr. Tabsum Kashmiri,Dr. Jameel Jalibi,Ram Babu Saxena,C
+425,Amrao Jan Ada ka asal naam kya tha?,Ameeran,Khanum,Bismillah Khan,Naseem Akhtar,B
+426,Farhang-e-Iqbal ka musannif kaun hai?,Yousuf Saleem Chishti,Ghulam Rasool,Hazrat Naseem Amrohvi,In mein se koi nahi,C
+427,Bakhiyay udherna ka kya matlab hai?,Raaz faash kar dena,Bohat tareef karna,Khushamad karna,In mein se koi nahi,A
+428,Ibrahim Zauq kis ke darbar mein Malik-ul-Shuara the?,Shah Alam Sani,Bahadur Shah Zafar,Akbar Sani,In mein se koi nahi,B
+429,"Urdu grammar mein anay walay alfaaz jo 'daan', 'andesh' kehlate hain?",Sabiqay,Lahqay,Murakkab,In mein se koi nahi,B
+430,Urdu ka pehla novel kaun sa hai?,Mirat-ul-Uroos,Ibn-ul-Waqt,Khak o Khoon,Gulistan,A
+431,Ghazal ka woh sher jis mein shair apna takhallus bayan karta hai:,Matla,Maqta,Qafia,Radeef,B
+432,"""Ghatar bood"" qawaid ki ro se kya hai?",Muhawara hai,Rozmarra hai,"Na muhawara hai, na rozmarra","Muhawara bhi hai, rozmarra bhi hai",D
+433,'Qazi Abdul Ghaffar ka novel kaun sa hai?,Sehar tak safar,Udas Naslain,Laila ke Khutoot,In mein se koi nahi,C
+434,Badiha goi ka matlab hai?,Shair-e-Ilm,Barjasta shair,Shair waqif,In mein se koi nahi,B
+435,Taqabli tanqeed ki bunyaad kis ne rakhi?,Muhammad Hussain Azad,Molana Altaf Hussain Hali,Shibli Naumani,In mein se koi nahi,C
+436,Urdu ka romanvi shair kise kaha jata hai?,Akhtar Sherani,Ismail Meeruthi,Prem Chand,In mein se koi nahi,A
+437,Allama Iqbal ka kaunsa kalam Urdu aur Farsi mein hai?,Zaboor-e-Ajam,Zarb-e-Kaleem,Armaghan-e-Hijaz,In mein se koi nahi,C
+438,Shohrat ki khatir likhi gayi tasneef hai?,Molana Abul Kalam Azad,Aurais Azad,Nazir Siddiqui,Qaiser Farhat Ishtiaq,C
+439,Molana Room ki qabr ke sath kis Urdu shair ki alamati qabr banai gayi hai?,Faiz Ahmed Faiz,Allama Iqbal,Mirza Ghalib,In mein se koi nahi,B
+440,Durust fiqra batain.,Zyada nuqta cheeni na karo,Nuqta cheeni na karo,Behtar zyada nuqta cheeni na karo,In mein se koi nahi,B
+441,'Musaddas-e-Hali kis ki farmaish par likhi gayi?,Mirza Ghalib,Sir Syed Ahmed Khan,Molana Shibli Naumani,In mein se koi nahi,B
+442,Yadgar-e-Ghalib kis ki tasneef hai?,Altaf Hussain Hali,Sir Syed Ahmed Khan,Meer Taqi Meer,In mein se koi nahi,B
+443,"""Shahr-e-Sukhan Aarasta Hai"" is written by:",Ahmad Faraz,Faiz Ahmad Faiz,Ashfaq Ahmad,Habib Jalib,A
+444,Jo rahi so bekhabari rahi kis ki tahreer hai?,Qurat ul Ain Haider,Ada Jafri,Hajra Masroor,In mein se koi nahi,B
+445,"""Aasar-us-Sanadeed"" ke musannif kaun hain?",Maulvi Abdul Haq,Sir Syed Ahmed Khan,Hali,Molana Abul Kalam Azad,B
+446,"""Raal tapakna"" ka kya matlab hai?",Munh se pani aana,Ji karna,Donon,In mein se koi nahi,C
+447,"Patta patta boota boota haal hamara jaane hai, Jaane na jaane gul hi na jaaye baagh to saara jaane hai Sher mein istiara aya hai?",Do baar,Teen baar,Chaar baar,In mein se koi nahi,C
+448,Yaadon ki baraat kis ki aap beeti hai?,Shaukat Siddiqui,Afzal Haq,Salahuddin,Josh Malihabadi,D
+449,Khushbu kis ka majmua-e-kalaam hai?,Samina Raja,Parveen Shakir,Ghazala Farooqi,In mein se koi nahi,B
+450,"Risaala ""Shagufa"" kahan se jari hota hai?",Lahore,Hyderabad,Karachi,In mein se koi nahi,B
+451,Musaddas ke har band mein kitne misray hotay hain?,Chaar,Paanch,Chay,Aath,C
+452,Aik aam aadmi ka khwab kis ki tasneef hai?,Mushtaq Ahmed Yousufi,Deputy Nazir Ahmad,Rasheed Amjad,In mein se koi nahi,C
+453,Aftab lab-e-baam hona se kya murad hai?,Maut ke qareeb hona,Suraj tuloo hona,Naraz hona,In mein se koi nahi,A
+454,Adbiyat risaala hai:,Shashmahi,Seh mahi,Haft rozah,In mein se koi nahi,B
+455,"Do jumlon ko milanay wale alfaaz (maslan ""wa"" aur ""keh"") waghera kya kehlate hain?",Huroof-e-Rabt,Huroof-e-Taam,Huroof-e-Atf,Huroof-e-Jar,C
+456,Molana Room ki qabr ke sath kis Urdu shair ki alamati qabr banai gayi hai?,Faiz Ahmed Faiz,Allama Iqbal,Mirza Ghalib,In mein se koi nahi,B
+457,In mein se zarb-ul-misl kaun si hai?,Boorhi ghori laal lagaam,Andhay ko kya chahiye do aankhen,Ram Ram japna paraya maal apna,Tamam zarb-ul-amsaal hain,D
+458,"Aisa harf ya huroof ka majmua jo aik bama'ani lafz ke peeche lagane se aik naya matlab de, kya kehlata hai?",Sabiqa,Zarb-ul-misl,Rozmarra,Lahqa,D
+459,Iqbal mu'asireen ki nazar mein Taraqqi Pasand Tehreek ke andar kis ne kitaab likhi thi?,Syed Waqar Azim,Sajjad Zaheer,Dr. Deen Muhammad Taseer,In mein se koi nahi,A
+460,Anjuman Taraqqi Urdu ka daftar kahan hai?,Faisalabad,Karachi,Islamabad,In mein se koi nahi,B
+461,Muneer Niazi ki paidaish kahan hui?,Sahiwal,Hoshiarpur,Mianwali,Jalandhar,B
+462,Adabi tanqeed aur asloobiyat ke musannif hain?,Nisar Ahmed Farooqi,Waheed Qureshi,Gopi Chand Narang,Ali Sardar Jafri,C
+463,Durust muhawara batain?,Jis ka yaar kotwal us ka chor,Jis ka yaar kotwal use kis baat ka dar,Jis ka yaar kotwal use kahe ka dar,In mein se koi nahi,C
+464,Sir Syed ke bare Hayat-e-Javed kis ne likhi?,Molana Altaf Hussain Hali,Allama Iqbal,Quaid-e-Azam,In mein se koi nahi,A
+465,Tawqeef Nigari se kya murad hai?,She'r mein tareef karna,Ramooz-e-auqaf lagana,Aasan alfaaz mein shairi,In mein se koi nahi,B
+466,"Baat lakh ki, karni khaak ki se kya murad hai?",Dawa bada aur amal kuch nahi.,Fazool guftagu karna.,Doosron ke nuqsan ka sochte rehna.,In mein se koi nahi,A
+467,"""Timsah bahaana"" muhawra hai, iska mafhoom kya hai?",Pani bahaana,Pani mein kaaghazi kashtiyan chalaana,Jhoot moot ka rona,Phoot phoot kar rona,C
+468,Dil aur Wali ki shayari ka shaair kise kaha jata hai?,Muhammad Hussain Azad,Allama Iqbal,Mirza Ghalib,In mein se koi nahi,A
+469,"Grammar ki ro se ""subh o shaam"" kya hai?",Ism-e-Zarf-e-Zaman,Ism-e-Zarf-e-Makan,Ism-e-Nakira,In mein se koi nahi,A
+470,Khushboo ki shaaira kaun hai?,Naheed Begum,Parveen Shakir,Ada Jafri,In mein se koi nahi,B
+471,"Ek sab aag, ek sab paani deeda-o-dil azaab hain donon, is sher mein kaun si sanat bayan hui hai?",Sanat-e-Iham,Tazad aur Laf o Nashr,Sanat-e-Husn-e-Taleel,Sanat-e-Tauzeeh,B
+472,"""Chachkan"" ke musannif ka naam kya hai?",Ibn-e-Insha,Imtiaz Ali Taj,Chiragh Hasan Hasrat,Pitras Bukhari,B
+473,Maaron ghatna phoote naak se kya murad hai?,Dushmani mol lena,Baat ka ghalat matlab nikaalna,Aankh zakhmi hona,In mein se koi nahi,B
+474,Urdu shairi ka bawa Adam kise kaha jata hai?,Meer Dard,Ghalib,Allama Iqbal,Wali Dakni,D
+475,Nazm Aadmi Nama kis ne likhi?,Allama Iqbal,Nazeer Akbarabadi,Mirza Ghalib,Meer Anis,B
+476,Urdu ka sab se pehla akhbar kaun sa hai?,Zamindar,Jam e Jahan Numa,Koh-e-Noor,In mein se koi nahi,B
+477,"Sitaron se aage jahan aur bhi hain, abhi ishq ke imtehan aur bhi hain, is sher mein qafia kya hai?","Jahan, imtihan",Aur bhi hain?,Ishq ke imtihaan,She'r mein qafia nahi hai,A
+478,Khaama bagoosh kis adeeb ka qalmi naam hai?,Muzaffar Ali Syed,Mushfiq Khwaja,Jameel Jalibi,Haider Ali Atish,B
+479,"Yeh sher kis shair ka hai? ""Nisar main teri galiyon ke aye watan ke jahan chali hai rasm ke koi na sar utha ke chale""",Ghalib,Iqbal,Faiz Ahmed Faiz,Ahmad Faraz,C
+480,Daim abad rahe gi duniya hum na honge koi hum sa hoga - Yeh mashhoor sher kis shaair ka hai?,Shaukat Ali,Faiz Ahmed,Nasir Kazmi,Ahmed Faraz,C
+481,Qawaid ki is shaakh ko kya kehte hain jis mein lafz aur us ki sakht par behas ki jati hai?,Nahv,Sirf,Murakkab,Qawaid,B
+482,"Yeh faizan-e-nazar tha ya ke makteb ki karamat thi sikhaye kis ne Ismail ko adab-e- farzandi, yeh sher kis ka hai?",Josh Malihabadi,Allama Muhammad Iqbal,Akbar Allahabadi,Molana Muhammad Ali Johar,B
+483,"Din, raat, saal grammar ki ro se kehlatay hain?",Zarf-e-Makan,Zarf-e-Zaman,Ism-e-Mukabbir,In mein se koi nahi,B
+484,Oud-e-Hindi aur Urdu-e-Mualla kis ki tasneef hain?,Deputy Nazir Ahmed,Mirza Ghalib,Maulvi Abdul Haq,In mein se koi nahi,B
+485,"""Andalus mein ajnabi"" aur ""Khana Badosh"" kis ki tasaneef hain?",Ibn-e-Insha,Mustansar Hussain Tarar,Ashfaq Ahmed,Saadat Hasan Manto,B
+486,Meeraji ki Kuliyat ko kis ne murattab kiya?,Firaaq Gorakhpuri,Niaz Fateh Puri,Ghulam Rasool Mehr,Dr. Jameel Jalibi,D
+487,"Risala ""Asbab-e-Baghawat-e-Hind"" kis ki tehreer hai?",Syed Ameer Ali,Sir Syed Ahmed Khan,Allama Iqbal,Zafar Ali Khan,B
+488,Bain karna kis shairi sanf ka juz hai?,Marsiya,Rubai,In mein se koi nahi,Qasida,A
+489,Joye sheer lana muhawaray ke maani hain?,Bachpan ka zamana yaad karna,Aasan kaam karna,Mushkil kaam sar anjam dena,In mein se koi nahi,C
+490,"Aam ke aam, guthliyon ke daam - is zarb-ul-misl ka kya matlab hai?",Dohra faida,Dohra nuqsaan,Nuqsaan,In mein se koi nahi,A
+491,"""Chahar shanba"" hafte ka kaun sa din hai?",Itwaar,Peer,Mangal,Budh,D
+492,Dunya mein zabanon ke kitne baday khandan hain?,5,14,3,8,D
+493,Grammar ki ro se masjid hai?,Ism-e-Zarf-e-Zaman,Ism-e-Zarf-e-Makan,Ism-e-Nakira,In mein se koi nahi,B
+494,Khalid Hussain ka novel darj zail mein se kaun sa hai?,Masroof Aurat,Khawab mein hanooz,Kaghazi Ghaat,Main yahan hoon,C
+495,Darj zail mein kaun sa lafz durust hai?,Mahosh,Mahosh,Mahosh,In mein se koi nahi,A
+496,Khushi ke moqa par jo huroof istemal hote hain un ko kya kaha jata hai?,Huroof-e-Dukh,Huroof-e-Taasuf,Huroof-e-Jaar,Huroof-e-Inbasat,D
+497,Muhawara aab aab aana se kya murad hai?,Aansoo aana,Ghussa aana,Barish aana,Chamak aana,D
+498,Aam ke aam ghutliyon ke daam is zarb-ul-misl ka kya matlab hai?,Dohra faida,Nuqsan,Dohra nuqsan,In mein se koi nahi,A
+499,Urdu nasr mein Allama Iqbal ki pehli baqaida tasneef ka naam?,Ma baad al-motuat,Ilm al-iqtisad,Iqtisadiyat,Ma ba'd al-iqtisadiyat,B
+500,"Mashhoor nazm ""Tulu-e-Islam"" ke shair kaun hain?",Hafeez Jalandhari,Ehsan Danish,Allama Iqbal,Altaf Hussain Hali,C
+501,"""Aday aana"" muhawara hai is ka kya matlab hai?",Larhai karna,Darmiyan mein aana,Madad karna,In mein se koi nahi,B
+502,Mahsooreen ka kya matlab hai?,Qaidi,Phailay huay,Gharay huay,In mein se koi nahi,C
+503,Istiara ke lughwi maani hain?,Udhar lena,Ishara karna,Naqd ki cheez lena,In mein se koi nahi,A
+504,Parveen Shakir ka ibtidaai takhallus kya tha?,Shakir,Beena,Shabana,In mein se koi nahi,B
+505,'Ma wara kis shair ka pehla majmua-e-kalam hai?,Saqi Farooqi,Saleem Kausar,N M Rashid,In mein se koi nahi,C
+506,"""Dawat-e-Shiraz"" se kya murad hai?",Purtakalluf dawat,Saada khana,Be takallufi ki dawat,B aur C dono,D
+507,"""Shikast"" kis ki tahreer hai?",Ali Abbasi Husaini,Rashid Khairi,Deputy Nazir Ahmad,Krishan Chandar,D
+508,Zaban ka irtiqa kis ki tasneef hai?,Shafiq Ur Rehman,Khalil Siddiqi,Akhtar Shirani,In mein se koi nahi,B
+509,'Ghazal neem wahshi sanf-e-shairi hai yeh kis ka qoul hai?,Kaleem-ud-Din Ahmed,Ahsan Farooqi,Niaz Fatehpuri,In mein se koi nahi,A
+510,"Sabz qadam hona muhawara hai, iska mafhoom hai?",Khush qismat hona,Manhoos hona,Mayous hona,In mein se koi nahi,B
+511,"""Aatish Kada"" kis mashhoor shair ka majmua-e-kalaam hai?",Allama Iqbal,Mirza Ghalib,Altaf Hussain Hali,Dr. Muhammad Deen Taseer,D
+512,Dehli ka dabistan-e-shairi kis ki kitaab hai?,Abdul Majeed Salik,Anwar Sadeed,Noor ul Hasan Hashmi,Qazi Abdul Wadood,C
+513,Ghazal ke aakhri sher mein shaair apna takhallus istemal karta hai use kya kehte hain?,Matla,Maqta,Aakhri sher,In mein se koi nahi,B
+514,Urdu nasr mein Allama Iqbal ki pehli baqaida tasneef ka naam kya hai?,Ma ba'd al-motuat,Ilm al-iqtisad,Iqtisadiyat,Ma ba'd al-iqtisadiyat,B
+515,Kinaya ke lugwi ma'ni kya hain?,Poshida baat,Nabat,Tauseeh,Kalaam,A
+516,Shehar khaali koocha khaali kis ka novel hai?,Mustansar Hussain Tarar,Ashfaq Ahmed,Hashim Nadeem,In mein se koi nahi,A
+517,Hafeez Jalandhari aur Lakhnowi ke majmua ko kis ne kulliyat ki misl kaha hai?,Mushfiq Raja,Khuwaja Muhammad Zakariya,Hasan Askari,Majeed Amjad,B
+518,Tedhi kheer hona: (muhawara),Ulta kaam,Mushkil kaam,Chalaki wala kaam,In mein se koi nahi,B
+519,"Sufi shair Khwaja Meer Dard hain, sufi nasr nigar kaun hain?",Allama Rashid-ul-Khairi,Quli Qutub Shah,Khawaja Hasan Nizami,In mein se koi nahi,C
+520,Istiara ke lughwi maani kya hain?,Tashbeeh dena,Udhar lena,Qarz dena,In mein se koi nahi,B
+521,"Mashhoor kahani ""Overcoat"" ke musannif kaun hain?",Saadat Hasan Manto,Ghulam Abbas,Syed Imtiaz Ali Taj,Haseena Moin,B
+522,Risala Makhzan ka ijra kab hua?,1900,1901,1902,1903,B
+523,"Dr. Abdul Salam Khurshid ki ""De aur Tumhein Aisi Aur"" Jagan Nath Azad ki ""Aankhen Tarsati Hain"" ka talluq kisi sunf-e-nazar se hai?",Drama nigari,Khaka nigari,Safarnama nigari,In mein se koi nahi,B
+524,"Tik tik, chham chham, reen reen, dhak dhak waghera alfaaz qawaid ki ro se hain:",Ism sifat,Ism saut,Ism aala,Ism mukabbir,B
+525,"Mashhoor novel ""Khuda ki basti"" ke musannif ka naam kya hai?",Waqar Azim,Shaukat Siddiqui,All Ahmed Sarwar,Amjad Islam Amjad,B
+526,Mughal daur mein kis zaban ko darbari zaban ka darja hasil tha?,Urdu,Hindi,Farsi,Sanskrit,C
+527,Mano Bhai ke column ka mauzoo kya tha?,Chauraha,Chashm Tamasha,Naye Khayalat,In mein se koi nahi,B
+528,Faiz Ahmed Faiz ke mashhoor Punjabi shaair dost kaun thay?,Ustad Daman,Ahmed Nadeem Qasmi,Warish Shah,In mein se koi nahi,A
+529,"Aisa fail jis mein jab tak fail ke saath saath maf'ool na aaye, jumla bama'ani na bane, kehlata hai:",Fail-e-Lazim,Fail-e-Mutaddi,Fail-e-Ma'roof,Fail-e-Majhool,B
+530,Main kis ke haath par apna lahu talash karun tamaam shehar ne pehne hue hain dastane yeh mashhoor sher kis ka hai?,Mustafa Zaidi,Ahmad Faraz,Faiz Ahmed Faiz,Ghulam Mustafa Hamdani,A
+531,Molana Salahuddin Ahmed ka naam kis adabi risalay ke saath jura hua hai?,Adabi tajurbe,Dunya-e-adab,Adabi duniya,Adabi halqa,C
+532,Rooh-e-arzi Adam ka istaqbal karti hai yeh nazm Allama Iqbal ke kis majmue mein hai?,Armaghan-e-Hijaz,Bang-e-Dara,Baal-e-Jibril,In mein se koi nahi,C
+533,"""Jotiyan chatkhana"" muhawara hai, iska mafhoom hai:",Nai jooti zaib pa karna,Jotiyan baghal mein de lena,Drana dhamkana,Mare mare phirna,D
+534,Khutoot nigari mein kaun se shaair mashhoor hain?,Ghulam Abbas,Ahmed Nadeem Qasmi,Deputy Nazir Ahmed,In mein se koi nahi,D
+535,"""Aagay naath na peeche pagha"" aam zarb-ul-misl hai. Is ka mafhoom kya hai?",Bekaar,Lawariss,Laparwah,In mein se koi nahi,D
+536,Qawaid ki ro se akele bama'ani lafz ko kya kehte hain?,Kalma,Ism,Mahmal,Sifat,A
+537,Raat bheegi hona ka matlab hai?,Maghrib ke baad ka waqt,Aadhi raat ke baad ka waqt,Sardiyon ki raat,In mein se koi nahi,B
+538,Ghani ki jama kya hai?,Ghanoon,Ghaniyat,Aghniya,Aghfa,C
+539,Kisi shair ke misray ya sher ko apne kalam mein shamil ya chipanay ko istilah mein kya kehte hain?,Aawurd,Tahreer,Tazmeen,In mein se koi nahi,C
+540,'Chopal kis ka majmua hai?,Prem Chand,Ratan Nath Sarshar,Ahmad Nadeem Qasmi,In mein se koi nahi,C
+541,Aud-e-Hindi ke khutoot kis ne likhe hain?,Bahadur Shah Zafar,Maulvi Abdul Haq,Mirza Ghalib,In mein se koi nahi,C
+542,Deewar kya giri mere khasta makan ki : logon ne mere sahn mein raste bana liye - Yeh sher kis ka hai?,Ghalib,Sibt Ali Saba,Faiz Ahmed Faiz,In mein se koi nahi,B
+543,Jada Pema ka mafhoom kya hai?,Musafir,Rasta Dikhane Wala,Paidal Chalne Wala,In mein se koi nahi,A
+544,"""All and Sundry"" se murad:",Har aik,Chhotay baray sabhi,Bohat se,In mein se koi nahi,B
+545,Khoji ka kirdar kis ka takhleeq kardah hai?,Munshi Sajjad Hussain,Ratan Nath Sarshar,Deputy Nazir Ahmad,In mein se koi nahi,B
+546,Jameel Jalibi ki kitaab Tareekh-e-Adab-e-Urdu ki kitni jilden hain?,Do,Teen,Chaar,In mein se koi nahi,C
+547,Bad achha badnaam bura,Bad name is worse than bad deeds,A bad man quarrels with his tools,He who is bad does bad,None of these,A
+548,Sab Ras ke musannif ka naam kya hai?,Mulla Waji,Mulla Noor Deen,Fakhruddin Aali,In mein se koi nahi,A
+549,Okha ladla khilan ko mange chaand yeh geet kis ka likha hua hai?,Basheer Badr,Asad Muhammad Khan,Ahmad Faraz,Muneer Niazi,B
+550,"""Aagay naath na peeche pagha"" aam zarb-ul-misl hai. Is ka mafhoom kya hai?",Bekaar,Lawariss,Laparwah,In mein se koi nahi,B
+551,Sir Syed Ahmed Khan ki kaunsi kitab mein Dehli ki imaraton aur Musalmanon ki tareekh ka zikr milta hai?,Aasar-us-Sanadeed,Jam-e-Jam,Tahzeeb-ul-Akhlaq,In mein se koi nahi,A
+552,Firdous-e-Bareen kis ka novel hai?,Ahmad Nadeem Qasmi,Ratan Nath Sarshar,Abdul Haleem Sharar,In mein se koi nahi,C
+553,Nawab Mohsin-ul-Mulk ka asal naam kya tha?,Syed Mehdi Ali Khan,Abdul Haq,Charagh Ali,Badaruddin Tayyab,A
+554,Jarhe ki chandni ka mafhoom hai?,Bekaar cheez,Dil ko chhanay wali cheez,Roshan chamakdar,In mein se koi nahi,A
+555,Urdu mein kisi ko darkhwast karte waqt kya kehte hain?,Baraeh meherbani,Baraaye meherbani,Barae meherbani,In mein se koi nahi,A
+556,"""Qurtaba ka Qazi"" kis ki tasneef hai?",Saadat Hasan Manto,Ashfaq Ahmed,Imtiaz Ali Taj,Amjad Islam Amjad,C
+557,Baitay ka baap apnay bachay ko kya karta hai?,Dekhe,Parhe,Khele,Dekhta hai,D
+559,Shaam hi se bujha sa rehta hai dil hai goya chiragh muflis ka. Is sher mein ilm-e-bayan ki kaun si soorat istemaal hui hai?,Tashbih,Istiara,Talmih,In mein se koi nahi,A
+560,Urdu ka pehla novel nigar kaun tha?,Mirza Asadullah Khan Ghalib,Meer Taqi Meer,Maulvi Nazir Ahmad,In mein se koi nahi,C
+561,Baal-e-Jibril ki asha'at kab hui?,1931,1932,1933,1934,D
+562,Mushtaq Ahmed Yousufi kis hawalay se pehchane jate hain?,Mazah Nigari,Marsiya Nigari,Shairi,Novel Nigari,A
+563,"Darya-e-Latafat, Syed Insha Allah Khan Insha aur kis ki mushtarka tasneef hai?",Molana Abul Kalam Azad,Ahmad Nadeem Qasmi,Mirza Muhammad Ahsan Qateel,Mirza Ghalib,C
+564,"""Zero zabar karna"" muhawara hai. Is ka mafhoom kya hai?",Ulat pulat karna,Bartari tasleem karna,Hukm adooli karna,Bhaag jana,A
+565,Urdu ke pehle novel nigar kaun thay?,Abdul Haleem Sharar,Deputy Nazir Ahmed,Krishan Chander,In mein se koi nahi,B
+566,Rabia Basri was born in which Hijri:,85 A.H,90 A.H,95 A.H,None of these,C
+567,Ghazal ka kaun sa sher matla kehlata hai?,Pehla,Dosra,Teesra,Akhri,A
+568,"Jaan tum par nisaar karta hoon, main nahi jaanta ______ kya hai.",Dua,Wafa,Sila,In mein se koi nahi,A
+569,"Qawaid ki ro se dhoom dhaam mein ""dhaam"" kya hai?",Abdaal,Kalma,Mahmal,Lafz Khaas,C
+570,Kisi ghair zaban ke lafz ko Urdu mein tabdeel karna ______ kehlata hai?,Ta'arub,Tafrees,Tareed,Tahneed,C
+571,Mehr-e-do-neem kis ne likhi hai:,Qateel Shifai,Ada Jafri,Iftikhar Arif,Basheer Badar,C
+572,Chopal kis ka afsanawee majmua hai?,Prem Chand,Razia Sajad Sarshar,Ahmad Nadeem Qasmi,In mein se koi nahi,C
+573,"Do ya do se zyada alfaaz jo rozmarra muhawara ke maani mein istemaal hote hain, kehlate hain?",Rozmarra,Muhawara,Kahawat,Khamosh tamashai,B
+574,Durust imla ka intikhab kijiye.,Kijye,Kejiye,Kijiye,In mein se koi nahi,D
+575,Allama Iqbal ki kitaab Bang-e-Dara kitne hison par mushtamil hai?,Do,Teen,Chaar,In mein se koi nahi,B
+576,"""Allal Tup"" ki tarkeeb ka mafhoom kya hai?",Soch bichaar ke baad,Be soche samjhe,Raaz ki baat,Zubaan-e-khalq,B
+577,"Lafz ""Urdu"" sab se pehle kaun si kitaab mein istemal hua?",Sab Ras mein,Tazk-e-Babri mein,Tazk-e-Jahangiri mein,In mein se koi nahi,B
+578,"""Out of the frying pan into the fire"" ka durust tarjuma kya hai?",Jal bin machhli,Poori chhor aadhi se bhi jaye,Aasman se gira khajoor mein atka,Aaye the namaz bakhshwane roze galay par gaye,C
+579,"Qalmi nuskhe, dastaveez ya ghair matboa kitaab ko kya kehte hain?",Makhtoota,Muqaddama,Musahiba,Zameema,A
+580,Shaakh-e-taak se kya murad hai?,Mazboot lakri,Angoor ki beil,Qad aawar darakht,In mein se koi nahi,B
+581,Maahnama Adab Lateef ka pehla editor kaun tha?,Barkat Ali Chaudhry,Zafar Ali Khan,Molana Muhammad Ali Johar,In mein se koi bhi nahi,D
+582,Urdu zaban ka pehla novel nigar kise kaha jata hai?,Deputy Nazir Ahmad,Maulvi Abdul Haq,Syed Ahmed Khan,In mein se koi nahi,A
+583,Tazabzub ke kya maani hain?,Pareshani,Soch bichaar,Nuqsan,In mein se koi nahi,B
+584,"Woh shaakh jis mein jumlon ki sakht pe baat ki jaye, kya kehlati hai?",Nahv,Sirf,Urooz,In mein se koi nahi,A
+585,Durust zarb-ul-misl kaun si hai?,Shara mein sharam kya,Sharah mein sharam kya,Sharai mein sharam kya,In mein se koi nahi,A
+586,Urdu ke pehle novel nigar kaun thay?,Meer Aman Dehlvi,Muhammad Ali Tayyib,Nazir Ahmad,Rashid Khairi,C
+587,"Nakhun se gosht alag nahi hota, se kya murad hai?",Sach kabhi chhup nahi reh sakta.,Taaqatwar kabhi haar nahi sakta.,Gehre talluqaat jald khatam nahi hotay.,Teenon mein se koi nahi.,C
+588,Mirza Zahir Dar Baig kis novel nigar ka mashhoor kirdar hai?,Bano Qudsia,Deputy Nazir Ahmad,Mirza Hadi Ruswa,Abdul Haleem Sharar,B
+589,Nujum ka wahid hai?,Anjuman,Anjum,Najim,Najm,D
+590,Bahauddin Zakariya University kahan hai?,Islamabad,Lahore,Multan,In mein se koi nahi,C
+591,"""Badam dikhana"" se kya murad hai?",Dushmani karna,Aankh ke ishare se chalne ka hukam dena,Khanay ki dawat dena,Lalach dena,D
+592,Urdu shairi ke ilawa islaah-e-Urdu ka kaam kis shair ne kiya?,Ibn e Insha,Insha Allah Khan,Ghalib,Meer Taqi Meer,B
+593,Bekaar se begaar bhali se kya murad hai?,Bekaar rehne se muft kaam karna behtar hai.,Bekaar admi doosron ki burai karta hai.,Bekaar admi doosron ke kaam kharab karta hai.,In mein se koi nahi,A
+594,Mandarja zail mein se kise awaami shair kaha jata hai?,Nazeer Akbarabadi,Akbar Allahabadi,Allama Iqbal,In mein se koi nahi,A
+595,Munderja zail sher kis shayar ka hai?\nMudda'i laakh bura chahe to kya hota hai\nWohi hota hai jo manzoor-e-Khuda hota hai,Nazeer Akbar Abadi,Agha Hashr,Josh,Daagh,B
+596,Taraqqi Pasand Tehreek ke pehle ijlas ki sadarat kis ne ki?,Maulvi Abdul Haq,Josh Malihabadi,Prem Chand,In mein se koi nahi,C
+597,"Dil liye mout masheenon ki hukumat ehsas-e-marawwat ko kuchal dete hain aalat, yeh sher kis shair ka hai?",Molana Hali,Allama Iqbal,Allama Shibli,Molana Zafar Ali Khan,B
+598,Yeh mujhe chain kyun nahi parta aik hi shakhs tha jahan mein kya?,Ghalib,John Elia,In mein se koi nahi,Parveen Shakir,B
+599,Shikwa aur Jawab-e-Shikwa Iqbal ke kaun se kalaam mein hain?,Baal-e-Jibril,Bang-e-Dara,Aab Beeti,Tazkira,B
+600,Jurrat ka asal naam kya tha?,Qalandar Bakhsh,Yahya Aman,Naseer ud Din,None of these,B
+601,Waqia aag kis ghazwa mein pesh aaya?,Ghazwa-e-Muteq,Ghazwa-e-Taif,Ghazwa-e-Khandaq,Ghazwa-e-Badr,A
+602,Sifat aur mausoof mil kar konsa murakkab banate hain?,Murakkab Izafi,Murakkab Atfi,Murakkab Zarfi,Murakkab Tauseefi,D
+603,"Risala ""Duniya Zaad"" kahan se nikalta tha?",Lahore,Dilli,Karachi,Kanpur,C
+604,Yaar zinda sohbat baqi se kya murad hai?,Zindagi fani hai,Zinda rahe to milte rahenge,Sab zindon ko marna hai,In mein se koi nahi,B
+605,Risala Funoon kis ki idarat mein shaya hua?,Mirza Ghalib,Ahmad Nadeem Qasmi,Sir Syed Ahmed Khan,In mein se koi nahi,B
+606,Mundarja zail mein se kaun marsiya go shaair hain?,Mir Taqi Mir,Mir Anees,Daagh Dehlvi,Momin Khan Momin,B
+607,Sher ka misra jis mein shair apna takhallus bayan karta hai-,Matla,Maqta,Matla-e-Sani,In mein se koi nahi,B
+608,'Baba-e-Urdu kis ka laqab hai?,Deputy Nazir Ahmad,Maulvi Abdul Haq,Sir Syed Ahmed Khan,In mein se koi nahi,B
+609,"Idiom ""Hand in Glove"" ke durust matlab ka intikhab kijiye.",Aapas mein sheir o shakar karna,Chori chhupe,Dost numa qatil,Panah dena,A
+610,Aap kaj maha kaj is zarb-ul-misl ka matlab hai?,Kaam ka admi,Jo kaam khud kiya jaye wohi behtar hai,Achhay achhay kaam karna,In mein se koi nahi,B
+611,"""Jail ke din jail ki raatein"" kis ne likhi?",Faiz Ahmed Faiz,Habib Jalib,Kaleem Ahmed,Ibrahim Jalees,D
+612,Shairi mein woh khususiyaat jis mein duniya ke har pehlu ko samne rakha jaye?,Lafaniyat,Afaqiayat,Hama giriat,In mein se koi nahi,C
+613,Tilsim-e-Khayal mashhoor novel kis ne likha?,Akram Barelvi,Tariq Ismail,Wahab al-Jeeri,Krishan Chandar,D
+614,"Qurat-ul-Ain Haider ki mashhoor tasneef ""Aag ka Darya"" ka unwaan kis shayar ke misre se liya gaya hai?",Sufi Tabassum,Jigar Muradabadi,Abid Ali,Parveen Shakir,B
+615,Durust fiqra batain.,Bookay maren ge to daaka hi daalain ge,Bhookay maren ge to daaka hi daalain ge,Bookay maren ge to daakay hi daalain ge,In mein se koi nahi,B
+616,Paon talay zameen nikalna ka mafhoom kya hai?,Giraftar ho jana,Ghalat fehmi ka shikar hona,Gir jana,Ghbra jana,D
+617,Shayad kis ka shairi majmua hai?,Wasii Shah,Abbas Tabish,Jon Elia,Hasan Abbasi,C
+618,Shaheed ki jo maut hai woh qoum ki hayaat hai\nLahoo hai jo shaheed ka woh qoum ki zakaat hai\nYeh sher kis ka hai?,Abdul Majeed Salik,Molana Zafar Ali Khan,Molana Muhammad Ali Johar,Allama Iqbal,A
+619,Shair Salman Gilani aur Inam ul Haq mein kya mushtarik hai?,Mazahiya nigari,Column nigari,Tahqiq nigari,In mein se koi nahi,A
+620,"Is zulf pe phabti shab-e-dijoor ki soojhi, andhe ko andheray mein badi door ki soojhi yeh mashhoor sher kis shair ka hai?",Faiz Ahmed,Josh,Ahmad Faraz,Insha,D
+621,Bachon ki mashhoor nazm Tot Batot kis shair ne likhi hai?,Josh Malihabadi,Muneer Niazi,Sufi Tabassum,In mein se koi nahi,C
+622,Urdu ka pehla drama kaunsa hai?,Anarkali,Andar Sabha,Waris,In mein se koi nahi,B
+623,In mein se durust zarb-ul-misl kaun si hai?,Aik aur aik do nau,Aik aur aik gyarah,Aik aur aik do barah,In mein se koi nahi,B
+624,Shahid Ahmad Dehlvi ki wajah-e-shoharat kya hai?,Khaaka nigari,Maktub nigari,Nasr nigari,In mein se koi nahi,A
+625,Halway manday karna se kya murad hai?,Kisi ka nuqsan karna,Apna faida sochna,Kisi ki khushamad karna,In mein se koi nahi,B
+626,"Jotiyan chatkhana muhawara hai, iska mafhoom hai:",Nai jooti zaib pa karna,Jotiyan baghal mein de lena,Darana dhamkana,Mare mare phirna,D
+627,"Woh fe'l, jis mein zamana haal aur mustaqbil donon zamanon ke maani nikalte hon, kehlata hai:",Fail Mustaqbil,Fail Haal,Fail Amar,Fail Muzare,D
+628,Lafzi tasveer kashi ke amal ko kya kehte hain?,Asloob,Tamseel,Muhaakat,In mein se koi nahi,C
+629,Mundarja zail mein se kaun apni marsiya nigari ke liye mashhoor hain?,Nazeer Akbarabadi,Mir Anees,Mir Taqi Mir,Daagh Dehlvi,B
+630,Kisi badshah ne Bani Israel ki eent se eent bajai?,Namrood,Haman,Firaun,Babel ke farman rawa Bakht Nasr,D
+631,Arkan-e-istiara ki tadaad kitni hai?,Do,Teen,Chaar,Paanch,B
+632,Khayalistaan kis ka majmua hai?,Farhatullah Baig,Sajjad Haider Yaldaram,Tauseef Ahmed,In mein se koi nahi,B
+633,Mirza Zahir Dar Baig ka kirdar kis novel mein hai?,Mirat-ul-Uroos,Taubat-un-Nusuh,Khoon-e-Jigar Hone Tak,In mein se koi nahi,B
+634,Gul Bakaawli ka zikar kis masnavi mein hai?,Sehr-ul-Bayan,Zehr-e-Ishq,Gulzar-e-Naseem,Gulaab-o-Pari,C
+635,"""Hamdard"" naami akhbar kis ne jari kiya?",Molana Azad,Molana Zafar Ali Khan,Shaukat Ali,Molana Johar,D
+636,Urdu ki pehli tanqeedi kitab kaun si hai?,Tanqeed o Shariyat,Muqaddama Sher-o-Shairi,Adabi Tanqeed ke Usool,Tanqeedi Abaad,B
+637,"Tere azad bandon ki na yeh duniya, na woh duniya, yahan marne ki pabandi wahan jeene ki pabandi, Allama Iqbal ke is sher mein sanat-e-tazad kitni bar aayi hai?",Aik baar,Do baar,Teen baar,In mein se koi nahi,C
+638,Woh naam jo hukumat ki taraf se diya jata hai woh kehlata hai?,Khitaab,Luqab,Urf,Kuniyat,A
+639,Darj zail mein durust jumlay par nishan lagaiye:,Nanha rota rota ho gaya.,Nanha rote rote so gaya,Nanha rota hua so gaya,In mein se koi nahi,B
+640,Darj zail shakhsiat mein se kaun Sir Syed ke rafaqa mein thay?,Altaf Hussain Hali,Momin Khan Momin,Sahir Ludhianvi,In mein se koi nahi,A
+641,Chacha Chhakan kis musannif ka kirdar hai?,Ratan Nath Sarshar,Imtiaz Ali Taj,Prem Chand,In mein se koi nahi,B
+642,Darya ko kooze mein band karna se kya murad hai?,Mukhtasar alfaaz mein badi tafseel ko bayan kar dena,Pani ke bahaao ko rok dena,Darya ka rasta badal dena,Baday darya ko chota darya bana dena,A
+643,Sir Syed ne Aligarh se kaunsa risaala jari kiya?,Hamdard,Comrade,Tahzeeb-ul-Akhlaq,Tahzeeb-un-Niswaan,C
+644,Zindan Nama kis ka shairi majmua hai?,Faiz Ahmed Faiz,Allama Iqbal,Josh Malihabadi,In mein se koi nahi,A
+645,Urdu mein 72 nishtar kis ke mashhoor hain?,Mirza Suda,Mirza Ghalib,Mir Taqi Mir,Hyder Ali Atish,B
+646,BeRa uthana ka kya matlab hai?,Mushkil kaam sar anjam dena,Intizaar karna,Takleef mein hona,In mein se koi nahi,A
+647,Kaun sa jumla durust hai?,Fareeqain ke darmiyan moahida ho gaya.,Donon fareeqain ke darmiyan moahida ho gaya.,Donon fareeqon ke darmiyan moahida ho gaya.,In mein se koi nahi,A
+648,Laila ke khutoot sanf ke aitbaar se kya hai?,Aap beeti,Novel,Drama,In mein se koi nahi,B
+649,Aoodi Hindi ka majmua hai?,Ghazalon,Shairi,Khutoot,In mein se koi nahi,C
+650,Hath kangan ko arsi kya aam zarb-ul-misl hai iska mafhoom kya hai?,Zewar naqdi ka hi doosra naam hai,Nazuk mizaj ko bhari bojh uthane ki kya zarurat hai,Jo kuch zahir aur ayan hai us ka bayan karna fizool hai,Sulah safai se baat banti hai to jhagray ki kya pari hai,C
+651,Muhammad Hussain Azad kahan dafan hain?,Lahore,Faisalabad,Karachi,Qasoor,A
+652,Qasd karna ke maani kya hain?,Irada karna,Madad karna,Sawal karna,Maaf karna,A
+653,Tarana Hindee likhne ke baad Iqbal ke nazariye mein tabdeeli aane ke baad kaun sa tarana likha?,Shawalah,Tarana Milli,Himalah,In mein se koi nahi,B
+654,"""Hum Safeer"" ki tarkeeb ka mafhoom kya hai?",Hum umar,Hum safar,Hum jamaat,Hum aawaz,D
+655,Hafeez Jalandhari aur Daagh Dehlvi ke kalam ko kis ne kitabi shakal di hai?,Khawaja Muhammad Zakariya,Maulvi Abdul Haq,Iftikhar Hussain,In mein se koi nahi,A
+656,Kis shair ko lisan-ul-asr ka khitaab mila?,Israr ul Haq Majaz,Faiz Ahmed Faiz,Akbar Allahabadi,Allama Iqbal,C
+657,Musaddas-e-Hali ka doosra naam ____ hai?,Chiragh Hasrat,Safeena Islam,Madojazar Islam,Shah-e-Jam-e-Islam,C
+658,Urdu ka ibtidaai taraqqi yafta namoona kaun si kitaab hai?,Tazk-e-Babri,Sab Ras,Tareekh-e-Urdu,In mein se koi nahi,B
+659,"""Hum apni zaat ke kafir"" aur ""Bargad ki dhoop mein"" jaise munfarid unwanat par mabni shairi majmuaon ke takhleeq kar hain?",Syed Mubarak Shah,Akhter Usman,Shehzad Nayyar,Dr. Faheem Azmi,A
+660,Iblees ki Majlis-e-Shura Armaghan-e-Hijaz ki pehli nazm hai. Is mein kitne musheeron ka zikr hai?,Teen,Paanch,Saat,No,B
+661,Urdu ki Jane Austen kisay qarar diya jata hai?,Bushra Rehman,Parveen Shakir,Bano Qudsia,Hajra Masroor,A
+662,Punctuation ko Urdu mein kya kehte hain?,Ramooz-e-Auqaf,A'raab,Waween,In mein se koi nahi,A
+663,"Lazim tha ke dekho mera rasta koi din aur, tanha gaye kyu ab raho tanha koi din aur - yeh sher kis ka hai?",Mirza Ghalib,Ahmad Faraz,Nasir Kazmi,Daagh Dehlvi,A
+664,Sanf-e-nazm Manqabat se kya murad hai?,Jis mein Khuda Taala ki tareef ho,Aisi nazm jis mein banda Allah se kuch talab kare,Jis mein Rasool Pak PBUH ki shaan bayan ki gayi ho,Jis mein auliya Allah aur buzurgan din ki tareef ho,D
+665,Aatish Kada kis mashhoor shair ka majmua-e-kalam hai?,Allama Iqbal,Mirza Ghalib,Altaf Hussain Hali,Dr. Muhammad Deen Taseer,D
+666,Mundarja zail mein se kaun si zarb-ul-masl hai?,Turki ba turki jawab dena,Andhon mein kana raja,Jutiyon mein daal batana,Khafif hona,B
+667,Maulana Shibli Nomani ki aap beeti kis ne likhi hai?,Akhter Husain Rai Puri,Mansoor Saad Suleman,Khalid Nadeem,In mein se koi nahi,C
+668,Lafz 'ghair zaroori' mein 'ghair' kya hai?,Sabiqa,Lahqa,Huroof,In mein se koi nahi,A
+669,'Iqbal ki nazmein Shikwa o Jawab-e-Shikwa kis haiyat mein likhi gayi?,Musaddas,Mukhmas,Musammat,In mein se koi nahi,A
+670,Woh naam jo qoum ki taraf se diya jata hai kya kehlata hai?,Lakab,Khitab,Takhallus,In mein se koi nahi,A
+671,Ghalat imla ki nishandahi karein?,Afsos,Ansoo,Unhon,Tumhein,C
+672,"Novel mein ""Baghi Hoon Main"" aur ""Mera Pakistan"" sanf ke aitbaar se kya hain?",Aap beeti,Novel,Drama,In mein se koi nahi,A
+673,"""Bar sar parkhash"" ki tarkeeb ka Urdu mein kya mafhoom hai?",Be saropa,Larai par amada,Rand o Parsa,Khamosh Tamashai,B
+674,"Chehel Dastan, ""Hamza Dastan"" aur ""Naag Part"" ke musannif hain?",Mustansar Hussain Tarar,Atta ul Haq Qasmi,Aamir Ali D,In mein se koi nahi,A
+675,Sar aankhon par bithana se kya murad hai?,Badguman karna,Zahmat karna,Bohat izzat karna,In mein se koi nahi,C
+676,Dukaan barhana ka matlab hai:,Karobar barhana,Dukaan band karna,Dukaan kholna,Dukaan banana,B
+677,Anarkali ki sanf kya hai?,Novel,Drama,Qissa,In mein se koi nahi,B
+678,Khqani-e-Hind kis mashhoor shair ko kaha jata hai?,Ibrahim Zauq,Meer Taqi Meer,Altaf Hussain Hali,In mein se koi nahi,A
+679,Wali Muhammad kis shair ka naam hai?,Akbar Allahabadi,Nazeer Akbarabadi,Josh Malihabadi,In mein se koi nahi,B
+680,Sab Ras ko sab se pehle kis ne mutarif karaya?,Mulla Wajhi,Maulvi Abdul Haq,Altaf Hussain Hali,In mein se koi nahi,B
+681,Faiz ka aakhri dour ka kalam un ke kulliyat mein kis unwan se shamil hai?,Dast-e-Teh-e-Sang,Ghubar-e-Ayyam,Zindan Nama,Naqsh-e-Faryadi,B
+682,#NAME?,Shaam,Bandagi,Lutf,In mein se koi nahi,B
+683,"Abul Kalam Azad ki tasneef ""Ghubar-e-Khatir"" ki sanf kya hai?",Khaaka nigari,Maktub nigari,Nasr nigari,In mein se koi nahi,B
+684,Falahat ke maani kya hain?,Sard Mausam,Kheti Baari,Pairvi,In mein se koi nahi,B
+685,"Aisi wao jo likhne mein to aaye lekin parhne mein na aaye yaani silent ho, kehlati hai:",Wao Ma'zoola,Wao Ma'doola,Wao Makhfi,Teenon mein se koi nahi,B
+686,Punctuation ko Urdu mein kya kehte hain?,Qosain,Ramooz-e-Auqaaf,Sakta,In mein se koi nahi,B
+687,Urdu ko sab se pehle kahan se shahi ahkamaat mein raaij kiya gaya?,Lucknow,Dakkan,Dehli,Calcutta,B
+688,""" Tum aaye ho na shab-e-intezaar guzri hai, talaash mein hai sehar baar baar guzri hai """,Wasi Shah,Parveen Shakir,Meer Taqi Meer,Faiz Ahmed Faiz,D
+689,Molana Zafar Ali Khan kahan ke taleem yafta thay?,Fort William College,Dehli College,Oxford,Ali Garh College,D
+690,Zamana-e-Jahalat mein Abdul Kaba kisi sahabi ka naam tha?,Hazrat Abu Bakr Siddiq,Hazrat Umar r.a,Hazrat Talha r.a,Hazrat Amr bin Al-Aas r.a,A
+691,Wasl ka mutazad kya hai?,Mulaqat,Hijr,Bicharna,In mein se koi nahi,B
+692,Khuda bakshe bohat si khoobiyaan thin marne wale mein... Akbar Allahabadi ne kis ki khoobiyaan ka aitiraaf kiya hai?,Mohsin-ul-Mulk,Sir Syed Ahmed,Maulvi Samiullah,Waqar-ul-Mulk,B
+693,Nazm ke lughwi maani kya hain?,Tasveer kashi karna,Tanzeem aur tarteeb karna,Hiran ki cheekh,Raaye bayan karna,B
+694,"Baghban ne aag di jab aashiyanay ko mere, jin pe tkiya tha wohi patte hawa dene lage yeh sher kis ka hai?",Jon Elia,Saqib Lucknawi,Meer Taqi Meer,In mein se koi nahi,B
+695,Jaame mein phoola na samana muhawaray ka mafhoom hai?,Nihayat khush hona,Umda libaas zaib tan karna,Nihayat naraz hona,In mein se koi nahi,A
+696,Meer Taqi Meer ne adab virsay mein kitne diwans chhore?,Do,Chaar,Chay,Aath,C
+697,Tain Tain Fish se kya murad hai?,Be nateejah,Shoar Sharaba,Tang karna,In mein se koi nahi,A
+698,"Mahnama ""Makhzan"" kis ne shuru kiya?",Hasrat Mohani,Sir Syed Ahmed Khan,Ahmad Nadeem Qasmi,Sheikh Abdul Qadir,D
+699,"Le saans bhi aahista ke naazuk hai bohat kaam, aafaq ki is kargah-e-sheesha gari ka yeh sher kis ka hai?",Ahmad Nadeem Qasmi,Shauq Bahraichi,Meer Taqi Meer,In mein se koi nahi,C
+700,Pyar ka pehla shehar kis ka novel hai?,Ibn-e-Insha,Mustansar Hussain Tarar,Abid Ali,In mein se koi nahi,B
+701,Aab-e-Hayat kis ki tasneef hai?,Molana Muhammad Hussain Azad,Molana Altaf Hussain Hali,Sir Syed Ahmed Khan,In mein se koi nahi,A
+702,Kitbah kis ka afsana hai?,Ghulam Abbas,Ahmed Nadeem Qasmi,Deputy Nazir Ahmed,In mein se koi nahi,A
+703,Tajahul A'arifana ka matlab kya hai?,Naik logon ki jahalat,Jan boojh kar anjaan banna,Naik logon ko nazar andaz karna,In mein se koi nahi,B
+704,'Khali jagah pur kijiye: Aaj maray kal -------- din.,Dosra,Tesra,Chautha,In mein se koi nahi,A
+705,Girez sanf ka taalluq hai:,Tashbeeb,Marsiye,Qasida,In mein se koi nahi,C
+706,Matla ke lughwi maani hain?,Ibtida,Tuloo hone ki jagah,Ghuroob hone ki jagah,Intiha,B
+707,"Allama Muhammad Iqbal ki Farsi shairi ka majmua ""Zabur-e-Ajam"" kis saal shaya hua?",1926,1927,1928,1929,B
+708,Chopal kis ki takhleeq hai?,Ahmad Nadeem Qasmi,Shaukat Siddiqui,Intizar Hussain,Murad Abadi,A
+709,"""A man is known by the company he keeps"" ke darust matlab ka intikhab kijiye.",Admi apne doston se pehchana jata hai,Admi apne mahol se pehchana jata hai,Admi apne karobar se jana jata hai,Admi apne kaam se jana jata hai,A
+710,Bain karna kis shairi sanf ka juz hai?,Masnavi,Qasida,Rubai,In mein se koi nahi (bain karna marsiya ka juz hai),D
+711,Woh huroof jo sawal karne par istemal hote hain kehlate hain?,Nidaiya,Istifham,Fajaaiya,In mein se koi nahi,B
+712,"Ho bahu khainche ga lekin ishq ki tasveer ko, uth gaya nawak fagan, mare ga dil par teer kaun? Allama Iqbal ka yeh sher kis ke baray mein hai?",Mirza Ghalib,Daagh Dehlvi,Nasir Kazmi,In mein se koi nahi,B
+713,Fauj ki jama kya hai?,Fauj,Afwaj,Faujen,Anjaaj,B
+714,Musa ka lafzi matlab kya hai?,Pani se nikla hua,Paak,Kalaam karne wala,Moazzaz,A
+715,"Dam-e-ruqhsat woh chup rahe Abid, aankh mein phailta gaya kajal, yeh sher kis ka hai?",Aziz Ahmed,Muneer Niazi,Syed Abid Ali Abid,In mein se koi nahi,C
+716,Sukhan Abad kis shair ke kulliyat hain?,Naseer Hashmi,Irfan Siddiqui,Meer Taqi Meer,In mein se koi nahi,B
+717,"Hawa ke ghoday par sawar hona muhawara hai, is ka kya matlab hai?",Maghror hona,Bohat jaldi mein hona,Kisi ki parwa na karna,Ghair danishmand hona,B
+718,Jis se kisi cheez ko tashbeeh di jaye use kehte hain?,Mushabbah,Mushabbah bih,Wajh-e-Shabah,Harf-e-Tashbeeh,B
+719,Maine yeh baal dhoop mein safeed nahi kiye. Ilm-e-bayan ki ro se yeh kya hai?,Tareez,Majaz Mursal,Kinaya,Isti'ara,C
+720,Khuishta Gaam ki tarkeeb kya hai?,Mubarak qadam,Makhsus qadam,Tez qadam,Sust qadam,A
+721,Yaadgar-e-Ghalib kis shaair ki takhleeq hai?,Altaf Hussain Hali,Mirza Ghalib,Hasrat Mohani,Hussain Azad,A
+722,"""Maghribi tanqeed mein Aristotle ka maqam aaj bhi Buland hai"" yeh qoul kis ka hai?",Ahmad Nadeem Qasmi,Jameel Jalibi,Qamar Raees,Dr. Wazeer Agha,B
+723,'Mandarjah zail mein se kaun marsiya go shair hai?,Meer Taqi Meer,Meer Anis,____,____,B
+724,"Jumla jo asal baat ka laazmi hissa to na ho, magar us ka zikar likhne wale ki raye mein zaroori samjha jaye, kya kehlata hai?",Jumla Mu'tariza,Jumla Ma'toof,Jumla Shartiya,Jumla Istifhami,A
+725,Jo naam kisi khaas wasf ki wajah se mashhoor ho jaye use kya kehte hain?,Urf,Khitaab,Kuniyat,Luqab,D
+726,Israr ul Haq kis shair ka asal naam hai?,Qateel Shifai,Majaz Lucknavi,Nasir Kazmi,In mein se koi nahi,B
+727,Sint sint kar rakhna se kya murad hai?,Chhupa kar rakhna,Hifazat se rakhna,Sab ke samne rakhna,In mein se koi nahi,B
+728,Shab-e-rafta kis ki tahreer hai?,Ahmad Nadeem Qasmi,Majeed Amjad,Mirza Ghalib,In mein se koi nahi,B
+729,"""Alif Noon"" kis ka mashhoor drama hai?",Anwar Maqsood,Kamal Ahmed Rizvi,Ashfaq Ahmed,Mirza Adeeb,B
+730,"Lafz ""sang"" ka mutaradif batain?",Sang-e-Marmar,Eent,Pathar,Pahar,C
+731,Urdu Lughat Board ka sadar daftar kahan waqia hai?,Karachi,Lahore,Islamabad,In mein se koi nahi,A
+732,Musaddas ke har band mein kitne misray hotay hain?,Chaar,Paanch,Chay,Aath,C
+733,Aain bain shain karna se kya murad hai?,Jhoot bolna,Haan mein haan milana,Taal matol karna,In mein se koi nahi,C
+734,"""Fakhta urana"" muhawara hai, iska matlab hai:",Bang lagana,Maze urana,Shor machana,Tumhein nahi karna,B
+735,In mein se kaun si zarb-ul-misl theek hai?,Cheel ke ghar mein kahan,Cheel ke ghonslay mein gosht kahan,Cheel ke ghonslay mein maas kahan,Cheel ke ghonslay mein billi kahan,C
+736,Heart Attack kis shair ki nazm hai?,N.M. Rashid,Meeraji,Nasir Kazmi,Faiz Ahmed Faiz,D
+737,Ganjhaye Giram Maya mushtamil hai:,Maktubon par,Nasr nigari par,Khaakon par,In mein se koi nahi,C
+738,"Urdu ki mashhoor nazm ""Adami Nama"" kis ki hai?",Maulvi Abdul Haq,Nazeer Akbarabadi,Mirza Asadullah Ghalib,Ahmad Nadeem Qasmi,B
+739,Ameer Khusro ki tehreek in mein se kis ka hissa ho sakti hai?,Ibham Goi ki Tehreek,Romanvi Tehreek,Taraqqi Pasand Tehreek,Sufiya ki Tehreek,D
+740,Tot Batot nazm kis ki nazm hai?,Sufi Tabassum,Habib Jalib,Hafeez Jalandhari,In mein se koi nahi,A
+741,Allama Iqbal ki pehli nazm kaun si hai?,Himalah,Dua,Tulu,Khizr-e-Rah,A
+742,Allama Iqbal ki kaun si kitaab mein un ka Urdu aur Farsi kalam akhatta chhapa hai?,Zarb-e-Kaleem,Armaghan-e-Hijaz,Bang-e-Dara,Baal-e-Jibril,B
+743,"Nazm ""Saqi Nama"" kis sanf mein likhi gayi hai?",Musaddas,Masnavi,Azad Nazm,Nasri Nazm,B
+744,"""Urdu Shayari par aik nazar"" ke musannif hain.",Kaleem-ud-Din Ahmad,Doctor Ibadat Brelvi,Masood Hasan Rizvi Adeeb,Doctor Rauf Parekh,A
+745,N. M. Rashid ka asal naam kya tha?,Noor Muhammad Rashid,Nazr Muhammad Rashid,Nazir Masood Rashid,Noor Masood Rashid,B
+746,"Novel ""Aangan"" ki heroine kaun thi?",Chhi,Aaliya,Tahmina,Najma,B
+747,Shab-e-Rafta kis shair ka majmua-e-kalam hai?,Nasir Kazmi,Majeed Amjad,Muneeb Jalal,Kashif Hussain,B
+748,Muhawara kis zaban ka lafz hai?,Arabi,Farsi,Turki,Hindi,A
+749,Urdu ka lafz pehli baar kahan istemaal hua?,Aaeen-e-Akbari,Urdu Mazameen,Tazk-e-Babri,In mein se koi nahi,C
+750,Adab tanqeed hayaat hai yeh kis ke alfaaz hain?,Matthew Arnold,William Powell,Grayson Carter,None of these,A
+751,Ibtizal ke maani hain?,Asatir-ul-awwalin,Aamiyana,Gehraai,In mein se koi nahi,B
+752,Urdu ko kis daur mein sarkari zaban ka darja mila?,Mughal dour mein,British dour mein,Sikh dour mein,In mein se koi nahi,B
+753,Punjab mein Urdu kis ki kitaab hai?,Akhtar Sherani,Zahid Sherani,Mehmood Sherani,In mein se koi nahi,C
+754,"""Anarkali"" kis ka mashhoor drama hai?",Agha Hashar Kashmiri,Imtiaz Ali Taj,Amjad Islam Amjad,Rajinder Singh Bedi,B
+755,Toti-e-Hind kis shair ko kaha jata hai?,Wali,Sauda,Ameer Khusro,Momin,C
+756,Babaye Urdu ke laqab se kis shakhs ko yaad kiya jata hai?,Muhammad Hussain Azad,Qateel Shifai,Maulvi Abdul Haq,Meer Taqi Meer,C
+757,Pakistan mein Urdu ko qaumi zaban kab qarar diya gaya?,1953,1954,1955,1956,D
+758,Wali Muhammad kis shair ka asal naam hai?,Josh Malihabadi,Nazeer Akbarabadi,Akbar Allahabadi,In mein se koi nahi,C
+759,Behr-e-Zulmaat kehte hain?,Behr-e-Munjamid Shumali ko,Behr-e-Munjamid Junubi ko,Behr-ul-Kaahil ko,Behr-e-Oqiyanus ko,D
+760,Urdu shora mein sab se pehle tasawwuf kis ke haan milta hai?,Zauq,Meer Dard,Ghalib,Momin,B
+761,"Daman tar hona muhawara hai, is ka mafhoom kya hai?",Aansu se bheeg jana,Gunahgar hona,Gham mein shareek hona,Pyaas bujhana,B
+762,Zarb-ul-masl ki nishandahi kijiye.,Jane mein phoolay na samana,Charagh-e-Sehar hona,Jalti par tail daalna,Bad acha badnam bura,C
+763,Sar-e-Wadi-e-Sina kis ka majmua-e-kalam hai?,Allama Iqbal,Ahmed Faraz,Muneer Niazi,Faiz Ahmed Faiz,D
+764,"Lafz ""Khawabida"" ka mutazad kya hai?",Soya hua,Khawab dekhne wala,Baidar,Jagnay wala,C
+765,Woh shairi jis ke ashaar aapas mein marboot aur mutabiqat rakhte hon use kehte hain?,Nazm,Ghazal,Qasida,In mein se koi nahi,A
+766,Pehla Urdu akhbar kahan se jari hua?,Dilli,Lucknow,Kolkata,Lahore,C
+767,Anwar Masood kis mazmoon ke ustad hain?,Urdu,Farsi,Punjabi,In mein se koi nahi,B
+768,Ghazwa-e-Badr ____ mein ladi gayi.,San 3 Hijri,San 2 Hijri,San 4 Hijri,San 1 Hijri,B
+769,"Qawaid ki raw aur saakht ke i'tibar se woh lafz jo khud to kisi lafz se na bana ho albatta is se agay lafz ban sakte hon, kehlata hai?",Masdar,Jaamid,Mushtaq,In mein se koi nahi,A
+770,"Safar-e-Naseeb, kis ka tehreer karda safar nama hai?",Mustansar Hussain Tarar,Mukhtar Masood,Atta ul Haq Qasmi,Pirzada Qasim,B
+771,"Ganjay Farishte aur ""Mummy"" kis ke afsane hain?",Saadat Hasan Manto,Prem Chand,Ratan Nath Sarshar,In mein se koi nahi,A
+772,"Se, ka, par, ne waghera kya hain?",Huroof,Fe'l,Ism,In mein se koi nahi,A
+773,"""Swadeshi Rail"" kis ka mazahiya mazmoon hai?",Shaukat Thanvi,Majeed Lahori,Pitras Bukhari,Mushtaq Ahmed Yousufi,A
+774,No tera bais batana ka matlab hai?,Tal dena,Larhai karna,Na-laiq hona,Hisaab kitaab karna,A
+775,Kitaab Tanha Tanha nazm kisi shair ne likhi?,Molana Altaf Hussain Hali,Allama Iqbal,Ahmad Faraz,Nasir Kazmi,C
+776,Jadeed aur purani shairi ka sangam kis shair ko kaha jata hai?,Mirza Ghalib,Meer Taqi Meer,Altaf Hussain Hali,In mein se koi nahi,C
+777,"""Qaab Qawsain"" ka mafhoom hai:",Bohat door,Nihayat qareeb,Mashriq o Maghrib,Tulu-o-Aftab,B
+778,"""Bahroopiya"" aik mazahiya novel hai. Yeh kis ki tasneef hai?",Dr. Wazir Agha,Habib Jalib,Syed Waqar Azim,Ghulam Abbas,D
+779,Qaumi zaban ki taraqqi kisi idaray ki zimmedari hai?,Academy Adabiat,National Book Foundation,Muqtadra Qaumi Zaban,Majlis Taraqqi Adab,C
+780,Mazdooron ka shair kise kaha jata hai?,Akhtar Shirani,Ehsan Danish,Saghar Siddiqui,Altaf Mashhadi,B
+781,"Jaan tujh pe nisaar karta hoon, main nahi jaanta ______ kya hai?",Dua,Wafa,Sila,In mein se koi nahi,A
+782,Baba-e-Urdu kis shakhsiyat ko kaha jata hai?,Maulana Zafar Ali Khan,Maulvi Abdul Haq,Mirza Ghalib,Tamam Abbas,B
+783,Durust jumlay ka intikhab karein.,Nazeer sakht aqibat andesh hai.,Nazeer sakht aqibat na-andesh hai.,Nazeer sakht na-andesh hai.,Teenon mein se koi nahi.,D
+784,"Koi veerani se veerani hai, dast ko dekh kar ghar yaad aaya"" sher mein mustamil sifat ki nishandahi karein?",Husn-e-Tateel,Sanat-e-Ibham,Istiara,Majma,B
+785,Ibn-e-Batoota ke ta'aqub mein kis ka safar nama hai?,N M Rashid,Mustansar Hussain Tarar,Ibn-e-Insha,In mein se koi nahi,C
+786,Lisan-ul-Asr kise kehte hain?,Akbar Allahabadi,Hafeez Jalandhari,Mirza Ghalib,In mein se koi nahi,A
+787,Aam ke aam ghutliyon ke ____________?,Daam,Kaam,Naam,In mein se koi nahi,A
+788,"'Tifl-e-maktab Urdu ki maroof tarkeeb hai, iska mafhoom hai?",Joya-e-Ilm o Fun,Khilndara bacha,Honhar bacha,In mein se koi nahi,B
+789,Allama Muhammad Iqbal ka pehla shairi majmua kaun sa hai?,Bang-e-Dara,Baal-e-Jibril,Armaghan-e-Hijaz,Javed Nama,A
+790,Kaun se shayar mazah nigari ke hawale se pehchaane jaate hain?,Akbar Allahabadi,Colonel Muhammad Khan,Mushtaq Ahmed Yusufi,In mein se koi nahi,A
+791,"Zarb-ul-masl mukammal kijiye: ""Subah Banaras sham ________?""",Kashmir,Agra,Punjab,Oudh,D
+792,Quli Qutub Shah ne apne Deewan mein kitne takhallus istemaal kiye?,Solah,Satrah,Unees,Bees,B
+793,"""Aankhein pher kar namak bharna"" is muhawaray se kya murad hai?",Ghussa dilana,Neend mitane ki koshish karna,Jabr karna,Shadeed takleef dena,D
+794,"Woh wasfi naam jo kisi khususiyat ya wasf ki wajah se awam-o-khawas mein mashhoor ho jaye (maslan: Ibrahim Khalilullah, Shair-e-Mashriq Allama Iqbal) kya kehlata hai?",Kuniyat,Takhallus,Khitaab,Luqab,D
+795,Woh kitab jis mein shora ke halaat waqiaat likhay jate hain kya kehlati hai?,Maktub,Kulliyat,Tazkira,In mein se koi nahi,C
+796,Mukhtasar afsana ka mojid kaun mana jata hai?,Prem Chand,Deputy Nazir Ahmed,Ahmad Nadeem Qasmi,In mein se koi nahi,A
+797,Zikr-e-Iqbal ke musannif ka naam batayein?,Abdul Majeed Salik,Haqq Nawaz,Salahuddin,Shorish Kashmiri,A
+798,"'""Inkar"" kis ka shairi majmua hai?",Farkhunda Lodhi,Parveen Shakir,Mah Laqa Chanda,In mein se koi nahi,B
+799,Marsiya ki jama kya hai?,Mamoor,Marsoon,Maraasi,In mein se koi nahi,C
+800,"Urdu shayari mein ""Khuda-e-Sukhan"" kin ko kaha jata hai?",Allama Iqbal,Mir Dard,Mir Anees,Mir Taqi Mir,D
+801,Sukhandan-e-Faris kis ki tehreer hai?,Allama Rashid-ul-Khairi,Muhammad Hussain Azad,Molana Abdul Haleem Sharar,Khawaja Hasan Nizami,B
+802,In mein se kaun sa lafz durust hai?,Assalam Alaikum,Assalam o Alaikum,Wassalam Alaikum,Islam Alaikum,A
+803,Lahqay ki nishandahi karein:,Ghair mamooli,Aaram,Tarbiat yafta,In mein se koi nahi,C
+804,Allama Iqbal ki nazm Masjid-e-Qurtuba kis majmua mein hai?,Baal-e-Jibril,Bang-e-Dara,Armaghan-e-Hijaz,In mein se koi nahi,A
+805,"Taaq-e-Nisyan pe rakhna, se kya murad hai?",Bhool jana,Yaad rakhna,Wada karna,Wada khilafi karna,A
+806,Zameen ka gaz kya matlab hai?,Taweel safar karne wala,Ghar mein rehne wala,Ghoomne phirne wala,In mein se koi nahi,A
+807,Gard-e-raah kis ki tasneef hai?,Akhtar Hussain Raipuri,Parveen Shakir,Prem Chand,In mein se koi nahi,A
+808,Qibla ki tabdeeli kis hijri mein hui?,Aik Hijri,Do Hijri,Teen Hijri,Chaar Hijri,B
+809,Maghrib ke tanqeedi usool kis ki kitaab hai?,Akbar Ali,Mehmood Sherani,Sajjad Baqar Rizvi,In mein se koi nahi,C
+810,Ghalib ki sab se lambi masnavi ka naam kya hai?,Qati Burhan,Aab-e-Hayat,Chiragh-e-Deer,Badal aur barq,C
+811,Fiqra mukammal karein: Hathi guzar gaya ____ reh gayi?,Dam,Soond,Naag,In mein se koi nahi,A
+812,Jab kabhi harf wao (و) do ismon ko milaye to use tanha likha jata hai. Jaise Khush o Khurram. Aise wao (و) ko grammar ki ro se kya kaha jata hai?,Wao Saakin,Wao Majhool,Wao Maroof,Wao Atifa,D
+813,Dabistan-e-Dehli ke kis shair ne darbari shairi na ki?,Zauq,Ghalib,Momin,In mein se koi nahi,C
+814,"""Chand Hum Asar"" khakon par mabni maroof kitaab hai. Is ke musannif kaun hain?",Rasheed Ahmed Siddiqui,Mirza Rehmatullah Baig,Maulvi Abdul Haq,Molana Abdul Majeed Salik,C
+815,"Novel ""Aangan"" kis ne likha?",Khadija Mastoor,Jameela Hashmi,Akhtar Raza Salimi,Idrees Azad,A
+816,Hindustan mein roznama Zameendar kis ki idarat mein shaya hota raha?,Ghulam Rasool Mehr,Abdul Majeed Salik,Zafar Ali Khan,Muhammad Ali Johar,C
+817,Kafan kis ka majmua hai?,Mustansar Hussain Tarar,Ghulam Abbas,Prem Chand,In mein se koi nahi,C
+818,Kaun si zarb-ul-misl durust hai?,Samandar mein rehna aur magarmachh se bair,Jheel mein rehna aur magarmachh se bair,Darya mein rehna aur magarmachh se bair,Talaab mein rehna aur magarmachh se bair,C
+819,Kaun sa jumla durust hai?,Aap bema'a ahl o iyaal tashreef laayen,Aap ma'a ahl o iyaal tashreef laayen,Aap jama' ahl iyaal tashreef laayen,Aap ma'a ahl iyaal tashreef laayen,B
+820,'Al-Furq ka musannif kaun hai?,Nazir Ahmad,Sir Syed Ahmed Khan,Shibli Naumani,In mein se koi nahi,C
+821,Main kis ke haath pe apna lahu talash karun tamaam shehar ne pehne hue hain dastanay yeh mashhoor sher kis ka hai?,Mustafa Zaidi,Ghalib,Parveen Shakir,Ahmad Nadeem Qasmi,A
+822,Musaddas-e-Hali kis saal shaya hui?,1879,1889,1870,In mein se koi nahi,A
+823,Musabaqat se kya murad hai?,Barabari,Muqabala,Dushmani,Sabqat le jana,A
+824,"Lafz ""qillat"" ka mutazad lafz kya hai?",Kasrat,Kasrat,Beshtar,Aksar,A
+825,Novel ka naam kis zaban se liya gaya hai?,Yonani,Angrezi,Italwi,Hindustani,C
+826,"Garmi, sardi, tareeki, aur tandurusti kaun si sanf hai?",Ism-e-Zarf-e-Makan,Ism-e-Zarf-e-Zaman,Ism-e-Kifiyat,In mein se koi nahi,C
+827,Allama Iqbal ki kaunsi kitaab ma'ashiyat ke mutaliq hai?,Ilm-ul-Iqtisad,Asrar-e-Khudi,Zarb-e-Kaleem,In mein se koi nahi,A
+828,Aqal ka andha ganth ka poora se kya murad hai?,Aqalmand ghareeb,Aqalmand maldar,Bewaqoof maldar,Kanjus maldar,C
+829,"Aawa ye qoum najeeb o charb dast o tar dimaagh, hai kahan roz-e-mukafat aye Khuda-e-dergeer, Iqbal ke is sher mein charb dast se kya murad hai?",Qabil,Hunar mand,Be saleeqa,In mein se koi nahi,B
+830,Fort William College kab bana?,1500,1600,1700,1800,D
+831,"""Syed-ush-Shuhada"" qawaid ki ro se kya hai?",Khitaab,Khaas,Luqab,Urf,C
+832,Durust lafz ka intikhab karein.,Khurdo been,Kharobeen,Khorobeen,In mein se koi nahi,C
+833,Lahore ka Geography ke musannif ka kya naam hai?,Nasir Kazmi,Pitras Bukhari,Akhtar Sherani,In mein se koi nahi,B
+834,Islami jangon mein sab se pehle khandein kis jang mein istemal hui?,Ghazwa-e-Uhad,Ghazwa-e-Badr,Ghazwa-e-Khandaq,Ghazwa-e-Taif,D
+835,"Jagan Nath Azad ki ""Aankhein Tarastiyan Hain"" ka taalluq kis sanf se hai?",Khaaka Nigari,Sawaneh Nigari,Safar Nama,In mein se koi nahi,B
+836,"""Shaikh o Shaab"" ki tarkeeb ka kya mafhoom hai?",Aaqa o ghulam,Muttaqi o parheizgar,Rind o paarsa,Boorhay o jawaan,D
+837,Israr ul Haq kis shair ka asal naam hai?,Fazl Haqqani,Nasir Kazmi,Josh Malihabadi,Majaz Lucknawi,D
+838,Zamana-e-Jahalat mein Abdul Kaba kisi sahabi ka naam tha?,Hazrat Abu Bakr Siddiq,Hazrat Umar r.a,Hazrat Talha r.a,Hazrat Amr bin Al-Aas r.a,A
+839,Nazar Muhammad Rashid kis sanf mein shairi karte the?,Azad nazm,Nazm e muarra,Nasri nazm,In mein se koi nahi,A
+840,"Zarb-ul-misl kamar pe pani, baap ka ____.",Bhai,Dada,Dost,Pota,A
+841,"""Tot Batot"" ka kirdar kis adeeb ne takhleeq kiya?",Sufi Tabassum,Mukhtar Masood,Pitras Bukhari,Jameeluddin Aali,A
+842,Urdu classical aur jadeed shairi ka sangam kis shair ko qarar diya jata hai?,Molana Muhammad Hussain Azad,Khwaja Altaf Hussain Hali,Molana Hasrat Mohani,Allama Iqbal,B
+843,Khushbu kis ki shairi ka majmua-e-kalaam hai?,Parveen Shakir,Bushra,Shabnam Shakeel,Manwar Sultana,A
+844,Dastan-e-Mujahid kis ki tahreer hai?,Naseem Hijazi,Ibn-e-Insha,Mumtaz Mufti,Intizar Hussain,A
+845,Allama Iqbal ka pehla Urdu shairi majmua kaun sa hai?,Bang-e-Dara,Baal-e-Jibril,Armaghan-e-Hijaz,Javid Nama,A
+846,Mazah nigari ke hawalay se kaun se shair mashhoor hain?,Pitras Bukhari,Akbar Allahabadi,Shafiq ur Rehman,Ibn-e-Insha,B
+847,Pehla Urdu drama hai:,Dhoop Kinare,Khuda ki Basti,Andar Sabha,In mein se koi nahi,C
+848,Golar ka phool khilna muhawara hai. Is se kya murad hai?,Ashya ka arzaan milna,Khushi ka izhar karna,Anhoni baat hona,Raat mankashif hona,C
+849,Phir luta hai khursheed-e-jahan taab safar se phir noor-e-seher dast o garebaan hain seher se. Faiz Ahmed Faiz ke is sher mein murakkab izafi kitni bar istemal hua hai?,Aik baar,Do baar,Teen baar,Chaar baar,B
+850,Mirza Ghalib ibtida mein kya takhallus istemal karte thay?,Mirza,Asad,Yakta,In mein se koi nahi,B
+851,Baagh kis ka novel hai?,Ameer Khusro,Naseem Hijazi,Abdul Sattar,Abdullah Hussain,D
+852,Mah-e-Tamam kis ka shairi majmua hai?,Habib Jalib,Faiz Ahmed Faiz,N. M. Rashid,Parveen Shakir,C
+853,Azad Nazm ka bani kise kaha jata hai?,Ismail Meeruthi,Mirza Ghalib,N. M. Rashid,In mein se koi nahi,C
+854,Israr-e-Khudi kis zaban mein hai?,Urdu,Farsi,Arabi,In mein se koi nahi,B
+855,Ae Rah-e-Haq ke Shaheedo kis ne likha?,Jameeluddin Aali,Sahir Ludhianvi,Nasir Kazmi,Musheer Kazmi,D
+856,Ghalib ka yeh mashhoor misra mukammal kijiye: Maut se pehle aadmi nijaat paaye kyon ______,Gham se,Dukh se,Dil se,Us se,A
+857,"""Farhang Asfiya"" ke murattab ka naam batayein?",Syed Ahmad Dehlvi,Majid Nizami,Syed Ahmed Nadeem Qasmi,Abdullah Malik,A
+858,"""Cock and bull story"" ke durust matlab ka intikhab kijiye.",Lok kahani,Bahaduron ki kahaniyan,Jhooti kahani,Bhooli hui kahani,C
+859,Tarb ka lughwi maani kya hai?,Khushi,Naghma,Khamoshi,Aawaz,A
+860,Nadia aik zaheen taliba hai. Is jumlay mein zaheen taliba kya hai?,Murakkab Tauseefi,Murakkab Atfi,Murakkab Izafi,In mein se koi nahi,A
+861,Urdu nazm ke pehle shair kaun hain?,Nazeer Qayoom,Akbar Allahabadi,Faiz Ahmed Faiz,Nazeer Akbarabadi,D
+862,Qasida lafz nikla hai?,Qasd,Qasdaawat,Qasdan,In mein se koi nahi,A
+863,"Mazmoon ""Mureed Pur ka Peer"" ke musannif kaun hain?",Rasheed Ahmed Siddiqui,Pitras Bukhari,Imtiaz Ali Taj,In mein se koi nahi,B
+864,"Moti samajh ke shaan-e-karimi ne chun liye, qatre jo thay mere arq-e-infi'aal ke yeh sher kis ka hai?",Wasif Ali Wasif,Allama Iqbal,Iftikhar Hussain,In mein se koi nahi,B
+865,"""When in Rome do as the Romans do"" ke durust matlab ka intikhab kijiye:",Room mein wohi karo jo Roman karte hain.,Jaisa des waisa bhais,Jaisa malik waisa naukar,Jaisa aaqa waisa ghulam,B
+866,"Allama Iqbal ki maroof nazm ""Tulu-e-Islam"" un ke kis majmua mein shamil hai?",Bang-e-Dara,Baal-e-Jibril,Zarb-e-Kaleem,Payam-e-Mashriq,A
+867,"Urdu afsana ""Gadariya"" kis ki takhleeq hai?",Prem Chand,Ghulam Abbas,Ashfaq Ahmed,Ahmad Nadeem,C
+868,Mirza Ghalib ki zawja ka naam batain?,Sardar Begum,Umrao Begum,Ghulam Begum,Noor Begum,B
+869,"""Boo-e-gul le gayi bairun-e-chaman raaz-e-chaman, kya qayamat hai ke khud phool hain ghamaaz-e-chaman""",Tashbeeh,Isti'ara,Majaz Mursal,Kinaya,B
+870,Tajahul Arifana se kya murad hai?,Sufi buzurg,Jahil admi,Ghaflat se kaam lena,Jaan boojh kar anjaan banna,D
+871,Urdu ka lafz sab se pehle kis kitaab mein istemal hua hai?,Tazk-e-Jahangiri,Tazk-e-Babri,Sab Ras,In mein se koi nahi,B
+872,Urdu adab ke pachaas saal kis ki tasneef hai?,Syed Qasim Mahmood,Farman Fateh Puri,Ghafoor Shah Qasim,In mein se koi nahi,C
+873,Gharz ki jama kya hai?,Aghraaz,Gharzon,Aghariz,In mein se koi nahi,A
+874,Mazmoon Kuttay kis mazah nigar ka shahkar hai?,Mushtaq Ahmed Yousufi,Ibn-e-Insha,Ratan Nath Sarshar,Pitras Bukhari,D
+875,Ameer Abid ne Diwan-e-Ghalib ka kis zaban mein tarjuma kiya?,Farsi,Hindi,Punjabi,In mein se koi nahi,C
+876,Nazm ke lughwi maani kya hain?,Tasveer kashi karna,Tanzeem aur tarteeb karna,Hiran ki cheekh,Raaye bayan karna,B
+877,Aab aab hona muhavra ka kya matlab hai?,Dil jeet lena,Sharminda hona,Zaar o Qatar rona,Maghrur hona,B
+878,"Allama Iqbal ki mashhoor nazm ""Khizr-e-Rah"" un ke kis majmua-e-kalam mein hai?",Israr Khudi,Bang-e-Dara,Baal-e-Jibril,Zarb-e-Kaleem,B
+879,Masjood Malaik kise kaha jata hai?,Hazrat Adam,Hazrat Isa,Hazrat Yunus,In mein se koi nahi,A
+880,"""When in Rome do as the Romans do"" ka durust matlab intikhab kijiye.",Room mein wohi karo jo Roman karte hain,Jaisa des waisa bhais,Jaisa malik waisa naukar,Jaisa aaqa waisa ghulam,B
+881,Ghalib kahan peda hue?,Agra,Ahmedabad,Vohli,In mein se koi nahi,A
+882,Hasan Askari Urdu ki kis sanf ke hawalay se mashhoor hain?,Shairi,Tanqeed Nigari,Novel Nigari,Urdu Nasr,B
+883,Tanqeed ka naya pas manzar kis ki tasneef hai?,Jilani Kamran,Muhammad Hasan Askari,Meer Taqi Meer,In mein se koi nahi,A
+884,Woh nabiyon mein rehmat laqab pane wala kis ka misra hai?,Molana Hali,Hafeez Taib,Waheed Zafar,Molana Zafar Ali Khan,A
+885,"Ali Wajoodi, Toor Ma'na, Kalam Junoobi waghera kisi tareekhi novel ke maroof kirdar hain?",Amar Bel,Firdos-e-Bareen,Raja Gidh,In mein se koi nahi,B
+886,Urdu adab ki Tashkeel-e-Jadeed kis ki kitaab hai?,Ahmad Nadeem Qasmi,Nasir Abbas Nayyar,Akbar Allahabadi,In mein se koi nahi,B
+887,Molana Altaf Hussain Hali kis shair ke shagird thay?,Sir Syed Ahmed Khan,Mirza Ghalib,Meer Taqi Meer,In mein se koi nahi,B
+888,Hafiz Mahmood Sherani ke mutabiq Urdu ka pehla shair kaun hai?,Quli Qutub Shah,Ameer Khusro,Masood Saad Suleman,In mein se koi nahi,C
+889,Urdu mein tareekhi ishaare ke liye kaunsi istilah istemaal hoti hai?,Dakhliyat,Rajaiyat,Talmih,In mein se koi nahi,C
+890,Urdu ke pehle novel nigar kaun thay?,Meer Aman Dehlvi,Muhammad Ali Tayyib,Nazir Ahmad,Rashid Khairi,C
+891,Bala-e-Taaq rakhna ka kya matlab hai?,Nuqsan pohanchana,Madad karna,Parwa na karna,In mein se koi nahi,C
+892,Sakta ki alamat kaunsi hai?,-,،,؟,.,B
+893,Mirza Ghalib kis shehar mein peda hue?,Dehli,Agra,Banaras,Lucknow,B
+894,Alipur ka Aili novel kis ne likha?,Mustansar Hussain Tarar,Shaukat Siddiqui,Abdullah Hussain,Mumtaz Mufti,D
+896,Sarphoolay bol ka shair kis ki kitab hai?,Asrar-ul-Haq Majaz,Meer Taqi Meer,Inayatullah Khan,Ibn-e-Insha,C
+897,Munshi Prem Chand ka kaunsa afsana zabt kar liya gaya tha?,Akhri tohfa,Zad raah,Soz e Watan,In mein se koi nahi,C
+898,Zar-e-daagh-e-dil se kya murad hai?,Dili sadma,Dil ki asoodgi,Dil ki daulat,In mein se koi nahi,C
+899,Hazara University kahan waqia hai?,Mansehra,Abbottabad,Swat,In mein se koi nahi,A
+900,Mu'tariza ya ghair mu'tariz jumlon ki wazaahat ke liye kaun si alamat istemal hoti hai?,Waqfa,Waween,Qosain,In mein se koi nahi,C
+901,'Kali Das ne drama Shakuntala kis zaban mein likha?,Sanskrit,Turki,Hindi,In mein se koi nahi,A
+902,Zameen ka gaz hona se kya murad hai?,Taweel ul qamat,Deo qamat,Zameen ka naap,Lamba safar karna,A
+903,Girez ka taalluq kisi sanf se hai?,Hamd,Naat,Ghazal,Qasida,D
+904,Baba-e-Urdu qawaid ki ro se kya hai?,Luqab,Takhallus,Khitaab,In mein se koi nahi,A
+905,"""Amar Beil"" kis ki takhleeq hai?",Ashfaq Ahmed,Bano Qudsia,Abdullah Hussain,Shaukat Siddiqui,B
+906,Mirza Ghalib ke Urdu Aiwaan ki kitni jildein hain?,Aik,Do,Teen,In mein se koi nahi,A
+907,Shola-e-Toor written by?,Josh Malihabadi,Jigar Moradabadi,Abdul Halim Sharar,None of these,B
+908,Khuda ki Basti aur Jangloos kis ke novel hain?,Shaukat Thanvi,Shaukat Siddiqui,Munshi Prem Chand,In mein se koi nahi,B
+909,Deewan-e-Ghalib ki ashaat Ghalib ki zindagi mein kitni bar hui?,Do,Paanch,Gyarah,No,B
+910,"""When in Rome do as the Romans do"" ke darust matlab ka intikhab karein۔",Room mein wohi karo jo Roman karte hain,Jaisa des waisa bhais,Jaisa malik waisa naukar,Jaisa aaqa waisa naukar,B
+911,Kitaab Armaghan-e-Hijaz ka musannif kaun hai?,Allama Iqbal,Abdul Haleem Sharar,Faiz Ahmed Faiz,In mein se koi nahi hai,A
+912,Allama Iqbal ka pehla shairi majmua kaun sa tha?,Armaghan e Hijaz,Israr Khudi,Bang e Dara,In mein se koi nahi,B
+913,Udaas Naslain kis ka novel hai?,Ahmad Nadeem Qasmi,Abdullah Hussain,Prem Chand,In mein se koi nahi,B
+914,Waris drama mein markazi kirdar kaun tha?,Mahboob Alam,Munawwar Saeed,Azmi Gilani,Shujaat Hashmi,A
+915,Ghubar-e-Khatir ka taalluq kis sanf se hai?,Khaaka,Sawaneh Nigari,Khutoot,In mein se koi nahi,C
+916,Zindagi zinda dili ka naam hai murda dil khaak jiya karte hain. Yeh sher kis ka hai?,Imam Bakhsh Nasikh,Insha Allah Khan Insha,Haider Ali Atish,In mein se koi nahi,A
+917,In mein se kaun sa lafz muzakkar aur moannas dono hai?,Aab,Maan,Waras,Zameen,A
+918,Durust fiqre ki nishandahi karein: poori majlis _____ mein doob gayi.,Gham-o-Alam,Gham-o-Ilm,Gham-o-Alam,In mein se koi nahi,A
+919,Durust jumlay ki nishandahi karein?,Yeh riwayat bilkul sahi nahi.,Yeh riwayat bilkul sahi nahi hai.,Yeh riwayat qatai sahi nahi.,Yeh riwayat bilkul sahi nahi.,A
+920,"""Boorha tota"" se kya muraad hai?",Aqalmand aadmi,Tajurba kar aadmi,Emandaar aadmi,Bewaqoof aadmi,D
+921,"'""Gard-e-raah"" kis ka safar nama hai?",Akhtar Hussain Raipuri,Mustansar Hussain Tarar,Daagh Dehlavi,Ibn-e-Insha,A
+922,Woh nazm jis mein aik misra bar bar dahraya jaye use kya kehte hain?,Tarkeeb Band,Mukhmas,Tarjeeh Band,In mein se koi nahi,C
+923,Urdu ghazal ke aham mood kis ki tasneef hai?,Mir Anis,Shamsur Rahman Faruqi,Bahadur Shah Zafar,In mein se koi nahi,B
+924,Iztirar ka mutazad kya hai?,Aitbaar,Ijtinab,Iztirab,Qarar,D
+925,Awwal khwaish baad darwaish ka matlab hai:,Charity begins at home,Too much familiarity breeds contempt,"Do good, have good",None of the above,A
+926,Juda gana sher kis se talluq rakhta hai?,Nazm,Marsiya,Qasida,Ghazal,D
+927,Wasl ka mutazad hai?,Hijr,Qurbat,Narazi,In mein se koi nahi,A
+928,Main aap ka........ hoon.,Mashkoor,Mamnun,Mashkoor o mamnun,In mein se koi nahi,B
+929,Is sher mein ilm-e-bayan ki kaunsi soorat bayan hui hai? Shaam hi se bujha sa rehta hoon dil hua hai charagh-e-muflis ka,Tashbeeh,Isti'ara,Talmeeh,Kinaya,A
+930,Hawiya kis ki tasneef hai?,Ghulam Muhammad Qasir,Jameel Ahmed Adeeb,Ali Abbas Husaini,Syed Ahmed Khan,B
+931,"Akhbar ""Comrade"" kis ne jari kiya?",Molana Zafar Ali Khan,Molana Muhammad Ali Johar,Molana Abul Kalam Azad,Molana Hasrat Mohani,B
+932,Aye Jawan song sung by which band:,Awaz,Junoon,Strings,Vital Signs,A
+933,Muqadma Sher-o-Shairi ko Hali ne kis kitaab mein muqadma ke tor par shamil kiya?,Ghazliyat-e-Hali,Deewan-e-Hali,Tahqiq Nama,Musaddas-e-Hali,B
+934,Aisi nazm jis mein kisi ki tareef ki jaye use kehte hain?,Qata,Qasida,Hajv,In mein se koi nahi,B
+935,"""Jis ko falak ne loot ke weeran kar diya, hum rehne wale hain usi ujray diyar ke""",Ghalib,Meer Taqi Meer,Khuwaja Meer Dard,Momin Khan Momin,B
+936,'Darj zail mein se konsa lafz durust nahi hai?,Asatiza,Qameez,Hairani,In mein se koi nahi,D
+937,Basa auqat ka Urdu zaban mein kya matlab hai?,Baaz auqat,Kabhi kabhar,Aksar auqat,Mukhtalif halaton mein,B
+938,"Lafz ""Fauj"" ka jama kya hai?",Faujon,Afwaj,Faujen,In mein se koi nahi,B
+939,"""Syed-ul-Umra"" kis ka laqab hai?",Zafar Ali Khan,Hasan Sahib,Hasrat Mohani,Nasir Kazmi,C
+940,Marsiya kis zaban ka lafz hai?,Urdu,Arabi,Farsi,Hindi,B
+941,Zinda Rood ke musannif ka naam batain:,Ahmed Faraz,Allama Iqbal,Faiz Ahmed Faiz,Javed Iqbal,D
+942,Matha thunka se kya murad hai?,Kisi kaam ke mutaliq bure asar paida hona,Kuch bhool jana,Afsos karna,In mein se koi nahi,A
+943,"""Swadeshi Rail"" kis ka mazahiya mazmoon hai?",Shaukat Thanvi,Majeed Lahori,Pitras Bukhari,Mushtaq Ahmed Yousufi,A
+944,Tajahul Arifana se kya murad hai?,Naik logon ka anjaan banana,Jaan boojh kar anjaan banna,Doosron ki ghaltiyon par parda dalna,In mein se koi nahi,B
+945,"Fatima! tu abroo-e-ummat-e-marhoom hai, zarra zarra teri musht-e-khaak ka masoom hai, is sher mein Iqbal ne kis ko mukhatib kiya hai?",Hazrat Fatima r.a,Fatima bint Abdullah,Fatima bint Suleman,In mein se koi nahi,B
+946,Firdos-e-Bareen kisi adeeb ka mashhoor tareekhi novel hai?,Sadiq-ul-Khairi,Diya Shankar Naseem,Nazir Ahmad,Abdul Haleem Sharar,D
+947,Gul khilana ka kya matlab hai?,Aabiyari karna,Ajeeb kaam karna,Phool lagana,In mein se koi nahi,B
+948,Ghalib ko kis nawab ki taraf se wazifa milta tha?,Nawab Yusuf Ali Khan,Nawab Bahadur Ali Khan,Nawab Qasim Ali Khan,In mein se koi nahi,A
+949,"""Chand hum asar"" kis ki khaaka nigari ki tasneef hai?",Mirza Ghalib,Maulvi Abdul Haq,Meer Taqi Meer,In mein se koi nahi,B
+950,'Kernal Hallride ne Anjuman Punjab kahan banai?,Lahore,Karachi,Islamabad,In mein se koi nahi,A
+951,Fauj ki jama kya hai?,Faujon,Afwaj,Faujiyon,In mein se koi nahi,B
+952,"Khakon par mabni kitaab ""Alakh Nagri"" kis ne likhi?",Mustansar Hussain Tarar,Samia Ahuja,Mumtaz Mufti,Abdullah Hussain,C
+953,"Professor Sohail, Qayoom aur Semi kis novel ke kirdar hain?",Raja Gidh,Purana zamana,Gadariya,In mein se koi nahi,A
+954,Qudratullah Shahab ne masooda kaise likha?,Farsi mein,Punjabi mein,Short hand mein,In mein se koi nahi,C
+955,Aam Lisaniyat ke musannif hain:,Asad Muhammad Khan,Gyan Chand Jain,Shamsur Rahman Faruqi,In mein se koi nahi,B
+956,"Kis adeeb ne lisaniyat ko zaban ki paidaish, irtiqa aur mout se mutaliq ilm qarar diya hai?",Majeed Amjad,Muhammad Hussain Azad,Mohiuddin Qadri Zor,In mein se koi nahi,C
+957,Taubat-un-Nusuh novel kis ki tahreer hai?,Molana Shibli Naumani,Molana Altaf Hussain Hali,Molana Zakaullah,Deputy Nazir Ahmad,D
+958,"Aatay, jatay, likhay, parhay grammar mein kya hain?",Fail-e-Amar,Fail-e-Nahi,Fail-e-Muzare,Fail-e-Mutaddi,C
+959,Rajab Ali Baig ki tahreer kaun si hai?,Fasana-e-Ajaib,Angaray,Aag ka Darya,In mein se koi nahi,A
+960,Ghar se ghar tak kis ka afsana hai?,Ahmad Nadeem Qasmi,Rasheed Amjad,Ghulam Abbas,Intizaar Hussain,A
+961,Qasida kis lafz se nikla hai?,Qasd,Qasdan,Qasid,In mein se koi nahi,A
+962,Sanf-e-haiku mein kitne misray hotay hain?,Do,Teen,Chaar,In mein se koi nahi,B
+963,"'""Mirat-ul-Uroos"" kis ki mashhoor tasneef hai?",Deputy Nazir Ahmad,Nazeer Akbarabadi,Meer Aman Dehlvi,Ghulam Abbas,A
+964,Yeh faizaan-e-nazar tha ya ke maktab ki karamat thi / sikhaye kis ne Ismail ko adab-e- farzandi? Is sher mein Allama Iqbal ne kis sanf ko barta hai?,Talmih,Fard,Nahu,Kinaya,A
+965,Ilm-e-Arooz ke mutabiq bahr ya buhoor ke arkaan mein agar koi do harfi lafz aa jaye kehlata hai?,Sabab,Radeef,Rukn,In mein se koi nahi,A
+966,Allama Iqbal kab se kab tak Europe mein rahe?,1905-1908,1901-1905,1895-1901,In mein se koi bhi nahi,A
+967,Nalish karna se kya murad hai?,Muqaddama daer karna,Larhai karna,Ghussa karna,In mein se koi nahi,A
+968,"Aankhen farsh-e-rah karna muhawara hai, is ka kya matlab hai?",Matlab nikalna,Bohat izzat karna,Aansoo ponchhna,Dhool urana,B
+969,Geet nigari mein sab se ahem naam kis ka hai?,Sahir Ludhianvi,Faiz Ahmed Faiz,Ahmad Faraz,Wali Dakni,A
+970,Khalid Javed ki kitaab 'Ek Khanjar Pani Mein' ka mauzoo hai?,Aabi aloodgi,Aabi jangen,Pak-Bharat tanaza,Samandar ka khushk hona,A
+971,"Allama Iqbal ki maroof nazm ""Masjid-e-Qurtaba"" un ke kis majmua mein shamil hai?",Bang-e-Dara,Baal-e-Jibril,Zarb-e-Kaleem,Payam-e-Mashriq,B
+972,Kafoor ho jana muhawara ki ro se hai?,Muhawara,Zarb-ul-misl,Roz marra,Roz marra aur muhawara,A
+973,Jungle mein Dhanak kis ki kitaab hai?,Ahmad Nadeem Qasmi,Muneer Niazi,Nasir Kazmi,Amjad Islam Amjad,B
+974,Sureelay Bol ka Shair kis ki kitab hai?,Israr ul Haq,Azmatullah Khan,Toqeer Shah,In mein se koi nahi,B
+975,"Be par ki urana muhawara hai, is ka mafhoom kya hai?",Afwa urana,Be saropa baat karna,Shararat karna,In mein se koi nahi,C
+976,Main kis ke haath par apna lahu talash karun tamaam shehar ne pehne hue hain dastane yeh mashhoor sher kis ka hai?,Mustafa Zaidi,Ahmad Faraz,Faiz Ahmed Faiz,Ghulam Mustafa Hamdani,A
+977,Diyaar-e-Ishq mein apna maqam paida kar yeh sher kis ka hai?,Mirza Ghalib,Ahmad Faraz,Allama Iqbal,In mein se koi nahi,C
+978,Azimat ke kya maani hain?,Talabi dua,Irada,Maqsad,Tamam durust hain,D
+979,Bagh-o-Bahar mein kitne darweshon ka qissa hai?,Do,Teen,Chaar,Chay,C
+980,"""Shikwa aur Jawab-e-Shikwa"" Allama Iqbal ke kis majmua mein shamil hai?",Baal-e-Jibril,Armaghan-e-Hijaz,Bang-e-Dara,Zarb-e-Kaleem,C
+981,"""Iblees ki Majlis-e-Shura"" kis ki nazm hai?",Faiz Ahmed Faiz,Akbar Abadi,Allama Iqbal,Muhammad Hussain Azad,C
+982,Fort William College ki mashhoor kitaab kaun si hai?,Aaraish-e-Mehfil,Bagh-o-Bahar,Adabi Khidmaat,In mein se koi nahi,B
+983,Bang-e-Dara ka awwaleen deebacha likhne ka aizaaz kis ne haasil kiya?,Maulana Hali,Sir Ras Masood,Sheikh Abdul Qadir,Javed Iqbal,C
+984,Kisi ravi ko sadiq aur zabita sabit karna kehlata hai?,Jarh,Tadeel,Riwayat,Estinbat,B
+985,"Woh ism jis mein kisi ghair muayyan shakhs ko mukhatib karne ke liye jo alfaaz istemal hote hain jaise ke kisi, kuchh aur koi ke alfaaz in mein shamil hon?",Ism Istifham,Ism Tankeer,Ism Zamir,Ism Marfa,B
+986,Girja kis zaban ka lafz hai?,Portugali,Urdu,Hindi,In mein se koi nahi,A
+987,Wahdat-ul-wujood ko kis shair ne barta hai?,Meer Taqi Meer,Meer Hasan,Khawaja Meer Dard,In mein se koi nahi,C
+988,Allama Iqbal ki kis Farsi kitab ka deebacha Urdu zaban mein likha gaya hai?,Payam-e-Mashriq,Bang-e-Dara,Armaghan-e-Hijaz,In mein se koi nahi,A
+989,Mushtaq Ahmed Yousufi ki tasneef kaunsi hai?,Sanata,Ghar se ghar tak,Aab-e-Gum,In mein se koi nahi,C
+990,"Rood-e-Kausar, Aab-e-Kausar, Mauj-e-Kausar kis ki tasaneef hain?",Sheikh Muhammad Ikram,Aziz Ahmed,Shibli Basheer,Tahseen Firaqi,A
+991,Iqbal ne kis sanf ko sab se zyada barta hai?,Musaddas,Mukhmas,Masnavi,In mein se koi nahi,C
+992,Ibn-e-Insha ka asal naam kya hai?,Sher Muhammad Khan,Shabbir Ali,Muhammad Asghar,In mein se koi nahi,A
+993,Istejabiya jumle ki nishandahi karein.,Woh kal Lahore jaega,Wah! Kya khoobsurat mausam hai,Us ki bili gum ho gayi,In mein se koi nahi,B
+994,Basi kadhi mein ubaal aana?,Waqt guzarnay ke baad josh aana,Guzray waqt ke baad aana,Susti se kaam lena,In mein se koi bhi nahi,A
+995,Ameen kis zaban ka lafz hai?,Ibrani,Arabi,Farsi,In mein se koi nahi,A
+996,Toba-tun-Nusuh kis ka novel hai?,Deputy Nazir Ahmad,Molana Shibli Naumani,Molana Altaf Hussain Hali,In mein se koi nahi,A
+997,"""Kaleemullah"" aur ""Zabihullah"" grammar mein kya kehlayenge?",Khitaab,Luqab,Kuniyat,Tamam durust hain,B
+998,Bain karna kis shairi sanf ka juz hai?,Marsiya,Masnavi,Qasida,In mein se koi nahi,A
+999,Sitara ya Badban ke musannif kaun hain?,Muhammad Hasan Askari,Muhammad Ashfaq,Mustansar Hussain Tarar,In mein se koi nahi,A
+1000,Makra aur Makhi kis ki nazm hai?,Allama Iqbal,Ahmad Faraz,Faiz Ahmed Faiz,In mein se koi nahi,A
+1001,Bajang Aamad aur Bazm Arayeen kis musannif ki kutub hain?,Siddiq Salik,Mushtaq Yousufi,Kernal Muhammad Khan,In mein se koi nahi,C
+1002,Awami shair kise kaha jata hai?,Shibli Naumani,Molana Altaf Hussain Hali,Nazeer Akbarabadi,In mein se koi nahi (Nazeer Akbarabadi),D
+1003,Tanziya shairi kis shair ne ki hai?,Akbar Allahabadi,Nasir Kazmi,Altaf Hussain Hali,In mein se koi nahi,A
+1004,Dastan se afsane tak kis ki tasneef hai?,Syed Waqar Azim,Ashfaq Ahmed,Khursheed Naseem,Shaukat Siddiqui,A
+1005,"""Siraaj"" ke kya maani hain?",Charagh,Na-umeedi,Dhuan,Roshni,A
+1006,Wazeer-e-Azam nazriya mein jabal o dil kis se mutaliq thi?,Qudrati wasail,Science aur Technology,Ishtihari Power,Mosamiati Tabdeeli,C
+1007,Mirza Zahir Dar Baig ka kirdar kis novel nigar ka takhleeq kardah hai?,Deputy Nazir Ahmad,Munshi Prem Chand,Deputy Nazir Ahmad,In mein se koi nahi,A
+1008,Babaye Urdu kis ka laqab hai?,Deputy Nazir Ahmed,Maulvi Abdul Haq,Sir Syed Ahmed Khan,In mein se koi nahi,B
+1009,Khuda kare tumhain mushkilon se paala na pare. Is jumlay mein paala parne se kya murad hai?,Sardi lagna,Wasta parna,Mausam ki sakhti,Pareshani ka samna karna,B
+1010,"Mashhoor novel ""Raja Gidh"" ki musannifa kaun hain?",Khadija Mastoor,Bano Qudsia,Altaf Fatima,Bushra Rehman,B
+1011,Urdu kis zaban se mushtaq hai?,Turki,Arabi,Farsi,In mein se koi nahi,A
+1012,Urdu dramay ka Shakespeare kise kaha jata hai?,Akhtar Sherani,Imtiaz Ali Taj,Agha Hashar Kashmiri,In mein se koi nahi,C
+1013,Faiz Ahmed Faiz ka pehla majmua-e-kalam kaun sa hai?,Dast-e-Teh-e-Sang,Mere Dil Mere Musafir,Naqsh-e-Faryadi,Shaam Shehr Yaran,C
+1014,"Mashhoor tasneef ""Urdu Zaban o Qawaid"" ke musannif kaun thay?",Allama Shibli,Shafiq Ahmad Siddiqui,Suleman Ahmad,Shafiq Ahmad Siddiqui,B
+1015,Ibn-e-Insha ka asal naam kya tha?,Sher Ali Khan,Sher Muhammad Khan,Muhammad Sher Ali,Sher Inayat Ali,B
+1016,"""Lauh bhi tu, qalam bhi tu"" yeh misra kis shayar ka hai?",Allama Iqbal,Mirza Ghalib,Faiz Ahmed Faiz,Momin Khan Momin,A
+1017,Khoji ka kirdar kis ki takhleeq hai?,Munshi Sajjad Hussain,Ratan Nath Sarshar,Deputy Nazir Ahmad,In mein se koi nahi,B
+1018,"Risaala ""Qaumi Zaban"" kis idare ka risaala hai?",Academy Adabiat,Muqtadra Qaumi Zaban,Anjuman Taraqqi Urdu,In mein se koi nahi,C
+1019,Adat-e-tashbeeh se kya murad hai?,Mushabbah,Harf-e-Tashbeeh,Mushabbah bih,Wajah-e-shabah,B
+1020,Jaan tum par nisaar karta hoon main nahi jaanta ______ kya hai,Wafa,Dua,Sada,In mein se koi nahi,B
+1021,Rubai ke kisi misray ko hasil-e-rubai kehte hain?,Teesre misre ko,Dosre misre ko,Pehle misre ko,In mein se koi nahi,D
+1022,"""Hayat-e-Javed,"" written by Altaf Hussain Hali, is on the life of:",Sir Syed Ahmad Khan,Ghalib,Saadi Shirazi,None of these,A
+1023,Jumla mukammal karein: Ek hoon____ haram ki pasbani ke liye,Ahl-e-Iman,Muslim,Duniya,In mein se kaun nahi,B
+1024,Hajv se kya murad hai?,Hamdardana Shairi,Kisi ke khilaf ghusse ka izhar karna,Shair ka apni tareef karna,In mein se koi nahi,B
+1025,Is sher mein ilm-e-bayan ki kaunsi soorat bayan hui hai? Shaam hi se bujha sa rehta hoon dil hua hai charagh-e-muflis ka,Tashbeeh,Isti'ara,Talmeeh,Kinaya,A
+1026,Bayaan paon poojna se kya murad hai?,Ustaad maanna,Dukh bhari haalat mein hona,Ishq mein qurban,Khushi manana,A
+1027,"""Hope against hope"" ke kya maani hain?",Ghair mozoon,Naumeedi,Intihai kam umeed,Khilaf umeed,C
+1028,Urdu mein sab se taweel novel kis ne likha?,Mumtaz Mufti,Ashfaq Ahmed,Abdullah Hussain,Qurat-ul-Ain Haider,A
+1029,"""Ghar se ghar tak"" aur ""Kapas ka phool"" Urdu ke shahkar afsane hain. Afsana nigar kaun hain?",Ahmad Nadeem Qasmi,Intizar Hussain,Ghulam Abbas,Rasheed Amjad,A
+1030,"Farsi aur Urdu ke kisi maroof o maqbool Urdu shair ne apni Urdu shairi ke majmua ko ""Boo-e-Rang-e-Man Ast"" kaha hai?",Mirza Ghalib,Momin Khan Momin,Allama Iqbal,Hasrat Mohani,A
+1031,Tifl-e-maktab kis tarkeeb ka mafhoom hai?,Tajurba kar,Na tajurba kar,Parha likha,Farigh-ut-taleem,B
+1032,Khuda ganjay ko nakhoon na de is zarb-ul-misl se kya murad hai?,Sataay huay ko ikhtiyar na de,Khuda zalim ko ikhtiyar na de,Pagal apna hi nuqsan karta hai,In mein se koi nahi,B
+1033,"Urdu ki woh sanf jis mein kisi waqia, mulk ya shehar ki taraf ishara kiya jaye, use kehte hain:",Sifat-e-Ishaari,Sifat-e-Nisbati,Sifat-e-Tauseefi,In mein se koi nahi,A
+1034,Bagh bagh hona muhawara hai. Is ka mafhoom kya hai?,Bohat khush hona,Sabza hi sabza hona,Baghon mein ghoomna,Seir o siyahat karna,A
+1035,Zamindar akhbar kis ne jari kiya?,Molana Zafar Ali Khan,Altaf Hussain Hali,Syed Ahmed Khan,In mein se koi nahi,A
+1036,Urdu dramay ka Shakespeare kise kaha jata hai?,Akhtar Sherani,Imtiaz Ali Taj,Agha Hashar Kashmiri,In mein se koi nahi,C
+1037,Aewan-e-Bala se kya murad hai?,Qaumi Assembly,Senate,Sadr aur Assembly,Teenon mein se koi nahi,B
+1038,Jumla mukammal karein: yeh ____ aam nahi hai?,Sharh,Sharih,Share,Shahrah,B
+1039,"Ism-e-ilm ki ro se ""Shams-ul-Ulema"" kya hai?",Luqab,Kuniyat,Khitaab,Urf,C
+1040,"Muhavra ""Pait katna"" ka kya matlab hai?",Harna,Bachat karna,Dhokha khana,Peecha chhudana,B
+1041,Urdu Braj Bhasha se nikli hai. Yeh kis adeeb se mansoob hai?,Molana Muhammad Hussain Azad,Molana Altaf Hussain Hali,Maqsood Hussain,In mein se koi nahi,A
+1042,"""Marsiya"" kis zaban ka lafz hai?",Farsi,Turki,Hindi,Arabi,D
+1043,Urdu ke masadir-e-saghir kis zaban se milte hain?,Sindhi,Bengali,"Punjabi (Placeholder, specific linguistic knowledge needed)",Shanglu,C
+1044,"Rood-e-Kausar, Aab-e-Kausar aur Mauj-e-Kausar kis ki kutub hain?",Sheikh Muhammad Ikram,Aziz Ahmed,Tahseen Firaqi,Neelam Basheer,A
+1045,"Mashhoor novel ""Raja Gidh"" ki musannifa kaun hai?",Khadija Mastoor,Bano Qudsia,Altaf Fatima,Bushra Rehman,B
+1046,"Jab jumlay mein kisi sabiqa khayal ya baat ki tashreeh ya tasdeeq ki jati hai to wahan ramooz auqaf ki jo alamat istemal hoti hai, woh hai:",Tafseeliya,Rabta,Sakta,Khatma,B
+1047,Durust zarb-ul-misl ki nishandahi karein:,Apne nain gunwa ke dar dar maangi bheek,Apne nain gunwa ke ghar ghar maangi bheek,Apne nain gunwa ke qarya qarya maangi bheek,In mein se koi nahi,B
+1048,"Zaban pe baar-e-Khudaya yeh kis ka naam aaya, ke mere nutq ne bose meri zaban ke liye. Mirza Ghalib ke is sher mein kaun si sanat istemaal hui hai?",Laf-o-Nashr,Tazad,Husn-e-Taleel,In mein se koi nahi,A
+1049,"Urdu mein ""Syed-ul-Ahrar"" kis shair ko kaha jata hai?",Josh Malihabadi,Molana Hasrat Mohani,Muhammad Ali Johar,Jigar Moradabadi,B
+1050,"Kis Urdu naqqad ne ghazal ko ""neem wahshi sanf-e-shairi"" qarar diya?",Professor Iqbal Azim,Naseeruddin Hashmi,Kaleem-ud-Din Ahmed,Dr. A. H. Kausar,C
+1051,"Tik tik, chham chham, reen reen, dhang dhang waghera alfaaz qawaid ki ro se hain:",Ism-e-Sifat,Ism-e-Saut,Ism-e-Aala,Ism-e-Mimber,B
+1052,Heart Attack kis ki nazm hai?,Iqbal,Nasir Kazmi,Majeed Amjad,Faiz Ahmed Faiz,D
+1053,Be zabani zaban na ho jaye kis naamwar gulokara ki aap beeti hai?,Kausar Tahreem,Malika Khanum,Malika Pukhraj,In mein se koi nahi,C
+1054,Uncle Urfi kis ka kirdar hai?,Ashfaq Ahmed,Haseena Moin,Ahmad Nadeem Qasmi,Amjad Islam Amjad,B
+1055,Kaun sa jumla durust hai?,Barae meherbani kal zaroor aayen.,Barae meherbani kar ke kal zaroor aayen.,Barah-e-meherbani kal zaroor aayen.,Barae meherbani kar ke kal zaroor aayen.,C
+1056,Kasheeda khaatir hona ka kya matlab hai?,Khush hona,Pareshan hona,Naraz hona,In mein se koi nahi,C
+1057,"Wajood-e-zan se hai tasveer-e-kainat mein rang, yeh sher kis ka hai?",Mirza Ghalib,Ahmad Faraz,Allama Iqbal,In mein se koi nahi,C
+1058,Mirza Ghalib ki wafat kis san mein hui?,1997,1869,1897,1757,B
+1059,Ghore bech kar sona se kya murad hai?,Be fikar ho kar sona,Pareshani mein sona,Mustaqbil ki fikar karna,Ghore bandh kar sona,A
+1060,Kaun sa muhawara ghalat hai?,Nau dobarah hona,Latiya dabona,Lakeer ka faqeer hona,Necha dikhana,A
+1061,Lit o laal karna se kya murad hai?,Bura bhala kehna,Shekhi maarna,Tal matol karna,In mein se koi nahi,C
+1062,Qadam barhana ka kya matlab hai?,Paidal chalna,Tazeem karna,Tez chalna,In mein se koi nahi,C
+1063,"""Insaan aur Aadmi"" kitaab kis ne likhi?",Muhammad Hasan Askari,Saadat Hasan Manto,Faiz Ahmed Faiz,Ahmad Faraz,A
+1064,Mano Bhai ka asal naam kya tha?,Javed Chaudhry,Muneer Ahmed Qureshi,Muneer Latif,Ahmad Nadeem Qasmi,B
+1065,'Rubai kis zaban ka lafz hai?,Urdu,Arabi,Farsi,In mein se koi nahi,B
+1066,Rahiq-ul-Makhtoom kis ki kitab hai?,Sir Syed Ahmad Khan,Safi ur Rehman,Agha Hashar Kashmiri,Suleman Nadvi,B
+1067,Marsiya kis noiyat ki shairi ko kehte hain?,Mazahiya,Almiya,Tahseeni,Razmiya,B
+1068,Zaban laal hona se kya murad hai?,Mirchain lagna,Danay nikalna,Gang hona,Khushamdi hona,C
+1069,Durusti imla ke hawalay se kaun si shakhsiyat mashhoor hai?,Imam Bakhsh Nasikh,Akbar Allahabadi,Meer Taqi Meer,In mein se koi nahi,A
+1070,"Darj zail sher kis mashhoor shair ka hai: ""Ab ke hum bichhre to shayad kabhi khwabon mein milen, jis tarah sukhe hue phool kitabon mein milen""?",Nasir Kazmi,Ahmad Faraz,Mohsin Naqvi,Faiz Ahmed Faiz,B
+1071,Shair-e-Roman kise kaha jata hai?,Akhtar Shirani,Azmatullah Khan,Israr ul Haq Majaz,Qateel Shifai,A
+1072,"""Tahqeeqat Chishti"" ka musannif kaun hai?",Maulvi Noor Ahmad Chishti,Maulvi Kareem-ud-Din,Maulvi Noor-ul-Hassan,Ibrahim bin Khalil Dehlvi,C
+1073,Zindagi ke talkh haqaiq ko hamdardana bayan karna kehlata hai?,Zarafat Nigari,Mazah Nigari,Tanqeed Nigari,In mein se koi nahi,B
+1074,"Seh pehar, ""dopehar"" qawaid ki ro se kya hain?",Ism-e-Zarf-e-Makan,Ism-e-Zarf-e-Zaman,Ism-e-Nakira,In mein se koi nahi,B
+1075,Durust zarb-ul-misl batain?,Aasman ka thooka munh par,Aasman ka thooka munh par aata hai,Thooka mitti mein,In mein se koi nahi,B
+1076,In mein se kaun si kitaab Imam Tabari ki hai?,Al-itqan fi Uloom al-Quran,Tareekh Al-Umam wal Mulook,Al-Raheeq Al-Makhtoom,In mein se koi nahi,B
+1077,"Aam ke aam, guthliyon ke daam ka kya matlab hai?",Dohra faida,Dohra nuqsan,Kuch faida kuch nuksan,"Na faida, na nuksan",A
+1078,"""Sir qalam karna"" ka kya matlab hai?",Sar kaat dena,Qalam tarashna,Poda kaasht karna,In mein se koi nahi,A
+1079,In mein se durust muhawara kaunsa hai?,Apni apni dafli apna apna raag,Apni apni dholki apna apna raag,Apni apni dubli apna apna raag,In mein se koi nahi,A
+1080,"""Aangan"" kis ka mashhoor novel hai?",Ismat Chughtai,Qurat ul Ain Haider,Khadija Mastoor,Bano Qudsia,C
+1081,Urdu ka zareen daur kehlata hai:,Ghalib o Zauq,Meer o Saudaa,Meer o Zauq,In mein se koi nahi,C
+1082,Urdu ki tareekh par Mehmood Sherani ki kitaab ka kya naam hai?,Sindh mein Urdu,Balochistan mein Urdu,Punjab mein Urdu,In mein se koi nahi,C
+1083,Urdu nazm-e-muarra ka aaghaz kis sadi mein hua?,Satrahveen sadi,Atharahveen sadi,Unnisveen sadi,Beesveen sadi,D
+1084,"Wujood-e-zan se hai tasveer-e-kainaat mein rang, isi ke saaz se hai zindagi ka soz-e- daroon, yeh sher kis ka hai?",Hasrat Mohani,Faiz Ahmed Faiz,Mirza Ghalib,Allama Iqbal,D
+1085,"""Fatah"" ka mutaradif kya hai?",Zafar,Shikast,Saroor,Iqbaal,A
+1086,Dr. Atash Durani kis hawalay se mashhoor hain?,Islahat,Urdu Grammar,Novel Nigari,Lisaniyat,D
+1087,In mein se durust jumla ka intikhab karein?,Zyada nukta cheeni na karo,Zyada nuqta cheeni na karo,Zyada nukta cheeni na karo,Zyada nuqta cheeni na karo,A
+1088,Shar ka mutazad kya hai?,Khair,Badeer,Nuqsan,In mein se koi nahi,A
+1089,Maghrib ke tanqeedi usool ke musannif kaun hain?,Professor Karar Hussain,Anwar Sadeed,Sajjad Baqar Rizvi,In mein se koi nahi,C
+1090,Nuskha Haye Wafa kis ka majmua-e-kalam hai?,Faiz Ahmed Faiz,Javed Akhtar,Ada Jafri,In mein se koi nahi,A
+1091,"Mazahiya kirdar ""Khoji"" kis ka takhleeq kardah hai?",Ratan Nath Sarshar,Deputy Nazir Ahmad,Munshi Sajjad Hussain,In mein se koi nahi,A
+1092,Charagh pa hona muhawara hai. Is ka mafhoom kya hai?,Gusse ki kefiyat,Roshni bikherna,Khushiyan baantna,Tazabzub ki haalat,A
+1093,Urdu shairi mein sab se pehla likha janay wala Farsi tazkira kaun sa hai?,Tabaqat-ul-Shuara,Nukaat-ul-Shuara,Parwana aur Jugnu,In mein se koi nahi,B
+1094,Dasht-e-Soos kis ka novel hai?,Kishwar Naheed,Khadija Mastoor,Jameela Hashmi,Bano Qudsia,C
+1095,Naqsh bar aab hona ka matlab kya hai?,Khushamad karna,Hamesha zinda rehna,Jaldi zail hona,Shohrat paana,C
+1096,Taqabli tanqeed ki bunyaad kis ne rakkhi?,Ibn-e-Insha,Haider Ali Atish,Shibli Naumani,In mein se koi nahi,C
+1097,"Mulla Wajhi ne masnavi ""Qutb Mushtari"" kis ke kehne par likhi?",Akbar Shah,Meer Taqi Meer,Quli Qutb Shah,In mein se koi nahi,C
+1098,"Farsi aur Urdu ke kis maroof o maqbool Urdu shair ne apni Urdu shairi ke majmue ko ""Be Rang Man Ast"" kaha hai?",Mirza Ghalib,Momin Khan Momin,Allama Iqbal,Hasrat Mohani,A
+1099,"Mujh se pehli si mohabbat mere mehboob na maang, main ne samjha tha ke tu hai to durakhshan hai hayat. Yeh sher kis ka hai?",Faiz Ahmed Faiz,Ahmad Nadeem Qasmi,Haider Ali Atish,In mein se koi nahi,A
+1100,Shairi ke ilawa Mirza Ghalib mashhoor thay?,Khutoot mein,Aap beeti mein,Drama mein,In mein se koi nahi,A
+1101,Huroof-e-tahajji mein kitne huroof ki tadaad muqarrar hai?,26,28,30,In mein se koi nahi,B
+1102,Aangan kis ka mashhoor novel hai?,Ismat Chughtai,Qurat ul Ain Haider,Khadija Mastoor,Bano Qudsia,C
+1103,"Risala ""Tahzeeb-ul-Akhlaq"" kis ne jari kiya?",Anjuman Himayat-e-Islam,Molana Maududi,Sir Syed Ahmed Khan,In mein se koi nahi,C
+1104,Taaq-e-Nisyan par rakha ka matlab kya hai?,Sajawat karna,Qata talluq karna,Faramosh kar dena / bhula dena,Hifazat se rakhna,B
+1105,Zameen ka gaz hona se kya murad hai?,Taweel ul qamat,Deo qamat,Zameen ka naap,Lamba safar karna,A
+1106,In mein se Nasir Kazmi ka majmua-e-kalam kaun sa hai?,Barg ne,Pehli barish,Roshni ae roshni,Ghazal bahana karun,B
+1107,Iqbal ka mazmoon kaun sa hai?,Qaumiyat,Maghribi mada parasti,Maashi istehkam,Qaumi zindagi,A
+1108,"Har chand Urdu mein sab se kam sarmaya chhora hai, magar kitna ooncha maqam paya. Rasheed Ahmed Siddiqui ka yeh jumla kis mazah nigar ke baray mein hai?",Shoukat Thanvi,Pitras Bukhari,Mirza Farhatullah Baig,Ibn-e-Insha,B
+1109,Haam bin Nabi ka Hazrat Abu Bakr r.a ke saath kya taalluq tha?,Dost,Rishta daar,Ustaad,Shareek,D
+1110,Raja Gidh kis ne likha hai?,Jameela Hashmi,Bano Qudsia,Akhtar Raza Salimi,Idrees Azad,B
+1111,Woh nazm jis mein Allah ke barguzida bandon ki tareef ho kehlati hai?,Rubai,Manqabat,Musaddas,In mein se koi nahi,B
+1112,Kaali Shalwar aur Thanda Gosht kis ke afsane hain?,Ashfaq Ahmed,Saadat Hasan Manto,Naseem Hijazi,Teenon mein se koi nahi,B
+1113,In mein se durust zarb-ul-misl kaun si hai?,Aik aur aik do nau,Aik aur aik gyarah,Aik aur aik do barah,In mein se koi nahi,B
+1114,Mazameen-e-Pitras chap ______.,Gayi,Gaya,Gaye,In mein se koi nahi,A
+1115,Yaadon ki Baraat kis ki sawaneh hayat hai?,Faiz Ahmed Faiz,Allama Iqbal,Josh Malihabadi,In mein se koi nahi,C
+1116,"Khuda ne aaj tak is qaum ki haalat nahi badli, na ho jis ko khayaal aap apni haalat ke badalne ka. Yeh sher kis ka hai?",Ameer Khusro,Maulana Zafar Ali Khan,Hafeez Jalandhari,In mein se koi nahi,B
+1117,Girez ka taalluq kisi sanf se hai?,Hamd,Naat,Ghazal,Qasida,D
+1118,Shaakh-e-zaitoon se muraad hai?,Khushi,Khushhali,Lachak,Aman-o-Ashti,D
+1119,Mundarja zail mein se kaun sa jumla durust hai?,Salam Alaikum ke baad arz hai.,Assalam Alaikum ke baad arz hai.,Salam-o-Alaikum ke baad arz hai.,Assalam-o-Alaikum ke baad arz hai.,B
+1120,"Woh huroof jo khushi, ghami ko zahir karen kehlate hain?",Huroof-e-illat,Huroof-e-bayan,Huroof-e-istidraak,In mein se koi nahi,D
+1121,Novel kis zaban ka lafz hai?,Angrezi,Italwi,Jarman,In mein se koi nahi,B
+1122,"'1797 mein Ghalib peda hue, 1817 mein Sir Syed, 1837 mein Hali. Batain 1857 mein kaun peda hua?",Molana Muhammad Hussain Azad,Molana Shibli Naumani,Allama Iqbal,In mein se koi nahi,B
+1123,Baniye ka beta kuch ____ kar girta hai?,Dekh,Kun,Ro,San,A
+1124,'Molana Muhammad Ali Johar ka madfan kis mulk mein hai?,Falasteen,Inglistan,Afghanistan,In mein se koi nahi,A
+1125,Fort William College ke chapa khana mein Urdu ka rasm-ul-khat kaun sa tha?,Naskh,Koi,Nastaleeq,Nagri,C
+1126,"Mashhoor afsana ""Toba Tek Singh"" kis ki tasneef hai?",Imtiaz Ali Taj,Prem Chand,Saadat Hasan Manto,Ashfaq Ahmed,C
+1127,Durust jumla ki nishandahi karein,Andha kya jaane samundar ki bahaar,Andha kya jaane basant ki bahaar,Andha kya jaane fasl ki bahaar,In mein se koi nahi,B
+1128,Radeef ke baghair nazm kya kehlati hai?,Mu'arra,Ghair Mu'arra,Mar'ad,In mein se koi nahi,A
+1129,Sar-e-Wadi-e-Sina kis shair ka majmua-e-kalam hai?,Faiz Ahmed Faiz,Ahmad Nadeem Qasmi,Molana Hali,Allama Iqbal,A
+1130,Colonel Muhammad Khan ki Urdu adab mein wajah-e-shuhurat kya hai?,Shaairi,Drama nigari,Mazah nigari,Marsiya nawisi,C
+1131,Urdu ke pehle novel nigar kaun thay?,Meer Aman Dehlvi,Muhammad Ali Tayyib,Nazir Ahmad,Rashid Khairi,C
+1132,Ghazal ke lughwi maani kya hain?,Isharon mein baat karna,Ishq mein shair o shairi karna,Aurton se baatein karna,In mein se koi nahi,C
+1133,Koylon ki dalali mein munh kala grammar ki ro se kya hai?,Muhawara,Maqula,Rozmarra,Zarb-ul-misl,D
+1134,"""By leaps and bounds"" ka Urdu tarjuma kya hai?",Din dugni raat chaugni,Pani mein kaghazi kashtiyan jalana,Jhoot moot ka rona,Phoot phoot kar rona,A
+1135,Sir Syed Ahmed Khan ki ibtidaai kitab ka naam batain?,Jam-e-Jam,Khutbat-e-Ahmadiya,Aaeen-e-Akbari,In mein se koi nahi,A
+1136,"Yeh khubsurat gulab ka phool hai. Is jumlay mein ""yeh"" kya hai?",Ism-e-Mosool,Ism-e-Ishara,Ism-e-Zameer,Ism-e-Musaghar,B
+1137,In mein se kaunsa lafz mozoon hai?,Hairangi,Hairani,Khair Angi,Farani,B
+1138,Urdu grammar mein masjid kya hai?,Ism-e-Tarf-e-Zaman,Ism-e-Tarf-e-Makan,Ism-e-Nakira,In mein se koi nahi,B
+1139,Pani bharna ka kya matlab hai?,Ghulami karna,Pani pilana,Mustaqbil ki fikar karna,In mein se koi nahi,A
+1140,"Sanf-e-Nazm ""Munajat"" se kya murad hai?",Jis mein Khuda Taala ki tareef ho,Jis mein mulki halaat qalam band hon,Jis mein banday Allah se apni hajaat bayan karen,Jis mein auliya Allah aur buzurgan-e-deen ki tareef ho,C
+1141,Main kis ke haath pe apna lahu talash karun tamaam shehar ne pehne hue hain dastane yeh sher kis ka hai?,Nasir Kazmi,Ahmad Hasan Khan,Mustafa Zaidi,In mein se koi nahi,C
+1142,"""Aar"" ka mutaradif hai?",Sharm,Tanhai,Lalach,Adawat,A
+1143,Saqi Nama Iqbal ke kis majmua mein shamil hai?,Zaboor-e-Ajam,Baal-e-Jibril,Zarb-e-Kaleem,In mein se koi nahi,B
+1144,Shair-e-Inqilab kis shair ko kehte hain?,Meer Taqi Meer,Josh Malihabadi,Agha Hashar Kashmiri,Ehsan Danish,B
+1145,"Jis sher ke donon misron mein bahami rabt na ho, kehlata hai?",Paband she'r,Do lakhth,Salasi,In mein se koi nahi,B
+1146,Khabar ki jama hai?,Khabron,Akhbar,Khbari,In mein se koi nahi,B
+1147,Aud-e-Hindi sanf ke aitbaar se kya hai?,Khutoot,Sawaneh Umri,Aap beeti,In mein se koi nahi,A
+1148,"Darj zail mein se kaun, shairi ke ilawa islaah zaban ke hawale se bhi mashhoor hain?",Jurrat,Meer Dard,Insha Allah Khan Insha,Meer Taqi Meer,C
+1149,Matla ghazal ka kya kehlata hai?,Sarbund,Dua,Muqaddama,Naqeeb,D
+1150,Girez ka taalluq kis sanf-e-sukhan se hai?,Nazm,Ghazal,Qasida,In mein se koi nahi,C
+1151,"Bagh-o-Bahar mashhoor dastan hai, musannif ka naam batayiye?",Meer Aman Dehlvi,Imtiaz Ali Taj,Nazir Ahmad,Agha Hashar,A
+1152,Dhaak ke teen paat is zarb-ul-misl se kya murad hai?,Haqeeqat ka wazeh karna.,Har halat mein nateeja aik hona.,Apni zid par adhe rehna.,In mein se koi nahi,B
+1153,"""Jangloos"" aur ""Khuda Ki Basti"" kis ki tasaneef hain?",Shaukat Thanvi,Shaukat Siddiqui,Khadija Mastoor,In mein se koi nahi,B
+1154,Jitna qareeb utna______,Ajeeb,Ghareeb,Raqeeb,In mein se koi nahi,C
+1155,"""Be neel-e-maram"" se kya murad hai?",Lok kahani,Naakam o namuraad,Jhooti kahani,Baghair kisi talab ke,B
+1156,Urdu ke sab se baday sufi shair kaun hain?,Muhammad Quli Qutub Shah,Ameer Khusro,Meer Dard,In mein se koi nahi,C
+1157,"Shikwa, Jawab-e-Shikwa kis sanf mein likhi gayi hai?",Shakhs,Tarkeeb Band,Mussadas,In mein se koi nahi,C
+1158,Faiz Ahmed Faiz ki qabr kahan waqia hai?,Lahore,Karachi,Hyderabad,In mein se koi nahi,A
+1159,Haasil Ghaat kis ka novel hai?,Ashfaq Ahmed,Bano Qudsia,Prem Chand,In mein se koi nahi,B
+1160,Dhanak par qadam kis ki tahreer hai?,Bushra Rehman,Bagum Akhtar Riazuddin,Jameela Hashmi,In mein se koi nahi,B
+1161,"Tehreer mein lafz Mu'taridha ya Jumla Mu'taridha ki wazahat ke liye jo alamat-e-waqf istemal hoti hai, woh kehlati hai:",Waqfa,Rabita,Dawin,Qawsain,D
+1162,Kis ko Quran aik aise jadu se sargardan qarar deta hai?,Rasool Akram PBUH,Hazrat Dawood Alaihissalam,Hazrat Sulaiman Alaihissalam,(Khaali),C
+1163,Hazara University kahan waqia hai?,Abbottabad,Mansehra,Swat,In mein se koi nahi,B
+1164,"Shikwa, Jawab-e-Shikwa Allama Iqbal ki kis kitaab mein hai?",Baal-e-Jibril,Israr Khudi,Bang-e-Dara,Zarb-e-Kaleem,C
+1165,Dasht-e-Soos kis ne likha hai?,Akhtar Raza Salimi,Amira Ahmed,Jameela Hashmi,Idrees Azad,C
+1166,Urdu ki pehli tanqeedi kitaab kaun si hai?,Sab Ras,Muqaddama Shu'ra o Shaaeri,Aab e Hayat,In mein se koi nahi,B
+1167,Khutoot o kalaam kis ko kaha jata hai?,Mirza Ghalib,Meer Taqi Meer,Altaf Hussain Hali,In mein se koi nahi,A
+1168,Khuda ki Basti kis ki tahreer hai?,Shaukat Siddiqui,Naseem Hijazi,Maulvi Abdul Haq,In mein se koi nahi,A
+1169,Pehla safar nama Yusuf Kamal Posh ne kis unwan se likha?,Ajaibaat-e-Farang,Safar Naseeb,Safar dar Safar,Niklay teri talash mein,A
+1170,Hasad nekiyon ko is tarah kha jata hai jis tarah aag _____ ko.,Saz-o-Saman,Khushk lakri,Zameen,In mein se koi nahi,B
+1171,Sakta ki alamat hai:,،,؟,/,In mein se koi nahi,A
+1172,Darj zail mein se kaun sa murakkab atfi hai?,Charand Parand,Zauq-o-Shauq,Kalma-e-Mahmal,In mein se koi nahi,B
+1173,"Aatish zair pa, Mard-e-Abresham aur Amar Bel kis ki kitaben hain?",Bano Qudsia,Ashfaq Ahmed,Nasir Kazmi,In mein se koi nahi,A
+1174,Pressure Cooker kis ka likha hua novel hai?,A Hameed,Ahmad Ali,Intizar Hussain,Siddiq Salik,D
+1175,Matla kehte hain?,Ghazal ke pehle misray ko,Ghazal ke aakhri misray ko,Ghazal ke darmiyan walay misray ko,In mein se koi nahi,A
+1176,"""Rozan Deewar Se"" ke naam se kis sahafi ka column Jang akhbar mein chapta hai?",Atta-ul-Haq Qasmi,Javed Chaudhry,Hamid Mir,Orya Maqbool Jan,A
+1177,Deeda-e-beena ka kya matlab hai?,Dekhne wali aankh,Saahib-e-baseerat aankh,Deedawar,Ye tamam,D
+1178,Taain taain fish se kya murad hai?,Be nateja,Shor karna,Tang karna,In mein se koi nahi,A
+1179,Bala-e-Taaq rakhna ka kya matlab hai?,Nuqsan pohanchana,Madad karna,Parwa na karna,In mein se koi nahi,C
+1180,Darja zail mein se durust jumlay ka intikhab kijiye?,Hum dosto ke saath ja rahe hain,Hum doston ke saath ja rahe hain,Hum donon ke saath ja rahe hain,In mein se koi nahi,B
+1181,Aangan kis ka novel hai?,Hujra Masroor,Khadija Mastoor,Bano Qudsia,In mein se koi nahi,B
+1182,Paidha uthana ka kya matlab hai?,Kisi ke kaam aana,Kisi mushkil kaam ko sar anjam dena,Kisi ki parwarish ka zimma lena,In mein se koi nahi,B
+1183,"TV ka mashhoor drama ""Waris"" kis ne likha?",Munnu Bhai,Dr. Anwar Sajjad,Atta ul Haq Qasmi,Amjad Islam Amjad,B
+1184,"""Itmam-e-Hujjat"" ki tarkeeb ka mafhoom hai:",Daleel par daleel dena,Kisi amr mein aakhri martaba samjhana,Na tamam behas karna,To takar karna,B
+1185,Zarb-ul-misl mukammal karein: Muft ki ____ Qazi ko halal.,Maal,Sharab,Gandum,In mein se koi nahi,B
+1186,Aaqa-e-Urdu kis shakhsiyat ko kaha jata hai?,Josh Malihabadi,Altaf Hussain Hali,Maulana Muhammad Hussain Azad,In mein se koi nahi,C
+1187,"Phool ki patti se kat sakta hai heere ka jigar, mard-e-nadaan pe kalaam-e-narm o naazuk be-asar. Yeh sher kis ka hai?",Ghalib,Altaf Hussain Hali,Allama Iqbal,Bhartari Hari,C
+1188,"""Begmaat ke aansu"", 1857 ki jang-e-azadi ke hawale se almanak dastanon par mabni tasneef, ke musannif hain?",Khawaja Hasan Nizami,Maulana Abdul Haleem Sharar,Mulla Waheedi,Allama Rashid-ul-Khairi,A
+1189,Dehli college kab bana?,1825,1792,1770,In mein se koi nahi,A
+1190,"Jumla mukammal karein: 'Jis ke saath Rab, us ke saath ____?'",Sab,Hum,Kuch,In mein se koi nahi,A
+1191,"Novel ""Taoos faqat rang"" kis ne likha?",Mirza Adeeb Baig,Neelam Ahmed Basheer,Muneer Niazi,In mein se koi nahi,B
+1192,Shama aur shair kis sanf mein likhi gayi hai?,Tarjeeh Band,Tarkeeb Band,Azad Nazm,In mein se koi nahi,B
+1193,Shaheen parinde ko kis shair ne apni shairi mein istemaal kiya?,Allama Iqbal,Nasir Kazmi,Ahmed Nadeem Qasmi,In mein se koi nahi,A
+1194,"Muhavra ""Aapa Dhapi parna"" ka kya matlab hai?",Larai jhagra hona,Tarah tarah ki baatein karna,Afratfri mach jana,Aman se rehne dena,C
+1195,Durust jumlay ka intikhab karein.,Kisi ko gaali na do.,Kisi ko gaali mat nikalo.,Kisi ko gaali mat do.,Teenon mein se koi nahi.,A
+1196,Allama Iqbal ki nazm Shikwa un ke kis majmue mein hai?,Bang-e-Dara,Armaghan-e-Hijaz,Zarb-e-Kaleem,In mein se koi nahi,A
+1197,Darj zail mein se zyada safarnamay kis ne likhe hain?,Mustansar Hussain Tarar,Amjad Islam Amjad,Ashfaq Ahmed,Beghum Akhtar Riazuddin,A
+1198,Iztirar ka mutazad kya hai?,Israr,Iqrar,Qarar,In mein se koi nahi,C
+1199,"""Bulbul ne aashiyana chaman se utha liya, phir is chaman mein boom base ya huma base."" Yeh maroof sher takhleeq hai:",Haider Ali Atish,Imam Bakhsh Nasikh,Qalandar Bakhsh Jurat,Ghulam Hamdani Mushafi,D
+1200,"Ab unhen dhoond aur ""Charagh-e-Rukh-e-Zeeba"" kis tarah ki kitaben hain?","Khaaka nigari (Mushtaq Yusufi's works, often collections of essays/humorous sketches)",Sawaneh Umri,Aap Beetiyan,In mein se koi nahi,D
+1201,Allama Iqbal ki nazm Khizr-e-Rah kis kitab mein hai?,Baal-e-Jibril,Bang-e-Dara,Zaboor-e-Ajam,Armaghan-e-Hijaz,B
+1202,Kaun sa jumla durust hai?,Barah-e-meherbani kal zaroor aayen.,Barae meherbani kal zaroor aayen.,Barah-e-meherbani kar ke kal zaroor aayen.,In mein se koi nahi,A
+1203,Main akela hi chala tha jaanib-e-manzil magar log saath aate gaye aur karwan banta gaya mandarja bala sher kis shair ka hai?,Bismil Azeemabadi,Majrooh Sultanpuri,Shakeel Badayuni,Mirza Ghalib,B
+1204,Mirza Ghalib ka intiqal kab hua?,1863,1869,1860,In mein se koi nahi,B
+1205,Muhawara mukammal karein: Ulti patti '''''''',Sunaana,Parhana,Kehna,In mein se koi nahi,B
+1206,Anandi kis ka afsana hai?,Prem Chand,Ghulam Abbas,Ahmed Nadeem Qasmi,In mein se koi nahi,B
+1207,Afsana kisi zaban ka lafz hai?,Urdu,Farsi,Arabi,In mein se koi nahi,B
+1208,Ghazal aik neem wahshi sanf-e-sukhan hai. Yeh kis ka qoul hai?,Kaleem-ud-Din,Maulana Hali,Dr. Ibadat,Dr. Tahseen Qureshi,A
+1209,Sir Syed Ahmed Khan ne kis risalay ka ijra kiya?,Oudh Punch,Urdu-e-Mualla,Tahzeeb-ul-Akhlaq,Ma'arif,D
+1210,Mandarja zail mein se kaun si zarb-ul-misl durust hai?,Subh Banaras Shaam Oudh,Subh Banaras Shaam Lucknow,Subh Kashmir Shaam Banaras,Subh Guru Shaam Banaras,A
+1211,Banat risaala kis ne jari kiya?,Allama Rashid-ul-Khairi,Maulvi Abdul Haq,Ahmad Nadeem Qasmi,In mein se koi nahi,A
+1212,"Muhawara mukammal karein ""Kahan Raja Bhoj aur kahan ''''''''""",Ghareeb Sadhu,Gangu Lohar,Gangu Teli,Gangu Dhobi,A
+1213,"Rajab Ali Baig Sarwar ne ""Alif Laila"" ka tarjuma kis naam se kiya?",Gulzar-e-Sarwar,Sarwar Sultani,Shabistan-e-Sarwar,Fasana-e-Ibrat,C
+1214,'Mujalla Auraaq ke adeeb ka naam batain?,Dr. Khwaja Muhammad Zakariya,Maulvi Abdul Haq,Dr. Wazir Agha,In mein se koi nahi,C
+1215,Noor Jahan ka mazar kis ki nazm hai?,Nasir Kazmi,Ahmed Nadeem Qasmi,Talok Chand Mehroom,In mein se koi nahi,C
+1216,Hijaz Lucknowi ka asal naam kya tha?,Israr ul Haq,Shabbir Ahmed,Kamal Nazir,In mein se koi nahi,A
+1217,Kis shair ko Urdu ka romanvi shair kaha jata hai?,Nazeer Akbarabadi,Nasir Kazmi,Jon Elia,In mein se koi nahi,D
+1218,Urdu ke pehle sahib-e-deewan shair kaun hain?,Wali Dakni,Quli Qutub Shah,Saad Suleman,Ameer Khusro,B
+1219,Murakkab Atfi ki nishandahi karein?,Subh shaam,Din raat,Zauq o shauq,In mein se koi nahi,C
+1220,Khujasta Gaam se kya murad hai?,Namubarak qadam,Manhoos qadam,Mubarak qadam,In mein se koi nahi,C
+1221,Ek qatra khoon novel ka mauzoo kya hai?,Pakistani muashrati masail,Waqiat Karbala,Hijrat,Taqseem e Hind,B
+1222,Urdu shairi ka ahd-e-zareen kaunsa daur kehlata hai?,Atharhveen sadi ka,Unnisveen sadi ka,Beesveen sadi ka,In mein se koi nahi,A
+1223,Durust zarb-ul-misl kaun si hai?,Shara mein sharam kya,Sharah mein sharam kya,In mein se koi nahi,Shari mein sharam kya,A
+1224,'Madra kis ka shairi majmua hai?,N M Rashid,Ahmad Nadeem Qasmi,Abdullah Hussain,In mein se koi nahi,A
+1225,Aisi bulandi aisi pasti kis ka novel hai?,Syed Zameer Jafri,Aziz Ahmed,Sheikh Nazir Ahmad,In mein se koi nahi,B
+1226,In mein se Parveen Shakir ki kaun si tasneef hai?,Kangan,Chaand,Phool,In mein se koi nahi,D
+1227,Saanp songh gaya kya matlab hai?,Khamoshi chha jana,Dehshat mein mubtala hona,Zehar phail jana,In mein se koi nahi,A
+1228,Tashbeeh mein woh cheez jis ke sath tashbeeh di jaye usay kya kehte hain?,Wajah-e-shabah,Tarafain-e-tashbeeh,Mushabbah bih,In mein se koi nahi,C
+1229,Dr. Farman Fateh Puri ki is mashhoor tasneef ka naam mukammal kijiye: Urdu shora ke tazkire ____ aur ____,Tazkira Nigari,Nasr Nigari,Nazm Nigari,Tanqeed Nigari,A
+1230,Jumla mukammal kijiye: Tail dekho tail ki ____ dekho?,Road,Dhaar,Aar,In mein se koi nahi,B
+1231,Allama Iqbal ki nazm Hamdardi kisi writer se makhuz hai?,William Cooper,Lawrence,Shakespeare,In mein se koi nahi,A
+1232,Meeraji ki maut 1949 mein waqia hui. Woh kis shehar mein dafan hain?,Lahore,Dehli,Pune,Bombay,D
+1233,Sunder Lal Rajinder Singh Bedi ke kis afsane ka kirdar hai?,Muan aur main,Lajwanti,Dosra Kinara,Kafan,B
+1234,Sindh mein Urdu nazriya kis ne diya?,Syed Sulaiman Nadvi,Nabi Bakhsh Baloch,Abdullah Haroon,In mein se koi nahi,A
+1235,Iblees ki Majlis-e-Shura kis ki nazm hai?,Muhammad Hussain Azad,Allama Iqbal,Faiz Ahmed Faiz,Akbar Allahabadi,B
+1236,"Us diary ya notebook ko, jismein shayar apna kalaam ya muntakhib ash'aar darj karta hai, istilah mein kya kaha jata hai?",Kulyaat,Deewaan,Bayaaz,Koi jawab durust nahi,C
+1237,"""Aatish Kada"" kis mashhoor shair ka majmua-e-kalaam hai?",Allama Iqbal,Mirza Ghalib,Altaf Hussain Hali,Dr. Muhammad Deen Taseer,D
+1238,Uncle Urfi kis ka kirdar hai?,Haseena Moin,Zahida Hussain,Humaira Ahmed,Azmi Bukhari,A
+1239,'Allama Iqbal apne aap ko jis hasti ka ma'anvi shagird kehne mein fakhr mehsoos karte thay un ka ism-e-grami hai?,Hafiz Shirazi,Sheikh Saadi,Umar Khayyam,In mein se koi nahi,D
+1240,Urdu ka pehla novel nigar kaun hai?,Abdul Haleem Sharar,Prem Chand,Deputy Nazir Ahmed,Mirza Hadi Ruswa,C
+1241,"Yeh faizaan-e-nazar tha ya ke maktab ki karamat thi sikhaye kis ne Ismail ko adab-e- farzandi, Iqbal ke is sher mein kaun si sanf hai?",Mirat un Nas,Talmeeh,Laf o nashr,In mein se koi nahi,B
+1242,Faiz Ahmed Faiz ke woh kaun se dost thay jo Punjabi zaban ke shair thay?,Ustaad Daman,Ahmad Nadeem Qasmi,Pitras Bukhari,In mein se koi nahi,A
+1243,Mili aur qaumi shairi ka bani kise kaha jata hai?,Molana Hali,Ibrahim Zauq,Akbar Allahabadi,Nazeer Akbarabadi,A
+1244,Sanf-e-musaddas mein kitne misray hotay hain?,Chaar,Chay,Aath,In mein se koi nahi,B
+1245,"Mashhoor novel ""Raja Gidh"" ki musannifa kaun hai?",Khadija Mastoor,Bano Qudsia,Altaf Fatima,Bushra Rehman,B
+1246,Jadeed Ghazal ka bani kis ko samjha jata hai?,Allama Iqbal,Momin Khan Momin,Molana Hasrat Mohani,Faiz Ahmed Faiz,C
+1247,"'""Pait kaatna"" muhawara hai. Is ka mafhoom kya hai?",Akhrajat mein kami lana,Azmoodah kar,Be izzat hona,In mein se koi nahi,A
+1248,"Gandhi az Gujrat, Bhave az Dakkan, nange paon, nange sar, nange badan, is maroof parody ke khaliq kaun hain?",Chiragh Hasan Hasrat,Syed Muhammad Jafri,Majeed Lahori,Zafar Ali Khan,D
+1249,Banda Parwar kitaab kis ki tehreer hai?,Javed Iqbal,Allama Iqbal,Sahir Ludhianvi,In mein se koi nahi,C
+1250,Shair-e-Inqilab kis shair ko kaha jata hai?,Ehsan Danish,Josh Malihabadi,Agha Hashar Kashmiri,Meer Taqi Meer,B
+1251,"""Abu al-Turab"", ""Abu Huraira"", ""Abu al-Asar"", ""Abu al-Kalam"" wa ghaira, in alfaaz ke ma'navi rishton mein, qawaidi ro se 'Abu' kya hai?",Kunniyat,Urf,Lakab,Khitab,A
+1252,Aakhri Aadmi kis ki tahreer hai?,Intizar Hussain,Meer Taqi Meer,Qurratul Ain Haider,In mein se koi nahi,A
+1253,Raees-ul-Mutaghazzilin kis shair ko kaha jata hai?,Hasrat Mohani,Jigar Moradabadi,Qateel Shifai,In mein se koi nahi,A
+1254,Zaban ki islaah ka kaam kis shair ne kiya?,Manzar Azmi,Nasikh,Daagh Dehlvi,In mein se koi nahi,B
+1255,"Zarb-ul-misl mukammal karein: ""Qazi ke ghar ke choohay bhi_______""",Sachay,Siyanay,Chalaak,In mein se koi nahi,B
+1256,Ghazal shiwa-e-ishq musannif shairi hai yeh kis ka qoul hai?,Kaleem-ud-Din Ahmed,Ahsan Farooqi,Niaz Fatehpuri,In mein se koi nahi,A
+1257,Pehle sahib-e-deewan shair:,Quli Qutub Shah,Saad Sulemani,Ameer Khusro,In mein se koi nahi,A
+1258,"Kis sheer ki amad hai ke run kanp raha hai? is misray mein ""run"" se kya murad hai?",Punjab ki aurat,Maidan-e-jang,Khel ka maidan,Jawan aurat,B
+1259,Muhawara mukammal kijiye: Aaj ____ kal doosra din.,Soye,Mare,Uthay,Gire,B
+1260,"Pani rawani, ""Woti lafz khat"" mein qawaid ki ro se har dosray lafz ko kahenge?",Kalma,Mahmal,Jumla,In mein se koi nahi,B
+1261,Jumla mukammal karein: Kaam ka nah kaj ka dushman ____ ka.,Logon,Sab,Anaaj,Haywan,C
+1262,Abhi to mai jawan hoon written by whom?,Hafeez Jalandhari,Akhtar ul Iman,Waheed Akhtar,None of these,A
+1263,"Din ko bhi yahan shab ki siyahi ka samaan hai, Noor Jahan ka mazaar? Noor Jahan hai, Noor Jahan ka mazaar? Noor Jahan hai, qabr hai ya ke qabr yahan hai, qabr hai ya ke qabr yahan hai.",Israr ul Haq,Bano Qudsia,Tilok Chand Mehroom,In mein se koi nahi,C
+1264,"Eent, darakht, deewar, chattaan, pahar waghera alfaaz qawaid ki ro se kya hain?",Ism-e-Masdar,Ism-e-Mushtaq,Ism-e-Jaamid,Ism-e-Ma'arifa,C

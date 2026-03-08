@@ -1,0 +1,28 @@
+ENGINEERING MASTER BANK AUDIT REPORT
+Total CSV Files Scanned: 80
+Total MCQs Scanned: 24476
+Total Issues Flagged: 23
+--------------------------------------------------
+[DUPLICATE OPTIONS] at Line 168 in Engineering_Master_Bank/Intelligence/Coding_Decoding/mcqs.csv
+[DUPLICATE OPTIONS] at Line 169 in Engineering_Master_Bank/Intelligence/Coding_Decoding/mcqs.csv
+[DUPLICATE OPTIONS] at Line 201 in Engineering_Master_Bank/Chemistry/Gases/mcqs.csv
+[DUPLICATE OPTIONS] at Line 248 in Engineering_Master_Bank/Chemistry/Gases/mcqs.csv
+[DATE GLITCH] 'Anti-Markovnikov addition' at Line 117 in Engineering_Master_Bank/Chemistry/Hydrocarbons/mcqs.csv
+[DATE GLITCH] 'Anti-Markovnikov addition' at Line 281 in Engineering_Master_Bank/Chemistry/Hydrocarbons/mcqs.csv
+[DATE GLITCH] 'Decreased waiting time for higher-priority processes' at Line 201 in Engineering_Master_Bank/Computer_Science/Operating_Systems/mcqs.csv
+[DUPLICATE OPTIONS] at Line 30 in Engineering_Master_Bank/Physics/Nuclear_Physics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 92 in Engineering_Master_Bank/Physics/Nuclear_Physics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 230 in Engineering_Master_Bank/Physics/Current_Electricity/mcqs.csv
+[DUPLICATE OPTIONS] at Line 140 in Engineering_Master_Bank/Physics/Electromagnetism/mcqs.csv
+[DUPLICATE OPTIONS] at Line 68 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 92 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 118 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 156 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 189 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 198 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 214 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 249 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 55 in Engineering_Master_Bank/Physics/Optical_Instruments/mcqs.csv
+[DUPLICATE OPTIONS] at Line 114 in Engineering_Master_Bank/Physics/Optical_Instruments/mcqs.csv
+[DUPLICATE OPTIONS] at Line 150 in Engineering_Master_Bank/Physics/Physical_Optics/mcqs.csv
+[DUPLICATE OPTIONS] at Line 229 in Engineering_Master_Bank/Physics/Physical_Optics/mcqs.csv

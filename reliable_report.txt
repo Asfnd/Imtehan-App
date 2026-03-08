@@ -1,0 +1,16 @@
+RELIABLE CLEANUP REPORT
+Original: 578, Final: 565, Removed: 13
+
+[Normalized Match] Kept: Advanced Dermatology Associates LTD | Removed: Advanced Dermatology, LLC | Reason: Normalized names matched: 'advanced'
+[Normalized Match] Kept: Advanced Dermatology Associates LTD | Removed: Advanced Dermatology, PC | Reason: Normalized names matched: 'advanced'
+[Normalized Match] Kept: Advanced Dermatology and Skin Surgery, PA | Removed: Advanced Dermatology & Skin Surgery | Reason: Normalized names matched: 'advanced surgery'
+[Normalized Match] Kept: DERMATOLOGY PHYSICIANS OF CONNECTICUT | Removed: Connecticut Dermatology Group | Reason: Normalized names matched: 'connecticut'
+[Normalized Match] Kept: Contour Clinic | Removed: Contour Medical Aesthetics | Reason: Normalized names matched: 'contour'
+[Normalized Match] Kept: Cosmetic Laser Dermatology | Removed: Cosmetic Skin & Laser Center | Reason: Normalized names matched: 'cosmetic laser'
+[Normalized Match] Kept: Natural Body Spa + Med Spa | Removed: Natural Body Spa + Med Spa | Reason: Normalized names matched: 'natural body'
+[Normalized Match] Kept: Palm Beach Medical | Removed: Palm Beach Dermatology | Reason: Normalized names matched: 'palm beach'
+[Normalized Match] Kept: The Dermatology Clinic, PLLC | Removed: THE DERMATOLOGY CENTER, PLLC | Reason: Normalized names matched: 'pllc'
+[Normalized Match] Kept: Rejuvenate Medical Spa | Removed: Rejuvenate MedSpa | Reason: Normalized names matched: 'rejuvenate'
+[Normalized Match] Kept: Revive Medical Spa, LLC | Removed: Revive Med Spa | Reason: Normalized names matched: 'revive'
+[Normalized Match] Kept: Dermatology Associates of San Antonio | Removed: Dermatology San Antonio | Reason: Normalized names matched: 'san antonio'
+[Normalized Match] Kept: Windermere Medical Spa & Laser Institute | Removed: Windermere Medical Spa & Laser Institute | Reason: Normalized names matched: 'windermere laser'

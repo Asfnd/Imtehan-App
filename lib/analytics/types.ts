@@ -68,6 +68,7 @@ export interface UserAnalytics {
 
 export interface QuizData {
   quizType: 'subject' | 'past-paper' | 'mpt' | 'mock' | 'practice'
+  examSlug: string
   subject?: string
   totalQuestions: number
   correctAnswers: number

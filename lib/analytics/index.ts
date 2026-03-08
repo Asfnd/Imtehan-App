@@ -28,6 +28,7 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
   try {
     const { data, error } = await supabase.rpc('save_quiz_and_update_analytics', {
       p_user_id: user.id,
+      p_exam_slug: quizData.examSlug,
       p_quiz_type: quizData.quizType,
       p_subject: quizData.subject || null,
       p_total_questions: quizData.totalQuestions,
@@ -59,7 +60,7 @@ export async function saveQuizResults(quizData: QuizData): Promise<SaveQuizRespo
  * Most efficient way to load dashboard!
  * Single RPC call fetches: stats, weak subjects, recommendation, recent scores
  */
-export async function getUserAnalytics(): Promise<UserAnalytics | null> {
+export async function getUserAnalytics(examSlug?: string): Promise<UserAnalytics | null> {
   const supabase = createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
@@ -69,7 +70,8 @@ export async function getUserAnalytics(): Promise<UserAnalytics | null> {
 
   try {
     const { data, error } = await supabase.rpc('get_user_analytics', {
-      p_user_id: user.id
+      p_user_id: user.id,
+      p_exam_slug: examSlug ?? null
     })
 
     if (error) {

@@ -1,0 +1,764 @@
+Question_Number,Question,Option_A,Option_B,Option_C,Option_D,Correct_Answer
+1,Which of the following terms means to reckon?,Putare,Com,Computa,Computar,A
+2,The speed of communications between any two devices on the Ethernet LAN is:,10 Mbps,100 Mbps,1000 Mbps,Both A and B,D
+3,"In MS Excel 2016, we can go to cell A1 by pressing:",Ctrl + Home,Home,Shift + Home,Alt + Home,A
+4,What is the extension of a PowerPoint presentation file?,.pp,.xls,.ptb,None of these,D
+5,An optical disk is an electronic data storage medium that can be written to and read from using a ______ beam.,high-powered laser,low-powered laser,medium-powered laser,None of these,D
+6,Angular is a framework of:,Php,Javascript,Python,None,B
+7,How many ways can you save a document?,3,4,5,6,A
+8,A chart can be put as a part of the presentation using:,Insert -> Chart,Insert -> Pictures -> Chart,Edit -> Chart,View -> Chart,A
+9,A computer program that translates one program instruction at a time into machine language is called ______?,Interpreter,CPU,Compiler,None of these,A
+10,"In a Windows PC, the shortcut for saving a Word document is:",CTRL + A,CTRL + B,CTRL + S,CTRL + V,C
+11,"In a computer, an element which is not a part of a chart is:",Plot area,Fill handler,Series,Chart area,B
+12,The task of performing operations like arithmetic and logical operations is called:,Processing,Storing,Sorting,Editing,A
+13,"In Microsoft Word, Ctrl+1 is used for which of the following?",To set 1.5 line spacing,To set 0.5 line spacing,Double line spacing,Single line spacing,D
+14,Integrated circuits (ICs) were used in the ____ generation of computers:,First,Second,Third,Fourth,C
+16,Single spacing in an MS Word document causes '''' point line spacing.,10,12,14,16,B
+17,Google was founded on:,"Sept 4, 1998",35860,35809,36027,A
+19,What is Fisheye degree view?,90 Degree,180 Degree,360 Degree,None of above,B
+20,The communication protocol used by the Internet is:,HTTP,WWW,TCP/IP,FTP,C
+22,Which of the following is the correct option for sending the same letter to multiple persons?,Mail merge,Macros,Template,Alignment,A
+23,Maximum zoom percentage in MS PowerPoint is:,200,400,600,800,B
+25,The first completely 64-bit compatible version of Android was:,Android 4.0 Ice Cream Sandwich,Android 5.0 Lollipop,Android 3.0 Honeycomb,Android 2.3 Gingerbread,B
+26,Excel is a program that is used to prepare a:,Database,Text document,Spreadsheet,Workbook,C
+27,The shortcut key for the next slide is?,Dot,Space,Page up,Ctrl+F4,B
+28,User-developed instructions for Excel are called ____?,Program,Macros,Procedure,All of these,B
+29,Which of the following is not a function in Microsoft Excel?,SUM,MAX,MIN,AVG,D
+30,"In Excel, which key is used to format a number in percentage format?",Ctrl+Shift+1,Ctrl+Shift+5,Ctrl+Shift+6,Ctrl+Shift+3,B
+31,"In the world of computer science, what is Linux?",A malware,An application program,A firmware,An operating system,D
+32,Which key is used to create a chart in MS Excel?,F3,F5,F11,F12,C
+33,Which is a valid statement?,1 MB = 1024 bytes,1 KB = 1024 bytes,1 KB = 8 bytes,1 MB = 8 KB,B
+35,Which operation is commonly associated with the Clipboard?,Copy and Paste data,Creating folders,Formatting text,Creating charts,A
+36,BIOS stands for:,Basic Input Output Structure,Basic Input Operating System,Basic Input Output System,None of these,C
+38,Which of the following are word processing software?,WordPerfect,Wordpad,MS Word,All of above,D
+39,RAM can be treated as the waiting room for the computer’s processor.,Factory,Operating room,Waiting room,Planning room,C
+41,Which of the following can you use to add times to the slides in a presentation?,Microsoft graph,Microsoft Table,Microsoft Excel,Microsoft Word,C
+42,Who invented the first computer?,Charles Babbage,Howard Aiken,Vint Cerf,None of these,A
+44,Which one of the following is not a system software?,Utility Software,Driver,Entertainment,Operating system,C
+45,Which of the following sections does not typically exist in a slide layout?,Titles,Lists,Charts,Animations,D
+46,ROM stands for:,Read-Only Memory,Read Over Memory,Read Of Memory,None of these,A
+47,"If you will be displaying or printing your document in Ms Word on another computer, you’ll want to make sure and select the Embed TrueType Fonts option under the ‘Save’ tab.",Embed True Type Fonts,Embed Fonts,Save True Type Fonts,Save Fonts,A
+48,Which PowerPoint feature allows the user to create a simple presentation without having to spend too much time on it: ______.,AutoContent Wizard,Animation,Color Schemes,Chart Wizard,A
+50,Which one of the following is an input device?,Printer,Scanner,Monitor,Speaker,B
+51,_______ is the high-speed memory used in a computer.,Hard Disk,RAM,Cache,None of these,C
+52,A temporary storage place for information in a computer is called a:,Back Up,Buffer,Binary file,Data recorder,B
+53,"In CorelDraw, for Ungroup, we use the shortkey:",Control + U,Altr + UG,Control + Shift,Control + F,A
+54,Ctrl + X Shortcut is used in Microsoft Word to:,Close Document,Close Word Application,Cut the Selected Contents,Copy the Selected Contents,C
+55,The first calculator was invented by:,Gottfried Leibniz,Blaise Pascal,William Oughtred,None of these,B
+57,'Which is the full form of Wi-Fi?,Wireless Fidelity,Wired Fidelity,Wireless Focus,Wireless Field,A
+58,Which of the following types of table constraints will best prevent the entry of duplicate rows by uniquely identifying each row?,Primary Key,Unique,Null,Foreign Key,A
+60,Which key is used for creating a chart in MS Excel?,F11,F9,F7,F4,A
+61,A cursor is a:,Pointing device,Pixel,Thin blinking line,None of these,C
+63,MS Word offers different views of a document. How many?,2,3,4,5,D
+64,Virtual Memory is typically located in:,RAM,CPU,Hard Drive,Flash Memory,C
+66,Add or Remove Programs is a(n):,Productivity software,File manager,Utility program,Device driver,C
+67,Word has Web authoring tools that allow you to incorporate hyperlinks on Web pages.,Bullets,Hyperlinks,Sounds,All of the above,D
+69,A computer application program that displays data arranged in rows and columns is called a:,Spreadsheet,Register,Form,Box,A
+70,Which short cut key is used to save a file with two names:,Save,Save as,Copy,Paste,B
+71,What is the name of programs which control the hardware of a computer?,Drivers,Operators,Connectors,None of these,A
+72,"In MS Excel, the dollar sign is used to ______ data.",Fix,Update,Filter,None of these,A
+73,"'In an e-mail address, the name of the email service provider comes after the _ sign:",&,@,percent,#,B
+74,"In MS Word, Ctrl+U is used as an alternative to:",Clicking the icon U,Underline the selected text,Right click on the selected text and select U,None of these,B
+75,A polymorphic virus changes each time it is installed to avoid detection by antivirus software.,Polymorphic virus,Worm,Logical Bomb,Trojan Horse,A
+76,Which of the following is not hardware?,RAM,Hard disk,Monitor,Windows XP,D
+77,Types of e-commerce are:,Business-to-Business (B2B),Consumer-to-Consumer (C2C),Business-to-Consumer (B2C),All of above,D
+78,Which option in the File pull-down menu is used to close a file in MS Word?,New,Quit,Close,Exit,C
+79,Which of the following is used to create newspaper-style columns in Ms Word?,Format Columns,Table -> Insert Table,Format Tabs,Insert Textbox,C
+80,"In mathematics, a solution to an equation that emerges from the process of solving the problem but is not a valid solution to the problem is called an ____ solution:",Homogeneous,Heterogeneous,Extraneous,Identical,C
+81,MS Excel is:,System software,Driver,Application software,None of these,C
+82,Ctrl + V Shortcut is used in Microsoft Word to:,Paste Texts in the beginning of the Document,Paste Images in the beginning of the Document,Paste Tables at the middle of the Document,None of the above,D
+83,"If you need to change the typeface of a document, which menu will you choose in Ms Word?",Edit,View,Format,Tool,C
+84,PowerPoint is called _______ software:,Presentation,Graphic,Word processing,Spreadsheet,A
+85,"In computer science, a half-byte is also known as a:",Word,Two bits,Nibble,All of these,C
+86,"In MS Access, which of the following data types allows alphanumeric characters and special symbols?",Text,Memo,AutoNumber,None of these,A
+87,"Operating systems, editors, and debuggers come under?",Application software,System software,Utilities,None of these,B
+88,The freezing of rows and columns in Excel is in which pane?,Freezing row,Freezing column,Freezing pane,None of these,C
+89,A webpage has a unique address called:,Domain name,URL,IP address,None of these,B
+91,______ is not necessary while performing a mail merge operation.,Word fields,Unique fields,Super fields,Primary fields,C
+92,The On/Off power button is typically located at:,Front of the device,Back of the device,Top of the device,Side of the device,A
+94,What is Internet?,A single network,A collection of unrelated computers,Interconnection of local area networks,Interconnection of wide area networks,D
+95,"Audio, video, and PDF files can be sent through?",Gmail,Yahoo,WhatsApp,All of these,D
+97,Which option in PowerPoint allows you to carry slides from one computer to another?,Save As,Save and Go,Pack and Go,Web and Go,C
+98,To edit an embedded Excel worksheet object in a Word document:,Use the Excel menu bar and toolbars inside the Word application.,Edit the hyperlink.,Edit the data in the Excel source application.,Use the Word menu bar and toolbar.,A
+100,A picture is made of:,Lines,Dots,Scratches,Lightings,B
+101,Which of the following should you use if you want all the slides in the presentation to have the same “look”?,The slide layout option,Add a slide option,Outline view,A presentation design template,D
+103,Where can you find the Draw Table tool button in Microsoft Word?,Formatting toolbar,Drawing toolbar,Standard toolbar,Tables and Formatting toolbar,A
+104,Which key is used to create a chart in MS Excel?,F6,F1,F11,None of these,C
+105,"To copy a picture of the screen to the Clipboard, use:",Alt Key,Shift Key,Print Screen Key,None of these,C
+107,When you delete a text box object from a slide in a PowerPoint presentation:,"The object is deleted, but the text box and the text inside are left on the slide.","The text box remains, but the text is deleted.",The text box and text are both deleted.,None of these.,C
+108,"Email, Gmail, and Yahoo are:",Client server,Email server,Web server,None of these,B
+110,"To search and view a Web page, the software used is ____.",Web,World Wide Web,Web Browser,Search Engine,C
+111,IP stands for:,Internet Process,Internet Program,Internet Protocol,None of these,C
+113,"Using the ribbon, where should you go to activate the ruler on your Document?",View >> toolbars,File >> Open,View >> Ruler,Insert >> Reference,C
+114,Which of the following is not a command in the Insert tab?,Page,Table,Link,Style,D
+116,"'An electronic copy of data, such as a file viewed on a computer''s display, is called:",Soft copy,Gold copy,Hard copy,Premium copy,A
+117,"To stop a slideshow in MS PowerPoint, which of the following options is correct?",Press F2,Press CTRL,Press Escape,Press F5,C
+118,Which of the following tabs is not present in the control panel program in the start menu?,Web,Index,Search,Content,A
+119,"In MS Excel, the function to return one value if a condition is true and another value if it's false is:",IF function,SUM function,DECIMAL function,INFO function,A
+120,Which of the following panes is not available in the Task Pane?,Getting started,Clip Art,WordArt,Search results,C
+121,HTTPS provides a ____ communication over a computer network.,Secure,Text,Voice,Video,A
+122,Which shortcut key inserts a new slide in the current presentation in PowerPoint?,Ctrl + N,Ctrl + M,Ctrl + S,All of these,B
+123,What is a motion path in Powerpoint?,A type of animation entrance effect,A method of advancing slides,A method of moving items on a slide,All of the above,C
+124,Cybersecurity is related to _____.,Computer,Network,Software,All of these,D
+125,The first compiler was developed by:,Ada Lovelace,Grace Hopper,John Backus,Alan Turing,B
+126,What happens if you press Ctrl + Shift + F8 in Microsoft Word?,It activates extended selection,It activates the rectangular selection,It selects the paragraph on which the insertion line is,None of above,B
+127,ASCII stands for:,American Standard Code for Inked Information,American Standard Code for Information Inked,American Standard Code for Information Interchange,Asian Standard Code for Information Interchange,C
+129,_______ computers are also called personal computers?,Mainframe,Mini,Micro,Super,C
+130,The document can be zoomed a maximum of up to:,100 percent,200 percent,400 percent,500 percent,D
+132,Who is the founder of the audio and video conferencing tool Zoom?,Steve Wozniak,Steve Ericson,Michele George,Eric Yuan,D
+133,"In a Windows PC, the shortcut key for restoring the last action in Microsoft PowerPoint is:",Ctrl + R,Ctrl + Z,Ctrl + Y,Ctrl + O,C
+135,"In MS Windows, key F1 is mostly used for:",Exit,Refresh,Help,Restart,C
+136,"When the Language bar is hidden, it means that you do not see it on the screen but it will be displayed the next time you start your computer.",Restored,Hidden,Minimized,Closed,B
+138,You cannot link Excel worksheet data to a Word document:,With the right drag method,With a hyperlink,With the copy and paste special commands,With the copy and paste buttons on the standard toolbar,D
+139,Where is the Office Button located in MS Word?,Left Upper,Left Bottom,Right Upper,Right Bottom,A
+140,There can be many ways to insert a page number in a document. Which of the following lets you insert a page number in Ms Word?,Page number from the Insert menu,Footnote from the Insert menu,Page Setup from the file menu,Both a and c,A
+141,What was the first network that provides the basis for the internet?,ARAPANET,AAPARANET,ARPANET,PARA NET,C
+142,"The development of the IBM PC (Personal Computer), which we use in our daily life, was led by:",Charles Babbage,Dennis Ritchie,Philip Donald Estridge,None of these,C
+143,"____ is used for presenting one's own work, report, or performance.",MS Word,MS Excel,MS PowerPoint,None of these,C
+144,Which of the following statements is true about Minicomputers and Microcomputers?,Minicomputer works faster than Microcomputer,Microcomputer works faster than Minicomputer,Speed of both the computers is the same,The speeds of both these computers cannot be compared with the speed of,A
+145,Which of the following extensions is used in MS PowerPoint:,.docx,.xlsx,.ppt,.jpeg,C
+146,A barcode reader is a/an ____ device.,Output,Input,Display,Storage,B
+147,Which of the following is not character spacing?,Expanded,Raised,Condensed,Both (A and C),B
+148,"In Internet terminology, IP stands for:",Internet Protocol,Internet Provider,Internet Procedure,Internet Processor,A
+149,Microsoft Office Accounting is:,A tool for managing business finances,Project management software to keep track of events and to create network charts and Gantt charts,Diagram and flow-charting software,None of these,A
+150,What should you do if you require pasting the same format in many places?,Double-click the format painter then go on pasting in many places,Click the format painter then go on pasting to many places holding Ctrl Key,Click the Format painter and go on pasting in many places holding Alt Key,All of the above,A
+151,The Pascal programming language was invented by:,Niklaus Wirth,Blaise Pascal,Dijkstra,Donald Knuth,A
+152,Every web page has a unique address called:,HTTP,URL,HTML,DNS,B
+153,Which function displays row data into column or column data into a row?,Hyperlink,Index,Transpose,Rows,C
+154,Which of the following is not used to access the web?,ISDN,Modem,UDP,DSL,C
+155,HDD stands for:,High Density Disk,Heavy Duty Diesel,Heating Degree Days,Hard Disk Drive,D
+157,Which option allows you to print multiple slides on a single page?,Handouts,Notes pages,Outlines,Slides,A
+158,"In 1997, which technological design was named after a Viking king?",Modem,McAfee,Bluetooth,Microsoft,C
+160,Which technology is used in compact disks?,Mechanical,Electrical,Electromagnetic,Laser,D
+161,What is the number of read-write heads in the drive for a 9-track magnetic tape?,9,16,18,27,A
+163,"To apply center alignment, you can press:",Ctrl+S,Ctrl+C,Ctrl+C+A,Ctrl+E,D
+164,Which allows access from one cell to another:,Address,Formulas,Values,None of these,A
+166,Which of the following is a popular programming language for developing multimedia webpages?,BASIC,Assembler,Java,COBOL,C
+167,"In which type of computer, data are represented as discrete signals?",Analog computer,Digital computer,Both,Hybrid Computer,B
+168,An email cannot be sent without:,Subject,Attachment,Receiver's email address,Message,C
+169,Numeric pad is present in:,Keyboard,Mouse,Joystick,All of these,A
+170,"If '=B9' is written in Excel (not as a formula), then it shows:",Fraction,Date,Table,None of these,B
+171,Ctrl + B Shortcut key is used in Ms Word to:,Search the selected text,Paste the selected text,Bold the selected text,Open the specified file,C
+172,"After choosing a predefined template, the Color scheme option has to be chosen to change a background color in Ms PowerPoint.",Design template,Color scheme,Animation scheme,Color effects,B
+173,"Google Chrome, Mozilla Firefox, and Opera are examples of:",Web browsers,Website addresses,Internet protocols,None of these,A
+174,The bar used to display the current cell and its contents is:,Menu bar,Function bar,Formula bar,Object bar,C
+175,What is MS Word?,A Word Processing Software,A Spreadsheet,An Operating system,None of These,A
+176,The computer that processes both analog and digital is called a:,Analog computer,Digital computer,Hybrid computer,Mainframe computer,C
+177,Which of the following is not a storage medium?,Hard Disk,Flash drive,DVD,Scanner,D
+179,The ____ function calculates the largest value in a set of numbers.,Average,Count,Min,Max,D
+180,How many menus does a calculator in Windows have?,Three,Five,Four,Two,A
+182,"To open a template in Word, first go to File and:",Click New,Click Display,Click Open,Click Search,A
+183,Which of the following registers is used to keep track of the address of the memory location where the next instruction is located?,Program Counter,Memory Data Register,Instruction Register,Memory Address Register,A
+185,ASP stands for:,Active Start Pages,Action Start Pages,Active Server Pages,Active Standalone Pages,C
+186,"You use a(n) input device, such as a keyboard or mouse, to input information.",Output device,Input device,Storage device,Processing device,B
+188,Gwadar Port was built with the help of which country:,Malaysia,China,Oman,Singapore,B
+189,The Page orientation can be in ____ style.,Landscape,Portrait,Landscape & Portrait,Digit Speed Line,C
+190,Personal computers use a number of chips mounted on a main circuit board. What is the common name for such boards?,Daughter board,Motherboard,Father board,Breadboard,B
+191,Which one is not a nickname of a version of Android?,Honeycomb,Cupcake,Gingerbread,Muffin,D
+192,"MS Office provides help in many ways, which of these is one of them?",Help menu,What is this?,Office Assistant,All of the above,D
+193,Which key deletes the character to the left of the cursor?,End,Backspace,Home,Delete,B
+194,"In MS Excel, which function automatically totals a column or row of values?",Total,ADD,SUM,AVG,C
+195,Where is the Computer BIOS stored?,DRAM,Flash,SRAM,None of these,B
+196,A digitizer is also referred to as a:,Digital audio player,Digital video editor,Input Device,None of these,C
+198,Which of these terms refers to the sharpness or clarity of an image?,Width,Resolution,Dot pitch,Depth,B
+199,"In power point, the header and footer button can be found on the insert tab in which group?",Illustrations group,Object group,Text group,Tables group,C
+201,Which of the following is not a part of the Control Panel?,My Documents,Display,Date and Time,None of these,A
+202,We can find any and every command on the:,Menu bar,Standard toolbar,Formatting toolbar,Drawing toolbar,A
+203,Which key do you press while clicking to select more than one file or folder?,Ctrl,Shift,Alt,None of these,A
+204,Disk and tape drives are commonly used:,Hard copy,Soft copy,Secondary storage devices,None of the above,C
+205,"When a logic bomb is activated by a time-related event, it is known as a:",Time-related bomb sequence,Virus,Time bomb,Trojan horse,C
+207,The process of removing an unwanted part of an image is called:,Hiding,Cutting,Cropping,Bordering,C
+208,A computer has better performance than a mechanical calculator due to:,Speed,Versatility,Storage,Accuracy,A
+210,An executable program is one that is ready to run and does not need to be altered in any way.,Interpreter,High level,Compiler,Executable,D
+211,Which of the following is a case that contains the electronic components of the computer used to process data?,System unit,Master section,Control port,Computer chip,A
+213,The first page of any website is called:,Desktop,Home page,Web page,Open page,B
+214,Which of the following can NOT be used to create a parallel style column?,Format Tabs,Table Insert Table,Insert Textbox,Format Columns,D
+216,What is the shortcut key for “Justify Align” the selected text?,Ctrl + J,Ctrl + Shift + J,Ctrl + E,None of these,A
+217,Ctrl + Backspace is the shortcut key to display the active cell in Excel.,Shift + Backspace,Ctrl + Backspace,Alt + Backspace,None,B
+219,"Related to computers, what is ‘Wetware’?",Computer programs,Circuitry,Human brain,Chemical storage devices,C
+220,You can use the format painter multiple times before you turn it off by ____.,You can use the format painter button only one time when you click it,Double-clicking the format painter button,Pressing the Ctrl key and clicking the format painter button,None of these,B
+222,What is the purpose of inserting a header and footer in a document?,To enhance the overall appearance of the document,To mark the starting and ending of a page,To make a large document more readable,To allow page headers and footers to appear on the document when printed,D
+223,"In MS Word, to extend a selection one screen down, press:",CTRL + SHIFT + PAGE DOWN,SHIFT + PAGE DOWN,CTRL + PAGE DOWN,ALT + SHIFT + PAGE DOWN,A
+224,Format Painter in PowerPoint relates to:,To paint pretty pictures on your slides.,To copy formatting from one object or piece of text and apply it elsewhere.,To change the background color of our slides.,None of these,B
+225,What PowerPoint feature will you use to apply motion effects to different objects of a slide:,Animation Objects,Animation Scheme,Slide Transition,Slide Design,A
+226,A number of letters that appears a little above the normal text is called:,Superscript,Sub script,Super text,Sub Text,A
+227,Wifi stands for:,Wireless Fidelity,Wireless functioning,Wireless function,None of the above,A
+228,What is the maximum number of lines you can set for a drop cap?,3,10,15,None of these,B
+229,"If you need to hide some paragraphs, how can you do it in Ms Word?",From the Paragraph dialog box,From the Font dialog box,From the Options Dialog box,None of above,B
+230,The file extension for older PowerPoint presentations is:,.XLS,.PPT,.TTX,All of these,B
+231,FM stands for:,Frequent Modulation,Frequency Modulation,Frequency Method,Frequency Molecules,B
+232,“Ctrl + PageDown” Shortcut key is used in Ms Word to:,Moves the cursor one Paragraph Down,Moves the cursor one Page Down,Moves the cursor one Line Down,Moves the cursor one Screen Down,B
+234,"In MS Excel 2016, =NOW() is used:",To show day name,To show time only,To show date only,To show current date and time,D
+235,Which one is not an online payment mode?,Cash on Delivery,Credit Card,Debit Card,E-Cheque,A
+236,RTF stands for:,Right Text Format,Read Text Format,Rich Text Format,Royal Text Format,C
+238,"For combining two or more cells, we use?",A data field,Merge functions,Cache,Trail,B
+239,"In MS Word 2007, to extend a selection to the beginning of a paragraph, press:",Ctrl + Shift + Left Arrow,Ctrl + Shift + Up Arrow,Ctrl + Shift + Home,Shift + Home,B
+241,The Columns dialog box can be opened from:,Press Alt + O + C,Format menu -> Columns submenu,Double click on the column space in the ruler,All of above,D
+242,The _____ option is used to save automatically after 10 minutes in MS Word.,Instant recover,AutoRecover,Save draft,None of these,B
+244,A high-quality CAD system uses which of the following for printing drawings and graphs?,Line printer,Digital Plotter,Dot matrix printer,None of these,B
+245,Which key is used to rename?,F1,F2,F7,F9,B
+247,A collection of computers connected together is called a:,Processing,Network,Chatting,Centralized System,B
+248,"Brain, also known as the first computer virus for MS-DOS, was written by two brothers belonging to which of the following countries?",Malaysia,India,Pakistan,Iran,C
+249,Which of the following can be changed using the Page layout tab?,Theme,Page Setup,Arrange,All of the above,D
+250,We can remove/hide the border of a shape by selecting:,No Line,No Outline,White Line,No Border,B
+251,Who is the father of the Computer?,Allen Turing,Charles Babbage,Seymour Cray,Augusta Ada King,B
+252,How do you remove all character formats in MS Word?,Shift + Spacebar,Shift + Enter,Ctrl + Spacebar,Ctrl + Enter,C
+253,"Which is the largest hardware company of computers among these, by market cap?",IBM,Dell,HP,Apple,D
+254,A song being played on a computer speaker is?,Hard output,Soft output,Both A & B,Neither Hard nor Soft output,B
+255,"In Microsoft Excel, the file you create and edit is called:",A form,A ledger,A table,A workbook,D
+257,"In PowerPoint, the objects on the slide used to hold the text are called as:",Text holders,Textbook,Placeholders,None of these,C
+258,_____ is used to move the cursor one word to the right at a time in MS Word.,CTRL+RIGHT ARROW,ALT+RIGHT ARROW,SHIFT+RIGHT ARROW,None of these,A
+260,Which of the following is true regarding the page orientation of a Document?,Page Orientation can be changed at any time,Page Orientation of a document is determined by the printer,Page Orientation must be set before starting to type,Page Orientation of a document cannot be changed,A
+261,How many commands are present in the Reference tab?,4,5,6,7,C
+263,Which shortcut key is used to save a document?,Ctrl + A,Ctrl + S,Ctrl + X,None of these,B
+264,"Insert Date, Format Page Number, and Insert AutoText are buttons on the Header and Footer toolbar in Ms Word.",Formatting,Header and Footer,Standard,Edit,B
+266,"In the email dialogue box, Bcc is used for writing the:",Subject,Email Address,Phone Numbers,Names,B
+267,A Word Template Stores Common Document:,Style,Theme,Structure,Content,C
+268,The default file name in MS Excel is:,Document 1,Workbook 1,Book1,Worksheet,C
+269,Which of the following is not an MS PowerPoint view?,Slide View,Slide Show View,Orientation View,Presentation View,C
+270,Who is the father of the personal computer?,Henry Edward Roberts,Allen Turing,Charles Babbage,None of these,A
+271,"'ALU is a component of a processor, which consists of:",AU (Arithmetic Unit),LU (Logic Unit),Both A and B,None of these,C
+272,Which of the following is the founder of Snapchat?,Bill Gates,Evan Spiegel,Robert E Kahn,Steve Woziak,B
+273,Distributed data entry means that data can be:,Entered at different locations where it originates,Sent to different locations from a central place,Accessed from different places known as distribution points,Distributed through a network,A
+274,The world's largest computer company by sales is:,Acer,IBM,Microsoft,Apple,D
+276,Which shortcut key is used to insert a new slide in a PowerPoint presentation?,Ctrl + S,Ctrl + M,Ctrl + N,Ctrl + B,B
+277,Which of the following is not a Section Break Option in Ms Word?,Next Page,Previous Page,Odd Page,Even Page,B
+279,Network is a combination of hardware and software that facilitates the sharing of information between computing devices.,Network,Peripheral,Expansion board,Digital device,A
+280,Ctrl + L Shortcut is used in Microsoft Word to:,Left Align,Left Indent,Increase Left Margin,Decrease Left Margin,A
+282,What is the shortcut key to “Center Align” the selected text?,Ctrl + C,Ctrl + A,Ctrl + E,None of these,C
+283,Linux is a/an:,Operating System,Utility program,Application Software,Educational Software,A
+285,Who began the development of the World Wide Web in 1989?,Tim Berners-Lee,Tim John-Lee,Joe Bing,None of these,A
+286,The World Wide Web was invented by:,Tim Berners-Lee,Bob Kahn,Steve Jobs,Bill Gates,A
+287,"In Word, the default alignment for paragraphs is:","Left-aligned, or flush margins at the left edge and uneven edges at the right edge","Centered, or equidistant from both the left edge and the right edge","Right-aligned, or flush margins at the right edge and uneven edges at the left edge","Justified, or flush margins at both the left and right edges",A
+288,Which of the following panes is not typically a primary option directly listed in the Task Pane?,Getting started,WordArt,Clip Art,Search results,B
+289,A computer cannot ‘boot’ if it does not have the:,Compiler,Loader,Operating System,Assembler,C
+290,Data is permanently stored in:,RAM,Hard disk,Buses,Cache memory,B
+291,_ is widely used for transmitting streaming video data on the internet:,MP3,AVI,WMA,WAV,B
+292,A compiler is a:,System program that converts instructions to High-Level Language,System program that converts instructions to Machine Language,System program that converts instructions to Low-Level Language,None of these,B
+293,A hyperlink is used for:,Image,Video,Audio,All of these,D
+294,What is the smallest width of a column in MS Word?,0'',0.5'',1'',1.5'',B
+295,Which of the following are actions you can assign to an action button or slide object?,Run a macro,Play sound,Hyperlink,All of these,D
+296,How many different positions can you set for a drop cap in Ms Word?,1,2,3,4,B
+297,The data transfer rate is the amount of data that a storage device can move from the storage medium to the Computer per second.,Data migration rate,Data digitizing rate,Data transfer rate,Data access rate,C
+298,Which of the following is not an essential component to perform a mail merge operation?,Word fields,Main document,Data source,Merge fields,A
+299,"The ""Mail Merge"" tab is in?",Combining,Mailing,Registers,None of these,B
+300,The keys used to lock the keyboard are:,CTRL + Tab,CTRL + Alt,Windows logo + L,Windows logo + K,C
+301,Which of the following functions is used to get the current date?,EXACT (),TODAY (),MONTH (),YEAR (),B
+302,Word stores all frames associated with a Web page in a single file called the frames page.,Authoring page,Text page,Frames page,Hyperlink page,C
+303,Microsoft Office is a type of:,System software,Application software,Utility software,Firmware,B
+304,What is considered the brain of any computer system?,ALU,Memory,CPU,Control Unit,C
+305,The circular divisions of disks to store and retrieve data are known as:,Tracks,Sectors,Cycles,Rings,A
+307,Ctrl + P Shortcut key is used in Ms Word to:,Open Paragraph Dialog Box,Open Page Format Dialog Box,Open Save Dialog Box,Open Print Dialog box,D
+308,What was the HTML editor that was part of Microsoft Office until 2003?,Web page,Front page,Explorer,None of these,B
+310,Files created with Lotus 1-2-3 have an extension:,123,DOC,WK1,XLS,C
+311,Which types of fonts are best suitable for titles and headlines in Ms PowerPoint?,Serif fonts,Sans serif fonts,Text fonts,Picture fonts,A
+313,"A light-sensitive device that converts drawing, printed text, or other images into digital form is ____:",Keyboard,Scanner,OMR,None of these,B
+314,The effect applied to a display when slides change in a slide show view is:,Slide Animation,Custom Animation,Custom Transition,Slide Transition,D
+316,File Management is the responsibility of the:,Task Manager,RAM,BIOS,Operating system,D
+317,In MS Excel ready-made templates are available under the ____ tab.,File,Insert,Design,None of the above,A
+318,"A program with a graphical user interface for displaying HTML files, used to navigate the World Wide Web, is a:",Search engine,Web browser,Comment,None of These,B
+319,PDF stands for:,Printed Document Format,Public Document Format,Portable Document Format,Published Document Format,C
+320,Microsoft Office Picture Manager is:,Basic photo management software,A scanning and OCR application,An application that supports editing scanned documents,None of these,A
+321,We can start MS Word by typing ____ in the Run Dialogue box.,winword.exe,word.exe,msword.exe,None of these,A
+322,The shortcut to add a new slide in PowerPoint is:,Ctrl+M,Ctrl+P,Ctrl+F,Ctrl+H,A
+323,Which one is incorrect?,10+17,B1B2,B117,None of these,D
+324,Which of the following uses a handheld operating system?,Supercomputer,Personal computer,Laptop,PDA,D
+326,The best way to insert a new slide in a presentation is to use to:,Normal view,Special view,Slide show view,Slide sorter view,A
+327,Which key should be pressed to start a new line in MS Word?,Down Cursor Key,Enter Key,Shift + Enter,Ctrl + Enter,B
+329,The process of removing an unwanted part of an image is called:,Hiding,Bordering,Cutting,Cropping,D
+330,The topic of the email is called:,Subject,Message body,Recipient,None of these,A
+332,"In Excel, which key is used to open the Excel formula window?",Shift+F6,Shift+F3,Alt+Shift+F3,Alt+Shift+F6,B
+333,Which one of the following page orientations by default is used in MS Word?,Landscape,Regular,Portrait,Standard,C
+335,Which tab is not available on the left panel when you open a presentation?,Outline,Slides,Notes,None of these,C
+336,Window key + F1:,Show system properties,Help,Show Desktop (toggle),Run,B
+337,DropCap means:,Small Caps,Title caps,All case,None of the above,D
+338,What is the smallest and largest font size available in the Font Size tool on the formatting toolbar?,6 and 72,6 and 68,8 and 72,7 and 72,C
+339,A character that is raised and smaller above the base line is known as:,Outline,Raised,Subscript,Superscript,D
+340,The End Key is used for:,Moves the cursor to the end of the line,Moves the cursor to the end of the document,Moves the cursor to the end of the paragraph,Moves the cursor to the end of the screen,A
+341,What is gutter margin?,Margin that is added to the left margin when printing,Margin that is added to right margin when printing,Margin that is added to the binding side of the page when printing,Margin that is added to the outside of the page when printing,C
+342,Ctrl + K Shortcut is used in Microsoft Word to:,Insert Page Number,Insert Hyperlink,Insert Header,Insert Footer,B
+343,"If you select the first and second slide and then click on the New Slide button on the toolbar, what will happen then?",A new slide is inserted as the second slide in the presentation,A new slide is inserted as the third slide in the presentation,A new slide is inserted as the first slide in the presentation,None of above,B
+344,Which of the following shortcut is used to bring the desktop to the top of other windows?,WinKey + M,WinKey + D,WinKey + SHIFT + M,WinKey + CTRL + F,B
+345,Which of these keys is used in MS Excel to insert the current time in a workbook?,Ctrl + Shift + ;,Ctrl + Shift + :,Ctrl + Shift + ',None of these,A
+346,RAM is ____:,Volatile,Non - Permanent,Primary Memory,All of these,A
+347,Which symbol must all formulas begin with?,=,*,#,All of these,A
+348,Which of the following combination of keys is used to close the active window?,CTRL + F1,CTRL + F2,CTRL + F3,CTRL + F4,D
+349,What is the correct shortcut key to check grammar in MS Word?,F2,F5,F7,None of these,C
+351,Which shortcut key combination resets highlighted text to the default font in MS Word?,Ctrl+Backspace,Ctrl+Spacebar,Ctrl+R,None of these,B
+352,With which of the following do all formulas in Excel start?,#ERROR!,=,-,&,B
+353,Which key is used to enter the current date in Excel?,Ctrl+:,Ctrl+;,Ctrl+Shift+:,Ctrl+Shift+;,B
+354,Which of the following is not true of FORTRAN?,It was developed for scientific and mathematical applications,It is one of the oldest high-level languages,It is a problem-oriented language,It requires extensive internal documentation,D
+355,Which part of a computer connects with the motherboard and gives power to different parts:,CPU,Power supply,RAM,None of these,B
+356,Microsoft Office is an example of a:,Horizontal market software,Open source software,Vertical market software,Closed source software,A
+357,Which area in an Excel window allows entering values and formulas?,Title bar,Menu bar,Formula bar,Standard toolbar,C
+358,What is the shortcut to insert a line break in MS Word?,Ctrl+Enter,Shift+Enter,Alt+Enter,None of these,B
+360,What we call to a combination of row and column:,Line,Column,Row,Cell,D
+361,DOS stands for:,Disk Operating System,Disk Operating Session,Digital Operating System,Digital Open System,A
+363,Which operation will you perform if you need to move a block of text?,Cut and Paste,Copy and Paste,Drag and Paste,None of these,A
+364,Which of the following allows you to select more than one slide in a presentation?,Alt + Click each slide,Shift + drag each slide,Shift + Click each slide,Ctrl + Click each slide,D
+366,Which shortcut key is used to center align the selected text:,Ctrl+C,Ctrl+D,Ctrl+E,Ctrl+M,C
+367,Which of the following can you paste using the 'Paste Special' command?,Validation,Formulas,Formats,All of these,D
+369,The output shown on a computer monitor is called:,Hard copy,Soft copy,Print copy,None of these,B
+370,What is the shortcut key for applying superscript formatting in MS Word:,Ctrl+Shift+S,Ctrl+=,Ctrl+Shift++,Ctrl+Alt+S,C
+371,Among the following is the latest version of MS Excel?,Excel 2019,Excel 2016,Excel 2017,None of these,A
+372,Programmes written to make computers function in a desired way are called:,Codes,Instructions,Hardware,Software,D
+373,"A connection between two endpoints, either physical or logical, over which data may travel in both directions simultaneously is called:",Datalink,Duplex,Networks,None of these,B
+374,The shortcut key to undo the last action in a document:,Ctrl + Z,Ctrl + Y,Ctrl + C,Ctrl + V,A
+375,"Computers manipulate data in many ways, and this manipulation is called:",Upgrading,Processing,Batching,Utilizing,B
+376,Which part of the computer is called the “brain of the computer”?,Compiler,Central Processing Unit,Visual Display Unit,None of these,B
+377,The ______ button is used to reload a page in the Internet browser.,Reload,Refresh,Research,Forward,B
+378,The Autosum feature:,Extends a sequential series of data.,Automatically adds a range of cell values.,Applies a border around the selected cells.,None of these,B
+379,A computer on the internet is identified by:,E-mail address,Street address,IP address,None of the above,C
+380,What is the primary function of the register in a CPU:,"Quickly accept, store, and transfer data and instructions",To manage the CPU's cache memory,To control the flow of instructions,To handle memory management,A
+382,When an Excel workbook is linked to a Word document:,The Word document contains a copy of the actual data.,The Word document cannot be edited.,The Word document must contain a hyperlink.,The Word document contains a reference to the original source application.,D
+383,"In a computer spreadsheet, each cell can contain a:",Label,Value,Formula,All of these,D
+385,Excel would evaluate the formula =20*10/5*8 and return this answer:,5,6.25,320,232,C
+386,ICT stands for:,Information and Communication Technology,Information and Computer Technology,Inter-Connected Technology,Information and Common Technology,A
+388,"In Microsoft Word, you can jump to the next column by:",Press Alt + Down-arrow,Clicking with your mouse on the next column,Both of above,None of Above,C
+389,Ctrl+N is used to:,Save document,Open document,New document,Close document,C
+391,"To center the selected text, the shortcut key is:",Ctrl+ C,Ctrl+ E,Ctrl+ O,Ctrl+ U,B
+392,Slide sorter can be accessed through the ____ menu.,Insert,View,Edit,File,B
+393,Which is a volatile memory?,ROM,BIOS,PROM,RAM,D
+394,What is the use of a firewall in a computer?,To recover lost data,Protect against unauthorized access and threats,To increase processing speed,Monitor website traffic,B
+395,What computer virus holds the record for being the most widespread computer virus?,I Love You,Nimdad,Melllisa,Chrismas,A
+396,Which of the following shortcuts will create a new folder in a Windows folder?,Ctrl + C,Ctrl + Shift + N,Ctrl + O,Ctrl + Alt,B
+397,Which shortcut keys are used to open the Startup Menu?,CTRL + ESC,CTRL + ALT,CTRL + F,CTRL + TAB,A
+398,The ____ project allows access to the universe of online information using two simple user interface operations.,World-Wide Web,IP address,Web browser,None of these,A
+399,Which one is not a multitasking operating system?,Windows,Linux,Win NT,DOS,D
+400,CPU is an example of:,Software,Hardware,Program,Memory,B
+401,What is the maximum font size you can apply for any character in MS-Word?,163,1638,16038,None of these,B
+402,"In MS Excel, a formula that looks for a value in the leftmost column of a table and then returns a value in the same row for a specific column is:",Horizontal Lookup,Vertical Lookup,Average,None of these,B
+403,"PNG, JPEG, and GIF are the formats of ___ files.",Audio,Image,Video,None of these,B
+404,Which technology is used in compact disks to store data?,Electrical,Mechanical,Electromagnetic,LASER,D
+405,Which of the following is not a search engine?,Yahoo,Google,Ask,None of these,D
+407,Which is used to open a website?,Browser,Gmail,Yahoo,None of these,A
+408,Which among the following is not necessary for the working of a standalone computer?,RAM,Hard Drive,Operating System,LAN Card,D
+410,ALU and Control Unit jointly known as:,RAM,ROM,CPU,PC,C
+411,What is Unix in computer systems?,A type of software application,"A multiuser, multitasking operating system",A programming language,A hardware device,B
+413,RAID stands for:,Redundant Array of Independent Disks,Redundant Array of Independent Device,Redundant Array of Independent Division,None of these,A
+414,Which shortcut key is used for selecting the whole document?,Ctrl+A,Ctrl+B,Ctrl+C,Ctrl+D,A
+416,What is the default page setup orientation of a slide in PowerPoint:,Landscape,Portrait,Vertical,None of these,A
+417,What type of resource is most likely to be a shared common resource in a computer Network?,Printers,Speakers,Floppy disk drives,None of the above,A
+418,The date and time of a computer are changed from the:,Control unit,Control panel,Control CPU,None of these,B
+419,The smallest font size in MS-word is:,6,8,10,12,B
+420,To import text from a word document that uses headings into a PowerPoint presentation:,This can not be done in PowerPoint,"Click Insert, Slides from Outline","Click Import, Word Document Headings","Click File, New, Presentation from Word Headings",B
+421,"Which of the following describes the size, weight, and spacing in MS Word documents?",Font,Colour,Alphabet,None of these,A
+422,"In MS Word, what is the maximum scale percentage available in the scale drop-down box?",400,100,150,500,D
+423,A feature of MS Word that saves the document automatically after a certain interval is available on:,Save tab on Options dialog box,Save As dialog box,Both of above,None of above,A
+424,"In which menu do you find slide design, slide layout in PowerPoint?",Slide show tab,Design tab,Both A and B,None of these,B
+425,"In MS Word, the shortcut key for font size is:",Ctrl + Shift + B,Ctrl + Shift + F,Ctrl + Shift + E,None of these,B
+426,What is the version of pre-released software?,Beta,Alpha,Gamma,None of these,A
+427,"You wish to justify text over the height of a paper, which option will you choose in Ms Word?",From the formatting toolbar,Page Setup from the File menu,Font from the Format menu,Paragraph from the Format menu,B
+428,Which key on the keyboard can be used to view slide show in MS PowerPoint?,F1,F2,F3,F5,D
+429,"In MS Word 2016, which shortcut key is used to replace text or specific formatting?",Ctrl + K,Ctrl + T,Ctrl + H,Ctrl + Shift + M,C
+430,Pressing F8 three times selects?,Sentence,Select the dialog box,Change the margin,All of these,A
+431,"In Excel, which key is used to format a number in date format?",Ctrl+Shift+1,Ctrl+Shift+4,Ctrl+Shift+6,Ctrl+Shift+3,D
+432,Which layer of the OSI model is used by the router?,Layer 2,Layer 4,Layer 3,All of the Above,C
+433,Ctrl + W Shortcut is used in Microsoft Word to:,Save and Print the Document,Save and Close Word Application,Save and Close document,"Without Save, Close Document",C
+435,"In MS-Excel, two common wildcard characters that MS-Excel recognizes are:",* and ?,* and >,^ and /,None of these,A
+436,Which of the following tools enables you to add text to a slide without using the standard placeholders?,Text tool box,Line tool,Drawing tool,Auto shapes tool,A
+438,Which of the following is the most powerful computers?,Mainframe Computer,Mini computer,Micro computer,Super computer,D
+439,A computer program is also known as:,Software,Process,Procedure,Compiler,A
+441,The quickest way to create a PowerPoint presentation is to use the:,Word for windows templates,Auto creation wizard,Auto content wizard,Presentation wizard,C
+442,What is used in a computer to protect a network server from damage by those who log in to it?,Antivirus,Firewall,Gateway,Flow Control,B
+444,"In MS Word 2007, to select a column of the table from bottom to top, press:",SHIFT + ALT + PAGE UP,ALT + PAGE UP,CTRL + PAGE UP,CTRL + ALT + PAGE UP,A
+445,Special effects used to introduce slides in a presentation are called:,Effects,Custom animations,Transitions,Preset animations,C
+446,Which would you choose to display the statistics about a document?,"Tools, word count","Insert, statistics","Tools, spelling and grammar","Tools, statistics",A
+447,Which panes keep specific rows or columns visible when you scroll in the worksheet?,Split pane,Freezing pane,Filter pane,None of these,B
+448,What is the function of CTRL+O in Microsoft Word?,Save Document,Print Document,Close Document,Open Document,D
+449,Mac is an:,Utility Program,Operating System,Windows,Multimedia Software,B
+450,Name the Desktop database application that is part of the MS Office suite.,MS WORD,MS EXCEL,MS POWERPOINT,MS ACCESS,D
+451,BCD stands for:,Bit Coded Decimal,Binary Coded Digit,Bit Coded Digit,Binary Coded Decimal,D
+452,"Although it is not shown in normal view, to view a header, click View on the menu bar and then click Header and Footer.",View,Edit,Format,Tools,A
+453,How do you magnify your document in Ms Word?,"View, Zoom","Format, Font","Tools, Options","Tools, Customize",A
+454,Which of the following views is the best view to use when setting transition effects for all slides in a presentation?,Slide sorter view,Notes page view,Slide view,Outline view,A
+455,Which one of the following is an input device?,Monitor,Scanner,Printer,Speaker,B
+456,Which key is used for Excel column highlight:,Shift + space,CTRL + space,Alt + space,None of these,B
+457,A website is a collection of:,Web pages,Graphic Files,Audio and Video Files,All of the Above,D
+458,"By default, footers are printed on:",First page,Last page,All pages,Even pages,C
+460,The hanging indent marker indents all the lines of a paragraph except the first line in Ms Word.,First Line Indent Marker,Hanging Indent Marker,Left Indent Marker,Right Indent Marker,B
+461,The network is overloaded with enormous data sent by many computers within the network. The inability of the network to deliver the data is termed as:,Access control,Congestion,Error propagation,Deadlock,B
+463,Which key is used to refresh the current window?,F1,F3,F5,F7,C
+464,Ctrl + F Shortcut key is used in Ms Word to:,Open Find and Replace Dialog box with activating Find Tab,Open Page Setup Dialog box with activating Layout Tab,Open Font Dialog Box with activating Font tab,Open File Save as Dialog box,A
+466,Window key + Ctrl + F:,Find Computers,Find files or folders,Show Desktop (toggle),Run,A
+467,Which of the following is NOT one of the four major data processing functions of a computer?,Gathering data,Processing data into information,Analyzing the data or information,Storing the data or information,C
+469,"To fix values in Excel, we use?",Absolute reference,Thumbnails,Thread,None of these,A
+470,IP stands for:,Intranet Process,Internet Process,Intranet Protocol,Internet Protocol,D
+472,Which physical part of the computer is responsible for connecting various peripherals and components?,Motherboard,Control Bus,RAM,All of these,A
+473,Which of the following is not an essential component to perform a mail merge operation?,Main document,Merge field,Word field,Data source,C
+475,If you press ____ the cell accepts your typing as its content.,Tab,Ctrl+Enter,Enter,Alt+Enter,A
+476,Which of the following devices uses parallel transmission?,Mouse,Keyboard,Printer,Light Pen,C
+477,"____ uses information systems to do an activity cheaper, faster, accurately and consistently.",Genetics,Automation,Automatic,Robotics,B
+478,What does WWW stand for?,World Whole Web,Wide World Web,Web World Wide,World Wide Web,D
+479,Which of the following is not an essential component to perform a mail merge operation:,Main document,Data source,Merge fields,Word fields,D
+480,"In a computer spreadsheet, the function which is used to count the numbers of entries in a given range is called:",Length,Counter,Counting,Count,C
+481,The thickness of a line is changed in:,Shape Style,Line Weight or Thickness,Thickness Styles,Shape Line Thickness,B
+482,The shortcut key for finding something is?,Ctrl+Shift+F,Ctrl+F,Shift+F,None of these,B
+483,A fault in a computer program which prevents it from working correctly is known as:,Boot,Bug,Biff,Strap,B
+484,Which is termed as the fastest Computer in the World recently in June 2020?,Sequoia,Fugaku,Tianhe-2A,Frontera,B
+485,Window key + U:,Show system properties,Utility Manager,Show Desktop (toggle),Lock Desktop,B
+486,F1 through F12 are called function keys.,Function,Modifier,Control,None of these,A
+488,How many rows can you insert in a word document in maximum?,256,16384,32767,Not specified,D
+489,How many characters can ASCII 8-bit code represent?,1000 characters,390 characters,156 characters,256 characters,D
+491,QuickTime is a:,Website,Search Engine,Media Player,Language,C
+492,"In MS Word, the ____ shortcut key combination underlines the selected text.",Ctrl + P,Ctrl + V,Ctrl + U,Ctrl + A,C
+494,____ are used to display data:,Storage devices,Communication devices,Input devices,Output devices,D
+495,The fifth generation of computers is characterized by:,Use of natural language,Artificial Intelligence,Bio Chips,All of these,D
+497,Page Up Keyboard key is used in Microsoft Word to:,Moves the cursor one line up,Moves the cursor one screen up,Moves the cursor one page up,Moves the cursor one paragraph up,B
+498,"In computer communication, ""Verification"" is a process of?",Access,Login,Logout,Authentication,D
+500,Google is an American multinational technology company.,American,Indian,Italian,German,A
+501,Which value remains unchanged in MS Excel?,Constant,Function,Variable,None of these,A
+502,The keyboard F12 key in Ms Word opens a:,Save As dialog box,Open dialog box,Save dialog box,Close dialog box,A
+503,.docx is the extension of which of the following?,MS Word,MS Excel,PowerPoint,None of these,A
+504,One Megabyte is equal to:,'1024 Bytes,'1024 Kilobytes,'1024 Gigabits,'1024 Bits,B
+505,"What is the shortcut key for ""Clear All formatting"" the selected text?",Ctrl+Del,Ctrl+Enter,Ctrl+Spacebar,Shift+F3,C
+507,"In Microsoft Windows 7, Gadgets can give you information about the weather.",File,Gadgets,Window explorer,Both A and B,B
+508,"In Excel, which key is used to select the entire column?",Ctrl+Space,Shift+Space,Alt+Space,None of these,A
+510,A computer program that translates one program instruction at a time into machine language is called a/an:,Interpreter,Compiler,Emulator,None of these,A
+511,What does BCC mean in e-mail?,Basic Carbon Card,Business Carbon Copy,Black Carbon Copy,Blind Carbon Copy,D
+513,You can auto fit the width of column by:,Double clicking on the column name on column header,Double click on the cell pointer in worksheet,Double clicking on column right border on column header,Double clicking on the column left border of column header,C
+514,A collection of related tables is called a:,Row,Record,Database,File,C
+516,"In Excel, which key is used to Open the Format Cells window?",Ctrl+F10,Ctrl+6,Ctrl+F1,Ctrl+1,D
+517,Single spacing in an MS-Word document causes 12 point line spacing.,10,12,14,16,B
+518,BIOS stands for:,Basic input output system,Binary input output system,Basic input off system,All of above,A
+519,What is the primary purpose of the Document Inspector in Microsoft Word?,To format the document for printing,To check spelling and grammar errors,To identify and remove hidden or sensitive information,To track changes made to the document,C
+520,Ctrl + E Shortcut key is used in Ms Word to:,Exit Application,Select All,Clear All,Align Center,D
+521,PowerPoint is a tool of Microsoft that is used to make:,Presentations,Software,Graphics,Charts,A
+522,"In MS PowerPoint, we can go to the next slide by:",Enter Button,Mouse,Spacebar,All of these,D
+523,Which of the following is not part of a standard office suite?,Database,File manager,Image Editor,Word Processor,B
+524,Which of the following sections does not exist in a slide layout?,Charts,Animations,Lists,None of these,B
+526,Devices used to enter data or information into a computer include:,Keyboard,Mouse,Microphone,All of above,D
+527,Which of the following is not one of the three ‘Mail Merge Helper’ steps?,Merge the two files,Create the main document,Set the mailing list parameters,Create the data source,C
+529,Which option in the file menu is used to close the current file in MS Word?,Exit,Close,Quit,New,B
+530,8 Bits make up a:,Byte,Megabyte,Kilo Byte,None,A
+532,SEO is the process of getting traffic by:,Natural Search,Editorial,Organic,None of these,C
+533,PSTN stands for:,Process Switched Telephone Network,Public Switched True Network,Public Serial Telephone Network,Public Switched Telephone Network,D
+535,The Home Keyboard Key is used in Microsoft Word to:,Moves the cursor to the beginning of the document,Moves the cursor to the beginning of the paragraph,Moves the cursor to the beginning of the screen,Moves the cursor to the beginning of the line,D
+536,A set of rules for telling the computer what operations to perform is called a:,Procedural language,Structures,Natural language,Programming language,D
+537,Which sign is used in the formula to use absolute reference?,@,#,$,*,C
+538,What is placed to the left of the horizontal scroll bar in Ms Word?,Tab stop buttons,View buttons,Split buttons,Indicators,B
+539,Which key is used for help in Ms Excel?,F1,F2,F3,None of these,A
+540,The first step in creating a Pivot Table is:,Clicking on the Insert Tab and inserting a Pivot Table,Select data that needs to be analyzed,Deciding on which fields to use to analyze the data,None of these,B
+541,"By default, the page size of a new document in many regions for MS Word is _____ inches by _____ inches.",8.5 and 11,7.5 and 12,7.5 and 11.5,None of these,A
+542,The shortcut key for undo is:,CTRL+U,CTRL+D,CTRL+Z,CTRL+O,C
+543,The hardware parts of a computer are:,Firmware components,Physical components,Logical components,All of these,B
+544,Which tab is not available on the left panel when you open a presentation in PowerPoint?,Slides,Notes,Outline,None of these,B
+545,"In the context of animations, what is a trigger in Powerpoint?",An action button that advances to the next slide,An item on the slide that performs an action when clicked,The name of a motion path,All of above,B
+546,What is the storage capacity of a CD-ROM?,500 MB,680 MB,800 MB,1000 MB,B
+547,"In Ms Excel, ready-made templates are available under the File tab.",File,Insert,Design,None of these,A
+548,What does Ctrl + = key effect?,Superscript,Subscript,All caps,Shadow,B
+549,The oldest Internet Search Engine among the following is:,Google,MSN Search,Yahoo,AltaVista,D
+551,How can you break the current column and start a new column immediately in Ms Word?,Press Ctrl + Shift + Enter,Press Alt + Enter,Press Ctrl + Enter,Press Alt + Shift + Enter,A
+552,Who invented Slide Rules?,John Napier,William Oughtred,Gottfried Leibnitz,Blaise Pascal,B
+553,The unit of measurement of a word length is:,Metre,Byte,Bit,Millimetre,C
+554,A user interface that is easy to use is considered to be:,User-happy,User-friendly,User-simple,None of these,B
+555,"Volatile memory loses content, when power is lost.",Non volatile,Volatile,Static,None of these,B
+556,Which shortcut key is used to switch from one MS Word document to another MS Word document?,Ctrl + Shift + F6,Ctrl + Shift + F4,Ctrl + Shift + F2,None of These,A
+557,Which is the keyboard shortcut to increase font size in Microsoft Word?,Ctrl+[,Ctrl+],Ctrl+Shift+=,None of these,B
+558,What are the three options available in the Insert >> Picture menu?,"Clipart, Pictures, Shapes","Clipart, From File, Shapes","Clipart, From files, AutoShapes","Clipart, Pictures, AutoShapes",B
+559,"If we do not want to delete an email permanently, what should we do to remove it from the inbox?",Mark it as spam,Move it to trash,Archive it,Forward it,C
+560,Which key will be used to refresh a webpage?,F1,F5,F10,None of these,B
+561,"Interpreter translates and executes a program at run time, line by line.",Compiler,Interpreter,Linker,Loader,B
+562,Microsoft Excel function arguments are always written in:,Cells,Rows,Columns,Parentheses,D
+563,"In Excel, Conditional Formatting is in:",Home Tab,Insert Tab,Page Layout,View Tab,A
+564,Who invented the high-level language “C”?,Dennis M Ritchie,Niklaus Writh,Seymour Papert,Donald Kunth,A
+566,Ctrl+A is used to select ____ text.,Whole,Part of text or highlighted text,Numerical,None of these,A
+567,Money transfer through mobile is called:,IFSC,IMPS,ATM,IFS,B
+569,A value used in a formula that does not change is called a ______.,Constant,Cell address,Static,Variable,A
+570,Servers are computers that provide resources to other computers connected to a:,Network,Mainframe,Supercomputer,Client,A
+572,Where in Excel is the address of an active cell displayed?,Status bar,Formula bar,Name box,Title bar,C
+573,Which of the following is a form of Cybercrime?,Software,Hacking,Hardware,None of these,B
+575,"When you open a new workbook in MS Excel, which of the following appears on the topmost screen?",Title bar,Status bar,Horizontal scroll bar,Vertical scroll bar,A
+576,"In MS Excel, if a numeric value starts with __________ then this value can be treated as a label.",Hash,Equal Sign,Apostrophe,Tilde,C
+578,A ______ is a silicon chip that carries out a set of instructions and processes data efficiently and accurately.,RAM,Modem,Processor,Hard disk,C
+579,The common name for the crime of stealing passwords is:,Jacking,Identity theft,Spoofing,Hacking,C
+581,"In MS Word 2016, the shortcut key to open the ""Font Display Box"" is:",Ctrl + F,Alt + F,Alt + D,Ctrl + D,D
+582,The first computers were programmed using:,Assembly language,Machine language,Source code,Object code,B
+583,Phishing scams are attempts by individuals to obtain confidential information from you by falsifying their identity.,Computer viruses,Phishing trips,Phishing scams,Spyware scams,C
+584,A small or intelligent device is so-called because it contains within it a:,Computer,Microcomputer,Programmable,Sensor,D
+585,Arrangement of data in a logical sequence is known as:,Sorting,Classifying,Reproducing,Summarizing,A
+586,A Kilobyte is equal to:,10000 bytes,1024 bytes,1 million bytes,10 million bytes,B
+587,Which type of software controls your application software and manages how your hardware devices work together?,System Software,Operating System,Utility Software,Application Software,B
+588,LCD stands for:,Light Clear Display,Liquid Crystal Display,Light crystal display,None of these,B
+589,Who invented the computer?,Bill Gates,Steve Jobs,Nikola Tesla,Charles Babbage,D
+590,Which country has the most computers in the world:,America,Germany,France,Japan,A
+591,Microsoft Excel 2019 files have a default extension of:,.Xlsx,.Xls,.excel,0.123,A
+592,A program that can destroy all of your computer programs:,Anti-virus,Virus,Switched computer,Dust,B
+593,"In MS Excel 2016, which of the following can be used to split windows into two by which of the following options:",Format >Window>Split,View >Window>Split,View >Window>Split,Page Layout>Split,B
+594,What is bulk e-mail known as?,Arial,Spam,Hebrew,Spool,B
+595,What is the name of an application program that gathers user information and sends it to someone through the Internet?,Virus,Spybot,Logic bomb,Security patch,B
+596,From what location are the 1st computer instructions available on boot up?,ROM BIOS,CPU,boot.ini,CONFIG.SYS,A
+597,Which shortcut key is used to select the whole document in MS Word?,Ctrl+A,Ctrl+H,Ctrl+T,Ctrl+Q,A
+598,Which of the following can you paste selectively using the Paste Special command?,Validation,Formats,Formulas,All of these,D
+600,What was the name of the first personal computer electronic spreadsheet software package which became a smash hit as soon as it was introduced in 1978?,Word star,VisiCalc,Lotus 1-2-3,Excel,B
+601,1KB = ?,1024 bytes,1000 KB,1024 MB,None of these,A
+603,Which of these font effects is NOT available in the PowerPoint Font dialogue box?,Shadow,Underline,Strikethrough,Emboss,D
+604,What is the name of the operating system that reads and reacts in terms of actual time?,Quick response system,Real-Time System,Time sharing system,None of these,B
+605,The digital computer was developed primarily in:,USSR,UK,USA,Japan,C
+606,Ctrl+L is used for:,Italic,Left Indent,Save document,Close document,B
+607,No computer can do anything without a:,Memory,Chip,Program,Output,C
+608,"In MS Excel, a mathematical formula primarily contains:",Label,Numeric value,Both A & B,None of these,B
+610,A common name for software errors is:,Bugs,Trojans,Logic bombs,Viruses,A
+611,Which of the following is an example for automatic text formatting:,Underlining hyperlink,Adjusting extra space,Replacing two '-s' with an em hyphen,All of these,D
+613,"In email, we can attach ______?",Audio,Video,Text,All of these,D
+614,You can activate a cell by:,Pressing the tab key,Clicking the cell,Pressing an arrow key,All of these,D
+616,"""Adobe Flash"" is an example of:",Spreadsheet,Multimedia software,Utility software,File manager,B
+617,IBM stands for:,International Business Machine,Integrated Business Machine,Information Business Machines,International Business Model,A
+619,A desktop computer usually refers to:,Microcomputer,Macrocomputer,Mainframe computer,None of these,A
+620,"In Ms Word, what happens if you mark the Hidden check box of the Font dialog box after you select some text?",The text is deleted from the document and you need to bring it from the Recycle Bin if required again,The text is hidden and you need to bring it by removing the check box if needed again,The text is deleted and cannot be returned back,The text is hidden and cannot be returned back,B
+622,In what respect are human beings superior to computers?,Diligence,Intelligence,Slavery,Reliability,B
+623,Which of the following is not an element of a computer spreadsheet interface?,Pencil work,Active cell,Menu bar,Workbook,A
+625,Vector graphics is composed of:,Pixels,Paths,Palettes,None of those,B
+626,The default language of Microsoft Word is:,USA English,UK English,Canadian English,Australian English,A
+628,The PowerPoint view that displays only text (title and bullets) is:,Slide show,Slide sorter view,Notes page view,Outline view,D
+629,Pressing the F8 key three times selects:,A sentence,A paragraph,A word,An entire document,A
+630,Which corner of the Word window has the zoom control?,Upper-left,Upper-right,Lower-right,Lower-left,C
+631,Which command is used to open PowerPoint?,ppt.exe,powerpnt.exe,ppte.exe,None of these,B
+632,API stands for:,Algorithmic Protocol Interface,Adapter Protocol Interface,Application Programming Interface,Accelerated Programming Interface,C
+633,Ctrl + A Shortcut key is used in Ms Word to:,Align Right,Select All,Change font,Save document,B
+634,"An email address consists of two parts, username or ID, and _______:",Domain Name,Password,URL,None of these,A
+635,Page Down Keyboard key is used in Microsoft Word to:,Moves the cursor one line down,Moves the cursor one screen down,Moves the cursor one page down,Moves the cursor one paragraph down,B
+636,How many rows are in one Microsoft Excel sheet?,65536,16384,1048576,None of Above,C
+638,E-mail stands for:,Electronic mail,External mail,Electronic Messaging Advice and Information,Both A and C,A
+639,Cursor is a:,Thin Blinking line,Pointing device,Pixel,All of these,A
+641,WWWW stands for:,World Wide Web Wireless,World Wide Web Worm,World Wide Wonderful Wine,World Wide Web Wrestling,B
+642,The date and time are displayed on the task bar (system tray).,Status bar,Task bar (system tray),Menu Bar,Launch Pad,B
+644,"How much data can a single layer, single-sided DVD store?",4.7 GB,14.7 GB,24.7 GB,34.7 GB,A
+645,"A self-replicating program, similar to a virus which was taken from a 1970s science fiction novel by John Bruner entitled the Shockwave Rider is:",Bug,Wice,Lice,Worm,D
+647,What is the keyboard shortcut key for Save As?,F12,Ctrl + F12,Alt + F12,Shift + F12,A
+648,"In MS Word, a tab stop position cannot be the following alignment:",Decimal Alignment,Center Alignment,Bar Alignment,Justify Alignment,D
+650,Which of the following is also known as the brain of the computer?,Control Unit,Central Processing Unit,Arithematic and language unit,Monitor,B
+651,Who invented the computer?,Charles Babbage,Alan Turing,Bill Gates,None of these,A
+653,Which of the following is not available on the ruler of the ms word screen?,Left indent,Right indent,Center indent,Tab stop box,C
+654,The Fourth Industrial Revolution (4IR) means:,Internet Communication,Communication through technology,Internet of Things,All of these,D
+655,What is a light pen?,Mechanical Input Device,Optical Input Device,Electronic Input Device,Optical Output Device,B
+657,Ctrl + Right Arrow is used to:,Moves the cursor one word right,Moves the cursor end of the line,Moves the cursor end of the document,Moves the cursor one Paragraph down,A
+658,CRT stands for:,Crystal Ray Tube,Cathode Ray Tube,Cabin Ray Tube,Carbon Ray Tube,B
+660,Which of the following is not a valid version of MS Office?,Office 2003,Office Vista,Office 2007,None of these,B
+661,The Thesaurus tool in MS Word is used for:,Grammar options,Spelling suggestions,Synonyms and Antonyms words,None of These,C
+663,SIMM Stands For:,Single Inline Memory Module,Single Identify Memory Module,Secret Internet Memory module,None of them,A
+664,"_____ is a predefined set of colors, fonts, and visual effects that you apply to your slides.",Design,Animation,Layout,Theme,D
+666,A hard disk becomes totally inaccessible when a computer virus corrupts its:,Boot Sector,Partition Table,File Allocation Table,None of these,B
+667,Which of the following is a volatile memory?,ROM,BIOS,PROM,RAM,D
+668,What is the smallest and largest font size available in the font size tool on the formatting toolbar?,6 and 64,8 and 72,12 and 1392,None of these,B
+669,Which of the following function key activates the speller in Ms Word?,F5,F7,F9,Shift+F7,B
+670,A set of instructions that directs a 'computer's hardware to perform a task is called a:,Command,Program,Operating system,None of these,B
+671,Which of the following are components of a Central Processing Unit (CPU)?,"Arithmetic logic unit, Mouse","Arithmetic logic unit, Control unit","Arithmetic logic unit, Integrated Circuits","Control Unit, Monitor",B
+672,"In MS Word 2007, to extend a selection to the beginning of a paragraph, press:",CTRL + ALT + UP ARROW,ALT + SHIFT + UP ARROW,CTRL + SHIFT + UP ARROW,CTRL + UP ARROW,C
+673,Which part of the computer is directly involved in executing the instructions of the computer program?,The scanner,The main storage,The secondary storage,The processor,D
+674,"In PowerPoint, the selected design template can be applied:",To current slide only,To all the slides,To all the new presentation you create,All of these,D
+675,Which enables us to send the same letter to different persons:,Macros,Template,Mail merge,None of these,C
+676,"In MS Word, 'Ctrl + Page Up' is used to:",Move the cursor one page up,Move the cursor one paragraph up,Move the cursor one screen up,Move the cursor one line up,A
+677,PowerPoint _______ allow you to print multiple pages on one page.,Handouts,Notes master,Slide sorter,Notes page,A
+679,Which of the following can be renamed?,Worksheet,A cell,Workbook,Worksheet and workbook both,D
+680,What is the other name for a programmed chip?,RAM,ROM,LSIC,PROM,B
+682,"To create Web Pages we use a term, called:",TCP/IP,WWW,HTML,FTP,C
+683,What is the maximum zoom percentage in MS Word?,1,3,5,6,C
+685,MB stands for:,Millibyte,Megabyte,Microbyte,None of these,B
+686,The _______ command is used to convert an MS Word document to a PDF document.,Print,Save As,Save,None of these,B
+688,MICR stands for?,Magnetic Ink Character Reader,Magnetic Ink Character Recognition,Magnetic Ink Character Receiver,None of these,B
+689,"The ""Clipboard function"" in MS PowerPoint is in?",Insert,Copy,Dashes,Semicolons,B
+690,You can edit an embedded organization chart object by:,Clicking edit object,Double clicking the organization chart object,"Right-clicking the chart object, then clicking edit MS-Organization Chart object",B and c both,D
+691,Sorting can be done by:,Alphabetically only,Numerically only,Date and Time,All of these,D
+692,The space left between the margin and the start of a paragraph is called:,Spacing,Glutter,Indentation,Alignment,C
+693,MICR stands for:,Magnetic Link Character Recognition,Magnetic Ink Code Reader,Magnetic Ink Case Reader,None of the above,A
+694,Which devices are used to back up data?,Floppy disk,Hard disk,CD,All of these,D
+695,The physical part of a computer is called:,Software,Hardware,Firmware,None of these,B
+696,What is the term used when you press and hold the left mouse key and move the mouse around the slide?,Highlighting,Dragging,Selecting,Moving,B
+697,MS Word is an:,Application software,Operating system,Output device,Window,A
+698,"To minimize all the windows on the desktop, the shortcut key is:",Windows+A,Windows+M,Windows+N,Windows+A,B
+699,Borders can be applied to:,Cells,Text,Paragraph,All of above,D
+701,A computer virus is:,A microorganism,'Electromagnetic waves entering a computer through a network,A useful micro component of a computer,A computer programme,D
+702,"In MS Office, Ctrl+W is used to ____ the current window.",Open,Close,Start,None of these,B
+703,A modem is connected to:,A telephone line,A keyboard,A printer,A monitor,A
+704,Which option on the custom animation task pane allows you to apply a preset or custom motion path?,Add effect,Emphasis,Animate now,All of the above,A
+705,What is the extension of a Microsoft Excel file?,.msxcl,.xcl,.xlsx,.xlsm,C
+706,"In MS Excel, we cannot edit the contents of a cell by:",Pressing the Alt key,Clicking the formula bar,Pressing the F2 key,Double clicking the cell,A
+707,Memory which contains information on a computer and cannot be changed is:,RAM,ROM,ERAM,None of these,B
+708,.docx is a:,File extension,File name,File address,File path,A
+709,"In which graphics, digital photos and scanned images are typically stored with extensions such as .bmp, .png, .jpg, .tif or .gif?",Bitmap,Pixels,Both Bitmap and Pixels,Plane,C
+710,"Personnel who design, program, operate, and maintain computer equipment refers to:",Console-operator,Programmer,Peopleware,System analyst,C
+711,A hybrid computer:,Resembles a digital computer,Resembles an analogue computer,Resembles both a digital and an analogue computer,None of these,C
+712,Which of the following displays the content of the active cell in MS Excel?,Formula Bar,Title Bar,Name Box,None of these,A
+713,1 KB (Kilobyte) is equal to:,1024 Megabytes,1024 bites,1024 bytes,100 bites,C
+714,"We can replace a font on all slides with another font using the Format, Replace Fonts option in Ms PowerPoint.","Edit, Fonts","Tools, Fonts","Tools, Replace Fonts","Format, Replace Fonts",D
+715,HTTP stands for:,Hypertext transfer processor,Hypertext Transfer Protocol,High transfer protocol,None,B
+716,What is an interpreter?,An interpreter does the conversion line by line as the program is run,An interpreter is the representation of the system being designed,An interpreter is a general-purpose language providing very efficient execution,None of these,A
+717,"In MS Excel 2016, mainly ________ types of 'Page Orientation' are available.",2,3,4,None of these,A
+719,"In MS-Word, what is added to the right of the paragraph?",Comment,Note,Header,None of these,A
+720,"When you open a new presentation, a slide with the default ____ layout appears.",Blank,Title,Home,None of these,B
+722,A feature of MS Word that saves the document automatically after a certain interval is:,Auto update,Auto recover,Auto save,None of these,C
+723,"In the latest generation of computers, instructions are executed:",Parallel only,Sequential only,Both parallel and sequential,None of these,C
+725,We can open the MS Word file by typing ______ in the run dialogue box.,Winword.exe,word.docx,Word.exe,None of these,A
+726,The first computer for home use was introduced in 1981 by which company?,IBM,Intel,Dell,Apple,A
+728,"Which of the following components has input, output, and storage capabilities?",Software,Hardware,Firmware,All of these,B
+729,"A repository for data, usually covering a specific topic, is:",Database,Data requisition,Databank,None of these,A
+730,ANSI stands for:,American Nation Standard Instruction Codes,American National Standard Institute,Asian National Standard Instruction Codes,Asian Nations Standard Instruction Codes,B
+731,Which menu in MS Word can be used to change character size and typeface?,Views,Tool,Format,Data,C
+732,Search Engines maintain(s) a database of webpages containing information on a variety of topics.,Newsgroup,News server,Search Engines,World wide web,C
+733,A computer is a:,Physical Machine,Electronic Machine,Chemical Machine,Mechanical Machine,B
+734,The title bar in MS-Excel displays the name of the:,Worksheet,Workbook,Formula,Location,B
+735,The PowerPoint view that displays only text (title and bullets) is:,Slide show,Slide sorter view,Notes page view,Outline view,D
+736,"A comment put on an Excel cell which is displayed by taking the Mouse Pointer there, is called a:",Smart tip,Soft trip,Web trip,Cell tip,D
+737,"In Excel, columns are labelled as ______.","A, B, C","A1, A2, A3","1, 2, 3","$A1, $B2",A
+738,SQL stands for:,Straight Query Language,Structured Query Language,Structured Query Liaison,Structured Query Linear,B
+739,Who developed the first Turing Machine:,Alan Turing,Charles Babbage,John von Neumann,George Boole,A
+740,Which of these sections does a slide layout NOT have?,Lists,Animations,Titles,Charts,B
+741,Which of the following holds data and processing instructions temporarily until the CPU needs it?,ROM,Control Unit,Main memory,None of these,C
+742,ROM stores data:,Permanently,Temporarily,Partially,Fully,A
+743,"In Excel, columns are labeled as:","A, B, C, etc.","1, 2, 3, etc.","A1, A2, A3, etc.","A1, A2, etc.",A
+744,"In Excel, which key is used to select the entire row?",Ctrl+Space,Shift+Space,Alt+Space,None of these,B
+745,Which program is run by BIOS to check hardware components are working properly while the computer is turned ON?,DMOS,POST,CMOS,RIP,C
+746,A procedural language is a 3rd generation language.,1st,2nd,3rd,4th,C
+747,Ctrl+B is used to:,To underline the selected text,To save the text,To Bold the selected text,To italicize the text,C
+748,Which of the following holds data and processing instructions temporarily until the CPU needs it?,ROM,Control Unit,Main memory,None of these,C
+749,LCD stands for:,Liquid Clear Display,Light Clear Display,Light Crystal Display,Liquid Crystal Display,D
+750,"By default, on which page is the header or the footer printed in an Ms Word Document?",On the first page,On an alternate page,On every page,None of the above,C
+751,Which one of the below is the basic aspects/nomenclature of OneNote?,Notebook,Section,Page/Subpage,All of these,D
+753,Which of the following software could assist someone who cannot use their hands for computer input?,Video conferencing,Speech recognition,Audio digitizer,Synthesizer,B
+754,"____ is a high-speed point-to-point channel for attaching a graphics card to a computer's motherboard, primarily to assist in the acceleration of 3D computer graphics.",Graphic Card,Accelerator Card,AGP (Accelerated Graphics Port),NVIDIA Graphic Resolution Port,C
+755,A feature of MS Word that saves the document automatically after every ____ minutes.,5,10,15,20,B
+756,"From which of these menus can we access a Text Box, Picture, Chart, etc.?",View,Insert,Edit,File,B
+757,What is the default left margin in Word 2003 document?,1,1.25,1.5,2,B
+758,Sorting can be done by:,Alphabetical only,Numerically only,Date and time,All of these,D
+759,"To give a PowerPoint presentation to a large audience, you:","Set up your computer in a large auditorium, and click large, auditorium, OK","Click the slide you wish the audience to see in normal view, then click the next slide, and so on.","Choose either view, slide show or slide show, view show","Click slide show, OK",C
+760,What is the function of the VLOOKUP function in Excel?,To perform a vertical lookup and return a value based on a specified criteria,To perform a horizontal lookup and return a value based on a specified criteria,To add up a range of cells,To find the average of a range of cells,A
+761,Which algorithm is used to decide the path to transfer the packets from source to destination?,Routing,Selecting,Pathing,Directing,A
+762,What is the tool in Word that copies only the format of selected text so that you can apply it to other text?,Copy,Paste,Format Painter,Paste Special,C
+763,The first computer made available for commercial use was:,MANIAC,ENIAC,UNIVAC,EDSAC,C
+764,GPS stands for:,Grade Positioning System,Global Post System,Guarantee Positioning System,Global Positioning System,D
+765,"RAM, Cache, Registers are called Temporary:",Input,Output,Processing,Storage,D
+766,In Inpage we used Ctrl+T for the Title Text box.,Ctrl+F7,Shift+F3,Ctrl+O,Ctrl+T,B
+767,Which of the following is the first computer to use the Stored Program Concept?,UNIVAC,ENIAC,EDSAC,None of the above,C
+769,The CPU is an example of:,Software,Program,Output,Hardware,D
+770,The process of verifying the identity of user is termed as:,Validation,Authentication,Identification,Verification,B
+772,How can we view a cell comment?,Position the mouse pointer over the cell,Click the comment command on the view menu,Click the edit comment commands on the Insert menu,Click the Display comment command on the window menu,A
+773,Which of these features should one use when we want to type in the text box for notes?,Insert,Slide shows,Zoom,Slide master,A
+775,"In MS Excel, you can use the horizontal and vertical scroll bars to:",Split a worksheet into two panes,View different rows and columns,Edit the contents of a cell,View different worksheets,B
+776,"By default, MS Word automatically saves any document after every ______.",5 minutes,10 minutes,15 minutes,30 minutes,B
+778,A video game is played by using a ____ card.,Sound,Video and grahics,Modem,Network Information card,B
+779,Why are Drop Caps used in a document in Ms Word?,To drop all the capital letters,To automatically begin each paragraph with a capital letter,To begin a paragraph with a large dropped initial capital letter,None of above,C
+780,What does CAI stand for?,Computer Assisted Instruction,Combined Assisted Instruction,Computer Assisted Inputs,Commonly Assisted Inputs,A
+781,Which function calculates the largest value in a set of numbers in Excel?,Average,Count,Minimum,Maximum,D
+782,_____ is not a multitasking operating system.,Windows XP,Unix,DOS,Linux,C
+783,A DVD is an example of a(n):,Hard disk,Optical disk,Optical device,Solid-state storage device,B
+784,The Macintosh series of personal computers was developed by which of the following companies?,Dell,Apple,IBM,Microsoft,B
+785,Which of the following is the latest version of MS Excel?,Excel 2016,Excel 2017,Excel 2021,Office 365,D
+786,HTML is used for:,View web pages,Write code for developing videos,Developing web pages,None of these,C
+787,What happens when you click on Insert >> Picture >> Clip Art?,It inserts a clip Art picture into the document,It lets you choose clip Art to insert into the document,It opens the Clip Art taskbar,None of the above,C
+788,A computer program that translates one program instruction at a time into machine language is called an:,Interpreter,CPU,Compiler,Simulator,A
+789,"Press Shift+Enter to create a line break, which advances the insertion point to the beginning of the next physical line – ignoring any paragraph formatting instructions.",Shift+enter,Ctrl+enter,Shift+tab,Ctrl+tab,A
+790,The most fundamental unit of information in a digital system is:,Bit,Byte,Kilobyte,Gigabyte,A
+791,The cell referencing that does not change when copied is:,Absolute,Comparative,Relative cell addressing,Reference,A
+792,"In MS Word, the “Delete” key deletes letters from the ____ side of the cursor.",Right,Up,Down,Left,A
+794,Which one is not a Function in MS Excel:,SUM,AVG,MAX,MIN,B
+795,What is the use of Document Map in Ms Word?,To quickly format the document,To quickly print the required page,To quickly navigate the document,To quickly correct spelling mistakes,C
+797,"What is the shortcut key to ""Center Align"" the selected text?",Ctrl + C,Ctrl + E,Ctrl + F,Ctrl + D,B
+798,Which shortcut key is used to insert a new slide in PowerPoint presentation?,Ctrl + S,Ctrl + M,Ctrl + N,Ctrl + B,B
+800,For hearing and playing which device is required:,Sound card and speakers,Speakers,Microphone,None of these,A
+801,In a PowerPoint presentation:,Sound clips can be inserted but not movie clips,Movie clips can be inserted but not sound clips,Both cannot be inserted,Both can be inserted,D
+803,4K resolutions is:,4496×2460,4296×2260,4196×2060,4096×2160,D
+804,A single packet on a data link is known as a:,Path,Frame,Block,Group,B
+805,The Page Down Keyboard Key is used in Microsoft Word to:,Moves the cursor one line down,Moves the cursor one page down,Moves the cursor one screen down,Moves the cursor one paragraph down,C
+807,The capacity of a standard 3.5-inch High-Density floppy disk is:,1.22 MB,1.33 MB,1.44 MB,None of these,C
+808,What is a gutter margin in MS Word?,Margin that is added to the left margin when printing,Margin that is added to the right margin when printing,Margin that is added to the binding side of the page when printing,Margin that is added to the outside of the page when printing,C
+810,"In MS Word, the name of the default paper size is:",Letter,Legal,Statement,A4,A
+811,"Cloud Computing is a type of computing that performs computation, storage and even applications as a service across a network.",Cloud Computing,Distributed Computing,Parallel Computing,Virtual Computing,A
+813,Which shortcut is used to decrease the text font size?,Ctrl+Shift+<,Ctrl+Shift+>,Ctrl+Shift+F,Ctrl+Alt+F,A
+814,A computer program that converts an entire program into machine language is called a/an:,Interpreter,Simulator,Compiler,Commander,C
+816,Which one of the following is the oldest search engine?,Google,Yahoo,AltaVista,MSN,C
+817,Which device converts data and instructions into a form that a computer can understand?,Input,Output,Storage,Memory,A
+818,Which function is used to display the current date and time in a cell?,Today,Now,Day,Current,B
+819,How can you apply exactly the same formatting you did to another text in Ms Word?,Copy the text and click on Paste Special tool on a new place,Select the text then click on Format Painter and select the new text,Copy the text and paste in a new location. Then type the new text again,All of above,B
+820,"An operating system is a set of programs designed to manage the resources of a computer, including starting the computer, managing programs, managing memory, and coordinating tasks between input and output devices.",Application suite,Compiler,Input/output system,Operating system,D
+821,"Which of the following files have an ""mpg"" extension?",Audio,Image,Video,Flash,C
+822,Ctrl + N Shortcut key is used in Ms Word to:,Save Document,Open Document,New Document,Close Document,C
+823,What displays the content of the active cell in MS Excel:,Name Box,Formula Bar,Row Headings,None of these,B
+824,Which of the following is the default page setup orientation for slides in PowerPoint:,Landscape,Portrait,Vertical,Horizontal,A
+825,A bit is also called a:,Small,Character,Byte,Binary digit,D
+826,"Which of the following symbol sets would be most likely to contain a mathematical symbol such as a degree sign, greater than or equal to, or a Greek letter?",Symbol,Winding,Webding,None of these,A
+827,"In MS Word, which of the following commands should you always use to check for mistakes before submitting a document to others?",Find command,Replace command,Spelling and Grammar,Thesaurus,C
+828,How do you select multiple slides?,Ctrl+click,Shift+click,Ctrl+Shift+click,None of these,A
+829,The software that is used to create text-based documents is referred to as:,DBMS,Suites,Spreadsheets,Word processors,D
+830,A number system that represents values using eight distinct symbols is called:,Octal,Binary,Decimal,None of these,A
+832,Which key is pressed to start a slideshow of a presentation?,F5,F3,F8,F9,A
+833,"To check spelling and grammar, which key is used in MS Word?",F3,F5,F7,F9,B
+835,Microprocessors can be used to make:,Computer,Digital systems,Calculators,All of the above,D
+836,Which of the following panes is not available in the Task Pane of Power Point?,Getting Started,Clip Art,Word Art,Search result,C
+838,Which one is faster?,RAM,ROM,Cache,Hard Disk,C
+839,"AND, OR, XOR, NOT, NAND, NOR are which type of gate?",Logic gate,Swing gate,Program gate,Automatic gate,A
+841,"In Ms Word, when inserting a page number in the footer, it appeared as '1' but you wish to show 'a'. How can you do that?","From the Insert menu, choose Page Number and specify necessary settings","From the format menu, choose bullets and Numbering and configure necessary settings",Click on Page Number Format tool and specify the required setting,All of above,C
+842,Where does most data go first within a computer memory hierarchy?,RAM,ROM,BIOS,Hierarchy,A
+844,The operating system is like a:,Government,Police,Parliament,All of above,A
+845,"What does ""Reply to All"" do in an email?",It replies only to the sender of the email.,It replies to the sender and any other recipients of the email.,It forwards the email to all recipients.,It deletes the email from all recipients' inboxes.,B
+846,Which command will you use in PowerPoint if you need to change the color of different objects without changing content?,Design Template,Color Scheme,Object Color,Font Color,B
+847,What is telnet?,Search engine,Browser,Protocol,Gateway,C
+848,"In MS-word, which is used to insert virtual (ghost text) in the background of the odd content?",Ghost,Comment,Watermark,Hyperlink,C
+849,"During high temperatures in summer, it is recommended to drink plenty of water to avoid:",Dysentery,Food Poisoning,Dehydration,Hepatitis,C
+850,Portrait and Landscape are:,Page Orientation,Paper Size,Page Layout,All of the above,A
+851,The scrambling of code is known as:,Encryption,Firewall,Scrambling,Password spoofing,A
+852,Which device is required for an Internet connection?,Joystick,Modem,CD Drive,NIC Card,B
+853,A computer spreadsheet cell that is highlighted with a heavy border is a:,Active cell,Cell containing a formula,Locked cell,Cell,A
+854,"In MS-Excel, the chart wizard:",Can place a chart on a new chart sheet or on any sheet in the workbook,Can only place a chart on a new chart sheet,Can only place a chart on a blank worksheet,None of these,A
+855,Which among the following is a software application?,Assembler,Compiler,Operating system,Microsoft Office,D
+856,"If you have a PowerPoint show you created and want to send it using email to another teacher, you can add the show to your email message as an:",Inclusion,Attachment,Reply,Forward,B
+857,Microsoft Office InterConnect is:,An application that supports editing scanned documents,Business-relationship database,A scanning and OCR application,None of these,B
+858,Which software is used to access webpages?,Website,Link,Host,None of these,D
+859,What does RAM in a computer stand for?,Read and Memorize,Random Access Memory,Random Access Module,Random Access Modem,B
+860,What does 5*2 mean in MS Word (when inserting a table)?,5 Rows and 2 columns,2 rows and 5 columns,52 columns,52 rows,A
+861,Which technology provides a solution for PC virtualization?,Hyper-Visor,Server Clustering,Terminal Services,RAID,A
+863,Which of the following can you paste selectively using the Paste Special Command?,Validation,Format,Formulas,All of the above,D
+864,Which of the following tabs is used to add the document citation?,Home,Insert,Page Layout,References,D
+866,Window key + F:,Show system properties,Find Computers,Find files or folders,Run,C
+867,DSL stands for:,Disc Super Line,Digital Subscriber Line,Digital Super Line,Disc Subscriber Line,B
+869,"In MS Excel, to delete duplicate values which menu is used?",Data,Tools,Formatting,Layout,A
+870,"In Excel, the rows of a table correspond to:",Table,Record,Field,Cell,B
+872,"To view headers and footers in Ms Word, you must switch to:",Normal view,Print layout view,Print preview mode,Both B and C,D
+873,Portrait and Landscape are:,Page orientation,Page size,Page layout,All of above,A
+874,A byte consists of:,One bit,Four bits,Eight bits,Sixteen bits,C
+875,"To create an interactive Pivot Table for the web, you use a Microsoft Office Web component called:",Pivot Table Report,Pivot Table List,Pivot Table Field List,HTML,A
+876,What is the use of the “All Caps” feature in Microsoft Word?,It changes all selected text into Capital Letter,It adds captions for the selected Image,It shows all the image captions,None of these,A
+877,"If a formula references a cell that contains text instead of a numerical value, then what error does Excel display?",'#VALUE!,'#NUM!,'#REF!,None of these,A
+878,MS PowerPoint supports which type of files:,JPG,MP3,Video,All of these,D
+879,"The least significant bit of the binary number, which is equivalent to any odd decimal number, is:",0,1,2,3,B
+880,The hardware parts of a computer are:,Firmware components,Logical components,Physical components,None of these,C
+881,Which device is used to connect the nearest device?,Wi-Fi,NFC,Bluetooth,All of these,D
+882,What is the shortcut key for a manual line break:,Ctrl+Enter,Alt+Enter,Shift+Enter,Space+Enter,C
+883,Which of the following are input devices?,Keyboard,Mouse,Card Reader,All of above,D
+884,World Wide Web (WWW) was invented by:,Robert Kahn,Tim Berners-Lee,Vint Cerf,Steve Jobs,B
+885,For hearing and playing which device is required:,Sound card and speakers,Speakers,Microphone,None of these,A
+886,Ms Word offers five different views of a document.,Two,Three,Four,Five,D
+888,The first mechanical calculating machine was made by:,Charles Babbage,Howard Aiken,Blaise Pascal,None of these,C
+889,What PowerPoint feature will you use to apply motion effects to different objects of a slide?,Slide Transition,Slide Design,Animation Objects,Animation Scheme,D
+891,What is the name of the feature that will allow you to take a step backward if you’ve made a mistake?,Redo,Cancel,Undo,Backspace,C
+892,“Ctrl + PageUp” Shortcut key is used in Ms Word to:,Moves the cursor one Page Up,Moves the cursor one Paragraph Up,Moves the cursor one Screen Up,Moves the cursor one Line Up,A
+894,"When you press the Window key by itself, it opens and closes the Start menu?",Ctrl,Shift,Alt,Window,D
+895,RAM stands for:,Random origin money,Random only memory,Read only memory,Random access memory,D
+897,BASIC is a _____ language.,Procedural,An object-oriented,Both (A) & (B),None of these,A
+898,The ribbon is used in a:,Laser Printer,Plotter,Ink-Jet Printer,Dot Matrix printer,D
+899,Which among the following is not a page margin?,Right,Centre,Left,None of the above,B
+900,KB stands for:,Kernel Boot,Kit Bit,Kilo Byte,Key Block,C
+901,__________ is a computer software whose user interface and API resemble that of a printer driver.,Virtual Printer,Plotter,Syntax,Safari,A
+902,Physical parts of the computer that we can see and touch are known as:,Software,Hardware,Both A and B,Computer,B
+903,Which shortcut key is used to open my computer properties?,Win + Pause,Win + Insert,Win + Tab,Wind + End,A
+904,DNS stands for:,Domain name service,Domain name server,Domain name system,None of these,C
+905,Which of the following can you paste selectively using the Paste Special command in MS Excel?,Validation,Formats,Formulas,All of these,D
+906,Which of the following are types of sound files?,LOG files,DAT files,WAV files,DRV files,C
+907,"In Microsoft Windows 7, which of the following is not a gadget?",Recycle Bin,Weather,Date and time,News,A
+908,Which of these is not a means of personal communication on the internet?,Chat,Instant messaging,Insta notes,Electronic mail,C
+910,"To view the left or right side of the page when content exceeds window width in a document in MS Word, which scroll bar should be utilized?",Horizontal scroll bar,Vertical scroll bar,Left margin scroll bar,None of these,A
+911,Who invented the difference engine and analytical engine?,Vint cerf,Mark zukerberg,Charles Babbage,None,C
+913,What is the shortcut key to open a new MS Word document?,Ctrl + M,Ctrl + N,Ctrl + U,Ctrl + J,B
+914,"On the works cited page, list works by each author’s last name and underline or italicize the title of the work.",Italicize or underline,Boldface or italicize,Underline or boldface,Enlarge or underline,A
+916,You cannot close the MS Word application by:,Choosing File menu then Exit submenu,Press Alt+F4,Click X button on the title bar,"From File menu, choose Close submenu",D
+917,An algorithm and flowchart help us to:,Identify the base of a number system,Specify the problem completely and clearly,Know the memory capacity,None of these,B
+919,"To preview a motion path effect using the custom animation task pane, you should:",Click the play button,Click the show effect button,Double click the motion path,All of above,A
+920,The term DNS stands for:,Domain Name system,Defence nuclear System,Downloadable new Software,Dependent Name Server,A
+921,"If you open the file, and after that, you start your work where you last ended:",Bookmark,Cross reference,Reference,None of these,A
+922,Which of the following features should you use when typing in the notes text box?,Slide show,Insert,Slide master,Zoom,B
+923,What characteristic of read-only memory (ROM) makes it useful?,ROM information can be easily updated,"Data in ROM is non-volatile, that is, it remains there even without electrical power",ROM provides very large amounts of inexpensive data storage,ROM chips are easily swapped between different brands of computers,B
+924,To start the slide show of a presentation:,F3,F5,F7,F9,B
+925,Which of the following is not a search engine?,Yahoo,Bing,lol,Google,C
+926,How much space in minimum must be provided between columns?,0″,0.5″,1″,1.5″,A
+927,The Greater Than sign is an example of a logical operation.,Arithmetic,Logical,Conditional,Greater,B
+929,What is the shortcut key for “Increase Font Size” the selected text?,Ctrl + Shift + <,Ctrl + Shift + >,Ctrl + I,None of these,B

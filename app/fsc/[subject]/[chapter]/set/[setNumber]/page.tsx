@@ -46,6 +46,7 @@ export default async function FSCSetPage({
   return (
     <MDCATSetQuiz
       mcqs={data}
+      examSlug="fsc"
       subject={subject}
       subjectName={`FSc ${subjectCfg.name}`}
       subjectGradient="from-emerald-600 to-teal-700"

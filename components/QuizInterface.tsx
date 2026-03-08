@@ -185,6 +185,7 @@ export default function QuizInterface({
     // Update analytics dashboard (user_stats, streak, weak subjects)
     await saveQuizResults({
       quizType: modeToType[mode] ?? 'practice',
+      examSlug,
       subject:  subjectSlug,
       totalQuestions:  activeMCQs.length,
       correctAnswers:  correct,

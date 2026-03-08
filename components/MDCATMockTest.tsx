@@ -295,6 +295,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
     const timeUsed = config ? Math.max(0, config.durationMinutes * 60 - timeLeft) : 0
     saveQuizResults({
       quizType:       'mock',
+      examSlug:       `mdcat-${variant}`,
       subject:        config?.name ?? 'MDCAT',
       totalQuestions: mcqs.length,
       correctAnswers: correct,

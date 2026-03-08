@@ -1,0 +1,15 @@
+FINAL COMPREHENSIVE DUPLICATE REPORT
+========================================
+Initial rows: 578
+Duplicates removed: 7
+Final unique rows: 571
+
+Detailed Removal Log:
+--------------------
+REMOVED: 'The Dermatology Center' (Row 421) | MATCHED: 'The Dermatology Group' (Row 244) via identifier 'the dermatology'
+REMOVED: 'Natural Body Spa + Med Spa' (Row 546) | MATCHED: 'Natural Body Spa + Med Spa' (Row 543) via identifier 'natural body med'
+REMOVED: 'Advanced Dermatology, PC' (Row 556) | MATCHED: 'Advanced Dermatology, LLC' (Row 560) via identifier 'advanced dermatology'
+REMOVED: 'THE DERMATOLOGY CENTER, PLLC' (Row 552) | MATCHED: 'The Dermatology Clinic, PLLC' (Row 147) via identifier 'the dermatology pllc'
+REMOVED: 'Rejuvenate MedSpa' (Row 507) | MATCHED: 'Rejuvenate Medical Spa' (Row 544) via identifier 'rejuvenate'
+REMOVED: 'Dermatology Specialists' (Row 500) | MATCHED: 'Dermatology Specialists' (Row 109) via identifier 'dermatology specialists'
+REMOVED: 'Windermere Medical Spa & Laser Institute' (Row 492) | MATCHED: 'Windermere Medical Spa & Laser Institute' (Row 499) via identifier 'windermere laser institute'

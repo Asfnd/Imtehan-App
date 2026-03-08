@@ -63,6 +63,7 @@ export default async function MDCATSetPage({
   return (
     <MDCATSetQuiz
       mcqs={data}
+      examSlug="mdcat"
       subject={subject}
       subjectName={subjectCfg.name}
       subjectGradient="from-blue-600 to-blue-700"

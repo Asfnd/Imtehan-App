@@ -404,6 +404,7 @@ function CSSQuizContent() {
       if (!reviewMode) {
         saveQuizResults({
           quizType: 'subject',
+          examSlug: 'css',
           subject: completionSubject,
           totalQuestions: activeMCQs.length,
           correctAnswers: finalScore,

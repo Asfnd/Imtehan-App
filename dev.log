@@ -1,0 +1,23 @@
+
+> my-v0-project@0.1.0 dev
+> next dev
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.18.4:3000
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ✓ optimizeCss
+     · optimizePackageImports
+     ✓ webpackBuildWorker
+
+ ✓ Starting...
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ ✓ Ready in 1456ms
+ ○ Compiling /css/premium ...
+ GET /css/premium 200 in 4.3s (compile: 3.3s, proxy.ts: 74ms, render: 894ms)
+ GET / 200 in 1574ms (compile: 1318ms, proxy.ts: 52ms, render: 204ms)
+ GET /css/premium 200 in 1454ms (compile: 14ms, proxy.ts: 12ms, render: 1428ms)
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[?25h

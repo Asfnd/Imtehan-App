@@ -1,0 +1,188 @@
+======================================================================
+DETAILED ERROR ANALYSIS - FULL REPORT
+======================================================================
+
+General_Knowledge: Checking ALL 4162 questions...
+  ✗ Q38: CSV=C PDF=D
+  ✗ Q72: CSV=C PDF=D
+  ✗ Q108: CSV=C PDF=D
+  ✗ Q121: CSV=C PDF=D
+  ✗ Q124: CSV=A PDF=D
+  ... and 135 more errors
+  Progress: 140 errors found in 4162 questions
+
+Pakistan_Studies: Checking ALL 3428 questions...
+  ✗ Q67: CSV=A PDF=B
+  ✗ Q73: CSV=A PDF=D
+  ✗ Q123: CSV=B PDF=D
+  ✗ Q124: CSV=B PDF=D
+  ✗ Q217: CSV=C PDF=D
+  ... and 38 more errors
+  Progress: 43 errors found in 3427 questions
+
+Everyday_Science: Checking ALL 4569 questions...
+  ✗ Q71: CSV=C PDF=D
+  ✗ Q72: CSV=B PDF=D
+  ✗ Q123: CSV=A PDF=D
+  ✗ Q169: CSV=D PDF=B
+  ✗ Q189: CSV=D PDF=B
+  ... and 79 more errors
+  Progress: 84 errors found in 4569 questions
+
+Islamiyat: Checking ALL 1753 questions...
+  ✗ Q17: CSV=A PDF=D
+  ✗ Q18: CSV=B PDF=A
+  ✗ Q73: CSV=B PDF=D
+  ✗ Q286: CSV=A PDF=D
+  ✗ Q316: CSV=D PDF=B
+  ... and 32 more errors
+  Progress: 37 errors found in 1753 questions
+
+Current_Affairs: Checking ALL 425 questions...
+  ✗ Q72: CSV=B PDF=D
+  ✗ Q87: CSV=B PDF=C
+  ✗ Q118: CSV=B PDF=D
+  ✗ Q125: CSV=A PDF=D
+  ✗ Q129: CSV=B PDF=C
+  ... and 8 more errors
+  Progress: 13 errors found in 425 questions
+
+English: Checking ALL 993 questions...
+  ✗ Q4: CSV=A PDF=B
+  ✗ Q12: CSV=C PDF=A
+  ✗ Q73: CSV=A PDF=D
+  ✗ Q133: CSV=A PDF=C
+  ✗ Q137: CSV=A PDF=C
+  ... and 33 more errors
+  Progress: 38 errors found in 993 questions
+
+Basic_Computer: Checking ALL 1549 questions...
+  ✗ Q124: CSV=A PDF=D
+  ✗ Q317: CSV=B PDF=C
+  ✗ Q334: CSV=D PDF=A
+  ✗ Q414: CSV=A PDF=D
+  ✗ Q459: CSV=B PDF=D
+  ... and 8 more errors
+  Progress: 13 errors found in 1549 questions
+
+Geography: Checking ALL 549 questions...
+  ✗ Q53: CSV=A PDF=C
+  ✗ Q58: CSV=B PDF=A
+  ✗ Q70: CSV=B PDF=D
+  ✗ Q72: CSV=B PDF=D
+  ✗ Q125: CSV=C PDF=D
+  ... and 13 more errors
+  Progress: 18 errors found in 549 questions
+
+Urdu: Checking ALL 632 questions...
+  ✗ Q40: CSV=A PDF=D
+  ✗ Q320: CSV=C PDF=A
+  ✗ Q628: CSV=B PDF=C
+  Progress: 3 errors found in 632 questions
+
+Ethics_Civics: Checking ALL 491 questions...
+  ✗ Q125: CSV=C PDF=D
+  ✗ Q143: CSV=B PDF=A
+  ✗ Q287: CSV=D PDF=A
+  ✗ Q2: CSV=A PDF=C
+  Progress: 4 errors found in 491 questions
+
+General_Maths: Checking ALL 469 questions...
+  ✗ Q18: CSV=A PDF=C
+  ✗ Q29: CSV=A PDF=C
+  ✗ Q35: CSV=A PDF=C
+  ✗ Q123: CSV=B PDF=D
+  ✗ Q124: CSV=B PDF=D
+  ... and 9 more errors
+  Progress: 14 errors found in 469 questions
+
+======================================================================
+TOTAL ERRORS FOUND: 407
+======================================================================
+
+ERROR SUMMARY BY SUBJECT:
+
+General_Knowledge: 140 errors
+  Q38: C → D
+  Q72: C → D
+  Q108: C → D
+  Q121: C → D
+  Q124: A → D
+  ... and 135 more
+
+Pakistan_Studies: 43 errors
+  Q67: A → B
+  Q73: A → D
+  Q123: B → D
+  Q124: B → D
+  Q217: C → D
+  ... and 38 more
+
+Everyday_Science: 84 errors
+  Q71: C → D
+  Q72: B → D
+  Q123: A → D
+  Q169: D → B
+  Q189: D → B
+  ... and 79 more
+
+Islamiyat: 37 errors
+  Q17: A → D
+  Q18: B → A
+  Q73: B → D
+  Q286: A → D
+  Q316: D → B
+  ... and 32 more
+
+Current_Affairs: 13 errors
+  Q72: B → D
+  Q87: B → C
+  Q118: B → D
+  Q125: A → D
+  Q129: B → C
+  ... and 8 more
+
+English: 38 errors
+  Q4: A → B
+  Q12: C → A
+  Q73: A → D
+  Q133: A → C
+  Q137: A → C
+  ... and 33 more
+
+Basic_Computer: 13 errors
+  Q124: A → D
+  Q317: B → C
+  Q334: D → A
+  Q414: A → D
+  Q459: B → D
+  ... and 8 more
+
+Geography: 18 errors
+  Q53: A → C
+  Q58: B → A
+  Q70: B → D
+  Q72: B → D
+  Q125: C → D
+  ... and 13 more
+
+Urdu: 3 errors
+  Q40: A → D
+  Q320: C → A
+  Q628: B → C
+
+Ethics_Civics: 4 errors
+  Q125: C → D
+  Q143: B → A
+  Q287: D → A
+  Q2: A → C
+
+General_Maths: 14 errors
+  Q18: A → C
+  Q29: A → C
+  Q35: A → C
+  Q123: B → D
+  Q124: B → D
+  ... and 9 more
+
+Detailed error list saved to: /Users/asfandiyarsafi/Desktop/CSS App/Claude/quiz-app/ERRORS_TO_FIX.csv

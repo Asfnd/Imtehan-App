@@ -1,0 +1,310 @@
+SPAM AND ARTIFACT AUDIT REPORT
+Total MCQs Scanned: 24476
+Total Quality Issues: 306
+--------------------------------------------------
+[AI MARKER] Found 'here are' at Line 6 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 8 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 27 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 28 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 34 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 55 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 66 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 67 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 90 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 96 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 110 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 135 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 137 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 142 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 156 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 177 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 183 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 184 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 196 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 206 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 231 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 232 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 240 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 249 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 254 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 272 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 273 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 296 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 299 in Engineering_Master_Bank/Intelligence/Logical_Problems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 11 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 18 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 61 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 64 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 69 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 89 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 151 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 159 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 176 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 191 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 193 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 287 in Engineering_Master_Bank/Intelligence/Analytical_Reasoning/mcqs.csv
+[AI MARKER] Found 'here are' at Line 142 in Engineering_Master_Bank/Chemistry/D_and_F_Block_Elements/mcqs.csv
+[AI MARKER] Found 'here are' at Line 239 in Engineering_Master_Bank/Chemistry/D_and_F_Block_Elements/mcqs.csv
+[AI MARKER] Found 'here are' at Line 134 in Engineering_Master_Bank/Chemistry/Atomic_Structure/mcqs.csv
+[AI MARKER] Found 'here are' at Line 267 in Engineering_Master_Bank/Chemistry/Atomic_Structure/mcqs.csv
+[AI MARKER] Found 'here are' at Line 269 in Engineering_Master_Bank/Chemistry/Basic_Concepts/mcqs.csv
+[AI MARKER] Found 'here are' at Line 30 in Engineering_Master_Bank/Chemistry/Liquids_and_Solids/mcqs.csv
+[AI MARKER] Found 'here are' at Line 157 in Engineering_Master_Bank/Chemistry/Liquids_and_Solids/mcqs.csv
+[AI MARKER] Found 'here are' at Line 173 in Engineering_Master_Bank/Chemistry/Liquids_and_Solids/mcqs.csv
+[AI MARKER] Found 'here are' at Line 237 in Engineering_Master_Bank/Chemistry/Liquids_and_Solids/mcqs.csv
+[AI MARKER] Found 'here are' at Line 292 in Engineering_Master_Bank/Chemistry/Liquids_and_Solids/mcqs.csv
+[AI MARKER] Found 'here are' at Line 56 in Engineering_Master_Bank/Chemistry/Alkyl_Halides/mcqs.csv
+[AI MARKER] Found 'here are' at Line 302 in Engineering_Master_Bank/Chemistry/Hydrocarbons/mcqs.csv
+[AI MARKER] Found 'here are' at Line 213 in Engineering_Master_Bank/Chemistry/Electrochemistry/mcqs.csv
+[AI MARKER] Found 'here are' at Line 5 in Engineering_Master_Bank/Computer_Science/Databases/mcqs.csv
+[AI MARKER] Found 'here are' at Line 13 in Engineering_Master_Bank/Computer_Science/Databases/mcqs.csv
+[AI MARKER] Found 'here are' at Line 112 in Engineering_Master_Bank/Computer_Science/Databases/mcqs.csv
+[AI MARKER] Found 'here are' at Line 273 in Engineering_Master_Bank/Computer_Science/Operating_Systems/mcqs.csv
+[AI MARKER] Found 'here are' at Line 226 in Engineering_Master_Bank/Computer_Science/Data_Communication/mcqs.csv
+[AI MARKER] Found 'here are' at Line 301 in Engineering_Master_Bank/Computer_Science/Data_Communication/mcqs.csv
+[AI MARKER] Found 'here are' at Line 172 in Engineering_Master_Bank/Computer_Science/Computer_Architecture/mcqs.csv
+[AI MARKER] Found 'here are' at Line 195 in Engineering_Master_Bank/Computer_Science/Computer_Architecture/mcqs.csv
+[AI MARKER] Found 'the correct answer is' at Line 62 in Engineering_Master_Bank/Mathematics/Trigonometric_Identities/mcqs.csv
+[AI MARKER] Found 'here are' at Line 220 in Engineering_Master_Bank/Mathematics/Linear_Inequalities_and_Linear_Programming/mcqs.csv
+[AI MARKER] Found 'the correct answer is' at Line 74 in Engineering_Master_Bank/Mathematics/Introduction_to_Analytic_Geometry/mcqs.csv
+[AI MARKER] Found 'here are' at Line 27 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 78 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 102 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 113 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 119 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 126 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 161 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 170 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 219 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 268 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 304 in Engineering_Master_Bank/Mathematics/Number_Systems_and_Groups/mcqs.csv
+[AI MARKER] Found 'here are' at Line 55 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 69 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 84 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 85 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 88 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 97 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 115 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 123 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 128 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 132 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 156 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 172 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 184 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 196 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 204 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[AI MARKER] Found 'here are' at Line 263 in Engineering_Master_Bank/Mathematics/Permutation_Combination_and_Probability/mcqs.csv
+[REPEATED CHARS] at Line 232 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 233 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 234 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 235 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 236 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 237 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 238 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 239 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 240 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 241 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 242 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 243 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 244 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 245 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 246 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 247 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 248 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 249 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 250 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 251 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 292 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 293 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 294 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 295 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 296 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 297 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 298 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 299 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 300 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 301 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 302 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 303 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 304 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 305 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 306 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 307 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 308 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 309 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 310 in Engineering_Master_Bank/English/Sentence_Completion/mcqs.csv
+[REPEATED CHARS] at Line 2 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 3 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 4 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 5 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 6 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 7 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 8 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 9 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 10 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 11 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 12 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 13 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 14 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 15 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 16 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 17 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 18 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 19 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 20 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 21 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 22 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 23 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 24 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 25 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 26 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 27 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 28 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 29 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 30 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 31 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 32 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 33 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 34 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 35 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 36 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 37 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 38 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 39 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 40 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 41 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 42 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 43 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 44 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 45 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 46 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 47 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 48 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 49 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 50 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 51 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 52 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 53 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 54 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 55 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 56 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 57 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 58 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 59 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 60 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 61 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 62 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 63 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 64 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 65 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 66 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 67 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 68 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 69 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 70 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 71 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 72 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 73 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 74 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 75 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 76 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 77 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 78 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 79 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 80 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 101 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 102 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 103 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 104 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 105 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 106 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 107 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 108 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 109 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 110 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 111 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 112 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 113 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 114 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 115 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 116 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 117 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 118 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 119 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 120 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 141 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 142 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 143 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 144 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 145 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 146 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 147 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 148 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 149 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 150 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 151 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 152 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 153 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 154 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 155 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 156 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 157 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 158 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 159 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 160 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 161 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 162 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 163 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 164 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 165 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 166 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 167 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 168 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 169 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 170 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 171 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 172 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 173 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 174 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 175 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 176 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 177 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 178 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 179 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 180 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 181 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 182 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 183 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 184 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 185 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 186 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 187 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 188 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 189 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 190 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 191 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 192 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 193 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 194 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 195 in Engineering_Master_Bank/English/Vocabulary_and_Synonyms/mcqs.csv
+[REPEATED CHARS] at Line 4 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 6 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 7 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 8 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 9 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 12 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 13 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 14 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 16 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 17 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 18 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 19 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[REPEATED CHARS] at Line 20 in Engineering_Master_Bank/English/Grammar_and_Parts_of_Speech/mcqs.csv
+[AI MARKER] Found 'here are' at Line 22 in Engineering_Master_Bank/Physics/Electronics/mcqs.csv
+[AI MARKER] Found 'here are' at Line 43 in Engineering_Master_Bank/Physics/Electronics/mcqs.csv
+[AI MARKER] Found 'here are' at Line 126 in Engineering_Master_Bank/Physics/Electromagnetism/mcqs.csv
+[AI MARKER] Found 'here are' at Line 224 in Engineering_Master_Bank/Physics/Electromagnetism/mcqs.csv
+[AI MARKER] Found 'here are' at Line 47 in Engineering_Master_Bank/Physics/Electrostatics/mcqs.csv
+[AI MARKER] Found 'here are' at Line 176 in Engineering_Master_Bank/Physics/Physics_of_Solids/mcqs.csv
+[DATE GLITCH] Potential date 'Decreases by 1/3' at Line 256 in Engineering_Master_Bank/Physics/Physical_Optics/mcqs.csv
+[DATE GLITCH] Potential date 'Decreases by 1/2' at Line 256 in Engineering_Master_Bank/Physics/Physical_Optics/mcqs.csv
