@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CheckCircle2, XCircle, Lightbulb } from 'lucide-react'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { saveQuizResults } from '@/lib/analytics'
 
 interface MCQ {
   id: number
@@ -109,6 +110,7 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
   const [reviewMode, setReviewMode]       = useState(false)
   const [reviewMCQs, setReviewMCQs]       = useState<MCQ[]>([])
   const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
+  const startTimeRef                      = useRef(Date.now())
 
   const activeMCQs = reviewMode ? reviewMCQs : mcqs
 
@@ -325,7 +327,22 @@ export default function MDCATSetQuiz({ mcqs, subject, subjectName, difficulty, s
             </button>
           ) : (
             <button
-              onClick={() => setShowResults(true)}
+              onClick={async () => {
+                if (!reviewMode) {
+                  const timeInSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000)
+                  const correct = Object.entries(answers).filter(([i, a]) => a === mcqs[+i]?.correct_answer).length
+                  await saveQuizResults({
+                    quizType:       'subject',
+                    subject:        subjectName,
+                    totalQuestions: mcqs.length,
+                    correctAnswers: correct,
+                    wrongAnswers:   mcqs.length - correct,
+                    skippedAnswers: 0,
+                    timeInSeconds,
+                  })
+                }
+                setShowResults(true)
+              }}
               disabled={!userAnswer}
               className={`flex-1 bg-gradient-to-r ${t.btn} text-white py-3 px-4 rounded-xl font-semibold transition-all disabled:opacity-40`}
             >

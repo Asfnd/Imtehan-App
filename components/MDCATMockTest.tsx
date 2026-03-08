@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { saveQuizResults } from '@/lib/analytics'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -284,6 +285,24 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
     setShowSubmitConfirm(false)
     setPhase('results')
   }, [])
+
+  // Save analytics when results phase is reached
+  useEffect(() => {
+    if (phase !== 'results' || mcqs.length === 0) return
+    const correct  = mcqs.filter((mcq, idx) => answers[idx] === mcq.correct_answer).length
+    const wrong    = mcqs.filter((mcq, idx) => answers[idx] && answers[idx] !== mcq.correct_answer).length
+    const skipped  = mcqs.length - Object.keys(answers).length
+    const timeUsed = config ? Math.max(0, config.durationMinutes * 60 - timeLeft) : 0
+    saveQuizResults({
+      quizType:       'mock',
+      subject:        config?.name ?? 'MDCAT',
+      totalQuestions: mcqs.length,
+      correctAnswers: correct,
+      wrongAnswers:   wrong,
+      skippedAnswers: skipped,
+      timeInSeconds:  timeUsed,
+    }).catch(() => {/* silent — analytics failure should never block UI */})
+  }, [phase]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleFlag = (index: number) => {
     setFlagged(prev => {
