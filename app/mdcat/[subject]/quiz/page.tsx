@@ -1,9 +1,10 @@
 'use client'
 
 import { useRouter, useParams, useSearchParams } from 'next/navigation'
-import { useEffect, useState, Suspense } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, BookOpen, CheckCircle2, XCircle, Lightbulb, Zap, Target, Flame } from 'lucide-react'
+import { saveQuizResults } from '@/lib/analytics'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string; totalRows: number }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology',           color: 'from-green-600 to-emerald-700', totalRows: 5944 },

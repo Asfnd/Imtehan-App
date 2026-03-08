@@ -14,27 +14,12 @@ import { createClient } from '@/lib/supabase/client'
 import NavigationBar from '@/components/NavigationBar'
 import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
-
-interface UserStats {
-  totalQuestions: number
-  totalQuizzes: number
-  accuracy: number
-  currentStreak: number
-  bestStreak: number
-}
+import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 
 interface SubjectProgress {
   subject: string
   attempted: number
   accuracy: number
-}
-
-interface TodayFocus {
-  subject: string
-  subjectLabel: string
-  progress: string
-  target: number
-  needsImprovement: string[]
 }
 
 const roundMCQs = (n: number) => {
@@ -77,15 +62,7 @@ function ExamDashboard() {
   const [showSignIn, setShowSignIn] = useState(false)
   const [showPremium, setShowPremium] = useState(false)
   const [pendingMockId, setPendingMockId] = useState<number | null>(null)
-  const [stats, setStats] = useState<UserStats>({
-    totalQuestions: 0,
-    totalQuizzes: 0,
-    accuracy: 0,
-    currentStreak: 0,
-    bestStreak: 0,
-  })
   const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([])
-  const [todayFocus, setTodayFocus] = useState<TodayFocus | null>(null)
   const [subjectsWithCounts, setSubjectsWithCounts] = useState<any[]>([])
 
   useEffect(() => {
@@ -164,110 +141,28 @@ function ExamDashboard() {
 
   const loadAnalytics = async () => {
     const supabase = createClient()
-
-    // Fetch quiz attempts for this exam
-    const { data: attempts, error } = await supabase
+    const { data: attempts } = await supabase
       .from('quiz_attempts')
-      .select('*')
+      .select('subject_slug, score, total_questions')
       .eq('exam_slug', examSlug)
       .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
 
-    if (!error && attempts) {
-      const totalQuizzes    = attempts.length
-      const totalQuestions  = attempts.reduce((sum, a) => sum + a.total_questions, 0)
-      const totalCorrect    = attempts.reduce((sum, a) => sum + a.score, 0)
-      const accuracy        = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0
-      const { current, best } = calculateStreak(attempts)
-
-      setStats({
-        totalQuestions,
-        totalQuizzes,
-        accuracy,
-        currentStreak: current,
-        bestStreak:    best,
+    if (attempts && attempts.length > 0) {
+      const subjectMap = new Map<string, { correct: number; total: number }>()
+      attempts.forEach(a => {
+        const e = subjectMap.get(a.subject_slug) || { correct: 0, total: 0 }
+        e.correct += a.score || 0
+        e.total   += a.total_questions || 0
+        subjectMap.set(a.subject_slug, e)
       })
-
-      // Calculate subject-wise progress
-      const subjectMap = new Map<string, { correct: number, total: number, count: number }>()
-      attempts.forEach(attempt => {
-        const existing = subjectMap.get(attempt.subject_slug) || { correct: 0, total: 0, count: 0 }
-        existing.correct += attempt.score
-        existing.total += attempt.total_questions
-        existing.count += 1
-        subjectMap.set(attempt.subject_slug, existing)
-      })
-
-      const progress = Array.from(subjectMap.entries()).map(([subject, data]) => ({
-        subject,
-        attempted: data.total,
-        accuracy: Math.round((data.correct / data.total) * 100),
-        quizCount: data.count
-      }))
-      .sort((a, b) => b.attempted - a.attempted)
-
-      setSubjectProgress(progress)
-
-      // Set today's focus (lowest accuracy subject with attempts)
-      const sorted = [...progress].sort((a, b) => a.accuracy - b.accuracy)
-      if (sorted.length > 0 && sorted[0].accuracy < 80) {
-        const lowestAccuracy = sorted[0]
-        const section = config.sections.find(s => s.slug === lowestAccuracy.subject)
-
-        // Find other subjects that need improvement
-        const needsImprovement = sorted
-          .slice(0, 3)
-          .filter(s => s.accuracy < 80)
-          .map(s => {
-            const sec = config.sections.find(c => c.slug === s.subject)
-            return `${sec?.label || s.subject} ${80 - s.accuracy}%`
-          })
-
-        setTodayFocus({
-          subject: lowestAccuracy.subject,
-          subjectLabel: section?.label || lowestAccuracy.subject,
-          progress: `${lowestAccuracy.accuracy}% · ${lowestAccuracy.attempted} attempted`,
-          target: 80,
-          needsImprovement
-        })
-      }
+      setSubjectProgress(
+        Array.from(subjectMap.entries()).map(([subject, d]) => ({
+          subject,
+          attempted: d.total,
+          accuracy:  Math.round((d.correct / Math.max(d.total, 1)) * 100),
+        }))
+      )
     }
-  }
-
-  const calculateStreak = (attempts: any[]): { current: number; best: number } => {
-    if (attempts.length === 0) return { current: 0, best: 0 }
-
-    // Get unique dates (YYYY-MM-DD) sorted descending
-    const dates = [...new Set(
-      attempts.map(a => new Date(a.created_at).toISOString().slice(0, 10))
-    )].sort((a, b) => b.localeCompare(a))
-
-    let current = 0
-    let best    = 0
-    let temp    = 1
-    const today = new Date().toISOString().slice(0, 10)
-
-    // Current streak — count back from today
-    let expected = today
-    for (const d of dates) {
-      if (d === expected) {
-        current++
-        const prev = new Date(expected)
-        prev.setDate(prev.getDate() - 1)
-        expected = prev.toISOString().slice(0, 10)
-      } else break
-    }
-
-    // Best streak — find longest consecutive run
-    for (let i = 1; i < dates.length; i++) {
-      const prev = new Date(dates[i - 1])
-      const curr = new Date(dates[i])
-      const diff = Math.round((prev.getTime() - curr.getTime()) / 86400000)
-      if (diff === 1) { temp++ } else { best = Math.max(best, temp); temp = 1 }
-    }
-    best = Math.max(best, temp, current)
-
-    return { current, best }
   }
 
   const getFirstName = () => {
@@ -297,133 +192,14 @@ function ExamDashboard() {
       <NavigationBar />
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Sign In Banner for Non-Logged In Users */}
-        {!user && (
-          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-4 sm:p-6 mb-8 shadow-lg">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                  <TrendingUp className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">Track Your Progress</h3>
-                  <p className="text-xs text-blue-100">Sign in for analytics, streak tracking & insights</p>
-                </div>
-              </div>
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="self-end sm:self-auto px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold text-sm hover:bg-blue-50 transition-colors flex items-center gap-1.5"
-              >
-                Sign In <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Analytics Bar — handles sign-in CTA, stats, today's focus */}
+        <ExamAnalyticsBar examSlug={examSlug} />
 
         {/* Welcome */}
         {user && (
           <h2 className="text-3xl font-bold text-blue-600 mb-8">
             Welcome back, {getFirstName()}
           </h2>
-        )}
-
-        {/* Stats Cards - Always show for logged in users */}
-        {user && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {/* Questions */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <BookOpen className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.totalQuestions}</div>
-                  <div className="text-sm text-gray-600">Questions</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Quizzes */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-6 h-6 text-green-600" />
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.totalQuizzes}</div>
-                  <div className="text-sm text-gray-600">Quizzes</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Accuracy */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                  <Target className="w-6 h-6 text-purple-600" />
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.accuracy}%</div>
-                  <div className="text-sm text-gray-600">Accuracy</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Streak */}
-            <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-6 shadow-lg">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                  <Flame className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-white">{stats.currentStreak}</div>
-                  <div className="text-sm text-white/90">Day Streak</div>
-                  {stats.bestStreak > 0 && (
-                    <div className="text-xs text-white/70 mt-0.5">Best: {stats.bestStreak}</div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Today's Focus - Show if user has attempts and needs improvement */}
-        {user && todayFocus && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border-2 border-purple-200 mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Today's Focus</h3>
-                <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
-                  Priority
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex-1">
-                <h4 className="text-xl font-bold text-gray-900 mb-2">{todayFocus.subjectLabel}</h4>
-                <p className="text-sm text-gray-600 mb-1">
-                  {todayFocus.progress} • Target: {todayFocus.target}%
-                </p>
-                <p className="text-sm">
-                  <span className="text-red-500 font-semibold">IMPROVE: </span>
-                  <span className="text-gray-600">{todayFocus.needsImprovement.join(', ')}</span>
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  const section = config.sections.find(s => s.slug === todayFocus.subject)
-                  if (section) {
-                    router.push(`/exams/${examSlug}/${section.slug}`)
-                  }
-                }}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors flex items-center gap-2 whitespace-nowrap"
-              >
-                Practice Now
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
         )}
 
         {/* Mock Tests Section */}

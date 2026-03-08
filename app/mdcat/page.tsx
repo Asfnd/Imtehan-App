@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { BookOpen, Microscope, Atom, Lightbulb, Brain, Clock, FileText, CheckCircle, AlertTriangle, ChevronRight } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
+import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 
 const SUBJECTS = [
   { slug: 'biology',           name: 'Biology',          icon: Microscope, mcqs: 5944, topics: 16 },
@@ -98,6 +99,9 @@ export default function MDCATPage() {
       <NavigationBar />
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
+
+        {/* Analytics bar */}
+        <ExamAnalyticsBar examSlug="mdcat" />
 
         {/* Page title */}
         <div className="mb-8">

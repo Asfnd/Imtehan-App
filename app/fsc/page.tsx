@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { Microscope, Atom, Zap, BookOpen, GraduationCap, ChevronRight } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
+import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 
 const SUBJECTS = [
   {
@@ -78,6 +79,7 @@ export default function FSCPage() {
         </div>
 
         {/* Subject Cards */}
+        <ExamAnalyticsBar examSlug="fsc" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           {SUBJECTS.map((s) => {
             const Icon = s.icon
