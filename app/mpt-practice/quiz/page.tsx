@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState, Suspense, useCallback } from 'react'
+import { useEffect, useState, useRef, Suspense, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Clock, Flag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
+import { saveQuizResults } from '@/lib/analytics'
 
 interface MCQ {
   id: number
@@ -24,6 +25,7 @@ function MPTQuizContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const testNumber = searchParams.get('test')
+  const startTimeRef = useRef<number>(Date.now())
   
   const [mcqs, setMcqs] = useState<MCQ[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -221,7 +223,20 @@ function MPTQuizContent() {
     router.push(`/mpt-practice/quiz?${params.toString()}`)
   }
 
-  const finishTest = () => {
+  const finishTest = async () => {
+    const correct = calculateScore()
+    const wrong   = activeMCQs.filter((_, i) => selectedAnswers[i] && selectedAnswers[i] !== activeMCQs[i].correct_answer).length
+    const skipped = activeMCQs.filter((_, i) => !selectedAnswers[i]).length
+    await saveQuizResults({
+      examSlug: 'mpt',
+      quizType: 'past-paper',
+      subject: `MPT Test ${testNumber ?? ''}`.trim(),
+      totalQuestions: activeMCQs.length,
+      correctAnswers: correct,
+      wrongAnswers: wrong,
+      skippedAnswers: skipped,
+      timeInSeconds: Math.round((Date.now() - startTimeRef.current) / 1000),
+    })
     setShowResults(true)
   }
 

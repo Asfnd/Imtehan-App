@@ -94,6 +94,8 @@ function DifficultyQuiz() {
   const config     = SUBJECT_CONFIG[subject]
   const meta       = DIFFICULTY_META[difficulty] || DIFFICULTY_META.Easy
 
+  const startTimeRef = useRef<number>(Date.now())
+
   const [mcqs, setMcqs]               = useState<MCQ[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers]           = useState<Record<number, string>>({})
@@ -325,7 +327,23 @@ function DifficultyQuiz() {
             </button>
           ) : (
             <button
-              onClick={() => setShowResults(true)}
+              onClick={async () => {
+                const finalAnswers = { ...answers, [currentIndex]: userAnswer! }
+                const correct = Object.entries(finalAnswers).filter(([i, a]) => a === activeMCQs[+i]?.correct_answer).length
+                const wrong   = Object.values(finalAnswers).length - correct
+                const skipped = activeMCQs.length - Object.values(finalAnswers).length
+                await saveQuizResults({
+                  examSlug: 'mdcat',
+                  quizType: 'subject',
+                  subject: config.name,
+                  totalQuestions: activeMCQs.length,
+                  correctAnswers: correct,
+                  wrongAnswers: wrong,
+                  skippedAnswers: skipped,
+                  timeInSeconds: Math.round((Date.now() - startTimeRef.current) / 1000),
+                })
+                setShowResults(true)
+              }}
               disabled={!userAnswer}
               className={`flex-1 bg-gradient-to-r ${config.color} text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-40`}
             >
