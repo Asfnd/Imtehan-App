@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, BookOpen, CheckCircle2, XCircle, Lightbulb, Zap, Target, Flame } from 'lucide-react'
 import { saveQuizResults } from '@/lib/analytics'
+import FeedbackPopup from '@/components/FeedbackPopup'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string; totalRows: number }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology',           color: 'from-green-600 to-emerald-700', totalRows: 5944 },
@@ -100,6 +101,7 @@ function DifficultyQuiz() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers]           = useState<Record<number, string>>({})
   const [showResults, setShowResults]   = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
   const [loading, setLoading]           = useState(true)
 
   // Review mode
@@ -114,6 +116,20 @@ function DifficultyQuiz() {
       setLoading(false)
     })
   }, [subject, difficulty]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!showResults || reviewMode) return
+    try {
+      if (typeof window !== 'undefined') {
+        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
+        localStorage.setItem('quiz_complete_count', String(count))
+        if (count % 7 === 0) {
+          const t = setTimeout(() => setShowFeedback(true), 1500)
+          return () => clearTimeout(t)
+        }
+      }
+    } catch { /* private browsing — skip */ }
+  }, [showResults, reviewMode])
 
   const handleAnswer = (opt: string) => {
     if (answers[currentIndex]) return
@@ -152,7 +168,8 @@ function DifficultyQuiz() {
     const wrongMCQs  = activeMCQs.filter((mcq, i) => answers[i] && answers[i] !== mcq.correct_answer)
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+      <>
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-6">
           <div className="text-center mb-6">
             <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${config.color} mx-auto mb-3 flex items-center justify-center`}>
@@ -211,6 +228,14 @@ function DifficultyQuiz() {
           </div>
         </div>
       </div>
+      <FeedbackPopup
+        isOpen={showFeedback}
+        onClose={() => setShowFeedback(false)}
+        examSlug="mdcat"
+        quizType="quiz"
+        scorePct={Math.round((score / (reviewMode ? reviewMCQs.length : mcqs.length)) * 100)}
+      />
+      </>
     )
   }
 

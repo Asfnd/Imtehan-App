@@ -184,19 +184,22 @@ export default function MockTestInterface({
     return { correct, incorrect, unanswered, obtained: Math.max(0, obtained), pct, passed: pct >= passingPercentage }
   }
 
-  // Trigger feedback popup once per session after results appear
+  // Trigger feedback popup every 7th quiz after results appear
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!showResults || reviewMode) return
     setResultPct(calcScore().pct)
     try {
-      if (typeof window !== 'undefined' && !sessionStorage.getItem('feedback_shown')) {
-        sessionStorage.setItem('feedback_shown', '1')
-        const t = setTimeout(() => setShowFeedback(true), 1500)
-        return () => clearTimeout(t)
+      if (typeof window !== 'undefined') {
+        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
+        localStorage.setItem('quiz_complete_count', String(count))
+        if (count % 7 === 0) {
+          const t = setTimeout(() => setShowFeedback(true), 1500)
+          return () => clearTimeout(t)
+        }
       }
     } catch {
-      // sessionStorage unavailable (private browsing) — skip feedback popup
+      // localStorage unavailable (private browsing) — skip feedback popup
     }
   }, [showResults, reviewMode])
 

@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle2, XCircle, Lightbulb } from 'lucide-react'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
+import FeedbackPopup from '@/components/FeedbackPopup'
 
 interface MCQ {
   id: number
@@ -108,12 +109,28 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   const [currentIndex, setCurrentIndex]   = useState(0)
   const [answers, setAnswers]             = useState<Record<number, string>>({})
   const [showResults, setShowResults]     = useState(false)
+  const [showFeedback, setShowFeedback]   = useState(false)
   const [reviewMode, setReviewMode]       = useState(false)
   const [reviewMCQs, setReviewMCQs]       = useState<MCQ[]>([])
   const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
   const startTimeRef                      = useRef(Date.now())
 
   const activeMCQs = reviewMode ? reviewMCQs : mcqs
+
+  // Trigger feedback popup every 7th quiz
+  useEffect(() => {
+    if (!showResults || reviewMode) return
+    try {
+      if (typeof window !== 'undefined') {
+        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
+        localStorage.setItem('quiz_complete_count', String(count))
+        if (count % 7 === 0) {
+          const t = setTimeout(() => setShowFeedback(true), 1500)
+          return () => clearTimeout(t)
+        }
+      }
+    } catch { /* private browsing — skip */ }
+  }, [showResults, reviewMode])
 
   // Guard: parent page should prevent this, but protect against empty data
   if (!activeMCQs || activeMCQs.length === 0) {
@@ -147,7 +164,8 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
     const wrongMCQs = activeMCQs.filter((mcq, i) => answers[i] && answers[i] !== mcq.correct_answer)
 
     return (
-      <div className={`min-h-screen bg-gradient-to-br ${t.pageBg} flex items-center justify-center p-4`}>
+      <>
+        <div className={`min-h-screen bg-gradient-to-br ${t.pageBg} flex items-center justify-center p-4`}>
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-6">
           <div className="text-center mb-6">
             <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${t.resultIcon} mx-auto mb-3 flex items-center justify-center shadow-lg`}>
@@ -212,10 +230,19 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
           </div>
         </div>
       </div>
+      <FeedbackPopup
+        isOpen={showFeedback}
+        onClose={() => setShowFeedback(false)}
+        examSlug={examSlug}
+        quizType="quiz"
+        scorePct={Math.round((score / activeMCQs.length) * 100)}
+      />
+      </>
     )
   }
 
   return (
+    <>
     <div className={`min-h-screen bg-gradient-to-br ${t.pageBg} py-2 px-2 sm:px-4`}>
       {/* Access gate popups */}
       <SignInPopup
@@ -354,5 +381,13 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
         </div>
       </div>
     </div>
+    <FeedbackPopup
+      isOpen={showFeedback}
+      onClose={() => setShowFeedback(false)}
+      examSlug={examSlug}
+      quizType="quiz"
+      scorePct={Math.round((Object.entries(answers).filter(([i, a]) => a === activeMCQs[+i]?.correct_answer).length / activeMCQs.length) * 100)}
+    />
+    </>
   )
 }

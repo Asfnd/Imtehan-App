@@ -8,6 +8,7 @@ import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
 import { saveQuizResults } from '@/lib/analytics'
+import FeedbackPopup from '@/components/FeedbackPopup'
 
 interface MCQ {
   id: number
@@ -31,6 +32,7 @@ function MPTQuizContent() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({})
   const [showResults, setShowResults] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
   const [loading, setLoading] = useState(true)
   const [timeLeft, setTimeLeft] = useState(200 * 60) // 200 minutes in seconds
   const [timerActive, setTimerActive] = useState(false)
@@ -149,6 +151,21 @@ function MPTQuizContent() {
       setTimerActive(true)
     }
   }, [activeMCQs, activeLoading, reviewMode])
+
+  // Trigger feedback popup every 7th quiz
+  useEffect(() => {
+    if (!showResults || reviewMode) return
+    try {
+      if (typeof window !== 'undefined') {
+        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
+        localStorage.setItem('quiz_complete_count', String(count))
+        if (count % 7 === 0) {
+          const t = setTimeout(() => setShowFeedback(true), 1500)
+          return () => clearTimeout(t)
+        }
+      }
+    } catch { /* private browsing — skip */ }
+  }, [showResults, reviewMode])
 
   const loadTest = async () => {
     try {
@@ -604,6 +621,13 @@ function MPTQuizContent() {
           </div>
         </div>
       )}
+      <FeedbackPopup
+        isOpen={showFeedback}
+        onClose={() => setShowFeedback(false)}
+        examSlug="mpt"
+        quizType="mock"
+        scorePct={Math.round((calculateScore() / activeMCQs.length) * 100)}
+      />
     </>
   )
 }
