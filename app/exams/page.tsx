@@ -85,7 +85,7 @@ function ExamsInner() {
       {/* Trigger button */}
       <button
         onClick={() => setDropdownOpen((v) => !v)}
-        className="flex items-center gap-2.5 px-5 py-2 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200"
+        className="flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200 shadow-sm"
       >
         <LayoutGrid className="w-4 h-4" />
         Browse Exams
@@ -94,21 +94,21 @@ function ExamsInner() {
 
       {/* Dropdown panel */}
       {dropdownOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-3 grid grid-cols-3 gap-1.5 w-[min(420px,calc(100vw-24px))]">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border-2 border-gray-300 rounded-xl shadow-xl z-50 p-3.5 grid grid-cols-2 sm:grid-cols-3 gap-2 w-[min(460px,calc(100vw-24px))]">
           {availableCategories.map((cat) => {
             const isActive = cat === activeCategory
             return (
               <button
                 key={cat}
                 onClick={() => { setActiveCategory(cat); setDropdownOpen(false) }}
-                className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-all ${
+                className={`px-3.5 py-2.5 rounded-lg text-sm font-semibold text-left border-2 transition-all ${
                   isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700'
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                 }`}
               >
                 {CATEGORY_CONFIG[cat].label}
-                <span className={`block text-[10px] mt-0.5 ${isActive ? 'text-blue-200' : 'text-gray-400'}`}>
+                <span className={`block text-xs mt-0.5 ${isActive ? 'text-blue-200' : 'text-gray-500'}`}>
                   {examsByCategory[cat]?.length} exams
                 </span>
               </button>
@@ -132,7 +132,7 @@ function ExamsInner() {
           {activeExams.map((exam) => (
             <div
               key={exam.slug}
-              className="group relative bg-white rounded-lg border border-gray-200 hover:border-blue-400 shadow-sm hover:shadow-md hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
+              className="group relative bg-white rounded-lg border-2 border-gray-300 hover:border-blue-500 shadow-sm hover:shadow-md hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
               onClick={() => router.push(`/exams/${exam.slug}`)}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -151,7 +151,7 @@ function ExamsInner() {
                   <div className="text-[10px] text-gray-500">{exam.sections.length} subjects · {exam.duration}m</div>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-1.5 px-3 rounded-md font-medium text-xs transition-all">
+                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-3 rounded-md font-semibold text-sm transition-all">
                   Practice
                 </button>
               </div>

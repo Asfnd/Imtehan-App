@@ -171,32 +171,32 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                 </button>
 
                 {examDropdownOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border border-gray-200/70 rounded-2xl shadow-xl z-50 p-5 w-[460px]">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border-2 border-gray-300 rounded-2xl shadow-xl z-50 p-5 w-[480px]">
                     {/* Medical */}
                     <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      <Link href="/mdcat" onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">MDCAT</Link>
-                      <Link href="/fsc"   onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">FSc Pre-Medical</Link>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <Link href="/mdcat" onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">MDCAT</Link>
+                      <Link href="/fsc"   onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">FSc Pre-Medical</Link>
                     </div>
                     {/* Engineering */}
-                    <div className="border-t border-gray-100 pt-4 mb-4">
+                    <div className="border-t-2 border-gray-200 pt-4 mb-4">
                       <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-2">
                         {ENGINEERING_NAV.map((item) => (
-                          <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                          <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
                             {item.label}
                           </Link>
                         ))}
                       </div>
                     </div>
                     {/* Competitive */}
-                    <div className="border-t border-gray-100 pt-4">
+                    <div className="border-t-2 border-gray-200 pt-4">
                       <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Competitive Exams</p>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-2">
                         {availableCategories.filter(c => c !== 'engineering').map((cat) => {
                           const cfg = CATEGORY_CONFIG[cat]
                           return (
-                            <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                            <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
                               {cfg.label}
                             </Link>
                           )

@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
+import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 
 interface MCQ {
   id: number
@@ -117,19 +118,15 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
 
   const activeMCQs = reviewMode ? reviewMCQs : mcqs
 
-  // Trigger feedback popup every 7th quiz
+  // Trigger feedback popup with adaptive cadence
   useEffect(() => {
     if (!showResults || reviewMode) return
-    try {
-      if (typeof window !== 'undefined') {
-        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
-        localStorage.setItem('quiz_complete_count', String(count))
-        if (count % 7 === 0) {
-          const t = setTimeout(() => setShowFeedback(true), 1500)
-          return () => clearTimeout(t)
-        }
-      }
-    } catch { /* private browsing — skip */ }
+    const correct = Object.entries(answers).filter(([i, a]) => a === activeMCQs[+i]?.correct_answer).length
+    const pct = activeMCQs.length > 0 ? Math.round((correct / activeMCQs.length) * 100) : 0
+    if (registerQuizCompletion(pct)) {
+      const t = setTimeout(() => setShowFeedback(true), 1500)
+      return () => clearTimeout(t)
+    }
   }, [showResults, reviewMode])
 
   // Guard: parent page should prevent this, but protect against empty data
@@ -233,6 +230,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
       <FeedbackPopup
         isOpen={showFeedback}
         onClose={() => setShowFeedback(false)}
+        onAction={recordFeedbackAction}
         examSlug={examSlug}
         quizType="quiz"
         scorePct={Math.round((score / activeMCQs.length) * 100)}
@@ -384,6 +382,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
     <FeedbackPopup
       isOpen={showFeedback}
       onClose={() => setShowFeedback(false)}
+      onAction={recordFeedbackAction}
       examSlug={examSlug}
       quizType="quiz"
       scorePct={Math.round((Object.entries(answers).filter(([i, a]) => a === activeMCQs[+i]?.correct_answer).length / activeMCQs.length) * 100)}

@@ -9,6 +9,7 @@ import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
+import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 
 interface MCQ {
   id: number
@@ -152,19 +153,14 @@ function MPTQuizContent() {
     }
   }, [activeMCQs, activeLoading, reviewMode])
 
-  // Trigger feedback popup every 7th quiz
+  // Trigger feedback popup with adaptive cadence
   useEffect(() => {
     if (!showResults || reviewMode) return
-    try {
-      if (typeof window !== 'undefined') {
-        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
-        localStorage.setItem('quiz_complete_count', String(count))
-        if (count % 7 === 0) {
-          const t = setTimeout(() => setShowFeedback(true), 1500)
-          return () => clearTimeout(t)
-        }
-      }
-    } catch { /* private browsing — skip */ }
+    const pct = activeMCQs.length > 0 ? Math.round((calculateScore() / activeMCQs.length) * 100) : 0
+    if (registerQuizCompletion(pct)) {
+      const t = setTimeout(() => setShowFeedback(true), 1500)
+      return () => clearTimeout(t)
+    }
   }, [showResults, reviewMode])
 
   const loadTest = async () => {
@@ -624,6 +620,7 @@ function MPTQuizContent() {
       <FeedbackPopup
         isOpen={showFeedback}
         onClose={() => setShowFeedback(false)}
+        onAction={recordFeedbackAction}
         examSlug="mpt"
         quizType="mock"
         scorePct={Math.round((calculateScore() / activeMCQs.length) * 100)}

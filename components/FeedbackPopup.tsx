@@ -10,33 +10,42 @@ interface FeedbackPopupProps {
   examSlug: string
   quizType: 'quiz' | 'mock'
   scorePct?: number
+  onAction?: (action: 'submitted' | 'skipped' | 'dismissed') => void
 }
 
-export default function FeedbackPopup({ isOpen, onClose, examSlug, quizType, scorePct }: FeedbackPopupProps) {
+export default function FeedbackPopup({ isOpen, onClose, examSlug, quizType, scorePct, onAction }: FeedbackPopupProps) {
   const [rating, setRating]       = useState(0)
   const [hovered, setHovered]     = useState(0)
   const [comment, setComment]     = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   if (!isOpen) return null
 
   const handleSubmit = async () => {
     if (!rating) return
     setSubmitting(true)
+    setSubmitError('')
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
-      await supabase.from('feedback').insert({
+      const { error } = await supabase.from('feedback').insert({
         page:       `${examSlug} — ${quizType}`,
         rating,
         message:    comment.trim() || `Score: ${scorePct ?? '?'}%`,
         user_email: user?.email ?? null,
       })
-    } catch (_) { /* silent */ }
-    setSubmitted(true)
-    setSubmitting(false)
-    setTimeout(onClose, 1500)
+      if (error) throw error
+      setSubmitted(true)
+      onAction?.('submitted')
+      setTimeout(onClose, 1500)
+    } catch (error) {
+      console.error('Failed to submit feedback:', error)
+      setSubmitError('Could not submit feedback. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -52,7 +61,10 @@ export default function FeedbackPopup({ isOpen, onClose, examSlug, quizType, sco
                   <p className="text-sm text-gray-500 mt-0.5">Your feedback helps us improve</p>
                 </div>
                 <button
-                  onClick={onClose}
+                  onClick={() => {
+                    onAction?.('dismissed')
+                    onClose()
+                  }}
                   className="text-gray-400 hover:text-gray-600 transition-colors ml-3 flex-shrink-0 mt-0.5"
                 >
                   <X className="w-5 h-5" />
@@ -87,7 +99,10 @@ export default function FeedbackPopup({ isOpen, onClose, examSlug, quizType, sco
 
               <div className="flex gap-2">
                 <button
-                  onClick={onClose}
+                  onClick={() => {
+                    onAction?.('skipped')
+                    onClose()
+                  }}
                   className="flex-1 py-2.5 text-sm text-gray-500 hover:text-gray-800 border border-gray-200 rounded-xl transition-colors"
                 >
                   Skip
@@ -100,6 +115,7 @@ export default function FeedbackPopup({ isOpen, onClose, examSlug, quizType, sco
                   {submitting ? 'Sending…' : 'Submit'}
                 </button>
               </div>
+              {submitError && <p className="mt-3 text-xs text-red-600">{submitError}</p>}
             </>
           ) : (
             <div className="text-center py-6">

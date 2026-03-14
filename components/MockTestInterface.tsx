@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
+import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 
 interface MCQ {
   id: number
@@ -184,22 +185,15 @@ export default function MockTestInterface({
     return { correct, incorrect, unanswered, obtained: Math.max(0, obtained), pct, passed: pct >= passingPercentage }
   }
 
-  // Trigger feedback popup every 7th quiz after results appear
+  // Trigger feedback popup with adaptive cadence after results appear
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!showResults || reviewMode) return
-    setResultPct(calcScore().pct)
-    try {
-      if (typeof window !== 'undefined') {
-        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
-        localStorage.setItem('quiz_complete_count', String(count))
-        if (count % 7 === 0) {
-          const t = setTimeout(() => setShowFeedback(true), 1500)
-          return () => clearTimeout(t)
-        }
-      }
-    } catch {
-      // localStorage unavailable (private browsing) — skip feedback popup
+    const pct = activeMCQs.length > 0 ? calcScore().pct : 0
+    setResultPct(pct)
+    if (registerQuizCompletion(pct)) {
+      const t = setTimeout(() => setShowFeedback(true), 1500)
+      return () => clearTimeout(t)
     }
   }, [showResults, reviewMode])
 
@@ -416,6 +410,7 @@ export default function MockTestInterface({
       <FeedbackPopup
         isOpen={showFeedback}
         onClose={() => setShowFeedback(false)}
+        onAction={recordFeedbackAction}
         examSlug={examSlug}
         quizType="mock"
         scorePct={resultPct}

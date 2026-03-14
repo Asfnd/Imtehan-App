@@ -9,6 +9,7 @@ import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
+import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 
 interface MCQ {
   id: number
@@ -111,24 +112,17 @@ export default function QuizInterface({
   const userAnswer  = answers[currentIndex]
   const progress    = ((currentIndex + 1) / activeMCQs.length) * 100
 
-  // Trigger feedback popup every 7th quiz after results appear
+  // Trigger feedback popup with adaptive cadence after results appear
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!showResults || reviewMode) return
     let correct = 0
     activeMCQs.forEach((mcq, idx) => { if (answers[idx] === mcq.correct_answer) correct++ })
-    setResultPct(Math.round((correct / activeMCQs.length) * 100))
-    try {
-      if (typeof window !== 'undefined') {
-        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
-        localStorage.setItem('quiz_complete_count', String(count))
-        if (count % 7 === 0) {
-          const t = setTimeout(() => setShowFeedback(true), 1500)
-          return () => clearTimeout(t)
-        }
-      }
-    } catch {
-      // localStorage unavailable (private browsing) — skip feedback popup
+    const pct = activeMCQs.length > 0 ? Math.round((correct / activeMCQs.length) * 100) : 0
+    setResultPct(pct)
+    if (registerQuizCompletion(pct)) {
+      const t = setTimeout(() => setShowFeedback(true), 1500)
+      return () => clearTimeout(t)
     }
   }, [showResults, reviewMode])
 
@@ -332,6 +326,7 @@ export default function QuizInterface({
       <FeedbackPopup
         isOpen={showFeedback}
         onClose={() => setShowFeedback(false)}
+        onAction={recordFeedbackAction}
         examSlug={examSlug}
         quizType="quiz"
         scorePct={resultPct}

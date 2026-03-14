@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, BookOpen, CheckCircle2, XCircle, Lightbulb, Zap, Target, Flame } from 'lucide-react'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
+import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string; totalRows: number }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology',           color: 'from-green-600 to-emerald-700', totalRows: 5944 },
@@ -119,16 +120,13 @@ function DifficultyQuiz() {
 
   useEffect(() => {
     if (!showResults || reviewMode) return
-    try {
-      if (typeof window !== 'undefined') {
-        const count = parseInt(localStorage.getItem('quiz_complete_count') || '0', 10) + 1
-        localStorage.setItem('quiz_complete_count', String(count))
-        if (count % 7 === 0) {
-          const t = setTimeout(() => setShowFeedback(true), 1500)
-          return () => clearTimeout(t)
-        }
-      }
-    } catch { /* private browsing — skip */ }
+    const activeList = reviewMode ? reviewMCQs : mcqs
+    const correct = Object.entries(answers).filter(([i, a]) => a === activeList[+i]?.correct_answer).length
+    const pct = activeList.length > 0 ? Math.round((correct / activeList.length) * 100) : 0
+    if (registerQuizCompletion(pct)) {
+      const t = setTimeout(() => setShowFeedback(true), 1500)
+      return () => clearTimeout(t)
+    }
   }, [showResults, reviewMode])
 
   const handleAnswer = (opt: string) => {
@@ -231,6 +229,7 @@ function DifficultyQuiz() {
       <FeedbackPopup
         isOpen={showFeedback}
         onClose={() => setShowFeedback(false)}
+        onAction={recordFeedbackAction}
         examSlug="mdcat"
         quizType="quiz"
         scorePct={Math.round((score / (reviewMode ? reviewMCQs.length : mcqs.length)) * 100)}
