@@ -7,7 +7,7 @@ import {
   BookOpen, FileText, Target, Flame,
   TrendingUp, ChevronRight, Star, Sparkles,
   Zap, Trophy, Award, Clock, Shield, Layers, BarChart2,
-  Cpu, Activity, Crosshair, Brain, Flag, CheckCircle, Lock
+  Cpu, Activity, Crosshair, Brain, Flag, CheckCircle, Lock, X, ExternalLink
 } from 'lucide-react'
 import { getExamConfig, ExamConfig } from '@/lib/exam-configs'
 import { createClient } from '@/lib/supabase/client'
@@ -20,6 +20,15 @@ interface SubjectProgress {
   subject: string
   attempted: number
   accuracy: number
+}
+
+interface ExamGuideView {
+  authority: string
+  officialLink?: string
+  lastUpdated?: string
+  eligibility: string[]
+  important: string[]
+  helpful: string[]
 }
 
 const roundMCQs = (n: number) => {
@@ -39,6 +48,83 @@ const bankCount = (seed: string, base: number): string => {
     return k % 1 === 0 ? `${k}k+` : `${k.toFixed(1)}k+`
   }
   return `${rounded}+`
+}
+
+const CATEGORY_AUTHORITIES: Record<string, string> = {
+  ppsc: 'Punjab Public Service Commission (PPSC)',
+  fpsc: 'Federal Public Service Commission (FPSC)',
+  fia: 'Federal Investigation Agency (FIA)',
+  provincial: 'Relevant Provincial Public Service Commission',
+  police: 'Relevant Police Recruitment Authority',
+  military: 'Relevant Armed Forces Recruitment Body',
+  nts: 'National Testing Service (NTS)',
+  ots: 'Open Testing Service (OTS)',
+  etea: 'Educational Testing and Evaluation Agency (ETEA)',
+  mdcat: 'Relevant Medical Admissions Authority',
+}
+
+const CATEGORY_LINKS: Record<string, string> = {
+  ppsc: 'https://www.ppsc.gop.pk/',
+  fpsc: 'https://www.fpsc.gov.pk/',
+  fia: 'https://fia.gov.pk/',
+  nts: 'https://www.nts.org.pk/',
+  ots: 'https://ots.org.pk/',
+  etea: 'https://etea.edu.pk/',
+}
+
+function extractBSLevel(examName: string): number | null {
+  const match = examName.match(/BS[-\s]?(\d+)/i)
+  if (!match) return null
+  const parsed = parseInt(match[1], 10)
+  return Number.isNaN(parsed) ? null : parsed
+}
+
+function buildExamGuide(examSlug: string, config: ExamConfig): ExamGuideView {
+  const bsLevel = extractBSLevel(config.name)
+  const qualification = bsLevel === null
+    ? 'Qualification varies by post (typically Intermediate to Bachelor).'
+    : bsLevel >= 16
+      ? 'Typically Bachelor (14/16 years education) or higher.'
+      : bsLevel >= 11
+        ? 'Typically Intermediate (FA/FSc/ICS/ICom) or equivalent.'
+        : 'Typically Matric (or equivalent), sometimes with relevant license/experience.'
+
+  const ageRange = ['police', 'fia', 'military'].includes(config.category)
+    ? 'Commonly 18–30 years (can vary by post and quota relaxations).'
+    : 'Commonly 18–28 years (age relaxations may apply by policy).'
+
+  const sectionBreakdown = config.sections.map((s) => `${s.label} (${s.count})`).join(', ')
+  const defaultGuide: ExamGuideView = {
+    authority: CATEGORY_AUTHORITIES[config.category] ?? 'Relevant recruiting/testing authority',
+    officialLink: CATEGORY_LINKS[config.category],
+    eligibility: [
+      qualification,
+      ageRange,
+      'Domicile/quota requirements follow the official advertisement.',
+    ],
+    important: [
+      `Paper pattern: ${config.totalMCQs} MCQs in ${config.duration} minutes.`,
+      `Passing threshold in app: ${config.passingPercentage}%.`,
+      `Negative marking: ${config.negativeMarking ? 'Yes' : 'No'}.`,
+      `Core subjects: ${sectionBreakdown}.`,
+    ],
+    helpful: [
+      'Start with subject-wise practice, then move to timed mocks.',
+      'Prioritize weak sections from analytics before attempting full mocks.',
+      'Always verify age/qualification rules from the latest official ad before applying.',
+    ],
+  }
+
+  if (!config.guide) return defaultGuide
+
+  return {
+    authority: config.guide.authority ?? defaultGuide.authority,
+    officialLink: config.guide.officialLink ?? defaultGuide.officialLink,
+    lastUpdated: config.guide.lastUpdated,
+    eligibility: config.guide.eligibility.length > 0 ? config.guide.eligibility : defaultGuide.eligibility,
+    important: config.guide.important.length > 0 ? config.guide.important : defaultGuide.important,
+    helpful: config.guide.helpful.length > 0 ? config.guide.helpful : defaultGuide.helpful,
+  }
 }
 
 export default function ExamDashboardPage() {
@@ -61,6 +147,7 @@ function ExamDashboard() {
   const [loading, setLoading] = useState(true)
   const [showSignIn, setShowSignIn] = useState(false)
   const [showPremium, setShowPremium] = useState(false)
+  const [showGuide, setShowGuide] = useState(false)
   const [pendingMockId, setPendingMockId] = useState<number | null>(null)
   const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([])
   const [subjectsWithCounts, setSubjectsWithCounts] = useState<any[]>([])
@@ -84,6 +171,7 @@ function ExamDashboard() {
   }
 
   const isPremium = user?.user_metadata?.is_premium || false
+  const examGuide = buildExamGuide(examSlug, config)
 
   const handleMockClick = (mockId: number) => {
     if (mockId === 1 || isPremium) {
@@ -189,7 +277,12 @@ function ExamDashboard() {
   return (
     <>
     <div className="min-h-screen bg-gray-50">
-      <NavigationBar />
+      <NavigationBar
+        showGuideButton={true}
+        onGuideClick={() => setShowGuide(true)}
+        guideButtonLabel="Test Guide"
+        guideButtonTitle={`Open guide for ${config.name}`}
+      />
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Analytics Bar — handles sign-in CTA, stats, today's focus */}
@@ -366,6 +459,13 @@ function ExamDashboard() {
         onClose={() => setPendingMockId(null)}
       />
     )}
+    {showGuide && (
+      <TestGuideModal
+        examName={config.name}
+        guide={examGuide}
+        onClose={() => setShowGuide(false)}
+      />
+    )}
     </>
   )
 }
@@ -499,6 +599,90 @@ function MockPatternPopup({
             <button onClick={onConfirm} className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors">
               Start Mock {mockId}
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TestGuideModal({
+  examName,
+  guide,
+  onClose,
+}: {
+  examName: string
+  guide: ExamGuideView
+  onClose: () => void
+}) {
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-slate-800 to-blue-900 text-white flex items-start justify-between gap-3">
+          <div>
+            <p className="text-[11px] uppercase tracking-wider text-blue-200 font-semibold">Test Guide</p>
+            <h3 className="text-lg font-bold">{examName}</h3>
+            <p className="text-xs text-blue-200 mt-0.5">{guide.authority}</p>
+          </div>
+          <button onClick={onClose} className="text-white/70 hover:text-white">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="p-5 overflow-y-auto max-h-[calc(85vh-84px)] space-y-5">
+          <section>
+            <h4 className="text-sm font-semibold text-gray-900 mb-2">Eligibility (Typical)</h4>
+            <ul className="space-y-1.5">
+              {guide.eligibility.map((item) => (
+                <li key={item} className="text-sm text-gray-700 flex gap-2">
+                  <span className="text-blue-500 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-sm font-semibold text-gray-900 mb-2">Important Details</h4>
+            <ul className="space-y-1.5">
+              {guide.important.map((item) => (
+                <li key={item} className="text-sm text-gray-700 flex gap-2">
+                  <span className="text-blue-500 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-sm font-semibold text-gray-900 mb-2">Helpful Prep Notes</h4>
+            <ul className="space-y-1.5">
+              {guide.helpful.map((item) => (
+                <li key={item} className="text-sm text-gray-700 flex gap-2">
+                  <span className="text-blue-500 mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs text-amber-800">
+            Always verify final eligibility, age relaxations, quotas, and documents from the latest official advertisement.
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            {guide.officialLink && (
+              <a
+                href={guide.officialLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border border-blue-200 text-blue-700 hover:bg-blue-50"
+              >
+                Official Source
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
+            {guide.lastUpdated && <span className="text-xs text-gray-500">Last updated: {guide.lastUpdated}</span>}
           </div>
         </div>
       </div>

@@ -56,11 +56,24 @@ const availableCategories = CATEGORY_ORDER.filter((cat) => examsByCategory[cat] 
 interface NavigationBarProps {
   showEligibilityButton?: boolean
   onEligibilityClick?: () => void
+  showGuideButton?: boolean
+  onGuideClick?: () => void
+  guideButtonLabel?: string
+  guideButtonTitle?: string
   showCenterNav?: boolean
   centerContent?: React.ReactNode
 }
 
-export default function NavigationBar({ showEligibilityButton = false, onEligibilityClick, showCenterNav = true, centerContent }: NavigationBarProps) {
+export default function NavigationBar({
+  showEligibilityButton = false,
+  onEligibilityClick,
+  showGuideButton = false,
+  onGuideClick,
+  guideButtonLabel = 'Test Guide',
+  guideButtonTitle = 'Open test guide',
+  showCenterNav = true,
+  centerContent,
+}: NavigationBarProps) {
   const router = useRouter()
   const { user, loading } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -261,6 +274,20 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
             </button>
           )}
 
+          {/* Test Guide Button (dynamic exam pages) */}
+          {showGuideButton && (
+            <button
+              onClick={onGuideClick}
+              className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-background border hover:bg-muted rounded-lg transition-colors duration-200 font-medium text-sm whitespace-nowrap"
+              title={guideButtonTitle}
+            >
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
+              </svg>
+              <span>{guideButtonLabel}</span>
+            </button>
+          )}
+
           {/* Auth Button/Profile */}
           {loading ? (
             <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
@@ -453,6 +480,24 @@ export default function NavigationBar({ showEligibilityButton = false, onEligibi
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Check Eligibility</span>
+                </button>
+              </div>
+            )}
+
+            {/* Dynamic Guide Button */}
+            {showGuideButton && (
+              <div className="space-y-2 pb-3 border-b border-gray-100">
+                <button
+                  onClick={() => {
+                    onGuideClick?.()
+                    setMobileMenuOpen(false)
+                  }}
+                  className="w-full flex items-center gap-2 px-4 py-3 text-[15px] font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
+                  </svg>
+                  <span>{guideButtonLabel}</span>
                 </button>
               </div>
             )}

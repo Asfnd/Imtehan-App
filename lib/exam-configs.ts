@@ -18,6 +18,14 @@ export interface ExamConfig {
   mockOnly?: boolean
   sourceExam?: string
   sourceExamLabel?: string
+  guide?: {
+    authority?: string
+    officialLink?: string
+    lastUpdated?: string
+    eligibility: string[]
+    important: string[]
+    helpful: string[]
+  }
 }
 
 export const EXAM_CONFIGS: Record<string, ExamConfig> = {
