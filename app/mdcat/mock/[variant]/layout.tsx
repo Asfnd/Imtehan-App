@@ -41,6 +41,38 @@ const VARIANT_META: Record<string, {
       'AKU MBBS entry test',
     ],
   },
+  uhs: {
+    name: 'UHS Punjab MDCAT',
+    description: 'Practice full UHS Punjab MDCAT mock tests — 180 MCQs covering Biology, Chemistry, Physics, English & Logical Reasoning for MBBS/BDS admissions in Punjab.',
+    keywords: [
+      'UHS MDCAT mock test', 'Punjab MDCAT practice', 'UHS MBBS BDS entry test',
+      'UHS 180 MCQs', 'Punjab medical colleges entry test', 'UHS medical admission test',
+    ],
+  },
+  szabmu: {
+    name: 'SZABMU MDCAT',
+    description: 'Practice full SZABMU MDCAT mock tests — 180 MCQs with complete subject distribution and timed simulation.',
+    keywords: [
+      'SZABMU MDCAT mock test', 'SZABMU entry test practice', 'federal MDCAT mock',
+      'SZABMU MBBS BDS test', 'MDCAT 180 MCQs practice',
+    ],
+  },
+  siba: {
+    name: 'SIBA MDCAT',
+    description: 'Practice full SIBA MDCAT mock tests — 180 MCQs covering Biology, Chemistry, Physics, English & Logical Reasoning for Sindh admissions.',
+    keywords: [
+      'SIBA MDCAT mock test', 'Sukkur IBA MDCAT practice', 'Sindh MDCAT mock',
+      'SIBA MBBS BDS entry test', 'MDCAT 180 MCQs',
+    ],
+  },
+  bumhs: {
+    name: 'BUMHS MDCAT',
+    description: 'Practice full BUMHS MDCAT mock tests — 180 MCQs with complete timed simulations for medical and dental admissions.',
+    keywords: [
+      'BUMHS MDCAT mock test', 'Bolan University MDCAT', 'Balochistan MDCAT practice',
+      'BUMHS MBBS BDS entry test', 'MDCAT 180 MCQs',
+    ],
+  },
 }
 
 export async function generateMetadata({

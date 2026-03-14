@@ -9,6 +9,10 @@ export const metadata: Metadata = {
 // Must stay in sync with maxMocks values in MDCATMockTest.tsx
 const MAX_MOCKS: Record<string, number> = {
   pmc:        73,
+  uhs:        73,
+  szabmu:     73,
+  siba:       73,
+  bumhs:      73,
   etea:       46,
   nums:       61,
   aku:        46,

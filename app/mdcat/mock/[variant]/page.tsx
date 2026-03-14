@@ -41,6 +41,34 @@ const VARIANT_META: Record<string, {
     accentBorder: 'border-rose-100', accentHover: 'hover:border-rose-300 hover:bg-rose-50',
     accentBg: 'bg-slate-50', activeBatchBg: 'bg-rose-600', playHover: 'group-hover:text-rose-600',
   },
+  uhs: {
+    name: 'UHS Punjab MDCAT', badge: 'Punjab', desc: 'University of Health Sciences',
+    total: 180, duration: '3 hrs', passMark: '65%', negative: false, maxMocks: 73,
+    headerBg: 'from-blue-700 to-indigo-900', badgeBg: 'bg-blue-100 text-blue-700',
+    accentBorder: 'border-blue-100', accentHover: 'hover:border-blue-300 hover:bg-blue-50',
+    accentBg: 'bg-slate-50', activeBatchBg: 'bg-blue-600', playHover: 'group-hover:text-blue-600',
+  },
+  szabmu: {
+    name: 'SZABMU MDCAT', badge: 'Federal', desc: 'Shaheed Zulfiqar Ali Bhutto Medical University',
+    total: 180, duration: '3 hrs', passMark: '65%', negative: false, maxMocks: 73,
+    headerBg: 'from-indigo-700 to-violet-900', badgeBg: 'bg-indigo-100 text-indigo-700',
+    accentBorder: 'border-indigo-100', accentHover: 'hover:border-indigo-300 hover:bg-indigo-50',
+    accentBg: 'bg-slate-50', activeBatchBg: 'bg-indigo-600', playHover: 'group-hover:text-indigo-600',
+  },
+  siba: {
+    name: 'SIBA MDCAT', badge: 'Sindh', desc: 'Sukkur IBA Testing Services',
+    total: 180, duration: '3 hrs', passMark: '65%', negative: false, maxMocks: 73,
+    headerBg: 'from-cyan-700 to-teal-900', badgeBg: 'bg-cyan-100 text-cyan-700',
+    accentBorder: 'border-cyan-100', accentHover: 'hover:border-cyan-300 hover:bg-cyan-50',
+    accentBg: 'bg-slate-50', activeBatchBg: 'bg-cyan-600', playHover: 'group-hover:text-cyan-600',
+  },
+  bumhs: {
+    name: 'BUMHS MDCAT', badge: 'Balochistan', desc: 'Bolan University of Medical & Health Sciences',
+    total: 180, duration: '3 hrs', passMark: '65%', negative: false, maxMocks: 73,
+    headerBg: 'from-purple-700 to-fuchsia-900', badgeBg: 'bg-purple-100 text-purple-700',
+    accentBorder: 'border-purple-100', accentHover: 'hover:border-purple-300 hover:bg-purple-50',
+    accentBg: 'bg-slate-50', activeBatchBg: 'bg-purple-600', playHover: 'group-hover:text-purple-600',
+  },
   // Legacy alias
   provincial: {
     name: 'PMC National MDCAT', badge: 'All Provinces', desc: 'UHS · SIBA · BUMHS · SZABMU',

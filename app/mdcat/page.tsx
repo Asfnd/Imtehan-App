@@ -85,6 +85,78 @@ const EXAM_VARIANTS = [
       { label: 'Analytical', count: 20, pct: 20 },
     ],
   },
+  {
+    variant: 'uhs',
+    name: 'UHS Punjab MDCAT',
+    badge: 'Punjab',
+    desc: 'University of Health Sciences · Public & Private Colleges',
+    total: 180,
+    duration: '3 hrs',
+    passMark: '65%',
+    negative: false,
+    maxMocks: 73,
+    distribution: [
+      { label: 'Biology', count: 81, pct: 45 },
+      { label: 'Chemistry', count: 45, pct: 25 },
+      { label: 'Physics', count: 36, pct: 20 },
+      { label: 'English', count: 9, pct: 5 },
+      { label: 'LR', count: 9, pct: 5 },
+    ],
+  },
+  {
+    variant: 'szabmu',
+    name: 'SZABMU MDCAT',
+    badge: 'Federal',
+    desc: 'Shaheed Zulfiqar Ali Bhutto Medical University',
+    total: 180,
+    duration: '3 hrs',
+    passMark: '65%',
+    negative: false,
+    maxMocks: 73,
+    distribution: [
+      { label: 'Biology', count: 81, pct: 45 },
+      { label: 'Chemistry', count: 45, pct: 25 },
+      { label: 'Physics', count: 36, pct: 20 },
+      { label: 'English', count: 9, pct: 5 },
+      { label: 'LR', count: 9, pct: 5 },
+    ],
+  },
+  {
+    variant: 'siba',
+    name: 'SIBA MDCAT',
+    badge: 'Sindh',
+    desc: 'Sukkur IBA Testing Services',
+    total: 180,
+    duration: '3 hrs',
+    passMark: '65%',
+    negative: false,
+    maxMocks: 73,
+    distribution: [
+      { label: 'Biology', count: 81, pct: 45 },
+      { label: 'Chemistry', count: 45, pct: 25 },
+      { label: 'Physics', count: 36, pct: 20 },
+      { label: 'English', count: 9, pct: 5 },
+      { label: 'LR', count: 9, pct: 5 },
+    ],
+  },
+  {
+    variant: 'bumhs',
+    name: 'BUMHS MDCAT',
+    badge: 'Balochistan',
+    desc: 'Bolan University of Medical & Health Sciences',
+    total: 180,
+    duration: '3 hrs',
+    passMark: '65%',
+    negative: false,
+    maxMocks: 73,
+    distribution: [
+      { label: 'Biology', count: 81, pct: 45 },
+      { label: 'Chemistry', count: 45, pct: 25 },
+      { label: 'Physics', count: 36, pct: 20 },
+      { label: 'English', count: 9, pct: 5 },
+      { label: 'LR', count: 9, pct: 5 },
+    ],
+  },
 ]
 
 const BAR_COLORS = ['bg-blue-500', 'bg-blue-300', 'bg-blue-700', 'bg-blue-400', 'bg-blue-200']
@@ -143,7 +215,7 @@ export default function MDCATPage() {
           <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Full Mock Tests</h2>
 
           {/* Exam tabs */}
-          <div className="grid grid-cols-4 gap-2 mb-4 bg-white border border-gray-200 rounded-xl p-1.5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 mb-4 bg-white border border-gray-200 rounded-xl p-1.5">
             {EXAM_VARIANTS.map(e => (
               <button
                 key={e.variant}
