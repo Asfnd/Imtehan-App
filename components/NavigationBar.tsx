@@ -15,6 +15,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   national:   { label: 'CSS / PMS',    href: '/css' },
   ppsc:       { label: 'PPSC',         href: '/exams?category=ppsc' },
   fpsc:       { label: 'FPSC',         href: '/exams?category=fpsc' },
+  fia:        { label: 'FIA',          href: '/exams?category=fia' },
   provincial: { label: 'Provincial',   href: '/exams?category=provincial' },
   police:     { label: 'Police',       href: '/exams?category=police' },
   military:   { label: 'Military',     href: '/exams?category=military' },
@@ -39,7 +40,7 @@ const ENGINEERING_NAV = [
 ]
 
 const CATEGORY_ORDER = [
-  'engineering', 'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
+  'engineering', 'national', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]

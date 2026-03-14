@@ -996,6 +996,230 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
+  // FIA — Federal Investigation Agency
+  // ============================================================
+
+  'fia-sub-inspector': {
+    name: 'FIA Sub-Inspector (BS-14)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 100,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 15 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 10 },
+    ]
+  },
+
+  'fia-assistant-sub-inspector': {
+    name: 'FIA Assistant Sub-Inspector (BS-09)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 10 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 15 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 10 },
+    ]
+  },
+
+  'fia-constable': {
+    name: 'FIA Constable (BS-05)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 40,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 30 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 25 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+    ]
+  },
+
+  'fia-constable-driver': {
+    name: 'FIA Constable Driver (BS-05)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 40,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 15 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'everyday-science',  label: 'Everyday Science',   dbTable: 'everyday_science',  count: 10 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 5  },
+    ]
+  },
+
+  'fia-assistant': {
+    name: 'FIA Assistant (BS-15)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 100,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 15 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 10 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+    ]
+  },
+
+  'fia-steno-typist': {
+    name: 'FIA Steno-Typist (BS-14)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 35 },
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 5  },
+    ]
+  },
+
+  'fia-technical-assistant': {
+    name: 'FIA Technical Assistant (BS-14)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 100,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 30 },
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 15 },
+    ]
+  },
+
+  'fia-data-entry-operator': {
+    name: 'FIA Data Entry Operator (BS-14)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 35 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 25 },
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 15 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 10 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 15 },
+    ]
+  },
+
+  'fia-udc': {
+    name: 'FIA Upper Division Clerk (BS-13)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 20 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 5  },
+    ]
+  },
+
+  'fia-ldc': {
+    name: 'FIA Lower Division Clerk (BS-11)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 40,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'everyday-science',  label: 'Everyday Science',   dbTable: 'everyday_science',  count: 10 },
+    ]
+  },
+
+  'fia-head-clerk': {
+    name: 'FIA Head Clerk (BS-10)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 40,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 20 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 10 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 5  },
+    ]
+  },
+
+  'fia-telephone-operator': {
+    name: 'FIA Telephone Operator (BS-07)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 40,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 30 },
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 15 },
+      { slug: 'computer',          label: 'Computer Science',   dbTable: 'basic_computer',    count: 10 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 10 },
+    ]
+  },
+
+  'fia-staff-car-driver': {
+    name: 'FIA Staff Car Driver (BS-05)',
+    category: 'fia',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 40,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 15 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'everyday-science',  label: 'Everyday Science',   dbTable: 'everyday_science',  count: 10 },
+      { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 5  },
+    ]
+  },
+
+  // ============================================================
   // PROVINCIAL — KPPSC & SPSC Specific Posts
   // ============================================================
 

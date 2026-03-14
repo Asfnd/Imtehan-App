@@ -12,6 +12,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
   national:    { label: 'CSS / PMS',    shortLabel: 'CSS / PMS',    description: 'Central Superior Services & Provincial Management Services' },
   ppsc:       { label: 'PPSC',         shortLabel: 'PPSC',         description: 'Punjab Public Service Commission — all posts' },
   fpsc:       { label: 'FPSC',         shortLabel: 'FPSC',         description: 'Federal Public Service Commission — all posts' },
+  fia:        { label: 'FIA',          shortLabel: 'FIA',          description: 'Federal Investigation Agency — recruitment tests by post' },
   provincial: { label: 'Provincial',   shortLabel: 'Provincial',   description: 'PMS Punjab, Sindh, KPK — KPPSC, SPSC, BPSC, AJKPSC, GBPSC' },
   police:     { label: 'Police',       shortLabel: 'Police',       description: 'Punjab, Sindh, KPK & Islamabad Police — Constable, ASI & SI posts' },
   military:   { label: 'Military',     shortLabel: 'Military',     description: 'Pak Army, Navy, PAF, Rangers, FC, ANF & Coast Guard' },
@@ -27,7 +28,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
 }
 
 const CATEGORY_ORDER = [
-  'medical', 'engineering', 'national', 'ppsc', 'fpsc', 'provincial', 'police', 'military',
+  'medical', 'engineering', 'national', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]
