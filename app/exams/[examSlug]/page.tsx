@@ -498,7 +498,7 @@ const EXAM_NOTES: Record<string, { negative: boolean; passMark: string; note?: s
   'net-engineering':    { negative: false, passMark: '50%', note: 'Used by NUST, PAF-KIET & other NTS-based unis' },
   'nust':               { negative: false, passMark: '50%', note: 'NUST NET — 200 MCQs, 3 hrs (incl. intelligence)' },
   'giki-pieas':         { negative: false, passMark: '60%', note: 'GIKI & PIEAS joint entry test' },
-  'lums-engineering':   { negative: false, passMark: '60%', note: 'SAT-style test; Math-heavy pattern' },
+  'lums-engineering':   { negative: false, passMark: '60%', note: 'LCAT-style test; Math-heavy pattern' },
   'comsats-engineering':{ negative: false, passMark: '50%', note: 'COMSATS own admission test' },
   'fast-nuces':         { negative: false, passMark: '50%', note: 'FAST NU own test — heavy on Math & IQ' },
   'paf-initial':        { negative: false, passMark: '50%', note: 'PAF commissioned officer initial screening' },

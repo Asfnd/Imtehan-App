@@ -3597,7 +3597,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'lums-engineering': {
-    name: 'LUMS SAT Engineering',
+    name: 'LUMS LCAT Engineering',
     category: 'engineering',
     totalMCQs: 5215,
     duration: 120,
@@ -3663,7 +3663,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     mockOnly: true,
     sourceExam: 'lums-engineering',
-    sourceExamLabel: 'LUMS SAT',
+    sourceExamLabel: 'LUMS LCAT',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 30 },
@@ -3698,7 +3698,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     mockOnly: true,
     sourceExam: 'lums-engineering',
-    sourceExamLabel: 'LUMS SAT',
+    sourceExamLabel: 'LUMS LCAT',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 20 },
@@ -3770,7 +3770,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     mockOnly: true,
     sourceExam: 'lums-engineering',
-    sourceExamLabel: 'LUMS SAT',
+    sourceExamLabel: 'LUMS LCAT',
     sections: [
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 40 },
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
