@@ -495,9 +495,10 @@ const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-
 // Official exam notes per exam slug
 const EXAM_NOTES: Record<string, { negative: boolean; passMark: string; note?: string }> = {
   'ecat':               { negative: false, passMark: '50%', note: 'UET Lahore + affiliated engineering colleges' },
-  'net-engineering':    { negative: false, passMark: '50%', note: 'Used by NUST, PAF-KIET & other NTS-based unis' },
+  'net-engineering':    { negative: false, passMark: '50%', note: 'NUST NET only (separate from NTS tests)' },
   'nust':               { negative: false, passMark: '50%', note: 'NUST NET — 200 MCQs, 3 hrs (incl. intelligence)' },
-  'giki-pieas':         { negative: false, passMark: '60%', note: 'GIKI & PIEAS joint entry test' },
+  'giki-entry':         { negative: false, passMark: '60%', note: 'GIKI undergraduate entry test pattern' },
+  'pieas-entry':        { negative: false, passMark: '60%', note: 'PIEAS undergraduate entry test pattern' },
   'lums-engineering':   { negative: false, passMark: '60%', note: 'LCAT-style test; Math-heavy pattern' },
   'comsats-engineering':{ negative: false, passMark: '50%', note: 'COMSATS own admission test' },
   'fast-nuces':         { negative: false, passMark: '50%', note: 'FAST NU own test — heavy on Math & IQ' },

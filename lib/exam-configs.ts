@@ -3555,7 +3555,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    pastPapersExam: 'NET',
+    pastPapersExam: 'ECAT',
     sections: [
       { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',          count: 30 },
       { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics',      count: 30 },
@@ -3565,13 +3565,13 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'net-engineering': {
-    name: 'NET (NTS Engineering Test)',
+    name: 'NUST NET Engineering Test',
     category: 'engineering',
     totalMCQs: 5647,
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    pastPapersExam: 'ECAT',
+    pastPapersExam: 'NET',
     sections: [
       { slug: 'physics',          label: 'Physics',           dbTable: 'engineering_physics',          count: 25 },
       { slug: 'mathematics',      label: 'Mathematics',        dbTable: 'engineering_mathematics',      count: 25 },
@@ -3580,14 +3580,30 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
-  'giki-pieas': {
-    name: 'GIKI / PIEAS Entry Test',
+  'giki-entry': {
+    name: 'GIKI Entry Test',
     category: 'engineering',
     totalMCQs: 5001,
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    pastPapersExam: 'LUMS_SAT',
+    pastPapersExam: 'GIKI_PIEAS',
+    sections: [
+      { slug: 'physics',       label: 'Physics',       dbTable: 'engineering_physics',       count: 30 },
+      { slug: 'mathematics',   label: 'Mathematics',    dbTable: 'engineering_mathematics',   count: 30 },
+      { slug: 'chemistry',     label: 'Chemistry',      dbTable: 'engineering_chemistry',     count: 30 },
+      { slug: 'intelligence',  label: 'Intelligence',   dbTable: 'engineering_intelligence',  count: 10 },
+    ]
+  },
+
+  'pieas-entry': {
+    name: 'PIEAS Entry Test',
+    category: 'engineering',
+    totalMCQs: 5001,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    pastPapersExam: 'GIKI_PIEAS',
     sections: [
       { slug: 'physics',       label: 'Physics',       dbTable: 'engineering_physics',       count: 30 },
       { slug: 'mathematics',   label: 'Mathematics',    dbTable: 'engineering_mathematics',   count: 30 },
@@ -3597,13 +3613,13 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'lums-engineering': {
-    name: 'LUMS LCAT Engineering',
+    name: 'LUMS LCAT',
     category: 'engineering',
     totalMCQs: 5215,
     duration: 120,
     passingPercentage: 50,
     negativeMarking: false,
-    pastPapersExam: 'GIKI_PIEAS',
+    pastPapersExam: 'LUMS_SAT',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',    dbTable: 'engineering_mathematics',      count: 40 },
       { slug: 'physics',       label: 'Physics',        dbTable: 'engineering_physics',          count: 30 },
@@ -3625,8 +3641,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'net-engineering',
-    sourceExamLabel: 'NET',
     sections: [
       { slug: 'physics',          label: 'Physics',         dbTable: 'engineering_physics',          count: 30 },
       { slug: 'mathematics',      label: 'Mathematics',      dbTable: 'engineering_mathematics',      count: 30 },
@@ -3643,8 +3657,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'ecat',
-    sourceExamLabel: 'ECAT',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',      count: 30 },
       { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',          count: 20 },
@@ -3662,8 +3674,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'lums-engineering',
-    sourceExamLabel: 'LUMS LCAT',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 30 },
@@ -3679,8 +3689,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'net-engineering',
-    sourceExamLabel: 'NET',
     sections: [
       { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',      count: 20 },
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
@@ -3697,8 +3705,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'lums-engineering',
-    sourceExamLabel: 'LUMS LCAT',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 20 },
@@ -3714,8 +3720,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'ecat',
-    sourceExamLabel: 'ECAT',
     sections: [
       { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 30 },
       { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics', count: 30 },
@@ -3732,8 +3736,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'ecat',
-    sourceExamLabel: 'ECAT',
     sections: [
       { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 25 },
       { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics', count: 25 },
@@ -3750,8 +3752,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'giki-pieas',
-    sourceExamLabel: 'GIKI / PIEAS',
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 30 },
       { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',      count: 30 },
@@ -3769,8 +3769,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     mockOnly: true,
-    sourceExam: 'lums-engineering',
-    sourceExamLabel: 'LUMS LCAT',
     sections: [
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 40 },
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
