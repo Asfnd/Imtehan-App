@@ -36,7 +36,6 @@ const ENGINEERING_NAV = [
   { key: 'giki-entry',       label: 'GIKI',        href: '/exams?category=engineering&exam=giki-entry' },
   { key: 'pieas-entry',      label: 'PIEAS',       href: '/exams?category=engineering&exam=pieas-entry' },
   { key: 'lums-engineering', label: 'LUMS LCAT',    href: '/exams?category=engineering&exam=lums-engineering' },
-  { key: 'nust',             label: 'NUST',         href: '/exams?category=engineering&exam=nust' },
   { key: 'comsats',          label: 'COMSATS',      href: '/exams?category=engineering&exam=comsats-engineering' },
 ]
 

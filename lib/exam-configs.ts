@@ -3633,22 +3633,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   // ENGINEERING — Secondary Exams (mock tests only)
   // ============================================================
 
-  'nust': {
-    name: 'NUST Entry Test',
-    category: 'engineering',
-    totalMCQs: 5647,
-    duration: 90,
-    passingPercentage: 50,
-    negativeMarking: false,
-    mockOnly: true,
-    sections: [
-      { slug: 'physics',          label: 'Physics',         dbTable: 'engineering_physics',          count: 30 },
-      { slug: 'mathematics',      label: 'Mathematics',      dbTable: 'engineering_mathematics',      count: 30 },
-      { slug: 'chemistry',        label: 'Chemistry',        dbTable: 'engineering_chemistry',        count: 30 },
-      { slug: 'computer-science', label: 'Computer Science', dbTable: 'engineering_computer_science', count: 10 },
-    ]
-  },
-
   'comsats-engineering': {
     name: 'COMSATS Entry Test',
     category: 'engineering',
@@ -3780,8 +3764,13 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
 
 export type ExamSlug = keyof typeof EXAM_CONFIGS
 
+const EXAM_ALIASES: Record<string, ExamSlug> = {
+  nust: 'net-engineering',
+}
+
 export function getExamConfig(slug: string): ExamConfig | null {
-  return EXAM_CONFIGS[slug] || null
+  const resolvedSlug = (EXAM_ALIASES[slug] ?? slug) as ExamSlug
+  return EXAM_CONFIGS[resolvedSlug] || null
 }
 
 export function getExamsByCategory(category: string): Array<{ slug: string; config: ExamConfig }> {

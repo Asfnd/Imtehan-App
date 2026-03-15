@@ -496,7 +496,6 @@ const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-
 const EXAM_NOTES: Record<string, { negative: boolean; passMark: string; note?: string }> = {
   'ecat':               { negative: false, passMark: '50%', note: 'UET Lahore + affiliated engineering colleges' },
   'net-engineering':    { negative: false, passMark: '50%', note: 'NUST NET only (separate from NTS tests)' },
-  'nust':               { negative: false, passMark: '50%', note: 'NUST NET — 200 MCQs, 3 hrs (incl. intelligence)' },
   'giki-entry':         { negative: false, passMark: '60%', note: 'GIKI undergraduate entry test pattern' },
   'pieas-entry':        { negative: false, passMark: '60%', note: 'PIEAS undergraduate entry test pattern' },
   'lums-engineering':   { negative: false, passMark: '60%', note: 'LCAT-style test; Math-heavy pattern' },

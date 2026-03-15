@@ -21,7 +21,6 @@ const ENGINEERING_CATEGORIES = [
   { key: 'giki-entry',       label: 'GIKI',          href: '/exams?category=engineering&exam=giki-entry' },
   { key: 'pieas-entry',      label: 'PIEAS',         href: '/exams?category=engineering&exam=pieas-entry' },
   { key: 'lums-engineering', label: 'LUMS LCAT',      href: '/exams?category=engineering&exam=lums-engineering' },
-  { key: 'nust',             label: 'NUST',           href: '/exams?category=engineering&exam=nust' },
   { key: 'comsats',          label: 'COMSATS',        href: '/exams?category=engineering&exam=comsats-engineering' },
   { key: 'fast',             label: 'FAST-NUCES',     href: '/exams?category=engineering&exam=fast-nuces' },
   { key: 'paf',              label: 'PAF Initial',    href: '/exams?category=engineering&exam=paf-initial' },
