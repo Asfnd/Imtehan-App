@@ -11,38 +11,37 @@ import NavigationBar from "@/components/NavigationBar"
 import { CSSExamCountdown } from "@/components/CSSExamCountdown"
 
 const MEDICAL_CATEGORIES = [
-  { key: 'mdcat', label: 'MDCAT',          href: '/mdcat' },
-  { key: 'fsc',   label: 'FSc Pre-Medical', href: '/fsc'   },
-]
+  { key: 'mdcat', label: 'MDCAT', href: '/mdcat' },
+  { key: 'fsc', label: 'FSc Pre-Medical', href: '/fsc' },
+];
 
 const ENGINEERING_CATEGORIES = [
-  { key: 'ecat',             label: 'ECAT',          href: '/exams?category=engineering&exam=ecat' },
-  { key: 'net-engineering',  label: 'NUST NET',      href: '/exams?category=engineering&exam=net-engineering' },
-  { key: 'giki-entry',       label: 'GIKI',          href: '/exams?category=engineering&exam=giki-entry' },
-  { key: 'pieas-entry',      label: 'PIEAS',         href: '/exams?category=engineering&exam=pieas-entry' },
-  { key: 'lums-engineering', label: 'LUMS LCAT',      href: '/exams?category=engineering&exam=lums-engineering' },
-  { key: 'comsats',          label: 'COMSATS',        href: '/exams?category=engineering&exam=comsats-engineering' },
-  { key: 'fast',             label: 'FAST-NUCES',     href: '/exams?category=engineering&exam=fast-nuces' },
-  { key: 'paf',              label: 'PAF Initial',    href: '/exams?category=engineering&exam=paf-initial' },
-]
+  { key: 'ecat', label: 'ECAT', href: '/exams?category=engineering&exam=ecat' },
+  { key: 'net-engineering', label: 'NUST NET', href: '/exams?category=engineering&exam=net-engineering' },
+  { key: 'giki-entry', label: 'GIKI', href: '/exams?category=engineering&exam=giki-entry' },
+  { key: 'pieas-entry', label: 'PIEAS', href: '/exams?category=engineering&exam=pieas-entry' },
+  { key: 'lums-engineering', label: 'LUMS LCAT', href: '/exams?category=engineering&exam=lums-engineering' },
+  { key: 'comsats', label: 'COMSATS', href: '/exams?category=engineering&exam=comsats-engineering' },
+];
 
 const COMPETITIVE_CATEGORIES = [
-  { key: 'national',   label: 'CSS / PMS',     href: '/css' },
-  { key: 'ppsc',       label: 'PPSC',           href: '/exams?category=ppsc' },
-  { key: 'fpsc',       label: 'FPSC',           href: '/exams?category=fpsc' },
-  { key: 'provincial', label: 'Provincial',     href: '/exams?category=provincial' },
-  { key: 'police',     label: 'Police',         href: '/exams?category=police' },
-  { key: 'military',   label: 'Military',       href: '/exams?category=military' },
-  { key: 'nts',        label: 'NTS',            href: '/exams?category=nts' },
-  { key: 'ots',        label: 'OTS',            href: '/exams?category=ots' },
-  { key: 'etea',       label: 'ETEA',           href: '/exams?category=etea' },
-  { key: 'railways',   label: 'Railways',       href: '/exams?category=railways' },
-  { key: 'banks',      label: 'Banks',          href: '/exams?category=banks' },
-  { key: 'judiciary',  label: 'Judiciary',      href: '/exams?category=judiciary' },
-  { key: 'devauth',    label: 'Dev Authority',  href: '/exams?category=devauth' },
-  { key: 'rescue',     label: 'Rescue 1122',    href: '/exams?category=rescue' },
-  { key: 'revenue',    label: 'Revenue Auth',   href: '/exams?category=revenue' },
-]
+  { key: 'national', label: 'CSS / PMS', href: '/css' },
+  { key: 'ppsc', label: 'PPSC', href: '/exams?category=ppsc' },
+  { key: 'fpsc', label: 'FPSC', href: '/exams?category=fpsc' },
+  { key: 'fia', label: 'FIA', href: '/exams?category=fia' },
+  { key: 'provincial', label: 'Provincial', href: '/exams?category=provincial' },
+  { key: 'police', label: 'Police', href: '/exams?category=police' },
+  { key: 'military', label: 'Military', href: '/exams?category=military' },
+  { key: 'nts', label: 'NTS', href: '/exams?category=nts' },
+  { key: 'ots', label: 'OTS', href: '/exams?category=ots' },
+  { key: 'etea', label: 'ETEA', href: '/exams?category=etea' },
+  { key: 'railways', label: 'Railways', href: '/exams?category=railways' },
+  { key: 'banks', label: 'Banks', href: '/exams?category=banks' },
+  { key: 'judiciary', label: 'Judiciary', href: '/exams?category=judiciary' },
+  { key: 'devauth', label: 'Dev Authority', href: '/exams?category=devauth' },
+  { key: 'rescue', label: 'Rescue 1122', href: '/exams?category=rescue' },
+  { key: 'revenue', label: 'Revenue Auth', href: '/exams?category=revenue' },
+];
 
 function ExamPicker() {
   const router = useRouter()
