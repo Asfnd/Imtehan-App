@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 /**
  * Lightning-fast middleware with minimal overhead
@@ -174,7 +175,7 @@ export default async function middleware(request: NextRequest) {
     pathname === '/signin/callback' ||
     // Skip for cached pages that don't need auth
     pathname === '/css' ||
-    pathname === '/css/premium' ||
+    pathname === PREMIUM_PAGE_PATH ||
     pathname === '/css/past-papers' ||
     pathname === '/css/guess-papers' ||
     pathname === '/css/subjects' ||
@@ -257,7 +258,7 @@ export default async function middleware(request: NextRequest) {
       const isPremium = user.user_metadata?.is_premium === true
       if (!isPremium) {
         // Not premium - redirect to premium page
-        const redirectUrl = new URL('/css/premium', request.url)
+        const redirectUrl = new URL(PREMIUM_PAGE_PATH, request.url)
         return NextResponse.redirect(redirectUrl)
       }
     } catch (error) {

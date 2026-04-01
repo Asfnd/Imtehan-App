@@ -12,6 +12,7 @@ import dynamic from 'next/dynamic'
 import NavigationBar from '@/components/NavigationBar'
 import { CourseSchema } from '@/components/seo/StructuredData'
 import { CSSExamCountdown } from '@/components/CSSExamCountdown'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 // Lazy load compact info bar component
 const CompactInfoBar = dynamic(() => import('@/components/analytics/CompactInfoBar'), {
@@ -664,7 +665,7 @@ function DashboardContent() {
                 Home
               </button>
               <button
-                onClick={() => router.push('/css/premium')}
+                onClick={() => router.push(PREMIUM_PAGE_PATH)}
                 className="text-muted-foreground hover:text-foreground transition-colors font-medium"
               >
                 Premium

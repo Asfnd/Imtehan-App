@@ -10,6 +10,7 @@ import {
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -284,7 +285,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   useEffect(() => {
     if (!mockNumber || authLoading) return
     if (mockNumber >= 3 && !isPremium) {
-      router.replace('/premium')
+      router.replace(PREMIUM_PAGE_PATH)
     } else if (mockNumber === 2 && !user) {
       setShowSignIn(true)
     }

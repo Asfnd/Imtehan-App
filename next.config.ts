@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import path from "path";
+import { PREMIUM_PAGE_PATH } from "./lib/routes";
 
 const securityHeaders = [
   // SECURITY: Content Security Policy (re-enabled)
@@ -249,6 +250,11 @@ const nextConfig: NextConfig = {
       {
         source: '/dashboard',
         destination: '/css',
+        permanent: true,
+      },
+      {
+        source: '/premium',
+        destination: PREMIUM_PAGE_PATH,
         permanent: true,
       },
     ]

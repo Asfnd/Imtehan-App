@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { BookOpen } from 'lucide-react'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 export function Footer() {
   return (
@@ -90,7 +91,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/css/premium" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href={PREMIUM_PAGE_PATH} className="text-muted-foreground hover:text-foreground transition-colors">
                   Premium
                 </Link>
               </li>

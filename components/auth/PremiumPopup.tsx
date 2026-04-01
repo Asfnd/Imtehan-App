@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { X, Crown, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 interface PremiumPopupProps {
   isOpen: boolean
@@ -60,8 +61,8 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
                   <Sparkles className="w-3 h-3 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">All 20 Mock Tests</p>
-                  <p className="text-xs text-gray-500">Per exam, full and quick formats</p>
+                  <p className="text-sm font-medium text-gray-900">Mock tests & simulations</p>
+                  <p className="text-xs text-gray-500">Timed practice across supported exams</p>
                 </div>
               </div>
 
@@ -88,17 +89,17 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
 
             {/* Pricing highlight */}
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
-              <p className="text-center text-sm text-gray-600 mb-1">Starting at</p>
+              <p className="text-center text-sm text-gray-600 mb-1">Plans from</p>
               <p className="text-center text-3xl font-bold text-gray-900">
-                Rs. 1,499
-                <span className="text-sm font-normal text-gray-500">/6 months</span>
+                Rs. 1,999
+                <span className="text-sm font-normal text-gray-500"> / month</span>
               </p>
-              <p className="text-center text-xs text-gray-500 mt-1">Save more with yearly plan</p>
+              <p className="text-center text-xs text-gray-500 mt-1">Better value on 3- and 12-month plans</p>
             </div>
 
             {/* CTA Buttons */}
             <div className="space-y-2">
-              <Link href="/premium" className="block">
+              <Link href={PREMIUM_PAGE_PATH} className="block">
                 <Button
                   size="lg"
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg"

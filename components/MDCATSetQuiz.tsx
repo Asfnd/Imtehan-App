@@ -8,6 +8,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 interface MCQ {
   id: number
@@ -101,7 +102,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   useEffect(() => {
     if (authLoading) return
     if (setNumber >= 4 && !isPremium) {
-      router.replace('/premium')
+      router.replace(PREMIUM_PAGE_PATH)
     } else if (setNumber === 3 && !user) {
       setShowSignIn(true)
     }

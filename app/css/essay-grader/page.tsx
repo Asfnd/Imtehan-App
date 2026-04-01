@@ -8,6 +8,7 @@ import ScoreCard from '@/components/essay/ScoreCard'
 import AnnotatedEssay from '@/components/essay/AnnotatedEssay'
 import PrecisChecklist from '@/components/essay/PrecisChecklist'
 import { useAuth } from '@/lib/contexts/AuthContext'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 type Mode = 'essay' | 'precis' | 'long-answer'
 type Phase = 'input' | 'loading' | 'results'
@@ -136,7 +137,7 @@ export default function WritingCoachPage() {
       if (!res.ok) {
         if (res.status === 429 && data.upgrade) {
           // Redirect immediately — no inline card
-          router.push(data.requiresAuth ? '/signin?next=/css/essay-grader' : '/premium')
+          router.push(data.requiresAuth ? '/signin?next=/css/essay-grader' : PREMIUM_PAGE_PATH)
           setPhase('input')
           return
         }
@@ -207,7 +208,7 @@ export default function WritingCoachPage() {
                   <span className="font-semibold">{usageInfo.remaining}</span> free try{usageInfo.remaining !== 1 ? 's' : ''} left for this mode
                 </p>
                 {usageInfo.remaining === 0 && (
-                  <button onClick={() => router.push('/premium')} className="text-xs bg-amber-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-amber-600 transition-colors flex-shrink-0">
+                  <button onClick={() => router.push(PREMIUM_PAGE_PATH)} className="text-xs bg-amber-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-amber-600 transition-colors flex-shrink-0">
                     Upgrade
                   </button>
                 )}

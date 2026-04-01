@@ -7,6 +7,7 @@ import CleanPDFViewer from '@/components/pdf/CleanPDFViewer'
 import { ArrowLeft, Crown } from 'lucide-react'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 function GuessPaperViewerContent() {
   const searchParams = useSearchParams()
@@ -82,7 +83,7 @@ function GuessPaperViewerContent() {
           </p>
           <div className="space-y-3">
             <button
-              onClick={() => router.push('/css/premium')}
+              onClick={() => router.push(PREMIUM_PAGE_PATH)}
               className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
             >
               <Crown className="w-5 h-5" />

@@ -1,19 +1,26 @@
 import { Metadata } from 'next'
+import { PREMIUM_PAGE_URL } from '@/lib/routes'
 
 export const metadata: Metadata = {
-  title: 'Premium CSS Preparation Plans | Imtehan',
-  description: 'Unlock full access to 10,000+ CSS MCQs, past papers, solved papers, and guess papers. Choose from 3, 6, or 12-month premium plans.',
+  title: 'Imtehan Premium — Full access to all exams & practice | Imtehan',
+  description:
+    'One subscription for unlimited MCQs, mock tests, solved papers, analytics, and writing tools across CSS, MPT, MDCAT, FSc, PPSC, and more.',
   keywords: [
-    'CSS premium', 'CSS preparation subscription', 'CSS MCQs full access',
-    'CSS past papers subscription', 'Imtehan premium', 'CSS exam preparation paid'
+    'Imtehan premium',
+    'competitive exam preparation Pakistan',
+    'MCQ practice subscription',
+    'MDCAT premium',
+    'CSS MPT preparation',
+    'online mock tests Pakistan',
   ],
   alternates: {
-    canonical: 'https://imtehan.com/css/premium',
+    canonical: PREMIUM_PAGE_URL,
   },
   openGraph: {
-    title: 'Premium CSS Preparation Plans | Imtehan',
-    description: 'Unlock full access to all CSS preparation resources. Choose your plan and start preparing today.',
-    url: 'https://imtehan.com/css/premium',
+    title: 'Imtehan Premium — Full access to all exams & practice',
+    description:
+      'Unlimited practice, mocks, and premium materials for every major Pakistani competitive exam—one professional subscription.',
+    url: PREMIUM_PAGE_URL,
     type: 'website',
   },
 }

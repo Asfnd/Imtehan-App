@@ -9,6 +9,7 @@ import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
@@ -66,7 +67,7 @@ export default function BatchSetSelector() {
     }
     if (setNum >= 4) {
       // Set 4+ with user but no premium → premium
-      router.push('/premium')
+      router.push(PREMIUM_PAGE_PATH)
       return
     }
     // Set 3 with user signed in → allow
@@ -270,7 +271,7 @@ export default function BatchSetSelector() {
               <p className="text-xs text-blue-600 mt-0.5">Unlimited sets, all mock tests, and solved papers</p>
             </div>
             <button
-              onClick={() => user ? router.push('/premium') : setShowSignIn(true)}
+              onClick={() => user ? router.push(PREMIUM_PAGE_PATH) : setShowSignIn(true)}
               className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
             >
               {user ? 'Upgrade' : 'Sign In'}

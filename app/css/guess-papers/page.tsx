@@ -6,6 +6,7 @@ import { ArrowLeft, FileText, BookOpen, Briefcase, Globe, Edit, Lock, Crown } fr
 import NavigationBar from '@/components/NavigationBar'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 interface GuessPaper {
   id: string
@@ -98,7 +99,7 @@ export default function GuessPapersPage() {
                 </p>
               </div>
               <button
-                onClick={() => router.push('/css/premium')}
+                onClick={() => router.push(PREMIUM_PAGE_PATH)}
                 className="px-6 py-3 bg-white text-orange-600 rounded-xl font-bold text-sm hover:bg-orange-50 transition-colors whitespace-nowrap shadow-lg"
               >
                 Upgrade

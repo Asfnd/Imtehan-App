@@ -10,6 +10,7 @@ import FeedbackPopup from '@/components/FeedbackPopup'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 interface MCQ {
   id: number
@@ -75,7 +76,7 @@ export default function QuizInterface({
   useEffect(() => {
     if (authLoading) return
     if (setNumber >= 4 && !isPremium) {
-      router.replace('/premium')
+      router.replace(PREMIUM_PAGE_PATH)
     } else if (setNumber === 3 && !user) {
       setShowSignIn(true)
     }

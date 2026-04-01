@@ -9,6 +9,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string }> = {
   biology:   { name: 'Biology',   table: 'mdcat_biology',   color: 'from-emerald-600 to-teal-700'  },
@@ -73,7 +74,7 @@ export default function FSCChapterPage() {
       return
     }
     if (setNum >= 4) {
-      router.push('/premium')
+      router.push(PREMIUM_PAGE_PATH)
       return
     }
     // Set 3, signed-in, not premium → allow

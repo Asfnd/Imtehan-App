@@ -6,6 +6,8 @@
  * - Security: Safe to expose in HTML head
  */
 
+import { PREMIUM_PAGE_URL } from '@/lib/routes'
+
 export interface SchemaMarkup {
   '@context': string
   '@type': string
@@ -65,7 +67,7 @@ export function generateEducationalPlatformSchema(stats: {
       '@type': 'TradeAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://imtehan.com/css/premium',
+        urlTemplate: PREMIUM_PAGE_URL,
         actionPlatform: ['DesktopWebPlatform', 'MobileWebPlatform'],
       },
       name: 'Get Premium Access',

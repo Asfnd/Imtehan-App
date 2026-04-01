@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://imtehan.com'
@@ -11,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/css`,      lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.95 },
     { url: `${baseUrl}/mdcat`,    lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.95 },
     { url: `${baseUrl}/fsc`,      lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.9  },
-    { url: `${baseUrl}/premium`,  lastModified: currentDate, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/community`,lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.8  },
   ]
 
@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/css/css-practice/quiz`,  lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.75 },
     { url: `${baseUrl}/css/css-practice/idioms`,lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.7  },
     { url: `${baseUrl}/css/css-gsa`,            lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.75 },
-    { url: `${baseUrl}/css/premium`,            lastModified: currentDate, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}${PREMIUM_PAGE_PATH}`,      lastModified: currentDate, changeFrequency: 'monthly', priority: 0.85 },
   ]
 
   // MPT section

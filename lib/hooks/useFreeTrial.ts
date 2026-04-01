@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { usageTracker } from '@/lib/usageTracker'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 // Server-side limits for signed-in users (stored in database - CANNOT be bypassed)
 const SIGNED_IN_LIMITS = {
@@ -171,7 +172,7 @@ export function useFreeTrial() {
     // Solved papers and guess papers require premium
     if (type === 'solved' || type === 'guessPapers') {
       if (isSignedIn) {
-        router.push('/css/premium')
+        router.push(PREMIUM_PAGE_PATH)
       } else {
         setShowSignInPopup(true)
       }
@@ -226,7 +227,7 @@ export function useFreeTrial() {
       // User hit their limit
       if (isSignedIn) {
         // Signed-in user → redirect to premium page
-        router.push('/css/premium')
+        router.push(PREMIUM_PAGE_PATH)
       } else {
         // Guest user → show sign-in popup
         setShowSignInPopup(true)

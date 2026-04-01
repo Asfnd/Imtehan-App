@@ -9,6 +9,7 @@ import { InfiniteMarquee } from "@/components/InfiniteMarquee"
 import { AnimatedText } from "@/components/AnimatedText"
 import NavigationBar from "@/components/NavigationBar"
 import { CSSExamCountdown } from "@/components/CSSExamCountdown"
+import { PREMIUM_PAGE_PATH } from "@/lib/routes"
 
 const MEDICAL_CATEGORIES = [
   { key: 'mdcat', label: 'MDCAT', href: '/mdcat' },
@@ -518,7 +519,7 @@ export function HomeClient() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/css/premium" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link href={PREMIUM_PAGE_PATH} className="text-muted-foreground hover:text-foreground transition-colors">
                     Premium
                   </Link>
                 </li>

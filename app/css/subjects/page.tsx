@@ -11,6 +11,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { SidebarCategoryToggle } from '@/components/css-practice/CategoryToggle'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { Breadcrumb, breadcrumbTrails } from '@/components/seo/Breadcrumb'
+import { getFastSubjects, getFastYearsForSubject } from '@/lib/fast-subjects-data'
 
 import { 
   filterSubjects, 
@@ -32,6 +33,12 @@ interface YearData {
   paper_type?: string | null
 }
 
+function isMissingRelationError(error: any) {
+  if (!error) return false
+  const message = String(error?.message || '').toLowerCase()
+  return error?.code === '42P01' || message.includes('does not exist') || message.includes('relation')
+}
+
 export default function CSSSubjectMCQsPage() {
   const router = useRouter()
   const { user, showSignInPopup, setShowSignInPopup, requestAccess } = useFreeTrial()
@@ -43,35 +50,115 @@ export default function CSSSubjectMCQsPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all')
+  const [usingFastFallback, setUsingFastFallback] = useState(false)
+
+  const fetchSubjectsFromEnhancedTable = async (supabase: any) => {
+    const chunkSize = 1000
+    let offset = 0
+    let hasMore = true
+    const subjectCountMap = new Map<string, number>()
+
+    while (hasMore) {
+      const { data, error } = await supabase
+        .from('css_mcqs_enhanced')
+        .select('id, subject')
+        .order('id', { ascending: true })
+        .range(offset, offset + chunkSize - 1)
+
+      if (error) throw error
+      if (!data || data.length === 0) {
+        hasMore = false
+        break
+      }
+
+      for (const row of data) {
+        if (!row?.subject) continue
+        subjectCountMap.set(row.subject, (subjectCountMap.get(row.subject) || 0) + 1)
+      }
+
+      offset += chunkSize
+      if (data.length < chunkSize || offset >= 200000) {
+        hasMore = false
+      }
+    }
+
+    return Array.from(subjectCountMap.entries())
+      .map(([subject, count]) => ({ subject, count }))
+      .sort((a, b) => a.subject.localeCompare(b.subject))
+  }
+
+  const fetchSubjectsFromLegacyTable = async (supabase: any) => {
+    // Supabase may cap rows per request, so fetch in chunks to avoid missing subjects.
+    const chunkSize = 1000
+    let offset = 0
+    let hasMore = true
+    let allRows: any[] = []
+
+    while (hasMore) {
+      const { data, error } = await supabase
+        .from('css_mcqs')
+        .select('subject, year')
+        .order('id', { ascending: true })
+        .range(offset, offset + chunkSize - 1)
+
+      if (error) throw error
+      if (!data || data.length === 0) {
+        hasMore = false
+        break
+      }
+
+      allRows = allRows.concat(data)
+      offset += chunkSize
+
+      if (data.length < chunkSize || offset >= 100000) {
+        hasMore = false
+      }
+    }
+
+    const grouped = new Map<string, Set<number>>()
+    for (const row of allRows) {
+      if (!row?.subject) continue
+      if (!grouped.has(row.subject)) {
+        grouped.set(row.subject, new Set<number>())
+      }
+      if (row?.year) {
+        grouped.get(row.subject)?.add(Number(row.year))
+      }
+    }
+
+    return Array.from(grouped.entries())
+      .map(([subject, yearsSet]) => ({
+        subject,
+        count: yearsSet.size > 0 ? yearsSet.size : 1,
+      }))
+      .sort((a, b) => a.subject.localeCompare(b.subject))
+  }
 
   const fetchSubjects = useMemo(() => async () => {
     try {
       const supabase = createClient()
-      const { data, error } = await supabase.rpc('get_enhanced_css_subject_stats')
-      if (error) throw error
-      if (!data || data.length === 0) {
+      let subjectList: any[] = []
+
+      try {
+        subjectList = await fetchSubjectsFromEnhancedTable(supabase)
+      } catch (enhancedError) {
+        if (isMissingRelationError(enhancedError)) {
+          console.warn('Enhanced CSS table missing, falling back to css_mcqs')
+          subjectList = await fetchSubjectsFromLegacyTable(supabase)
+        } else {
+          throw enhancedError
+        }
+      }
+
+      if (!subjectList || subjectList.length === 0) {
         setSubjects([])
         setLoading(false)
         return
       }
-      // Filter out MPT subjects and recalculate counts for valid years only
-      const subjectList = data
-        .filter((row: any) => {
-          // Exclude MPT subjects
-          if (row.subject && row.subject.toLowerCase().includes('mpt')) return false
-          if (row.subject && row.subject.toLowerCase().includes('management')) return false
-          return true
-        })
-        .map((row: any) => {
-          // Keep all years from RPC (including 1975)
-          const validYears = (row.years || []).filter((y: any) => y)
 
-          return {
-            subject: row.subject,
-            count: row.question_count,
-            years: validYears
-          }
-        })
+      // Keep the list fully data-driven; do not exclude subjects by name.
+      subjectList = subjectList
+        .filter((row: any) => !!row?.subject)
         .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
 
       console.log('=== Subjects from database (Filtered) ===')
@@ -137,15 +224,32 @@ export default function CSSSubjectMCQsPage() {
 
       console.log('Final subjects with idioms:', subjectsWithIdioms.map((s: Subject) => s.subject))
       setSubjects(subjectsWithIdioms)
+      setUsingFastFallback(false)
       setLoading(false)
     } catch (error) {
       console.error('Error fetching subjects:', error)
+      // Fallback to precomputed 51-subject dataset when DB is unavailable.
+      const fastSubjects = getFastSubjects().map((s) => ({
+        subject: s.subject,
+        count: s.count,
+      }))
+      setSubjects(fastSubjects)
+      setUsingFastFallback(true)
       setLoading(false)
     }
   }, [])
 
   const fetchYears = useMemo(() => async () => {
     if (!selectedSubject) return
+    if (usingFastFallback) {
+      const fastYears = getFastYearsForSubject(selectedSubject).map((y) => ({
+        year: y.year,
+        count: y.count,
+        paper_type: null,
+      }))
+      setYears(fastYears)
+      return
+    }
     try {
       const supabase = createClient()
 
@@ -178,15 +282,21 @@ export default function CSSSubjectMCQsPage() {
       let offset = 0
       const chunkSize = 1000
       let hasMore = true
+      let usingLegacyTable = false
 
       while (hasMore) {
         const { data: chunk, error: chunkError } = await supabase
           .from('css_mcqs_enhanced')
-          .select('year, paper_type')
+          .select('id, year, paper_type')
+          .order('id', { ascending: true })
           .eq('subject', subjectQuery)
           .range(offset, offset + chunkSize - 1)
 
         if (chunkError) {
+          if (isMissingRelationError(chunkError)) {
+            usingLegacyTable = true
+            break
+          }
           error = chunkError
           break
         }
@@ -211,8 +321,49 @@ export default function CSSSubjectMCQsPage() {
         }
       }
 
-      data = allData
-      error = error || null
+      if (usingLegacyTable) {
+        console.warn('Enhanced CSS table missing, falling back to css_mcqs for years')
+        let legacyAllData: any[] = []
+        let legacyOffset = 0
+        let legacyHasMore = true
+
+        while (legacyHasMore) {
+          const { data: legacyChunk, error: legacyChunkError } = await supabase
+            .from('css_mcqs')
+            .select('id, year, paper')
+            .order('id', { ascending: true })
+            .eq('subject', subjectQuery)
+            .range(legacyOffset, legacyOffset + chunkSize - 1)
+
+          if (legacyChunkError) {
+            error = legacyChunkError
+            break
+          }
+
+          if (!legacyChunk || legacyChunk.length === 0) {
+            legacyHasMore = false
+            break
+          }
+
+          legacyAllData = legacyAllData.concat(
+            legacyChunk.map((row: any) => ({
+              year: row.year,
+              paper_type: row.paper ? `Paper ${row.paper}` : null
+            }))
+          )
+          legacyOffset += chunkSize
+
+          if (legacyOffset >= 100000 || legacyChunk.length < chunkSize) {
+            legacyHasMore = false
+          }
+        }
+
+        data = legacyAllData
+        error = error || null
+      } else {
+        data = allData
+        error = error || null
+      }
 
       console.log('✅ Loaded ALL records for subject:', subjectQuery)
       console.log('   Total records loaded:', data?.length)
@@ -371,14 +522,19 @@ export default function CSSSubjectMCQsPage() {
     } catch (error) {
       console.error('Error fetching years - Full error object:', error)
       console.error('Error details:', JSON.stringify(error))
-      setYears([])
+      // If years query fails, keep UX functional with fast local fallback.
+      const fastYears = getFastYearsForSubject(selectedSubject).map((y) => ({
+        year: y.year,
+        count: y.count,
+        paper_type: null,
+      }))
+      setYears(fastYears)
     }
-  }, [selectedSubject, subjects])
+  }, [selectedSubject, subjects, usingFastFallback])
 
   useEffect(() => {
-    // Load saved category preference
+    // Restore user's previous category choice.
     setActiveCategory(loadCategoryFromSession())
-    
     fetchSubjects()
   }, [fetchSubjects])
 
