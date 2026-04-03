@@ -33,24 +33,24 @@ export function QuizGamificationHeader({
 
   return (
     <header
-      className={`flex w-full items-center gap-1.5 bg-white py-2 sm:gap-3 sm:py-3.5 ${className}`}
+      className={`flex w-full items-center gap-2 bg-white py-3 sm:gap-3 sm:py-3.5 ${className}`}
     >
       {onExit ? (
         <button
           type="button"
           onClick={onExit}
-          className="-ml-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 sm:-ml-2 sm:h-10 sm:w-10"
+          className="-ml-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 sm:-ml-2"
           aria-label="Close quiz"
         >
           <span className="text-2xl leading-none">×</span>
         </button>
       ) : (
-        <span className="w-9 shrink-0 sm:w-10" />
+        <span className="w-10 shrink-0" />
       )}
 
       {progressLabel ? (
         <span
-          className="shrink-0 pt-0.5 text-[10px] font-semibold tabular-nums tracking-wide text-slate-400 sm:text-[11px]"
+          className="shrink-0 pt-0.5 text-[11px] font-semibold tabular-nums tracking-wide text-slate-400"
           aria-label="Question progress"
         >
           {progressLabel}
@@ -58,7 +58,7 @@ export function QuizGamificationHeader({
       ) : null}
 
       <div className="min-w-0 flex-1">
-        <div className="relative h-3 w-full overflow-hidden rounded-full bg-slate-100/90 shadow-[inset_0_1px_2px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70 sm:h-3.5">
+        <div className="relative h-3.5 w-full overflow-hidden rounded-full bg-slate-100/90 shadow-[inset_0_1px_2px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70">
           <div
             className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
             style={{ transform: `scaleX(${pct / 100})` }}
@@ -70,13 +70,13 @@ export function QuizGamificationHeader({
         </div>
       </div>
 
-      <div className="flex shrink-0 items-center gap-1.5 font-bold sm:gap-3">
+      <div className="flex shrink-0 items-center gap-2 font-bold sm:gap-3">
         <div
-          className="relative flex items-center gap-0.5 rounded-lg border border-orange-100 bg-orange-50 px-2 py-1 text-orange-500 sm:gap-1 sm:rounded-xl sm:px-3 sm:py-1.5"
+          className="relative flex items-center gap-1 rounded-xl border border-orange-100 bg-orange-50 px-3 py-1.5 text-orange-500"
           title="Streak"
         >
-          <Flame className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
-          <span className="min-w-[1rem] text-xs tabular-nums sm:text-sm">{streak}</span>
+          <Flame className="h-5 w-5" aria-hidden />
+          <span className="min-w-[1rem] text-sm tabular-nums">{streak}</span>
           {showXpPop && lastXpGain != null && lastXpGain > 0 && streak > 1 && (
             <span className="absolute -top-5 right-0 animate-float-up pointer-events-none whitespace-nowrap text-sm font-bold text-orange-500">
               +1
@@ -85,11 +85,11 @@ export function QuizGamificationHeader({
         </div>
 
         <div
-          className="relative flex items-center gap-0.5 rounded-lg border border-indigo-100 bg-indigo-50 px-2 py-1 text-indigo-600 sm:gap-1 sm:rounded-xl sm:px-3 sm:py-1.5"
+          className="relative flex items-center gap-1 rounded-xl border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-indigo-600"
           title="Experience points"
         >
-          <Zap className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
-          <span className="text-xs tabular-nums sm:text-sm">{totalXp}</span>
+          <Zap className="h-5 w-5" aria-hidden />
+          <span className="text-sm tabular-nums">{totalXp}</span>
           {showXpPop && lastXpGain != null && lastXpGain > 0 && (
             <span className="absolute -top-5 right-0 animate-float-up pointer-events-none whitespace-nowrap text-sm font-bold text-indigo-500">
               +{lastXpGain} XP

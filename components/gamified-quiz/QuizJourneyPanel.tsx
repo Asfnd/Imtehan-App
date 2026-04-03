@@ -162,7 +162,7 @@ export function QuizJourneyPanel({
 
   return (
     <div className={className}>
-      <h3 className="text-center text-indigo-900 font-extrabold text-2xl mb-8 tracking-wide">
+      <h3 className="mb-8 text-center text-2xl font-extrabold tracking-wide text-indigo-900">
         {title}
       </h3>
 

@@ -340,12 +340,6 @@ export default function MDCATQuizPage() {
         mode="answer"
       />
       <GamifiedQuizShell
-        mobileRail={
-          <div className="flex items-center justify-between gap-2 text-xs font-semibold text-indigo-900/80">
-            <span>{subjectConfig.name}</span>
-            <span>{questionPositionLabel}</span>
-          </div>
-        }
         journey={
           <QuizJourneyPanel
             totalSteps={activeMCQs.length}

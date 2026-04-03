@@ -383,12 +383,6 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
         onClose={() => { setShowSignIn(false); router.push(backUrl) }}
       />
       <GamifiedQuizShell
-        mobileRail={
-          <div className="flex items-center justify-between gap-2 text-xs font-semibold text-indigo-900/80">
-            <span>{subjectName}</span>
-            <span>{questionPositionLabel}</span>
-          </div>
-        }
         journey={
           <QuizJourneyPanel
             totalSteps={activeMCQs.length}
