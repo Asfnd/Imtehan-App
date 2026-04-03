@@ -8,6 +8,15 @@ import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics } from '@/lib/analytics'
 import type { UserStats, TodaysRecommendation, WeakSubject } from '@/lib/analytics/types'
 
+const EMPTY_STATS: UserStats = {
+  total_questions_solved: 0,
+  total_tests_completed: 0,
+  average_score: 0,
+  current_streak: 0,
+  longest_streak: 0,
+  total_study_time_minutes: 0,
+}
+
 const CompactInfoBar = dynamic(() => import('@/components/analytics/CompactInfoBar'), {
   ssr: false,
   loading: () => <div className="animate-pulse bg-gray-100 rounded-xl h-16" />,
@@ -28,22 +37,58 @@ export default function ExamAnalyticsBar({ examSlug, signInHref = '/dashboard' }
   const [weakSubjects, setWeak]       = useState<WeakSubject[]>([])
 
   useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user ?? null)
-      if (!data.user) { setLoading(false); return }
-      getUserAnalytics(examSlug).then(a => {
-        if (a) {
-          setUserStats(a.stats)
-          setRec(a.recommendation)
-          setWeak(a.weak_subjects || [])
-        }
+    let cancelled = false
+    ;(async () => {
+      const supabase = createClient()
+      const {
+        data: { user: authUser },
+      } = await supabase.auth.getUser()
+      if (cancelled) return
+      setUser(authUser ?? null)
+      if (!authUser) {
         setLoading(false)
-      })
-    })
+        return
+      }
+      try {
+        const a = await getUserAnalytics(examSlug)
+        if (cancelled) return
+        if (a?.stats) {
+          setUserStats(a.stats)
+          setRec(a.recommendation ?? null)
+          setWeak(a.weak_subjects || [])
+        } else {
+          setUserStats(EMPTY_STATS)
+          setRec(null)
+          setWeak([])
+        }
+      } catch {
+        if (!cancelled) {
+          setUserStats(EMPTY_STATS)
+          setRec(null)
+          setWeak([])
+        }
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
   }, [examSlug])
 
-  /* ── Not logged in ───────────────────────────────────────────── */
+  /* ── Loading / auth ─────────────────────────────────────────── */
+  if (loading) {
+    return (
+      <div className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200/50 shadow-lg p-4">
+        <div className="flex items-center gap-3">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="flex-1 h-20 bg-white/50 rounded-xl animate-pulse" />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   if (!user) {
     return (
       <div
@@ -79,23 +124,9 @@ export default function ExamAnalyticsBar({ examSlug, signInHref = '/dashboard' }
     )
   }
 
-  /* ── Skeleton while loading ──────────────────────────────────── */
-  if (loading) {
-    return (
-      <div className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200/50 shadow-lg p-4">
-        <div className="flex items-center gap-3">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="flex-1 h-20 bg-white/50 rounded-xl animate-pulse" />
-          ))}
-        </div>
-      </div>
-    )
-  }
+  const s = userStats ?? EMPTY_STATS
 
-  /* ── No data yet ─────────────────────────────────────────────── */
-  if (!userStats) return null
-
-  /* ── Full analytics bar ──────────────────────────────────────── */
+  /* ── Full analytics bar ── */
   return (
     <div className="mb-8 space-y-3">
       {/* Stats row */}
@@ -107,42 +138,42 @@ export default function ExamAnalyticsBar({ examSlug, signInHref = '/dashboard' }
 
             {/* Questions solved */}
             <StatCard
-              value={userStats.total_questions_solved || 0}
+              value={s.total_questions_solved || 0}
               label="Questions"
               iconBg="from-blue-500 to-blue-600"
               shadowColor="shadow-blue-500/30"
               borderColor="border-blue-100 hover:border-blue-400"
               hoverBg="from-blue-500/10 to-indigo-500/10"
               textGrad="from-blue-600 to-indigo-600"
-              progressPct={Math.min(((userStats.total_questions_solved || 0) / 1000) * 100, 100)}
+              progressPct={Math.min(((s.total_questions_solved || 0) / 1000) * 100, 100)}
               progressGrad="from-blue-500 to-indigo-500"
               icon={<Target className="w-5 h-5 text-white" />}
             />
 
             {/* Tests completed */}
             <StatCard
-              value={userStats.total_tests_completed || 0}
+              value={s.total_tests_completed || 0}
               label="Tests"
               iconBg="from-green-500 to-emerald-600"
               shadowColor="shadow-green-500/30"
               borderColor="border-green-100 hover:border-green-400"
               hoverBg="from-green-500/10 to-emerald-500/10"
               textGrad="from-green-600 to-emerald-600"
-              progressPct={Math.min(((userStats.total_tests_completed || 0) / 50) * 100, 100)}
+              progressPct={Math.min(((s.total_tests_completed || 0) / 50) * 100, 100)}
               progressGrad="from-green-500 to-emerald-500"
               icon={<Award className="w-5 h-5 text-white" />}
             />
 
             {/* Accuracy */}
             <StatCard
-              value={`${(userStats.average_score || 0).toFixed(0)}%`}
+              value={`${(s.average_score || 0).toFixed(0)}%`}
               label="Accuracy"
               iconBg="from-purple-500 to-pink-600"
               shadowColor="shadow-purple-500/30"
               borderColor="border-purple-100 hover:border-purple-400"
               hoverBg="from-purple-500/10 to-pink-500/10"
               textGrad="from-purple-600 to-pink-600"
-              progressPct={userStats.average_score || 0}
+              progressPct={s.average_score || 0}
               progressGrad="from-purple-500 to-pink-500"
               icon={<TrendingUp className="w-5 h-5 text-white" />}
             />
@@ -161,14 +192,14 @@ export default function ExamAnalyticsBar({ examSlug, signInHref = '/dashboard' }
                   </div>
                   <div className="flex-1">
                     <div className="text-2xl font-bold text-white group-hover/item:scale-105 transition-transform duration-300 inline-block drop-shadow-lg">
-                      {userStats.current_streak || 0}
+                      {s.current_streak || 0}
                     </div>
                     <div className="text-[10px] text-white/90 font-semibold uppercase tracking-wider">Day Streak</div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between text-[10px] text-white/80 font-medium">
-                  <span>Best: {userStats.longest_streak || 0}</span>
-                  {(userStats.current_streak || 0) >= 7 && (
+                  <span>Best: {s.longest_streak || 0}</span>
+                  {(s.current_streak || 0) >= 7 && (
                     <span className="px-2 py-0.5 bg-white/20 rounded-full font-bold animate-pulse-slow">🔥 ON FIRE!</span>
                   )}
                 </div>
@@ -176,7 +207,7 @@ export default function ExamAnalyticsBar({ examSlug, signInHref = '/dashboard' }
             </div>
 
             {/* Achievement badge */}
-            {(userStats.total_questions_solved || 0) >= 100 && (
+            {(s.total_questions_solved || 0) >= 100 && (
               <div className="flex-shrink-0 px-4 py-3 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105 group/badge">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl group-hover/badge:scale-125 transition-transform duration-300">🎯</span>

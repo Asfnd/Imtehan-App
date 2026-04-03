@@ -1,7 +1,10 @@
 /**
  * Sound Manager for Quiz Gamification
- * Ultra-optimized for mobile with instant playback
+ * Ultra-optimized for mobile with instant playback.
+ * Uses MP3s from /public/sounds when present; otherwise Web Audio synth cues.
  */
+
+import { playSynthFeedback } from './synthFeedback'
 
 export interface SoundConfig {
   correct: string
@@ -84,8 +87,7 @@ class SoundManager {
       console.log('✅ All sounds preloaded successfully')
     } catch (error) {
       console.error('Error preloading sounds:', error)
-      // Don't throw - allow app to continue without sounds
-      this.enabled = false
+      // Keep enabled — synth fallback still works without MP3 files
     }
   }
 
@@ -94,40 +96,42 @@ class SoundManager {
    * Uses audio pooling for zero-lag playback
    */
   play(soundName: SoundName): void {
-    if (!this.enabled || !this.isPreloaded) {
+    if (!this.enabled) {
       return
     }
 
-    // Get or create audio pool for this sound
-    let pool = this.audioPool.get(soundName)
-    if (!pool) {
-      pool = []
-      this.audioPool.set(soundName, pool)
-    }
+    const original = this.sounds.get(soundName)
 
-    // Find an available audio element from pool
-    let audio = pool.find(a => a.paused || a.ended)
-    
-    if (!audio) {
-      // Create new audio element if none available
-      const original = this.sounds.get(soundName)
-      if (!original) return
-      
-      audio = new Audio(original.src)
-      audio.volume = this.volume
-      audio.preload = 'auto'
-      pool.push(audio)
-      
-      // Limit pool size to 3 per sound
-      if (pool.length > 3) {
-        pool.shift()
+    // MP3 loaded — use pooled playback (works best after preload, but not required)
+    if (original) {
+      let pool = this.audioPool.get(soundName)
+      if (!pool) {
+        pool = []
+        this.audioPool.set(soundName, pool)
       }
+
+      let audio = pool.find(a => a.paused || a.ended)
+
+      if (!audio) {
+        audio = new Audio(original.src)
+        audio.volume = this.volume
+        audio.preload = 'auto'
+        pool.push(audio)
+        if (pool.length > 3) {
+          pool.shift()
+        }
+      }
+
+      audio.currentTime = 0
+      audio.volume = this.volume
+      audio.play().catch(() => {
+        playSynthFeedback(soundName, this.volume)
+      })
+      return
     }
 
-    // Instant playback
-    audio.currentTime = 0
-    audio.volume = this.volume
-    audio.play().catch(() => {})
+    // No file (missing / still loading) — immediate synth feedback
+    playSynthFeedback(soundName, this.volume)
   }
 
   /**

@@ -8,8 +8,25 @@ import {
 } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
 import { notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics, getStreakMessage, formatStudyTime } from '@/lib/analytics'
-import type { UserAnalytics } from '@/lib/analytics/types'
+import type { UserAnalytics, UserStats } from '@/lib/analytics/types'
+
+const EMPTY_STATS: UserStats = {
+  total_questions_solved: 0,
+  total_tests_completed: 0,
+  average_score: 0,
+  current_streak: 0,
+  longest_streak: 0,
+  total_study_time_minutes: 0,
+}
+
+const EMPTY_ANALYTICS: UserAnalytics = {
+  stats: EMPTY_STATS,
+  weak_subjects: [],
+  recommendation: null,
+  recent_scores: [],
+}
 
 export default function ExamAnalytics() {
   const params   = useParams()
@@ -24,11 +41,34 @@ export default function ExamAnalytics() {
   if (!config) notFound()
 
   useEffect(() => {
-    getUserAnalytics(examSlug).then(data => {
-      if (data) { setAnalytics(data); setSignedIn(true) }
-      setLoading(false)
-    })
-  }, [])
+    let cancelled = false
+    ;(async () => {
+      const supabase = createClient()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      if (cancelled) return
+      if (!user) {
+        setSignedIn(false)
+        setAnalytics(null)
+        setLoading(false)
+        return
+      }
+      setSignedIn(true)
+      try {
+        const data = await getUserAnalytics(examSlug)
+        if (cancelled) return
+        setAnalytics(data ?? EMPTY_ANALYTICS)
+      } catch {
+        if (!cancelled) setAnalytics(EMPTY_ANALYTICS)
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [examSlug])
 
   if (loading) {
     return (
