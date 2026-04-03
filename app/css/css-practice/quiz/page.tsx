@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo, Suspense } from 'react'
+import { useState, useEffect, useMemo, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Flag } from 'lucide-react'
+// Flag removed — report button no longer in question card
 import dynamic from 'next/dynamic'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { useAnalytics } from '@/lib/hooks/useAnalytics'
@@ -16,14 +16,21 @@ import DevToolsWarning from '@/components/security/DevToolsWarning'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
 import { SoundToggle } from './components/SoundToggle'
-import { PointsDisplay } from './components/PointsDisplay'
 import { EncouragementMessage } from './components/EncouragementMessage'
 import FeedbackButton from '@/components/FeedbackButton'
 
 // Optimized imports - reduce dynamic loading for better performance
-import { StreakCounter } from './components/StreakCounter'
 import { ConfettiCelebration } from './components/ConfettiCelebration'
 import { AnswerOption } from './components/AnswerOption'
+import {
+  GamifiedQuizShell,
+  QuizFeedbackDock,
+  type QuizDockPhase,
+  getQuizPathProgress,
+  QuizGamificationHeader,
+  QuizJourneyPanel,
+} from '@/components/gamified-quiz'
+import type { AnswerOptionAppearance } from './components/AnswerOption'
 
 // Only lazy load the heavy components that are used conditionally
 const EnhancedResultsScreen = dynamic(() => import('./components/EnhancedResultsScreen').then(mod => ({ default: mod.EnhancedResultsScreen })), {
@@ -38,6 +45,26 @@ const EnhancedResultsScreen = dynamic(() => import('./components/EnhancedResults
   ssr: false
 })
 
+function flowOptionState(
+  label: string,
+  correctAnswer: string,
+  ctx: {
+    locked?: string
+    wrongPicks: string[]
+    wrongChoice: string | null
+  }
+): AnswerOptionAppearance {
+  if (ctx.locked) {
+    if (label === correctAnswer) return 'correct'
+    return 'dimmed'
+  }
+  const triedWrong = ctx.wrongPicks.length > 0
+  if (triedWrong) {
+    if (ctx.wrongChoice === label) return 'wrong'
+    if (ctx.wrongPicks.includes(label)) return 'dimmed'
+  }
+  return 'default'
+}
 
 interface MCQ {
   id: number
@@ -95,17 +122,14 @@ function CSSQuizContent() {
 
   // Local state
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
+  const [lockedAnswers, setLockedAnswers] = useState<Record<number, string>>({})
+  const [firstTryCorrect, setFirstTryCorrect] = useState<Record<number, boolean>>({})
+  const [wrongChecks, setWrongChecks] = useState<Record<number, number>>({})
+  const [wrongPicks, setWrongPicks] = useState<string[]>([])
+  const [showWrongPanel, setShowWrongPanel] = useState(false)
+  const [wrongChoice, setWrongChoice] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
-  const [score, setScore] = useState(0)
-  const [answers, setAnswers] = useState<boolean[]>([])
-  const [wrongAttempts, setWrongAttempts] = useState<number>(0)
-  const [isCorrect, setIsCorrect] = useState(false)
-  const [showReportToast, setShowReportToast] = useState(false)
   const [quizStartTime, setQuizStartTime] = useState<number>(Date.now())
-  const [wrongOptions, setWrongOptions] = useState<Set<string>>(new Set())
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false)
-  const [wrongQuestionIds, setWrongQuestionIds] = useState<number[]>([])
 
   // Review mode state
   const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
@@ -122,7 +146,8 @@ function CSSQuizContent() {
   const [encouragementType, setEncouragementType] = useState<
     'correct' | 'incorrect' | 'milestone'
   >('correct')
-  const [showConfetti, setShowConfetti] = useState(false)
+  /** Increment on each correct answer to re-fire confetti */
+  const [confettiBurst, setConfettiBurst] = useState(0)
 
   // Determine which MCQs to use (review or regular)
   const activeMCQs = reviewMode ? reviewMCQs : lazyLoadedMcqs
@@ -134,10 +159,40 @@ function CSSQuizContent() {
     [activeMCQs, currentIndex]
   )
 
-  const progressPercentage = useMemo(
-    () => ((currentIndex + 1) / activeMCQs.length) * 100,
-    [currentIndex, activeMCQs.length]
+  const lockedAnswer = lockedAnswers[currentIndex]
+  const isQuestionSolved = lockedAnswer === currentMCQ?.correct_answer
+
+  const firstTryScore = useMemo(
+    () => activeMCQs.reduce((n, _, i) => n + (firstTryCorrect[i] ? 1 : 0), 0),
+    [activeMCQs, firstTryCorrect]
   )
+
+  const wrongQuestionIds = useMemo(
+    () =>
+      activeMCQs
+        .map((m, i) => (firstTryCorrect[i] === false ? m.id : null))
+        .filter((x): x is number => x != null),
+    [activeMCQs, firstTryCorrect]
+  )
+
+  const pathProgress = useMemo(
+    () =>
+      getQuizPathProgress(
+        activeMCQs.length,
+        currentIndex,
+        isQuestionSolved,
+        wrongPicks.length
+      ),
+    [activeMCQs.length, currentIndex, isQuestionSolved, wrongPicks.length]
+  )
+  const progressPct = pathProgress * 100
+  const questionPositionLabel = `${currentIndex + 1}/${activeMCQs.length}`
+
+  useEffect(() => {
+    setWrongPicks([])
+    setShowWrongPanel(false)
+    setWrongChoice(null)
+  }, [currentIndex])
 
   const isLastQuestion = useMemo(
     () => currentIndex === activeMCQs.length - 1,
@@ -228,15 +283,13 @@ function CSSQuizContent() {
 
           // CRITICAL: Reset all quiz state to start fresh
           setCurrentIndex(0)
-          setSelectedAnswer(null)
+          setLockedAnswers({})
+          setFirstTryCorrect({})
+          setWrongChecks({})
+          setWrongPicks([])
+          setShowWrongPanel(false)
+          setWrongChoice(null)
           setShowResult(false)
-          setScore(0)
-          setAnswers([])
-          setWrongAttempts(0)
-          setIsCorrect(false)
-          setWrongOptions(new Set())
-          setShowCorrectAnswer(false)
-          setWrongQuestionIds([]) // Don't track nested review
           setStreak(0)
           setMaxStreak(0)
           setPoints(0)
@@ -268,194 +321,133 @@ function CSSQuizContent() {
     }
   }, [lazyLoadedMcqs.length, lazyLoading, reviewMCQs.length, reviewLoading, subject, analytics, reviewMode])
 
-  // Wrap handler with useCallback to prevent unnecessary re-renders
-  const handleReport = useCallback(async () => {
-    try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
+  const pickOption = (label: string) => {
+    if (!currentMCQ || lockedAnswer) return
+    if (wrongPicks.includes(label)) return
 
-      if (!currentMCQ) return
+    if (label === currentMCQ.correct_answer) {
+      const prevWrong = wrongChecks[currentIndex] ?? 0
+      setFirstTryCorrect((prev) => ({ ...prev, [currentIndex]: prevWrong === 0 }))
+      setLockedAnswers((p) => ({ ...p, [currentIndex]: label }))
+      setShowWrongPanel(false)
+      setWrongChoice(null)
+      setWrongPicks([])
 
-      await supabase.from('question_reports').insert({
-        question_id: currentMCQ.id,
-        question_type: 'css',
-        subject: currentMCQ.subject,
-        user_id: user?.id || null
-      })
-
-      // Show toast notification
-      setShowReportToast(true)
-      setTimeout(() => setShowReportToast(false), 3000)
-    } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error reporting question:', error)
-      }
-      // Show toast even on error
-      setShowReportToast(true)
-      setTimeout(() => setShowReportToast(false), 3000)
-    }
-  }, [currentMCQ])
-
-  const handleAnswer = (answer: string) => {
-    // Lock answer after first selection
-    if (selectedAnswer) return
-
-    setSelectedAnswer(answer)
-    const correct = answer === activeMCQs[currentIndex].correct_answer
-
-    if (correct) {
-      setIsCorrect(true)
-      setAnswers([...answers, true])
-      setScore(score + 1)
-      setShowCorrectAnswer(true)
-
-      // Gamification: Update streak
       const newStreak = streak + 1
       setStreak(newStreak)
-      if (newStreak > maxStreak) {
-        setMaxStreak(newStreak)
-      }
+      if (newStreak > maxStreak) setMaxStreak(newStreak)
 
-      // Gamification: Calculate and add points
-      const earnedPoints = calculatePoints(true, newStreak, wrongAttempts)
-      setPoints(points + earnedPoints)
+      const earnedPoints = calculatePoints(true, newStreak, prevWrong)
+      setPoints((p) => p + earnedPoints)
       setRecentPoints(earnedPoints)
       setShowRecentPoints(true)
       setTimeout(() => setShowRecentPoints(false), 1500)
 
-      // Gamification: Play correct sound (only if sounds enabled for this quiz type)
-      if (soundsEnabled) {
-        soundManager.play('correct')
-      }
+      if (soundsEnabled) soundManager.play('correct')
+      setConfettiBurst((k) => k + 1)
 
-      // Gamification: Show encouragement
       if (newStreak > 0 && newStreak % 5 === 0) {
-        // Milestone reached
         setEncouragementType('milestone')
-        if (soundsEnabled) {
-          soundManager.play('streakMilestone')
-        }
+        if (soundsEnabled) soundManager.play('streakMilestone')
       } else {
         setEncouragementType('correct')
       }
       setShowEncouragement(true)
       setTimeout(() => setShowEncouragement(false), 2000)
-    } else {
-      // Wrong answer - track it and show correct answer
-      setWrongOptions(prev => new Set(prev).add(answer))
-      setShowCorrectAnswer(true) // Show correct answer when wrong one is clicked
-      setWrongAttempts(prev => prev + 1)
-      setAnswers([...answers, false])
-
-      // Track wrong question ID for review (only in normal mode, not review mode)
-      if (!reviewMode) {
-        setWrongQuestionIds(prev => [...prev, activeMCQs[currentIndex].id])
-      }
-
-      // Gamification: Reset streak
-      setStreak(0)
-
-      // Gamification: Play incorrect sound (only if sounds enabled for this quiz type)
-      if (soundsEnabled) {
-        soundManager.play('incorrect')
-      }
-
-      // Gamification: Show encouragement
-      setEncouragementType('incorrect')
-      setShowEncouragement(true)
-      setTimeout(() => setShowEncouragement(false), 2000)
+      return
     }
+
+    setWrongChecks((p) => ({ ...p, [currentIndex]: (p[currentIndex] ?? 0) + 1 }))
+    setWrongPicks((prev) => [...prev, label])
+    setWrongChoice(label)
+    setShowWrongPanel(true)
+    setStreak(0)
+    if (soundsEnabled) soundManager.play('incorrect')
+    setEncouragementType('incorrect')
+    setShowEncouragement(true)
+    setTimeout(() => setShowEncouragement(false), 2000)
   }
 
-  const nextQuestion = () => {
+  const goNext = () => {
     if (currentIndex < activeMCQs.length - 1) {
       const nextIndex = currentIndex + 1
       setCurrentIndex(nextIndex)
-      setSelectedAnswer(null)
-      setWrongAttempts(0)
-      setIsCorrect(false)
-      setWrongOptions(new Set())
-      setShowCorrectAnswer(false)
-
-      // Smart trigger: Check if we need to load next batch (only in non-review mode)
       if (enableLazyLoad && !reviewMode) {
         checkAndTriggerNextBatch(nextIndex)
       }
-    } else {
-      // Quiz complete! Stop other sounds first, then play completion sound
-      if (soundsEnabled) {
-        soundManager.stopAll()
-        // Small delay to ensure clean audio transition
-        setTimeout(() => {
-          soundManager.play('quizComplete')
-        }, 100)
-      }
+    }
+  }
 
-      const finalScore = score + (isCorrect ? 1 : 0)
-      const completionSubject = subject || 'General'
+  const completeQuiz = () => {
+    if (soundsEnabled) {
+      soundManager.stopAll()
+      setTimeout(() => {
+        soundManager.play('quizComplete')
+      }, 100)
+    }
 
-      // Calculate actual time taken
-      const timeInSeconds = Math.floor((Date.now() - quizStartTime) / 1000)
+    const completionSubject = subject || 'General'
+    const timeInSeconds = Math.floor((Date.now() - quizStartTime) / 1000)
 
-      // Track quiz completion (Google Analytics)
-      analytics.trackQuizComplete(reviewMode ? 'css-mcq-review' : 'css-mcq', finalScore, activeMCQs.length, completionSubject)
+    analytics.trackQuizComplete(
+      reviewMode ? 'css-mcq-review' : 'css-mcq',
+      firstTryScore,
+      activeMCQs.length,
+      completionSubject
+    )
 
-      // Save quiz results to Supabase for analytics dashboard (only for non-review mode)
-      if (!reviewMode) {
-        saveQuizResults({
-          quizType: 'subject',
-          examSlug: 'css',
-          subject: completionSubject,
-          totalQuestions: activeMCQs.length,
-          correctAnswers: finalScore,
-          wrongAnswers: activeMCQs.length - finalScore,
-          skippedAnswers: 0,
-          timeInSeconds
-        }).then(response => {
+    if (!reviewMode) {
+      saveQuizResults({
+        quizType: 'subject',
+        examSlug: 'css',
+        subject: completionSubject,
+        totalQuestions: activeMCQs.length,
+        correctAnswers: firstTryScore,
+        wrongAnswers: activeMCQs.length - firstTryScore,
+        skippedAnswers: 0,
+        timeInSeconds,
+      })
+        .then((response) => {
           if (response && process.env.NODE_ENV === 'development') {
             console.log('✅ Quiz saved to analytics!', {
-              score: `${finalScore}/${activeMCQs.length}`,
+              score: `${firstTryScore}/${activeMCQs.length}`,
               time: `${Math.floor(timeInSeconds / 60)}m ${timeInSeconds % 60}s`,
               streak: `${response.streak} days 🔥`,
-              subject: completionSubject
+              subject: completionSubject,
             })
-
-            // Optionally show streak notification
             if (response.streak > 0) {
               console.log(`🔥 Current streak: ${response.streak} days!`)
             }
           }
-        }).catch(error => {
+        })
+        .catch((error) => {
           if (process.env.NODE_ENV === 'development') {
             console.error('❌ Error saving quiz to analytics:', error)
           }
         })
-      }
-
-      setShowResult(true)
     }
+
+    setShowResult(true)
   }
 
-  const previousQuestion = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
-      setSelectedAnswer(null)
-      setWrongAttempts(0)
-      setIsCorrect(false)
-      setWrongOptions(new Set())
-      setShowCorrectAnswer(false)
+  const dockContinue = () => {
+    if (currentIndex < activeMCQs.length - 1) {
+      goNext()
+    } else {
+      completeQuiz()
     }
   }
 
   const practiceMistakes = () => {
-    // Store wrong question IDs in session storage
     sessionStorage.setItem('practiceWrongQuestions', JSON.stringify(wrongQuestionIds))
 
-    // Store original score for comparison
-    sessionStorage.setItem('originalQuizScore', JSON.stringify({
-      correct: score,
-      total: activeMCQs.length
-    }))
+    sessionStorage.setItem(
+      'originalQuizScore',
+      JSON.stringify({
+        correct: firstTryScore,
+        total: activeMCQs.length,
+      })
+    )
 
     // Navigate to quiz with review mode
     const params = new URLSearchParams()
@@ -469,20 +461,19 @@ function CSSQuizContent() {
 
   const restartQuiz = () => {
     setCurrentIndex(0)
-    setSelectedAnswer(null)
+    setLockedAnswers({})
+    setFirstTryCorrect({})
+    setWrongChecks({})
+    setWrongPicks([])
+    setShowWrongPanel(false)
+    setWrongChoice(null)
     setShowResult(false)
-    setScore(0)
-    setAnswers([])
-    setWrongAttempts(0)
-    setIsCorrect(false)
-    setQuizStartTime(Date.now()) // Reset start time
-    // Reset gamification
+    setQuizStartTime(Date.now())
     setStreak(0)
     setMaxStreak(0)
     setPoints(0)
     setRecentPoints(0)
     setShowRecentPoints(false)
-    // For lazy loading, reload page to start fresh
     router.refresh()
   }
 
@@ -534,10 +525,12 @@ function CSSQuizContent() {
       <>
         <ConfettiCelebration
           trigger={true}
-          intensity={score / activeMCQs.length >= 0.8 ? 'high' : 'medium'}
+          burstKey={firstTryScore + activeMCQs.length}
+          intensity="high"
+          mode="results"
         />
         <EnhancedResultsScreen
-          score={score}
+          score={firstTryScore}
           total={activeMCQs.length}
           maxStreak={maxStreak}
           totalPoints={points}
@@ -547,208 +540,135 @@ function CSSQuizContent() {
           onExit={() => router.back()}
           reviewMode={reviewMode}
           originalScore={originalScore}
+          quizDurationSeconds={Math.floor((Date.now() - quizStartTime) / 1000)}
         />
       </>
     )
   }
 
+  const level = Math.min(99, Math.max(1, 1 + Math.floor(points / 250)))
+  const journeyFootnote = isQuestionSolved
+    ? 'Impressive! Moving right along.'
+    : 'Tap the correct answer — keep trying until you get it.'
+
+  let dockPhase: QuizDockPhase = 'hidden'
+  if (isQuestionSolved) dockPhase = 'correct'
+  else if (showWrongPanel) dockPhase = 'wrong'
+
+  const bottomPad = dockPhase === 'wrong' || dockPhase === 'correct' ? 'pb-40' : 'pb-6'
+
   return (
     <>
       <DevToolsWarning />
-      <ConfettiCelebration trigger={showConfetti} intensity="medium" />
+      <ConfettiCelebration
+        trigger={confettiBurst > 0}
+        burstKey={confettiBurst}
+        intensity="medium"
+        mode="answer"
+      />
       <EncouragementMessage
         type={encouragementType}
         show={showEncouragement}
       />
       <ProtectedContent>
         <UltraProtectedContent>
-          <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">
-      <div className="max-w-3xl mx-auto">
-        {/* Modern Dark Header - Mobile Responsive */}
-        <div className="bg-gradient-to-r from-slate-800 via-blue-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-blue-500/30">
-          <div className="flex items-center justify-between flex-wrap gap-2">
-            <button
-              onClick={() => router.back()}
-              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-white/10 active:bg-white/20 rounded-lg sm:rounded-xl transition-colors text-xs sm:text-sm font-semibold text-white shadow-lg border border-white/20"
-            >
-              <span>←</span>
-              <span className="hidden sm:inline">Exit</span>
-            </button>
-            
-            <div className="flex items-center gap-2 sm:gap-4">
-              {/* Question Counter - Shows total or dynamic count if lazy loading */}
-              <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20">
-                <span className="text-xs font-medium text-blue-300">Q</span>
-                <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
-                <span className="text-blue-300">/</span>
-                <span className="text-sm sm:text-base text-blue-200">
-                  {reviewMode ? activeMCQs.length : (totalCount ?? activeMCQs.length)}
+          <GamifiedQuizShell
+            mobileRail={
+              <div className="flex items-center justify-between gap-2 text-xs font-semibold text-indigo-900/80">
+                <span>Your journey</span>
+                <span>
+                  {questionPositionLabel}
+                  {isLoadingNextBatch && !reviewMode ? ' · …' : ''}
                 </span>
-                {/* Show loading indicator if next batch is being fetched */}
-                {isLoadingNextBatch && !reviewMode && (
-                  <span className="ml-2 text-xs text-blue-300 animate-pulse">
-                    Loading...
-                  </span>
-                )}
               </div>
-              
-              <div className="hidden sm:block">
-                <StreakCounter streak={streak} maxStreak={maxStreak} />
-              </div>
-              
-              <PointsDisplay
-                points={points}
-                recentPoints={recentPoints}
-                showRecent={showRecentPoints}
+            }
+            journey={
+              <QuizJourneyPanel
+                totalSteps={activeMCQs.length}
+                currentIndex={currentIndex}
+                pathProgress={pathProgress}
+                isQuestionSolved={isQuestionSolved}
+                footnote={journeyFootnote}
               />
-            </div>
-
-            <div className="flex items-center gap-1 sm:gap-2">
-              <SoundToggle />
-            </div>
-          </div>
-
-          {/* Streak on mobile - below header */}
-          <div className="sm:hidden mt-2 flex justify-center">
-            <StreakCounter streak={streak} maxStreak={maxStreak} />
-          </div>
-
-          {/* Modern Progress Bar */}
-          <div className="mt-2 sm:mt-3">
-            <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
-              <div
-                className="bg-gradient-to-r from-blue-400 to-blue-600 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
-                style={{ width: `${((currentIndex + 1) / activeMCQs.length) * 100}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Question Card - Mobile Responsive */}
-        <div
-          key={currentIndex}
-          className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-3.5 mb-2 sm:mb-2.5 border-2 border-gray-100 active:border-purple-200 transition-colors"
-        >
-            {/* Topic & Report */}
-            <div className="flex items-center justify-between mb-2 sm:mb-3">
-              {currentMCQ.topic ? (
-                <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-200">
-                  <span className="text-xs sm:text-sm">🏷️</span>
-                  <span className="text-xs sm:text-sm">
-                    {currentMCQ.topic
-                      .replace(/_/g, ' ')
-                      .split(' ')
-                      .map(
-                        (word) =>
-                          word.charAt(0).toUpperCase() +
-                          word.slice(1).toLowerCase()
-                      )
-                      .join(' ')}
-                  </span>
-                </span>
-              ) : (
-                <div />
-              )}
-
-              {/* Report Button */}
-              <button
-                onClick={handleReport}
-                className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 bg-red-50 text-red-600 active:bg-red-100 rounded-full text-xs font-semibold transition-colors border border-red-200"
-                title="Report an issue"
-              >
-                <Flag className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span className="hidden sm:inline">Report</span>
-                <span className="sm:hidden">⚠️</span>
-              </button>
-            </div>
-
-            {/* Question */}
-            <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-2.5 leading-normal">
-              {currentMCQ.question_text}
-            </h3>
-
-          {/* Options */}
-          <div className="space-y-1.5">
-            {options.map((option) => {
-              const isSelected = selectedAnswer === option.label
-              const isOptionCorrect = option.label === currentMCQ.correct_answer
-              const isWrongOption = wrongOptions.has(option.label)
-              const optionExplanation = currentMCQ[
-                `explanation_${option.label.toLowerCase()}` as keyof MCQ
-              ] as string | undefined
-
-              return (
-                <AnswerOption
-                  key={option.label}
-                  label={option.label}
-                  text={option.text}
-                  isSelected={isSelected}
-                  isCorrect={isOptionCorrect}
-                  isRevealed={isCorrect}
-                  isWrong={isWrongOption}
-                  showCorrectAnswer={showCorrectAnswer}
-                  onSelect={() => handleAnswer(option.label)}
-                  disabled={!!selectedAnswer}
-                  explanation={optionExplanation}
-                />
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Navigation - Compact Professional Style like MPT Mock */}
-        <div className="flex items-center justify-between pt-3 sm:pt-4 border-t-2 border-gray-100 mb-3">
-          <button
-            onClick={previousQuestion}
-            disabled={currentIndex === 0}
-            className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold"
+            }
           >
-            ← Previous
-          </button>
+            <div className="mx-auto w-full max-w-2xl shrink-0 px-3 pb-2 pt-1 sm:px-5 sm:pb-3 sm:pt-2">
+              <QuizGamificationHeader
+                progressPct={progressPct}
+                progressLabel={questionPositionLabel}
+                streak={streak}
+                totalXp={points}
+                lastXpGain={recentPoints}
+                showXpPop={showRecentPoints}
+                onExit={() => router.back()}
+                endSlot={<SoundToggle />}
+              />
+            </div>
 
-          <span className="text-sm sm:text-base text-gray-600 font-semibold px-2 sm:px-3">
-            {currentIndex + 1} / {activeMCQs.length}
-          </span>
-
-          {isLastQuestion ? (
-            <button
-              onClick={nextQuestion}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 active:from-green-700 active:to-emerald-800 transition-all shadow-lg hover:shadow-xl font-bold text-sm sm:text-base"
+            <main
+              className={`mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-3 pb-3 sm:px-5 sm:pb-4 ${bottomPad}`}
             >
-              Finish Test ✓
-            </button>
-          ) : (
-            <button
-              onClick={nextQuestion}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 active:from-blue-700 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base font-semibold"
-            >
-              Next →
-            </button>
-          )}
-        </div>
+              <div className="mb-2 flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-500 sm:mb-3 sm:text-sm">
+                <span aria-hidden>★</span>
+                <span>Level {level}</span>
+              </div>
 
-          </div>
-        </div>
+              <h1
+                className="mb-3 line-clamp-[8] shrink-0 text-pretty break-words text-base font-bold leading-snug text-slate-800 sm:mb-4 sm:line-clamp-[10] sm:text-lg md:text-xl"
+                title={currentMCQ.question_text}
+              >
+                {currentMCQ.question_text}
+              </h1>
+
+              <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-2 overflow-hidden pt-0.5 sm:gap-3 sm:pt-1">
+                {options.map((option) => {
+                  const appearance = flowOptionState(option.label, currentMCQ.correct_answer, {
+                    locked: lockedAnswer,
+                    wrongPicks,
+                    wrongChoice,
+                  })
+                  const optionExplanation = currentMCQ[
+                    `explanation_${option.label.toLowerCase()}` as keyof MCQ
+                  ] as string | undefined
+
+                  return (
+                    <AnswerOption
+                      key={option.label}
+                      label={option.label}
+                      text={option.text}
+                      appearance={appearance}
+                      isSelected={false}
+                      isCorrect={false}
+                      isRevealed={false}
+                      onSelect={() => pickOption(option.label)}
+                      disabled={!!lockedAnswer || wrongPicks.includes(option.label)}
+                      explanation={optionExplanation}
+                    />
+                  )
+                })}
+              </div>
+            </main>
+          </GamifiedQuizShell>
         </UltraProtectedContent>
       </ProtectedContent>
+
+      <QuizFeedbackDock
+        phase={dockPhase}
+        correct
+        title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
+        subtitle={
+          dockPhase === 'correct'
+            ? currentMCQ.explanation_detailed?.slice(0, 220) || 'Great job — keep going!'
+            : undefined
+        }
+        continueLabel="Continue"
+        onContinue={dockContinue}
+        isLastStep={isLastQuestion}
+      />
 
       {/* Feedback Button - Pops out from side after 2 minutes */}
       <FeedbackButton page="css-practice-quiz" />
 
-      {/* Report Toast Notification - Top Center */}
-      {showReportToast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-slide-down">
-          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-white/20">
-            <div className="text-2xl animate-pulse">
-              ✓
-            </div>
-            <div>
-              <div className="font-bold text-lg">Question Flagged!</div>
-              <div className="text-sm text-white/90">Thanks for helping us improve</div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   )
 }

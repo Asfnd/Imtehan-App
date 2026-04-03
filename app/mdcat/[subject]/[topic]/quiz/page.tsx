@@ -1,9 +1,22 @@
 'use client'
 
 import { useRouter, useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { ArrowLeft, BookOpen, CheckCircle2, XCircle, Lightbulb, AlertCircle } from 'lucide-react'
+import { soundManager } from '@/lib/sounds/soundManager'
+import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
+import { calculatePoints } from '@/lib/gamification/pointsCalculator'
+import { ConfettiCelebration } from '@/app/css/css-practice/quiz/components/ConfettiCelebration'
+import {
+  GamifiedQuizShell,
+  QuizFeedbackDock,
+  type QuizDockPhase,
+  getQuizPathProgress,
+  QuizGamificationHeader,
+  QuizJourneyPanel,
+  QuizResultsCard,
+  quizAccuracyPercent,
+} from '@/components/gamified-quiz'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string }> = {
   'biology': { name: 'Biology', table: 'mdcat_biology', color: 'from-green-600 to-emerald-700' },
@@ -26,19 +39,75 @@ interface MCQ {
   subtopic: string
 }
 
+type FlowState = 'default' | 'wrong' | 'correct' | 'dimmed'
+
+function flowOptionState(
+  label: string,
+  correctAnswer: string,
+  ctx: {
+    locked?: string
+    wrongPicks: string[]
+    wrongChoice: string | null
+  }
+): FlowState {
+  if (ctx.locked) {
+    if (label === correctAnswer) return 'correct'
+    return 'dimmed'
+  }
+  const triedWrong = ctx.wrongPicks.length > 0
+  if (triedWrong) {
+    if (ctx.wrongChoice === label) return 'wrong'
+    if (ctx.wrongPicks.includes(label)) return 'dimmed'
+  }
+  return 'default'
+}
+
+const FLOW_OPTION: Record<FlowState, string> = {
+  default: 'btn-3d border-slate-200 bg-white cursor-pointer group',
+  wrong: 'btn-3d incorrect cursor-default',
+  correct: 'btn-3d correct cursor-default',
+  dimmed: 'btn-3d dimmed cursor-default',
+}
+
+const FLOW_BADGE: Record<FlowState, string> = {
+  default: 'border-slate-200 text-slate-400 bg-slate-50 group-hover:border-indigo-300 group-hover:text-indigo-500',
+  wrong: 'border-rose-300 bg-rose-100 text-rose-600',
+  correct: 'border-emerald-400 bg-emerald-100 text-emerald-700',
+  dimmed: 'border-slate-100 text-slate-300 bg-slate-50',
+}
+
 export default function MDCATQuizPage() {
   const router = useRouter()
   const params = useParams()
   const subject = params.subject as string
   const topic = decodeURIComponent(params.topic as string)
+  const soundsEnabled = useSoundsEnabled()
 
   const [mcqs, setMcqs] = useState<MCQ[]>([])
+  const [reviewMode, setReviewMode] = useState(false)
+  const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
+  const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [firstTryCorrect, setFirstTryCorrect] = useState<Record<number, boolean>>({})
+  const [wrongChecks, setWrongChecks] = useState<Record<number, number>>({})
+  const [wrongPicks, setWrongPicks] = useState<string[]>([])
+  const [showWrongPanel, setShowWrongPanel] = useState(false)
+  const [wrongChoice, setWrongChoice] = useState<string | null>(null)
   const [showResults, setShowResults] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [streak, setStreak] = useState(0)
+  const [totalXp, setTotalXp] = useState(0)
+  const [lastXpGain, setLastXpGain] = useState(0)
+  const [showXpPop, setShowXpPop] = useState(false)
+  const [confettiBurst, setConfettiBurst] = useState(0)
+  const quizStartedAtRef = useRef<number | null>(null)
 
   const subjectConfig = SUBJECT_CONFIG[subject]
+
+  useEffect(() => {
+    soundManager.preload().catch(() => {})
+  }, [])
 
   useEffect(() => {
     async function fetchMCQs() {
@@ -57,7 +126,6 @@ export default function MDCATQuizPage() {
         return
       }
 
-      // Shuffle and limit to 30 MCQs
       const shuffled = (data || []).sort(() => Math.random() - 0.5).slice(0, 30)
       setMcqs(shuffled)
       setLoading(false)
@@ -66,35 +134,121 @@ export default function MDCATQuizPage() {
     fetchMCQs()
   }, [subject, topic, subjectConfig])
 
-  const handleAnswer = (answer: string) => {
-    if (answers[currentIndex]) return // Already answered
-    setAnswers({ ...answers, [currentIndex]: answer })
+  useEffect(() => {
+    if (!loading && mcqs.length > 0 && !reviewMode) {
+      quizStartedAtRef.current = Date.now()
+    }
+  }, [loading, mcqs.length, reviewMode])
+
+  const activeMCQs = reviewMode ? reviewMCQs : mcqs
+
+  useEffect(() => {
+    setWrongPicks([])
+    setShowWrongPanel(false)
+    setWrongChoice(null)
+  }, [currentIndex])
+
+  const currentMCQ = activeMCQs[currentIndex]
+  const lockedAnswer = answers[currentIndex]
+  const isQuestionSolved = lockedAnswer === currentMCQ?.correct_answer
+
+  const firstTryScore = activeMCQs.reduce((n, _, idx) => n + (firstTryCorrect[idx] ? 1 : 0), 0)
+
+  const pathProgress = getQuizPathProgress(
+    activeMCQs.length,
+    currentIndex,
+    isQuestionSolved,
+    wrongPicks.length
+  )
+  const progressPct = pathProgress * 100
+  const questionPositionLabel = `${currentIndex + 1}/${activeMCQs.length}`
+
+  const pickOption = (label: string) => {
+    if (lockedAnswer || !currentMCQ) return
+    if (wrongPicks.includes(label)) return
+
+    if (label === currentMCQ.correct_answer) {
+      const prevWrong = wrongChecks[currentIndex] ?? 0
+      setFirstTryCorrect((prev) => ({ ...prev, [currentIndex]: prevWrong === 0 }))
+      setAnswers((p) => ({ ...p, [currentIndex]: label }))
+      setShowWrongPanel(false)
+      setWrongChoice(null)
+      setWrongPicks([])
+
+      const newStreak = streak + 1
+      setStreak(newStreak)
+      const xp = calculatePoints(true, newStreak, prevWrong)
+      setTotalXp((v) => v + xp)
+      setLastXpGain(xp)
+      setShowXpPop(true)
+      setTimeout(() => setShowXpPop(false), 1500)
+      setConfettiBurst((c) => c + 1)
+      if (soundsEnabled) soundManager.play('correct')
+      return
+    }
+
+    setWrongChecks((p) => ({ ...p, [currentIndex]: (p[currentIndex] ?? 0) + 1 }))
+    setWrongPicks((prev) => [...prev, label])
+    setWrongChoice(label)
+    setShowWrongPanel(true)
+    setStreak(0)
+    if (soundsEnabled) soundManager.play('incorrect')
   }
 
-  const currentMCQ = mcqs[currentIndex]
-  const userAnswer = answers[currentIndex]
-  const isCorrect = userAnswer === currentMCQ?.correct_answer
+  const goNext = () => {
+    if (currentIndex < activeMCQs.length - 1) setCurrentIndex((i) => i + 1)
+  }
 
-  const score = Object.entries(answers).filter(
-    ([idx, ans]) => ans === mcqs[parseInt(idx)]?.correct_answer
-  ).length
+  const finishQuiz = () => {
+    if (soundsEnabled) {
+      soundManager.stopAll()
+      setTimeout(() => soundManager.play('quizComplete'), 120)
+    }
+    setShowResults(true)
+  }
+
+  const dockContinue = () => {
+    if (currentIndex < activeMCQs.length - 1) {
+      goNext()
+    } else {
+      finishQuiz()
+    }
+  }
+
+  const practiceMistakes = () => {
+    const wrong = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false)
+    setOriginalScore({ correct: firstTryScore, total: activeMCQs.length })
+    setReviewMCQs(wrong)
+    setReviewMode(true)
+    setCurrentIndex(0)
+    setAnswers({})
+    setFirstTryCorrect({})
+    setWrongChecks({})
+    setWrongPicks([])
+    setShowWrongPanel(false)
+    setWrongChoice(null)
+    setStreak(0)
+    setTotalXp(0)
+    setShowResults(false)
+    quizStartedAtRef.current = Date.now()
+  }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600" />
           <p className="text-gray-600">Loading quiz...</p>
         </div>
       </div>
     )
   }
 
-  if (!subjectConfig || mcqs.length === 0) {
+  if (!subjectConfig || activeMCQs.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">No MCQs found</h1>
+          <h1 className="mb-4 text-2xl font-bold text-gray-900">No MCQs found</h1>
           <button
             onClick={() => router.push(`/mdcat/${subject}`)}
             className="text-blue-600 hover:text-blue-700"
@@ -107,218 +261,170 @@ export default function MDCATQuizPage() {
   }
 
   if (showResults) {
-    const percentage = ((score / mcqs.length) * 100).toFixed(1)
-    const wrongMCQs = mcqs.filter((mcq, idx) => answers[idx] && answers[idx] !== mcq.correct_answer)
+    const correct = firstTryScore
+    const percentage = quizAccuracyPercent(correct, activeMCQs.length)
+    const wrongPracticeCount = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false).length
+
+    const improvement =
+      reviewMode && originalScore
+        ? (() => {
+            const beforePct = quizAccuracyPercent(originalScore.correct, originalScore.total)
+            return {
+              original: beforePct,
+              current: percentage,
+              improved: percentage > beforePct,
+              diff: percentage - beforePct,
+            }
+          })()
+        : null
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
-        <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
-          <div className="text-center mb-8">
-            <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${subjectConfig.color} mx-auto mb-4 flex items-center justify-center`}>
-              <CheckCircle2 className="w-10 h-10 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Quiz Complete!</h2>
-            <p className="text-gray-600">{topic}</p>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{score}</div>
-              <div className="text-xs text-green-700">Correct</div>
-            </div>
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-red-600">{mcqs.length - score}</div>
-              <div className="text-xs text-red-700">Wrong</div>
-            </div>
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{percentage}%</div>
-              <div className="text-xs text-blue-700">Score</div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
+      <>
+        <ConfettiCelebration
+          trigger
+          burstKey={correct + activeMCQs.length}
+          intensity="high"
+          mode="results"
+        />
+        <QuizResultsCard
+          title={reviewMode ? 'Practice complete' : 'Topic complete'}
+          subtitle={
+            reviewMode
+              ? `${subjectConfig.name} · ${activeMCQs.length} questions`
+              : `${subjectConfig.name} · ${topic} · ${activeMCQs.length} questions`
+          }
+          timeElapsedSeconds={
+            quizStartedAtRef.current != null
+              ? Math.floor((Date.now() - quizStartedAtRef.current) / 1000)
+              : 0
+          }
+          totalXp={totalXp}
+          correct={correct}
+          total={activeMCQs.length}
+          improvement={improvement}
+          wrongPracticeCount={!reviewMode ? wrongPracticeCount : 0}
+          onPracticeMistakes={wrongPracticeCount > 0 ? practiceMistakes : undefined}
+          footerExtra={
             <button
-              onClick={() => router.push(`/mdcat/${subject}`)}
-              className={`w-full bg-gradient-to-r ${subjectConfig.color} text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transition-all`}
-            >
-              Back to {subjectConfig.name}
-            </button>
-
-            {wrongMCQs.length > 0 && (
-              <button
-                onClick={() => {
-                  setMcqs(wrongMCQs)
-                  setCurrentIndex(0)
-                  setAnswers({})
-                  setShowResults(false)
-                }}
-                className="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
-              >
-                Practice Mistakes ({wrongMCQs.length} MCQs)
-              </button>
-            )}
-
-            <button
+              type="button"
               onClick={() => window.location.reload()}
-              className="w-full border-2 border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              className="mb-5 w-full rounded-2xl border-2 border-slate-200 py-3.5 text-[15px] font-bold text-slate-700 transition hover:bg-slate-50"
             >
-              Retry Quiz
+              Retry quiz
             </button>
-          </div>
-        </div>
-      </div>
+          }
+          backLabel={`Back to ${subjectConfig.name}`}
+          onBack={() => router.push(`/mdcat/${subject}`)}
+        />
+      </>
     )
   }
 
+  const level = Math.min(99, Math.max(1, 1 + Math.floor(totalXp / 250)))
+  const journeyFootnote = isQuestionSolved
+    ? 'Impressive! Moving right along.'
+    : 'Tap the correct answer — keep trying until you get it.'
+
+  let dockPhase: QuizDockPhase = 'hidden'
+  if (isQuestionSolved) dockPhase = 'correct'
+  else if (showWrongPanel) dockPhase = 'wrong'
+
+  const bottomPad = dockPhase === 'wrong' || dockPhase === 'correct' ? 'pb-40' : 'pb-6'
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-4 px-2 sm:px-4">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <div className={`bg-gradient-to-r from-slate-800 via-blue-900 to-slate-800 border border-blue-500/30 rounded-2xl p-4 mb-4 shadow-lg`}>
-          <div className="flex items-center justify-between mb-3">
-            <button
-              onClick={() => router.push(`/mdcat/${subject}`)}
-              className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">{subjectConfig.name}</span>
-            </button>
-            <div className="text-white/80 text-sm">
-              {currentIndex + 1} / {mcqs.length}
-            </div>
+    <>
+      <ConfettiCelebration
+        trigger={confettiBurst > 0}
+        burstKey={confettiBurst}
+        intensity="medium"
+        mode="answer"
+      />
+      <GamifiedQuizShell
+        mobileRail={
+          <div className="flex items-center justify-between gap-2 text-xs font-semibold text-indigo-900/80">
+            <span>{subjectConfig.name}</span>
+            <span>{questionPositionLabel}</span>
           </div>
-
-          <h2 className="text-white text-lg font-semibold mb-3">{topic}</h2>
-
-          {/* Progress bar */}
-          <div className="bg-white/10 rounded-full h-2 overflow-hidden">
-            <div
-              className="bg-gradient-to-r from-blue-400 to-blue-600 h-full transition-all duration-300"
-              style={{ width: `${((currentIndex + 1) / mcqs.length) * 100}%` }}
-            />
-          </div>
+        }
+        journey={
+          <QuizJourneyPanel
+            totalSteps={activeMCQs.length}
+            currentIndex={currentIndex}
+            pathProgress={pathProgress}
+            isQuestionSolved={isQuestionSolved}
+            footnote={journeyFootnote}
+          />
+        }
+      >
+        <div className="mx-auto w-full max-w-2xl shrink-0 px-3 pb-2 pt-1 sm:px-5 sm:pb-3 sm:pt-2">
+          <QuizGamificationHeader
+            progressPct={progressPct}
+            progressLabel={questionPositionLabel}
+            streak={streak}
+            totalXp={totalXp}
+            lastXpGain={lastXpGain}
+            showXpPop={showXpPop}
+            onExit={() => router.push(`/mdcat/${subject}`)}
+          />
         </div>
 
-        {/* Question Card */}
-        <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 mb-4 border-2 border-gray-100">
-          <div className="flex items-start gap-3 mb-4">
-            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${subjectConfig.color} flex items-center justify-center flex-shrink-0`}>
-              <BookOpen className="w-4 h-4 text-white" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-medium text-gray-500">
-                  {currentMCQ.difficulty}
-                </span>
-                {currentMCQ.subtopic && (
-                  <>
-                    <span className="text-gray-300">•</span>
-                    <span className="text-xs text-gray-500">{currentMCQ.subtopic}</span>
-                  </>
-                )}
-              </div>
-            </div>
+        <main
+          className={`mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-3 pb-3 sm:px-5 sm:pb-4 ${bottomPad}`}
+        >
+          <div className="mb-2 flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-500 sm:mb-3 sm:text-sm">
+            <span aria-hidden>★</span>
+            <span>Level {level}</span>
           </div>
 
-          <p className="text-gray-900 text-base sm:text-lg font-medium mb-6 leading-relaxed">
+          <h1
+            className="mb-3 line-clamp-[8] shrink-0 text-pretty break-words text-base font-bold leading-snug text-slate-800 sm:mb-4 sm:line-clamp-[10] sm:text-lg md:text-xl"
+            title={currentMCQ.question}
+          >
             {currentMCQ.question}
-          </p>
+          </h1>
 
-          {/* Options */}
-          <div className="space-y-3">
-            {['A', 'B', 'C', 'D'].map((opt) => {
+          <div className="flex min-h-0 w-full flex-1 flex-col justify-start gap-2 overflow-hidden pt-0.5 sm:gap-3 sm:pt-1">
+            {(['A', 'B', 'C', 'D'] as const).map((opt) => {
               const optionText = currentMCQ[`option_${opt.toLowerCase()}` as keyof MCQ] as string
-              const isSelected = userAnswer === opt
-              const isCorrectOption = opt === currentMCQ.correct_answer
-
-              let bgColor = 'bg-gray-50 hover:bg-blue-50 border-gray-200'
-              let textColor = 'text-gray-900'
-
-              if (userAnswer) {
-                if (isCorrectOption) {
-                  bgColor = 'bg-green-50 border-green-500'
-                  textColor = 'text-green-900'
-                } else if (isSelected) {
-                  bgColor = 'bg-red-50 border-red-500'
-                  textColor = 'text-red-900'
-                } else {
-                  bgColor = 'bg-gray-50 border-gray-200 opacity-50'
-                }
-              }
-
+              const state = flowOptionState(opt, currentMCQ.correct_answer, {
+                locked: lockedAnswer,
+                wrongPicks,
+                wrongChoice,
+              })
               return (
                 <button
                   key={opt}
-                  onClick={() => handleAnswer(opt)}
-                  disabled={!!userAnswer}
-                  className={`w-full flex items-start gap-3 p-4 rounded-xl border-2 transition-all text-left ${bgColor} ${
-                    !userAnswer && 'hover:border-blue-400'
-                  }`}
+                  type="button"
+                  onClick={() => pickOption(opt)}
+                  disabled={!!lockedAnswer || wrongPicks.includes(opt)}
+                  className={`relative flex min-h-[48px] w-full items-center gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold text-slate-700 sm:gap-4 sm:rounded-2xl sm:p-4 sm:text-lg sm:font-bold ${FLOW_OPTION[state]}`}
                 >
-                  <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 font-semibold text-sm ${
-                    userAnswer && isCorrectOption
-                      ? 'bg-green-500 border-green-500 text-white'
-                      : userAnswer && isSelected
-                      ? 'bg-red-500 border-red-500 text-white'
-                      : 'border-gray-300 text-gray-700'
-                  }`}>
+                  <div
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 text-sm transition-colors sm:rounded-lg ${FLOW_BADGE[state]}`}
+                  >
                     {opt}
                   </div>
-                  <span className={`flex-1 ${textColor}`}>{optionText}</span>
-                  {userAnswer && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />}
-                  {userAnswer && isSelected && !isCorrect && <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />}
+                  <span className="min-w-0 flex-1 leading-snug">{optionText}</span>
                 </button>
               )
             })}
           </div>
+        </main>
+      </GamifiedQuizShell>
 
-          {/* Explanation */}
-          {userAnswer && (
-            <div className={`mt-6 p-4 rounded-xl border-2 ${
-              isCorrect ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'
-            }`}>
-              <div className="flex items-start gap-2">
-                <Lightbulb className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isCorrect ? 'text-green-600' : 'text-amber-600'}`} />
-                <div>
-                  <div className={`font-semibold mb-1 text-sm ${isCorrect ? 'text-green-900' : 'text-amber-900'}`}>
-                    Explanation
-                  </div>
-                  <p className={`text-sm leading-relaxed ${isCorrect ? 'text-green-800' : 'text-amber-800'}`}>
-                    {currentMCQ.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation */}
-        <div className="flex gap-3">
-          <button
-            onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
-            disabled={currentIndex === 0}
-            className="flex-1 bg-white border-2 border-gray-200 text-gray-700 py-3 px-4 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-          >
-            Previous
-          </button>
-
-          {currentIndex < mcqs.length - 1 ? (
-            <button
-              onClick={() => setCurrentIndex(currentIndex + 1)}
-              className={`flex-1 bg-gradient-to-r ${subjectConfig.color} text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all`}
-            >
-              Next
-            </button>
-          ) : (
-            <button
-              onClick={() => setShowResults(true)}
-              className={`flex-1 bg-gradient-to-r ${subjectConfig.color} text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all`}
-            >
-              Finish
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
+      <QuizFeedbackDock
+        phase={dockPhase}
+        correct
+        title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
+        subtitle={
+          dockPhase === 'correct'
+            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job — keep going!'
+            : undefined
+        }
+        continueLabel="Continue"
+        onContinue={dockContinue}
+        isLastStep={currentIndex === activeMCQs.length - 1}
+      />
+    </>
   )
 }

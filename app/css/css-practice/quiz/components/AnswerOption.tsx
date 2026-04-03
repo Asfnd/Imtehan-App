@@ -1,12 +1,33 @@
 'use client'
 
 import { Check, X } from 'lucide-react'
-import { useAnimation, useHoverAnimation, combineAnimations } from '@/lib/hooks/useAnimation'
 import { useState, useEffect, memo } from 'react'
+
+export type AnswerOptionAppearance =
+  | 'default'
+  | 'wrong'
+  | 'correct'
+  | 'dimmed'
+
+const FLOW_OPTION: Record<AnswerOptionAppearance, string> = {
+  default: 'btn-3d border-slate-200 bg-white cursor-pointer group',
+  wrong: 'btn-3d incorrect cursor-default',
+  correct: 'btn-3d correct cursor-default',
+  dimmed: 'btn-3d dimmed cursor-default',
+}
+
+const FLOW_BADGE: Record<AnswerOptionAppearance, string> = {
+  default: 'border-slate-200 text-slate-400 bg-slate-50 group-hover:border-indigo-300 group-hover:text-indigo-500',
+  wrong: 'border-rose-300 bg-rose-100 text-rose-600',
+  correct: 'border-emerald-400 bg-emerald-100 text-emerald-700',
+  dimmed: 'border-slate-100 text-slate-300 bg-slate-50',
+}
 
 interface AnswerOptionProps {
   label: string
   text: string
+  /** When set, styling follows check-flow states (overrides legacy flags below). */
+  appearance?: AnswerOptionAppearance
   isSelected: boolean
   isCorrect: boolean
   isRevealed: boolean
@@ -17,14 +38,10 @@ interface AnswerOptionProps {
   explanation?: string
 }
 
-/**
- * AnswerOption Component
- * Modern, interactive answer button with animations and feedback
- * Memoized to prevent unnecessary re-renders when quiz state changes
- */
 export const AnswerOption = memo(function AnswerOption({
   label,
   text,
+  appearance,
   isSelected,
   isCorrect,
   isRevealed,
@@ -32,108 +49,78 @@ export const AnswerOption = memo(function AnswerOption({
   showCorrectAnswer = false,
   onSelect,
   disabled,
-  explanation,
 }: AnswerOptionProps) {
   const [showShake, setShowShake] = useState(false)
-  const [showPulse, setShowPulse] = useState(false)
-  const showCorrect = isCorrect && (isRevealed || showCorrectAnswer)
+  const showCorrectState = isCorrect && (isRevealed || showCorrectAnswer)
   const showIncorrect = isWrong || (isSelected && !isCorrect)
+  const isDimmed = disabled && !showCorrectState && !showIncorrect
 
-  // Trigger animations based on state
   useEffect(() => {
-    if (showIncorrect) {
+    if (appearance === 'wrong' || showIncorrect) {
       setShowShake(true)
       const timer = setTimeout(() => setShowShake(false), 500)
       return () => clearTimeout(timer)
     }
-    if (showCorrect) {
-      setShowPulse(true)
-      const timer = setTimeout(() => setShowPulse(false), 2000)
-      return () => clearTimeout(timer)
-    }
-  }, [showIncorrect, showCorrect])
+  }, [appearance, showIncorrect])
 
-  const fadeInAnimation = useAnimation('fadeIn', { trigger: true })
-  const hoverAnimation = useHoverAnimation('scaleSm')
-
-  const getBackgroundColor = () => {
-    if (showCorrect) {
-      return 'bg-gradient-to-r from-green-50 to-emerald-50'
-    }
-    if (showIncorrect) {
-      return 'bg-gradient-to-r from-red-50 to-rose-50'
-    }
-    if (isSelected && !isRevealed) {
-      return 'bg-gradient-to-r from-blue-50 to-indigo-50'
-    }
-    return 'bg-gray-50 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50'
+  if (appearance) {
+    const showIcons = appearance === 'correct' || appearance === 'wrong'
+    return (
+      <button
+        type="button"
+        onClick={onSelect}
+        disabled={disabled}
+        className={`group relative flex min-h-[48px] w-full items-center gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold text-slate-700 sm:gap-4 sm:rounded-2xl sm:p-4 sm:text-lg sm:font-bold ${FLOW_OPTION[appearance]} ${disabled ? 'cursor-default' : 'cursor-pointer'} ${showShake ? 'animate-shake' : ''}`}
+      >
+        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 text-sm transition-colors sm:rounded-lg ${FLOW_BADGE[appearance]}`}>
+          {showIcons && appearance === 'correct' ? (
+            <Check className="h-4 w-4" strokeWidth={3} />
+          ) : showIcons && appearance === 'wrong' ? (
+            <X className="h-4 w-4" strokeWidth={3} />
+          ) : (
+            label
+          )}
+        </div>
+        <span className="min-w-0 flex-1 leading-snug">{text}</span>
+      </button>
+    )
   }
 
-  const getLabelColor = () => {
-    if (showCorrect) return 'bg-green-500 text-white'
-    if (showIncorrect) return 'bg-red-500 text-white'
-    if (isSelected && !isRevealed) return 'bg-blue-500 text-white'
-    return 'bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700'
+  const btnClasses = () => {
+    const base =
+      'btn-3d group relative flex min-h-[48px] w-full items-center gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold text-slate-700 sm:gap-4 sm:rounded-2xl sm:p-4 sm:text-lg sm:font-bold'
+    if (showCorrectState) return `${base} correct`
+    if (showIncorrect) return `${base} incorrect`
+    if (isDimmed) return `${base} dimmed`
+    return base
+  }
+
+  const badgeClasses = () => {
+    const base =
+      'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 text-sm transition-colors sm:rounded-lg'
+    if (showCorrectState) return `${base} border-emerald-400 bg-emerald-100 text-emerald-700`
+    if (showIncorrect) return `${base} border-rose-300 bg-rose-100 text-rose-600`
+    if (isDimmed) return `${base} border-slate-100 text-slate-300 bg-slate-50`
+    return `${base} border-slate-200 text-slate-400 bg-slate-50 group-hover:border-indigo-300 group-hover:text-indigo-500`
   }
 
   return (
-    <div
-      className={combineAnimations(
-        'rounded-xl transition-all shadow-sm hover:shadow-md',
-        fadeInAnimation,
-        hoverAnimation,
-        showShake ? 'animate-shake' : '',
-        showPulse ? 'animate-pulse-green' : '',
-        getBackgroundColor()
-      )}
+    <button
+      type="button"
+      onClick={onSelect}
+      disabled={disabled}
+      className={`${btnClasses()} ${disabled ? 'cursor-default' : 'cursor-pointer'} ${showShake ? 'animate-shake' : ''}`}
     >
-      <button
-        onClick={onSelect}
-        disabled={disabled}
-        className={`w-full text-left p-3 ${
-          disabled ? 'cursor-not-allowed' : 'cursor-pointer'
-        }`}
-      >
-        <div className="flex items-center gap-2.5">
-          {/* Label Badge - Sweet spot size */}
-          <div
-            className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center font-bold text-base ${getLabelColor()}`}
-          >
-            {label}
-          </div>
-
-          {/* Answer Text - Sweet spot size */}
-          <span className="flex-1 text-[15px] leading-normal text-gray-800 font-medium">
-            {text}
-          </span>
-
-          {/* Status Icon */}
-          {showCorrect && (
-            <div className="flex-shrink-0 animate-scale-in">
-              <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                <Check className="w-4 h-4 text-white" strokeWidth={3} />
-              </div>
-            </div>
-          )}
-
-          {showIncorrect && (
-            <div className="flex-shrink-0 animate-scale-in">
-              <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
-                <X className="w-4 h-4 text-white" strokeWidth={3} />
-              </div>
-            </div>
-          )}
-        </div>
-      </button>
-
-      {/* Explanation - Compact but readable */}
-      {isRevealed && explanation && (
-        <div className="px-3 pb-2.5 ml-11 animate-fade-in">
-          <div className="text-[13px] text-gray-600 leading-snug">
-            {explanation}
-          </div>
-        </div>
-      )}
-    </div>
+      <div className={badgeClasses()}>
+        {showCorrectState ? (
+          <Check className="h-4 w-4" strokeWidth={3} />
+        ) : showIncorrect ? (
+          <X className="h-4 w-4" strokeWidth={3} />
+        ) : (
+          label
+        )}
+      </div>
+      <span className="min-w-0 flex-1 leading-snug">{text}</span>
+    </button>
   )
 })

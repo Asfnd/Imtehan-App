@@ -244,6 +244,202 @@
   }
 }
 
+/*
+ * Per-answer burst: many stops + linear timing = smooth 60fps-style interpolation
+ * (ty negative = up). Only transform + opacity — compositor-friendly.
+ */
+@keyframes confettiRiseAnswer {
+  0% {
+    transform: translate3d(0, 4px, 0) rotate(0deg) scale(0.48);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+    transform: translate3d(calc(var(--tx) * 0.12), calc(var(--ty) * 0.1), 0)
+      rotate(calc(var(--spin) * 0.1)) scale(1.06);
+  }
+  18% {
+    transform: translate3d(calc(var(--tx) * 0.32), calc(var(--ty) * 0.28), 0)
+      rotate(calc(var(--spin) * 0.28)) scale(1.04);
+    opacity: 1;
+  }
+  32% {
+    transform: translate3d(calc(var(--tx) * 0.5), calc(var(--ty) * 0.45), 0)
+      rotate(calc(var(--spin) * 0.44)) scale(1.02);
+    opacity: 1;
+  }
+  48% {
+    transform: translate3d(calc(var(--tx) * 0.64), calc(var(--ty) * 0.58), 0)
+      rotate(calc(var(--spin) * 0.56)) scale(1);
+    opacity: 1;
+  }
+  64% {
+    transform: translate3d(calc(var(--tx) * 0.78), calc(var(--ty) * 0.71), 0)
+      rotate(calc(var(--spin) * 0.68)) scale(0.94);
+    opacity: 0.95;
+  }
+  78% {
+    transform: translate3d(calc(var(--tx) * 0.9), calc(var(--ty) * 0.84), 0)
+      rotate(calc(var(--spin) * 0.82)) scale(0.82);
+    opacity: 0.72;
+  }
+  92% {
+    transform: translate3d(calc(var(--tx) * 0.97), calc(var(--ty) * 0.94), 0)
+      rotate(calc(var(--spin) * 0.94)) scale(0.62);
+    opacity: 0.28;
+  }
+  100% {
+    transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--spin)) scale(0.48);
+    opacity: 0;
+  }
+}
+
+/* Spawn at bottom: --tx / --ty = final offset (ty negative = up). Silky ease-out. */
+@keyframes confettiRiseSoft {
+  0% {
+    transform: translate3d(0, 14px, 0) rotate(0deg) scale(0.62);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+    transform: translate3d(calc(var(--tx) * 0.14), calc(var(--ty) * 0.11), 0)
+      rotate(calc(var(--spin) * 0.11)) scale(1);
+  }
+  38% {
+    transform: translate3d(calc(var(--tx) * 0.44), calc(var(--ty) * 0.4), 0)
+      rotate(calc(var(--spin) * 0.36)) scale(1.03);
+    opacity: 1;
+  }
+  68% {
+    transform: translate3d(calc(var(--tx) * 0.78), calc(var(--ty) * 0.72), 0)
+      rotate(calc(var(--spin) * 0.64)) scale(0.92);
+    opacity: 0.88;
+  }
+  100% {
+    transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--spin)) scale(0.64);
+    opacity: 0;
+  }
+}
+
+/* Results: long, lush arc — extra keyframes for smooth motion + visible peak. */
+@keyframes confettiRiseGrand {
+  0% {
+    transform: translate3d(0, 18px, 0) rotate(0deg) scale(0.45);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+    transform: translate3d(calc(var(--tx) * 0.08), calc(var(--ty) * 0.06), 0)
+      rotate(calc(var(--spin) * 0.06)) scale(1.04);
+  }
+  16% {
+    transform: translate3d(calc(var(--tx) * 0.22), calc(var(--ty) * 0.19), 0)
+      rotate(calc(var(--spin) * 0.2)) scale(1.08);
+    opacity: 1;
+  }
+  30% {
+    transform: translate3d(calc(var(--tx) * 0.4), calc(var(--ty) * 0.35), 0)
+      rotate(calc(var(--spin) * 0.36)) scale(1.06);
+    opacity: 1;
+  }
+  44% {
+    transform: translate3d(calc(var(--tx) * 0.54), calc(var(--ty) * 0.48), 0)
+      rotate(calc(var(--spin) * 0.48)) scale(1.04);
+    opacity: 1;
+  }
+  58% {
+    transform: translate3d(calc(var(--tx) * 0.66), calc(var(--ty) * 0.59), 0)
+      rotate(calc(var(--spin) * 0.58)) scale(1.01);
+    opacity: 1;
+  }
+  72% {
+    transform: translate3d(calc(var(--tx) * 0.78), calc(var(--ty) * 0.71), 0)
+      rotate(calc(var(--spin) * 0.7)) scale(0.92);
+    opacity: 0.92;
+  }
+  84% {
+    transform: translate3d(calc(var(--tx) * 0.9), calc(var(--ty) * 0.84), 0)
+      rotate(calc(var(--spin) * 0.84)) scale(0.72);
+    opacity: 0.55;
+  }
+  94% {
+    transform: translate3d(calc(var(--tx) * 0.98), calc(var(--ty) * 0.95), 0)
+      rotate(calc(var(--spin) * 0.95)) scale(0.55);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--spin)) scale(0.42);
+    opacity: 0;
+  }
+}
+
+@keyframes confettiAmbient {
+  0% {
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes quizResultsShellIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.995);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes quizResultMetricIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quiz-results-shell-animate {
+  animation: quizResultsShellIn 0.55s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.quiz-results-metric-animate {
+  animation: quizResultMetricIn 0.42s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.quiz-results-children-animate {
+  animation: quizResultMetricIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
+}
+
+.quiz-results-secondary-footer-animate {
+  animation: quizResultMetricIn 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+
+@keyframes confettiBurstReduced {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate3d(calc(var(--tx) * 0.18), calc(var(--ty) * 0.16), 0) scale(1);
+  }
+}
+
 @keyframes emojiFloat {
   0% {
     transform: translateY(-10vh) rotate(0deg) scale(0);
@@ -287,6 +483,67 @@
   100% {
     transform: translateX(100%);
   }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -36px, 0) scale(1.08);
+  }
+}
+.animate-float-up {
+  animation: floatUp 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+  z-index: 50;
+  font-weight: 900;
+}
+
+.slide-up {
+  animation: slideUpDock 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes slideUpDock {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.btn-3d {
+  box-shadow: 0 4px 0 0 #e5e7eb;
+  transition: all 0.15s ease-in-out;
+}
+.btn-3d:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 0 #c7d2fe;
+}
+.btn-3d:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0 0 #e5e7eb;
+}
+.btn-3d.correct {
+  background-color: #d1fae5;
+  border-color: #10b981;
+  color: #065f46;
+  box-shadow: 0 4px 0 0 #10b981;
+}
+.btn-3d.incorrect {
+  background-color: #ffe4e6;
+  border-color: #f43f5e;
+  color: #881337;
+  box-shadow: 0 4px 0 0 #f43f5e;
+  opacity: 0.7;
+}
+.btn-3d.dimmed:not(.correct):not(.incorrect) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 0 0 #e5e7eb;
 }
 
 /* Stagger animations for lists */
@@ -386,7 +643,7 @@
     opacity: 1;
     transform: none;
   }
-  
+
   .hover-scale:hover,
   .hover-scale-sm:hover,
   .hover-lift:hover,
