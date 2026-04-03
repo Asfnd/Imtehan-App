@@ -400,10 +400,7 @@ export default function MockTestInterface({
           />
 
           <div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-4 sm:max-w-3xl sm:px-6">
-            <div
-              key={currentIndex}
-              className="flex min-h-0 flex-1 flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-3 sm:gap-4 sm:pb-28 sm:pt-4"
-            >
+            <div className="flex min-h-0 flex-1 flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-3 sm:gap-4 sm:pb-28 sm:pt-4">
               <div className="flex shrink-0 items-center justify-between gap-2">
                 <span className="inline-flex max-w-[52%] items-center truncate rounded-full border border-indigo-100 bg-indigo-50/90 px-3 py-1.5 text-xs font-semibold text-indigo-900 sm:max-w-[60%] sm:px-3.5 sm:py-2 sm:text-sm">
                   {currentMCQ.subject}
@@ -426,11 +423,14 @@ export default function MockTestInterface({
                 </div>
               </div>
 
-              <h3 className="line-clamp-[6] shrink-0 text-base font-bold leading-[1.45] tracking-tight text-slate-900 sm:line-clamp-[7] sm:text-lg sm:leading-[1.5] md:text-xl md:leading-snug">
-                {currentMCQ.question}
-              </h3>
+              <div className="shrink-0 text-left">
+                <h3 className="text-pretty line-clamp-[6] text-base font-bold leading-[1.5] tracking-tight text-slate-900 [overflow-wrap:anywhere] sm:line-clamp-[7] sm:text-lg sm:leading-[1.55] md:text-xl md:leading-snug">
+                  {currentMCQ.question}
+                </h3>
+              </div>
 
-              <div className="flex min-h-0 flex-1 flex-col justify-center gap-2 sm:gap-2.5">
+              {/* No flex-1 justify-center — options stay fixed under the stem so layout does not shift by question length */}
+              <div className="flex flex-col gap-2 sm:gap-2.5">
                 {options.map(({ label, text }) => {
                   const visual = getOptionVisual(label, userAnswer, currentMCQ.correct_answer, visualCtx)
                   const showIcons = visual === 'correct' || visual === 'wrong'
@@ -440,10 +440,10 @@ export default function MockTestInterface({
                       type="button"
                       onClick={() => handleAnswer(label)}
                       disabled={optionDisabled}
-                      className={`group relative flex min-h-[52px] w-full items-start gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold leading-snug text-slate-800 sm:min-h-[56px] sm:gap-3.5 sm:rounded-2xl sm:p-4 sm:text-lg ${EXAM_OPTION[visual]}`}
+                      className={`group relative grid w-full grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3 overflow-hidden rounded-xl border-2 p-3 text-left sm:grid-cols-[2.75rem_minmax(0,1fr)] sm:rounded-2xl sm:p-4 ${EXAM_OPTION[visual]}`}
                     >
                       <div
-                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 text-sm font-bold transition-colors sm:h-9 sm:w-9 sm:rounded-xl sm:text-base ${EXAM_BADGE[visual]}`}
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 text-sm font-bold tabular-nums leading-none transition-colors sm:h-9 sm:w-9 sm:rounded-xl sm:text-base ${EXAM_BADGE[visual]}`}
                       >
                         {showIcons && visual === 'correct' ? (
                           <Check className="h-4 w-4 sm:h-[1.125rem] sm:w-[1.125rem]" strokeWidth={3} />
@@ -453,18 +453,20 @@ export default function MockTestInterface({
                           label
                         )}
                       </div>
-                      <span className="min-w-0 flex-1 line-clamp-3 leading-snug">{text}</span>
+                      <span className="min-w-0 pt-0.5 text-left text-base font-semibold leading-snug text-slate-800 [overflow-wrap:anywhere] sm:pt-[0.1875rem] sm:text-lg">
+                        <span className="line-clamp-4">{text}</span>
+                      </span>
                     </button>
                   )
                 })}
               </div>
 
               {showExplanation ? (
-                <div className="shrink-0 rounded-xl border border-indigo-100 bg-indigo-50/90 px-3.5 py-2.5 sm:px-4 sm:py-3">
+                <div className="shrink-0 rounded-xl border border-indigo-100 bg-indigo-50/90 px-3.5 py-2.5 text-left sm:px-4 sm:py-3">
                   <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-600 sm:text-xs">
                     Explanation
                   </p>
-                  <p className="line-clamp-4 text-sm leading-relaxed text-slate-700 sm:text-base">
+                  <p className="text-pretty line-clamp-4 text-sm leading-relaxed text-slate-700 [overflow-wrap:anywhere] sm:text-base">
                     {currentMCQ.explanation}
                   </p>
                 </div>

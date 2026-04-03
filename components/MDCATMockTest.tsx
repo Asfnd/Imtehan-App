@@ -552,10 +552,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
             />
 
             <div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-4 sm:max-w-3xl sm:px-6">
-              <div
-                key={currentIndex}
-                className="flex min-h-0 flex-1 flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-3 sm:gap-4 sm:pb-28 sm:pt-4"
-              >
+              <div className="flex min-h-0 flex-1 flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-3 sm:gap-4 sm:pb-28 sm:pt-4">
                 <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
                   <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
                     <span
@@ -591,11 +588,13 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
                   </div>
                 </div>
 
-                <h3 className="line-clamp-[6] shrink-0 text-base font-bold leading-[1.45] tracking-tight text-slate-900 sm:line-clamp-[7] sm:text-lg sm:leading-[1.5] md:text-xl md:leading-snug">
-                  {currentMCQ.question}
-                </h3>
+                <div className="shrink-0 text-left">
+                  <h3 className="text-pretty line-clamp-[6] text-base font-bold leading-[1.5] tracking-tight text-slate-900 [overflow-wrap:anywhere] sm:line-clamp-[7] sm:text-lg sm:leading-[1.55] md:text-xl md:leading-snug">
+                    {currentMCQ.question}
+                  </h3>
+                </div>
 
-                <div className="flex min-h-0 flex-1 flex-col justify-center gap-2 sm:gap-2.5">
+                <div className="flex flex-col gap-2 sm:gap-2.5">
                   {(['A', 'B', 'C', 'D'] as const).map(opt => {
                     const optText = currentMCQ[`option_${opt.toLowerCase()}` as keyof MockMCQ] as string
                     const isSelected = userAnswer === opt
@@ -605,14 +604,16 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
                         key={opt}
                         type="button"
                         onClick={() => setAnswers(prev => ({ ...prev, [currentIndex]: opt }))}
-                        className={`group relative flex min-h-[52px] w-full items-start gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold leading-snug text-slate-800 sm:min-h-[56px] sm:gap-3.5 sm:rounded-2xl sm:p-4 sm:text-lg ${MDCAT_EXAM_OPTION[visual]}`}
+                        className={`group relative grid w-full grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3 overflow-hidden rounded-xl border-2 p-3 text-left sm:grid-cols-[2.75rem_minmax(0,1fr)] sm:rounded-2xl sm:p-4 ${MDCAT_EXAM_OPTION[visual]}`}
                       >
                         <div
-                          className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 text-sm font-bold transition-colors sm:h-9 sm:w-9 sm:rounded-xl sm:text-base ${MDCAT_EXAM_BADGE[visual]}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 text-sm font-bold tabular-nums leading-none transition-colors sm:h-9 sm:w-9 sm:rounded-xl sm:text-base ${MDCAT_EXAM_BADGE[visual]}`}
                         >
                           {opt}
                         </div>
-                        <span className="min-w-0 flex-1 line-clamp-3 leading-snug">{optText}</span>
+                        <span className="min-w-0 pt-0.5 text-left text-base font-semibold leading-snug text-slate-800 [overflow-wrap:anywhere] sm:pt-[0.1875rem] sm:text-lg">
+                          <span className="line-clamp-4">{optText}</span>
+                        </span>
                       </button>
                     )
                   })}
@@ -786,9 +787,11 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
                 <div className="mt-4 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl">
                   <div className="flex items-start gap-2">
                     <Lightbulb className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                    <div>
+                    <div className="min-w-0 text-left">
                       <p className="font-semibold text-sm text-amber-900 mb-1">Explanation</p>
-                      <p className="text-sm text-amber-800 leading-relaxed">{mcq.explanation}</p>
+                      <p className="text-pretty text-sm text-amber-800 leading-relaxed [overflow-wrap:anywhere]">
+                        {mcq.explanation}
+                      </p>
                     </div>
                   </div>
                 </div>
