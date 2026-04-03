@@ -3,49 +3,10 @@ import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import MockTestInterface from '@/components/MockTestInterface'
+import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
-}
-
-/**
- * qTypes controls which DB question types are fetched for each mock.
- * This ensures every mock's content genuinely reflects its description
- * and uses the exam's own subject distribution (section.count).
- *
- * DB type values:
- *  'most_repeated'  — questions that appear most frequently in real exams
- *  'most_important' — high-yield concept questions
- *  'practice'       — past paper / archived questions
- */
-const MOCK_SPECS: Record<number, {
-  title: string
-  multiplier: number
-  qTypes: string[]
-}> = {
-  // ── Standard (1–7) ────────────────────────────────────────────────
-  1:  { title: 'Full Exam Simulation',      multiplier: 1.00, qTypes: ['most_repeated'] },
-  2:  { title: 'Past Paper Pattern',         multiplier: 1.00, qTypes: ['practice'] },
-  3:  { title: 'Subject-wise Balanced',      multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  4:  { title: 'Core Concepts Focus',        multiplier: 1.00, qTypes: ['most_important'] },
-  5:  { title: '75% Warm-up Test',           multiplier: 0.75, qTypes: ['most_repeated'] },
-  6:  { title: 'Mixed Topics Sampler',       multiplier: 0.75, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  7:  { title: 'Quick 50% Revision',         multiplier: 0.50, qTypes: ['most_important'] },
-  // ── Advanced (8–14) ───────────────────────────────────────────────
-  8:  { title: 'Advanced Full Simulation',   multiplier: 1.00, qTypes: ['most_repeated'] },
-  9:  { title: 'High-Yield MCQ Focus',       multiplier: 1.00, qTypes: ['most_repeated', 'most_important'] },
-  10: { title: 'Comprehensive Deep-Dive',    multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  11: { title: '75% Analytical Test',        multiplier: 0.75, qTypes: ['most_important'] },
-  12: { title: 'Speed & Pressure Test',      multiplier: 0.50, qTypes: ['most_repeated'] },
-  13: { title: 'Intensive Practice Set',     multiplier: 1.00, qTypes: ['practice'] },
-  14: { title: 'Rapid Fire Blitz',           multiplier: 0.25, qTypes: ['most_repeated'] },
-  // ── Expert (15–20) ────────────────────────────────────────────────
-  15: { title: 'Expert Level Full Test',     multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  16: { title: 'Ultimate Challenge',         multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  17: { title: '75% Champions Drill',        multiplier: 0.75, qTypes: ['most_repeated', 'most_important'] },
-  18: { title: 'Final Comprehensive Review', multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  19: { title: 'Grand Master Simulation',    multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
-  20: { title: 'The Final Assessment',       multiplier: 1.00, qTypes: ['most_repeated', 'most_important', 'practice'] },
 }
 
 // Deterministic hash for stable shuffle per (id, mockNumber) pair
@@ -70,7 +31,8 @@ export default async function MockTestPage({
   const mockNumber = parseInt(mockId)
   if (isNaN(mockNumber) || mockNumber < 1 || mockNumber > 20) notFound()
 
-  const spec = MOCK_SPECS[mockNumber]
+  const spec = EXAM_MOCK_SPECS[mockNumber]
+  if (!spec) notFound()
   const { multiplier, qTypes } = spec
 
   const supabase = await createServerSupabaseClient()

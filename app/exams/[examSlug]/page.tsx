@@ -3,13 +3,11 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import {
-  BookOpen, FileText, Target, Flame,
-  TrendingUp, ChevronRight, Star, Sparkles,
-  Zap, Trophy, Award, Clock, Shield, Layers, BarChart2,
-  Cpu, Activity, Crosshair, Brain, Flag, CheckCircle, Lock, X, ExternalLink
-} from 'lucide-react'
+import { BookOpen, X, ExternalLink } from 'lucide-react'
 import { getExamConfig, ExamConfig } from '@/lib/exam-configs'
+import { examMockSpec } from '@/lib/exam-mock-specs'
+import ExamMockSections from '@/components/exams/ExamMockSections'
+import ExamPracticeGridCard from '@/components/exams/ExamPracticeGridCard'
 import { createClient } from '@/lib/supabase/client'
 import NavigationBar from '@/components/NavigationBar'
 import { PremiumPopup } from '@/components/auth/PremiumPopup'
@@ -298,90 +296,33 @@ function ExamDashboard() {
         {/* Mock Tests Section */}
         {!preselectedMode && (
           <div className="mb-10">
-            <div className="flex items-center gap-3 mb-5">
+            <div className="mb-4 flex flex-wrap items-center gap-3">
               <h3 className="text-base font-semibold text-gray-900">Mock Tests</h3>
-              <span className="text-xs text-purple-600 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-full font-medium">
-                20 Tests
+              <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600">
+                20 tests
               </span>
-              <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs text-gray-500">{config.totalMCQs} Qs · {config.duration}m</span>
+              <div className="hidden h-4 w-px bg-gray-300 sm:block" />
+              <span className="hidden text-xs text-gray-500 sm:inline">
+                {config.totalMCQs} Qs · {config.duration}m full mock
+              </span>
+              <div className="flex-1" />
+              <Link
+                href={`/exams/${examSlug}/mock`}
+                className="text-sm font-medium text-blue-600 hover:text-blue-800"
+              >
+                Full mock list
+              </Link>
             </div>
-
-            {[
-              {
-                group: 'Standard', color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-200',
-                mocks: [
-                  { id: 1,  icon: Target,    title: 'Mock 1',  desc: 'Full simulation',    pct: 1.00 },
-                  { id: 2,  icon: FileText,  title: 'Mock 2',  desc: 'Past paper pattern', pct: 1.00 },
-                  { id: 3,  icon: Layers,    title: 'Mock 3',  desc: 'Subject-balanced',   pct: 1.00 },
-                  { id: 4,  icon: BookOpen,  title: 'Mock 4',  desc: 'Core concepts',      pct: 1.00 },
-                  { id: 5,  icon: Star,      title: 'Mock 5',  desc: '75% warm-up',        pct: 0.75 },
-                  { id: 6,  icon: Zap,       title: 'Mock 6',  desc: 'Mixed topics',       pct: 0.75 },
-                  { id: 7,  icon: Clock,     title: 'Mock 7',  desc: 'Quick 50% rev.',     pct: 0.50 },
-                ],
-              },
-              {
-                group: 'Advanced', color: 'text-orange-500', bg: 'bg-orange-50', border: 'border-orange-200',
-                mocks: [
-                  { id: 8,  icon: TrendingUp, title: 'Mock 8',  desc: 'Advanced sim.',      pct: 1.00 },
-                  { id: 9,  icon: Flame,      title: 'Mock 9',  desc: 'High-yield focus',   pct: 1.00 },
-                  { id: 10, icon: BarChart2,  title: 'Mock 10', desc: 'Deep-dive',          pct: 1.00 },
-                  { id: 11, icon: Brain,      title: 'Mock 11', desc: '75% analytical',     pct: 0.75 },
-                  { id: 12, icon: Activity,   title: 'Mock 12', desc: 'Speed & pressure',   pct: 0.50 },
-                  { id: 13, icon: Trophy,     title: 'Mock 13', desc: 'Intensive practice', pct: 1.00 },
-                  { id: 14, icon: Crosshair,  title: 'Mock 14', desc: 'Rapid fire 25%',     pct: 0.25 },
-                ],
-              },
-              {
-                group: 'Expert', color: 'text-red-500', bg: 'bg-red-50', border: 'border-red-200',
-                mocks: [
-                  { id: 15, icon: Shield,      title: 'Mock 15', desc: 'Expert full test',   pct: 1.00 },
-                  { id: 16, icon: Award,       title: 'Mock 16', desc: 'Ultimate challenge', pct: 1.00 },
-                  { id: 17, icon: Cpu,         title: 'Mock 17', desc: '75% champions',      pct: 0.75 },
-                  { id: 18, icon: CheckCircle, title: 'Mock 18', desc: 'Final review',       pct: 1.00 },
-                  { id: 19, icon: Sparkles,    title: 'Mock 19', desc: 'Grand master',       pct: 1.00 },
-                  { id: 20, icon: Flag,        title: 'Mock 20', desc: 'Final assessment',   pct: 1.00 },
-                ],
-              },
-            ].map(({ group, color, bg, border, mocks }) => (
-              <div key={group} className="mb-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-xs font-semibold ${color}`}>{group}</span>
-                  <div className="flex-1 h-px bg-gray-100" />
-                </div>
-                <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-7 gap-2">
-                  {mocks.map(({ id, icon: Icon, title, desc, pct }) => {
-                    const qs = Math.round(config.totalMCQs * pct)
-                    const mins = Math.round(config.duration * pct)
-                    const locked = id > 1 && !isPremium
-                    return (
-                      <button
-                        key={id}
-                        onClick={() => handleMockClick(id)}
-                        className={`group relative flex flex-col items-center text-center border rounded-xl p-2 sm:p-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 ${
-                          locked
-                            ? 'bg-gray-50 border-gray-200 cursor-pointer hover:border-gray-300'
-                            : 'bg-white border-gray-200 hover:border-blue-400 hover:shadow-md'
-                        }`}
-                      >
-                        {locked && (
-                          <div className="absolute top-1.5 right-1.5">
-                            <Lock className="w-2.5 h-2.5 text-gray-400" />
-                          </div>
-                        )}
-                        <div className={`w-8 h-8 rounded-lg ${locked ? 'bg-gray-100 border-gray-200' : bg} border ${locked ? 'border-gray-200' : border} flex items-center justify-center mb-1.5 group-hover:scale-105 transition-transform`}>
-                          <Icon className={`w-3.5 h-3.5 ${locked ? 'text-gray-400' : color}`} />
-                        </div>
-                        <span className={`text-[11px] font-semibold leading-tight ${locked ? 'text-gray-400' : 'text-gray-900'}`}>{title}</span>
-                        <div className={`mt-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium ${locked ? 'bg-gray-100 text-gray-400 border border-gray-200' : `${bg} ${color} border ${border}`}`}>
-                          {locked ? 'Premium' : `${qs}Q`}
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
+            <p className="mb-4 text-sm text-gray-600">
+              Choose Easy, Advanced, or Difficult first — then pick a mock from that level.
+            </p>
+            <ExamMockSections
+              examSlug={examSlug}
+              config={config}
+              onMockSelect={handleMockClick}
+              lockedAfterFirst
+              isPremium={isPremium}
+            />
           </div>
         )}
 
@@ -401,46 +342,34 @@ function ExamDashboard() {
             <div className="flex-1 h-px bg-gray-200"></div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 items-stretch gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
             {subjectsWithCounts.map((section) => {
               const progress = subjectProgress.find(p => p.subject === section.slug)
-              const Icon = BookOpen
               const roundedCount = roundMCQs(section.totalMCQs)
 
               return (
-                <div
+                <ExamPracticeGridCard
                   key={section.slug}
-                  className="group relative bg-white rounded-lg border border-gray-200 hover:border-blue-400 shadow-sm hover:shadow-md hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
-                  onClick={() => router.push(preselectedMode
-                    ? `/exams/${examSlug}/${section.slug}/${preselectedMode}`
-                    : `/exams/${examSlug}/${section.slug}`
-                  )}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  <div className="relative p-4 text-center">
-                    <div className="w-9 h-9 mx-auto rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-2.5 shadow-sm group-hover:scale-105 transition-all duration-300">
-                      <Icon className="w-4 h-4 text-white" />
-                    </div>
-
-                    <h3 className="text-sm font-semibold text-gray-900 mb-1 group-hover:text-blue-900 transition-colors leading-tight">{section.label}</h3>
-
-                    <div className="bg-blue-50 rounded-lg p-2 my-2 border border-blue-100">
-                      {user && progress ? (
-                        <>
-                          <div className="text-base font-bold text-blue-600">{progress.accuracy}%</div>
-                          <div className="text-[10px] text-gray-500">{progress.attempted} done</div>
-                        </>
-                      ) : (
-                        <div className="text-xs font-semibold text-blue-600">Practice</div>
-                      )}
-                    </div>
-
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-1.5 px-3 rounded-md font-medium text-xs transition-all">
-                      {user && progress ? 'Continue' : 'Start'}
-                    </button>
-                  </div>
-                </div>
+                  onClick={() =>
+                    router.push(
+                      preselectedMode
+                        ? `/exams/${examSlug}/${section.slug}/${preselectedMode}`
+                        : `/exams/${examSlug}/${section.slug}`,
+                    )
+                  }
+                  icon={BookOpen}
+                  title={section.label}
+                  subtitle="Past papers, important & repeated MCQs"
+                  statPrimary={
+                    user && progress ? `${progress.accuracy}%` : roundedCount
+                  }
+                  statSecondary={
+                    user && progress
+                      ? `${progress.attempted} attempted`
+                      : 'questions in bank'
+                  }
+                  actionLabel={user && progress ? 'Continue' : 'Start'}
+                />
               )
             })}
           </div>
@@ -477,21 +406,6 @@ function ExamDashboard() {
 // Mock Pattern Popup
 // ─────────────────────────────────────────────────────────────────────────────
 
-const MOCK_TITLES: Record<number, string> = {
-  1: 'Full Exam Simulation', 2: 'Past Paper Pattern', 3: 'Subject-wise Balanced',
-  4: 'Core Concepts Focus', 5: '75% Warm-up', 6: 'Mixed Topics', 7: 'Quick 50% Revision',
-  8: 'Advanced Full Sim', 9: 'High-Yield Focus', 10: 'Comprehensive Deep-Dive',
-  11: '75% Analytical', 12: 'Speed & Pressure', 13: 'Intensive Practice', 14: 'Rapid Fire',
-  15: 'Expert Full Test', 16: 'Ultimate Challenge', 17: '75% Champions', 18: 'Final Review',
-  19: 'Grand Master', 20: 'Final Assessment',
-}
-
-const MOCK_MULTIPLIERS: Record<number, number> = {
-  1:1,2:1,3:1,4:1,5:.75,6:.75,7:.5,
-  8:1,9:1,10:1,11:.75,12:.5,13:1,14:.25,
-  15:1,16:1,17:.75,18:1,19:1,20:1,
-}
-
 const BAR_COLORS = ['bg-blue-500','bg-violet-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500']
 const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-amber-600','text-rose-600','text-cyan-600']
 
@@ -521,7 +435,8 @@ function MockPatternPopup({
   onConfirm: () => void
   onClose: () => void
 }) {
-  const multiplier = MOCK_MULTIPLIERS[mockId] ?? 1
+  const specRow = examMockSpec(mockId)
+  const multiplier = specRow?.multiplier ?? 1
   const totalQs = Math.round(config.totalMCQs * multiplier)
   const duration = Math.round(config.duration * multiplier)
   const total = config.sections.reduce((s, x) => s + x.count, 0)
@@ -536,7 +451,7 @@ function MockPatternPopup({
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-800 to-blue-900 px-5 py-4">
           <p className="text-[11px] text-blue-300 font-medium uppercase tracking-wider mb-0.5">Mock {mockId}</p>
-          <h3 className="text-base font-bold text-white">{MOCK_TITLES[mockId]}</h3>
+          <h3 className="text-base font-bold text-white">{specRow?.title ?? `Mock ${mockId}`}</h3>
           <p className="text-xs text-blue-200 mt-0.5">{examNote?.note ?? config.name}</p>
         </div>
 
