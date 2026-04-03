@@ -224,6 +224,22 @@
   100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
 }
 
+/* Confetti overlay — isolate paints, avoid main-thread thrash with many particles */
+.confetti-burst-root {
+  contain: layout paint;
+  transform: translate3d(0, 0, 0);
+}
+
+.confetti-ambient-glow {
+  transform: translate3d(0, 0, 0);
+}
+
+.confetti-particle-inner {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Celebration animations */
 .animate-confetti-fall {
   animation: confettiFall linear forwards;
@@ -377,11 +393,14 @@
   0% {
     opacity: 0;
   }
-  22% {
+  18% {
     opacity: 1;
   }
-  55% {
-    opacity: 0.85;
+  50% {
+    opacity: 0.88;
+  }
+  72% {
+    opacity: 0.45;
   }
   100% {
     opacity: 0;

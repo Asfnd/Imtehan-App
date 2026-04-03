@@ -37,15 +37,14 @@ function randomShape(): Shape {
   return shapes[Math.floor(Math.random() * shapes.length)]
 }
 
-const CENTER = 'translate(-50%, -50%)'
+const CENTER = 'translate3d(-50%, -50%, 0)'
 
+/** Flat fills + tiny inset highlight — keeps paint cost low with 100+ particles (smooth 60fps). */
 function shapeStyle(shape: Shape, color: string, sizeMul: number): React.CSSProperties {
-  const gloss =
-    'linear-gradient(155deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.1) 48%, transparent 55%), '
   const base: React.CSSProperties = {
-    backgroundImage: `${gloss} linear-gradient(180deg, ${color}, ${color})`,
-    boxShadow:
-      '0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(255,255,255,0.5) inset',
+    backgroundColor: color,
+    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.5)',
+    border: '1px solid rgba(255,255,255,0.35)',
     transform: CENTER,
   }
   const s = sizeMul
@@ -58,7 +57,7 @@ function shapeStyle(shape: Shape, color: string, sizeMul: number): React.CSSProp
         width: 8 * s,
         height: 8 * s,
         borderRadius: 2 * s,
-        transform: `${CENTER} rotate(45deg)`,
+        transform: `${CENTER} rotate(45deg) translateZ(0)`,
       }
     case 'circle':
       return { ...base, width: 8 * s, height: 8 * s, borderRadius: '50%' }
@@ -141,15 +140,15 @@ export function ConfettiCelebration({
         : 12
       : isResults
         ? intensity === 'high'
-          ? 156
+          ? 120
           : intensity === 'medium'
-            ? 118
-            : 82
+            ? 92
+            : 68
         : intensity === 'high'
-          ? 86
+          ? 72
           : intensity === 'medium'
-            ? 64
-            : 40
+            ? 52
+            : 36
 
     return Array.from({ length: count }, (_, i) => {
       let tx: number
@@ -225,22 +224,23 @@ export function ConfettiCelebration({
 
   const layer = (
     <div
-      className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden [transform:translateZ(0)]"
+      className="confetti-burst-root pointer-events-none fixed inset-0 z-[99999] overflow-hidden"
       style={{ isolation: 'isolate' }}
       aria-hidden
     >
       {mode === 'results' && !reduceMotion ? (
         <div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_130%_75%_at_50%_100%,rgba(255,255,255,0.55)_0%,rgba(199,210,254,0.18)_38%,transparent_65%)]"
+          className="confetti-ambient-glow absolute inset-0 bg-[radial-gradient(ellipse_130%_75%_at_50%_100%,rgba(255,255,255,0.55)_0%,rgba(199,210,254,0.18)_38%,transparent_65%)]"
           style={{
             animation: `confettiAmbient 2.4s ${EASE_SOFT} forwards`,
+            willChange: 'opacity',
           }}
         />
       ) : null}
       {particles.map((p) => (
         <div key={`${p.id}-${burstKey}`} className={particleAnchorClass}>
           <div
-            className="[backface-visibility:hidden] [transform:translate3d(0,0,0)]"
+            className="confetti-particle-inner"
             style={{
               opacity: 0,
               animation: `${animName} ${p.duration}s ${timingFn} ${p.delay}s forwards`,
