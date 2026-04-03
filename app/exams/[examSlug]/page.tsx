@@ -455,7 +455,10 @@ function ExamDashboard() {
         config={config}
         examSlug={examSlug}
         mockId={pendingMockId}
-        onConfirm={() => { router.push(`/exams/${examSlug}/mock/${pendingMockId}`); setPendingMockId(null) }}
+        onConfirm={() => {
+          router.push(`/exams/${examSlug}/mock/${pendingMockId}`)
+          setPendingMockId(null)
+        }}
         onClose={() => setPendingMockId(null)}
       />
     )}
@@ -597,7 +600,7 @@ function MockPatternPopup({
               Cancel
             </button>
             <button onClick={onConfirm} className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors">
-              Start Mock {mockId}
+              Start test
             </button>
           </div>
         </div>

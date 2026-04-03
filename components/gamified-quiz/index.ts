@@ -1,4 +1,7 @@
 export { GamifiedQuizShell } from './GamifiedQuizShell'
+export { ExamMockHeader } from './ExamMockHeader'
+export { ExamMockNavigator } from './ExamMockNavigator'
+export { ExamQuestionPickerModal, ExamQuestionPickerTrigger } from './ExamQuestionPicker'
 export { QuizJourneyPanel } from './QuizJourneyPanel'
 export { QuizFeedbackDock } from './QuizFeedbackDock'
 export type { QuizDockPhase } from './QuizFeedbackDock'

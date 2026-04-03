@@ -36,6 +36,8 @@ interface QuizResultsCardProps {
   onBack: () => void
   analyticsLabel?: string
   onAnalytics?: () => void
+  /** When set, bottom summary uses exam wording (correct / wrong / unanswered). */
+  examBreakdown?: { wrong: number; skipped: number } | null
 }
 
 export function QuizResultsCard({
@@ -56,6 +58,7 @@ export function QuizResultsCard({
   onBack,
   analyticsLabel = 'Analytics',
   onAnalytics,
+  examBreakdown,
 }: QuizResultsCardProps) {
   const percentage = quizAccuracyPercent(correct, total)
   const incorrect = Math.max(0, total - correct)
@@ -114,17 +117,31 @@ export function QuizResultsCard({
       {footerExtra}
 
       <div className="rounded-xl bg-slate-50 px-4 py-3.5 text-center text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
-        <span className="font-semibold text-slate-800">{correct}</span> right first try
-        <span className="mx-2 text-slate-300">·</span>
-        <span className="font-semibold text-rose-600">{incorrect}</span> needed another try
-        <span className="mx-2 text-slate-300">·</span>
-        <span className="text-slate-500">{total} questions</span>
-        {totalXp != null ? (
+        {examBreakdown ? (
           <>
+            <span className="font-semibold text-slate-800">{correct}</span> correct
             <span className="mx-2 text-slate-300">·</span>
-            <span className="font-semibold text-slate-800">{totalXp}</span> XP this run
+            <span className="font-semibold text-rose-600">{examBreakdown.wrong}</span> wrong
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="font-semibold text-slate-500">{examBreakdown.skipped}</span> unanswered
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="text-slate-500">{total} total</span>
           </>
-        ) : null}
+        ) : (
+          <>
+            <span className="font-semibold text-slate-800">{correct}</span> right first try
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="font-semibold text-rose-600">{incorrect}</span> needed another try
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="text-slate-500">{total} questions</span>
+            {totalXp != null ? (
+              <>
+                <span className="mx-2 text-slate-300">·</span>
+                <span className="font-semibold text-slate-800">{totalXp}</span> XP this run
+              </>
+            ) : null}
+          </>
+        )}
       </div>
     </QuizResultDashboard>
   )

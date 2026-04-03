@@ -546,6 +546,17 @@
   box-shadow: 0 4px 0 0 #e5e7eb;
 }
 
+/* Timed mock / exam: chosen option only — no correct/wrong until review */
+.btn-3d.selected {
+  border-color: #6366f1;
+  background-color: #eef2ff;
+  color: #1e1b4b;
+  box-shadow: 0 4px 0 0 #818cf8;
+}
+.btn-3d.selected:hover:not(:disabled) {
+  box-shadow: 0 6px 0 0 #6366f1;
+}
+
 /* Stagger animations for lists */
 .animate-stagger > * {
   animation: fadeIn 0.4s ease-out forwards;

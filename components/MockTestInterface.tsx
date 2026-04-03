@@ -1,13 +1,20 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Flag, Clock } from 'lucide-react'
+import { Flag, Check, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
+import {
+  GamifiedQuizShell,
+  ExamMockHeader,
+  ExamQuestionPickerModal,
+  ExamQuestionPickerTrigger,
+  QuizResultsCard,
+} from '@/components/gamified-quiz'
 
 interface MCQ {
   id: number
@@ -30,30 +37,58 @@ interface MockTestInterfaceProps {
   examSlug: string
   mockNumber?: number
   mockTitle?: string
-  sections?: { label: string; count: number; slug: string }[]
 }
 
-type AnswerState = 'default' | 'correct' | 'wrong' | 'dimmed'
+type RevealState = 'default' | 'correct' | 'wrong' | 'dimmed'
+type ExamVisual = RevealState | 'selected'
 
-function getOptionState(option: string, userAnswer: string | undefined, correctAnswer: string): AnswerState {
-  if (!userAnswer) return 'default'
+function getRevealOptionState(
+  option: string,
+  userAnswer: string | undefined,
+  correctAnswer: string
+): RevealState {
+  if (!userAnswer) {
+    if (option === correctAnswer) return 'correct'
+    return 'dimmed'
+  }
   if (option === correctAnswer) return 'correct'
   if (option === userAnswer) return 'wrong'
   return 'dimmed'
 }
 
-const OPTION_STYLES: Record<AnswerState, string> = {
-  default: 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50 cursor-pointer',
-  correct: 'border-green-500 bg-green-50 cursor-default',
-  wrong:   'border-red-500 bg-red-50 cursor-default',
-  dimmed:  'border-gray-200 bg-gray-50 opacity-50 cursor-default',
+function getOptionVisual(
+  label: string,
+  userAnswer: string | undefined,
+  correctAnswer: string,
+  ctx: { reviewMode: boolean; hasSubmitted: boolean; showResults: boolean }
+): ExamVisual {
+  const { reviewMode, hasSubmitted, showResults } = ctx
+  if (hasSubmitted && !showResults) {
+    return getRevealOptionState(label, userAnswer, correctAnswer)
+  }
+  if (reviewMode && userAnswer) {
+    return getRevealOptionState(label, userAnswer, correctAnswer)
+  }
+  if (reviewMode && !userAnswer) return 'default'
+  if (userAnswer === label) return 'selected'
+  return 'default'
 }
 
-const BADGE_STYLES: Record<AnswerState, string> = {
-  default: 'bg-gray-100 text-gray-600',
-  correct: 'bg-green-500 text-white',
-  wrong:   'bg-red-500 text-white',
-  dimmed:  'bg-gray-100 text-gray-400',
+const EXAM_OPTION: Record<ExamVisual, string> = {
+  default: 'btn-3d border-slate-200 bg-white cursor-pointer group',
+  selected: 'btn-3d selected cursor-pointer group',
+  correct: 'btn-3d correct cursor-default',
+  wrong: 'btn-3d incorrect cursor-default',
+  dimmed: 'btn-3d dimmed cursor-default',
+}
+
+const EXAM_BADGE: Record<ExamVisual, string> = {
+  default:
+    'border-slate-200 text-slate-400 bg-slate-50 group-hover:border-indigo-300 group-hover:text-indigo-500',
+  selected: 'border-indigo-400 bg-indigo-50 text-indigo-700',
+  correct: 'border-emerald-400 bg-emerald-100 text-emerald-700',
+  wrong: 'border-rose-300 bg-rose-100 text-rose-600',
+  dimmed: 'border-slate-100 text-slate-300 bg-slate-50',
 }
 
 export default function MockTestInterface({
@@ -65,116 +100,96 @@ export default function MockTestInterface({
   examSlug,
   mockNumber,
   mockTitle,
-  sections,
 }: MockTestInterfaceProps) {
   const router = useRouter()
 
-  // Intro screen shown before timer starts
-  const [showIntro, setShowIntro] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [showResults, setShowResults] = useState(false)
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(duration * 60)
+  /** Timer runs as soon as the mock page loads (pattern / start is handled on the exam dashboard only). */
+  const [timerActive, setTimerActive] = useState(true)
 
-  // Core quiz state — answers locked per question on first click
-  const [currentIndex, setCurrentIndex]   = useState(0)
-  const [answers, setAnswers]             = useState<Record<number, string>>({})
-  const [showResults, setShowResults]     = useState(false)
-  const [timeLeft, setTimeLeft]           = useState(duration * 60)
-  const [timerActive, setTimerActive]     = useState(false) // starts paused until intro dismissed
-
-  // Review mode state
-  const [reviewMode, setReviewMode]       = useState(false)
-  const [reviewMCQs, setReviewMCQs]       = useState<MCQ[]>([])
+  const [reviewMode, setReviewMode] = useState(false)
+  const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
   const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
 
-  // Submit confirm
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false)
-
-  // Report toast
+  const [showQuestionPicker, setShowQuestionPicker] = useState(false)
   const [showReportToast, setShowReportToast] = useState(false)
-
-  // Feedback popup
   const [showFeedback, setShowFeedback] = useState(false)
-  const [resultPct, setResultPct]       = useState(0)
+  const [resultPct, setResultPct] = useState(0)
+
+  const handleSubmitRef = useRef<() => void>(() => {})
 
   const activeMCQs = reviewMode ? reviewMCQs : mcqs
   const currentMCQ = activeMCQs[currentIndex]
   const userAnswer = answers[currentIndex]
-  const progress   = ((currentIndex + 1) / activeMCQs.length) * 100
+  const progressPct = ((currentIndex + 1) / activeMCQs.length) * 100
+  const totalDurationSeconds = duration * 60
 
-  // Track quiz start on mount
+  const answeredIndices = useMemo(
+    () => new Set(Object.keys(answers).map(Number)),
+    [answers]
+  )
+
   useEffect(() => {
     trackQuizStart(mockTitle || examSlug, 'mock-test')
-  }, [])
+  }, [examSlug, mockTitle])
 
-  // ── Timer ────────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!timerActive || showResults || reviewMode) return
     const interval = setInterval(() => {
       setTimeLeft(prev => {
-        if (prev <= 1) { setTimerActive(false); setShowResults(true); return 0 }
+        if (prev <= 1) {
+          setTimerActive(false)
+          setTimeout(() => handleSubmitRef.current(), 0)
+          return 0
+        }
         return prev - 1
       })
     }, 1000)
     return () => clearInterval(interval)
   }, [timerActive, showResults, reviewMode])
 
-  const formatTime = (s: number) => {
-    const h = Math.floor(s / 3600)
-    const m = Math.floor((s % 3600) / 60)
-    const sec = s % 60
-    return `${h}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`
-  }
-
-  const timerColor = () => {
-    const pct = (timeLeft / (duration * 60)) * 100
-    if (pct > 50) return 'text-green-400'
-    if (pct > 20) return 'text-yellow-400'
-    return 'text-red-400 animate-pulse'
-  }
-
-  // ── Actions ──────────────────────────────────────────────────────────────────
-  // Lock on first click — show correct/wrong immediately
   const handleAnswer = (option: string) => {
-    if (userAnswer) return
+    if (showResults) return
+    if (hasSubmitted && !showResults) return
+    if (reviewMode && userAnswer) return
     setAnswers(prev => ({ ...prev, [currentIndex]: option }))
   }
 
-  const goNext     = () => { if (currentIndex < activeMCQs.length - 1) setCurrentIndex(i => i + 1) }
-  const goPrevious = () => { if (currentIndex > 0) setCurrentIndex(i => i - 1) }
+  const goNext = () => {
+    if (currentIndex < activeMCQs.length - 1) setCurrentIndex(i => i + 1)
+  }
+  const goPrevious = () => {
+    if (currentIndex > 0) setCurrentIndex(i => i - 1)
+  }
 
   const handleReport = useCallback(async () => {
     try {
       const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
       await supabase.from('question_reports').insert({
-        question_id:   currentMCQ.id,
+        question_id: currentMCQ.id,
         question_type: examSlug,
-        subject:       currentMCQ.subject,
-        user_id:       user?.id || null,
+        subject: currentMCQ.subject,
+        user_id: user?.id || null,
       })
-    } catch (_) { /* silent */ }
+    } catch {
+      /* silent */
+    }
     setShowReportToast(true)
     setTimeout(() => setShowReportToast(false), 3000)
   }, [currentMCQ, examSlug])
 
-  const handleSubmit = () => {
-    setTimerActive(false)
-    const { correct, incorrect, unanswered } = calcScore()
-    const timeTaken = (duration * 60) - timeLeft
-    saveQuizResults({
-      quizType:       'mock',
-      examSlug:       examSlug,
-      subject:        mockTitle || examSlug,
-      totalQuestions: activeMCQs.length,
-      correctAnswers: correct,
-      wrongAnswers:   incorrect,
-      skippedAnswers: unanswered,
-      timeInSeconds:  timeTaken,
-    })
-    trackQuizComplete(mockTitle || examSlug, correct, activeMCQs.length, 'mock-test')
-    setShowResults(true)
-  }
-
   const calcScore = () => {
-    let correct = 0, incorrect = 0, unanswered = 0
+    let correct = 0
+    let incorrect = 0
+    let unanswered = 0
     activeMCQs.forEach((mcq, idx) => {
       if (answers[idx] === undefined) unanswered++
       else if (answers[idx] === mcq.correct_answer) correct++
@@ -182,11 +197,46 @@ export default function MockTestInterface({
     })
     const obtained = negativeMarking ? correct - incorrect * 0.25 : correct
     const pct = Math.round((Math.max(0, obtained) / activeMCQs.length) * 100)
-    return { correct, incorrect, unanswered, obtained: Math.max(0, obtained), pct, passed: pct >= passingPercentage }
+    return {
+      correct,
+      incorrect,
+      unanswered,
+      obtained: Math.max(0, obtained),
+      pct,
+      passed: pct >= passingPercentage,
+    }
   }
 
-  // Trigger feedback popup with adaptive cadence after results appear
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSubmit = useCallback(() => {
+    setHasSubmitted(true)
+    setTimerActive(false)
+    const { correct, incorrect, unanswered } = calcScore()
+    const timeTaken = totalDurationSeconds - timeLeft
+    saveQuizResults({
+      quizType: 'mock',
+      examSlug,
+      subject: mockTitle || examSlug,
+      totalQuestions: activeMCQs.length,
+      correctAnswers: correct,
+      wrongAnswers: incorrect,
+      skippedAnswers: unanswered,
+      timeInSeconds: timeTaken,
+    })
+    trackQuizComplete(mockTitle || examSlug, correct, activeMCQs.length, 'mock-test')
+    setShowResults(true)
+  }, [
+    activeMCQs,
+    answers,
+    examSlug,
+    mockTitle,
+    timeLeft,
+    totalDurationSeconds,
+    passingPercentage,
+    negativeMarking,
+  ])
+
+  handleSubmitRef.current = handleSubmit
+
   useEffect(() => {
     if (!showResults || reviewMode) return
     const pct = activeMCQs.length > 0 ? calcScore().pct : 0
@@ -195,7 +245,8 @@ export default function MockTestInterface({
       const t = setTimeout(() => setShowFeedback(true), 1500)
       return () => clearTimeout(t)
     }
-  }, [showResults, reviewMode])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run when results screen opens
+  }, [showResults, reviewMode, activeMCQs.length])
 
   const practiceMistakes = () => {
     const wrong = activeMCQs.filter((mcq, idx) => {
@@ -203,223 +254,104 @@ export default function MockTestInterface({
       return !!ua && ua !== mcq.correct_answer
     })
     let correct = 0
-    activeMCQs.forEach((mcq, idx) => { if (answers[idx] === mcq.correct_answer) correct++ })
+    activeMCQs.forEach((mcq, idx) => {
+      if (answers[idx] === mcq.correct_answer) correct++
+    })
     setOriginalScore({ correct, total: activeMCQs.length })
     setReviewMCQs(wrong)
     setReviewMode(true)
+    setHasSubmitted(false)
     setCurrentIndex(0)
     setAnswers({})
     setShowResults(false)
     setTimerActive(false)
   }
 
-  // ── Intro / pattern screen ─────────────────────────────────────────────────
-  if (showIntro) {
-    const total = sections?.reduce((s, x) => s + x.count, 0) ?? mcqs.length
-    const BAR_COLORS = ['bg-blue-500','bg-violet-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500']
-    const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-amber-600','text-rose-600','text-cyan-600']
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-slate-800 to-blue-900 px-5 py-5">
-            {mockNumber && <p className="text-[11px] text-blue-300 font-medium uppercase tracking-wider mb-0.5">Mock {mockNumber}</p>}
-            <h2 className="text-base font-bold text-white">{mockTitle ?? 'Mock Test'}</h2>
-            <p className="text-xs text-blue-200 mt-0.5">{examName}</p>
-          </div>
-
-          <div className="px-5 py-5">
-            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Exam Pattern</p>
-
-            {/* Distribution bar */}
-            {sections && sections.length > 0 && (
-              <>
-                <div className="flex rounded-full overflow-hidden h-2 mb-3">
-                  {sections.map((sec, i) => (
-                    <div key={sec.slug} className={BAR_COLORS[i % BAR_COLORS.length]} style={{ width: `${(sec.count/total)*100}%` }} />
-                  ))}
-                </div>
-                <div className="space-y-2 mb-4">
-                  {sections.map((sec, i) => (
-                    <div key={sec.slug} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${BAR_COLORS[i % BAR_COLORS.length]}`} />
-                        <span className="text-sm text-gray-700">{sec.label}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-400">{Math.round((sec.count/total)*100)}%</span>
-                        <span className={`text-sm font-bold ${TEXT_COLORS[i % TEXT_COLORS.length]}`}>{sec.count}q</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Stats */}
-            <div className="flex gap-3 mb-4">
-              <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
-                <div className="text-base font-bold text-gray-900">{mcqs.length}</div>
-                <div className="text-[10px] text-gray-400">Questions</div>
-              </div>
-              <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
-                <div className="text-base font-bold text-gray-900">{duration}m</div>
-                <div className="text-[10px] text-gray-400">Duration</div>
-              </div>
-              <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
-                <div className="text-base font-bold text-gray-900">{passingPercentage}%</div>
-                <div className="text-[10px] text-gray-400">Pass Mark</div>
-              </div>
-            </div>
-
-            {negativeMarking && (
-              <div className="flex items-center gap-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2 mb-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
-                <span className="text-xs text-red-600 font-medium">Negative marking applies</span>
-              </div>
-            )}
-
-            <button
-              onClick={() => { setShowIntro(false); setTimerActive(true) }}
-              className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
-            >
-              Start Test →
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // ── Results screen ────────────────────────────────────────────────────────────
   if (showResults) {
-    const score  = calcScore()
-    const timeTaken = (duration * 60) - timeLeft
-    const timeExpired = timeLeft === 0
+    const score = calcScore()
+    const timeTaken = totalDurationSeconds - timeLeft
+    const timeExpired = timeLeft === 0 && !reviewMode
 
     const wrongCount = activeMCQs.filter((mcq, idx) => {
       const ua = answers[idx]
       return !!ua && ua !== mcq.correct_answer
     }).length
 
-    const improvement = reviewMode && originalScore
-      ? {
-          original: Math.round((originalScore.correct / originalScore.total) * 100),
-          current: score.pct,
-          improved: score.pct > Math.round((originalScore.correct / originalScore.total) * 100),
-          diff: score.pct - Math.round((originalScore.correct / originalScore.total) * 100),
-        }
-      : null
+    const improvement =
+      reviewMode && originalScore
+        ? {
+            original: Math.round((originalScore.correct / originalScore.total) * 100),
+            current: score.pct,
+            improved: score.pct > Math.round((originalScore.correct / originalScore.total) * 100),
+            diff: score.pct - Math.round((originalScore.correct / originalScore.total) * 100),
+          }
+        : null
 
     return (
       <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center px-3 py-6">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl text-center max-w-lg w-full">
-          <div className="text-5xl mb-3">
-            {timeExpired ? '⏰' : score.pct >= 80 ? '🎉' : score.pct >= 60 ? '👍' : '📚'}
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">
-            {timeExpired ? 'Time Up!' : reviewMode ? 'Practice Complete!' : 'Test Complete!'}
-          </h2>
-          <p className="text-sm text-gray-500 mb-5">
-            {reviewMode ? `Practice Session` : `${examName}${mockTitle ? ` — ${mockTitle}` : ''}`}
-          </p>
-
-          {/* Improvement in review mode */}
-          {improvement && (
-            <div className="mb-5 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 border-2 border-green-200/50">
-              <div className="text-2xl mb-1">{improvement.improved ? '🎉' : '💪'}</div>
-              <h3 className="text-sm font-bold text-gray-900 mb-1">
-                {improvement.improved ? `Improved by ${improvement.diff}%!` : 'Keep Practicing!'}
-              </h3>
-              <div className="grid grid-cols-2 gap-3 mt-3">
-                <div className="bg-white/70 rounded-xl p-2 text-center">
-                  <div className="text-xs text-gray-500 font-semibold">Original</div>
-                  <div className="text-xl font-bold text-gray-700">{improvement.original}%</div>
-                </div>
-                <div className="bg-white/70 rounded-xl p-2 text-center">
-                  <div className="text-xs text-gray-500 font-semibold">Practice</div>
-                  <div className="text-xl font-bold text-green-700">{improvement.current}%</div>
-                </div>
-              </div>
+        <QuizResultsCard
+          title={
+            timeExpired
+              ? "Time's up"
+              : reviewMode
+                ? 'Practice complete'
+                : 'Test complete'
+          }
+          subtitle={`${examName}${mockTitle ? ` · ${mockTitle}` : ''}`}
+          correct={score.correct}
+          total={activeMCQs.length}
+          timeElapsedSeconds={timeTaken}
+          improvement={improvement}
+          wrongPracticeCount={wrongCount}
+          onPracticeMistakes={!reviewMode && wrongCount > 0 ? practiceMistakes : undefined}
+          examBreakdown={
+            !reviewMode ? { wrong: score.incorrect, skipped: score.unanswered } : null
+          }
+          footerExtra={
+            <div className="flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setCurrentIndex(0)
+                  setShowResults(false)
+                }}
+                className="w-full rounded-full border border-slate-200 bg-white py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
+              >
+                Review answers
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCurrentIndex(0)
+                  setAnswers({})
+                  setShowResults(false)
+                  setHasSubmitted(false)
+                  setTimeLeft(duration * 60)
+                  setTimerActive(true)
+                  setReviewMode(false)
+                  setReviewMCQs([])
+                }}
+                className="w-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+              >
+                Retake test
+              </button>
             </div>
-          )}
-
-          <div className={`bg-gradient-to-r ${score.passed ? 'from-blue-600 to-indigo-600' : 'from-slate-700 to-blue-800'} rounded-xl p-5 text-white mb-5`}>
-            <div className="text-4xl font-bold">{score.correct}/{activeMCQs.length}</div>
-            <div className="text-base mt-1">{score.pct}% • {score.passed ? '✓ Passed' : '✗ Not Passed'}</div>
-            {!reviewMode && (
-              <div className="text-xs mt-1 text-white/70">
-                Time: {formatTime(timeTaken)}
-                {negativeMarking && ` • Marks: ${score.obtained.toFixed(2)}`}
-              </div>
-            )}
-          </div>
-
-          <div className="grid grid-cols-3 gap-3 mb-5">
-            <div className="bg-green-50 rounded-xl p-3 border border-green-100">
-              <div className="text-2xl font-bold text-green-600">{score.correct}</div>
-              <div className="text-xs text-gray-500 mt-0.5">Correct</div>
-            </div>
-            <div className="bg-red-50 rounded-xl p-3 border border-red-100">
-              <div className="text-2xl font-bold text-red-500">{score.incorrect}</div>
-              <div className="text-xs text-gray-500 mt-0.5">Incorrect</div>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-              <div className="text-2xl font-bold text-gray-500">{score.unanswered}</div>
-              <div className="text-xs text-gray-500 mt-0.5">Skipped</div>
-            </div>
-          </div>
-
-          {/* Practice Mistakes button */}
-          {wrongCount > 0 && !reviewMode && (
-            <button
-              onClick={practiceMistakes}
-              className="w-full mb-4 px-5 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2"
-            >
-              📚 Practice {wrongCount} Incorrect {wrongCount === 1 ? 'Question' : 'Questions'} →
-            </button>
-          )}
-
-          <div className="flex gap-3 justify-center flex-wrap">
-            <button
-              onClick={() => router.push(`/exams/${examSlug}`)}
-              className="px-5 py-2.5 bg-gray-100 text-gray-800 rounded-xl font-semibold hover:bg-gray-200 text-sm transition-all"
-            >
-              Back to Exam
-            </button>
-            <button
-              onClick={() => { setCurrentIndex(0); setShowResults(false) }}
-              className="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 text-sm transition-all"
-            >
-              Review Answers
-            </button>
-            <button
-              onClick={() => {
-                setCurrentIndex(0); setAnswers({}); setShowResults(false)
-                setTimeLeft(duration * 60); setTimerActive(true)
-                setReviewMode(false); setReviewMCQs([])
-              }}
-              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:opacity-90 text-sm transition-all"
-            >
-              Retake
-            </button>
-          </div>
-        </div>
-      </div>
-      <FeedbackPopup
-        isOpen={showFeedback}
-        onClose={() => setShowFeedback(false)}
-        onAction={recordFeedbackAction}
-        examSlug={examSlug}
-        quizType="mock"
-        scorePct={resultPct}
-      />
+          }
+          backLabel="Back to exam"
+          onBack={() => router.push(`/exams/${examSlug}`)}
+        />
+        <FeedbackPopup
+          isOpen={showFeedback}
+          onClose={() => setShowFeedback(false)}
+          onAction={recordFeedbackAction}
+          examSlug={examSlug}
+          quizType="mock"
+          scorePct={resultPct}
+        />
       </>
     )
   }
 
-  // ── Quiz screen ───────────────────────────────────────────────────────────────
   const options = [
     { label: 'A', text: currentMCQ.option_a },
     { label: 'B', text: currentMCQ.option_b },
@@ -427,188 +359,206 @@ export default function MockTestInterface({
     { label: 'D', text: currentMCQ.option_d },
   ]
   const answeredCount = Object.keys(answers).length
+  const visualCtx = { reviewMode, hasSubmitted, showResults }
+  const optionDisabled =
+    showResults || (hasSubmitted && !showResults) || (reviewMode && !!userAnswer)
+
+  const showExplanation =
+    currentMCQ.explanation &&
+    ((hasSubmitted && !showResults) || (reviewMode && !!userAnswer))
+
+  const metaLine =
+    !reviewMode && !hasSubmitted
+      ? `${answeredCount} answered · ${activeMCQs.length - answeredCount} remaining`
+      : undefined
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-2 px-2 sm:px-4">
-        <div className="max-w-3xl mx-auto">
+      <GamifiedQuizShell
+        variant="single"
+        mobileRail={
+          <span className="text-sm font-bold tabular-nums text-indigo-900">
+            Q {currentIndex + 1} / {activeMCQs.length}
+          </span>
+        }
+      >
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          <ExamMockHeader
+            onExit={() => router.back()}
+            progressPct={progressPct}
+            progressLabel={`${currentIndex + 1} / ${activeMCQs.length}`}
+            metaLine={metaLine}
+            timeLeftSeconds={timeLeft}
+            totalDurationSeconds={totalDurationSeconds}
+            reviewMeta={
+              hasSubmitted && !showResults
+                ? 'Review'
+                : reviewMode
+                  ? `${answeredCount} answered`
+                  : null
+            }
+          />
 
-          {/* Dark Blue Header */}
-          <div className="bg-gradient-to-r from-slate-800 via-blue-900 to-slate-800 rounded-xl sm:rounded-2xl shadow-2xl p-2 sm:p-3 mb-2 sm:mb-3 border border-blue-500/30">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => router.back()}
-                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-white/10 active:bg-white/20 rounded-lg sm:rounded-xl transition-colors text-xs sm:text-sm font-semibold text-white shadow-lg border border-white/20"
-              >
-                <span>←</span>
-                <span className="hidden sm:inline">Exit</span>
-              </button>
-
-              {/* Q counter */}
-              <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/20">
-                <span className="text-xs font-medium text-blue-300">Q</span>
-                <span className="text-sm sm:text-base font-bold text-white">{currentIndex + 1}</span>
-                <span className="text-blue-300">/</span>
-                <span className="text-sm sm:text-base text-blue-200">{activeMCQs.length}</span>
+          <div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-4 sm:max-w-3xl sm:px-6">
+            <div
+              key={currentIndex}
+              className="flex min-h-0 flex-1 flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-3 sm:gap-4 sm:pb-28 sm:pt-4"
+            >
+              <div className="flex shrink-0 items-center justify-between gap-2">
+                <span className="inline-flex max-w-[52%] items-center truncate rounded-full border border-indigo-100 bg-indigo-50/90 px-3 py-1.5 text-xs font-semibold text-indigo-900 sm:max-w-[60%] sm:px-3.5 sm:py-2 sm:text-sm">
+                  {currentMCQ.subject}
+                </span>
+                <div className="flex shrink-0 items-center gap-2">
+                  <ExamQuestionPickerTrigger
+                    total={activeMCQs.length}
+                    currentIndex={currentIndex}
+                    onClick={() => setShowQuestionPicker(true)}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleReport}
+                    className="inline-flex h-10 items-center gap-1.5 rounded-full border border-rose-100 bg-rose-50/90 px-3 text-xs font-semibold text-rose-800 transition hover:bg-rose-100 sm:h-11 sm:px-3.5 sm:text-sm"
+                    title="Report an issue"
+                  >
+                    <Flag className="h-4 w-4" />
+                    <span className="hidden sm:inline">Report</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Timer (hidden in review mode) */}
-              {!reviewMode ? (
-                <div className={`flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 rounded-lg sm:rounded-xl border border-white/20 font-mono font-bold text-xs sm:text-sm ${timerColor()}`}>
-                  <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span>{formatTime(timeLeft)}</span>
+              <h3 className="line-clamp-[6] shrink-0 text-base font-bold leading-[1.45] tracking-tight text-slate-900 sm:line-clamp-[7] sm:text-lg sm:leading-[1.5] md:text-xl md:leading-snug">
+                {currentMCQ.question}
+              </h3>
+
+              <div className="flex min-h-0 flex-1 flex-col justify-center gap-2 sm:gap-2.5">
+                {options.map(({ label, text }) => {
+                  const visual = getOptionVisual(label, userAnswer, currentMCQ.correct_answer, visualCtx)
+                  const showIcons = visual === 'correct' || visual === 'wrong'
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => handleAnswer(label)}
+                      disabled={optionDisabled}
+                      className={`group relative flex min-h-[52px] w-full items-start gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold leading-snug text-slate-800 sm:min-h-[56px] sm:gap-3.5 sm:rounded-2xl sm:p-4 sm:text-lg ${EXAM_OPTION[visual]}`}
+                    >
+                      <div
+                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 text-sm font-bold transition-colors sm:h-9 sm:w-9 sm:rounded-xl sm:text-base ${EXAM_BADGE[visual]}`}
+                      >
+                        {showIcons && visual === 'correct' ? (
+                          <Check className="h-4 w-4 sm:h-[1.125rem] sm:w-[1.125rem]" strokeWidth={3} />
+                        ) : showIcons && visual === 'wrong' ? (
+                          <X className="h-4 w-4 sm:h-[1.125rem] sm:w-[1.125rem]" strokeWidth={3} />
+                        ) : (
+                          label
+                        )}
+                      </div>
+                      <span className="min-w-0 flex-1 line-clamp-3 leading-snug">{text}</span>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {showExplanation ? (
+                <div className="shrink-0 rounded-xl border border-indigo-100 bg-indigo-50/90 px-3.5 py-2.5 sm:px-4 sm:py-3">
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-600 sm:text-xs">
+                    Explanation
+                  </p>
+                  <p className="line-clamp-4 text-sm leading-relaxed text-slate-700 sm:text-base">
+                    {currentMCQ.explanation}
+                  </p>
                 </div>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="fixed bottom-0 left-0 right-0 z-20 w-full border-t border-slate-100 bg-white/95 px-4 py-3 backdrop-blur-md supports-[backdrop-filter]:bg-white/90 sm:static sm:border-t-0 sm:bg-transparent sm:px-6 sm:py-0 sm:backdrop-blur-none">
+            <div className="mx-auto flex max-w-2xl items-center justify-between gap-2 sm:max-w-3xl sm:pb-5">
+              <button
+                type="button"
+                onClick={goPrevious}
+                disabled={currentIndex === 0}
+                className="min-h-[48px] rounded-full border border-slate-200 bg-white px-4 py-2.5 text-base font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-[52px] sm:px-5"
+              >
+                ← Prev
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowSubmitConfirm(true)}
+                className="min-h-[48px] shrink rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:min-h-[52px] sm:px-4 sm:text-base"
+              >
+                Submit early
+              </button>
+              {currentIndex === activeMCQs.length - 1 ? (
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="min-h-[48px] rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-base font-bold text-white shadow-md transition hover:opacity-95 sm:min-h-[52px] sm:px-5"
+                >
+                  Finish
+                </button>
               ) : (
-                <div className="px-2 sm:px-3 py-1 sm:py-1.5 bg-white/10 rounded-lg sm:rounded-xl border border-white/20 text-xs text-blue-200">
-                  {answeredCount} answered
-                </div>
+                <button
+                  type="button"
+                  onClick={goNext}
+                  className="min-h-[48px] rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2.5 text-base font-semibold text-white shadow-md transition hover:opacity-95 sm:min-h-[52px] sm:px-5"
+                >
+                  Next →
+                </button>
               )}
             </div>
-
-            {/* Progress bar */}
-            <div className="mt-2 sm:mt-3">
-              <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 shadow-inner border border-white/10">
-                <div
-                  className="bg-gradient-to-r from-blue-400 to-blue-600 h-1.5 sm:h-2 rounded-full shadow-lg transition-all duration-300"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </div>
           </div>
-
-          {/* Question Card */}
-          <div
-            key={currentIndex}
-            className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 mb-2 sm:mb-3 border-2 border-gray-100"
-          >
-            {/* Subject tag + Report */}
-            <div className="flex items-center justify-between mb-2 sm:mb-3">
-              <span className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-200">
-                {currentMCQ.subject}
-              </span>
-              <button
-                onClick={handleReport}
-                className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-red-50 text-red-600 active:bg-red-100 rounded-full text-xs font-semibold transition-colors border border-red-200"
-                title="Report an issue"
-              >
-                <Flag className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span className="hidden sm:inline">Report</span>
-                <span className="sm:hidden">⚠️</span>
-              </button>
-            </div>
-
-            <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-3 sm:mb-4 leading-relaxed">
-              {currentMCQ.question}
-            </h3>
-
-            {/* Options */}
-            <div className="space-y-2">
-              {options.map(({ label, text }) => {
-                const state = getOptionState(label, userAnswer, currentMCQ.correct_answer)
-                return (
-                  <button
-                    key={label}
-                    onClick={() => handleAnswer(label)}
-                    disabled={!!userAnswer || showResults}
-                    className={`w-full text-left p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-150 ${OPTION_STYLES[state]}`}
-                  >
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <span
-                        className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all ${BADGE_STYLES[state]}`}
-                      >
-                        {label}
-                      </span>
-                      <span className="flex-1 text-xs sm:text-sm leading-relaxed pt-0.5 sm:pt-1 text-gray-700">
-                        {text}
-                      </span>
-                      {state === 'correct' && <span className="text-green-500 text-base flex-shrink-0 mt-0.5">✓</span>}
-                      {state === 'wrong'   && <span className="text-red-500 text-base flex-shrink-0 mt-0.5">✗</span>}
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Explanation — shown after answer is locked or in review mode */}
-          {(!!userAnswer || reviewMode) && currentMCQ.explanation && (
-            <div className="mx-4 sm:mx-6 mb-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
-              <p className="text-[11px] font-semibold text-blue-500 uppercase tracking-wider mb-1">Explanation</p>
-              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">{currentMCQ.explanation}</p>
-            </div>
-          )}
-          <div className="flex items-center justify-between pt-1 sm:pt-2 mb-3">
-            <button
-              onClick={goPrevious}
-              disabled={currentIndex === 0}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 active:bg-gray-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm text-sm sm:text-base font-semibold"
-            >
-              ← Previous
-            </button>
-
-            <button
-              onClick={() => setShowSubmitConfirm(true)}
-              className="px-3 sm:px-4 py-2 bg-white/80 border border-gray-200 text-gray-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 rounded-xl text-xs font-medium transition-all"
-            >
-              Submit early
-            </button>
-
-            {currentIndex === activeMCQs.length - 1 ? (
-              <button
-                onClick={handleSubmit}
-                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg font-bold text-sm sm:text-base"
-              >
-                Finish Test ✓
-              </button>
-            ) : (
-              <button
-                onClick={goNext}
-                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all shadow-lg text-sm sm:text-base font-semibold"
-              >
-                Next →
-              </button>
-            )}
-          </div>
-
         </div>
-      </div>
+      </GamifiedQuizShell>
 
-      {/* Report Toast */}
+      <ExamQuestionPickerModal
+        open={showQuestionPicker}
+        onClose={() => setShowQuestionPicker(false)}
+        total={activeMCQs.length}
+        currentIndex={currentIndex}
+        answeredIndices={answeredIndices}
+        onJump={setCurrentIndex}
+      />
+
       {showReportToast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-white/20">
+        <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2">
+          <div className="flex items-center gap-3 rounded-2xl border-2 border-white/20 bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-3 text-white shadow-2xl">
             <span className="text-xl">✓</span>
             <div>
-              <div className="font-bold">Question Flagged!</div>
+              <div className="font-bold">Question flagged</div>
               <div className="text-xs text-white/90">Thanks for helping us improve</div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Submit Early Confirm Modal */}
       {showSubmitConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Submit Test Early?</h3>
-            <p className="text-gray-600 text-sm mb-1">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl">
+            <h3 className="mb-2 text-lg font-bold text-gray-900">Submit test early?</h3>
+            <p className="mb-1 text-sm text-gray-600">
               {Object.keys(answers).length} of {activeMCQs.length} questions answered.
             </p>
             {activeMCQs.length - Object.keys(answers).length > 0 && (
-              <p className="text-amber-600 text-sm font-medium">
-                {activeMCQs.length - Object.keys(answers).length} unanswered questions will count as wrong.
+              <p className="text-sm font-medium text-amber-600">
+                {activeMCQs.length - Object.keys(answers).length} unanswered will count as wrong.
               </p>
             )}
-            <div className="flex gap-3 mt-5">
+            <div className="mt-5 flex gap-3">
               <button
+                type="button"
                 onClick={() => setShowSubmitConfirm(false)}
-                className="flex-1 border-2 border-gray-200 text-gray-700 py-2.5 rounded-xl font-medium hover:bg-gray-50"
+                className="flex-1 rounded-xl border-2 border-gray-200 py-2.5 font-medium text-gray-700 hover:bg-gray-50"
               >
                 Continue
               </button>
               <button
-                onClick={() => { setShowSubmitConfirm(false); handleSubmit() }}
-                className="flex-1 bg-red-600 text-white py-2.5 rounded-xl font-semibold hover:bg-red-700"
+                type="button"
+                onClick={() => {
+                  setShowSubmitConfirm(false)
+                  handleSubmit()
+                }}
+                className="flex-1 rounded-xl bg-red-600 py-2.5 font-semibold text-white hover:bg-red-700"
               >
                 Submit
               </button>

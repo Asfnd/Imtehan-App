@@ -58,7 +58,7 @@ function hashId(id: string, seed: number): number {
 }
 
 export default async function MockTestPage({
-  params
+  params,
 }: {
   params: Promise<{ examSlug: string; mockId: string }>
 }) {
@@ -131,7 +131,6 @@ export default async function MockTestPage({
         examSlug={examSlug}
         mockNumber={mockNumber}
         mockTitle={spec.title}
-        sections={config.sections.map(s => ({ label: s.label, count: Math.max(1, Math.round(s.count * multiplier)), slug: s.slug }))}
       />
     </>
   )
