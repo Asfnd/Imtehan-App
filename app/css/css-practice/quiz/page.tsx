@@ -547,9 +547,7 @@ function CSSQuizContent() {
   }
 
   const level = Math.min(99, Math.max(1, 1 + Math.floor(points / 250)))
-  const journeyFootnote = isQuestionSolved
-    ? 'Impressive! Moving right along.'
-    : 'Tap the correct answer — keep trying until you get it.'
+  const journeyFootnote = isQuestionSolved ? 'Nice — onward.' : undefined
 
   let dockPhase: QuizDockPhase = 'hidden'
   if (isQuestionSolved) dockPhase = 'correct'

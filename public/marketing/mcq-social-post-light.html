@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imtehan — MCQ desktop (light, portrait)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #eef1f5;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --indigo: #4f46e5;
+      --violet: #7c3aed;
+      --green: #22c55e;
+      --footer-h: 76px;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-700: #334155;
+      --slate-800: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      font-family: "DM Sans", system-ui, sans-serif;
+    }
+
+    /* Portrait — 1080×1350 */
+    .canvas {
+      width: 1080px;
+      height: 1350px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+    }
+
+    .canvas-inner {
+      flex: 1;
+      padding: 40px 44px 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, var(--blue), var(--blue-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+    }
+
+    .logo svg {
+      width: 26px;
+      height: 26px;
+      fill: white;
+    }
+
+    .titles .name {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 36px;
+      color: var(--blue-dark);
+      font-weight: 400;
+    }
+
+    .titles .announce {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 44px;
+      color: var(--blue);
+      line-height: 1.05;
+      margin-top: 2px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .laptop {
+      flex: 1;
+      min-height: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+      border: 1px solid #e2e8f0;
+    }
+
+    .chrome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dots span:nth-child(1) {
+      background: #ff5f57;
+    }
+
+    .dots span:nth-child(2) {
+      background: #febc2e;
+    }
+
+    .dots span:nth-child(3) {
+      background: #28c840;
+    }
+
+    .url {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .split {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .main {
+      flex: 1.2;
+      min-width: 0;
+      background: #fff;
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .qg-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .qg-x {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--slate-400);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .qg-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--slate-400);
+    }
+
+    .qg-bar-wrap {
+      flex: 1;
+      min-width: 0;
+      height: 15px;
+      border-radius: 999px;
+      background: rgba(241, 245, 249, 0.95);
+      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .qg-bar-fill {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--indigo), var(--violet), #4f46e5);
+      transform-origin: left center;
+      transform: scaleX(0.48);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .qg-pill.streak {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid #ffedd5;
+      background: #fff7ed;
+      color: #ea580c;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .qg-pill.xp {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid #e0e7ff;
+      background: #eef2ff;
+      color: var(--indigo);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .level-row {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: var(--indigo);
+    }
+
+    .q-text {
+      margin-top: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--slate-800);
+    }
+
+    .opts {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 2px solid var(--slate-200);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+
+    .opt.on {
+      border-color: #a5b4fc;
+      background: #eef2ff;
+    }
+
+    .badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 2px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--slate-400);
+      background: #f8fafc;
+    }
+
+    .opt.on .badge {
+      border-color: #a5b4fc;
+      color: var(--indigo);
+      background: #eef2ff;
+    }
+
+    .journey {
+      flex: 0 0 36%;
+      max-width: 300px;
+      background: linear-gradient(165deg, #eef2ff 0%, #e0e7ff 50%, #f5f3ff 100%);
+      border-left: 1px solid #c7d2fe;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .journey h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #312e81;
+      margin-bottom: 10px;
+    }
+
+    .j-svg {
+      width: 100%;
+      flex: 1;
+      min-height: 240px;
+    }
+
+    .pills {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--blue);
+      color: white;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.22);
+    }
+
+    .pill .g {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--green);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pill .g svg {
+      width: 14px;
+      height: 14px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    .footer {
+      height: var(--footer-h);
+      background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 44px;
+      flex-shrink: 0;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-right svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="canvas-inner">
+      <div class="brand-row">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h8"/></svg>
+        </div>
+        <div class="titles">
+          <div class="name">IMTEHAN</div>
+          <div class="announce">ANNOUNCEMENT</div>
+        </div>
+      </div>
+
+      <p class="tagline">
+        Full-width desktop quiz: <strong>indigo progress bar</strong> in the header (with 8/20, streak &amp; XP) · <strong>Your Journey</strong> path on the right — same layout as the app.
+      </p>
+
+      <div class="laptop">
+        <div class="chrome">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="url">www.imtehan.com · gamified practice</div>
+        </div>
+        <div class="split">
+          <div class="main">
+            <div class="qg-header">
+              <button type="button" class="qg-x" aria-hidden="true">×</button>
+              <span class="qg-label">8 / 20</span>
+              <div class="qg-bar-wrap">
+                <div class="qg-bar-fill"></div>
+              </div>
+              <div class="qg-pill streak">🔥 3</div>
+              <div class="qg-pill xp">⚡ 420</div>
+            </div>
+            <div class="level-row">★ LEVEL 12</div>
+            <p class="q-text">
+              Mitochondria are the primary site of ATP synthesis through which process?
+            </p>
+            <div class="opts">
+              <div class="opt">
+                <span class="badge">A</span>
+                <span>Photosynthesis</span>
+              </div>
+              <div class="opt on">
+                <span class="badge">B</span>
+                <span>Oxidative phosphorylation</span>
+              </div>
+              <div class="opt">
+                <span class="badge">C</span>
+                <span>Glycolysis only</span>
+              </div>
+              <div class="opt">
+                <span class="badge">D</span>
+                <span>Fermentation</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="journey">
+            <h3>Your Journey</h3>
+            <svg class="j-svg" viewBox="0 0 100 100" aria-hidden="true">
+              <path
+                d="M50 8 C52 22 48 36 50 50 C52 64 48 78 50 92"
+                fill="none"
+                stroke="#c7d2fe"
+                stroke-width="1.2"
+                stroke-dasharray="3 3"
+              />
+              <path
+                d="M50 8 C52 22 48 36 50 50 C52 64 48 78 50 92"
+                fill="none"
+                stroke="#6366f1"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                pathLength="100"
+                stroke-dasharray="100"
+                stroke-dashoffset="48"
+              />
+              <circle cx="50" cy="12" r="5.5" fill="#34d399" stroke="#fff" stroke-width="2" />
+              <circle cx="48" cy="38" r="5.5" fill="#34d399" stroke="#fff" stroke-width="2" />
+              <circle cx="52" cy="62" r="5.5" fill="#cbd5e1" stroke="#fff" stroke-width="2" />
+              <circle cx="50" cy="88" r="5.5" fill="#cbd5e1" stroke="#fff" stroke-width="2" />
+              <g transform="translate(37, 43)">
+                <circle cx="13" cy="13" r="12" fill="#fff" stroke="#6366f1" stroke-width="2" />
+                <text x="13" y="17" text-anchor="middle" font-size="15">🦉</text>
+              </g>
+            </svg>
+          </aside>
+        </div>
+      </div>
+
+      <div class="pills">
+        <div class="pill">
+          <span class="g"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+          Header bar + journey rail — real app layout
+        </div>
+        <div class="pill">
+          <span class="g"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+          67k+ MCQs · explanations &amp; analytics
+        </div>
+        <div class="pill">
+          <span class="g"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+          Clean, focused practice on any screen size
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <a href="mailto:info@imtehan.com">info@imtehan.com</a>
+      <div class="footer-right">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm6.93 6h-1.73a14.3 14.3 0 0 0-.67-1.6 8.06 8.06 0 0 1 2.4 1.6zM12 4a13.84 13.84 0 0 1 1.75 4h-3.5A13.84 13.84 0 0 1 12 4zm-4.36.4A14.3 14.3 0 0 0 6.8 8H5.07a8.06 8.06 0 0 1 2.57-3.6zM4 12a7.94 7.94 0 0 1 .22-1.8h2a16.65 16.65 0 0 0 0 3.6h-2A7.94 7.94 0 0 1 4 12zm1.07 3.6h1.73a14.3 14.3 0 0 0 .67 1.6 8.06 8.06 0 0 1-2.4-1.6zM12 20a13.84 13.84 0 0 1-1.75-4h3.5A13.84 13.84 0 0 1 12 20zm4.36-.4a14.3 14.3 0 0 0 1.64-1.6h1.73a8.06 8.06 0 0 1-2.57 3.6zM16.9 14h-9.8a14.65 14.65 0 0 1 0-4h9.82a14.65 14.65 0 0 1 0 4zm.83 1.8a8.24 8.24 0 0 0 .27-1.8 8.24 8.24 0 0 0-.27-1.8h2a7.94 7.94 0 0 1 0 3.6z"/></svg>
+        <a href="https://www.imtehan.com">www.imtehan.com</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

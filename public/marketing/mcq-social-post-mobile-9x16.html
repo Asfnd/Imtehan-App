@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imtehan — MCQ mobile Stories (9:16)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --indigo: #4f46e5;
+      --violet: #7c3aed;
+      --blue: #2563eb;
+      --blue-deep: #1d4ed8;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-700: #334155;
+      --slate-800: #0f172a;
+      --phone-bezel: #141416;
+      --footer-h: 88px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      background: #0f172a;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Instagram / TikTok Stories — 1080×1920 */
+    .canvas {
+      width: 1080px;
+      height: 1920px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        165deg,
+        #f0f4ff 0%,
+        #e8eeff 18%,
+        #f5f3ff 45%,
+        #eef2ff 72%,
+        #e0e7ff 100%
+      );
+    }
+
+    .canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.12), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139, 92, 246, 0.08), transparent 45%);
+      pointer-events: none;
+    }
+
+    .top-brand {
+      position: relative;
+      z-index: 1;
+      padding: 56px 48px 28px;
+      text-align: center;
+    }
+
+    .top-brand .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, var(--blue), var(--blue-deep));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+    }
+
+    .logo svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .top-brand h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #312e81;
+    }
+
+    .top-brand p {
+      margin-top: 8px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #64748b;
+      max-width: 36ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+
+    .phone-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 48px;
+      flex: 1;
+    }
+
+    /* Device frame */
+    .phone {
+      width: 420px;
+      padding: 14px;
+      border-radius: 52px;
+      background: linear-gradient(145deg, #2a2a2e, var(--phone-bezel));
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 32px 80px rgba(15, 23, 42, 0.35),
+        0 8px 24px rgba(15, 23, 42, 0.2);
+    }
+
+    .phone-notch {
+      position: relative;
+      height: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-bottom: 6px;
+    }
+
+    .phone-notch span {
+      width: 120px;
+      height: 22px;
+      background: #0a0a0b;
+      border-radius: 0 0 16px 16px;
+    }
+
+    .screen {
+      border-radius: 38px;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 1180px;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
+    }
+
+    /* In-app: QuizGamificationHeader */
+    .qg-header {
+      flex-shrink: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      padding: 14px 14px 12px;
+      background: #fff;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .qg-x {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--slate-400);
+      font-size: 24px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .qg-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--slate-400);
+      flex-shrink: 0;
+    }
+
+    .qg-bar-row {
+      width: 100%;
+      flex-basis: 100%;
+      order: 3;
+      padding-left: 0;
+    }
+
+    .qg-bar-wrap {
+      height: 12px;
+      border-radius: 999px;
+      background: var(--slate-100);
+      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .qg-bar-fill {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--indigo), var(--violet), #4f46e5);
+      transform-origin: left center;
+      transform: scaleX(0.45);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .qg-pills {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .qg-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .qg-pill.streak {
+      border: 1px solid #ffedd5;
+      background: #fff7ed;
+      color: #ea580c;
+    }
+
+    .qg-pill.xp {
+      border: 1px solid #e0e7ff;
+      background: #eef2ff;
+      color: var(--indigo);
+    }
+
+    .main-scroll {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 16px 16px;
+      background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+    }
+
+    .level-row {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: var(--indigo);
+      margin-bottom: 8px;
+    }
+
+    .q-text {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--slate-800);
+      margin-bottom: 14px;
+    }
+
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 2px solid var(--slate-200);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate-700);
+      background: #fff;
+      text-align: left;
+    }
+
+    .opt.on {
+      border-color: #a5b4fc;
+      background: #eef2ff;
+    }
+
+    .badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 2px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--slate-400);
+      background: var(--slate-50);
+      flex-shrink: 0;
+    }
+
+    .opt.on .badge {
+      border-color: #a5b4fc;
+      color: var(--indigo);
+      background: #eef2ff;
+    }
+
+    /* Compact journey strip — mobile rail vibe */
+    .journey-strip {
+      flex-shrink: 0;
+      margin-top: auto;
+      padding: 12px 12px 14px;
+      background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+      border-top: 1px solid var(--slate-100);
+    }
+
+    .journey-strip h4 {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #4338ca;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .j-mini {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .j-mini svg {
+      flex: 1;
+      height: 36px;
+      max-width: 100%;
+    }
+
+    .j-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .j-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .j-dots span.done {
+      background: #34d399;
+    }
+
+    .home-indicator {
+      height: 5px;
+      width: 120px;
+      background: #0a0a0b;
+      border-radius: 4px;
+      margin: 10px auto 12px;
+      opacity: 0.35;
+    }
+
+    .footer {
+      position: relative;
+      z-index: 1;
+      height: var(--footer-h);
+      margin-top: auto;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-right svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="top-brand">
+      <div class="logo-row">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h8"/></svg>
+        </div>
+        <h1>IMTEHAN</h1>
+      </div>
+      <p>Practice on your phone — full quiz UI, progress bar &amp; journey at a glance.</p>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"><span></span></div>
+        <div class="screen">
+          <div class="qg-header">
+            <button type="button" class="qg-x" aria-hidden="true">×</button>
+            <span class="qg-label">8 / 20</span>
+            <div class="qg-pills">
+              <div class="qg-pill streak">🔥 3</div>
+              <div class="qg-pill xp">⚡ 420</div>
+            </div>
+            <div class="qg-bar-row">
+              <div class="qg-bar-wrap"><div class="qg-bar-fill"></div></div>
+            </div>
+          </div>
+
+          <div class="main-scroll">
+            <div class="level-row">★ LEVEL 12</div>
+            <p class="q-text">
+              The principle of federal supremacy in Pakistan’s constitutional structure is primarily reflected through which mechanism?
+            </p>
+            <div class="opts">
+              <div class="opt">
+                <span class="badge">A</span>
+                <span>Direct election of the President by provinces</span>
+              </div>
+              <div class="opt on">
+                <span class="badge">B</span>
+                <span>Parliamentary legislation on concurrent subjects</span>
+              </div>
+              <div class="opt">
+                <span class="badge">C</span>
+                <span>Dissolution of provincial assemblies only by Governor</span>
+              </div>
+              <div class="opt">
+                <span class="badge">D</span>
+                <span>Appointment of Chief Election Commissioner by provinces</span>
+              </div>
+            </div>
+
+            <div class="journey-strip">
+              <h4>YOUR JOURNEY</h4>
+              <div class="j-mini">
+                <svg viewBox="0 0 200 40" aria-hidden="true">
+                  <path d="M10 28 Q50 8 100 20 T190 22" fill="none" stroke="#c7d2fe" stroke-width="2" stroke-dasharray="4 4" />
+                  <path d="M10 28 Q50 8 100 20 T190 22" fill="none" stroke="#6366f1" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="55 100" />
+                  <circle cx="28" cy="22" r="5" fill="#34d399" stroke="#fff" stroke-width="2" />
+                  <circle cx="100" cy="18" r="5" fill="#34d399" stroke="#fff" stroke-width="2" />
+                  <circle cx="172" cy="21" r="5" fill="#cbd5e1" stroke="#fff" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="j-dots">
+                <span class="done"></span>
+                <span class="done"></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <a href="mailto:info@imtehan.com">info@imtehan.com</a>
+      <div class="footer-right">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm6.93 6h-1.73a14.3 14.3 0 0 0-.67-1.6 8.06 8.06 0 0 1 2.4 1.6zM12 4a13.84 13.84 0 0 1 1.75 4h-3.5A13.84 13.84 0 0 1 12 4zm-4.36.4A14.3 14.3 0 0 0 6.8 8H5.07a8.06 8.06 0 0 1 2.57-3.6zM4 12a7.94 7.94 0 0 1 .22-1.8h2a16.65 16.65 0 0 0 0 3.6h-2A7.94 7.94 0 0 1 4 12zm1.07 3.6h1.73a14.3 14.3 0 0 0 .67 1.6 8.06 8.06 0 0 1-2.4-1.6zM12 20a13.84 13.84 0 0 1-1.75-4h3.5A13.84 13.84 0 0 1 12 20zm4.36-.4a14.3 14.3 0 0 0 1.64-1.6h1.73a8.06 8.06 0 0 1-2.57 3.6zM16.9 14h-9.8a14.65 14.65 0 0 1 0-4h9.82a14.65 14.65 0 0 1 0 4zm.83 1.8a8.24 8.24 0 0 0 .27-1.8 8.24 8.24 0 0 0-.27-1.8h2a7.94 7.94 0 0 1 0 3.6z"/></svg>
+        <a href="https://www.imtehan.com">www.imtehan.com</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

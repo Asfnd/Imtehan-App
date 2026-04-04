@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Imtehan — MCQ showcase · Instagram / Facebook (1080×1080)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@9..40,400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f172a;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Instagram + Facebook feed — 1:1 */
+    .artboard {
+      width: 1080px;
+      height: 1080px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, rgba(99, 102, 241, 0.14), transparent 50%),
+        radial-gradient(ellipse 80% 60% at 100% 100%, rgba(139, 92, 246, 0.1), transparent 45%),
+        linear-gradient(165deg, #f8fafc 0%, #f1f5f9 40%, #eef2ff 100%);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .top {
+      position: relative;
+      z-index: 1;
+      padding: 52px 56px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 28px rgba(37, 99, 235, 0.28);
+    }
+
+    .mark svg { width: 22px; height: 22px; fill: #fff; }
+
+    .brand span {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #1e293b;
+    }
+
+    .tag {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.02em;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 56px 16px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 17px;
+      font-weight: 500;
+      color: #64748b;
+      max-width: 32ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.45;
+    }
+
+    .device-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 48px 36px;
+    }
+
+    .phone {
+      width: 380px;
+      padding: 12px;
+      border-radius: 48px;
+      background: linear-gradient(150deg, #2d2d32, #121214);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 40px 80px rgba(15, 23, 42, 0.22),
+        0 16px 32px rgba(15, 23, 42, 0.12);
+    }
+
+    .notch {
+      height: 26px;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 4px;
+    }
+
+    .notch i {
+      width: 100px;
+      height: 22px;
+      background: #0a0a0b;
+      border-radius: 0 0 14px 14px;
+      display: block;
+    }
+
+    .screen {
+      border-radius: 36px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.05);
+    }
+
+    .qh {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .qh button {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .qh .lbl {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+    }
+
+    .qh .pills {
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    .qh .pill {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      padding: 5px 9px;
+      border-radius: 9px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .qh .pill.fire {
+      border: 1px solid #ffedd5;
+      background: #fff7ed;
+      color: #ea580c;
+    }
+
+    .qh .pill.zap {
+      border: 1px solid #e0e7ff;
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+
+    .qh .bar-full {
+      width: 100%;
+      flex-basis: 100%;
+      order: 9;
+      margin-top: 4px;
+    }
+
+    .track {
+      height: 11px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4f46e5, #7c3aed, #4f46e5);
+      transform-origin: left;
+      transform: scaleX(0.46);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .body {
+      padding: 12px 16px 18px;
+      background: linear-gradient(180deg, #fff, #fafafa);
+    }
+
+    .lv {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #4f46e5;
+      margin-bottom: 6px;
+    }
+
+    .q {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .opts { display: flex; flex-direction: column; gap: 7px; }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      background: #fff;
+    }
+
+    .opt.yes {
+      border-color: #a5b4fc;
+      background: #eef2ff;
+    }
+
+    .opt b {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      border: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .opt.yes b {
+      border-color: #a5b4fc;
+      color: #4f46e5;
+      background: #eef2ff;
+    }
+
+    .home {
+      height: 4px;
+      width: 100px;
+      background: #0a0a0b;
+      border-radius: 3px;
+      margin: 10px auto 12px;
+      opacity: 0.3;
+    }
+
+    .bottom {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 48px 44px;
+    }
+
+    .bottom a {
+      font-size: 16px;
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .bottom a strong {
+      color: #2563eb;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="top">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8"/></svg>
+        </div>
+        <span>IMTEHAN</span>
+      </div>
+      <span class="tag">New MCQ interface</span>
+    </header>
+
+    <div class="hero">
+      <h1>Practice that feels<br />designed for you</h1>
+      <p>Progress bar, streaks, XP — and a clear path through every set.</p>
+    </div>
+
+    <div class="device-wrap">
+      <div class="phone">
+        <div class="notch"><i></i></div>
+        <div class="screen">
+          <div class="qh">
+            <button type="button" aria-hidden="true">×</button>
+            <span class="lbl">8 / 20</span>
+            <div class="pills">
+              <span class="pill fire">🔥 3</span>
+              <span class="pill zap">⚡ 420</span>
+            </div>
+            <div class="bar-full">
+              <div class="track"><div class="fill"></div></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="lv">★ LEVEL 12</div>
+            <p class="q">Which body has the authority to interpret the Constitution in Pakistan?</p>
+            <div class="opts">
+              <div class="opt"><b>A</b><span>Supreme Judicial Council</span></div>
+              <div class="opt yes"><b>B</b><span>Supreme Court</span></div>
+              <div class="opt"><b>C</b><span>Parliament</span></div>
+              <div class="opt"><b>D</b><span>President</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="home" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <footer class="bottom">
+      <a href="https://www.imtehan.com"><strong>imtehan.com</strong> — CSS · PMS · PPSC &amp; more</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -342,9 +342,7 @@ export default function QuizInterface({
   ]
 
   const level = Math.min(99, Math.max(1, 1 + Math.floor(totalXp / 250)))
-  const journeyFootnote = isQuestionSolved
-    ? 'Impressive! Moving right along.'
-    : 'Tap the correct answer — keep trying until you get it.'
+  const journeyFootnote = isQuestionSolved ? 'Nice — onward.' : undefined
 
   const dockContinue = () => {
     if (currentIndex < activeMCQs.length - 1) {
