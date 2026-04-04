@@ -56,7 +56,27 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
 
   'css-mpt': {
     name: 'CSS Screening Test (MPT)',
-    category: 'national',
+    category: 'css',
+    totalMCQs: 200,
+    duration: 200,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english',          label: 'English',                dbTable: 'english',           count: 40 },
+      { slug: 'general-knowledge',label: 'General Knowledge',      dbTable: 'general_knowledge', count: 40 },
+      { slug: 'pakistan-affairs', label: 'Pakistan Affairs',       dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'islamic-studies',  label: 'Islamic Studies',        dbTable: 'islamiat',          count: 20 },
+      { slug: 'current-affairs',  label: 'Current Affairs',        dbTable: 'current_affairs',   count: 20 },
+      { slug: 'everyday-science', label: 'Everyday Science',       dbTable: 'everyday_science',  count: 20 },
+      { slug: 'mathematics',      label: 'Arithmetic & Mathematics',dbTable: 'general_math',     count: 20 },
+      { slug: 'geography',        label: 'Geography',              dbTable: 'geography',         count: 20 },
+    ]
+  },
+
+  /** PMS general paper — same subject modules and shared MCQ bank as CSS MPT (`english`, `general_knowledge`, …). */
+  'pms-competitive': {
+    name: 'PMS Competitive (General)',
+    category: 'pms',
     totalMCQs: 200,
     duration: 200,
     passingPercentage: 50,

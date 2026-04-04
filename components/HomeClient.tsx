@@ -26,7 +26,8 @@ const ENGINEERING_CATEGORIES = [
 ];
 
 const COMPETITIVE_CATEGORIES = [
-  { key: 'national', label: 'CSS / PMS', href: '/css' },
+  { key: 'css', label: 'CSS', href: '/css' },
+  { key: 'pms', label: 'PMS', href: '/exams/pms-competitive' },
   { key: 'ppsc', label: 'PPSC', href: '/exams?category=ppsc' },
   { key: 'fpsc', label: 'FPSC', href: '/exams?category=fpsc' },
   { key: 'fia', label: 'FIA', href: '/exams?category=fia' },

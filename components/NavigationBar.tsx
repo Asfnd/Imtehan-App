@@ -12,7 +12,8 @@ import { trackLogin } from '@/lib/analytics/events'
 
 const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
-  national:   { label: 'CSS / PMS',    href: '/css' },
+  css:        { label: 'CSS',          href: '/css' },
+  pms:        { label: 'PMS',          href: '/exams/pms-competitive' },
   ppsc:       { label: 'PPSC',         href: '/exams?category=ppsc' },
   fpsc:       { label: 'FPSC',         href: '/exams?category=fpsc' },
   fia:        { label: 'FIA',          href: '/exams?category=fia' },
@@ -40,7 +41,7 @@ const ENGINEERING_NAV = [
 ]
 
 const CATEGORY_ORDER = [
-  'engineering', 'national', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
+  'engineering', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]

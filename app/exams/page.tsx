@@ -9,7 +9,8 @@ import NavigationBar from '@/components/NavigationBar'
 const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; description: string }> = {
   medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'Medical & Dental College Admission Test — UHS, NUMS, AKU' },
   engineering: { label: 'Engineering',  shortLabel: 'Engineering',  description: 'NUST, COMSATS, FAST, GIKI, PIEAS, LUMS, Air University & more' },
-  national:    { label: 'CSS / PMS',    shortLabel: 'CSS / PMS',    description: 'Central Superior Services & Provincial Management Services' },
+  css:         { label: 'CSS',          shortLabel: 'CSS',          description: 'Central Superior Services — MPT screening & compulsory MCQs' },
+  pms:         { label: 'PMS',          shortLabel: 'PMS',          description: 'Provincial Management Services — same general paper MCQ bank as CSS MPT' },
   ppsc:       { label: 'PPSC',         shortLabel: 'PPSC',         description: 'Punjab Public Service Commission — all posts' },
   fpsc:       { label: 'FPSC',         shortLabel: 'FPSC',         description: 'Federal Public Service Commission — all posts' },
   fia:        { label: 'FIA',          shortLabel: 'FIA',          description: 'Federal Investigation Agency — recruitment tests by post' },
@@ -28,7 +29,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
 }
 
 const CATEGORY_ORDER = [
-  'medical', 'engineering', 'national', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
+  'medical', 'engineering', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]
@@ -56,7 +57,7 @@ const bankCount = (seed: string, base: number): string => {
 function ExamsInner() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initialCategory = searchParams.get('category') || 'national'
+  const initialCategory = searchParams.get('category') || 'css'
   const [activeCategory, setActiveCategory] = useState(initialCategory)
   const [dropdownOpen, setDropdownOpen]     = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)

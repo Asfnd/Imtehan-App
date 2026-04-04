@@ -11,7 +11,8 @@
     "setup-paper-type": "tsx scripts/setup-paper-type.ts",
     "upload-mcqs": "tsx scripts/upload-new-mcqs.ts",
     "delete-subjects": "tsx scripts/delete-uploaded-subjects.ts",
-    "import-mcqs": "tsx scripts/import-mcqs-to-supabase.ts"
+    "import-mcqs": "tsx scripts/import-mcqs-to-supabase.ts",
+    "verify-pms-setup": "tsx scripts/verify-pms-setup.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.969.0",

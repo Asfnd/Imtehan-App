@@ -13,6 +13,15 @@ const EXAM_SEO: Record<string, {
       'CSS Pakistan affairs MCQs', 'CSS Islamic studies MCQs', 'FPSC CSS MCQ practice',
     ],
   },
+  'pms-competitive': {
+    description:
+      'Practice PMS MCQs in a dedicated bank — Most Repeated, Most Important, and Practice modes by subject (English, GK, Pakistan Affairs, Islamiat, Current Affairs, Everyday Science, Math, Geography).',
+    keywords: [
+      'PMS MCQs', 'PMS preparation Pakistan', 'PMS screening MCQs',
+      'PMS general knowledge', 'PMS Pakistan affairs', 'PMS English MCQs',
+      'provincial management services MCQ', 'PMS practice test',
+    ],
+  },
   'ppsc-assistant': {
     description: 'Practice PPSC Assistant (BS-16) MCQs with subject-wise sets — General Knowledge, Pakistan Affairs, English, Islamic Studies & more. Full mock test preparation.',
     keywords: [
@@ -44,7 +53,8 @@ const EXAM_SEO: Record<string, {
 }
 
 const CATEGORY_KEYWORDS: Record<string, string[]> = {
-  national: ['CSS MCQs', 'FPSC MCQ preparation', 'competitive exam Pakistan', 'CSS MPT practice'],
+  css: ['CSS MCQs', 'FPSC MCQ preparation', 'CSS MPT practice', 'competitive exam Pakistan'],
+  pms: ['PMS MCQs', 'Provincial Management Services', 'PMS preparation Pakistan', 'PMS screening test'],
   ppsc: ['PPSC MCQs', 'Punjab Public Service Commission', 'PPSC preparation', 'PPSC past papers'],
   fpsc: ['FPSC MCQs', 'Federal Public Service Commission', 'FPSC preparation'],
   medical: ['MDCAT MCQs', 'medical entry test Pakistan', 'PMC MCQ practice'],

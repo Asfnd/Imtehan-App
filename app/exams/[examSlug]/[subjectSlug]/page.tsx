@@ -35,6 +35,7 @@ export default function SubjectModesPage() {
   const examSlug = params.examSlug as string
   const subjectSlug = params.subjectSlug as string
   const config = getExamConfig(examSlug)
+  const section = config?.sections.find((s) => s.slug === subjectSlug)
 
   const [loading, setLoading] = useState(true)
   const [counts, setCounts] = useState({
@@ -44,50 +45,56 @@ export default function SubjectModesPage() {
   })
 
   useEffect(() => {
-    if (config) {
-      const section = config.sections.find((s) => s.slug === subjectSlug)
-      if (section) {
-        loadCounts(section)
-      }
+    if (!config || !section) {
+      setLoading(false)
+      return
     }
-  }, [])
+
+    let cancelled = false
+    setLoading(true)
+    const dbTable = section.dbTable
+
+    async function loadCounts() {
+      const supabase = createClient()
+
+      const { count: pastCount } = await supabase
+        .from(dbTable)
+        .select('*', { count: 'exact', head: true })
+        .eq('type', 'practice')
+
+      const { count: importantCount } = await supabase
+        .from(dbTable)
+        .select('*', { count: 'exact', head: true })
+        .eq('type', 'most_important')
+
+      const { count: repeatedCount } = await supabase
+        .from(dbTable)
+        .select('*', { count: 'exact', head: true })
+        .eq('type', 'most_repeated')
+
+      if (cancelled) return
+      setCounts({
+        pastCount: pastCount || 0,
+        importantCount: importantCount || 0,
+        repeatedCount: repeatedCount || 0
+      })
+      setLoading(false)
+    }
+
+    loadCounts()
+    return () => {
+      cancelled = true
+    }
+  }, [examSlug, subjectSlug, config, section])
 
   if (!config) {
     router.push('/exams')
     return null
   }
 
-  const section = config.sections.find((s) => s.slug === subjectSlug)
-
   if (!section) {
     router.push(`/exams/${examSlug}`)
     return null
-  }
-
-  const loadCounts = async (section: any) => {
-    const supabase = createClient()
-
-    const { count: pastCount } = await supabase
-      .from(section.dbTable)
-      .select('*', { count: 'exact', head: true })
-      .eq('type', 'practice')
-
-    const { count: importantCount } = await supabase
-      .from(section.dbTable)
-      .select('*', { count: 'exact', head: true })
-      .eq('type', 'most_important')
-
-    const { count: repeatedCount } = await supabase
-      .from(section.dbTable)
-      .select('*', { count: 'exact', head: true })
-      .eq('type', 'most_repeated')
-
-    setCounts({
-      pastCount: pastCount || 0,
-      importantCount: importantCount || 0,
-      repeatedCount: repeatedCount || 0
-    })
-    setLoading(false)
   }
 
   const totalPracticeCount = counts.pastCount + counts.importantCount + counts.repeatedCount

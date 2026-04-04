@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/css/solved-papers`,      lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.85 },
     { url: `${baseUrl}/css/guess-papers`,       lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.85 },
     { url: `${baseUrl}/css/essay-grader`,       lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.9  },
+    { url: `${baseUrl}/exams/pms-competitive`,  lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.88 },
     { url: `${baseUrl}/css/css-practice`,       lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.8  },
     { url: `${baseUrl}/css/css-practice/quiz`,  lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.75 },
     { url: `${baseUrl}/css/css-practice/idioms`,lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.7  },
