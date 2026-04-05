@@ -3,54 +3,7 @@
 import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Check, Copy, CheckCircle2 } from 'lucide-react'
-
-const PLANS = [
-  {
-    label: '1 Month',
-    desc: 'Try full access',
-    price: 'Rs. 1,999',
-    perMonth: null,
-    savings: null,
-    badge: null,
-    badgeColor: '',
-    savingsColor: '',
-    highlight: false,
-    cta: 'Get Started',
-  },
-  {
-    label: '3 Months',
-    desc: 'Solid prep window',
-    price: 'Rs. 3,999',
-    perMonth: 'Rs. 1,333/mo',
-    savings: 'Save 33% vs monthly',
-    badge: 'Popular',
-    badgeColor: 'bg-green-100 text-green-700',
-    savingsColor: 'text-green-600',
-    highlight: false,
-    cta: 'Get Started',
-  },
-  {
-    label: '12 Months',
-    desc: 'Best per-month value',
-    price: 'Rs. 9,999',
-    perMonth: 'Rs. 833/mo',
-    savings: 'Save 58% vs monthly',
-    badge: 'BEST VALUE',
-    badgeColor: 'bg-blue-500 text-white',
-    savingsColor: 'text-blue-600',
-    highlight: true,
-    cta: 'Get Started',
-  },
-]
-
-const FEATURES = [
-  { text: 'Unlimited AI writing feedback', isNew: true },
-  { text: 'Unlimited practice sets across subjects', isNew: false },
-  { text: 'All mock tests and timed simulations', isNew: false },
-  { text: 'Solved past papers (where offered)', isNew: false },
-  { text: 'Premium model sets and curated questions', isNew: false },
-  { text: 'Progress tracking and attempt history', isNew: false },
-]
+import { PREMIUM_FEATURES, PREMIUM_PLANS } from '@/lib/premium-plans'
 
 export default function PremiumPage() {
   const [copiedField, setCopiedField] = useState<string | null>(null)
@@ -98,7 +51,7 @@ export default function PremiumPage() {
       <section className="py-10 md:py-14">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 max-w-4xl mx-auto">
-            {PLANS.map((plan) => (
+            {PREMIUM_PLANS.map((plan) => (
               <div
                 key={plan.label}
                 className={`bg-white rounded-xl p-6 relative transition-shadow flex flex-col ${
@@ -136,7 +89,7 @@ export default function PremiumPage() {
                 </div>
 
                 <ul className="space-y-2 mb-6 flex-1">
-                  {FEATURES.map((f) => (
+                  {PREMIUM_FEATURES.map((f) => (
                     <li key={f.text} className="flex items-start gap-2">
                       <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-blue-500' : 'text-gray-400'}`} />
                       <span className="text-sm text-gray-600 flex items-center gap-1.5 flex-wrap">

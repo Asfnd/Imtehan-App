@@ -13,11 +13,10 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const code = url.searchParams.get('code')
   const state = url.searchParams.get('state')
-  let next = url.searchParams.get('next') || '/dashboard'
+  let next = url.searchParams.get('next') || '/css'
 
-  // SECURITY: Validate and sanitize redirect URL
   if (!isValidRedirectUrl(next, url.origin)) {
-    next = '/dashboard'
+    next = '/css'
   }
 
   if (code) {

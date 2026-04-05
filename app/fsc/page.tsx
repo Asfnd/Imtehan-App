@@ -79,7 +79,7 @@ export default function FSCPage() {
         </div>
 
         {/* Subject Cards */}
-        <ExamAnalyticsBar examSlug="fsc" />
+        <ExamAnalyticsBar examSlug="fsc" signInHref="/signin?next=/fsc" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           {SUBJECTS.map((s) => {
             const Icon = s.icon

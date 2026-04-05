@@ -173,7 +173,7 @@ export default function MDCATPage() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
 
         {/* Analytics bar */}
-        <ExamAnalyticsBar examSlug="mdcat" />
+        <ExamAnalyticsBar examSlug="mdcat" signInHref="/signin?next=/mdcat" />
 
         {/* Page title */}
         <div className="mb-8">

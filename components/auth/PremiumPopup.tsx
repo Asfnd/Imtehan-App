@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { X, Crown, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { getPremiumEntryPrice, PREMIUM_POPUP_VALUE_HINT } from '@/lib/premium-plans'
 
 interface PremiumPopupProps {
   isOpen: boolean
@@ -91,10 +92,10 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
               <p className="text-center text-sm text-gray-600 mb-1">Plans from</p>
               <p className="text-center text-3xl font-bold text-gray-900">
-                Rs. 1,999
+                {getPremiumEntryPrice()}
                 <span className="text-sm font-normal text-gray-500"> / month</span>
               </p>
-              <p className="text-center text-xs text-gray-500 mt-1">Better value on 3- and 12-month plans</p>
+              <p className="text-center text-xs text-gray-500 mt-1">{PREMIUM_POPUP_VALUE_HINT}</p>
             </div>
 
             {/* CTA Buttons */}

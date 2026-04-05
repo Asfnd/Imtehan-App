@@ -1,0 +1,78 @@
+/**
+ * Single source of truth for Imtehan Premium pricing and included features.
+ * Import from here only — do not duplicate amounts elsewhere.
+ */
+
+export interface PremiumPlan {
+  label: string
+  desc: string
+  price: string
+  perMonth: string | null
+  savings: string | null
+  badge: string | null
+  badgeColor: string
+  savingsColor: string
+  highlight: boolean
+  cta: string
+}
+
+export interface PremiumFeature {
+  text: string
+  isNew: boolean
+}
+
+export const PREMIUM_PLANS: PremiumPlan[] = [
+  {
+    label: '1 Month',
+    desc: 'Try full access',
+    price: 'Rs. 1,999',
+    perMonth: null,
+    savings: null,
+    badge: null,
+    badgeColor: '',
+    savingsColor: '',
+    highlight: false,
+    cta: 'Get Started',
+  },
+  {
+    label: '3 Months',
+    desc: 'Solid prep window',
+    price: 'Rs. 3,999',
+    perMonth: 'Rs. 1,333/mo',
+    savings: 'Save 33% vs monthly',
+    badge: 'Popular',
+    badgeColor: 'bg-green-100 text-green-700',
+    savingsColor: 'text-green-600',
+    highlight: false,
+    cta: 'Get Started',
+  },
+  {
+    label: '12 Months',
+    desc: 'Best per-month value',
+    price: 'Rs. 9,999',
+    perMonth: 'Rs. 833/mo',
+    savings: 'Save 58% vs monthly',
+    badge: 'BEST VALUE',
+    badgeColor: 'bg-blue-500 text-white',
+    savingsColor: 'text-blue-600',
+    highlight: true,
+    cta: 'Get Started',
+  },
+]
+
+export const PREMIUM_FEATURES: PremiumFeature[] = [
+  { text: 'Unlimited AI writing feedback', isNew: true },
+  { text: 'Unlimited practice sets across subjects', isNew: false },
+  { text: 'All mock tests and timed simulations', isNew: false },
+  { text: 'Solved past papers (where offered)', isNew: false },
+  { text: 'Premium model sets and curated questions', isNew: false },
+  { text: 'Progress tracking and attempt history', isNew: false },
+]
+
+/** Subtext under “Plans from” on upgrade popups — keep in sync with PREMIUM_PLANS tiers. */
+export const PREMIUM_POPUP_VALUE_HINT = 'Better value on 3- and 12-month plans'
+
+/** Entry plan price (first tier) for popups — always mirrors PREMIUM_PLANS[0].price */
+export function getPremiumEntryPrice(): string {
+  return PREMIUM_PLANS[0]?.price ?? 'Rs. 1,999'
+}

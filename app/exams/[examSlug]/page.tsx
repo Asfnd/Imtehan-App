@@ -285,7 +285,7 @@ function ExamDashboard() {
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Analytics Bar — handles sign-in CTA, stats, today's focus */}
-        <ExamAnalyticsBar examSlug={examSlug} />
+        <ExamAnalyticsBar examSlug={examSlug} signInHref={`/signin?next=${encodeURIComponent(`/exams/${examSlug}`)}`} />
 
         {examSlug === 'pms-competitive' && (
           <Link

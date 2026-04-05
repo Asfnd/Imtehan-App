@@ -24,11 +24,11 @@ const CompactInfoBar = dynamic(() => import('@/components/analytics/CompactInfoB
 
 interface Props {
   examSlug: string
-  /** If provided, sign-in button will redirect here. Defaults to /dashboard */
+  /** Where to send guests who tap “Sign in” (use `/signin?next=/mdcat` etc. to return after OAuth). */
   signInHref?: string
 }
 
-export default function ExamAnalyticsBar({ examSlug, signInHref = '/dashboard' }: Props) {
+export default function ExamAnalyticsBar({ examSlug, signInHref = '/signin' }: Props) {
   const router = useRouter()
   const [user, setUser]               = useState<any>(null)
   const [loading, setLoading]         = useState(true)

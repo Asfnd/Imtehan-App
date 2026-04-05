@@ -5,6 +5,7 @@
 
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import type { User } from '@supabase/supabase-js'
+import { matchesSafeRedirectPath } from '@/lib/security/safe-redirects'
 
 /**
  * Get authenticated user from request
@@ -43,35 +44,20 @@ export async function verifyUserOwnership(userId: string, resourceOwnerId: strin
  * Validate allowed redirect URLs
  * SECURITY: Prevents open redirect attacks
  */
-const ALLOWED_REDIRECT_PATHS = [
-  '/dashboard',
-  '/profile',
-  '/quiz',
-  '/subjects',
-  '/past-papers',
-  '/practice',
-  '/',
-]
-
 export function isValidRedirectUrl(url: string, baseUrl: string): boolean {
   if (!url) {
     return false
   }
 
   try {
-    // Parse as URL
     const parsedUrl = new URL(url, baseUrl)
 
-    // SECURITY: Only allow same-origin redirects
     if (parsedUrl.origin !== new URL(baseUrl).origin) {
       return false
     }
 
-    // SECURITY: Whitelist allowed paths
-    return ALLOWED_REDIRECT_PATHS.some(
-      path => parsedUrl.pathname === path || parsedUrl.pathname.startsWith(path + '/')
-    )
-  } catch (error) {
+    return matchesSafeRedirectPath(parsedUrl.pathname)
+  } catch {
     return false
   }
 }

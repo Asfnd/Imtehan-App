@@ -1,14 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from "@/components/ui/Button"
 import { BookOpen, ArrowLeft, User, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { getSafeRedirectPath } from '@/lib/security/safe-redirects'
 
-export default function AuthPage() {
+function AuthPageInner() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const safeNext = useMemo(() => getSafeRedirectPath(searchParams.get('next')), [searchParams])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [user, setUser] = useState<any>(null)
@@ -16,18 +19,16 @@ export default function AuthPage() {
   useEffect(() => {
     const supabase = createClient()
 
-    // Only listen for auth changes (don't check session - AuthContext already does this)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null)
 
-      // Redirect if user signs in while on this page
       if (session?.user) {
-        router.push('/css')
+        router.push(safeNext)
       }
     })
 
     return () => subscription.unsubscribe()
-  }, [router])
+  }, [router, safeNext])
 
   const handleGoogleSignIn = async () => {
     try {
@@ -39,7 +40,7 @@ export default function AuthPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${baseUrl}/auth/callback?next=/css`,
+          redirectTo: `${baseUrl}/auth/callback?next=${encodeURIComponent(safeNext)}`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -109,9 +110,9 @@ export default function AuthPage() {
 
             {/* Actions */}
             <div className="space-y-3">
-              <Link href="/css" className="block">
+              <Link href={safeNext} className="block">
                 <Button className="w-full" size="lg">
-                  Go to CSS Dashboard
+                  Continue to app
                 </Button>
               </Link>
               <Button
@@ -235,5 +236,19 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+          <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <AuthPageInner />
+    </Suspense>
   )
 }
