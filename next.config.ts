@@ -9,17 +9,17 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Script sources: self + Google Analytics + Vercel analytics + trusted CDNs + eval for PDF.js
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com https://cdnjs.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.gstatic.com https://connect.facebook.net",
       // Style: self + unsafe-inline (needed for Tailwind CSS)
       "style-src 'self' 'unsafe-inline'",
       // Images: self, data URIs, HTTPS, blobs, and Google profile pictures
-      "img-src 'self' data: https: blob: https://lh3.googleusercontent.com https://*.googleusercontent.com",
+      "img-src 'self' data: https: blob: https://lh3.googleusercontent.com https://*.googleusercontent.com https://*.google.com https://*.googleadservices.com https://*.doubleclick.net",
       // Fonts: self and data URIs
       "font-src 'self' data:",
       // API connections to Supabase and R2
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.imtehan.com https://www.google-analytics.com blob: data:",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.imtehan.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://*.facebook.com https://*.facebook.net blob: data:",
       // Frames: self + Supabase storage + R2 custom domain + blob (for PDF viewer iframes)
-      "frame-src 'self' https://*.supabase.co https://www.imtehan.com blob: data:",
+      "frame-src 'self' https://*.supabase.co https://www.imtehan.com https://*.googlesyndication.com https://www.google.com blob: data:",
       // Workers and blobs
       "worker-src 'self' blob:",
       "child-src 'self' blob: https://*.supabase.co",
@@ -356,11 +356,6 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          // Force cache invalidation for development
-          {
-            key: 'X-Cache-Bust',
-            value: Date.now().toString(),
           },
         ],
       },

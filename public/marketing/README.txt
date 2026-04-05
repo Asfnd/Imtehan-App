@@ -1,6 +1,10 @@
 Imtehan — social / marketing HTML templates
 
-All templates show the DESKTOP layout (not phone):
+Stories (9:16) — recommended:
+  imtehan-mcq-ui-stories-9x16.html  — 1080×1920, minimal: centered phone only, header row matches app (× · 8/20 · bar · streak · XP), btn-3d options, journey strip; tiny “imtehan.com” at bottom.
+  imtehan-mcq-ui-stories-9x16.png   — raster companion (HTML export = exact UI).
+
+Desktop templates show split layout (not phone):
   • Left: browser chrome + main column — QuizGamificationHeader row: [×] [8/20] [indigo gradient progress bar] [streak] [XP], then Level, question, A–D options (matches app).
   • Right: “Your Journey” rail — path, nodes, owl (matches GamifiedQuizShell + QuizJourneyPanel).
 

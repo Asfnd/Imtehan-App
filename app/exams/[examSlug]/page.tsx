@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { BookOpen, X, ExternalLink } from 'lucide-react'
+import { BookOpen, X, ExternalLink, PenLine } from 'lucide-react'
 import { getExamConfig, ExamConfig } from '@/lib/exam-configs'
 import { examMockSpec } from '@/lib/exam-mock-specs'
 import ExamMockSections from '@/components/exams/ExamMockSections'
@@ -13,6 +13,7 @@ import NavigationBar from '@/components/NavigationBar'
 import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
 import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
+import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 
 interface SubjectProgress {
   subject: string
@@ -285,6 +286,30 @@ function ExamDashboard() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Analytics Bar — handles sign-in CTA, stats, today's focus */}
         <ExamAnalyticsBar examSlug={examSlug} />
+
+        {examSlug === 'pms-competitive' && (
+          <Link
+            href={PMS_WRITING_COACH_PATH}
+            className="mb-8 flex flex-col gap-3 rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/90 via-white to-white p-4 shadow-sm transition hover:border-emerald-300 hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:p-5"
+          >
+            <div className="flex items-start gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white">
+                <PenLine className="h-5 w-5" aria-hidden />
+              </div>
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">Writing papers</p>
+                <h3 className="text-base font-bold text-gray-900">PMS Writing Coach</h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Essay, précis, and long-answer feedback tuned for provincial PMS English — same flow as CSS Writing Coach,
+                  different marking lens.
+                </p>
+              </div>
+            </div>
+            <span className="inline-flex shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white sm:ml-2">
+              Open coach
+            </span>
+          </Link>
+        )}
 
         {/* Welcome */}
         {user && (

@@ -81,6 +81,22 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 200,
     passingPercentage: 50,
     negativeMarking: false,
+    guide: {
+      authority: 'Provincial Public Service Commission (e.g. PPSC, KPPSC — varies by province)',
+      officialLink: 'https://www.ppsc.gop.pk/',
+      eligibility: [
+        'Qualification and age limits follow each commission’s advertisement (often graduate-level for PMS).',
+        'Domicile and quota rules apply as per the official notification.',
+      ],
+      important: [
+        'Real exams add compulsory English Essay & Précis/Composition and General Knowledge papers — use MCQs here for screening-style practice and the PMS Writing Coach for written papers.',
+        'Syllabus and marks distribution differ by province; confirm from your commission’s latest syllabus PDF.',
+      ],
+      helpful: [
+        'Use subject-wise practice below, then full mocks when you are comfortable with weak areas.',
+        'Open Test Guide for this exam’s MCQ pattern; open PMS Writing Coach from the card above for essays and précis.',
+      ],
+    },
     sections: [
       { slug: 'english',          label: 'English',                dbTable: 'english',           count: 40 },
       { slug: 'general-knowledge',label: 'General Knowledge',      dbTable: 'general_knowledge', count: 40 },

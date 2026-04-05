@@ -12,7 +12,10 @@
     "upload-mcqs": "tsx scripts/upload-new-mcqs.ts",
     "delete-subjects": "tsx scripts/delete-uploaded-subjects.ts",
     "import-mcqs": "tsx scripts/import-mcqs-to-supabase.ts",
-    "verify-pms-setup": "tsx scripts/verify-pms-setup.ts"
+    "verify-pms-setup": "tsx scripts/verify-pms-setup.ts",
+    "export-marketing-pngs": "env -u PLAYWRIGHT_BROWSERS_PATH tsx scripts/export-marketing-pngs.ts",
+    "test-grading": "tsx scripts/test-grading-provider.ts",
+    "test-css-grading": "tsx scripts/test-css-grading-modes.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.969.0",
@@ -45,6 +48,7 @@
     "@types/react-dom": "^19",
     "csv-parse": "^6.1.0",
     "dotenv": "^17.2.3",
+    "playwright": "^1.50.0",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",

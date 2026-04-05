@@ -355,11 +355,16 @@ export default async function middleware(request: NextRequest) {
     response.headers.set('Expires', new Date(Date.now() + 2592000000).toUTCString())
   }
 
-  // Preconnect to Supabase for faster API/PDF calls
-  response.headers.set(
-    'Link',
-    '<https://qsrkkvrrxorbgvbgekew.supabase.co>; rel=preconnect; crossorigin'
-  )
+  // Preconnect to Supabase for faster API/PDF calls (no hardcoded project ref)
+  const supabasePublic = process.env.NEXT_PUBLIC_SUPABASE_URL
+  if (supabasePublic) {
+    try {
+      const origin = new URL(supabasePublic).origin
+      response.headers.set('Link', `<${origin}>; rel=preconnect; crossorigin`)
+    } catch {
+      /* ignore invalid env */
+    }
+  }
 
   return response
 }

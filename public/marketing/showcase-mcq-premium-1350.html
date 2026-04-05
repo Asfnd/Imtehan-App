@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Imtehan — MCQ interface · Premium · 1080×1350</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0c0c0e;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Instagram 4:5 — 1080 × 1350 */
+    .board {
+      width: 1080px;
+      height: 1350px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background: #fafbfc;
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 100% 55% at 50% -8%, rgba(99, 102, 241, 0.1), transparent 58%),
+        radial-gradient(ellipse 55% 45% at 0% 100%, rgba(139, 92, 246, 0.07), transparent 52%);
+      pointer-events: none;
+    }
+
+    .board::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.04);
+      pointer-events: none;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 52px 56px 44px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #4f46e5, #3730a3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 36px rgba(79, 70, 229, 0.3);
+    }
+
+    .mark svg { width: 26px; height: 26px; fill: #fff; }
+
+    .brand-text {
+      font-family: "Outfit", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #0f172a;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .headline {
+      margin-top: 32px;
+      text-align: center;
+      padding: 0 32px;
+    }
+
+    .headline h1 {
+      font-family: "Outfit", sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: #0f172a;
+    }
+
+    .headline p {
+      margin-top: 14px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #64748b;
+      max-width: 36ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .device-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 0 16px;
+      min-height: 0;
+    }
+
+    .phone {
+      width: 430px;
+      padding: 14px;
+      border-radius: 54px;
+      background: linear-gradient(160deg, #3f3f46 0%, #18181b 100%);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 56px 110px -24px rgba(15, 23, 42, 0.38),
+        0 28px 56px -14px rgba(15, 23, 42, 0.22);
+    }
+
+    .notch {
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-bottom: 5px;
+    }
+
+    .notch span {
+      width: 118px;
+      height: 26px;
+      background: #09090b;
+      border-radius: 0 0 18px 18px;
+    }
+
+    .screen {
+      border-radius: 40px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.05);
+    }
+
+    .qh {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .qh-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 12px;
+    }
+
+    .qh-x {
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .qh-num {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+
+    .qh-pills {
+      display: flex;
+      gap: 9px;
+      margin-left: auto;
+    }
+
+    .mini {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 7px 12px;
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .mini.fire {
+      background: #fff7ed;
+      border: 1px solid #ffedd5;
+      color: #c2410c;
+    }
+
+    .mini.zap {
+      background: #eef2ff;
+      border: 1px solid #e0e7ff;
+      color: #4f46e5;
+    }
+
+    .bar-row {
+      width: 100%;
+      flex-basis: 100%;
+      margin-top: 12px;
+    }
+
+    .track {
+      height: 13px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #6366f1);
+      transform-origin: left;
+      transform: scaleX(0.44);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .body {
+      padding: 16px 20px 22px;
+      background: linear-gradient(180deg, #fff, #fafafa);
+    }
+
+    .lv {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: #6366f1;
+      margin-bottom: 10px;
+    }
+
+    .q {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+
+    .opts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      border-radius: 15px;
+      border: 2px solid #e2e8f0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      background: #fff;
+    }
+
+    .opt.sel {
+      border-color: #a5b4fc;
+      background: #eef2ff;
+    }
+
+    .opt b {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      border: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .opt.sel b {
+      border-color: #a5b4fc;
+      color: #4f46e5;
+      background: #eef2ff;
+    }
+
+    .journey-hint {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    .journey-hint span {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: #6366f1;
+    }
+
+    .journey-hint .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .journey-hint .dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .journey-hint .dots i.on {
+      background: #34d399;
+    }
+
+    .pill-home {
+      height: 5px;
+      width: 118px;
+      background: #18181b;
+      border-radius: 4px;
+      margin: 14px auto 0;
+      opacity: 0.22;
+    }
+
+    .foot {
+      text-align: center;
+      padding-top: 12px;
+    }
+
+    .foot a {
+      font-family: "Outfit", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #64748b;
+      text-decoration: none;
+    }
+
+    .foot a strong {
+      color: #4f46e5;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="board">
+    <div class="inner">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8"/></svg>
+        </div>
+        <div>
+          <div class="brand-text">IMTEHAN</div>
+          <div class="eyebrow">Practice</div>
+        </div>
+      </div>
+
+      <div class="headline">
+        <h1>Focus on the question.<br />We’ll handle the rest.</h1>
+        <p>Session progress, streaks, and XP — designed for long study sessions.</p>
+      </div>
+
+      <div class="device-area">
+        <div class="phone">
+          <div class="notch"><span></span></div>
+          <div class="screen">
+            <div class="qh">
+              <div class="qh-row">
+                <button type="button" class="qh-x" aria-hidden="true">×</button>
+                <span class="qh-num">8 / 20</span>
+                <div class="qh-pills">
+                  <span class="mini fire">🔥 3</span>
+                  <span class="mini zap">⚡ 420</span>
+                </div>
+                <div class="bar-row">
+                  <div class="track"><div class="fill"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="lv">★ LEVEL 12</div>
+              <p class="q">Which schedule of the Constitution of Pakistan contains the Federal Legislative List?</p>
+              <div class="opts">
+                <div class="opt"><b>A</b><span>Third</span></div>
+                <div class="opt sel"><b>B</b><span>Fourth</span></div>
+                <div class="opt"><b>C</b><span>Fifth</span></div>
+                <div class="opt"><b>D</b><span>Sixth</span></div>
+              </div>
+              <div class="journey-hint">
+                <span>YOUR JOURNEY</span>
+                <div class="dots" aria-hidden="true">
+                  <i class="on"></i><i class="on"></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pill-home" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <footer class="foot">
+        <a href="https://www.imtehan.com"><strong>imtehan.com</strong></a>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

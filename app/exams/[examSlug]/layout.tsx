@@ -15,11 +15,11 @@ const EXAM_SEO: Record<string, {
   },
   'pms-competitive': {
     description:
-      'Practice PMS MCQs in a dedicated bank — Most Repeated, Most Important, and Practice modes by subject (English, GK, Pakistan Affairs, Islamiat, Current Affairs, Everyday Science, Math, Geography).',
+      'Practice PMS MCQs by subject and use the PMS Writing Coach for essay, précis, and long-answer feedback — English, GK, Pakistan Affairs, Islamiat, Current Affairs, Everyday Science, Math, Geography.',
     keywords: [
       'PMS MCQs', 'PMS preparation Pakistan', 'PMS screening MCQs',
       'PMS general knowledge', 'PMS Pakistan affairs', 'PMS English MCQs',
-      'provincial management services MCQ', 'PMS practice test',
+      'PMS essay practice', 'PMS précis', 'provincial management services MCQ', 'PMS practice test',
     ],
   },
   'ppsc-assistant': {

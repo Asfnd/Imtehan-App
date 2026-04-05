@@ -3,6 +3,13 @@ import crypto from 'crypto'
 
 const CSRF_SECRET = process.env.CSRF_SECRET || crypto.randomBytes(32).toString('hex')
 
+if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production' && !process.env.CSRF_SECRET) {
+  // Without a stable secret, serverless cold starts each compute a new secret and tokens from /api/csrf-token fail validation on other instances.
+  console.warn(
+    '[security] CSRF_SECRET is not set. Set CSRF_SECRET in production (e.g. openssl rand -hex 32) so CSRF tokens validate across all app instances.'
+  )
+}
+
 /**
  * Generate a CSRF token
  */
