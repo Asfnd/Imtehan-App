@@ -72,6 +72,12 @@ export const PREMIUM_FEATURES: PremiumFeature[] = [
 /** Subtext under “Plans from” on upgrade popups — keep in sync with PREMIUM_PLANS tiers. */
 export const PREMIUM_POPUP_VALUE_HINT = 'Better value on 3- and 12-month plans'
 
+/**
+ * PKR amount for Meta Pixel / CAPI `Subscribe` when the user’s paid plan is unknown
+ * (matches highest tier list price — adjust if you store plan on user metadata later).
+ */
+export const PREMIUM_SUBSCRIBE_VALUE_PKR = 9999
+
 /** Entry plan price (first tier) for popups — always mirrors PREMIUM_PLANS[0].price */
 export function getPremiumEntryPrice(): string {
   return PREMIUM_PLANS[0]?.price ?? 'Rs. 1,999'

@@ -1,4 +1,5 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter, Libre_Baskerville } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
@@ -6,6 +7,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/StructuredData"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
+import { MetaPixel } from "@/components/MetaPixel"
+import { MetaPixelRouteTracker } from "@/components/MetaPixelRouteTracker"
+import { MetaPixelConversions } from "@/components/MetaPixelConversions"
 import "./globals.css"
 
 const inter = Inter({
@@ -113,8 +117,13 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${inter.variable} ${libreBaskerville.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>
+          <Suspense fallback={null}>
+            <MetaPixelRouteTracker />
+          </Suspense>
+          <MetaPixelConversions />
           {children}
         </AuthProvider>
+        <MetaPixel />
         <Analytics />
         <SpeedInsights />
       </body>
