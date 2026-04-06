@@ -17,6 +17,15 @@ export function metaPixelAvailable(): boolean {
   return typeof window !== 'undefined' && typeof window.fbq === 'function'
 }
 
+/** Meta Test Events tab only receives hits when this code is passed into fbq() — URL alone is not enough. */
+export function getMetaTestEventCodeFromUrl(): string | undefined {
+  if (typeof window === 'undefined') return undefined
+  const p = new URLSearchParams(window.location.search)
+  const tc = (p.get('test_event_code') || p.get('fb_test_event_code') || '').trim()
+  if (!/^[A-Za-z0-9_-]+$/.test(tc)) return undefined
+  return tc
+}
+
 function getCookie(name: string): string | undefined {
   if (typeof document === 'undefined') return undefined
   const parts = `; ${document.cookie}`.split(`; ${name}=`)
@@ -50,7 +59,13 @@ async function syncMetaCapiEvent(payload: {
 /** SPA route changes — fire after navigation without full reload */
 export function trackMetaPageView(params?: Record<string, unknown>): void {
   if (!metaPixelAvailable()) return
-  window.fbq!('track', 'PageView', params ?? {})
+  const test = getMetaTestEventCodeFromUrl()
+  const payload = params ?? {}
+  if (test) {
+    window.fbq!('track', 'PageView', payload, { test_event_code: test })
+  } else {
+    window.fbq!('track', 'PageView', payload)
+  }
 }
 
 export function trackCompleteRegistration(): void {

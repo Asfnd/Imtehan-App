@@ -1,8 +1,10 @@
 import Script from 'next/script'
 
 /** Public ID from Meta Events Manager — safe to expose client-side. */
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '1495547215623222'
+const PIXEL_ID =
+  process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1495547215623222'
 
+// Test Events tab only shows browser hits when test_event_code is passed to fbq — not from the URL alone.
 const PIXEL_SCRIPT = `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -12,8 +14,18 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${PIXEL_ID}');
-fbq('track', 'PageView');
+(function(){
+var p=new URLSearchParams(window.location.search);
+var tc=(p.get('test_event_code')||p.get('fb_test_event_code')||'').trim();
+if(!/^[A-Za-z0-9_-]+$/.test(tc))tc='';
+if(tc){
+fbq('init','${PIXEL_ID}',{test_event_code:tc});
+fbq('track','PageView',{},{test_event_code:tc});
+}else{
+fbq('init','${PIXEL_ID}');
+fbq('track','PageView');
+}
+})();
 `
 
 /**
