@@ -4,8 +4,13 @@ import Script from 'next/script'
 const PIXEL_ID =
   process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1495547215623222'
 
-// Test Events tab only shows browser hits when test_event_code is passed to fbq — not from the URL alone.
-const PIXEL_SCRIPT = `
+/**
+ * Matches Meta’s official base snippet, plus URL `test_event_code` / `fb_test_event_code`
+ * forwarding so Test Events in Events Manager receives PageView.
+ * @see https://developers.facebook.com/docs/meta-pixel
+ */
+function buildPixelScript(pixelId: string): string {
+  return `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -19,26 +24,28 @@ var p=new URLSearchParams(window.location.search);
 var tc=(p.get('test_event_code')||p.get('fb_test_event_code')||'').trim();
 if(!/^[A-Za-z0-9_-]+$/.test(tc))tc='';
 if(tc){
-fbq('init','${PIXEL_ID}',{test_event_code:tc});
+fbq('init','${pixelId}',{test_event_code:tc});
 fbq('track','PageView',{},{test_event_code:tc});
 }else{
-fbq('init','${PIXEL_ID}');
+fbq('init','${pixelId}');
 fbq('track','PageView');
 }
 })();
 `
+}
 
 /**
- * Meta Pixel base code — loads on every page (PageView).
- * @see https://developers.facebook.com/docs/meta-pixel
+ * Meta Pixel base code (PageView). Must only be used in `app/layout.tsx`.
+ * `beforeInteractive` injects into the document head like Meta’s docs (paste before </head>).
  */
 export function MetaPixel() {
   if (!PIXEL_ID) return null
 
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive">
-        {PIXEL_SCRIPT}
+      {/* Meta Pixel Code */}
+      <Script id="meta-pixel" strategy="beforeInteractive">
+        {buildPixelScript(PIXEL_ID)}
       </Script>
       <noscript>
         <img
@@ -49,6 +56,7 @@ export function MetaPixel() {
           alt=""
         />
       </noscript>
+      {/* End Meta Pixel Code */}
     </>
   )
 }

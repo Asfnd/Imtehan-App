@@ -112,6 +112,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
+        <MetaPixel />
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
@@ -123,7 +124,6 @@ export default function RootLayout({
           <MetaPixelConversions />
           {children}
         </AuthProvider>
-        <MetaPixel />
         <Analytics />
         <SpeedInsights />
       </body>
