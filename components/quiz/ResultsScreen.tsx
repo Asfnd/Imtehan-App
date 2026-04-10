@@ -235,14 +235,13 @@ export default function ResultsScreen({
           </Button>
           <Button
             onClick={() => {
-              // Force dashboard refresh by adding a timestamp
-              window.location.href = '/dashboard?refresh=' + Date.now()
+              window.location.href = '/css'
             }}
             size="lg"
             className="min-w-[200px]"
           >
             <Home className="w-5 h-5 mr-2" />
-            Back to Dashboard
+            Back to CSS
           </Button>
         </div>
       </div>

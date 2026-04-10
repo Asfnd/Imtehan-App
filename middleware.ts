@@ -93,6 +93,13 @@ function checkDDoSProtection(identifier: string): boolean {
  * SECURITY: Safe IP extraction (resistant to spoofing)
  * Only trusts Cloudflare header which cannot be spoofed
  */
+/** True when running `next dev` against loopback — relax WAF-style checks (shared "unknown" IP, CSP/HMR quirks). */
+function isLocalDevRequest(request: NextRequest): boolean {
+  if (process.env.NODE_ENV !== 'development') return false
+  const h = request.nextUrl.hostname
+  return h === 'localhost' || h === '127.0.0.1' || h === '::1' || h === '[::1]'
+}
+
 function getIdentifier(request: NextRequest): string {
   // SECURITY: Cloudflare header (most trusted - cannot be spoofed)
   const cfIP = request.headers.get('cf-connecting-ip')
@@ -118,6 +125,11 @@ function getIdentifier(request: NextRequest): string {
  */
 function isSuspiciousRequest(request: NextRequest): boolean {
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
+
+  // Firefox strict privacy can send minimal or empty UA; never treat real Firefox as a scraper bot.
+  if (userAgent.includes('firefox/')) {
+    return false
+  }
 
   // Block requests without user agent (suspicious)
   if (!userAgent) return true
@@ -191,9 +203,11 @@ export default async function middleware(request: NextRequest) {
 
   let response = NextResponse.next()
 
-  // DDoS Protection: Check if IP is making too many requests globally
+  const localDev = isLocalDevRequest(request)
   const identifier = getIdentifier(request)
-  if (checkDDoSProtection(identifier)) {
+
+  // DDoS Protection: Check if IP is making too many requests globally
+  if (!localDev && checkDDoSProtection(identifier)) {
     return new NextResponse(
       JSON.stringify({
         error: 'Too many requests',
@@ -281,8 +295,8 @@ export default async function middleware(request: NextRequest) {
     pathname.includes('/practice')
   )
 
-  // Block suspicious requests (bots, scrapers)
-  if (isSuspiciousRequest(request)) {
+  // Block suspicious requests (bots, scrapers) — skip on local dev (Firefox privacy UA / empty UA)
+  if (!localDev && isSuspiciousRequest(request)) {
     return new NextResponse(
       JSON.stringify({
         error: 'Access denied',
@@ -297,9 +311,8 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
-  if (shouldRateLimit) {
+  if (shouldRateLimit && !localDev) {
     try {
-      // identifier already extracted above for DDoS check
       const allowed = checkRateLimit(identifier)
 
       if (!allowed) {

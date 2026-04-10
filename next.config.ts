@@ -76,6 +76,25 @@ const securityHeaders = [
   },
 ]
 
+/**
+ * Development only: avoid production CSP/HSTS/COOP on http://localhost.
+ * Firefox is stricter than Chrome about connect-src (HMR WebSockets) and
+ * upgrade-insecure-requests on plain HTTP, which can break `next dev`.
+ */
+const devSecurityHeaders = [
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+]
+
+const appSecurityHeaders =
+  process.env.NODE_ENV === 'production' ? securityHeaders : devSecurityHeaders
+
 const nextConfig: NextConfig = {
   // Fix: multiple lockfiles warning — pin the tracing root to this project
   outputFileTracingRoot: path.join(__dirname),
@@ -189,6 +208,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   // Compiler optimizations
@@ -246,12 +271,6 @@ const nextConfig: NextConfig = {
         destination: '/css/css-gsa/:path*',
         permanent: true,
       },
-      // Redirect old dashboard to CSS main page
-      {
-        source: '/dashboard',
-        destination: '/css',
-        permanent: true,
-      },
       {
         source: '/premium',
         destination: PREMIUM_PAGE_PATH,
@@ -282,7 +301,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/:path((?!api/pdf/proxy).*)',  // Exclude /api/pdf/proxy from security headers
-        headers: securityHeaders,
+        headers: appSecurityHeaders,
       },
       // Cache static assets (JS, CSS, images)
       {

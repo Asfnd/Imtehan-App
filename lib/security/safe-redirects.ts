@@ -4,7 +4,6 @@
  */
 
 const SAFE_PATH_PREFIXES = [
-  '/dashboard',
   '/profile',
   '/quiz',
   '/subjects',

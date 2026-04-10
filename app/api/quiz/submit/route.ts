@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
-import { getAuthenticatedUser, verifyUserOwnership, validateInput } from '@/lib/security/request-verification'
+import {
+  getAuthenticatedUserForRoute,
+  verifyUserOwnership,
+  validateInput,
+} from '@/lib/security/request-verification'
 import { csrfProtection } from '@/lib/security/csrf'
 import type { Answer } from '@/lib/supabase/types'
 
@@ -13,7 +17,7 @@ import type { Answer } from '@/lib/supabase/types'
 export async function POST(request: NextRequest) {
   try {
     // SECURITY: Verify user is authenticated
-    const authUser = await getAuthenticatedUser()
+    const authUser = await getAuthenticatedUserForRoute(request)
     if (!authUser) {
       return NextResponse.json(
         { error: 'Unauthorized - please sign in' },

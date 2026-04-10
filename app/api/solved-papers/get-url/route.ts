@@ -1,20 +1,19 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { getAuthenticatedUserForRoute } from '@/lib/security/request-verification'
 import { useCustomStorageUrl } from '@/lib/storage-config'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient()
-
-    // 1. Validate user authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-
-    if (authError || !user) {
+    const user = await getAuthenticatedUserForRoute(request)
+    if (!user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       )
     }
+
+    const supabase = await createServerSupabaseClient()
 
     // 2. Check premium status from user metadata
     const isPremium = user.user_metadata?.is_premium === true

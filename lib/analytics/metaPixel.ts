@@ -5,6 +5,7 @@
  */
 
 import { PREMIUM_SUBSCRIBE_VALUE_PKR } from '@/lib/premium-plans'
+import { createClient } from '@/lib/supabase/client'
 
 declare global {
   interface Window {
@@ -40,9 +41,15 @@ async function syncMetaCapiEvent(payload: {
   currency?: string
 }): Promise<void> {
   try {
+    const supabase = createClient()
+    const { data: { session } } = await supabase.auth.getSession()
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    if (session?.access_token) {
+      headers.Authorization = `Bearer ${session.access_token}`
+    }
     await fetch('/api/analytics/meta-capi', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       credentials: 'include',
       body: JSON.stringify({
         ...payload,

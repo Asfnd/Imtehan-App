@@ -6,6 +6,16 @@ import { createClient } from '@/lib/supabase/client'
 import { usageTracker } from '@/lib/usageTracker'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
+async function fetchWithSupabaseAuth(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  const supabase = createClient()
+  const { data: { session } } = await supabase.auth.getSession()
+  const headers = new Headers(init?.headers)
+  if (session?.access_token) {
+    headers.set('Authorization', `Bearer ${session.access_token}`)
+  }
+  return fetch(input, { ...init, credentials: 'include', headers })
+}
+
 // Server-side limits for signed-in users (stored in database - CANNOT be bypassed)
 const SIGNED_IN_LIMITS = {
   cssSubject: 2,
@@ -55,7 +65,7 @@ export function useFreeTrial() {
 
     setUsageLoading(true)
     try {
-      const response = await fetch('/api/usage')
+      const response = await fetchWithSupabaseAuth('/api/usage')
       if (response.ok) {
         const data = await response.json()
         setDbUsage(data.usage)
@@ -184,7 +194,7 @@ export function useFreeTrial() {
       // For signed-in users, increment in database
       if (isSignedIn) {
         try {
-          const response = await fetch('/api/usage', {
+          const response = await fetchWithSupabaseAuth('/api/usage', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type }),

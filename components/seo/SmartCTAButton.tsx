@@ -15,7 +15,7 @@ interface SmartCTAButtonProps {
 /**
  * Smart CTA Button Component
  * Automatically routes based on authentication state:
- * - Logged in → /dashboard
+ * - Logged in → /css
  * - Not logged in → /signin
  * Improves UX by preventing redirect loops
  */

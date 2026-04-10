@@ -25,7 +25,7 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
   {
     label: '1 Month',
     desc: 'Try full access',
-    price: 'Rs. 1,999',
+    price: 'Rs. 500',
     perMonth: null,
     savings: null,
     badge: null,
@@ -37,8 +37,8 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
   {
     label: '3 Months',
     desc: 'Solid prep window',
-    price: 'Rs. 3,999',
-    perMonth: 'Rs. 1,333/mo',
+    price: 'Rs. 999',
+    perMonth: 'Rs. 333/mo',
     savings: 'Save 33% vs monthly',
     badge: 'Popular',
     badgeColor: 'bg-green-100 text-green-700',
@@ -47,10 +47,22 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
     cta: 'Get Started',
   },
   {
+    label: '6 Months',
+    desc: 'Exam-season prep',
+    price: 'Rs. 1,699',
+    perMonth: 'Rs. 283/mo',
+    savings: 'Save 43% vs monthly',
+    badge: null,
+    badgeColor: '',
+    savingsColor: 'text-emerald-600',
+    highlight: false,
+    cta: 'Get Started',
+  },
+  {
     label: '12 Months',
     desc: 'Best per-month value',
-    price: 'Rs. 9,999',
-    perMonth: 'Rs. 833/mo',
+    price: 'Rs. 2,499',
+    perMonth: 'Rs. 208/mo',
     savings: 'Save 58% vs monthly',
     badge: 'BEST VALUE',
     badgeColor: 'bg-blue-500 text-white',
@@ -70,15 +82,15 @@ export const PREMIUM_FEATURES: PremiumFeature[] = [
 ]
 
 /** Subtext under “Plans from” on upgrade popups — keep in sync with PREMIUM_PLANS tiers. */
-export const PREMIUM_POPUP_VALUE_HINT = 'Better value on 3- and 12-month plans'
+export const PREMIUM_POPUP_VALUE_HINT = 'Better value on 6- and 12-month plans'
 
 /**
  * PKR amount for Meta Pixel / CAPI `Subscribe` when the user’s paid plan is unknown
  * (matches highest tier list price — adjust if you store plan on user metadata later).
  */
-export const PREMIUM_SUBSCRIBE_VALUE_PKR = 9999
+export const PREMIUM_SUBSCRIBE_VALUE_PKR = 2499
 
 /** Entry plan price (first tier) for popups — always mirrors PREMIUM_PLANS[0].price */
 export function getPremiumEntryPrice(): string {
-  return PREMIUM_PLANS[0]?.price ?? 'Rs. 1,999'
+  return PREMIUM_PLANS[0]?.price ?? 'Rs. 500'
 }

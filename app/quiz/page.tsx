@@ -64,7 +64,7 @@ export default function QuizPage() {
       setAuthChecked(true)
     } catch (error) {
       console.error('Auth check failed:', error)
-      router.push('/dashboard')
+      router.push('/css')
     }
   }
 
@@ -154,7 +154,7 @@ export default function QuizPage() {
   }
 
   const handleExit = () => {
-    router.push('/dashboard')
+    router.push('/css')
   }
 
   if (!authChecked || !user) {

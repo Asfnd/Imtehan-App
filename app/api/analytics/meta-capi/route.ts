@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getAuthenticatedUser } from '@/lib/security/request-verification'
+import { getAuthenticatedUserForRoute } from '@/lib/security/request-verification'
 import { sendMetaCapiEvents } from '@/lib/analytics/metaCapiServer'
 import { PREMIUM_SUBSCRIBE_VALUE_PKR } from '@/lib/premium-plans'
 
@@ -11,7 +11,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-
  * POST body from client — must match browser fbq `eventID` for deduplication.
  */
 export async function POST(request: Request) {
-  const user = await getAuthenticatedUser()
+  const user = await getAuthenticatedUserForRoute(request)
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }

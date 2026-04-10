@@ -27,6 +27,32 @@ export async function getAuthenticatedUser(): Promise<User | null> {
   }
 }
 
+const BEARER_PREFIX = /^Bearer\s+/i
+
+/**
+ * Same as getAuthenticatedUser, but also accepts `Authorization: Bearer <access_token>`
+ * from same-origin fetches. Fixes 401s when the browser has a valid session but cookie
+ * sync to the server is delayed (common right after OAuth / PKCE).
+ */
+export async function getAuthenticatedUserForRoute(request: Request): Promise<User | null> {
+  try {
+    const supabase = await createServerSupabaseClient()
+    const { data: { user }, error } = await supabase.auth.getUser()
+    if (!error && user) return user
+
+    const raw = request.headers.get('authorization')?.trim() ?? ''
+    const token = BEARER_PREFIX.test(raw) ? raw.replace(BEARER_PREFIX, '').trim() : ''
+    if (!token) return null
+
+    const { data: { user: jwtUser }, error: jwtError } = await supabase.auth.getUser(token)
+    if (jwtError || !jwtUser) return null
+    return jwtUser
+  } catch (error) {
+    console.error('Error getting authenticated user for route:', error)
+    return null
+  }
+}
+
 /**
  * Verify user owns the resource
  * SECURITY: Prevents users from accessing/modifying other users' data

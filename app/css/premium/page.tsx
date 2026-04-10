@@ -50,7 +50,7 @@ export default function PremiumPage() {
 
       <section className="py-10 md:py-14">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-5 max-w-6xl mx-auto">
             {PREMIUM_PLANS.map((plan) => (
               <div
                 key={plan.label}

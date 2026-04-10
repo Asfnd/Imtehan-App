@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { getAuthenticatedUser } from '@/lib/security/request-verification'
+import { getAuthenticatedUserForRoute } from '@/lib/security/request-verification'
 import { csrfProtection } from '@/lib/security/csrf'
 import { rateLimit, getClientIP } from '@/lib/security/rateLimiter'
 import { runGradingJsonPrompt } from '@/lib/ai/runGradingCompletion'
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     const examSuffix = examType === 'pms' ? ':pms' : ''
 
     // 4. Auth + daily limit logic
-    const user = await getAuthenticatedUser()
+    const user = await getAuthenticatedUserForRoute(request)
     const isPremium = user?.user_metadata?.is_premium === true
 
     const isLocalhost = ip === '127.0.0.1' || ip === '::1' || ip === 'unknown'

@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { getAuthenticatedUserForRoute } from '@/lib/security/request-verification'
 import { NextRequest, NextResponse } from 'next/server'
 
 // Usage limits (must match usageTracker.ts)
@@ -14,17 +15,15 @@ const LIMITS = {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient()
-
-    // 1. Validate user authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-
-    if (authError || !user) {
+    const user = await getAuthenticatedUserForRoute(request)
+    if (!user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       )
     }
+
+    const supabase = await createServerSupabaseClient()
 
     // 2. Get or create user usage record
     const { data: usage, error: usageError } = await supabase
@@ -68,17 +67,15 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient()
-
-    // 1. Validate user authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-
-    if (authError || !user) {
+    const user = await getAuthenticatedUserForRoute(request)
+    if (!user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       )
     }
+
+    const supabase = await createServerSupabaseClient()
 
     // 2. Get request body
     const body = await request.json()

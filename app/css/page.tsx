@@ -716,7 +716,7 @@ function DashboardContent() {
       {showEligibilityChecker && <CSSEligibilityChecker onClose={() => setShowEligibilityChecker(false)} />}
 
       {/* Feedback Button */}
-      <FeedbackButton page="dashboard" />
+      <FeedbackButton page="css" />
 
     </div>
   )
