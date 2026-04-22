@@ -37,36 +37,36 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
   {
     label: '3 Months',
     desc: 'Solid prep window',
-    price: 'Rs. 999',
-    perMonth: 'Rs. 333/mo',
-    savings: 'Save 33% vs monthly',
+    price: 'Rs. 1,500',
+    perMonth: 'Rs. 500/mo',
+    savings: null,
     badge: 'Popular',
     badgeColor: 'bg-green-100 text-green-700',
-    savingsColor: 'text-green-600',
+    savingsColor: '',
     highlight: false,
     cta: 'Get Started',
   },
   {
     label: '6 Months',
     desc: 'Exam-season prep',
-    price: 'Rs. 1,699',
-    perMonth: 'Rs. 283/mo',
-    savings: 'Save 43% vs monthly',
+    price: 'Rs. 3,000',
+    perMonth: 'Rs. 500/mo',
+    savings: null,
     badge: null,
     badgeColor: '',
-    savingsColor: 'text-emerald-600',
+    savingsColor: '',
     highlight: false,
     cta: 'Get Started',
   },
   {
     label: '12 Months',
     desc: 'Best per-month value',
-    price: 'Rs. 2,499',
-    perMonth: 'Rs. 208/mo',
-    savings: 'Save 58% vs monthly',
+    price: 'Rs. 6,000',
+    perMonth: 'Rs. 500/mo',
+    savings: null,
     badge: 'BEST VALUE',
     badgeColor: 'bg-blue-500 text-white',
-    savingsColor: 'text-blue-600',
+    savingsColor: '',
     highlight: true,
     cta: 'Get Started',
   },
@@ -82,13 +82,13 @@ export const PREMIUM_FEATURES: PremiumFeature[] = [
 ]
 
 /** Subtext under “Plans from” on upgrade popups — keep in sync with PREMIUM_PLANS tiers. */
-export const PREMIUM_POPUP_VALUE_HINT = 'Better value on 6- and 12-month plans'
+export const PREMIUM_POPUP_VALUE_HINT = 'Longer plans: one payment for the full window at Rs. 500/mo'
 
 /**
  * PKR amount for Meta Pixel / CAPI `Subscribe` when the user’s paid plan is unknown
  * (matches highest tier list price — adjust if you store plan on user metadata later).
  */
-export const PREMIUM_SUBSCRIBE_VALUE_PKR = 2499
+export const PREMIUM_SUBSCRIBE_VALUE_PKR = 6000
 
 /** Entry plan price (first tier) for popups — always mirrors PREMIUM_PLANS[0].price */
 export function getPremiumEntryPrice(): string {
