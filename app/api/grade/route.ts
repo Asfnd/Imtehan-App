@@ -4,6 +4,7 @@ import { getAuthenticatedUserForRoute } from '@/lib/security/request-verificatio
 import { csrfProtection } from '@/lib/security/csrf'
 import { rateLimit, getClientIP } from '@/lib/security/rateLimiter'
 import { runGradingJsonPrompt } from '@/lib/ai/runGradingCompletion'
+import { isActivePremium } from '@/lib/is-active-premium'
 import {
   buildCssPrecisPrompt,
   buildEssayPrompt,
@@ -100,7 +101,7 @@ export async function POST(request: NextRequest) {
 
     // 4. Auth + daily limit logic
     const user = await getAuthenticatedUserForRoute(request)
-    const isPremium = user?.user_metadata?.is_premium === true
+    const isPremium = isActivePremium(user ?? null)
 
     const isLocalhost = ip === '127.0.0.1' || ip === '::1' || ip === 'unknown'
     const isDev = process.env.NODE_ENV === 'development'

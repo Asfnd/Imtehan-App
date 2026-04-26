@@ -10,6 +10,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
@@ -91,7 +92,7 @@ export default function QuizInterface({
   const router = useRouter()
 
   const { user, loading: authLoading } = useAuth()
-  const isPremium = !!user?.user_metadata?.is_premium
+  const isPremium = isActivePremium(user)
   const soundsEnabled = useSoundsEnabled()
 
   const [showSignIn, setShowSignIn] = useState(false)

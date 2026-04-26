@@ -9,6 +9,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import { Button } from '@/components/ui/Button'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { trackLogin } from '@/lib/analytics/events'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
@@ -150,7 +151,7 @@ export default function NavigationBar({
            null
   }
 
-  const isPremium = user?.user_metadata?.is_premium || false
+  const isPremium = isActivePremium(user)
   const displayName = getDisplayName()
   const fullName = getFullName()
   const profileImage = getProfileImage()

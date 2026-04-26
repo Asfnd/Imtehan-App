@@ -1,6 +1,7 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getAuthenticatedUserForRoute } from '@/lib/security/request-verification'
 import { useCustomStorageUrl } from '@/lib/storage-config'
+import { isActivePremium } from '@/lib/is-active-premium'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
@@ -15,10 +16,7 @@ export async function POST(request: NextRequest) {
 
     const supabase = await createServerSupabaseClient()
 
-    // 2. Check premium status from user metadata
-    const isPremium = user.user_metadata?.is_premium === true
-
-    if (!isPremium) {
+    if (!isActivePremium(user)) {
       // Log unauthorized access attempt (dev only)
       if (process.env.NODE_ENV === 'development') {
         console.warn(`Non-premium user ${user.email} attempted to access solved papers`)

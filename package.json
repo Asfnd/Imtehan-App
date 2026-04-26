@@ -15,7 +15,8 @@
     "verify-pms-setup": "tsx scripts/verify-pms-setup.ts",
     "export-marketing-pngs": "env -u PLAYWRIGHT_BROWSERS_PATH tsx scripts/export-marketing-pngs.ts",
     "test-grading": "tsx scripts/test-grading-provider.ts",
-    "test-css-grading": "tsx scripts/test-css-grading-modes.ts"
+    "test-css-grading": "tsx scripts/test-css-grading-modes.ts",
+    "test-is-active-premium": "tsx scripts/test-is-active-premium.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.969.0",

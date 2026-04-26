@@ -10,6 +10,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
@@ -53,7 +54,7 @@ export default function BatchSetSelector() {
     fetchUser()
   }, [])
 
-  const isPremium = user?.user_metadata?.is_premium || false
+  const isPremium = isActivePremium(user)
 
   const handleSetClick = (setNum: number) => {
     if (setNum <= 2 || isPremium) {

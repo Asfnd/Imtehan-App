@@ -14,6 +14,7 @@ import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
 import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 interface SubjectProgress {
   subject: string
@@ -169,7 +170,7 @@ function ExamDashboard() {
     return null
   }
 
-  const isPremium = user?.user_metadata?.is_premium || false
+  const isPremium = isActivePremium(user)
   const examGuide = buildExamGuide(examSlug, config)
 
   const handleMockClick = (mockId: number) => {

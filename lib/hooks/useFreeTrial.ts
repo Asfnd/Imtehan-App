@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { usageTracker } from '@/lib/usageTracker'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 async function fetchWithSupabaseAuth(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const supabase = createClient()
@@ -124,7 +125,7 @@ export function useFreeTrial() {
   }, [user])
 
   const checkAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved' | 'guessPapers'): boolean => {
-    const isPremium = user?.user_metadata?.is_premium || false
+    const isPremium = isActivePremium(user)
     const isSignedIn = !!user
 
     // Premium users get unlimited access
@@ -173,7 +174,7 @@ export function useFreeTrial() {
   }
 
   const requestAccess = async (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved' | 'guessPapers'): Promise<boolean> => {
-    const isPremium = user?.user_metadata?.is_premium || false
+    const isPremium = isActivePremium(user)
     const isSignedIn = !!user
 
     // Premium users get unlimited access
@@ -248,7 +249,7 @@ export function useFreeTrial() {
 
   const getTrialStatus = () => {
     const isSignedIn = !!user
-    const isPremium = user?.user_metadata?.is_premium || false
+    const isPremium = isActivePremium(user)
 
     if (isPremium) {
       return { isSignedIn: true, isPremium: true, remaining: null }

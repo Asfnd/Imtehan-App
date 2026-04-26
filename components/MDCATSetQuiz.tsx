@@ -9,6 +9,7 @@ import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
@@ -122,7 +123,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   const backUrl = backPath ?? `/mdcat/${subject}/${encodeURIComponent(difficulty)}`
 
   const { user, loading: authLoading } = useAuth()
-  const isPremium = !!user?.user_metadata?.is_premium
+  const isPremium = isActivePremium(user)
   const soundsEnabled = useSoundsEnabled()
 
   const [showSignIn, setShowSignIn] = useState(false)

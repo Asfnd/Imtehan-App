@@ -1,5 +1,6 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getAuthenticatedUserForRoute } from '@/lib/security/request-verification'
+import { isActivePremium } from '@/lib/is-active-premium'
 import { NextRequest, NextResponse } from 'next/server'
 
 // Usage limits (must match usageTracker.ts)
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
         solvedPapers: usage.solved_papers || 0,
       },
       limits: LIMITS,
-      isPremium: user.user_metadata?.is_premium || false,
+      isPremium: isActivePremium(user),
     })
 
   } catch (error) {

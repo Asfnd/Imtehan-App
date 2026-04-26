@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 /**
  * Lightning-fast middleware with minimal overhead
@@ -269,8 +270,7 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.redirect(redirectUrl)
       }
 
-      const isPremium = user.user_metadata?.is_premium === true
-      if (!isPremium) {
+      if (!isActivePremium(user)) {
         // Not premium - redirect to premium page
         const redirectUrl = new URL(PREMIUM_PAGE_PATH, request.url)
         return NextResponse.redirect(redirectUrl)

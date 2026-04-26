@@ -7,6 +7,7 @@ import NavigationBar from '@/components/NavigationBar'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 interface GuessPaper {
   id: string
@@ -47,7 +48,7 @@ export default function GuessPapersPage() {
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false)
   const { user, loading, showSignInPopup, setShowSignInPopup, requestAccess, checkAccess } = useFreeTrial()
 
-  const isPremium = user?.user_metadata?.is_premium || false
+  const isPremium = isActivePremium(user)
 
   const handleViewPaper = async (subject: string) => {
     const hasAccess = await requestAccess('guessPapers')

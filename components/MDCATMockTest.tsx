@@ -18,6 +18,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -287,7 +288,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   const config = MOCK_CONFIGS[variant]
 
   const { user, loading: authLoading } = useAuth()
-  const isPremium = !!user?.user_metadata?.is_premium
+  const isPremium = isActivePremium(user)
 
   const [showSignIn, setShowSignIn] = useState(false)
 

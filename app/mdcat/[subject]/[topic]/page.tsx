@@ -10,6 +10,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology'           },
@@ -43,7 +44,7 @@ export default function MDCATTopicOrDifficultyPage() {
   const displayLabel = isDifficulty ? difficultyCfg.label : decodedTopic
 
   const { user } = useAuth()
-  const isPremium = !!user?.user_metadata?.is_premium
+  const isPremium = isActivePremium(user)
   const [showSignIn, setShowSignIn] = useState(false)
 
   const [totalMCQs, setTotalMCQs]         = useState(0)

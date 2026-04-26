@@ -7,6 +7,7 @@ import {
   trackStartTrial,
   trackSubscribe,
 } from '@/lib/analytics/metaPixel'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 const keyCr = (id: string) => `fbq_complete_registration_${id}`
 const keyTrial = (id: string) => `fbq_start_trial_${id}`
@@ -34,22 +35,21 @@ export function MetaPixelConversions() {
     }
 
     if (!localStorage.getItem(keyTrial(id))) {
-      const premium = user.user_metadata?.is_premium === true
-      if (!premium) {
+      if (!isActivePremium(user)) {
         trackStartTrial()
         localStorage.setItem(keyTrial(id), '1')
       }
     }
   }, [user, loading])
 
-  // Subscribe — when is_premium flips from false to true (activation after payment)
+  // Subscribe — when active premium flips from false to true (activation after payment)
   useEffect(() => {
     if (loading || !user?.id) {
       if (!user) prevPremium.current = null
       return
     }
 
-    const premium = user.user_metadata?.is_premium === true
+    const premium = isActivePremium(user)
     const id = user.id
 
     if (prevPremium.current === false && premium === true) {

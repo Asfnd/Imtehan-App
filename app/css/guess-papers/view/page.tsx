@@ -8,6 +8,7 @@ import { ArrowLeft, Crown } from 'lucide-react'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 function GuessPaperViewerContent() {
   const searchParams = useSearchParams()
@@ -15,7 +16,7 @@ function GuessPaperViewerContent() {
   const subject = searchParams.get('subject')
 
   const { user, loading: authLoading, checkAccess, showSignInPopup, setShowSignInPopup } = useFreeTrial()
-  const isPremium = user?.user_metadata?.is_premium || false
+  const isPremium = isActivePremium(user)
 
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
