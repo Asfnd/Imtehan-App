@@ -15,6 +15,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { examDashboardMockClick } from '@/lib/premium-gates'
 
 interface SubjectProgress {
   subject: string
@@ -174,15 +175,13 @@ function ExamDashboard() {
   const examGuide = buildExamGuide(examSlug, config)
 
   const handleMockClick = (mockId: number) => {
-    if (mockId === 1 || isPremium) {
+    const action = examDashboardMockClick(mockId, !!user, isPremium)
+    if (action === 'open') {
       setPendingMockId(mockId)
       return
     }
-    if (!user) {
-      setShowSignIn(true)
-    } else {
-      setShowPremium(true)
-    }
+    if (action === 'require_sign_in') setShowSignIn(true)
+    else setShowPremium(true)
   }
 
   const checkUser = async () => {

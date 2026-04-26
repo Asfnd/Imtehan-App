@@ -11,6 +11,7 @@ import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { tieredSetTableNavigation } from '@/lib/premium-gates'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology'           },
@@ -83,19 +84,15 @@ export default function MDCATTopicOrDifficultyPage() {
   const setsInBatch = Array.from({ length: Math.max(0, endSet - startSet + 1) }, (_, i) => startSet + i)
 
   const handleSetClick = (setNum: number) => {
-    if (setNum <= 2 || isPremium) {
-      router.push(`/mdcat/${subject}/${encodeURIComponent(decodedTopic)}/set/${setNum}`)
-      return
-    }
-    if (!user) {
+    const next = tieredSetTableNavigation(setNum, !!user, isPremium)
+    if (next === 'require_sign_in') {
       setShowSignIn(true)
       return
     }
-    if (setNum >= 4) {
+    if (next === 'require_premium') {
       router.push(PREMIUM_PAGE_PATH)
       return
     }
-    // Set 3, signed-in, not premium → allow
     router.push(`/mdcat/${subject}/${encodeURIComponent(decodedTopic)}/set/${setNum}`)
   }
 

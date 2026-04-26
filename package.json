@@ -16,7 +16,10 @@
     "export-marketing-pngs": "env -u PLAYWRIGHT_BROWSERS_PATH tsx scripts/export-marketing-pngs.ts",
     "test-grading": "tsx scripts/test-grading-provider.ts",
     "test-css-grading": "tsx scripts/test-css-grading-modes.ts",
-    "test-is-active-premium": "tsx scripts/test-is-active-premium.ts"
+    "test-is-active-premium": "tsx scripts/test-is-active-premium.ts",
+    "test-premium-gates": "tsx scripts/test-premium-gates.ts",
+    "test-deactivate-db": "tsx scripts/test-deactivate-expired-db.ts",
+    "test-premium": "npm run test-is-active-premium && npm run test-premium-gates && npm run test-deactivate-db"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.969.0",

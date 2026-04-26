@@ -10,6 +10,7 @@ import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { tieredSetQuizPageAccess } from '@/lib/premium-gates'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
@@ -136,12 +137,10 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   // Access gate: sets 1-2 = free, set 3 = sign-in required, set 4+ = premium page
   useEffect(() => {
     if (authLoading) return
-    if (setNumber >= 4 && !isPremium) {
-      router.replace(PREMIUM_PAGE_PATH)
-    } else if (setNumber === 3 && !user) {
-      setShowSignIn(true)
-    }
-  }, [authLoading, user, isPremium, setNumber])
+    const gate = tieredSetQuizPageAccess(setNumber, !!user, isPremium)
+    if (gate === 'require_premium') router.replace(PREMIUM_PAGE_PATH)
+    else if (gate === 'require_sign_in') setShowSignIn(true)
+  }, [authLoading, user, isPremium, setNumber, router])
 
   const [currentIndex, setCurrentIndex]   = useState(0)
   const [answers, setAnswers]             = useState<Record<number, string>>({})

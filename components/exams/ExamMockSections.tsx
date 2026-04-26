@@ -34,6 +34,7 @@ import {
   type ExamMockIconKey,
   type ExamMockSpec,
 } from '@/lib/exam-mock-specs'
+import { isExamMockCardLocked } from '@/lib/premium-gates'
 import ExamPracticeGridCard from '@/components/exams/ExamPracticeGridCard'
 
 type MockRow = { id: number } & ExamMockSpec
@@ -128,8 +129,7 @@ export default function ExamMockSections({
     else router.push(`/exams/${examSlug}/mock/${mockId}`)
   }
 
-  const isLocked = (mockId: number) =>
-    lockedAfterFirst && !isPremium && mockId > 1
+  const isLocked = (mockId: number) => isExamMockCardLocked(lockedAfterFirst, mockId, isPremium)
 
   const renderMockCard = (spec: MockRow) => {
     const mockId = spec.id

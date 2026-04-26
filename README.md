@@ -27,13 +27,31 @@ This is wired through middleware, premium-gated API routes, `useFreeTrial`, and 
 
 **Admin activation (SQL):** see `PREMIUM_SQL_GUIDE.md` for example `UPDATE auth.users` snippets and how to set `plan`, `activated_at`, and `expires_at` consistently.
 
-### automated test for expiry logic
+### keeping the database in sync (auto “downgrade” in Supabase)
+
+The in-app check does **not** by itself set `is_premium` to `false` in the database. For **automatic** DB updates (so reports and SQL no longer show “still premium” after `expires_at`):
+
+1. Set **`CRON_SECRET`** in Vercel (and `SUPABASE_SERVICE_ROLE_KEY` — you already use it for server jobs) to the **same** value in both places.
+2. **`vercel.json`** schedules **`GET /api/cron/deactivate-expired-premium`** daily (02:00 UTC). Vercel sends `Authorization: Bearer <CRON_SECRET>`.
+3. The route uses the **Supabase service role** to list users, find accounts that are still `is_premium` but have a **past** `expires_at` (and not `plan: 'lifetime'`), and updates **`user_metadata`** to `is_premium: false` plus `deactivated_at` / `deactivation_reason`.
+
+**Manual run (e.g. after deploy):** `curl -H "Authorization: Bearer YOUR_CRON_SECRET" "https://your-domain.com/api/cron/deactivate-expired-premium"`.
+
+**No Vercel:** use the same `curl` from GitHub Actions, an external cron, or the **deactivate** SQL in `PREMIUM_SQL_GUIDE.md` on a schedule in Supabase (e.g. pg_cron) if you prefer SQL-only.
+
+### automated tests (premium; no network)
+
+```bash
+npm run test-premium
+```
+
+Runs `isActivePremium` (`scripts/test-is-active-premium.ts`), set/mock gate rules (`scripts/test-premium-gates.ts`, see `lib/premium-gates.ts`), and DB deactivate logic (`scripts/test-deactivate-expired-db.ts`).
 
 ```bash
 npm run test-is-active-premium
+npm run test-premium-gates
+npm run test-deactivate-db
 ```
-
-Runs `scripts/test-is-active-premium.ts` (no network; validates `isActivePremium` rules only).
 
 ## Other docs
 

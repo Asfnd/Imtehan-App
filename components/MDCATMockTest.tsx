@@ -19,6 +19,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { mdcatMockPageAccess } from '@/lib/premium-gates'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -295,12 +296,10 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   // Access gate: mock 1 = free, mock 2 = sign-in required, mock 3+ = premium page
   useEffect(() => {
     if (!mockNumber || authLoading) return
-    if (mockNumber >= 3 && !isPremium) {
-      router.replace(PREMIUM_PAGE_PATH)
-    } else if (mockNumber === 2 && !user) {
-      setShowSignIn(true)
-    }
-  }, [authLoading, user, isPremium, mockNumber])
+    const gate = mdcatMockPageAccess(mockNumber, !!user, isPremium)
+    if (gate === 'require_premium') router.replace(PREMIUM_PAGE_PATH)
+    else if (gate === 'require_sign_in') setShowSignIn(true)
+  }, [authLoading, user, isPremium, mockNumber, router])
 
   const [phase, setPhase]                     = useState<Phase>('loading')
   const [mcqs, setMcqs]                       = useState<MockMCQ[]>([])
