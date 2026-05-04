@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { Flag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
@@ -130,6 +131,7 @@ export default function QuizInterface({
 
   const [showFeedback, setShowFeedback] = useState(false)
   const [resultPct, setResultPct] = useState(0)
+  const [showReportToast, setShowReportToast] = useState(false)
 
   useEffect(() => {
     trackQuizStart(`${examSlug}/${mode}`, subjectSlug)
@@ -205,6 +207,29 @@ export default function QuizInterface({
   const goNext = () => {
     if (currentIndex < activeMCQs.length - 1) setCurrentIndex((i) => i + 1)
   }
+
+  const handleReportQuestion = useCallback(async () => {
+    if (!currentMCQ) return
+    try {
+      const supabase = createClient()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      await supabase.from('question_reports').insert({
+        question_id: currentMCQ.id,
+        question_type: examSlug,
+        subject: subjectSlug,
+        user_id: user?.id || null,
+        report_sequence: currentIndex + 1,
+        quiz_length: activeMCQs.length,
+        mock_number: setNumber,
+      })
+    } catch {
+      /* silent */
+    }
+    setShowReportToast(true)
+    setTimeout(() => setShowReportToast(false), 3200)
+  }, [activeMCQs.length, currentIndex, currentMCQ, examSlug, setNumber, subjectSlug])
 
   const handleSubmit = async () => {
     setSaving(true)
@@ -399,9 +424,23 @@ export default function QuizInterface({
         <main
           className={`mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-3 pb-3 sm:px-5 sm:pb-4 ${bottomPad}`}
         >
-          <div className="mb-2 flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-500 sm:mb-3 sm:text-sm">
-            <span aria-hidden>★</span>
-            <span>Level {level}</span>
+          <div className="mb-2 flex shrink-0 items-center justify-between gap-2 sm:mb-3">
+            <div className="flex min-w-0 items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-500 sm:text-sm">
+              <span aria-hidden>★</span>
+              <span>Level {level}</span>
+            </div>
+            <button
+              type="button"
+              onClick={handleReportQuestion}
+              className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 px-2 text-rose-600 shadow-sm transition hover:border-rose-400 hover:bg-rose-100 hover:text-rose-700 active:scale-[0.98] sm:h-9 sm:gap-2 sm:px-2.5"
+              title="Tell us if this question is wrong or unclear"
+              aria-label="Report a problem with this question"
+            >
+              <Flag className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" strokeWidth={2.25} />
+              <span className="text-[10px] font-bold uppercase tracking-wide text-rose-700 sm:text-xs">
+                Report
+              </span>
+            </button>
           </div>
 
           <h1
@@ -452,6 +491,20 @@ export default function QuizInterface({
         onContinue={dockContinue}
         isLastStep={currentIndex === activeMCQs.length - 1}
       />
+
+      {showReportToast && currentMCQ && (
+        <div className="fixed left-1/2 top-6 z-[100] -translate-x-1/2 px-3">
+          <div className="flex max-w-[min(100vw-24px,22rem)] items-center gap-3 rounded-2xl border-2 border-white/20 bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-3 text-white shadow-2xl">
+            <span className="text-xl">✓</span>
+            <div className="min-w-0">
+              <div className="font-bold">Question flagged</div>
+              <div className="text-xs text-white/90">
+                Q{currentIndex + 1} of {activeMCQs.length} · Set {setNumber} · ID {currentMCQ.id}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

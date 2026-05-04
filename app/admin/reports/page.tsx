@@ -13,6 +13,11 @@ interface Report {
   reported_at: string
   status: string
   admin_notes: string | null
+  report_sequence: number | null
+  quiz_length: number | null
+  mock_number: number | null
+  reported_option_letter: string | null
+  issue_type: string | null
 }
 
 export default function ReportsPage() {
@@ -75,7 +80,9 @@ export default function ReportsPage() {
       // OPTIMIZATION: Select only needed columns instead of '*' and limit to 100 recent
       let query = supabase
         .from('question_reports')
-        .select('id, question_id, question_type, subject, reported_at, status, admin_notes')
+        .select(
+          'id, question_id, question_type, subject, reported_at, status, admin_notes, report_sequence, quiz_length, mock_number, reported_option_letter, issue_type'
+        )
         .order('reported_at', { ascending: false })
         .limit(100) // Only fetch 100 most recent, pagination can load more
 
@@ -186,7 +193,25 @@ export default function ReportsPage() {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-500">
+                    <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600">
+                      {report.report_sequence != null && (
+                        <span>
+                          Position: Q{report.report_sequence}
+                          {report.quiz_length != null ? ` of ${report.quiz_length}` : ''}
+                        </span>
+                      )}
+                      {report.mock_number != null && (
+                        <span>
+                          {report.question_type === 'mpt' ? 'Test' : 'Mock'} #{report.mock_number}
+                        </span>
+                      )}
+                      {report.reported_option_letter && report.issue_type && (
+                        <span className="text-amber-700">
+                          Option {report.reported_option_letter}: {report.issue_type}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">
                       Reported: {new Date(report.reported_at).toLocaleString()}
                     </p>
                   </div>

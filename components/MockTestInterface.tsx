@@ -167,7 +167,7 @@ export default function MockTestInterface({
     if (currentIndex > 0) setCurrentIndex(i => i - 1)
   }
 
-  const handleReport = useCallback(async () => {
+  const handleReportQuestion = useCallback(async () => {
     try {
       const supabase = createClient()
       const {
@@ -178,13 +178,16 @@ export default function MockTestInterface({
         question_type: examSlug,
         subject: currentMCQ.subject,
         user_id: user?.id || null,
+        report_sequence: currentIndex + 1,
+        quiz_length: activeMCQs.length,
+        mock_number: mockNumber ?? null,
       })
     } catch {
       /* silent */
     }
     setShowReportToast(true)
-    setTimeout(() => setShowReportToast(false), 3000)
-  }, [currentMCQ, examSlug])
+    setTimeout(() => setShowReportToast(false), 3200)
+  }, [activeMCQs.length, currentIndex, currentMCQ, examSlug, mockNumber])
 
   const calcScore = () => {
     let correct = 0
@@ -411,22 +414,25 @@ export default function MockTestInterface({
                     currentIndex={currentIndex}
                     onClick={() => setShowQuestionPicker(true)}
                   />
-                  <button
-                    type="button"
-                    onClick={handleReport}
-                    className="inline-flex h-10 items-center gap-1.5 rounded-full border border-rose-100 bg-rose-50/90 px-3 text-xs font-semibold text-rose-800 transition hover:bg-rose-100 sm:h-11 sm:px-3.5 sm:text-sm"
-                    title="Report an issue"
-                  >
-                    <Flag className="h-4 w-4" />
-                    <span className="hidden sm:inline">Report</span>
-                  </button>
                 </div>
               </div>
 
-              <div className="shrink-0 text-left">
-                <h3 className="text-pretty line-clamp-[6] text-base font-bold leading-[1.5] tracking-tight text-slate-900 [overflow-wrap:anywhere] sm:line-clamp-[7] sm:text-lg sm:leading-[1.55] md:text-xl md:leading-snug">
+              <div className="flex shrink-0 gap-2 text-left">
+                <h3 className="min-w-0 flex-1 text-pretty line-clamp-[6] text-base font-bold leading-[1.5] tracking-tight text-slate-900 [overflow-wrap:anywhere] sm:line-clamp-[7] sm:text-lg sm:leading-[1.55] md:text-xl md:leading-snug">
                   {currentMCQ.question}
                 </h3>
+                <button
+                  type="button"
+                  onClick={handleReportQuestion}
+                  className="mt-0.5 inline-flex h-8 shrink-0 items-center gap-1.5 self-start rounded-lg border border-rose-300 bg-rose-50 px-2 text-rose-600 shadow-sm transition hover:border-rose-400 hover:bg-rose-100 hover:text-rose-700 active:scale-[0.98] sm:h-9 sm:gap-2 sm:px-2.5"
+                  title="Tell us if this question is wrong or unclear"
+                  aria-label="Report a problem with this question"
+                >
+                  <Flag className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" strokeWidth={2.25} />
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-rose-700 sm:text-xs">
+                    Report
+                  </span>
+                </button>
               </div>
 
               {/* No flex-1 justify-center — options stay fixed under the stem so layout does not shift by question length */}
@@ -523,12 +529,15 @@ export default function MockTestInterface({
       />
 
       {showReportToast && (
-        <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2">
-          <div className="flex items-center gap-3 rounded-2xl border-2 border-white/20 bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-3 text-white shadow-2xl">
+        <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2 px-3">
+          <div className="flex max-w-[min(100vw-24px,22rem)] items-center gap-3 rounded-2xl border-2 border-white/20 bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-3 text-white shadow-2xl">
             <span className="text-xl">✓</span>
-            <div>
+            <div className="min-w-0">
               <div className="font-bold">Question flagged</div>
-              <div className="text-xs text-white/90">Thanks for helping us improve</div>
+              <div className="text-xs text-white/90">
+                Q{currentIndex + 1} of {activeMCQs.length} · ID {currentMCQ.id}
+                {mockNumber != null ? ` · Mock ${mockNumber}` : ''}
+              </div>
             </div>
           </div>
         </div>

@@ -278,19 +278,23 @@ function MPTQuizContent() {
   }
 
   const handleReport = useCallback(async () => {
-    if (!activeMCQs[currentIndex]) return
+    const mcq = activeMCQs[currentIndex]
+    if (!mcq) return
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
       await supabase.from('question_reports').insert({
-        question_id:   activeMCQs[currentIndex].id,
+        question_id: mcq.id,
         question_type: 'mpt',
-        subject:       'MPT',
-        user_id:       user?.id || null,
+        subject: 'MPT',
+        user_id: user?.id || null,
+        report_sequence: mcq.question_number,
+        quiz_length: activeMCQs.length,
+        mock_number: mcq.test_number,
       })
     } catch (_) { /* silent */ }
     setShowReportToast(true)
-    setTimeout(() => setShowReportToast(false), 3000)
+    setTimeout(() => setShowReportToast(false), 3200)
   }, [activeMCQs, currentIndex])
 
   if (activeLoading) {
@@ -523,19 +527,21 @@ function MPTQuizContent() {
               key={currentIndex}
               className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 mb-2 sm:mb-3 border-2 border-gray-100"
             >
-              {/* Q label + Report */}
-              <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <div className="mb-2 sm:mb-3 flex items-center justify-between gap-2">
                 <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 sm:px-3 py-1 rounded-full border border-blue-200">
                   Question {currentMCQ.question_number}
                 </span>
                 <button
+                  type="button"
                   onClick={handleReport}
-                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-red-50 text-red-600 active:bg-red-100 rounded-full text-xs font-semibold transition-colors border border-red-200"
-                  title="Report an issue"
+                  className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 px-2 text-rose-600 shadow-sm transition hover:border-rose-400 hover:bg-rose-100 hover:text-rose-700 active:scale-[0.98] sm:h-9 sm:gap-2 sm:px-2.5"
+                  title="Tell us if this question is wrong or unclear"
+                  aria-label="Report a problem with this question"
                 >
-                  <Flag className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                  <span className="hidden sm:inline">Report</span>
-                  <span className="sm:hidden">⚠️</span>
+                  <Flag className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" strokeWidth={2.25} />
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-rose-700 sm:text-xs">
+                    Report
+                  </span>
                 </button>
               </div>
 
@@ -606,13 +612,16 @@ function MPTQuizContent() {
       </UltraProtectedContent>
 
       {/* Report Toast */}
-      {showReportToast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-white/20">
+      {showReportToast && activeMCQs[currentIndex] && (
+        <div className="fixed top-6 left-1/2 z-50 -translate-x-1/2 px-3">
+          <div className="flex max-w-[min(100vw-24px,22rem)] items-center gap-3 rounded-2xl border-2 border-white/20 bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-3 text-white shadow-2xl">
             <span className="text-xl">✓</span>
-            <div>
-              <div className="font-bold">Question Flagged!</div>
-              <div className="text-xs text-white/90">Thanks for helping us improve</div>
+            <div className="min-w-0">
+              <div className="font-bold">Question flagged</div>
+              <div className="text-xs text-white/90">
+                Q{activeMCQs[currentIndex].question_number} · Test {activeMCQs[currentIndex].test_number} · ID{' '}
+                {activeMCQs[currentIndex].id}
+              </div>
             </div>
           </div>
         </div>
