@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock } from 'lucide-react'
+import { Clock, Pause, Play } from 'lucide-react'
 
 export interface ExamMockHeaderProps {
   onExit: () => void
@@ -14,6 +14,9 @@ export interface ExamMockHeaderProps {
   totalDurationSeconds: number
   /** When true, timer area shows answered count instead (e.g. review practice) */
   reviewMeta?: string | null
+  /** Called when user clicks pause/resume */
+  onPause?: () => void
+  isPaused?: boolean
 }
 
 function formatCountdown(s: number): string {
@@ -33,6 +36,8 @@ export function ExamMockHeader({
   timeLeftSeconds,
   totalDurationSeconds,
   reviewMeta,
+  onPause,
+  isPaused = false,
 }: ExamMockHeaderProps) {
   const pct = Math.min(100, Math.max(0, progressPct))
   const timeRatio = totalDurationSeconds > 0 ? timeLeftSeconds / totalDurationSeconds : 1
@@ -45,8 +50,11 @@ export function ExamMockHeader({
           ? 'text-amber-600'
           : 'text-rose-600'
 
+  const showSecondRow = !!(onPause || metaLine)
+
   return (
-    <header className="flex w-full shrink-0 flex-col gap-2 border-b border-slate-100 bg-white px-3 py-3 sm:px-5 sm:py-3.5">
+    <header className="flex w-full shrink-0 flex-col gap-1.5 border-b border-slate-100 bg-white px-3 py-2.5 sm:px-5 sm:py-3">
+      {/* Row 1: exit · progress · timer */}
       <div className="flex items-center gap-2 sm:gap-3">
         <button
           type="button"
@@ -77,16 +85,41 @@ export function ExamMockHeader({
           </div>
         ) : (
           <div
-            className={`flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 font-mono text-xs font-bold tabular-nums sm:gap-2 sm:px-3 sm:text-sm ${timerClass} ${timeRatio <= 0.2 && !reviewMeta ? 'animate-pulse border-rose-200 bg-rose-50/80' : ''}`}
+            className={`flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 font-mono text-xs font-bold tabular-nums sm:gap-2 sm:px-3 sm:text-sm ${timerClass} ${timeRatio <= 0.2 ? 'animate-pulse border-rose-200 bg-rose-50/80' : ''}`}
           >
             <Clock className="h-4 w-4 shrink-0 sm:h-[1.125rem] sm:w-[1.125rem]" aria-hidden />
             <span>{formatCountdown(timeLeftSeconds)}</span>
           </div>
         )}
       </div>
-      {metaLine ? (
-        <p className="pl-9 text-xs font-medium text-slate-500 sm:pl-11 sm:text-sm">{metaLine}</p>
-      ) : null}
+
+      {/* Row 2: meta text (left) + pause button (centered, absolute) */}
+      {showSecondRow && (
+        <div className="relative flex min-h-[1.625rem] items-center">
+          {metaLine && (
+            <p className="pl-9 text-xs font-medium text-slate-400 sm:pl-11 sm:text-sm">
+              {metaLine}
+            </p>
+          )}
+          {onPause && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={onPause}
+                aria-label={isPaused ? 'Resume test' : 'Pause test'}
+                className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 hover:shadow-md active:scale-[0.97]"
+              >
+                {isPaused ? (
+                  <Play className="h-3.5 w-3.5 shrink-0 fill-current" />
+                ) : (
+                  <Pause className="h-3.5 w-3.5 shrink-0" />
+                )}
+                <span>{isPaused ? 'Resume' : 'Pause'}</span>
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   )
 }

@@ -58,30 +58,28 @@ export default async function QuizSetPage({
 
   let mcqs
 
+  // Deterministic id ordering on every branch so .range() pagination is
+  // stable across requests — without it Postgres can return overlapping rows
+  // between sets, which was the root cause of the "same MCQs in every batch"
+  // user complaints. See S1.1 in the cleanup pipeline.
   if (modeConfig.type === 'mixed') {
-    // For practice mode, get random mix from all types
     const { data, error } = await supabase
       .from(section.dbTable)
       .select('*')
+      .order('id', { ascending: true })
       .range(offset, offset + limit - 1)
 
     if (error || !data || data.length === 0) {
       notFound()
     }
 
-    // Deterministic shuffle based on set number for consistency
-    const seed = setNumber * 12345
-    mcqs = data.sort((a, b) => {
-      const hashA = (String(a.id).charCodeAt(0) * seed) % 1000
-      const hashB = (String(b.id).charCodeAt(0) * seed) % 1000
-      return hashA - hashB
-    })
+    mcqs = data
   } else if (mode === 'past-papers' && config.pastPapersExam) {
-    // Engineering cross-exam past papers: fetch from sibling exam's bank
     const { data, error } = await supabase
       .from(section.dbTable)
       .select('*')
       .eq('target_exam', config.pastPapersExam)
+      .order('id', { ascending: true })
       .range(offset, offset + limit - 1)
 
     if (error || !data || data.length === 0) {
@@ -90,11 +88,11 @@ export default async function QuizSetPage({
 
     mcqs = data
   } else {
-    // For specific modes, filter by type
     const { data, error } = await supabase
       .from(section.dbTable)
       .select('*')
       .eq('type', modeConfig.type)
+      .order('id', { ascending: true })
       .range(offset, offset + limit - 1)
 
     if (error || !data || data.length === 0) {

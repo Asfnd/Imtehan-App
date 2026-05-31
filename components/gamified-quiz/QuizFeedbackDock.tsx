@@ -47,6 +47,9 @@ export function QuizFeedbackDock({
               <h2 className="text-xl font-extrabold text-rose-900 sm:text-2xl">
                 {title || 'Not quite — try another option'}
               </h2>
+              {subtitle && (
+                <p className="mt-1 text-sm font-medium text-rose-700 sm:text-base">{subtitle}</p>
+              )}
             </div>
           </div>
           {onTryAgain && (

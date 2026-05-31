@@ -21,7 +21,6 @@ export type ExamMockIconKey =
   | 'Clock'
   | 'TrendingUp'
   | 'Flame'
-  | 'BarChart2'
   | 'Brain'
   | 'Activity'
   | 'Trophy'
@@ -122,7 +121,7 @@ export const EXAM_MOCK_SPECS: Record<number, ExamMockSpec> = {
     qTypes: ['most_repeated', 'most_important', 'practice'],
     difficulty: 'Advanced',
     summary: 'Comprehensive deep-dive',
-    iconKey: 'BarChart2',
+    iconKey: 'Brain',
   },
   11: {
     title: '75% Analytical Test',

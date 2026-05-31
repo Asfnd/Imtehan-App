@@ -116,6 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Info pages
   const infoPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/about`,   lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/careers`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/contact`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/faq`,     lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/privacy`, lastModified: currentDate, changeFrequency: 'yearly',  priority: 0.5 },

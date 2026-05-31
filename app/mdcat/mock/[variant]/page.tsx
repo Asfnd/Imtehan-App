@@ -198,7 +198,7 @@ export default function MDCATMockListingPage() {
                     >
                       <div className="font-semibold text-xs">Batch {batchNum}</div>
                       <div className={`text-[10px] mt-0.5 ${isSelected ? 'text-white/70' : 'text-slate-400'}`}>
-                        Mocks {bStart}–{bEnd}
+                        Mocks {bStart}-{bEnd}
                       </div>
                     </button>
                   )
@@ -210,7 +210,7 @@ export default function MDCATMockListingPage() {
           {/* Mocks panel */}
           <div className="col-span-12 md:col-span-9">
             <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-              <h2 className="font-bold text-slate-900 mb-0.5">Batch {selectedBatch} — Mock Tests</h2>
+              <h2 className="font-bold text-slate-900 mb-0.5">Batch {selectedBatch}: Mock Tests</h2>
               <p className="text-xs text-slate-400 mb-4">
                 {meta.total} MCQs · {meta.duration} · Unique non-overlapping questions per mock
               </p>

@@ -17,6 +17,7 @@ const SAFE_PATH_PREFIXES = [
   '/contact',
   '/faq',
   '/about',
+  '/careers',
   '/terms',
   '/privacy',
   '/signin',

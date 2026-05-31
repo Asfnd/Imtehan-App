@@ -6,7 +6,7 @@ const EXAM_SEO: Record<string, {
   keywords: string[]
 }> = {
   'css-mpt': {
-    description: 'Practice CSS MPT (Mandatory Preliminary Test) MCQs by subject — English, General Knowledge, Pakistan Affairs, Islamic Studies, Current Affairs & more. Topic-wise sets with answers.',
+    description: 'Practice CSS MPT (Mandatory Preliminary Test) MCQs by subject: English, General Knowledge, Pakistan Affairs, Islamic Studies, Current Affairs & more. Topic-wise sets with answers.',
     keywords: [
       'CSS MPT MCQs', 'CSS MPT preparation', 'CSS mandatory preliminary test',
       'CSS screening test MCQs', 'CSS English MCQs', 'CSS general knowledge MCQs',
@@ -23,28 +23,28 @@ const EXAM_SEO: Record<string, {
     ],
   },
   'ppsc-assistant': {
-    description: 'Practice PPSC Assistant (BS-16) MCQs with subject-wise sets — General Knowledge, Pakistan Affairs, English, Islamic Studies & more. Full mock test preparation.',
+    description: 'Practice PPSC Assistant (BS-16) MCQs with subject-wise sets: General Knowledge, Pakistan Affairs, English, Islamic Studies & more. Full mock test preparation.',
     keywords: [
       'PPSC assistant MCQs', 'PPSC BS-16 preparation', 'PPSC assistant past papers',
       'PPSC general knowledge MCQs', 'PPSC pakistan affairs MCQs', 'PPSC english MCQs',
     ],
   },
   'ppsc-sub-inspector': {
-    description: 'Practice PPSC Sub Inspector Police MCQs — General Knowledge, Pakistan Affairs, English, Current Affairs & more. Subject-wise sets for complete exam preparation.',
+    description: 'Practice PPSC Sub Inspector Police MCQs: General Knowledge, Pakistan Affairs, English, Current Affairs & more. Subject-wise sets for complete exam preparation.',
     keywords: [
       'PPSC sub inspector MCQs', 'PPSC police MCQs', 'PPSC sub inspector preparation',
       'PPSC sub inspector past papers', 'Punjab police MCQ test',
     ],
   },
   'ppsc-patwari': {
-    description: 'Practice PPSC Patwari (Revenue) MCQs — General Knowledge, Mathematics, Pakistan Affairs, English & more. Subject-wise sets for complete preparation.',
+    description: 'Practice PPSC Patwari (Revenue) MCQs: General Knowledge, Mathematics, Pakistan Affairs, English & more. Subject-wise sets for complete preparation.',
     keywords: [
       'PPSC Patwari MCQs', 'PPSC revenue patwari preparation', 'PPSC patwari past papers',
       'patwari test MCQs Pakistan', 'Punjab patwari MCQ test',
     ],
   },
   'ppsc-tehsildar': {
-    description: 'Practice PPSC Tehsildar MCQs — General Knowledge, Pakistan Affairs, Current Affairs, Islamic Studies & more. Subject-wise MCQ sets with answers.',
+    description: 'Practice PPSC Tehsildar MCQs: General Knowledge, Pakistan Affairs, Current Affairs, Islamic Studies & more. Subject-wise MCQ sets with answers.',
     keywords: [
       'PPSC tehsildar MCQs', 'PPSC tehsildar preparation', 'PPSC tehsildar past papers',
       'Punjab tehsildar MCQ test', 'PPSC revenue MCQs',
@@ -76,7 +76,7 @@ export async function generateMetadata({
     ?? `Practice ${config.name} MCQs subject-wise. ${config.totalMCQs}+ questions with answers and explanations for complete exam preparation.`
 
   return {
-    title: `${config.name} MCQs — Practice Sets with Answers | Imtehan`,
+    title: `${config.name} MCQs: Practice Sets with Answers | Imtehan`,
     description,
     keywords: [
       ...(seo?.keywords ?? []),

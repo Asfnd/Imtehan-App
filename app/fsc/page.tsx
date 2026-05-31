@@ -50,7 +50,7 @@ const SUBJECTS = [
 const FEATURES = [
   { icon: BookOpen, title: 'Chapter-by-Chapter', desc: 'Practice each chapter individually, just like studying your textbook' },
   { icon: GraduationCap, title: 'FSc Syllabus Aligned', desc: 'Topics follow Punjab Textbook Board FSc Pre-Medical curriculum' },
-  { icon: ChevronRight, title: 'Sets of 20 MCQs', desc: 'Manageable practice sets — perfect for daily revision sessions' },
+  { icon: ChevronRight, title: 'Sets of 20 MCQs', desc: 'Manageable practice sets, perfect for daily revision sessions' },
 ]
 
 export default function FSCPage() {

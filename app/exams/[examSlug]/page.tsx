@@ -91,8 +91,8 @@ function buildExamGuide(examSlug: string, config: ExamConfig): ExamGuideView {
         : 'Typically Matric (or equivalent), sometimes with relevant license/experience.'
 
   const ageRange = ['police', 'fia', 'military'].includes(config.category)
-    ? 'Commonly 18–30 years (can vary by post and quota relaxations).'
-    : 'Commonly 18–28 years (age relaxations may apply by policy).'
+    ? 'Commonly 18-30 years (can vary by post and quota relaxations).'
+    : 'Commonly 18-28 years (age relaxations may apply by policy).'
 
   const sectionBreakdown = config.sections.map((s) => `${s.label} (${s.count})`).join(', ')
   const defaultGuide: ExamGuideView = {
@@ -300,7 +300,7 @@ function ExamDashboard() {
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">Writing papers</p>
                 <h3 className="text-base font-bold text-gray-900">PMS Writing Coach</h3>
                 <p className="mt-1 text-sm text-gray-600">
-                  Essay, précis, and long-answer feedback tuned for provincial PMS English — same flow as CSS Writing Coach,
+                  Essay, précis, and long-answer feedback tuned for provincial PMS English, same flow as CSS Writing Coach,
                   different marking lens.
                 </p>
               </div>
@@ -328,7 +328,7 @@ function ExamDashboard() {
               </span>
               <div className="hidden h-4 w-px bg-gray-300 sm:block" />
               <span className="hidden text-xs text-gray-500 sm:inline">
-                {config.totalMCQs} Qs · {config.duration}m full mock
+                {config.sections.reduce((s, x) => s + x.count, 0)} Qs · {config.duration}m full mock
               </span>
               <div className="flex-1" />
               <Link
@@ -339,7 +339,7 @@ function ExamDashboard() {
               </Link>
             </div>
             <p className="mb-4 text-sm text-gray-600">
-              Choose Easy, Advanced, or Difficult first — then pick a mock from that level.
+              Choose Easy, Advanced, or Difficult first, then pick a mock from that level.
             </p>
             <ExamMockSections
               examSlug={examSlug}
@@ -352,11 +352,11 @@ function ExamDashboard() {
         )}
 
         {/* Subjects */}
-        <div className="mb-8">
+        {!config.mockOnly && <div className="mb-8">
           <div className="flex items-center gap-3 mb-5">
             <h3 className="text-base font-semibold text-gray-900">
-              {preselectedMode === 'most-repeated' && 'Most Repeated — Pick a Subject'}
-              {preselectedMode === 'most-important' && 'Most Important — Pick a Subject'}
+              {preselectedMode === 'most-repeated' && 'Most Repeated: Pick a Subject'}
+              {preselectedMode === 'most-important' && 'Most Important: Pick a Subject'}
               {!preselectedMode && 'Practice by Subject'}
             </h3>
             {preselectedMode && (
@@ -398,7 +398,7 @@ function ExamDashboard() {
               )
             })}
           </div>
-        </div>
+        </div>}
       </div>
     </div>
 
@@ -442,7 +442,7 @@ const EXAM_NOTES: Record<string, { negative: boolean; passMark: string; note?: s
   'pieas-entry':        { negative: false, passMark: '60%', note: 'PIEAS undergraduate entry test pattern' },
   'lums-engineering':   { negative: false, passMark: '60%', note: 'LCAT-style test; Math-heavy pattern' },
   'comsats-engineering':{ negative: false, passMark: '50%', note: 'COMSATS own admission test' },
-  'fast-nuces':         { negative: false, passMark: '50%', note: 'FAST NU own test — heavy on Math & IQ' },
+  'fast-nuces':         { negative: false, passMark: '50%', note: 'FAST NU own test, heavy on Math & IQ' },
   'paf-initial':        { negative: false, passMark: '50%', note: 'PAF commissioned officer initial screening' },
   'pma-long-course':    { negative: false, passMark: '50%', note: 'Pakistan Military Academy academic test' },
   'nts-nat-ie':         { negative: false, passMark: '50%', note: 'NTS NAT-IE for Engineering admissions' },

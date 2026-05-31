@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Cached commission portal fetches (HTML/PDF; large — remove this line to commit)
+/data/syllabus/fetched/

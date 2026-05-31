@@ -105,7 +105,7 @@ export default function AnnotatedEssay({ text, annotations }: AnnotatedEssayProp
           <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
           Suggestions ({suggestionCount})
         </span>
-        <span className="text-gray-400 self-center ml-1 hidden sm:inline">— tap to view comments</span>
+        <span className="text-gray-400 self-center ml-1 hidden sm:inline">· tap to view comments</span>
       </div>
 
       {/* Essay with inline highlights */}

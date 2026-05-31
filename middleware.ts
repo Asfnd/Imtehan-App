@@ -195,6 +195,8 @@ export default async function middleware(request: NextRequest) {
     pathname.startsWith('/blog') ||
     pathname === '/faq' ||
     pathname === '/about' ||
+    pathname === '/careers' ||
+    pathname.startsWith('/careers/') ||
     pathname === '/contact' ||
     pathname === '/terms' ||
     pathname === '/privacy'

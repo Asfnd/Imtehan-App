@@ -103,8 +103,18 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Help</h4>
+            <h4 className="font-semibold mb-4 text-sm">Company</h4>
             <ul className="space-y-3 text-sm">
+              <li>
+                <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Careers
+                </Link>
+              </li>
               <li>
                 <Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
                   FAQ

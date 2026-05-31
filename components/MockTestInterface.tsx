@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Flag, Check, X } from 'lucide-react'
+import { Flag, Check, X, Pause, Play } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
@@ -37,6 +37,38 @@ interface MockTestInterfaceProps {
   examSlug: string
   mockNumber?: number
   mockTitle?: string
+}
+
+function shuffleOptions(mcq: MCQ): MCQ {
+  const opts = [
+    { label: 'A', text: mcq.option_a },
+    { label: 'B', text: mcq.option_b },
+    { label: 'C', text: mcq.option_c },
+    { label: 'D', text: mcq.option_d },
+  ]
+  const correctText = opts.find(o => o.label === mcq.correct_answer)?.text
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[opts[i], opts[j]] = [opts[j], opts[i]]
+  }
+  const newIdx = opts.findIndex(o => o.text === correctText)
+  return {
+    ...mcq,
+    option_a: opts[0].text,
+    option_b: opts[1].text,
+    option_c: opts[2].text,
+    option_d: opts[3].text,
+    correct_answer: newIdx >= 0 ? (['A', 'B', 'C', 'D'][newIdx] as string) : mcq.correct_answer,
+  }
+}
+
+function formatTimeLeft(s: number): string {
+  const t = Math.max(0, Math.floor(s))
+  const h = Math.floor(t / 3600)
+  const m = Math.floor((t % 3600) / 60)
+  const sec = t % 60
+  if (h > 0) return `${h}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`
+  return `${m}:${sec.toString().padStart(2, '0')}`
 }
 
 type RevealState = 'default' | 'correct' | 'wrong' | 'dimmed'
@@ -103,13 +135,16 @@ export default function MockTestInterface({
 }: MockTestInterfaceProps) {
   const router = useRouter()
 
+  // Shuffle options once per session to eliminate answer-position bias
+  const [shuffledMCQs] = useState(() => mcqs.map(shuffleOptions))
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [showResults, setShowResults] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(duration * 60)
-  /** Timer runs as soon as the mock page loads (pattern / start is handled on the exam dashboard only). */
   const [timerActive, setTimerActive] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
 
   const [reviewMode, setReviewMode] = useState(false)
   const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
@@ -123,7 +158,7 @@ export default function MockTestInterface({
 
   const handleSubmitRef = useRef<() => void>(() => {})
 
-  const activeMCQs = reviewMode ? reviewMCQs : mcqs
+  const activeMCQs = reviewMode ? reviewMCQs : shuffledMCQs
   const currentMCQ = activeMCQs[currentIndex]
   const userAnswer = answers[currentIndex]
   const progressPct = ((currentIndex + 1) / activeMCQs.length) * 100
@@ -158,6 +193,15 @@ export default function MockTestInterface({
     if (hasSubmitted && !showResults) return
     if (reviewMode && userAnswer) return
     setAnswers(prev => ({ ...prev, [currentIndex]: option }))
+  }
+
+  const handlePause = () => {
+    setIsPaused(true)
+    setTimerActive(false)
+  }
+  const handleResume = () => {
+    setIsPaused(false)
+    setTimerActive(true)
   }
 
   const goNext = () => {
@@ -213,18 +257,29 @@ export default function MockTestInterface({
   const handleSubmit = useCallback(() => {
     setHasSubmitted(true)
     setTimerActive(false)
-    const { correct, incorrect, unanswered } = calcScore()
+    const { correct, incorrect, unanswered, pct } = calcScore()
     const timeTaken = totalDurationSeconds - timeLeft
     saveQuizResults({
       quizType: 'mock',
       examSlug,
-      subject: mockTitle || examSlug,
+      subject: mockNumber != null ? `mock-${mockNumber}` : (mockTitle || examSlug),
       totalQuestions: activeMCQs.length,
       correctAnswers: correct,
       wrongAnswers: incorrect,
       skippedAnswers: unanswered,
       timeInSeconds: timeTaken,
     })
+    // Persist completion locally so the badge shows even without auth
+    if (mockNumber != null) {
+      try {
+        const key = `imtehan_mock_done_${examSlug}`
+        const stored = JSON.parse(localStorage.getItem(key) || '{}')
+        if (stored[mockNumber] == null || pct > stored[mockNumber]) {
+          stored[mockNumber] = pct
+        }
+        localStorage.setItem(key, JSON.stringify(stored))
+      } catch { /* storage unavailable — silent */ }
+    }
     trackQuizComplete(mockTitle || examSlug, correct, activeMCQs.length, 'mock-test')
     setShowResults(true)
   }, [
@@ -400,6 +455,8 @@ export default function MockTestInterface({
                   ? `${answeredCount} answered`
                   : null
             }
+            onPause={!reviewMode && !hasSubmitted ? handlePause : undefined}
+            isPaused={isPaused}
           />
 
           <div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col overflow-hidden px-4 sm:max-w-3xl sm:px-6">
@@ -539,6 +596,28 @@ export default function MockTestInterface({
                 {mockNumber != null ? ` · Mock ${mockNumber}` : ''}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {isPaused && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/75 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-xs rounded-2xl bg-white p-8 text-center shadow-2xl">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-50">
+              <Pause className="h-6 w-6 text-indigo-500" />
+            </div>
+            <h2 className="mb-1 text-xl font-bold text-gray-900">Test Paused</h2>
+            <p className="mb-6 text-sm text-gray-500">
+              <span className="font-mono font-semibold text-gray-700">{formatTimeLeft(timeLeft)}</span> remaining
+            </p>
+            <button
+              type="button"
+              onClick={handleResume}
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+            >
+              <Play className="h-4 w-4" />
+              Resume Test
+            </button>
           </div>
         </div>
       )}

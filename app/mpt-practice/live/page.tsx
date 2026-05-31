@@ -88,7 +88,7 @@ export default function MPTLiveTestsPage() {
             </button>
 
             <h1 className="text-xl font-bold text-gray-900 mb-1">MPT Mock Tests</h1>
-            <p className="text-sm text-gray-500 mb-6">Full-length timed tests — 200 MCQs, 200 minutes</p>
+            <p className="text-sm text-gray-500 mb-6">Full-length timed tests, 200 MCQs, 200 minutes</p>
 
             {/* Unified grid — all 20 tests */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">

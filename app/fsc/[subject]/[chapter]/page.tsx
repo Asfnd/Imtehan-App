@@ -183,7 +183,7 @@ export default function FSCChapterPage() {
                     >
                       <div className="font-semibold text-xs">Batch {batchNum}</div>
                       <div className={`text-[10px] mt-0.5 ${isSelected ? 'text-emerald-100' : 'text-slate-400'}`}>
-                        Sets {bStart}–{bEnd}
+                        Sets {bStart}-{bEnd}
                       </div>
                     </button>
                   )
@@ -195,7 +195,7 @@ export default function FSCChapterPage() {
           {/* Sets panel */}
           <div className="col-span-12 md:col-span-9">
             <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-              <h2 className="font-bold text-slate-900 mb-4">Batch {selectedBatch} — Practice Sets</h2>
+              <h2 className="font-bold text-slate-900 mb-4">Batch {selectedBatch}: Practice Sets</h2>
               <div className="space-y-2">
                 {setsInBatch.map((setNum) => {
                   const startMCQ  = (setNum - 1) * MCQS_PER_SET + 1
@@ -229,7 +229,7 @@ export default function FSCChapterPage() {
                               {isSignIn && !user && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
                               {isPremiumSet && !isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
                             </p>
-                            <p className="text-xs text-slate-400">Q {startMCQ}–{endMCQ} · {MCQS_PER_SET} MCQs</p>
+                            <p className="text-xs text-slate-400">Q {startMCQ}-{endMCQ} · {MCQS_PER_SET} MCQs</p>
                           </div>
                         </div>
                         {isLocked

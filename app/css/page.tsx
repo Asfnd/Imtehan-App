@@ -257,7 +257,7 @@ function DashboardContent() {
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">Writing papers</p>
                 <h3 className="text-base font-bold text-gray-900">CSS Writing Coach</h3>
                 <p className="mt-1 text-sm text-gray-600">
-                  Essay, précis, and long-answer feedback tuned for FPSC CSS English and optional papers — same flow as PMS
+                  Essay, précis, and long-answer feedback tuned for FPSC CSS English and optional papers, same flow as PMS
                   Writing Coach, federal marking lens.
                 </p>
               </div>
@@ -478,7 +478,7 @@ function DashboardContent() {
               </div>
               <div className="relative flex justify-center">
                 <span className="px-4 bg-gradient-to-br from-blue-50 via-white to-indigo-50/30 text-sm font-semibold text-gray-500 uppercase tracking-wider">
-                  Your Learning Journey
+                  Practice Modes
                 </span>
               </div>
             </div>
@@ -595,7 +595,7 @@ function DashboardContent() {
                   <Play className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">Practice Mode</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Mixed random sets from all question types — pick any subject</p>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Mixed random sets from all question types. Pick any subject</p>
                 <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
                   <div className="text-center"><span className="font-bold text-blue-600 block">Mixed</span><span className="text-gray-500">Sets</span></div>
                   <div className="w-px h-6 bg-gray-200"></div>

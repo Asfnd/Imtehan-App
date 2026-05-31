@@ -90,7 +90,6 @@ function DifficultyQuiz() {
   const router = useRouter()
   const params = useParams()
   const searchParams = useSearchParams()
-
   const subject    = params.subject as string
   const difficulty = searchParams.get('difficulty') || 'Easy'
   const config     = SUBJECT_CONFIG[subject]

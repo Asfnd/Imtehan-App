@@ -232,7 +232,7 @@ export default function PremiumPage() {
                   <p className="font-semibold text-gray-900 mb-2">Get Activated</p>
                   <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
                     <p className="text-sm text-gray-700 font-medium">Usually activated within 30 minutes</p>
-                    <p className="text-xs text-gray-500 mt-0.5">Available 9 AM – 11 PM daily</p>
+                    <p className="text-xs text-gray-500 mt-0.5">Available 9 AM - 11 PM daily</p>
                     <p className="text-xs text-green-600 font-semibold mt-2 flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       Reliable activation guaranteed

@@ -12,7 +12,6 @@ import {
   Clock,
   TrendingUp,
   Flame,
-  BarChart2,
   Brain,
   Activity,
   Trophy,
@@ -49,7 +48,6 @@ const ICON_MAP: Record<ExamMockIconKey, LucideIcon> = {
   Clock,
   TrendingUp,
   Flame,
-  BarChart2,
   Brain,
   Activity,
   Trophy,
@@ -64,15 +62,15 @@ const ICON_MAP: Record<ExamMockIconKey, LucideIcon> = {
 
 const TIER_LEVEL: Record<ExamMockDifficulty, { headline: string; tagline: string }> = {
   Standard: {
-    headline: 'Mock — Easy',
+    headline: 'Mock: Easy',
     tagline: 'Standard level · best to start here',
   },
   Advanced: {
-    headline: 'Mock — Advanced',
+    headline: 'Mock: Advanced',
     tagline: 'Tougher mix · closer to real pressure',
   },
   Expert: {
-    headline: 'Mock — Difficult',
+    headline: 'Mock: Difficult',
     tagline: 'Expert level · full challenge',
   },
 }
@@ -81,7 +79,8 @@ const HEADER_CHIP =
   'border border-blue-200 bg-blue-50 text-xs font-medium text-blue-600'
 
 function mockQuestionCount(config: ExamConfig, multiplier: number) {
-  return Math.round(config.totalMCQs * multiplier)
+  const paperTotal = config.sections.reduce((sum, s) => sum + s.count, 0)
+  return Math.round(paperTotal * multiplier)
 }
 
 function mockDurationMinutes(config: ExamConfig, multiplier: number) {
@@ -95,6 +94,8 @@ export type ExamMockSectionsProps = {
   lockedAfterFirst?: boolean
   isPremium?: boolean
   tieredLevels?: boolean
+  completedMockIds?: Set<number>
+  mockScores?: Record<number, number>
 }
 
 /** Same grid as Practice by Subject — tier cards use the same column width as subject tiles */
@@ -108,6 +109,8 @@ export default function ExamMockSections({
   lockedAfterFirst = false,
   isPremium = false,
   tieredLevels = true,
+  completedMockIds,
+  mockScores,
 }: ExamMockSectionsProps) {
   const router = useRouter()
   const [openDifficulty, setOpenDifficulty] = useState<ExamMockDifficulty | null>(null)
@@ -137,6 +140,8 @@ export default function ExamMockSections({
     const Icon = ICON_MAP[spec.iconKey]
     const qs = mockQuestionCount(config, spec.multiplier)
     const mins = mockDurationMinutes(config, spec.multiplier)
+    const completed = !locked && (completedMockIds?.has(mockId) ?? false)
+    const completedScore = completed ? mockScores?.[mockId] : undefined
 
     return (
       <ExamPracticeGridCard
@@ -149,6 +154,8 @@ export default function ExamMockSections({
         statSecondary={`questions · ${mins} min`}
         actionLabel={locked ? 'Premium' : 'Start'}
         locked={locked}
+        completed={completed}
+        completedScore={completedScore != null ? Math.round(completedScore) : undefined}
       />
     )
   }

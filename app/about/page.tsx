@@ -102,7 +102,7 @@ export default function AboutPage() {
                   <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                 </div>
                 <div>
-                  <strong className="text-gray-900">Learn Anywhere, Anytime:</strong> Access our platform 24/7 from any device—mobile, tablet, or desktop.
+                  <strong className="text-gray-900">Learn Anywhere, Anytime:</strong> Access our platform 24/7 from any device: mobile, tablet, or desktop.
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -147,7 +147,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Have questions? <Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link> or read our <Link href="/faq" className="text-blue-600 hover:underline">FAQ</Link>
+              Have questions? <Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link>, read our <Link href="/faq" className="text-blue-600 hover:underline">FAQ</Link>, or explore <Link href="/careers" className="text-blue-600 hover:underline">careers</Link>.
             </p>
           </div>
         </div>

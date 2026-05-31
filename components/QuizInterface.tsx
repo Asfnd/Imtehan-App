@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Flag } from 'lucide-react'
+import { Flag, Pause, Play } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
@@ -37,7 +37,17 @@ interface MCQ {
   option_d: string
   correct_answer: string
   explanation?: string
+  difficulty?: string
+  tags?: string[]
+  type?: string
 }
+
+const DIFFICULTY_PILL: Record<string, string> = {
+  easy: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+  medium: 'border-amber-200 bg-amber-50 text-amber-700',
+  hard: 'border-rose-200 bg-rose-50 text-rose-700',
+}
+const DIFFICULTY_LABEL: Record<string, string> = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
 
 interface QuizInterfaceProps {
   mcqs: MCQ[]
@@ -60,6 +70,7 @@ function flowOptionState(
 ): FlowState {
   if (ctx.locked) {
     if (label === correctAnswer) return 'correct'
+    if (label === ctx.locked) return 'wrong'
     return 'dimmed'
   }
   const triedWrong = ctx.wrongPicks.length > 0
@@ -118,7 +129,6 @@ export default function QuizInterface({
   const [firstTryCorrect, setFirstTryCorrect] = useState<Record<number, boolean>>({})
   const [wrongChecks, setWrongChecks] = useState<Record<number, number>>({})
   const [wrongPicks, setWrongPicks] = useState<string[]>([])
-  const [showWrongPanel, setShowWrongPanel] = useState(false)
   const [wrongChoice, setWrongChoice] = useState<string | null>(null)
 
   const [showResults, setShowResults] = useState(false)
@@ -128,6 +138,8 @@ export default function QuizInterface({
   const [reviewMode, setReviewMode] = useState(false)
   const [reviewMCQs, setReviewMCQs] = useState<MCQ[]>([])
   const [originalScore, setOriginalScore] = useState<{ correct: number; total: number } | null>(null)
+
+  const [isPaused, setIsPaused] = useState(false)
 
   const [showFeedback, setShowFeedback] = useState(false)
   const [resultPct, setResultPct] = useState(0)
@@ -143,7 +155,6 @@ export default function QuizInterface({
 
   useEffect(() => {
     setWrongPicks([])
-    setShowWrongPanel(false)
     setWrongChoice(null)
   }, [currentIndex])
 
@@ -173,14 +184,13 @@ export default function QuizInterface({
   }, [showResults, reviewMode, firstTryScore, activeMCQs.length])
 
   const pickOption = (label: string) => {
-    if (lockedAnswer || !currentMCQ) return
+    if (isPaused || lockedAnswer || !currentMCQ) return
     if (wrongPicks.includes(label)) return
 
     if (label === currentMCQ.correct_answer) {
       const prevWrong = wrongChecks[currentIndex] ?? 0
       setFirstTryCorrect((prev) => ({ ...prev, [currentIndex]: prevWrong === 0 }))
       setAnswers((p) => ({ ...p, [currentIndex]: label }))
-      setShowWrongPanel(false)
       setWrongChoice(null)
       setWrongPicks([])
 
@@ -196,10 +206,11 @@ export default function QuizInterface({
       return
     }
 
+    setFirstTryCorrect((prev) => ({ ...prev, [currentIndex]: false }))
+    setAnswers((p) => ({ ...p, [currentIndex]: label }))
     setWrongChecks((p) => ({ ...p, [currentIndex]: (p[currentIndex] ?? 0) + 1 }))
     setWrongPicks((prev) => [...prev, label])
     setWrongChoice(label)
-    setShowWrongPanel(true)
     setStreak(0)
     if (soundsEnabled) soundManager.play('incorrect')
   }
@@ -236,15 +247,6 @@ export default function QuizInterface({
     const correct = firstTryScore
     const wrong = activeMCQs.length - correct
     const skipped = 0
-    const detailedAnswers = activeMCQs.map((mcq, idx) => {
-      const ua = answers[idx]
-      return {
-        questionId: mcq.id,
-        userAnswer: ua || null,
-        correctAnswer: mcq.correct_answer,
-        isCorrect: !!firstTryCorrect[idx],
-      }
-    })
     const timeTaken = Math.floor((Date.now() - startTime) / 1000)
     const modeToType: Record<string, 'subject' | 'past-paper' | 'practice'> = {
       'most-repeated': 'subject',
@@ -252,23 +254,6 @@ export default function QuizInterface({
       'past-papers': 'past-paper',
       practice: 'practice',
     }
-    try {
-      const supabase = createClient()
-      const { data: { user: u } } = await supabase.auth.getUser()
-      if (u) {
-        await supabase.from('quiz_attempts').insert({
-          user_id: u.id,
-          exam_slug: examSlug,
-          subject_slug: subjectSlug,
-          mode,
-          set_number: setNumber,
-          score: correct,
-          total_questions: activeMCQs.length,
-          time_taken: timeTaken,
-          answers: detailedAnswers,
-        })
-      }
-    } catch (_) { /* silent */ }
     await saveQuizResults({
       quizType: modeToType[mode] ?? 'practice',
       examSlug,
@@ -279,6 +264,13 @@ export default function QuizInterface({
       skippedAnswers: skipped,
       timeInSeconds: timeTaken,
     })
+    try {
+      const pct = Math.round(quizAccuracyPercent(correct, activeMCQs.length))
+      const key = `imtehan_set_done_${examSlug}_${subjectSlug}_${mode}`
+      const stored = JSON.parse(localStorage.getItem(key) || '{}')
+      if (stored[setNumber] == null || pct > stored[setNumber]) stored[setNumber] = pct
+      localStorage.setItem(key, JSON.stringify(stored))
+    } catch { /* storage unavailable */ }
     setSaving(false)
     trackQuizComplete(`${examSlug}/${mode}`, correct, activeMCQs.length, subjectSlug)
     if (soundsEnabled) {
@@ -298,7 +290,6 @@ export default function QuizInterface({
     setFirstTryCorrect({})
     setWrongChecks({})
     setWrongPicks([])
-    setShowWrongPanel(false)
     setWrongChoice(null)
     setShowResults(false)
   }
@@ -307,6 +298,15 @@ export default function QuizInterface({
     const correct = firstTryScore
     const percentage = quizAccuracyPercent(correct, activeMCQs.length)
     const wrongPracticeCount = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false).length
+
+    const weakTopics = (() => {
+      if (reviewMode) return []
+      const wrongMCQs = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false)
+      const freq = wrongMCQs.flatMap(m => m.tags ?? []).reduce<Record<string, number>>(
+        (acc, t) => ({ ...acc, [t]: (acc[t] ?? 0) + 1 }), {}
+      )
+      return Object.entries(freq).sort(([, a], [, b]) => b - a).slice(0, 4).map(([t]) => t.replace(/_/g, ' '))
+    })()
 
     const improvement =
       reviewMode && originalScore
@@ -343,6 +343,7 @@ export default function QuizInterface({
           improvement={improvement}
           wrongPracticeCount={!reviewMode ? wrongPracticeCount : 0}
           onPracticeMistakes={wrongPracticeCount > 0 ? practiceMistakes : undefined}
+          weakTopics={weakTopics.length > 0 ? weakTopics : undefined}
           backLabel="Back to sets"
           onBack={() => router.push(`/exams/${examSlug}/${subjectSlug}/${mode}`)}
           onAnalytics={() => router.push(`/exams/${examSlug}/analytics`)}
@@ -378,10 +379,9 @@ export default function QuizInterface({
   }
 
   let dockPhase: QuizDockPhase = 'hidden'
-  if (isQuestionSolved) dockPhase = 'correct'
-  else if (showWrongPanel) dockPhase = 'wrong'
+  if (lockedAnswer) dockPhase = 'correct'
 
-  const bottomPad = dockPhase === 'wrong' || dockPhase === 'correct' ? 'pb-40' : 'pb-6'
+  const bottomPad = dockPhase === 'correct' ? 'pb-40' : 'pb-6'
 
   return (
     <>
@@ -418,6 +418,17 @@ export default function QuizInterface({
             lastXpGain={lastXpGain}
             showXpPop={showXpPop}
             onExit={() => router.back()}
+            endSlot={
+              <button
+                type="button"
+                onClick={() => setIsPaused(true)}
+                aria-label="Pause quiz"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-2 text-white shadow-sm transition hover:bg-indigo-700 active:scale-[0.97]"
+              >
+                <Pause className="h-3.5 w-3.5 shrink-0" />
+                <span className="text-xs font-semibold">Pause</span>
+              </button>
+            }
           />
         </div>
 
@@ -443,6 +454,21 @@ export default function QuizInterface({
             </button>
           </div>
 
+          {(currentMCQ.difficulty || currentMCQ.type === 'most_repeated') && (
+            <div className="mb-2.5 flex shrink-0 flex-wrap items-center gap-1.5 sm:mb-3">
+              {currentMCQ.difficulty && DIFFICULTY_PILL[currentMCQ.difficulty] && (
+                <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${DIFFICULTY_PILL[currentMCQ.difficulty]}`}>
+                  {DIFFICULTY_LABEL[currentMCQ.difficulty]}
+                </span>
+              )}
+              {currentMCQ.type === 'most_repeated' && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-orange-700">
+                  🔥 Real Exam Q
+                </span>
+              )}
+            </div>
+          )}
+
           <h1
             className="mb-3 line-clamp-[8] shrink-0 text-pretty break-words text-base font-bold leading-snug text-slate-800 sm:mb-4 sm:line-clamp-[10] sm:text-lg md:text-xl"
             title={currentMCQ.question}
@@ -462,7 +488,7 @@ export default function QuizInterface({
                   key={label}
                   type="button"
                   onClick={() => pickOption(label)}
-                  disabled={!!lockedAnswer || wrongPicks.includes(label)}
+                  disabled={!!lockedAnswer}
                   className={`relative flex min-h-[48px] w-full items-center gap-3 overflow-hidden rounded-xl border-2 p-3 text-left text-base font-semibold text-slate-700 sm:gap-4 sm:rounded-2xl sm:p-4 sm:text-lg sm:font-bold ${FLOW_OPTION[st]}`}
                 >
                   <div
@@ -480,13 +506,9 @@ export default function QuizInterface({
 
       <QuizFeedbackDock
         phase={dockPhase}
-        correct
-        title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
-        subtitle={
-          dockPhase === 'correct'
-            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job — keep going!'
-            : undefined
-        }
+        correct={isQuestionSolved}
+        title={isQuestionSolved ? 'Excellent!' : 'Incorrect!'}
+        subtitle={isQuestionSolved ? (currentMCQ.explanation || 'Great job — keep going!') : undefined}
         continueLabel="Continue"
         onContinue={dockContinue}
         isLastStep={currentIndex === activeMCQs.length - 1}
@@ -502,6 +524,26 @@ export default function QuizInterface({
                 Q{currentIndex + 1} of {activeMCQs.length} · Set {setNumber} · ID {currentMCQ.id}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {isPaused && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-sm">
+          <div className="mx-4 w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-2xl">
+            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-100 mx-auto">
+              <Pause className="h-7 w-7 text-indigo-600" />
+            </div>
+            <h2 className="mb-2 text-xl font-bold text-slate-800">Quiz paused</h2>
+            <p className="mb-6 text-sm text-slate-500">Take a breather — your progress is saved.</p>
+            <button
+              type="button"
+              onClick={() => setIsPaused(false)}
+              className="w-full rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-indigo-700 active:scale-[0.98]"
+            >
+              <Play className="mr-2 inline h-4 w-4" />
+              Resume quiz
+            </button>
           </div>
         </div>
       )}

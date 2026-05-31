@@ -53,6 +53,37 @@ npm run test-premium-gates
 npm run test-deactivate-db
 ```
 
+## Career applications
+
+Applications from `/careers/apply` are stored in Supabase (`career_applications` table; optional CV in `career-resumes` storage).
+
+1. Run migration `supabase/migrations/039_career_applications.sql` in the Supabase SQL Editor.
+2. Ensure `SUPABASE_SERVICE_ROLE_KEY` is set in `.env.local` (server-only).
+
+View submissions: Supabase → **Table Editor** → `career_applications`. Resumes: **Storage** → `career-resumes`.
+
+## CSS/PPSC MCQ generator (Cursor agent)
+
+Generate verified MCQs into the 11 subject tables via `scripts/agent_mcq_pipeline.py` (requires Cursor `agent` CLI and `.env.local` with `SUPABASE_SERVICE_ROLE_KEY`).
+
+- Quality-first round (verifier enabled, sequential by default):
+
+  `./scripts/run_quality_mcq_round.sh scripts/pipeline/round21_quality_sprint.json`
+
+- Full syllabus sweep: `python3 scripts/agent_mcq_pipeline.py build-plan --output scripts/pipeline/round_next.json --type practice --per-topic 30`
+
+- **Light / extra QA** (recommended when tuning quality — caps batch size ~18 per topic by default, `AGENT_BATCH_METRICS=1`, verifier every batch, tighter min-yield):
+
+  `./scripts/run_light_quality_round.sh` &nbsp;(uses `scripts/pipeline/round_light_11.json`)
+
+  Overrides: `AGENT_CLAMP_BATCH_SIZE=22 AGENT_MIN_YIELD_RATIO=0.86 ./scripts/run_light_quality_round.sh scripts/pipeline/round21_quality_sprint.json`
+
+- Post-hoc sampling audit (recent Cursor-generated rows in Supabase): `python3 scripts/pipeline/quality_audit.py`
+
+Useful knobs: `AGENT_LITE_MODE=1`, `AGENT_CLAMP_BATCH_SIZE`, `AGENT_BATCH_METRICS`, `AGENT_QC_PULSE_EVERY`, `AGENT_VERIFY_FAIL_OPEN=1`.
+
+Logs: `logs/agent_mcq_pipeline.log`. Avoid `AGENT_SKIP_VERIFY=1` unless debugging.
+
 ## Other docs
 
 - `supabase/README.md` — database / migrations

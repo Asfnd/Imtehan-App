@@ -31,6 +31,7 @@ interface QuizResultsCardProps {
   wrongPracticeCount?: number
   onPracticeMistakes?: () => void
   practiceCtaLabel?: string
+  weakTopics?: string[]
   footerExtra?: ReactNode
   backLabel: string
   onBack: () => void
@@ -53,6 +54,7 @@ export function QuizResultsCard({
   wrongPracticeCount = 0,
   onPracticeMistakes,
   practiceCtaLabel,
+  weakTopics,
   footerExtra,
   backLabel,
   onBack,
@@ -113,6 +115,19 @@ export function QuizResultsCard({
             `Practice ${wrongPracticeCount} incorrect ${wrongPracticeCount === 1 ? 'question' : 'questions'}`}
         </button>
       ) : null}
+
+      {weakTopics && weakTopics.length > 0 && (
+        <div className="rounded-xl border border-rose-100 bg-rose-50/60 px-4 py-3.5">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-rose-500">Revise these topics</p>
+          <div className="flex flex-wrap gap-1.5">
+            {weakTopics.map(t => (
+              <span key={t} className="rounded-full bg-white px-2.5 py-1 text-[12px] font-medium capitalize text-rose-700 ring-1 ring-rose-200">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {footerExtra}
 

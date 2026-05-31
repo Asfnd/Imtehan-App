@@ -45,7 +45,7 @@ export async function generateMetadata({
   if (!meta) return { title: 'FSc MCQs | Imtehan' }
 
   return {
-    title: `FSc ${meta.name} MCQs — Chapter-wise Practice for Punjab Board | Imtehan`,
+    title: `FSc ${meta.name} MCQs : Chapter-wise Practice for Punjab Board | Imtehan`,
     description: meta.description,
     keywords: meta.keywords,
     alternates: {

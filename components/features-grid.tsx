@@ -4,8 +4,8 @@ import { BookOpen, Target, BarChart3, Clock, Zap, Users } from 'lucide-react'
 
 const FEATURES = [
   {
-    title: 'Comprehensive Question Bank',
-    description: 'Access 10,000+ carefully curated MCQs with detailed explanations',
+    title: 'Question Bank',
+    description: '100,000+ MCQs with detailed explanations across 20+ exams',
     icon: BookOpen,
     size: 'lg',
   },
@@ -90,10 +90,10 @@ export function FeaturesGrid() {
             <span className="text-sm font-semibold text-blue-700">Platform Features</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-950 mb-4">
-            Everything You Need to Succeed
+            Built for Exam Preparation
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A complete exam preparation ecosystem designed for serious learners who want to maximize their study efficiency
+            Practice tools that match how Pakistan's competitive exams actually work
           </p>
         </div>
 

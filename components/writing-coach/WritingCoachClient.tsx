@@ -97,8 +97,8 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       const wc = wordCount(essayContent)
       if (wc < essayMin) {
         return variant === 'pms'
-          ? `Write at least ${essayMin} words (${wc} written) — PMS essays are often ~${essayLo}–${essayHi} words`
-          : `Write at least ${essayMin} words (${wc} written) — CSS essays require ${essayLo}–${essayHi}`
+          ? `Write at least ${essayMin} words (${wc} written) — PMS essays are often ~${essayLo}-${essayHi} words`
+          : `Write at least ${essayMin} words (${wc} written) — CSS essays require ${essayLo}-${essayHi}`
       }
     }
     if (mode === 'precis') {
@@ -191,7 +191,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       ? 'PMS English — provincial examiner-style feedback'
       : 'CSS examiner-level feedback'
 
-  const essayTabMeta = variant === 'pms' ? '~1400–1600 words' : '1000–1200 words'
+  const essayTabMeta = variant === 'pms' ? '~1400-1600 words' : '1000-1200 words'
 
   const essayWcBadge = (() => {
     const wc = wordCount(essayContent)
@@ -205,7 +205,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
           : wc >= essayMin
             ? 'bg-blue-100 text-blue-700'
             : 'bg-gray-100 text-gray-400',
-      label: `${wc} / ${essayLo}–${essayHi} words`,
+      label: `${wc} / ${essayLo}-${essayHi} words`,
     }
   })()
 
@@ -528,7 +528,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
             </div>
             <div className="text-center">
               <p className="text-sm font-semibold text-gray-800 transition-all">{LOADING_STEPS[loadingStep]}</p>
-              <p className="text-xs text-gray-400 mt-1">Usually takes 10–20 seconds</p>
+              <p className="text-xs text-gray-400 mt-1">Usually takes 10-20 seconds</p>
             </div>
             <div className="flex gap-1.5">
               {LOADING_STEPS.map((_, i) => (

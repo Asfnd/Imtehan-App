@@ -81,6 +81,9 @@ export function getClientIP(request: Request): string {
 export const RATE_LIMITS = {
   // Contact form - prevent spam
   CONTACT: { maxRequests: 5, windowMs: 60 * 1000 }, // 5 per minute
+
+  // Career applications - stricter
+  CAREERS: { maxRequests: 3, windowMs: 60 * 1000 }, // 3 per minute
   
   // Quiz data - prevent scraping
   QUIZ_DATA: { maxRequests: 50, windowMs: 60 * 1000 }, // 50 per minute
