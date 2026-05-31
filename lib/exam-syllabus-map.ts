@@ -727,7 +727,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
   },
 
   // ── PPSC Revenue ──────────────────────────────────────────────────────────
-  'ppsc-tehsildar': {
+  'ppsc-tehsildar-revenue': {
     geography: [
       'Punjab canal irrigation: major headworks and canal networks',
       'Punjab river system and its significance for agriculture',
@@ -1868,7 +1868,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
     ],
   },
 
-  'nts-wapda': {
+  'nts-wapda-energy': {
     everyday_science: [
       'Hydroelectric power: dam operations, penstock, turbines, generators',
       'WAPDA dams: Tarbela (Khyber PK), Mangla (AJK), Chashma, Warsak',
