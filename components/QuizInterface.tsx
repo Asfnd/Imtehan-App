@@ -10,6 +10,8 @@ import FeedbackPopup from '@/components/FeedbackPopup'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
+import { recordExamPractice } from '@/lib/pinned-exam'
+import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetQuizPageAccess } from '@/lib/premium-gates'
@@ -273,6 +275,11 @@ export default function QuizInterface({
     } catch { /* storage unavailable */ }
     setSaving(false)
     trackQuizComplete(`${examSlug}/${mode}`, correct, activeMCQs.length, subjectSlug)
+    recordExamPractice({
+      key: examSlug,
+      label: EXAM_CONFIGS[examSlug]?.name ?? examSlug,
+      href: `/exams/${examSlug}`,
+    })
     if (soundsEnabled) {
       soundManager.stopAll()
       setTimeout(() => soundManager.play('quizComplete'), 120)

@@ -8,6 +8,8 @@ import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
+import { autoPinExam } from '@/lib/pinned-exam'
+import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import {
   GamifiedQuizShell,
   ExamMockHeader,
@@ -281,6 +283,11 @@ export default function MockTestInterface({
       } catch { /* storage unavailable — silent */ }
     }
     trackQuizComplete(mockTitle || examSlug, correct, activeMCQs.length, 'mock-test')
+    autoPinExam({
+      key: examSlug,
+      label: EXAM_CONFIGS[examSlug]?.name ?? examSlug,
+      href: `/exams/${examSlug}`,
+    })
     setShowResults(true)
   }, [
     activeMCQs,

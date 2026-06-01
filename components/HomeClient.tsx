@@ -45,6 +45,8 @@ const COMPETITIVE_CATEGORIES = [
   { key: 'revenue', label: 'Revenue Auth', href: '/exams?category=revenue' },
 ];
 
+
+
 function ExamPicker() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -70,7 +72,6 @@ function ExamPicker() {
 
       {open && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border border-gray-200/70 rounded-2xl shadow-xl z-50 p-5 w-[92vw] max-w-[440px]">
-          {/* Medical */}
           <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
           <div className="flex flex-wrap gap-1.5 mb-4">
             {MEDICAL_CATEGORIES.map(cat => (
@@ -80,7 +81,6 @@ function ExamPicker() {
               </button>
             ))}
           </div>
-          {/* Engineering */}
           <div className="border-t border-gray-100 pt-4 mb-4">
             <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
             <div className="flex flex-wrap gap-1.5">
@@ -92,7 +92,6 @@ function ExamPicker() {
               ))}
             </div>
           </div>
-          {/* Competitive */}
           <div className="border-t border-gray-100 pt-4">
             <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Competitive Exams</p>
             <div className="flex flex-wrap gap-1.5">

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { LogOut, Menu, X, LayoutGrid, ChevronDown, MessageSquare } from 'lucide-react'
+import { LogOut, Menu, X, LayoutGrid, ChevronDown, MessageSquare, Pin } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { Button } from '@/components/ui/Button'
@@ -47,6 +47,33 @@ const CATEGORY_ORDER = [
   'rescue', 'revenue',
 ]
 
+type PinnedExam = { key: string; label: string; href: string }
+
+function usePinnedExam() {
+  const [pinned, setPinned] = useState<PinnedExam | null>(null)
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('pinnedExam')
+      if (stored) setPinned(JSON.parse(stored))
+    } catch {}
+
+    function handler(e: Event) {
+      setPinned((e as CustomEvent<PinnedExam | null>).detail)
+    }
+    window.addEventListener('pinnedExamChanged', handler)
+    return () => window.removeEventListener('pinnedExamChanged', handler)
+  }, [])
+
+  function unpin() {
+    localStorage.removeItem('pinnedExam')
+    setPinned(null)
+    window.dispatchEvent(new CustomEvent('pinnedExamChanged', { detail: null }))
+  }
+
+  return { pinned, unpin }
+}
+
 // Compute category exam counts from static config (runs once at module load)
 const examsByCategory = Object.values(EXAM_CONFIGS).reduce((acc, config) => {
   acc[config.category] = (acc[config.category] || 0) + 1
@@ -78,6 +105,7 @@ export default function NavigationBar({
 }: NavigationBarProps) {
   const router = useRouter()
   const { user, loading } = useAuth()
+  const { pinned, unpin } = usePinnedExam()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [examDropdownOpen, setExamDropdownOpen] = useState(false)
   const examDropdownRef = useRef<HTMLDivElement>(null)
@@ -159,17 +187,38 @@ export default function NavigationBar({
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-[68px] flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
-          <img
-            src="/favicon.svg"
-            alt="Imtehan Logo"
-            width={32}
-            height={32}
-            className="w-8 h-8 flex-shrink-0 object-contain"
-          />
-          <span className="font-bold text-base sm:text-lg md:text-xl text-gray-900 leading-none whitespace-nowrap">Imtehan</span>
-        </Link>
+        {/* Logo + Pinned Exam */}
+        <div className="flex items-center gap-0 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2 min-w-0">
+            <img
+              src="/favicon.svg"
+              alt="Imtehan Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 flex-shrink-0 object-contain"
+            />
+            <span className="font-bold text-base sm:text-lg md:text-xl text-gray-900 leading-none whitespace-nowrap">Imtehan</span>
+          </Link>
+          {pinned && (
+            <div className="hidden md:flex items-center gap-1.5 ml-3 pl-3 border-l border-gray-200">
+              <Link
+                href={pinned.href}
+                className="flex items-center gap-1.5 text-[13px] font-medium text-gray-600 hover:text-gray-900 transition-colors max-w-[140px] truncate"
+                title={pinned.label}
+              >
+                <Pin className="w-3 h-3 fill-current text-gray-400 shrink-0" />
+                <span className="truncate">{pinned.label}</span>
+              </Link>
+              <button
+                onClick={unpin}
+                title="Unpin"
+                className="text-gray-300 hover:text-gray-500 transition-colors p-0.5"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Center — Browse Exams + Blog + Community, or custom centerContent */}
         <div className={`hidden md:flex items-center gap-3 absolute left-1/2 -translate-x-1/2 ${!showCenterNav && !centerContent ? 'invisible' : ''}`}>
@@ -394,6 +443,22 @@ export default function NavigationBar({
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white shadow-lg">
           <div className="px-6 py-4 space-y-3">
+            {/* Pinned Exam */}
+            {pinned && (
+              <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg border border-gray-200">
+                <Link
+                  href={pinned.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-sm font-medium text-gray-800"
+                >
+                  <Pin className="w-3.5 h-3.5 fill-current text-gray-500 shrink-0" />
+                  <span>{pinned.label}</span>
+                </Link>
+                <button onClick={unpin} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
             {/* Custom center content (e.g. Grade My Essay button) */}
             {centerContent && (
               <div className="pb-3 border-b border-gray-100">
