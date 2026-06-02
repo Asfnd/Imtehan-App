@@ -215,7 +215,7 @@ export function HomeClient() {
             </h1>
 
             <p className="text-[15px] sm:text-[17px] md:text-[19px] text-gray-600 mb-8 sm:mb-10 leading-[1.6] max-w-2xl mx-auto font-normal px-2 sm:px-0">
-              A comprehensive learning platform designed to help you excel in competitive examinations through effective practice, personalized insights, and proven strategies.
+              Imtehan is an online preparation platform for Pakistan&apos;s competitive and entry-test exams — CSS, PMS, MDCAT, ECAT, PPSC, FPSC, NTS and 195+ more. Practice 70,000+ explained MCQs, attempt real past papers and timed mock tests, and track your progress to score higher.
             </p>
 
             <div className="flex justify-center">
@@ -223,6 +223,18 @@ export function HomeClient() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* What is Imtehan — one concise line stating the app's purpose (for clarity + site review) */}
+      <section className="border-b bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">What is Imtehan?</h2>
+          <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+            Imtehan is an online exam-preparation platform that brings the subjects, past papers, and timed
+            mock tests for Pakistan&apos;s competitive and admission exams — CSS, PMS, MDCAT, ECAT, PPSC, FPSC,
+            NTS and more — into one place, with progress tracking to help you focus on your weak areas.
+          </p>
         </div>
       </section>
 
