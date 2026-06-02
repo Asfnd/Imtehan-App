@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createAdminSupabaseClient } from '@/lib/supabase/admin'
 import NavigationBar from '@/components/NavigationBar'
 import Link from 'next/link'
 
@@ -52,16 +53,21 @@ async function fetchBankRow(supabase: any, bank: string): Promise<BankRow> {
 }
 
 export default async function PipelinePage() {
-  const supabase = await createServerSupabaseClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const authClient = await createServerSupabaseClient()
+  const { data: { user } } = await authClient.auth.getUser()
   if (!user) redirect('/signin?next=/admin/pipeline')
 
-  // Authorization: admin email or admin_users table
+  // Authorization: admin email or admin_users table (uses the user session)
   const isAdmin = user.email?.includes('admin') || user.user_metadata?.role === 'admin'
   if (!isAdmin) {
-    const { data: adminRow } = await supabase.from('admin_users').select('id').eq('user_id', user.id).single()
+    const { data: adminRow } = await authClient.from('admin_users').select('id').eq('user_id', user.id).single()
     if (!adminRow) redirect('/')
   }
+
+  // Data reads use the service-role client so they keep working after RLS is
+  // locked down on the pipeline tables (mcq_archive/verification/dedupe_map etc.).
+  // The admin authorization above already restricts this page to admins.
+  const supabase = createAdminSupabaseClient()
 
   // Per-bank breakdown (parallel)
   const rows = await Promise.all(BANKS.map((b) => fetchBankRow(supabase, b)))
