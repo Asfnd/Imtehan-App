@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Play, Lock } from 'lucide-react'
+import { Play, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
 import { getExamConfig } from '@/lib/exam-configs'
@@ -12,6 +12,7 @@ import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
 import { TITLE_CASE_DIFFICULTY_TABLES } from '@/lib/topic-tags'
+import { fetchRemoteCompletions } from '@/lib/completion'
 
 const SETS_PER_BATCH = 10
 
@@ -40,6 +41,31 @@ export default function DifficultySetPicker() {
   const [loading, setLoading]             = useState(true)
   const [user, setUser]                   = useState<any>(null)
   const [showSignIn, setShowSignIn]       = useState(false)
+  const [completedSets, setCompletedSets] = useState<Record<number, number>>({})
+
+  // Completion badges — quiz writes under mode "difficulty/<level>". Local-first + DB merge.
+  useEffect(() => {
+    if (!examSlug || !subjectSlug || !level) return
+    let cancelled = false
+    try {
+      const stored = JSON.parse(localStorage.getItem(`imtehan_set_done_${examSlug}_${subjectSlug}_difficulty/${level}`) || '{}')
+      const mapped: Record<number, number> = {}
+      for (const [k, v] of Object.entries(stored)) mapped[Number(k)] = Number(v)
+      setCompletedSets(mapped)
+    } catch { /* storage unavailable */ }
+    fetchRemoteCompletions(`exams-set:${examSlug}:${subjectSlug}:difficulty/${level}`).then((remote) => {
+      if (cancelled || Object.keys(remote).length === 0) return
+      setCompletedSets((prev) => {
+        const next = { ...prev }
+        for (const [k, v] of Object.entries(remote)) {
+          const n = Number(k)
+          if (next[n] == null || v > next[n]) next[n] = v
+        }
+        return next
+      })
+    })
+    return () => { cancelled = true }
+  }, [examSlug, subjectSlug, level])
 
   const examConfig  = getExamConfig(examSlug)
   const sectionCfg  = examConfig?.sections.find((s) => s.slug === subjectSlug)
@@ -183,6 +209,8 @@ export default function DifficultySetPicker() {
                       const needSignIn  = setNum === 3 && !user
                       const needPremium = setNum >= 4 && !isPremium
                       const isSetLocked = needSignIn || needPremium
+                      const isCompleted = !isSetLocked && completedSets[setNum] != null
+                      const score       = isCompleted ? Math.round(completedSets[setNum]) : null
                       return (
                         <button
                           key={setNum}
@@ -190,19 +218,23 @@ export default function DifficultySetPicker() {
                           className={`w-full text-left px-2 md:px-4 py-2 md:py-3 rounded-lg transition-all border ${
                             isSetLocked
                               ? 'bg-gray-50 border-gray-100 cursor-pointer hover:border-gray-200'
-                              : 'bg-gray-50 border-transparent hover:bg-blue-50 hover:border-blue-200 hover:shadow-sm'
+                              : isCompleted
+                                ? 'bg-emerald-50 border-emerald-100 hover:border-emerald-200 hover:shadow-sm'
+                                : 'bg-gray-50 border-transparent hover:bg-blue-50 hover:border-blue-200 hover:shadow-sm'
                           }`}
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
-                              <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${isSetLocked ? 'bg-gray-200' : levelConfig.iconClass}`}>
+                              <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${isSetLocked ? 'bg-gray-200' : isCompleted ? 'bg-emerald-500' : levelConfig.iconClass}`}>
                                 {isSetLocked
                                   ? <Lock className="w-4 h-4 text-gray-400" />
-                                  : <span className="text-white text-sm font-bold">{setNum}</span>
+                                  : isCompleted
+                                    ? <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                                    : <span className="text-white text-sm font-bold">{setNum}</span>
                                 }
                               </div>
                               <div className="flex-1 min-w-0">
-                                <div className={`font-semibold text-xs md:text-sm ${isSetLocked ? 'text-gray-400' : 'text-gray-900'}`}>
+                                <div className={`font-semibold text-xs md:text-sm ${isSetLocked ? 'text-gray-400' : isCompleted ? 'text-emerald-800' : 'text-gray-900'}`}>
                                   Set {setNum}
                                   {needSignIn  && <span className="ml-1.5 text-[9px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
                                   {needPremium && <span className="ml-1.5 text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
@@ -210,14 +242,18 @@ export default function DifficultySetPicker() {
                                 <div className="text-[10px] md:text-xs text-gray-400 mt-0.5">
                                   {isSetLocked
                                     ? (needSignIn ? 'Sign in free to unlock' : 'Premium required')
-                                    : `Q ${startMCQ}-${endMCQ} · 20 MCQs`
+                                    : isCompleted
+                                      ? `Completed · ${score}% score`
+                                      : `Q ${startMCQ}-${endMCQ} · 20 MCQs`
                                   }
                                 </div>
                               </div>
                             </div>
                             {isSetLocked
                               ? <span className="text-[10px] text-gray-400 font-medium bg-gray-100 px-2 py-0.5 rounded-full">Unlock</span>
-                              : <Play className="w-4 h-4 md:w-5 md:h-5 text-blue-600 fill-current flex-shrink-0" />
+                              : isCompleted
+                                ? <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-emerald-500 flex-shrink-0" />
+                                : <Play className="w-4 h-4 md:w-5 md:h-5 text-blue-600 fill-current flex-shrink-0" />
                             }
                           </div>
                         </button>
