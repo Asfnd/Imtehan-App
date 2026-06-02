@@ -5,15 +5,15 @@ const { createClient } = require('@supabase/supabase-js');
 
 // R2 Configuration
 const R2_CONFIG = {
-  accountId: '67225b43c28cc0f6b36a9d5c5ad11b31',
-  accessKeyId: '6c78d39366a930efa78ceeb1bde99811',
-  secretAccessKey: '81d06ada3ef6f3d93e2632d2407b66859d559b29fa51a801b13fa0e6e7f546eb',
-  bucketName: 'past-papers',
+  accountId: process.env.R2_ACCOUNT_ID,
+  accessKeyId: process.env.R2_ACCESS_KEY_ID,
+  secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+  bucketName: process.env.R2_BUCKET_NAME || 'past-papers',
 };
 
 // Supabase Configuration (use SERVICE_ROLE_KEY for insert permission)
-const SUPABASE_URL = 'https://qsrkkvrrxorbgvbgekew.supabase.co';
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzcmtrdnJyeG9yYmd2Ymdla2V3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjQ1MjMxMywiZXhwIjoyMDc4MDI4MzEzfQ.Z3h3DRhTE6R30odrySMliQmYZzY8zvImGbKYzrAVF78';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const s3Client = new S3Client({
   region: 'auto',

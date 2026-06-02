@@ -10,10 +10,10 @@ const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config({ path: '.env.local' });
 
 const R2_CONFIG = {
-  accountId: '67225b43c28cc0f6b36a9d5c5ad11b31',
-  accessKeyId: '6c78d39366a930efa78ceeb1bde99811',
-  secretAccessKey: '81d06ada3ef6f3d93e2632d2407b66859d559b29fa51a801b13fa0e6e7f546eb',
-  bucketName: 'past-papers',
+  accountId: process.env.R2_ACCOUNT_ID,
+  accessKeyId: process.env.R2_ACCESS_KEY_ID,
+  secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+  bucketName: process.env.R2_BUCKET_NAME || 'past-papers',
 };
 
 const supabase = createClient(
