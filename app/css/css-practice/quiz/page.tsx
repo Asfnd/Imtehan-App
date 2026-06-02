@@ -10,6 +10,7 @@ import { useAnalytics } from '@/lib/hooks/useAnalytics'
 import { useLazyLoadMCQs } from '@/lib/hooks/useLazyLoadMCQs'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { saveQuizResults } from '@/lib/analytics'
+import { markCompleted } from '@/lib/completion'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -388,6 +389,12 @@ function CSSQuizContent() {
 
     const completionSubject = subject || 'General'
     const timeInSeconds = Math.floor((Date.now() - quizStartTime) / 1000)
+
+    // Persist completion locally so the green badge shows on year/subject cards (guests too).
+    if (!reviewMode && year) {
+      const pct = activeMCQs.length ? (firstTryScore / activeMCQs.length) * 100 : 0
+      markCompleted(`css:${completionSubject}`, year, pct)
+    }
 
     analytics.trackQuizComplete(
       reviewMode ? 'css-mcq-review' : 'css-mcq',

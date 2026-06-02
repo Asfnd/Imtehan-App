@@ -6,6 +6,7 @@ import { Flag, Pause, Play } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
+import { markCompleted } from '@/lib/completion'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
@@ -272,6 +273,8 @@ export default function QuizInterface({
       const stored = JSON.parse(localStorage.getItem(key) || '{}')
       if (stored[setNumber] == null || pct > stored[setNumber]) stored[setNumber] = pct
       localStorage.setItem(key, JSON.stringify(stored))
+      // Shared store (local + DB sync for signed-in users), keyed like every other flow.
+      markCompleted(`exams-set:${examSlug}:${subjectSlug}:${mode}`, setNumber, pct)
     } catch { /* storage unavailable */ }
     setSaving(false)
     trackQuizComplete(`${examSlug}/${mode}`, correct, activeMCQs.length, subjectSlug)

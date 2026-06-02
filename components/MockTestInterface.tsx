@@ -6,6 +6,7 @@ import { Flag, Check, X, Pause, Play } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trackQuizStart, trackQuizComplete } from '@/lib/analytics/events'
 import { saveQuizResults } from '@/lib/analytics'
+import { markCompleted } from '@/lib/completion'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { autoPinExam } from '@/lib/pinned-exam'
@@ -281,6 +282,8 @@ export default function MockTestInterface({
         }
         localStorage.setItem(key, JSON.stringify(stored))
       } catch { /* storage unavailable — silent */ }
+      // Shared store (local + DB sync for signed-in users), keyed like every other flow.
+      markCompleted(`exams-mock:${examSlug}`, mockNumber, pct)
     }
     trackQuizComplete(mockTitle || examSlug, correct, activeMCQs.length, 'mock-test')
     autoPinExam({

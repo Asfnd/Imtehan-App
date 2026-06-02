@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Play, Calendar, ArrowLeft } from 'lucide-react'
+import { Play, Calendar, ArrowLeft, CheckCircle } from 'lucide-react'
+import { useCompletions } from '@/lib/completion'
 import FeedbackButton from '@/components/FeedbackButton'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -21,9 +22,10 @@ export default function MPTPastPapersPage() {
   const [yearData, setYearData] = useState<YearData[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
+  // Year practice runs through the CSS quiz under subject "MPT Past Papers".
+  const completions = useCompletions('css:MPT Past Papers')
 
   useEffect(() => {
-    // Load MPT data
     loadMPTData()
   }, [])
 
@@ -183,23 +185,36 @@ export default function MPTPastPapersPage() {
 
                   {/* Scrollable Years List */}
                   <div className="overflow-y-auto px-5 py-4 space-y-2.5 custom-scrollbar flex-1">
-                    {yearData.map((year) => (
+                    {yearData.map((year) => {
+                      const doneScore = completions[year.year]
+                      const isDone = doneScore != null
+                      return (
                       <button
                         key={year.year}
                         onClick={() => startQuiz(year.year)}
-                        className="w-full flex items-center justify-between p-3 rounded-xl transition-all bg-blue-50/50 hover:bg-blue-100 border-2 border-blue-100 hover:border-blue-300"
+                        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all border-2 ${
+                          isDone
+                            ? 'bg-emerald-50/60 hover:bg-emerald-100 border-emerald-200 hover:border-emerald-300'
+                            : 'bg-blue-50/50 hover:bg-blue-100 border-blue-100 hover:border-blue-300'
+                        }`}
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 font-bold rounded-xl flex items-center justify-center text-sm bg-blue-200 text-blue-800">
-                            {year.year.toString().slice(-2)}
+                          <div className={`w-10 h-10 font-bold rounded-xl flex items-center justify-center text-sm ${
+                            isDone ? 'bg-emerald-200 text-emerald-800' : 'bg-blue-200 text-blue-800'
+                          }`}>
+                            {isDone ? <CheckCircle className="w-5 h-5" /> : year.year.toString().slice(-2)}
                           </div>
                           <span className="font-bold text-base text-gray-900">{year.year}</span>
                         </div>
                         <div className="flex items-center gap-2">
+                          {isDone && (
+                            <span className="text-xs font-bold px-2.5 py-1 rounded-full text-emerald-700 bg-emerald-200">Done · {Math.round(doneScore)}%</span>
+                          )}
                           <span className="text-xs font-bold px-2.5 py-1 rounded-full text-blue-700 bg-blue-200">{year.count}</span>
                         </div>
                       </button>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               </div>

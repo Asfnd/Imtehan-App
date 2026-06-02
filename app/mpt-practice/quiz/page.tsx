@@ -8,6 +8,7 @@ import ProtectedContent from '@/components/security/ProtectedContent'
 import UltraProtectedContent from '@/components/security/UltraProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
 import { saveQuizResults } from '@/lib/analytics'
+import { markCompleted } from '@/lib/completion'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 
@@ -250,6 +251,11 @@ function MPTQuizContent() {
       skippedAnswers: skipped,
       timeInSeconds: Math.round((Date.now() - startTimeRef.current) / 1000),
     })
+    // Persist completion locally so the green badge shows on the MPT test list (guests too).
+    if (testNumber != null) {
+      const pct = activeMCQs.length ? (correct / activeMCQs.length) * 100 : 0
+      markCompleted('mpt:live', testNumber, pct)
+    }
     setShowResults(true)
   }
 

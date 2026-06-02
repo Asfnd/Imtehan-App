@@ -152,6 +152,8 @@ function ExamDashboard() {
   const [pendingMockId, setPendingMockId] = useState<number | null>(null)
   const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([])
   const [subjectsWithCounts, setSubjectsWithCounts] = useState<any[]>([])
+  const [completedMockIds, setCompletedMockIds] = useState<Set<number>>(new Set())
+  const [mockScores, setMockScores] = useState<Record<number, number>>({})
 
   useEffect(() => {
     if (config) {
@@ -159,6 +161,56 @@ function ExamDashboard() {
       checkUser()
     }
   }, [config])
+
+  // Mock completion badges — read local (guest) + DB (signed-in), same as the mock list page.
+  // Without this, returning here after finishing a mock shows no "completed" badge.
+  useEffect(() => {
+    if (!examSlug) return
+    let cancelled = false
+    async function fetchMockCompletions() {
+      const ids = new Set<number>()
+      const scores: Record<number, number> = {}
+
+      try {
+        const key = `imtehan_mock_done_${examSlug}`
+        const stored = JSON.parse(localStorage.getItem(key) || '{}')
+        for (const [idStr, pct] of Object.entries(stored)) {
+          const id = Number(idStr)
+          ids.add(id)
+          if (scores[id] == null || Number(pct) > scores[id]) scores[id] = Number(pct)
+        }
+      } catch { /* storage unavailable */ }
+
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+          const { data } = await supabase
+            .from('quiz_attempts')
+            .select('subject, score_percentage')
+            .eq('user_id', user.id)
+            .eq('quiz_type', 'mock')
+
+          data?.forEach((attempt: { subject?: string | null; score_percentage?: number | null }) => {
+            const match = attempt.subject?.match(/^mock-(\d+)$/)
+            if (match) {
+              const id = parseInt(match[1])
+              ids.add(id)
+              const pct = attempt.score_percentage ?? 0
+              if (scores[id] == null || pct > scores[id]) scores[id] = pct
+            }
+          })
+        }
+      } catch { /* graceful — local completions still show */ }
+
+      if (!cancelled) {
+        setCompletedMockIds(ids)
+        setMockScores(scores)
+      }
+    }
+    fetchMockCompletions()
+    return () => { cancelled = true }
+  }, [examSlug])
 
   useEffect(() => {
     if (user && config) {
@@ -347,6 +399,8 @@ function ExamDashboard() {
               onMockSelect={handleMockClick}
               lockedAfterFirst
               isPremium={isPremium}
+              completedMockIds={completedMockIds}
+              mockScores={mockScores}
             />
           </div>
         )}

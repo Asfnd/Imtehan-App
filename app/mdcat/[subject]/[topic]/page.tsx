@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ArrowLeft, Play, Zap, Target, Flame, Lock } from 'lucide-react'
+import { ArrowLeft, Play, Zap, Target, Flame, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
@@ -12,6 +12,7 @@ import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
+import { useCompletions } from '@/lib/completion'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   'biology':           { name: 'Biology',          table: 'mdcat_biology'           },
@@ -51,6 +52,8 @@ export default function MDCATTopicOrDifficultyPage() {
   const [totalMCQs, setTotalMCQs]         = useState(0)
   const [loading, setLoading]             = useState(true)
   const [selectedBatch, setSelectedBatch] = useState(1)
+  // Green "completed" badges — local-first, synced from the DB for signed-in users.
+  const completions = useCompletions(`mdcat:${subject}:${decodedTopic}`)
 
   useEffect(() => {
     if (!subjectCfg) return
@@ -225,6 +228,8 @@ export default function MDCATTopicOrDifficultyPage() {
                   const isSignIn     = setNum === 3
                   const isPremiumSet = setNum >= 4
                   const isLocked     = (isSignIn && !user) || (isPremiumSet && !isPremium)
+                  const doneScore    = !isLocked ? completions[setNum] : undefined
+                  const isDone       = doneScore != null
                   return (
                     <button
                       key={setNum}
@@ -232,31 +237,38 @@ export default function MDCATTopicOrDifficultyPage() {
                       className={`w-full text-left px-4 py-3 rounded-xl border transition-all group ${
                         isLocked
                           ? 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300'
-                          : 'border-slate-100 bg-slate-50 hover:bg-blue-50 hover:border-blue-200'
+                          : isDone
+                            ? 'border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 hover:border-emerald-300'
+                            : 'border-slate-100 bg-slate-50 hover:bg-blue-50 hover:border-blue-200'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                            isLocked ? 'bg-slate-300' : 'bg-blue-600'
+                            isLocked ? 'bg-slate-300' : isDone ? 'bg-emerald-600' : 'bg-blue-600'
                           }`}>
                             {isLocked
                               ? <Lock className="w-4 h-4 text-white" />
-                              : <span className="text-white text-sm font-bold">{setNum}</span>
+                              : isDone
+                                ? <CheckCircle className="w-4 h-4 text-white" />
+                                : <span className="text-white text-sm font-bold">{setNum}</span>
                             }
                           </div>
                           <div>
-                            <p className={`font-semibold text-sm transition-colors ${isLocked ? 'text-slate-500' : 'text-slate-900 group-hover:text-blue-800'}`}>
+                            <p className={`font-semibold text-sm transition-colors ${isLocked ? 'text-slate-500' : isDone ? 'text-slate-900 group-hover:text-emerald-800' : 'text-slate-900 group-hover:text-blue-800'}`}>
                               Set {setNum}
                               {isSignIn && !user && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
                               {isPremiumSet && !isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
+                              {isDone && <span className="ml-2 text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-semibold">Done · {Math.round(doneScore)}%</span>}
                             </p>
                             <p className="text-xs text-slate-400">Q {startMCQ}-{endMCQ} · {MCQS_PER_SET} MCQs</p>
                           </div>
                         </div>
                         {isLocked
                           ? <Lock className="w-4 h-4 text-slate-300 flex-shrink-0" />
-                          : <Play className="w-4 h-4 text-slate-300 group-hover:text-blue-600 fill-current transition-colors flex-shrink-0" />
+                          : isDone
+                            ? <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                            : <Play className="w-4 h-4 text-slate-300 group-hover:text-blue-600 fill-current transition-colors flex-shrink-0" />
                         }
                       </div>
                     </button>

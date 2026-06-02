@@ -12,6 +12,7 @@ import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
+import { fetchRemoteCompletions } from '@/lib/completion'
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
@@ -58,6 +59,8 @@ export default function BatchSetSelector() {
 
   useEffect(() => {
     if (!examSlug || !subjectSlug || !mode) return
+    let cancelled = false
+    // 1. Instant local copy.
     try {
       const key = `imtehan_set_done_${examSlug}_${subjectSlug}_${mode}`
       const stored = JSON.parse(localStorage.getItem(key) || '{}')
@@ -65,6 +68,19 @@ export default function BatchSetSelector() {
       for (const [k, v] of Object.entries(stored)) mapped[Number(k)] = Number(v)
       setCompletedSets(mapped)
     } catch { /* storage unavailable */ }
+    // 2. Merge DB copy (signed-in users) so progress follows the account across devices.
+    fetchRemoteCompletions(`exams-set:${examSlug}:${subjectSlug}:${mode}`).then((remote) => {
+      if (cancelled || Object.keys(remote).length === 0) return
+      setCompletedSets((prev) => {
+        const next = { ...prev }
+        for (const [k, v] of Object.entries(remote)) {
+          const n = Number(k)
+          if (next[n] == null || v > next[n]) next[n] = v
+        }
+        return next
+      })
+    })
+    return () => { cancelled = true }
   }, [examSlug, subjectSlug, mode])
 
   const isPremium = isActivePremium(user)

@@ -3,7 +3,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Search, ArrowRight, X } from 'lucide-react'
+import { Search, ArrowRight, X, CheckCircle } from 'lucide-react'
+import { useCompletions } from '@/lib/completion'
 import FeedbackButton from '@/components/FeedbackButton'
 import ProtectedContent from '@/components/security/ProtectedContent'
 import DevToolsWarning from '@/components/security/DevToolsWarning'
@@ -574,6 +575,15 @@ export default function CSSSubjectMCQsPage() {
     setSelectedYear(null)
   }
 
+  // Green "completed" badges on year cards. The quiz keys completion by the subject's
+  // databaseName (what startPractice passes), so read with the same key.
+  const completionScope = useMemo(() => {
+    if (!selectedSubject) return null
+    const subjectObj = subjects.find(s => s.subject === selectedSubject)
+    return `css:${subjectObj?.databaseName || selectedSubject}`
+  }, [selectedSubject, subjects])
+  const completions = useCompletions(completionScope)
+
   const startPractice = async (yearData: YearData) => {
     // Check access and handle free trial limits
     const hasAccess = await requestAccess('cssSubject')
@@ -796,17 +806,26 @@ export default function CSSSubjectMCQsPage() {
                       ) : (
                         <>
                           <div className="flex-1 overflow-y-auto px-3 sm:px-4 pb-3 sm:pb-4 space-y-1.5 sm:space-y-2 custom-scrollbar">
-                            {years.map((yearData) => (
+                            {years.map((yearData) => {
+                              const doneScore = completions[yearData.year]
+                              const isDone = doneScore != null
+                              return (
                                 <button
                                   key={`${yearData.year}-${yearData.paper_type || 'single'}`}
                                   onClick={() => startPractice(yearData)}
-                                  className="w-full group relative overflow-hidden rounded-xl transition-all duration-200 bg-white hover:bg-blue-50/50 border-2 border-blue-50 hover:border-blue-300 hover:shadow-md"
+                                  className={`w-full group relative overflow-hidden rounded-xl transition-all duration-200 border-2 hover:shadow-md ${
+                                    isDone
+                                      ? 'bg-emerald-50/60 hover:bg-emerald-50 border-emerald-200 hover:border-emerald-300'
+                                      : 'bg-white hover:bg-blue-50/50 border-blue-50 hover:border-blue-300'
+                                  }`}
                                 >
                                   <div className="flex items-center justify-between p-2.5 sm:p-3">
                                     <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                       {/* Year Badge */}
-                                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 bg-blue-200 text-blue-800">
-                                        {yearData.year.toString().slice(-2)}
+                                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 ${
+                                        isDone ? 'bg-emerald-200 text-emerald-800' : 'bg-blue-200 text-blue-800'
+                                      }`}>
+                                        {isDone ? <CheckCircle className="w-5 h-5" /> : yearData.year.toString().slice(-2)}
                                       </div>
                                       <div className="text-left flex-1 min-w-0">
                                         <div className="font-semibold text-sm text-gray-900">
@@ -820,6 +839,11 @@ export default function CSSSubjectMCQsPage() {
 
                                     {/* Tags */}
                                     <div className="flex items-center gap-1 flex-shrink-0">
+                                      {isDone && (
+                                        <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[9px] sm:text-xs font-semibold rounded-full">
+                                          {Math.round(doneScore)}%
+                                        </span>
+                                      )}
                                       {yearData.year >= 2023 && (
                                         <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] sm:text-xs font-semibold rounded-full">
                                           New
@@ -828,7 +852,8 @@ export default function CSSSubjectMCQsPage() {
                                     </div>
                                   </div>
                                 </button>
-                            ))}
+                              )
+                            })}
                           </div>
                         </>
                       )}

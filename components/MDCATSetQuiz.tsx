@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
+import { markCompleted } from '@/lib/completion'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
@@ -259,6 +260,9 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
         skippedAnswers: 0,
         timeInSeconds,
       })
+      // Persist completion locally so the green badge shows on the set list (guests too).
+      const pct = mcqs.length ? (correct / mcqs.length) * 100 : 0
+      markCompleted(`${examSlug}:${subject}:${difficulty}`, setNumber, pct)
     }
     if (soundsEnabled) {
       soundManager.stopAll()
