@@ -169,6 +169,10 @@ export default function PrivacyPolicy() {
                     </div>
                     <div className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">Process exam question images using AI to generate solutions</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">Detect and prevent fraud</span>
                     </div>
                   </div>
