@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
             <p className="text-lg md:text-xl text-muted-foreground mb-6 text-pretty leading-relaxed max-w-2xl mx-auto">
               Your privacy and data security are our top priorities
             </p>
-            <p className="text-sm text-muted-foreground">Last updated: November 26, 2025</p>
+            <p className="text-sm text-muted-foreground">Last updated: June 4, 2026</p>
           </div>
         </div>
       </section>
@@ -114,14 +114,21 @@ export default function PrivacyPolicy() {
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="font-medium text-sm">Usage Data</p>
-                        <p className="text-xs text-muted-foreground">Quiz scores and progress</p>
+                        <p className="text-xs text-muted-foreground">Quiz scores, progress, and study history</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Camera &amp; Images</p>
+                        <p className="text-xs text-muted-foreground">With your permission, photos of exam questions you scan. Images are sent to AI providers to generate solutions and are not stored as raw images on our servers.</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="font-medium text-sm">Device Info</p>
-                        <p className="text-xs text-muted-foreground">Browser, IP, device type</p>
+                        <p className="text-xs text-muted-foreground">Camera, IP, device type</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-2">
@@ -181,6 +188,9 @@ export default function PrivacyPolicy() {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Your data is stored securely using Supabase with industry-standard encryption. We implement appropriate measures to protect your information.
                 </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                  Scanned question images are transmitted over HTTPS and processed in real-time. We do not store raw images — only anonymised solution data for service improvement.
+                </p>
               </div>
 
               <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
@@ -190,18 +200,43 @@ export default function PrivacyPolicy() {
                   </div>
                   <h3 className="text-xl font-bold">Third-Party Services</h3>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-2">We use:</p>
-                <div className="space-y-1 text-xs text-muted-foreground">
-                  <p>• Supabase - Database & auth</p>
-                  <p>• Google OAuth - Sign-in</p>
-                  <p>• Vercel - Hosting</p>
+                <div className="space-y-1 text-xs text-muted-foreground mb-3">
+                  <p>• Supabase — Database, authentication &amp; backend infrastructure</p>
+                  <p>• Google Gemini AI — Processes exam question images to generate solutions</p>
+                  <p>• Groq (Meta Llama) — Fallback AI provider for question solving</p>
+                  <p>• OpenRouter — Fallback AI provider for question solving</p>
+                  <p>• Mistral AI — Math verification and study content generation</p>
+                  <p>• Google OAuth — Sign-in authentication</p>
                 </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  When you use the Scan feature, your image is transmitted to one of the above AI providers for processing. On Google&apos;s free tier, submitted content may be used to improve Google&apos;s models per their terms. We do not control third-party data practices beyond contractual obligations.
+                </p>
               </div>
 
               <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
                     5
+                  </div>
+                  <h3 className="text-xl font-bold">Camera &amp; Scan Data</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+                  The Scan feature requires camera permission to photograph exam questions. Images are:
+                </p>
+                <div className="space-y-1 text-xs text-muted-foreground mb-3">
+                  <p>• Transmitted securely to AI providers for real-time processing</p>
+                  <p>• Not stored as images on our servers</p>
+                  <p>• Only retained as anonymised text (the extracted question and solution) for service analytics</p>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  You can revoke camera permission at any time in your device settings. Revoking permission disables the Scan feature but does not affect any other functionality.
+                </p>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    6
                   </div>
                   <h3 className="text-xl font-bold">Cookies</h3>
                 </div>
@@ -213,7 +248,7 @@ export default function PrivacyPolicy() {
               <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
-                    6
+                    7
                   </div>
                   <h3 className="text-xl font-bold">Your Rights</h3>
                 </div>
@@ -223,19 +258,8 @@ export default function PrivacyPolicy() {
                   <p>• Request corrections</p>
                   <p>• Delete your account</p>
                   <p>• Export your data</p>
+                  <p>• Revoke camera permission via device settings</p>
                 </div>
-              </div>
-
-              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
-                    7
-                  </div>
-                  <h3 className="text-xl font-bold">Data Sharing</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  We don't sell your data. We only share with essential service providers who are contractually obligated to protect it.
-                </p>
               </div>
 
               <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
@@ -243,10 +267,22 @@ export default function PrivacyPolicy() {
                   <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
                     8
                   </div>
+                  <h3 className="text-xl font-bold">Data Sharing</h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  We don&apos;t sell your data. We only share with essential service providers who are contractually obligated to protect it.
+                </p>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-bold text-sm">
+                    9
+                  </div>
                   <h3 className="text-xl font-bold">Updates</h3>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  We may update this policy. We'll notify you of material changes via email or platform notification.
+                  We may update this policy. We&apos;ll notify you of material changes via email or platform notification.
                 </p>
               </div>
             </div>
@@ -278,7 +314,7 @@ export default function PrivacyPolicy() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground transition-colors">
-              © 2025 Imtehan. All rights reserved.
+              © 2026 Imtehan. All rights reserved.
             </Link>
             <div className="flex items-center gap-6">
               <Link href="/terms" className="hover:text-foreground transition-colors">
