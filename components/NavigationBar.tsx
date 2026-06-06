@@ -254,11 +254,25 @@ export default function NavigationBar({
                         ))}
                       </div>
                     </div>
-                    {/* Competitive */}
+                    {/* Civil Services — featured */}
                     <div className="border-t-2 border-gray-200 pt-4">
-                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Competitive Exams</p>
+                      <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.12em] mb-2">⭐ Civil Services</p>
+                      <div className="flex gap-2 mb-3">
+                        {['css', 'pms'].filter(c => CATEGORY_CONFIG[c]).map((cat) => {
+                          const cfg = CATEGORY_CONFIG[cat]
+                          return (
+                            <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="flex-1 px-4 py-2.5 rounded-xl border-2 border-indigo-200 bg-indigo-50 text-xs font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all duration-150 text-center">
+                              {cfg.label}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
+                    {/* Other Competitive */}
+                    <div>
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Other Competitive Exams</p>
                       <div className="flex flex-wrap gap-2">
-                        {availableCategories.filter(c => c !== 'engineering').map((cat) => {
+                        {availableCategories.filter(c => c !== 'engineering' && c !== 'css' && c !== 'pms').map((cat) => {
                           const cfg = CATEGORY_CONFIG[cat]
                           return (
                             <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
@@ -484,9 +498,20 @@ export default function NavigationBar({
                   </div>
                 </div>
                 <div className="border-t border-gray-100 pt-3 mb-1">
-                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Competitive Exams</p>
+                  <p className="px-1 pb-2 text-[9px] font-bold text-indigo-400 uppercase tracking-[0.12em]">⭐ Civil Services</p>
+                  <div className="flex gap-1.5 mb-3">
+                    {['css', 'pms'].filter(c => CATEGORY_CONFIG[c]).map((cat) => {
+                      const cfg = CATEGORY_CONFIG[cat]
+                      return (
+                        <Link key={cat} href={cfg.href} onClick={() => setMobileMenuOpen(false)} className="flex-1 px-3.5 py-2 rounded-xl border border-indigo-200 bg-indigo-50 text-[11px] font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all duration-150 text-center">
+                          {cfg.label}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Other Competitive Exams</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {availableCategories.filter(c => c !== 'engineering').map((cat) => {
+                    {availableCategories.filter(c => c !== 'engineering' && c !== 'css' && c !== 'pms').map((cat) => {
                       const cfg = CATEGORY_CONFIG[cat]
                       return (
                         <Link key={cat} href={cfg.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
