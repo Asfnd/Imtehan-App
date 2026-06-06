@@ -96,26 +96,56 @@ function ExamsInner() {
 
       {/* Dropdown panel */}
       {dropdownOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border-2 border-gray-300 rounded-xl shadow-xl z-50 p-3.5 grid grid-cols-2 sm:grid-cols-3 gap-2 w-[min(460px,calc(100vw-24px))]">
-          {availableCategories.map((cat) => {
-            const isActive = cat === activeCategory
-            return (
-              <button
-                key={cat}
-                onClick={() => { setActiveCategory(cat); setDropdownOpen(false) }}
-                className={`px-3.5 py-2.5 rounded-lg text-sm font-semibold text-left border-2 transition-all ${
-                  isActive
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
-                }`}
-              >
-                {CATEGORY_CONFIG[cat].label}
-                <span className={`block text-xs mt-0.5 ${isActive ? 'text-blue-200' : 'text-gray-500'}`}>
-                  {examsByCategory[cat]?.length} exams
-                </span>
-              </button>
-            )
-          })}
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border-2 border-gray-300 rounded-xl shadow-xl z-50 p-3.5 w-[min(460px,calc(100vw-24px))]">
+          {/* Civil Services featured row */}
+          <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-2 px-0.5">⭐ Civil Services</p>
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            {['css', 'pms'].filter(c => examsByCategory[c]?.length).map((cat) => {
+              const isActive = cat === activeCategory
+              return (
+                <button
+                  key={cat}
+                  onClick={() => { setActiveCategory(cat); setDropdownOpen(false) }}
+                  className={`px-4 py-3 rounded-xl text-sm font-bold text-left border-2 transition-all ${
+                    isActive
+                      ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white border-transparent shadow-md shadow-indigo-500/25'
+                      : 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 hover:border-indigo-400'
+                  }`}
+                >
+                  {CATEGORY_CONFIG[cat].label}
+                  <span className={`block text-xs font-medium mt-0.5 ${isActive ? 'text-indigo-200' : 'text-indigo-400'}`}>
+                    {examsByCategory[cat]?.length} exams
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-gray-100 mb-3" />
+
+          {/* All other categories */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {availableCategories.filter(cat => !['css', 'pms'].includes(cat)).map((cat) => {
+              const isActive = cat === activeCategory
+              return (
+                <button
+                  key={cat}
+                  onClick={() => { setActiveCategory(cat); setDropdownOpen(false) }}
+                  className={`px-3.5 py-2.5 rounded-lg text-sm font-semibold text-left border-2 transition-all ${
+                    isActive
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
+                  }`}
+                >
+                  {CATEGORY_CONFIG[cat].label}
+                  <span className={`block text-xs mt-0.5 ${isActive ? 'text-blue-200' : 'text-gray-500'}`}>
+                    {examsByCategory[cat]?.length} exams
+                  </span>
+                </button>
+              )
+            })}
+          </div>
         </div>
       )}
     </div>
