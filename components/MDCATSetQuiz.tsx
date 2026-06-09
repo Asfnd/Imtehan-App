@@ -279,6 +279,25 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
     }
   }
 
+  const retakeQuiz = () => {
+    setReviewMode(false)
+    setReviewMCQs([])
+    setOriginalScore(null)
+    setCurrentIndex(0)
+    setAnswers({})
+    setFirstTryCorrect({})
+    setWrongChecks({})
+    setWrongPicks([])
+    setShowWrongPanel(false)
+    setWrongChoice(null)
+    setStreak(0)
+    setTotalXp(0)
+    setLastXpGain(0)
+    startTimeRef.current = Date.now()
+    setShowResults(false)
+    setShowFeedback(false)
+  }
+
   const practiceMistakes = () => {
     const wrong = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false)
     setOriginalScore({ correct: firstTryScore, total: activeMCQs.length })
@@ -348,6 +367,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
           }
           backLabel="Back to sets"
           onBack={() => router.push(backUrl)}
+          onRetake={!reviewMode ? retakeQuiz : undefined}
           onAnalytics={() => router.push(`/exams/${examSlug}/analytics`)}
         />
         <FeedbackPopup

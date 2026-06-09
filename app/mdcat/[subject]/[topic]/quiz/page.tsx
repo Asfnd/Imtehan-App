@@ -215,6 +215,24 @@ export default function MDCATQuizPage() {
     }
   }
 
+  const retakeQuiz = () => {
+    setReviewMode(false)
+    setReviewMCQs([])
+    setOriginalScore(null)
+    setCurrentIndex(0)
+    setAnswers({})
+    setFirstTryCorrect({})
+    setWrongChecks({})
+    setWrongPicks([])
+    setShowWrongPanel(false)
+    setWrongChoice(null)
+    setStreak(0)
+    setTotalXp(0)
+    setLastXpGain(0)
+    setShowResults(false)
+    quizStartedAtRef.current = Date.now()
+  }
+
   const practiceMistakes = () => {
     const wrong = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false)
     setOriginalScore({ correct: firstTryScore, total: activeMCQs.length })
@@ -304,17 +322,9 @@ export default function MDCATQuizPage() {
           improvement={improvement}
           wrongPracticeCount={!reviewMode ? wrongPracticeCount : 0}
           onPracticeMistakes={wrongPracticeCount > 0 ? practiceMistakes : undefined}
-          footerExtra={
-            <button
-              type="button"
-              onClick={() => window.location.reload()}
-              className="mb-5 w-full rounded-2xl border-2 border-slate-200 py-3.5 text-[15px] font-bold text-slate-700 transition hover:bg-slate-50"
-            >
-              Retry quiz
-            </button>
-          }
           backLabel={`Back to ${subjectConfig.name}`}
           onBack={() => router.push(`/mdcat/${subject}`)}
+          onRetake={!reviewMode ? retakeQuiz : undefined}
         />
       </>
     )

@@ -1,6 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { RotateCcw } from 'lucide-react'
 import {
   QuizResultDashboard,
   formatQuizDuration,
@@ -37,6 +38,9 @@ interface QuizResultsCardProps {
   onBack: () => void
   analyticsLabel?: string
   onAnalytics?: () => void
+  /** When set, shows a "Try again" button that restarts the same quiz from scratch. */
+  onRetake?: () => void
+  retakeLabel?: string
   /** When set, bottom summary uses exam wording (correct / wrong / unanswered). */
   examBreakdown?: { wrong: number; skipped: number } | null
 }
@@ -60,6 +64,8 @@ export function QuizResultsCard({
   onBack,
   analyticsLabel = 'Analytics',
   onAnalytics,
+  onRetake,
+  retakeLabel = 'Try again',
   examBreakdown,
 }: QuizResultsCardProps) {
   const percentage = quizAccuracyPercent(correct, total)
@@ -78,6 +84,12 @@ export function QuizResultsCard({
       globalStandingLabel={standing}
       secondaryFooter={
         <>
+          {onRetake ? (
+            <button type="button" onClick={onRetake} className={quizResultFooterButtonClass}>
+              <RotateCcw className="h-4 w-4 opacity-70" aria-hidden />
+              {retakeLabel}
+            </button>
+          ) : null}
           <button type="button" onClick={onBack} className={quizResultFooterButtonClass}>
             {backLabel}
           </button>

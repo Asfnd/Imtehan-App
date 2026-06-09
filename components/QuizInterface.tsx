@@ -135,7 +135,7 @@ export default function QuizInterface({
   const [wrongChoice, setWrongChoice] = useState<string | null>(null)
 
   const [showResults, setShowResults] = useState(false)
-  const [startTime] = useState(Date.now())
+  const [startTime, setStartTime] = useState(Date.now())
   const [, setSaving] = useState(false)
 
   const [reviewMode, setReviewMode] = useState(false)
@@ -290,6 +290,24 @@ export default function QuizInterface({
     setShowResults(true)
   }
 
+  const retakeQuiz = () => {
+    setReviewMode(false)
+    setReviewMCQs([])
+    setOriginalScore(null)
+    setCurrentIndex(0)
+    setAnswers({})
+    setFirstTryCorrect({})
+    setWrongChecks({})
+    setWrongPicks([])
+    setWrongChoice(null)
+    setStreak(0)
+    setTotalXp(0)
+    setLastXpGain(0)
+    setStartTime(Date.now())
+    setShowResults(false)
+    setShowFeedback(false)
+  }
+
   const practiceMistakes = () => {
     const wrong = activeMCQs.filter((_, idx) => firstTryCorrect[idx] === false)
     setOriginalScore({ correct: firstTryScore, total: activeMCQs.length })
@@ -356,6 +374,7 @@ export default function QuizInterface({
           weakTopics={weakTopics.length > 0 ? weakTopics : undefined}
           backLabel="Back to sets"
           onBack={() => router.push(`/exams/${examSlug}/${subjectSlug}/${mode}`)}
+          onRetake={!reviewMode ? retakeQuiz : undefined}
           onAnalytics={() => router.push(`/exams/${examSlug}/analytics`)}
         />
         <FeedbackPopup
