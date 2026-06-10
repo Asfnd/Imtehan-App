@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { HomeClient } from "@/components/HomeClient"
 
 export const metadata: Metadata = {
-  title: 'Imtehan - Prepare for Competitive exams like CSS, PMS, and MDCAT | Practice Tests & Study Guides',
-  description: 'Prepare for CSS, PPSC, FPSC, Police, and 195+ competitive exams with 70,000+ practice MCQs, past papers, mock tests, and expert strategies. Imtehan helps you prepare smarter and score higher.',
+  title: 'CSS, PMS & MDCAT Exam Preparation with 70,000+ MCQs | Imtehan',
+  description: 'Prepare for CSS, PMS, MDCAT, PPSC, FPSC and 200+ competitive exams in Pakistan with 70,000+ MCQs, past papers, mock tests and AI essay grading. Free to start.',
   keywords: 'CSS exam preparation, MPT practice, past papers, study guides, competitive exams',
   alternates: { canonical: 'https://imtehan.com' },
   openGraph: {

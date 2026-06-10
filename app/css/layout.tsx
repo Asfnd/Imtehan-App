@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
-  title: 'CSS Exam Preparation - MCQs, Past Papers & More | Imtehan',
+  title: 'CSS Exam Preparation: MCQs, Past Papers & More | Imtehan',
   description: 'Complete CSS exam preparation platform with 10,000+ MCQs, past papers from 2015-2023, solved papers, and guess papers. Practice for Pakistan\'s Central Superior Services exam.',
   keywords: [
     'CSS exam', 'CSS preparation', 'CSS MCQs', 'CSS past papers',
