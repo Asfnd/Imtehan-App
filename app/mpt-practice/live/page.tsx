@@ -27,8 +27,8 @@ export default function MPTLiveTestsPage() {
   }, [])
 
   // Green "completed" badges (local + DB-synced for signed-in users):
-  //  • tests 1–3 finish via the MPT quiz → scope "mpt:live"
-  //  • tests 4–20 route to /exams/css-mpt/mock/N → MockTestInterface → scope "exams-mock:css-mpt"
+  //  • tests 1-3 finish via the MPT quiz → scope "mpt:live"
+  //  • tests 4-20 route to /exams/css-mpt/mock/N → MockTestInterface → scope "exams-mock:css-mpt"
   const liveDone = useCompletions('mpt:live')
   const mockDone = useCompletions('exams-mock:css-mpt')
   // Legacy local key from mocks completed before the shared store existed.
@@ -79,7 +79,7 @@ export default function MPTLiveTestsPage() {
     )
   }
 
-  // All 20 tests: DB-backed (1–3) first, then practice pool (4–20)
+  // All 20 tests: DB-backed (1-3) first, then practice pool (4-20)
   type AnyTest =
     | { kind: 'live'; test_number: number; question_count: number }
     | { kind: 'practice'; n: number }
@@ -113,7 +113,7 @@ export default function MPTLiveTestsPage() {
             <h1 className="text-xl font-bold text-gray-900 mb-1">MPT Mock Tests</h1>
             <p className="text-sm text-gray-500 mb-6">Full-length timed tests, 200 MCQs, 200 minutes</p>
 
-            {/* Unified grid — all 20 tests */}
+            {/* Unified grid: all 20 tests */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {allTests.map((item) => {
                 const num = item.kind === 'live' ? item.test_number : item.n

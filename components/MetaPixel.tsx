@@ -1,6 +1,6 @@
 import Script from 'next/script'
 
-/** Public ID from Meta Events Manager — safe to expose client-side. */
+/** Public ID from Meta Events Manager: safe to expose client-side. */
 const PIXEL_ID =
   process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1495547215623222'
 

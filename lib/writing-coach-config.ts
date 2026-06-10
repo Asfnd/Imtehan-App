@@ -31,10 +31,10 @@ export const CSS_LONG_ANSWER_SUBJECTS = [
 /** Optional / compulsory papers commonly used for PMS long-form answers (provincial syllabi vary). */
 export const PMS_LONG_ANSWER_SUBJECTS = [
   'English Essay (compulsory)',
-  'English — Précis & Composition (compulsory)',
-  'General Knowledge — Everyday Science',
-  'General Knowledge — Current Affairs',
-  'General Knowledge — Pakistan Affairs',
+  'English: Précis & Composition (compulsory)',
+  'General Knowledge: Everyday Science',
+  'General Knowledge: Current Affairs',
+  'General Knowledge: Pakistan Affairs',
   'Islamiat (compulsory)',
   'Accountancy & Auditing',
   'Economics',

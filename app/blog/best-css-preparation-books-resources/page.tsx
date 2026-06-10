@@ -26,13 +26,13 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['CSS Books', 'Resources', 'Preparation Material', 'Study Guide']
 
-const CONTENT = `Every CSS preparation forum has a thread asking for the best books. The answers are usually the same long list, and most candidates buy several of them. By month three, half sit unfinished on the shelf. The problem is not that the books are bad — some are very good — but that candidates treat book selection as a substitute for a study plan. The right book for a disorganized preparation is not better than the wrong book in a disciplined one.
+const CONTENT = `Every CSS preparation forum has a thread asking for the best books. The answers are usually the same long list, and most candidates buy several of them. By month three, half sit unfinished on the shelf. The problem is not that the books are bad (some are very good), but that candidates treat book selection as a substitute for a study plan. The right book for a disorganized preparation is not better than the wrong book in a disciplined one.
 
 ## What to Look For
 
 The best CSS preparation material has two qualities: it covers content at the depth the exam requires, and it is written to be used, not displayed. Thin books with dense MCQ coverage are more useful than thick volumes that explain everything in depth but leave nothing for you to practice. The exam tests recall under pressure, and that only develops through active practice, not passive reading.
 
-For compulsory subjects, locally published guides that organize content around past paper patterns are genuinely useful — not because they are academically superior, but because they match the exam's actual scope. A comprehensive academic textbook on Pakistan Affairs covers far more than CSS tests and can become a distraction.
+For compulsory subjects, locally published guides that organize content around past paper patterns are genuinely useful, not because they are academically superior, but because they match the exam's actual scope. A comprehensive academic textbook on Pakistan Affairs covers far more than CSS tests and can become a distraction.
 
 ## Subject-by-Subject Guidance
 
@@ -42,7 +42,7 @@ For Islamic Studies, a guide that addresses both the textual foundations and the
 
 > The best preparation book is the one you will actually finish and practice from. Not the most comprehensive one.
 
-For optionals like History and Geography, standard textbooks used in Pakistani universities — Akbar S. Ahmed for Pakistan studies, standard O-level and A-level Geography texts — provide the right depth without over-extending into content the exam does not test.
+For optionals like History and Geography, standard textbooks used in Pakistani universities (Akbar S. Ahmed for Pakistan studies, standard O-level and A-level Geography texts) provide the right depth without over-extending into content the exam does not test.
 
 ## What to Avoid
 

@@ -37,7 +37,7 @@ export default function TopicSetPicker() {
   const [showSignIn, setShowSignIn]       = useState(false)
   const [completedSets, setCompletedSets] = useState<Record<number, number>>({})
 
-  // Completion badges — quiz writes under mode "topic/<tagSlug>". Local-first + DB merge.
+  // Completion badges: quiz writes under mode "topic/<tagSlug>". Local-first + DB merge.
   useEffect(() => {
     if (!examSlug || !subjectSlug || !tagSlug) return
     let cancelled = false
@@ -150,7 +150,7 @@ export default function TopicSetPicker() {
             </div>
           ) : (
             <div className="grid grid-cols-12 gap-4 md:gap-6">
-              {/* LEFT — Batches */}
+              {/* LEFT: Batches */}
               <div className="col-span-4 md:col-span-4 lg:col-span-3">
                 <div className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 sticky top-24">
                   <h2 className="font-bold text-sm text-gray-900 mb-1">Batches</h2>
@@ -181,7 +181,7 @@ export default function TopicSetPicker() {
                 </div>
               </div>
 
-              {/* RIGHT — Sets */}
+              {/* RIGHT: Sets */}
               <div className="col-span-8 md:col-span-8 lg:col-span-9">
                 <div className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 max-h-[640px] overflow-y-auto">
                   <h2 className="text-base md:text-lg font-bold text-gray-900 mb-4">

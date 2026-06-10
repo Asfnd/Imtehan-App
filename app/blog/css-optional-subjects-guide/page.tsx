@@ -26,13 +26,13 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Optional Subjects', 'CSS Strategy', 'Subject Selection', 'Civil Services']
 
-const CONTENT = `Optional subjects are worth 200 of the 1400 total CSS marks. That is 14 percent of your score — but more importantly, it is the 14 percent where you have the most control. Most candidates underestimate this and pick subjects based on vague interest. Top scorers pick based on overlap.
+const CONTENT = `Optional subjects are worth 200 of the 1400 total CSS marks. That is 14 percent of your score, but more importantly, it is the 14 percent where you have the most control. Most candidates underestimate this and pick subjects based on vague interest. Top scorers pick based on overlap.
 
 ## Why Overlap Matters More Than Interest
 
 Your compulsory subjects are: Pakistan Affairs, Current Affairs, Islamic Studies, General Knowledge, Everyday Science, English, and Urdu. These consume 25-30 hours of study time weekly. Your optional subjects must fit into whatever remains.
 
-If your optional subjects share significant content with your compulsories, you are essentially studying once for two subjects. History overlaps heavily with Pakistan Affairs — the same events, the same political figures, the same analytical frameworks. Geography overlaps with Current Affairs. Political Science overlaps with Pakistan Affairs and Islamic Studies.
+If your optional subjects share significant content with your compulsories, you are essentially studying once for two subjects. History overlaps heavily with Pakistan Affairs: the same events, the same political figures, the same analytical frameworks. Geography overlaps with Current Affairs. Political Science overlaps with Pakistan Affairs and Islamic Studies.
 
 Choose subjects with zero overlap and you are adding two entirely new subject loads to an already full schedule.
 

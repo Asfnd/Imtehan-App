@@ -30,7 +30,7 @@ const CONTENT = `The difference between a 50-mark CSS essay and a 75-mark essay 
 
 ## The Introduction: One Job Only
 
-Your introduction has one job — tell the examiner your position. Not the background. Not a dictionary definition. Your position.
+Your introduction has one job: tell the examiner your position. Not the background. Not a dictionary definition. Your position.
 
 A strong CSS introduction is three to four sentences. It opens with one sentence that frames the debate. Then it states your claim directly. Then it signals the direction your argument will take. That is it. Examiners read hundreds of essays. A clear position in the first paragraph makes yours stand out immediately.
 
@@ -40,7 +40,7 @@ The most common introduction mistake is spending the entire paragraph establishi
 
 Three body paragraphs is the right number for a CSS essay. Not five. Not seven. Three focused paragraphs with real evidence will always outscore six shallow ones.
 
-Each paragraph follows the same logic: make one claim, support it with a specific example, connect it back to your central argument. The example is the non-negotiable part. Generic statements — "technology harms society," "corruption weakens institutions" — score nothing on their own. The same claim backed by a specific incident, a named policy, or a concrete figure scores significantly.
+Each paragraph follows the same logic: make one claim, support it with a specific example, connect it back to your central argument. The example is the non-negotiable part. Generic statements, like "technology harms society," "corruption weakens institutions," score nothing on their own. The same claim backed by a specific incident, a named policy, or a concrete figure scores significantly.
 
 The three paragraphs should build on each other, not just sit side by side. The second paragraph should deepen what the first established. The third should either address the strongest counterargument or show the real-world implication of your position.
 
@@ -48,7 +48,7 @@ The three paragraphs should build on each other, not just sit side by side. The 
 
 ## The Conclusion: A Finding, Not a Summary
 
-Most CSS conclusions repeat the body paragraphs in abbreviated form. This is the wrong approach. A conclusion should state what the evidence you presented actually proves — a finding, not a recap.
+Most CSS conclusions repeat the body paragraphs in abbreviated form. This is the wrong approach. A conclusion should state what the evidence you presented actually proves: a finding, not a recap.
 
 The difference is subtle but important. A recap says "I have argued X, Y, and Z." A finding says "X, Y, and Z together demonstrate that this problem cannot be addressed without first addressing its underlying cause." The second version shows genuine thinking. The first shows you can remember what you wrote.
 

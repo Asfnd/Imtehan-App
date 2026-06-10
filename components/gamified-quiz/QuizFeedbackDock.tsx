@@ -13,7 +13,7 @@ interface QuizFeedbackDockProps {
   continueLabel?: string
   onContinue?: () => void
   isLastStep?: boolean
-  /** Wrong attempt — optional; omit for Khan-style (pick another option immediately) */
+  /** Wrong attempt (optional); omit for Khan-style (pick another option immediately) */
   onTryAgain?: () => void
 }
 
@@ -45,7 +45,7 @@ export function QuizFeedbackDock({
             </div>
             <div className="min-w-0 text-left">
               <h2 className="text-xl font-extrabold text-rose-900 sm:text-2xl">
-                {title || 'Not quite — try another option'}
+                {title || 'Not quite. Try another option'}
               </h2>
               {subtitle && (
                 <p className="mt-1 text-sm font-medium text-rose-700 sm:text-base">{subtitle}</p>

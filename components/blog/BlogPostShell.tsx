@@ -150,7 +150,7 @@ export default function BlogPostShell({
 
       <div className="blog-layout">
 
-        {/* ── LEFT — action bar ── */}
+        {/* ── LEFT: action bar ── */}
         <aside className="blog-action-bar">
           <button
             onClick={handleClap}
@@ -193,7 +193,7 @@ export default function BlogPostShell({
           </button>
         </aside>
 
-        {/* ── CENTER — article ── */}
+        {/* ── CENTER: article ── */}
         <main className="blog-main">
 
           {/* Author meta */}
@@ -245,7 +245,7 @@ export default function BlogPostShell({
           <BlogComments slug={slug} />
         </main>
 
-        {/* ── RIGHT — sidebar ── */}
+        {/* ── RIGHT: sidebar ── */}
         <aside className="blog-sidebar">
 
           {headings.length > 0 && (

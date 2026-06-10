@@ -25,7 +25,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['FSc', 'Chemistry', 'Organic Chemistry', 'Board Exam', 'Pre-Medical', 'Punjab Board']
 
-const CONTENT = `Ask any FSc student which part of Chemistry they find hardest, and Organic Chemistry comes up almost every time. Ask why, and they say there is too much to memorise. They are correct — but only because they are trying to memorise the wrong thing.
+const CONTENT = `Ask any FSc student which part of Chemistry they find hardest, and Organic Chemistry comes up almost every time. Ask why, and they say there is too much to memorise. They are correct, but only because they are trying to memorise the wrong thing.
 
 There are roughly eighty or ninety named reactions in the FSc Chemistry syllabus. No one comfortably memorises ninety individual reactions through repetition alone. The students who score well in Organic Chemistry are not the ones who memorised more. They are the ones who learned to see the pattern underneath.
 
@@ -33,7 +33,7 @@ There are roughly eighty or ninety named reactions in the FSc Chemistry syllabus
 
 There are really only a few core concepts that unlock most of Organic Chemistry:
 
-**Functional groups.** Not individual reactions — groups. An alcohol group carries -OH. A carbonyl group has C=O. A carboxyl group has -COOH. Learn what each group looks like and its basic chemical personality — is it acidic? Does it react with water? Is it easily oxidised? You now have the foundation for understanding behaviour across entire categories of compounds at once.
+**Functional groups.** Not individual reactions: groups. An alcohol group carries -OH. A carbonyl group has C=O. A carboxyl group has -COOH. Learn what each group looks like and its basic chemical personality: is it acidic? Does it react with water? Is it easily oxidised? You now have the foundation for understanding behaviour across entire categories of compounds at once.
 
 **Oxidation and reduction in organic terms.** In organic chemistry, these are simpler than the inorganic equivalents. Generally, gaining oxygen or losing hydrogen is oxidation. Losing oxygen or gaining hydrogen is reduction. With this one rule, you can often predict the product of an unfamiliar reaction without having seen it before.
 
@@ -47,7 +47,7 @@ The single most effective thing you can do is write reactions out by hand, from 
 
 Pick one reaction. Write the reactants. Write the conditions above the arrow. Write the products. Close the book. Write it again from memory. Check. Correct anything wrong. Do it once more the next day.
 
-One reaction practised this way — written from memory three times until it is automatic — is worth more than reading fifteen examples in your textbook. This sounds slow. It is much faster than re-reading the same material repeatedly and still not being able to reproduce it in the exam hall.
+One reaction practised this way, written from memory three times until it is automatic, is worth more than reading fifteen examples in your textbook. This sounds slow. It is much faster than re-reading the same material repeatedly and still not being able to reproduce it in the exam hall.
 
 The board exam asks you to write reactions. If you have only ever read reactions, you have never once practised the actual exam task.
 
@@ -55,11 +55,11 @@ The board exam asks you to write reactions. If you have only ever read reactions
 
 ## Board Exam Questions Are More Predictable Than You Think
 
-This applies specifically to FSc boards — Punjab, Federal, Sindh — and it is worth being direct about: Organic Chemistry questions in FSc board exams follow extremely predictable patterns. The same reaction types come up year after year, usually framed in one of two or three standard forms.
+This applies specifically to FSc boards (Punjab, Federal, Sindh), and it is worth being direct about: Organic Chemistry questions in FSc board exams follow extremely predictable patterns. The same reaction types come up year after year, usually framed in one of two or three standard forms.
 
 Collect five years of your board's past papers for Chemistry. Look at the Organic section specifically. You will find the same six or seven reactions appearing consistently. Some appear every single year with almost no variation.
 
-Those recurring reactions are your non-negotiable preparation list. Master them completely. Know the conditions, the products, and one real-world example or use. Everything else is supplementary — good to know, but not worth trading for time on your core list.
+Those recurring reactions are your non-negotiable preparation list. Master them completely. Know the conditions, the products, and one real-world example or use. Everything else is supplementary: good to know, but not worth trading for time on your core list.
 
 ## The Naming Problem Has a Shortcut
 
@@ -67,13 +67,13 @@ IUPAC nomenclature trips up students who actually understand the chemistry but s
 
 The effective approach: learn parent chain naming first, then learn substituents in order of priority. Do not attempt to name complex molecules until you can perfectly name simple straight-chain alkanes and alkenes. Work up in complexity one level at a time.
 
-Ten minutes every other day on naming practice — using FSc past paper naming questions only — will resolve this issue within three weeks. Do not spend large chunks of study time on it. Small, regular sessions are all it needs.
+Ten minutes every other day on naming practice, using FSc past paper naming questions only, will resolve this issue within three weeks. Do not spend large chunks of study time on it. Small, regular sessions are all it needs.
 
 ## The Connection to MDCAT
 
 For students preparing for MDCAT alongside FSc boards, Organic Chemistry carries a double payoff. The functional group concepts you build for the FSc board exam are the same ones that explain biological molecules in MDCAT Biology.
 
-Carbohydrates, lipids, proteins, and nucleic acids are all Organic Chemistry at a molecular level. Enzyme mechanisms are Organic Chemistry. The time you invest in genuinely understanding functional groups for your FSc paper is not separate from your MDCAT preparation — it is building the foundation for your highest-yield Biology sections at the same time.
+Carbohydrates, lipids, proteins, and nucleic acids are all Organic Chemistry at a molecular level. Enzyme mechanisms are Organic Chemistry. The time you invest in genuinely understanding functional groups for your FSc paper is not separate from your MDCAT preparation. It is building the foundation for your highest-yield Biology sections at the same time.
 
 That cross-subject return is one more reason to actually understand this material rather than patch it with short-term memorisation.`
 

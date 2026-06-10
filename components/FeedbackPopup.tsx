@@ -31,7 +31,7 @@ export default function FeedbackPopup({ isOpen, onClose, examSlug, quizType, sco
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
       const { error } = await supabase.from('feedback').insert({
-        page:       `${examSlug} — ${quizType}`,
+        page:       `${examSlug}: ${quizType}`,
         rating,
         message:    comment.trim() || `Score: ${scorePct ?? '?'}%`,
         user_email: user?.email ?? null,

@@ -1,5 +1,5 @@
 /**
- * Meta Pixel helpers — call only after client mount (fbq loaded by MetaPixel script).
+ * Meta Pixel helpers: call only after client mount (fbq loaded by MetaPixel script).
  * Pairs with POST /api/analytics/meta-capi using the same event_id for deduplication.
  * @see https://developers.facebook.com/docs/meta-pixel/reference
  */
@@ -9,7 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 
 declare global {
   interface Window {
-    /** Meta Pixel — init, track, trackCustom */
+    /** Meta Pixel: init, track, trackCustom */
     fbq?: (...args: unknown[]) => void
   }
 }
@@ -18,7 +18,7 @@ export function metaPixelAvailable(): boolean {
   return typeof window !== 'undefined' && typeof window.fbq === 'function'
 }
 
-/** Meta Test Events tab only receives hits when this code is passed into fbq() — URL alone is not enough. */
+/** Meta Test Events tab only receives hits when this code is passed into fbq(); URL alone is not enough. */
 export function getMetaTestEventCodeFromUrl(): string | undefined {
   if (typeof window === 'undefined') return undefined
   const p = new URLSearchParams(window.location.search)
@@ -63,7 +63,7 @@ async function syncMetaCapiEvent(payload: {
   }
 }
 
-/** SPA route changes — fire after navigation without full reload */
+/** SPA route changes: fire after navigation without full reload */
 export function trackMetaPageView(params?: Record<string, unknown>): void {
   if (!metaPixelAvailable()) return
   const test = getMetaTestEventCodeFromUrl()
@@ -82,7 +82,7 @@ export function trackCompleteRegistration(): void {
   void syncMetaCapiEvent({ event_name: 'CompleteRegistration', event_id: eventId })
 }
 
-/** Premium / subscription activated — includes PKR value for ROAS (default = 12-month tier). */
+/** Premium / subscription activated: includes PKR value for ROAS (default = 12-month tier). */
 export function trackSubscribe(params?: { value?: number; currency?: string }): void {
   if (!metaPixelAvailable()) return
   const eventId = crypto.randomUUID()
@@ -92,7 +92,7 @@ export function trackSubscribe(params?: { value?: number; currency?: string }): 
   void syncMetaCapiEvent({ event_name: 'Subscribe', event_id: eventId, value, currency })
 }
 
-/** Custom — free tier active; same event_id sent to CAPI */
+/** Custom: free tier active; same event_id sent to CAPI */
 export function trackStartTrial(): void {
   if (!metaPixelAvailable()) return
   const eventId = crypto.randomUUID()

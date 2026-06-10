@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     description: 'Imtehan - Learn smarter, practice better, and compete with confidence. Master CSS and MPT competitive exams with 10,000+ MCQs and past papers.',
     images: [
       {
-        url: '/og-image.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Imtehan - Exam Preparation Platform'
@@ -67,9 +67,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@imtehan',
     title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
     description: 'Imtehan - Learn smarter, practice better, and compete with confidence. Master CSS and MPT competitive exams with 10,000+ MCQs and past papers.',
-    images: ['/og-image.svg']
+    images: ['/og-image.png']
   },
   robots: {
     index: true,
@@ -84,23 +85,30 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: "/favicon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        url: "/favicon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-      },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
+    shortcut: [{ url: "/favicon-32x32.png", type: "image/png" }],
     apple: [
-      {
-        url: "/favicon.svg",
-        type: "image/svg+xml",
-      },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
+  manifest: '/manifest.webmanifest',
+  category: 'education',
+  applicationName: 'Imtehan',
+  appleWebApp: {
+    capable: true,
+    title: 'Imtehan',
+    statusBarStyle: 'black-translucent',
+  },
+  formatDetection: { telephone: false },
+}
+
+export const viewport = {
+  themeColor: '#4F46E5',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({

@@ -16,8 +16,8 @@ export async function generateMetadata({
   const chapter = decodeURIComponent(rawChapter)
   const canonicalChapter = encodeURIComponent(chapter)
 
-  const title = `FSc ${subjectName} — ${chapter} MCQs | Imtehan`
-  const description = `Practice FSc ${subjectName} ${chapter} MCQs with 20 questions per set. Aligned with Punjab Board curriculum — perfect for board exam and MDCAT preparation.`
+  const title = `FSc ${subjectName}: ${chapter} MCQs | Imtehan`
+  const description = `Practice FSc ${subjectName} ${chapter} MCQs with 20 questions per set. Aligned with Punjab Board curriculum, perfect for board exam and MDCAT preparation.`
 
   return {
     title,

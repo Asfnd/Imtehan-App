@@ -27,7 +27,7 @@ const COMPOSITE_XP_CAP = 500
 const COMPOSITE_XP_WEIGHT = 0.35
 
 /**
- * Single source of truth: blends first-try accuracy (50–1000 band from accuracy alone)
+ * Single source of truth: blends first-try accuracy (50-1000 band from accuracy alone)
  * with a capped XP contribution. Same formula everywhere results are shown.
  */
 export function computeCompositeQuizScore(

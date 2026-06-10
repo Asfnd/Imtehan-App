@@ -114,7 +114,7 @@ export default function CareersPage() {
           <SectionLabel>Our mission</SectionLabel>
           <p className="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed text-balance">
             Imtehan exists to give every competitive exam aspirant access to rigorous practice,
-            clear explanations, and tools that turn preparation into measurable progress — regardless of background or location.
+            clear explanations, and tools that turn preparation into measurable progress, regardless of background or location.
           </p>
         </div>
       </section>
@@ -128,7 +128,7 @@ export default function CareersPage() {
               How we work
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
-              We are a small, high-trust team building long-term infrastructure for exam preparation — with the discipline students expect from the content they study.
+              We are a small, high-trust team building long-term infrastructure for exam preparation, with the discipline students expect from the content they study.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
@@ -268,7 +268,7 @@ export default function CareersPage() {
               Our process
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
-              Structured, respectful of your time, and transparent at every stage — typically one to two weeks from application to offer.
+              Structured, respectful of your time, and transparent at every stage: typically one to two weeks from application to offer.
             </p>
           </div>
           <ol className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">

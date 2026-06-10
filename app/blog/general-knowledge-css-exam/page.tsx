@@ -26,17 +26,17 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['General Knowledge', 'CSS Compulsory', 'GK Preparation', 'Civil Services']
 
-const CONTENT = `General Knowledge is the subject CSS candidates consistently underestimate. The content feels familiar — international organizations, geography, science milestones, world history — and that familiarity creates a false confidence. Candidates allocate little preparation time to it and then discover in the MCQ paper that the questions are specific enough to punish shallow knowledge. A question about which year the NPT was signed, or the current Secretary General of the SCO, or the exact membership of ASEAN requires precision that casual reading does not build.
+const CONTENT = `General Knowledge is the subject CSS candidates consistently underestimate. The content feels familiar (international organizations, geography, science milestones, world history), and that familiarity creates a false confidence. Candidates allocate little preparation time to it and then discover in the MCQ paper that the questions are specific enough to punish shallow knowledge. A question about which year the NPT was signed, or the current Secretary General of the SCO, or the exact membership of ASEAN requires precision that casual reading does not build.
 
 ## What GK Actually Covers
 
-For CSS purposes, General Knowledge clusters into four broad areas. International organizations — their founding, membership, mandate, and current leadership — constitute a significant portion. World geography, including capitals, major rivers, borders, and significant geopolitical regions, is tested regularly. Scientific milestones and Nobel Prize history appear in some form every year. And world history from the 20th century onward, particularly relating to major conflicts, independence movements, and international agreements, rounds out the scope.
+For CSS purposes, General Knowledge clusters into four broad areas. International organizations, with their founding, membership, mandate, and current leadership, constitute a significant portion. World geography, including capitals, major rivers, borders, and significant geopolitical regions, is tested regularly. Scientific milestones and Nobel Prize history appear in some form every year. And world history from the 20th century onward, particularly relating to major conflicts, independence movements, and international agreements, rounds out the scope.
 
-Each of these areas has a depth level the exam actually tests. Knowing that the United Nations exists is not sufficient. Knowing when it was founded, what its main bodies are, and how the Security Council functions — that is the level CSS requires.
+Each of these areas has a depth level the exam actually tests. Knowing that the United Nations exists is not sufficient. Knowing when it was founded, what its main bodies are, and how the Security Council functions: that is the level CSS requires.
 
 ## A Preparation Method That Works
 
-The most effective approach to GK is organized note-making, not passive reading. Read a topic — say, the United Nations system — and then write a one-page summary of the key facts: founding year, headquarters, Secretary General, main organs, recent resolutions relevant to Pakistan. That summary becomes your revision material.
+The most effective approach to GK is organized note-making, not passive reading. Read a topic (say, the United Nations system) and then write a one-page summary of the key facts: founding year, headquarters, Secretary General, main organs, recent resolutions relevant to Pakistan. That summary becomes your revision material.
 
 Do this for twenty to twenty-five major topics over two months, and you have a GK revision bank that covers eighty percent of what the exam actually asks. Combine this with weekly MCQ practice on the topics you have covered.
 
@@ -46,7 +46,7 @@ Do this for twenty to twenty-five major topics over two months, and you have a G
 
 Like Current Affairs, GK does not sit in isolation. A question about the UN Security Council connects to Pakistan Affairs and foreign policy. A question about the World Bank connects to Current Affairs and Economics. A question about historical treaties connects to History optionals.
 
-When a GK topic has obvious connections to your other subjects, note both angles. This cross-referencing reduces the total study time and strengthens recall — when you encounter the topic in one context, it activates knowledge from the other. Over months of preparation, these connections accumulate into a genuinely integrated understanding of world affairs that serves multiple subjects simultaneously.`
+When a GK topic has obvious connections to your other subjects, note both angles. This cross-referencing reduces the total study time and strengthens recall: when you encounter the topic in one context, it activates knowledge from the other. Over months of preparation, these connections accumulate into a genuinely integrated understanding of world affairs that serves multiple subjects simultaneously.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)
@@ -61,7 +61,7 @@ export default function BlogPost() {
       />
       <BlogPostShell
         title="General Knowledge for CSS: Why Candidates Underestimate It"
-        subtitle="GK feels familiar until the MCQs start. The questions are more specific than candidates expect — and the preparation needs to match."
+        subtitle="GK feels familiar until the MCQs start. The questions are more specific than candidates expect, and the preparation needs to match."
         author="Imtehan Team"
         date="February 7, 2025"
         readTime="5 min read"

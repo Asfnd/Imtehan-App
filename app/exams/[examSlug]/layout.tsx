@@ -15,7 +15,7 @@ const EXAM_SEO: Record<string, {
   },
   'pms-competitive': {
     description:
-      'Practice PMS MCQs by subject and use the PMS Writing Coach for essay, précis, and long-answer feedback — English, GK, Pakistan Affairs, Islamiat, Current Affairs, Everyday Science, Math, Geography.',
+      'Practice PMS MCQs by subject and use the PMS Writing Coach for essay, précis, and long-answer feedback: English, GK, Pakistan Affairs, Islamiat, Current Affairs, Everyday Science, Math, Geography.',
     keywords: [
       'PMS MCQs', 'PMS preparation Pakistan', 'PMS screening MCQs',
       'PMS general knowledge', 'PMS Pakistan affairs', 'PMS English MCQs',

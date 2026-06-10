@@ -1,4 +1,4 @@
-/** Shape checks for `/api/grade` JSON — mirrors prompts in `writingCoachPrompts.ts`. */
+/** Shape checks for `/api/grade` JSON: mirrors prompts in `writingCoachPrompts.ts`. */
 
 const GRADES = new Set(['A', 'B', 'C', 'D', 'F'])
 const ANNOTATION_TYPES = new Set(['strength', 'weakness', 'suggestion'])
@@ -41,7 +41,7 @@ function assertBreakdownSlice(
 export function validateCssEssayFeedback(raw: string): void {
   const f = parseJsonObject(raw)
   if (typeof f.score !== 'number' || f.score < 0 || f.score > 100) {
-    throw new Error(`score must be 0–100, got ${String(f.score)}`)
+    throw new Error(`score must be 0-100, got ${String(f.score)}`)
   }
   assertGrade(f.grade)
   assertBreakdownSlice(f.breakdown, {
@@ -68,7 +68,7 @@ export function validateCssEssayFeedback(raw: string): void {
 export function validateLongAnswerFeedback(raw: string, marks: number): void {
   const f = parseJsonObject(raw)
   if (typeof f.score !== 'number' || f.score < 0 || f.score > marks) {
-    throw new Error(`score must be 0–${marks}, got ${String(f.score)}`)
+    throw new Error(`score must be 0-${marks}, got ${String(f.score)}`)
   }
   assertGrade(f.grade)
   const contentMax = Math.round(marks * 0.4)
@@ -98,7 +98,7 @@ export function validateLongAnswerFeedback(raw: string, marks: number): void {
 export function validatePrecisFeedback(raw: string): void {
   const f = parseJsonObject(raw)
   if (typeof f.score !== 'number' || f.score < 0 || f.score > 100) {
-    throw new Error(`score must be 0–100, got ${String(f.score)}`)
+    throw new Error(`score must be 0-100, got ${String(f.score)}`)
   }
   assertGrade(f.grade)
   const wc = f.wordCount

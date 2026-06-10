@@ -13,28 +13,40 @@ interface OrganizationSchemaProps {
   sameAs?: string[]
 }
 
+const DEFAULT_SAME_AS = [
+  'https://www.instagram.com/imtehanofficial/',
+  'https://www.facebook.com/profile.php?id=61567790634598',
+]
+
 export function OrganizationSchema({
   name = 'Imtehan',
   url = 'https://imtehan.com',
-  logo = 'https://imtehan.com/favicon.svg',
-  description = 'CSS and MPT competitive exam preparation platform in Pakistan',
-  sameAs = []
+  logo = 'https://imtehan.com/logo.png',
+  description = 'Pakistan\'s exam preparation platform for CSS, PMS, MDCAT, PPSC, FPSC and 200+ competitive exams. Practice MCQs, past papers, mock tests and AI essay grading.',
+  sameAs = DEFAULT_SAME_AS
 }: OrganizationSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'EducationalOrganization',
+    '@id': `${url}/#organization`,
     name,
     url,
     logo: {
       '@type': 'ImageObject',
       url: logo,
+      width: 512,
+      height: 512,
     },
+    image: 'https://imtehan.com/og-image.png',
     description,
     ...(sameAs.length > 0 && { sameAs }),
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Support',
+      email: 'info@imtehan.com',
+      telephone: '+92-326-7426824',
       url: `${url}/contact`,
+      availableLanguage: ['English', 'Urdu'],
     },
     areaServed: {
       '@type': 'Country',
@@ -132,14 +144,17 @@ export function WebSiteSchema({
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${url}/#website`,
     name,
     url,
     description,
+    inLanguage: ['en', 'ur'],
+    publisher: { '@id': `${url}/#organization` },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${url}/css/subjects?subject={search_term_string}`,
+        urlTemplate: `${url}/exams?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -207,7 +222,7 @@ export function ArticleSchema({
   author = 'Imtehan',
   publishDate,
   modifiedDate,
-  imageUrl = 'https://imtehan.com/og-image.svg',
+  imageUrl = 'https://imtehan.com/og-image.png',
   url,
 }: ArticleSchemaProps) {
   const schema = {

@@ -220,7 +220,7 @@ export default async function PipelinePage() {
                   <div className="text-gray-400 mt-1 flex gap-2">
                     <span>tier {v.tier}</span>
                     <span>·</span>
-                    <span>{v.confidence ? `conf ${Number(v.confidence).toFixed(2)}` : '—'}</span>
+                    <span>{v.confidence ? `conf ${Number(v.confidence).toFixed(2)}` : '-'}</span>
                     <span>·</span>
                     <span>{v.model}</span>
                   </div>

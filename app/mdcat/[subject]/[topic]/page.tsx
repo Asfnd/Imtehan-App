@@ -52,7 +52,7 @@ export default function MDCATTopicOrDifficultyPage() {
   const [totalMCQs, setTotalMCQs]         = useState(0)
   const [loading, setLoading]             = useState(true)
   const [selectedBatch, setSelectedBatch] = useState(1)
-  // Green "completed" badges — local-first, synced from the DB for signed-in users.
+  // Green "completed" badges: local-first, synced from the DB for signed-in users.
   const completions = useCompletions(`mdcat:${subject}:${decodedTopic}`)
 
   useEffect(() => {
@@ -161,12 +161,12 @@ export default function MDCATTopicOrDifficultyPage() {
               }
             </div>
             <h1 className="text-xl font-bold text-slate-900">
-              {subjectCfg.name} — {displayLabel}
+              {subjectCfg.name}: {displayLabel}
             </h1>
           </div>
         </div>
 
-        {/* Batch selector — horizontal scroll on mobile, vertical sidebar on md+ */}
+        {/* Batch selector: horizontal scroll on mobile, vertical sidebar on md+ */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 md:hidden">
           {Array.from({ length: totalBatches }, (_, i) => i + 1).map((batchNum) => {
             const isSelected = batchNum === selectedBatch
@@ -185,7 +185,7 @@ export default function MDCATTopicOrDifficultyPage() {
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          {/* Batch sidebar — desktop only */}
+          {/* Batch sidebar: desktop only */}
           <div className="hidden md:block md:col-span-3">
             <div className="bg-white rounded-2xl border border-slate-200 p-3 sticky top-24 shadow-sm">
               <p className="font-bold text-xs text-slate-700 mb-0.5">Batches</p>
@@ -283,7 +283,7 @@ export default function MDCATTopicOrDifficultyPage() {
       <SignInPopup
         isOpen={showSignIn}
         onClose={() => setShowSignIn(false)}
-        message="Sign in free to unlock Set 3 — then upgrade for full access"
+        message="Sign in free to unlock Set 3, then upgrade for full access"
       />
     </div>
   )

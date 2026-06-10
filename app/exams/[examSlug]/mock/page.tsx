@@ -22,7 +22,7 @@ export default function MockTestsPage() {
       const ids = new Set<number>()
       const scores: Record<number, number> = {}
 
-      // 1. Local storage — works for guests and as instant fallback
+      // 1. Local storage: works for guests and as instant fallback
       try {
         const key = `imtehan_mock_done_${examSlug}`
         const stored = JSON.parse(localStorage.getItem(key) || '{}')
@@ -33,7 +33,7 @@ export default function MockTestsPage() {
         }
       } catch { /* storage unavailable */ }
 
-      // 2. DB — signed-in users get authoritative history (merged on top)
+      // 2. DB: signed-in users get authoritative history (merged on top)
       try {
         const supabase = createClient()
         const { data: { user } } = await supabase.auth.getUser()
@@ -54,7 +54,7 @@ export default function MockTestsPage() {
             }
           })
         }
-      } catch { /* graceful — local completions still show */ }
+      } catch { /* graceful: local completions still show */ }
 
       setCompletedMockIds(ids)
       setMockScores(scores)

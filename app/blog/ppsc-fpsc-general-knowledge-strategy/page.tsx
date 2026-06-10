@@ -51,7 +51,7 @@ The PPSC and FPSC papers generally follow a specific weightage. Instead of tryin
 
 With access to a bank of 70,000+ MCQs, you should stop preparing chronologically and start preparing statistically. Use the Imtehan PPSC/FPSC modules to identify which subjects are your weakest. 
 
-Don't just solve the question and move on. Read the "Why" behind the answer. If you get a question wrong about the United Nations, don't just memorize the correct year—spend five minutes on our platform or the community chat discussing the UN's structure. This contextual learning ensures that you don't just memorize an answer; you understand the topic.
+Don't just solve the question and move on. Read the "Why" behind the answer. If you get a question wrong about the United Nations, don't just memorize the correct year. Spend five minutes on our platform or the community chat discussing the UN's structure. This contextual learning ensures that you don't just memorize an answer; you understand the topic.
 
 ## The Community Advantage
 

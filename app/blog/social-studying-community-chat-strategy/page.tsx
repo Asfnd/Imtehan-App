@@ -33,7 +33,7 @@ This is exactly why we’ve introduced the **Imtehan Community Chat**. It’s no
 
 The Protégé Effect is a simple but profound phenomenon: when you prepare to teach a concept to someone else, you learn it better yourself. Your brain automatically starts to organize the information more logically because it anticipates having to explain it. 
 
-By participating in the Community Chat, you are constantly presented with opportunities to "teach." When another student asks a question about the CSS Optional subjects or a complex MDCAT Biology concept, and you take the time to answer it, you aren't just helping them—you are cementing that knowledge in your own mind.
+By participating in the Community Chat, you are constantly presented with opportunities to "teach." When another student asks a question about the CSS Optional subjects or a complex MDCAT Biology concept, and you take the time to answer it, you aren't just helping them. You are cementing that knowledge in your own mind.
 
 > If you want to master a topic, teach it. If you want to forget it, just read it.
 
@@ -54,7 +54,7 @@ Don't treat the chat as a distraction. Treat it as a tool with a specific "Doubl
 
 The path to success in competitive exams is paved with consistency. In the Imtehan community, you can find "Study Partners" who are aiming for the same goal. Having someone to check in with every morning to say, "I solved 100 MCQs today, did you?" creates a level of accountability that no book can provide.
 
-The update is now live. Don’t study in the dark—step into the community, share your knowledge, and let the compound effect of social learning take your score to the next level. See you in the chat!`
+The update is now live. Don’t study in the dark. Step into the community, share your knowledge, and let the compound effect of social learning take your score to the next level. See you in the chat!`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

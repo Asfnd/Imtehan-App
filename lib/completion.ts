@@ -3,8 +3,8 @@
 // Quiz completion tracking for the green "completed" badge.
 //
 // Two layers, so it works for everyone:
-//   • localStorage — instant, and the only store for guests.
-//   • Supabase `quiz_completions` (via mark_completion RPC) — for signed-in users,
+//   • localStorage: instant, and the only store for guests.
+//   • Supabase `quiz_completions` (via mark_completion RPC): for signed-in users,
 //     so progress syncs across devices/accounts. RLS scopes rows to the current user.
 //
 // Both layers are keyed the same way:
@@ -93,7 +93,7 @@ export function markCompleted(scope: string, item: string | number, scorePct: nu
       if (stored[id] == null || pct > stored[id]) stored[id] = pct
       localStorage.setItem(storageKey(scope), JSON.stringify(stored))
     } catch {
-      /* storage unavailable — silent */
+      /* storage unavailable: silent */
     }
   }
 
@@ -102,7 +102,7 @@ export function markCompleted(scope: string, item: string | number, scorePct: nu
     const supabase = createClient()
     void supabase.rpc('mark_completion', { p_scope: scope, p_item: id, p_score: pct })
   } catch {
-    /* offline / no client — local copy still recorded */
+    /* offline / no client: local copy still recorded */
   }
 }
 

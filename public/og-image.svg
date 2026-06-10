@@ -1,73 +1,69 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Background gradient -->
   <rect width="1200" height="630" fill="url(#bgGradient)"/>
-  
+
   <!-- Decorative elements -->
-  <circle cx="100" cy="100" r="50" fill="white" fill-opacity="0.1"/>
-  <circle cx="1100" cy="530" r="80" fill="white" fill-opacity="0.1"/>
-  <circle cx="1050" cy="150" r="30" fill="white" fill-opacity="0.15"/>
-  
-  <!-- Main content container -->
-  <rect x="80" y="80" width="1040" height="470" rx="24" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.3" stroke-width="2"/>
-  
-  <!-- Book icon -->
-  <g transform="translate(120, 180)">
-    <rect width="100" height="130" rx="8" fill="white" fill-opacity="0.95"/>
-    <rect x="15" y="15" width="70" height="6" rx="3" fill="#6366F1"/>
-    <rect x="15" y="30" width="55" height="6" rx="3" fill="#8B5CF6"/>
-    <rect x="15" y="45" width="70" height="6" rx="3" fill="#6366F1"/>
-    <rect x="15" y="60" width="45" height="6" rx="3" fill="#8B5CF6"/>
-    <rect x="15" y="75" width="60" height="6" rx="3" fill="#6366F1"/>
-    <rect x="15" y="90" width="50" height="6" rx="3" fill="#8B5CF6"/>
+  <circle cx="110" cy="110" r="60" fill="white" fill-opacity="0.08"/>
+  <circle cx="1090" cy="540" r="90" fill="white" fill-opacity="0.08"/>
+  <circle cx="1060" cy="140" r="34" fill="white" fill-opacity="0.12"/>
+  <circle cx="150" cy="520" r="22" fill="white" fill-opacity="0.12"/>
+
+  <!-- Content frame -->
+  <rect x="64" y="64" width="1072" height="502" rx="28" fill="white" fill-opacity="0.06" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+
+  <!-- Brand row: book icon + wordmark -->
+  <g transform="translate(110, 110)">
+    <rect width="72" height="72" rx="16" fill="white" fill-opacity="0.12"/>
+    <g transform="translate(20,20) scale(1.3)" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M8 22V10c0-.5.5-1.5 2-2 1.5-.5 4-.5 6 1v14c-2-1.5-4.5-1.5-6-1-1.5.5-2 1-2 1z"/>
+      <path d="M24 22V10c0-.5-.5-1.5-2-2-1.5-.5-4-.5-6 1v14c2-1.5 4.5-1.5 6-1 1.5.5 2 1 2 1z"/>
+    </g>
+    <text x="92" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="white">Imtehan</text>
+    <text x="92" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="white" fill-opacity="0.75">imtehan.com</text>
   </g>
-  
-  <!-- Trophy icon -->
-  <g transform="translate(120, 350)">
-    <path d="M30 20L35 35L50 35L50 45L15 45L15 35L30 35L30 20Z" fill="#FFD700"/>
-    <circle cx="32.5" cy="15" r="12" fill="#FFD700"/>
-    <rect x="25" y="45" width="15" height="8" fill="#FFD700"/>
+
+  <!-- Headline -->
+  <text x="110" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" fill="white">Pakistan's Smartest</text>
+  <text x="110" y="372" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" fill="url(#accentGradient)">Exam Prep Platform</text>
+
+  <!-- Exam pills -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="white">
+    <g transform="translate(110, 410)">
+      <rect width="92" height="44" rx="22" fill="white" fill-opacity="0.14"/>
+      <text x="46" y="29" text-anchor="middle">CSS</text>
+    </g>
+    <g transform="translate(214, 410)">
+      <rect width="100" height="44" rx="22" fill="white" fill-opacity="0.14"/>
+      <text x="50" y="29" text-anchor="middle">PMS</text>
+    </g>
+    <g transform="translate(326, 410)">
+      <rect width="124" height="44" rx="22" fill="white" fill-opacity="0.14"/>
+      <text x="62" y="29" text-anchor="middle">MDCAT</text>
+    </g>
+    <g transform="translate(462, 410)">
+      <rect width="112" height="44" rx="22" fill="white" fill-opacity="0.14"/>
+      <text x="56" y="29" text-anchor="middle">PPSC</text>
+    </g>
+    <g transform="translate(586, 410)">
+      <rect width="232" height="44" rx="22" fill="white" fill-opacity="0.14"/>
+      <text x="116" y="29" text-anchor="middle">+ 200 more exams</text>
+    </g>
   </g>
-  
-  <!-- Main title -->
-  <text x="280" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="white">CSS Practice Hub</text>
-  
-  <!-- Subtitle -->
-  <text x="280" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="white" fill-opacity="0.9">Master Your CSS Exam Preparation</text>
-  
-  <!-- Feature list -->
-  <g transform="translate(280, 320)">
-    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="500" fill="white" fill-opacity="0.85">✓ 10,000+ Practice Questions</text>
-    <text x="0" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="500" fill="white" fill-opacity="0.85">✓ Official Past Papers (2000-2024)</text>
-    <text x="0" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="500" fill="white" fill-opacity="0.85">✓ Mock Tests & Detailed Solutions</text>
-    <text x="0" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="500" fill="white" fill-opacity="0.85">✓ Progress Tracking & Analytics</text>
-  </g>
-  
-  <!-- Call to action -->
-  <rect x="280" y="480" width="200" height="50" rx="25" fill="white" fill-opacity="0.2" stroke="white" stroke-opacity="0.5"/>
-  <text x="380" y="510" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="white" text-anchor="middle">Start Practicing Free</text>
-  
-  <!-- Stats badges -->
-  <g transform="translate(750, 180)">
-    <!-- Students badge -->
-    <rect width="180" height="60" rx="30" fill="white" fill-opacity="0.15"/>
-    <text x="90" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">1000+ Students</text>
-    <text x="90" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white" fill-opacity="0.8" text-anchor="middle">Trust Our Platform</text>
-  </g>
-  
-  <g transform="translate(750, 260)">
-    <!-- Success rate badge -->
-    <rect width="180" height="60" rx="30" fill="white" fill-opacity="0.15"/>
-    <text x="90" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">95% Success Rate</text>
-    <text x="90" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white" fill-opacity="0.8" text-anchor="middle">In CSS 2024</text>
-  </g>
-  
-  <!-- Gradient definitions -->
+
+  <!-- Feature line -->
+  <text x="110" y="510" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="500" fill="white" fill-opacity="0.92">70,000+ MCQs  •  Past Papers  •  Mock Tests  •  AI Essay Grading</text>
+
+  <!-- Definitions -->
   <defs>
     <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
-      <stop offset="30%" style="stop-color:#1e293b;stop-opacity:1" />
-      <stop offset="70%" style="stop-color:#6366F1;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="35%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#A5B4FC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F0ABFC;stop-opacity:1" />
     </linearGradient>
   </defs>
 </svg>

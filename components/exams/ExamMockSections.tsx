@@ -98,7 +98,7 @@ export type ExamMockSectionsProps = {
   mockScores?: Record<number, number>
 }
 
-/** Same grid as Practice by Subject — tier cards use the same column width as subject tiles */
+/** Same grid as Practice by Subject: tier cards use the same column width as subject tiles */
 const DASHBOARD_GRID =
   'grid grid-cols-2 items-stretch gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5'
 

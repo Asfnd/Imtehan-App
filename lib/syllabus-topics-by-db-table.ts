@@ -1,5 +1,5 @@
 /**
- * Topic buckets for MCQ generation — kept in sync with scripts/exam_mcq_profiles.py
+ * Topic buckets for MCQ generation: kept in sync with scripts/exam_mcq_profiles.py
  * (CSS_PPSC_SUBJECT_TOPICS). Keys are Supabase / exam-config dbTable names.
  */
 export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
@@ -16,7 +16,7 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
   pakistan_studies: [
     'Constitution of 1973',
     'Parliamentary system and amendments',
-    'Freedom movement (1857–1947)',
+    'Freedom movement (1857-1947)',
     'Post-independence leaders and events',
     'Provinces and administrative structure',
     'Foreign policy and neighbours',
@@ -97,5 +97,5 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
 export function topicsForDbTable(dbTable: string, sectionLabel: string): { topics: string[]; source: 'shared_bank' | 'label_only' } {
   const t = TOPICS_BY_DB_TABLE[dbTable]
   if (t?.length) return { topics: t, source: 'shared_bank' }
-  return { topics: [`${sectionLabel} (general — add official syllabus topics when available)`], source: 'label_only' }
+  return { topics: [`${sectionLabel} (general: add official syllabus topics when available)`], source: 'label_only' }
 }

@@ -1,5 +1,5 @@
 /**
- * Single source of truth for CSS-style exam mocks (IDs 1–20).
+ * Single source of truth for CSS-style exam mocks (IDs 1-20).
  * Used by the mock runner route, dashboard, and mock listing page.
  */
 
@@ -152,7 +152,7 @@ export const EXAM_MOCK_SPECS: Record<number, ExamMockSpec> = {
     multiplier: 0.25,
     qTypes: ['most_repeated'],
     difficulty: 'Advanced',
-    summary: 'Rapid fire — 25% blitz',
+    summary: 'Rapid fire: 25% blitz',
     iconKey: 'Crosshair',
   },
   15: {

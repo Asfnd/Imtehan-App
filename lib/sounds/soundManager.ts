@@ -87,7 +87,7 @@ class SoundManager {
       console.log('✅ All sounds preloaded successfully')
     } catch (error) {
       console.error('Error preloading sounds:', error)
-      // Keep enabled — synth fallback still works without MP3 files
+      // Keep enabled: synth fallback still works without MP3 files
     }
   }
 
@@ -102,7 +102,7 @@ class SoundManager {
 
     const original = this.sounds.get(soundName)
 
-    // MP3 loaded — use pooled playback (works best after preload, but not required)
+    // MP3 loaded: use pooled playback (works best after preload, but not required)
     if (original) {
       let pool = this.audioPool.get(soundName)
       if (!pool) {
@@ -130,7 +130,7 @@ class SoundManager {
       return
     }
 
-    // No file (missing / still loading) — immediate synth feedback
+    // No file (missing / still loading): immediate synth feedback
     playSynthFeedback(soundName, this.volume)
   }
 

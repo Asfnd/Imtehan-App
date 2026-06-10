@@ -5,7 +5,7 @@ import { useMemo, useRef, useEffect, useState, useCallback, useLayoutEffect } fr
 interface QuizJourneyPanelProps {
   totalSteps: number
   currentIndex: number
-  /** 0–1 path fill (sync with top bar); only grows on correct completions */
+  /** 0-1 path fill (sync with top bar); only grows on correct completions */
   pathProgress: number
   isQuestionSolved?: boolean
   title?: string
@@ -30,7 +30,7 @@ export function QuizJourneyPanel({
   className = '',
 }: QuizJourneyPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  /** Geometry for getTotalLength / getPointAtLength — same `d` as visible paths */
+  /** Geometry for getTotalLength / getPointAtLength: same `d` as visible paths */
   const measurePathRef = useRef<SVGPathElement>(null)
   const [avatarPos, setAvatarPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
   const [pathLen, setPathLen] = useState(0)

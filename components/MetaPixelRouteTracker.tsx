@@ -6,7 +6,7 @@ import { trackMetaPageView } from '@/lib/analytics/metaPixel'
 
 /**
  * Fires Meta PageView on client-side navigations (App Router).
- * Initial load is covered by the base pixel snippet in MetaPixel — we skip the first effect to avoid double counting.
+ * Initial load is covered by the base pixel snippet in MetaPixel, so we skip the first effect to avoid double counting.
  */
 export function MetaPixelRouteTracker() {
   const pathname = usePathname()

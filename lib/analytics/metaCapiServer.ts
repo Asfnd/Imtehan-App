@@ -1,5 +1,5 @@
 /**
- * Meta Conversions API (server-only) — send events for deduplication with browser pixel.
+ * Meta Conversions API (server-only): send events for deduplication with browser pixel.
  * @see https://developers.facebook.com/docs/marketing-api/conversions-api/using-the-api
  */
 

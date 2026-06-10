@@ -41,7 +41,7 @@ export default function AboutPage() {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
             <p className="text-gray-700 leading-relaxed mb-6">
-              Imtehan was founded with a single goal: to democratize access to high-quality competitive exam preparation in Pakistan. We believe that every aspiring CSS and MPT candidate deserves access to expert-curated content, comprehensive practice materials, and intelligent learning tools—regardless of their location or financial background.
+              Imtehan was founded with a single goal: to democratize access to high-quality competitive exam preparation in Pakistan. We believe that every aspiring CSS and MPT candidate deserves access to expert-curated content, comprehensive practice materials, and intelligent learning tools, regardless of their location or financial background.
             </p>
 
             <h2 className="text-3xl font-bold mb-6 mt-12">What We Offer</h2>

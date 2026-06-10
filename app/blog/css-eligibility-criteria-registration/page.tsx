@@ -26,7 +26,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['CSS Eligibility', 'Registration', 'FPSC', 'Age Limit', 'Requirements']
 
-const CONTENT = `Before beginning CSS preparation, it is worth confirming that you actually meet the eligibility requirements — not because the criteria are obscure, but because candidates occasionally discover a constraint mid-preparation that affects their planning. Age limits, degree requirements, and domicile rules are the three areas where confusion most commonly arises.
+const CONTENT = `Before beginning CSS preparation, it is worth confirming that you actually meet the eligibility requirements, not because the criteria are obscure, but because candidates occasionally discover a constraint mid-preparation that affects their planning. Age limits, degree requirements, and domicile rules are the three areas where confusion most commonly arises.
 
 ## Age and Attempt Limits
 
@@ -44,15 +44,15 @@ For candidates with foreign degrees, HEC equivalence certification is required. 
 
 ## The Registration Process
 
-FPSC announces the CSS examination schedule and opens online registration through its official website. The registration window is limited — typically a few weeks — and the FPSC does not accept late applications. Missing the registration deadline means waiting another year.
+FPSC announces the CSS examination schedule and opens online registration through its official website. The registration window is limited, typically a few weeks, and the FPSC does not accept late applications. Missing the registration deadline means waiting another year.
 
-Required at registration: CNIC, domicile certificate, educational qualification documents, and subject selection. The subject selection at registration is important — choosing your optional subjects early forces the commitment that is actually beneficial for preparation.
+Required at registration: CNIC, domicile certificate, educational qualification documents, and subject selection. The subject selection at registration is important: choosing your optional subjects early forces the commitment that is actually beneficial for preparation.
 
 ## Domicile and Province Allocation
 
-CSS candidates are allocated to provinces based on their domicile. This affects the allocation of positions but not the examination itself — all candidates sit the same papers regardless of province. Confirming your domicile is accurate and up to date before registration avoids complications later in the process.
+CSS candidates are allocated to provinces based on their domicile. This affects the allocation of positions but not the examination itself. All candidates sit the same papers regardless of province. Confirming your domicile is accurate and up to date before registration avoids complications later in the process.
 
-Once registered and confirmed eligible, the administrative side of CSS requires no further attention until the exam itself. All preparation energy can go toward the subjects. That is how it should be — eligibility is a prerequisite, not an ongoing concern.`
+Once registered and confirmed eligible, the administrative side of CSS requires no further attention until the exam itself. All preparation energy can go toward the subjects. That is how it should be: eligibility is a prerequisite, not an ongoing concern.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

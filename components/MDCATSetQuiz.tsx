@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-// lucide icons removed — 3D button style handles correct/wrong visuals
+// lucide icons removed: 3D button style handles correct/wrong visuals
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { saveQuizResults } from '@/lib/analytics'
@@ -383,7 +383,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   }
 
   const level = Math.min(99, Math.max(1, 1 + Math.floor(totalXp / 250)))
-  const journeyFootnote = isQuestionSolved ? 'Nice — onward.' : undefined
+  const journeyFootnote = isQuestionSolved ? 'Nice. Onward.' : undefined
 
   let dockPhase: QuizDockPhase = 'hidden'
   if (isQuestionSolved) dockPhase = 'correct'
@@ -477,7 +477,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
         title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
         subtitle={
           dockPhase === 'correct'
-            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job — keep going!'
+            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job, keep going!'
             : undefined
         }
         continueLabel="Continue"

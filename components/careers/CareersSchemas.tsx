@@ -19,7 +19,7 @@ export function CareersSchemas() {
         '@type': 'Organization',
         name: 'Imtehan',
         sameAs: 'https://imtehan.com',
-        logo: 'https://imtehan.com/favicon.svg',
+        logo: 'https://imtehan.com/logo.png',
       },
       jobLocation: {
         '@type': 'Place',

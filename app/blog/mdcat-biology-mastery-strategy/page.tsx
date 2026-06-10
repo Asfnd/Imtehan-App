@@ -27,7 +27,7 @@ const TAGS = ['MDCAT 2026', 'Biology', 'Medical Entry', 'PMC', 'UHS', 'Study Str
 
 const CONTENT = `Biology is the heart of the MDCAT. With 68 questions out of 200, it is the single most rewarding section of the exam. Yet, it's also where many students lose critical marks by relying on rote memorization (rata) instead of conceptual depth. The difference between an average score and a top-tier one is how you handle the "application-based" questions that the PMC and provincial boards now favor.
 
-In our recent platform update, we’ve included over 10,000 specialized Biology MCQs—categorized by topic and chapter—to help you build this conceptual framework.
+In our recent platform update, we’ve included over 10,000 specialized Biology MCQs (categorized by topic and chapter) to help you build this conceptual framework.
 
 ## The Myth of "Rote Memorization"
 
@@ -60,7 +60,7 @@ One of the most powerful features of our new update is the detailed analytics. A
 
 Use this data to pivot. Instead of studying what you already know (which feels good but is unproductive), dive back into the "Cell Biology" module. Use our **Community Chat** to ask for mnemonics or simplified explanations from other students who have already mastered that topic.
 
-The 2026 MDCAT will be more competitive than ever. By moving away from mindless memorization and toward a data-driven, test-first strategy, you aren’t just hoping for success—you’re planning for it. [Start practising MDCAT Biology MCQs on Imtehan](/mdcat/biology) today and see where you truly stand.`
+The 2026 MDCAT will be more competitive than ever. By moving away from mindless memorization and toward a data-driven, test-first strategy, you aren’t just hoping for success, you’re planning for it. [Start practising MDCAT Biology MCQs on Imtehan](/mdcat/biology) today and see where you truly stand.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

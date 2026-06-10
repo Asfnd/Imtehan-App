@@ -26,11 +26,11 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Pakistan Affairs', 'MCQ Practice', 'CSS MCQs', 'Most Repeated']
 
-const CONTENT = `Solving Pakistan Affairs MCQs without understanding the patterns behind them produces diminishing returns. You memorize a hundred answers, encounter a question phrased slightly differently in the exam, and the memorized answer does not transfer. Candidates who understand the underlying topics that MCQs test can handle new questions on familiar themes — which is exactly what the CSS paper demands year after year.
+const CONTENT = `Solving Pakistan Affairs MCQs without understanding the patterns behind them produces diminishing returns. You memorize a hundred answers, encounter a question phrased slightly differently in the exam, and the memorized answer does not transfer. Candidates who understand the underlying topics that MCQs test can handle new questions on familiar themes, which is exactly what the CSS paper demands year after year.
 
 ## The Categories That Repeat
 
-Pakistan Affairs MCQs cluster into predictable categories regardless of the year. Constitutional milestones — the dates, provisions, and abrogations of major constitutions — appear consistently. The major figures of the independence movement and their documented positions appear consistently. Significant international agreements Pakistan has signed, and the dates of joining major international organizations, appear consistently. And governance events — elections, martial laws, and major policy shifts — appear consistently.
+Pakistan Affairs MCQs cluster into predictable categories regardless of the year. Constitutional milestones, including the dates, provisions, and abrogations of major constitutions, appear consistently. The major figures of the independence movement and their documented positions appear consistently. Significant international agreements Pakistan has signed, and the dates of joining major international organizations, appear consistently. And governance events, including elections, martial laws, and major policy shifts, appear consistently.
 
 This is not a comprehensive list, but these four categories account for a large majority of Pakistan Affairs MCQs in past papers. A candidate who knows them well is prepared for the most probable questions, not just the ones they have seen before.
 
@@ -38,17 +38,17 @@ This is not a comprehensive list, but these four categories account for a large 
 
 Pakistan Affairs MCQs test a relatively fixed body of knowledge, but they test it from different angles each year. The same constitutional event might be tested as a date question one year and as a "which Prime Minister was in office when" question the next. The underlying knowledge is identical. The framing changes.
 
-Candidates who memorized the date without understanding the surrounding context will answer the first version correctly and the second incorrectly. Candidates who understood the event — who was in power, what happened, why it mattered — will answer both.
+Candidates who memorized the date without understanding the surrounding context will answer the first version correctly and the second incorrectly. Candidates who understood the event, who was in power, what happened, and why it mattered, will answer both.
 
 > Memorizing answers prepares you for the questions you have already seen. Understanding topics prepares you for the ones you have not.
 
 ## The Practice Method
 
-Solving MCQs in bulk is useful, but only when paired with review. For every question you get wrong, trace it back to the underlying topic and read that topic again — not the question, the topic. This turns a wrong answer into a learning event rather than just a miss.
+Solving MCQs in bulk is useful, but only when paired with review. For every question you get wrong, trace it back to the underlying topic and read that topic again, not the question, the topic. This turns a wrong answer into a learning event rather than just a miss.
 
 For Pakistan Affairs specifically, organize your MCQ practice by theme rather than by paper year. Solve twenty MCQs on constitutional history together, then twenty on the independence movement, then twenty on foreign policy. Thematic practice reinforces the connected understanding you need for the analytical paper alongside the factual MCQ component.
 
-Aim for consistent daily practice rather than heavy weekend sessions. Twenty MCQs daily builds a compounding familiarity with the subject that occasional bulk practice cannot replicate. By exam time, the most common Pakistan Affairs questions should feel entirely routine — not because you memorized answers, but because the underlying topics are genuinely familiar.`
+Aim for consistent daily practice rather than heavy weekend sessions. Twenty MCQs daily builds a compounding familiarity with the subject that occasional bulk practice cannot replicate. By exam time, the most common Pakistan Affairs questions should feel entirely routine, not because you memorized answers, but because the underlying topics are genuinely familiar.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

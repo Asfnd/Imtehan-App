@@ -26,11 +26,11 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['CSS 2025', 'Study Guide', 'Civil Services', 'FPSC', 'Pakistan']
 
-const CONTENT = `Preparing for CSS without a clear structure is the most common mistake candidates make. They read widely, cover everything loosely, and end up knowing a little about a lot — which is exactly the wrong outcome for an exam that rewards depth.
+const CONTENT = `Preparing for CSS without a clear structure is the most common mistake candidates make. They read widely, cover everything loosely, and end up knowing a little about a lot, which is exactly the wrong outcome for an exam that rewards depth.
 
 ## What the Exam Actually Tests
 
-CSS has two layers. The MCQ paper tests breadth — your recall across compulsory subjects like Pakistan Affairs, Islamic Studies, Current Affairs, General Knowledge, and Everyday Science. The written papers test depth — your ability to construct arguments, analyze policy, and write clearly under time pressure.
+CSS has two layers. The MCQ paper tests breadth: your recall across compulsory subjects like Pakistan Affairs, Islamic Studies, Current Affairs, General Knowledge, and Everyday Science. The written papers test depth: your ability to construct arguments, analyze policy, and write clearly under time pressure.
 
 Most candidates prepare only for one layer. They either drill MCQs and neglect essay writing, or they read extensively and never practice under exam conditions. Both approaches fail at the final hurdle.
 
@@ -38,7 +38,7 @@ Most candidates prepare only for one layer. They either drill MCQs and neglect e
 
 The most effective method is simple: read a topic, then immediately test yourself on it. Don't finish a textbook chapter and move on. Solve 30-50 MCQs on that chapter the same day. The MCQs reveal what you actually retained versus what you only felt you understood.
 
-For the written component, start writing full essays by month three — not outlines, not bullet points, full essays. Get them reviewed if possible. Writing under time pressure is a different skill from understanding the content, and it takes weeks to develop.
+For the written component, start writing full essays by month three, not outlines, not bullet points, full essays. Get them reviewed if possible. Writing under time pressure is a different skill from understanding the content, and it takes weeks to develop.
 
 > Preparation that doesn't include practice tests is just reading. And reading alone never cleared an exam.
 
@@ -46,20 +46,20 @@ For the written component, start writing full essays by month three — not outl
 
 Compulsory subjects should be your foundation. Pakistan Affairs and Current Affairs together account for a significant portion of the MCQ paper and both feed into essay topics. Islamic Studies rewards candidates who understand the conceptual framework, not just isolated facts.
 
-For optionals, choose based on overlap with your compulsories. History, Geography, and Political Science all share substantial territory with Pakistan Affairs and Current Affairs — studying one strengthens the other.
+For optionals, choose based on overlap with your compulsories. History, Geography, and Political Science all share substantial territory with Pakistan Affairs and Current Affairs. Studying one strengthens the other.
 
 ## The Final Eight Weeks
 
 This is where most candidates either cement their preparation or unravel it. In these eight weeks, the focus shifts entirely to:
 
 - Full mock tests under timed conditions, twice weekly
-- Past paper analysis — identifying which topics repeat year after year
+- Past paper analysis: identifying which topics repeat year after year
 - Essay practice on current national and international issues
 - Daily 30-minute current affairs review from a single newspaper
 
 The goal isn't to learn new material. It's to build the speed and composure that separates a 65% score from a 75% one.
 
-Starting is the hardest part. Once you build a consistent daily study habit — even three hours — the compound effect takes over. Six months of disciplined preparation is genuinely enough to clear CSS in a first attempt.`
+Starting is the hardest part. Once you build a consistent daily study habit, even three hours, the compound effect takes over. Six months of disciplined preparation is genuinely enough to clear CSS in a first attempt.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

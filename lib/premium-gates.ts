@@ -38,7 +38,7 @@ export type SetTableNavigation = 'navigate' | 'require_sign_in' | 'require_premi
 
 /**
  * FSC / MDCAT topic / exam mode batch: tap on a set in the table.
- * Sets 1–2 or active premium: go; set 3+ not signed in: sign in;
+ * Sets 1-2 or active premium: go; set 3+ not signed in: sign in;
  * set 4+ signed in not premium: paywall; set 3 signed in not premium: go.
  */
 export function tieredSetTableNavigation(

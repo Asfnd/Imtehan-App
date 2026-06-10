@@ -26,8 +26,8 @@ export async function generateMetadata({
   const isDifficulty = !!diffLabel
 
   const title = isDifficulty
-    ? `MDCAT ${subjectName} ${diffLabel} Questions — Practice MCQs | Imtehan`
-    : `MDCAT ${subjectName} — ${topic} MCQs with Answers | Imtehan`
+    ? `MDCAT ${subjectName} ${diffLabel} Questions: Practice MCQs | Imtehan`
+    : `MDCAT ${subjectName}: ${topic} MCQs with Answers | Imtehan`
 
   const description = isDifficulty
     ? `Practice MDCAT ${subjectName} ${diffLabel.toLowerCase()} difficulty MCQs. Topic-wise sets of 20 questions with detailed explanations. Prepare for PMC, ETEA & NUMS entry tests.`

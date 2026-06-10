@@ -6,7 +6,7 @@ import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
   title: 'Why You Forget Everything You Study (And How to Fix It) | Imtehan',
-  description: 'The science behind the forgetting curve and how spaced repetition with MCQ practice can permanently fix your memory — for CSS, MDCAT, and PPSC.',
+  description: 'The science behind the forgetting curve and how spaced repetition with MCQ practice can permanently fix your memory, for CSS, MDCAT, and PPSC.',
   alternates: { canonical: 'https://imtehan.com/blog/forgetting-curve-spaced-repetition' },
   openGraph: {
     title: 'Why You Forget Everything You Study (And How to Fix It)',
@@ -25,7 +25,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Study Science', 'Memory', 'Spaced Repetition', 'Active Recall', 'CSS', 'MDCAT']
 
-const CONTENT = `You spent three hours on a chapter. You understood it clearly. Then, a week later, someone asked you about it in a mock test and your mind went completely blank. This happens to nearly every student, and most of them draw the wrong conclusion — that they have a bad memory, or that the topic is just too hard.
+const CONTENT = `You spent three hours on a chapter. You understood it clearly. Then, a week later, someone asked you about it in a mock test and your mind went completely blank. This happens to nearly every student, and most of them draw the wrong conclusion: that they have a bad memory, or that the topic is just too hard.
 
 It is neither. It is a timing problem.
 
@@ -35,11 +35,11 @@ In the 1880s, a German psychologist named Hermann Ebbinghaus spent months memori
 
 The graph he produced is called the Forgetting Curve, and it describes your academic life almost perfectly.
 
-The answer is not to study longer. It is to study more often — in shorter bursts, deliberately spaced out.
+The answer is not to study longer. It is to study more often, in shorter bursts, deliberately spaced out.
 
 ## What Spaced Repetition Actually Means
 
-Spaced repetition is not a complicated app or an elaborate system. It is this: review material right before you are about to forget it. That near-forgetting moment is when retrieval is hardest — and that is precisely when it builds the strongest memory.
+Spaced repetition is not a complicated app or an elaborate system. It is this: review material right before you are about to forget it. That near-forgetting moment is when retrieval is hardest, and that is precisely when it builds the strongest memory.
 
 When your brain has to work to pull something back, the memory trace gets stronger. When you review something you already know perfectly, almost nothing happens. You are just confirming what you already have. It feels productive. It mostly is not.
 
@@ -56,9 +56,9 @@ Four sessions. Not forty. The spacing is doing most of the work.
 
 Reading re-exposes information to your brain. MCQs force retrieval. These are not the same activity.
 
-When you re-read a paragraph, your brain responds with recognition — "yes, I've seen this." Recognition feels like memory. It is actually just familiarity. The exam does not test familiarity. It tests retrieval: can you produce the correct answer when given a question you have never seen in that exact form before?
+When you re-read a paragraph, your brain responds with recognition: "yes, I've seen this." Recognition feels like memory. It is actually just familiarity. The exam does not test familiarity. It tests retrieval: can you produce the correct answer when given a question you have never seen in that exact form before?
 
-Every time you sit down with an Imtehan MCQ set without opening your notes first, you are forcing your brain into retrieval mode. Every wrong answer is your brain showing you exactly where forgetting happened. That is not failure — that is the most useful information you can get from a study session.
+Every time you sit down with an Imtehan MCQ set without opening your notes first, you are forcing your brain into retrieval mode. Every wrong answer is your brain showing you exactly where forgetting happened. That is not failure. That is the most useful information you can get from a study session.
 
 > Forgetting is not failure. It is feedback. The only real mistake is not going back to review what you missed.
 
@@ -67,7 +67,7 @@ Every time you sit down with an Imtehan MCQ set without opening your notes first
 You do not need a colour-coded app or a complex scheduling system. You need a rhythm:
 
 - Three or four focused sessions per week for new material.
-- One or two shorter sessions reserved for reviewing previous material through MCQs only — no re-reading, just questions.
+- One or two shorter sessions reserved for reviewing previous material through MCQs only: no re-reading, just questions.
 - Any wrong answer goes onto a short list you revisit the next day.
 
 This is genuinely simple. The hard part is maintaining it consistently for months rather than implementing it perfectly for two weeks and then abandoning it.
@@ -93,7 +93,7 @@ export default function BlogPost() {
       />
       <BlogPostShell
         title="Why You Forget Everything You Study (And How to Fix It)"
-        subtitle="You studied that topic for three hours. A week later, your mind went blank. Here is the science behind why — and a simple system to stop it."
+        subtitle="You studied that topic for three hours. A week later, your mind went blank. Here is the science behind why, and a simple system to stop it."
         author="Imtehan Team"
         date="February 24, 2026"
         readTime="6 min read"

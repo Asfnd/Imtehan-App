@@ -8,8 +8,8 @@ interface ConfettiCelebrationProps {
   burstKey?: number
   intensity?: 'low' | 'medium' | 'high'
   /**
-   * `answer` — burst from lower third (above bottom edge), upward fountain.
-   * `results` — bottom fountain, long arc, high particle count.
+   * `answer`: burst from lower third (above bottom edge), upward fountain.
+   * `results`: bottom fountain, long arc, high particle count.
    */
   mode?: 'answer' | 'results'
 }
@@ -39,7 +39,7 @@ function randomShape(): Shape {
 
 const CENTER = 'translate3d(-50%, -50%, 0)'
 
-/** Flat fills + tiny inset highlight — keeps paint cost low with 100+ particles (smooth 60fps). */
+/** Flat fills + tiny inset highlight: keeps paint cost low with 100+ particles (smooth 60fps). */
 function shapeStyle(shape: Shape, color: string, sizeMul: number): React.CSSProperties {
   const base: React.CSSProperties = {
     backgroundColor: color,

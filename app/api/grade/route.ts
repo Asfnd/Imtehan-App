@@ -39,7 +39,7 @@ async function getUsageCount(key: string): Promise<number> {
       .single()
     return (data?.count as number) ?? 0
   } catch {
-    return 0 // fail open — don't block users if DB is unreachable
+    return 0 // fail open: don't block users if DB is unreachable
   }
 }
 
@@ -53,7 +53,7 @@ async function incrementUsageCount(key: string): Promise<void> {
         { onConflict: 'key' }
       )
   } catch {
-    // non-fatal — grading already completed
+    // non-fatal: grading already completed
   }
 }
 
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 2. CSRF (same pattern as contact/newsletter — protects cookie session + AI quota)
+    // 2. CSRF (same pattern as contact/newsletter: protects cookie session + AI quota)
     const csrfError = csrfProtection(request)
     if (csrfError) return csrfError
 
@@ -258,4 +258,4 @@ export async function POST(request: NextRequest) {
 }
 
 export const dynamic = 'force-dynamic'
-export const maxDuration = 60 // seconds — requires Vercel Pro (Hobby plan caps at 10s)
+export const maxDuration = 60 // seconds: requires Vercel Pro (Hobby plan caps at 10s)

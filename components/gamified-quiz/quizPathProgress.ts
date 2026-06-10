@@ -1,5 +1,5 @@
 /**
- * Single source for quiz path fill (0–1): top bar + journey path + owl.
+ * Single source for quiz path fill (0-1): top bar + journey path + owl.
  * Only advances after correct answers (full questions completed); wrong picks do not move the trail.
  */
 export function getQuizPathProgress(

@@ -178,7 +178,7 @@ export default function ExamAnalyticsBar({ examSlug, signInHref = '/signin' }: P
               icon={<TrendingUp className="w-5 h-5 text-white" />}
             />
 
-            {/* Streak — special orange gradient card */}
+            {/* Streak: special orange gradient card */}
             <div className="stat-card group/item relative flex-1 min-w-[140px] bg-gradient-to-br from-orange-500 to-red-500 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/40 transition-all duration-300 cursor-pointer overflow-hidden">
               <div className="absolute inset-0 opacity-30">
                 <div className="absolute top-0 left-1/4 w-2 h-2 bg-yellow-300 rounded-full animate-float" />

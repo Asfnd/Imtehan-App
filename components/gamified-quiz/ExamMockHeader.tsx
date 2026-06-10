@@ -4,7 +4,7 @@ import { Clock, Pause, Play } from 'lucide-react'
 
 export interface ExamMockHeaderProps {
   onExit: () => void
-  /** 0–100, typically (currentIndex + 1) / total * 100 */
+  /** 0-100, typically (currentIndex + 1) / total * 100 */
   progressPct: number
   /** e.g. "12 / 180" */
   progressLabel: string

@@ -97,8 +97,8 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       const wc = wordCount(essayContent)
       if (wc < essayMin) {
         return variant === 'pms'
-          ? `Write at least ${essayMin} words (${wc} written) — PMS essays are often ~${essayLo}-${essayHi} words`
-          : `Write at least ${essayMin} words (${wc} written) — CSS essays require ${essayLo}-${essayHi}`
+          ? `Write at least ${essayMin} words (${wc} written). PMS essays are often ~${essayLo}-${essayHi} words`
+          : `Write at least ${essayMin} words (${wc} written). CSS essays require ${essayLo}-${essayHi}`
       }
     }
     if (mode === 'precis') {
@@ -188,7 +188,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
   const title = variant === 'pms' ? 'PMS Writing Coach' : 'Writing Coach'
   const subtitle =
     variant === 'pms'
-      ? 'PMS English — provincial examiner-style feedback'
+      ? 'PMS English: provincial examiner-style feedback'
       : 'CSS examiner-level feedback'
 
   const essayTabMeta = variant === 'pms' ? '~1400-1600 words' : '1000-1200 words'
@@ -395,7 +395,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
                         value={precisContent}
                         onChange={e => setPrecisContent(e.target.value)}
                         rows={6}
-                        placeholder="Write your précis here — must be ⅓ of original length…"
+                        placeholder="Write your précis here. Must be ⅓ of original length…"
                         className="w-full px-3.5 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all resize-none leading-relaxed bg-gray-50/50"
                       />
                     </div>
@@ -483,14 +483,14 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
 
             {variant === 'pms' && (
               <p className="text-center text-[11px] text-gray-500 px-1">
-                Syllabus details vary by province (PPSC, KPPSC, etc.). Use this coach for practice — always confirm paper
+                Syllabus details vary by province (PPSC, KPPSC, etc.). Use this coach for practice, but always confirm paper
                 format from your latest commission advertisement.
               </p>
             )}
 
             {csrfError && (
               <p className="text-center text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                {csrfError} — refresh the page if this persists.
+                {csrfError}. Refresh the page if this persists.
               </p>
             )}
 

@@ -26,7 +26,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Pakistan Affairs', 'CSS History', 'Compulsory Subjects', 'Timeline']
 
-const CONTENT = `Pakistan Affairs is the compulsory subject that connects everything else in the CSS exam. Events from this subject appear in Current Affairs questions. The constitutional history feeds directly into Islamic Studies. The political and foreign policy timeline overlaps with optional subjects like History and Political Science. Preparing Pakistan Affairs well does not just improve one subject — it lifts the entire exam.
+const CONTENT = `Pakistan Affairs is the compulsory subject that connects everything else in the CSS exam. Events from this subject appear in Current Affairs questions. The constitutional history feeds directly into Islamic Studies. The political and foreign policy timeline overlaps with optional subjects like History and Political Science. Preparing Pakistan Affairs well does not just improve one subject. It lifts the entire exam.
 
 ## The Problem With Date-Based Preparation
 
@@ -40,15 +40,15 @@ The more useful structure is thematic rather than chronological. Prepare Pakista
 
 For constitutional development, for example: understand the 1956 constitution and why it was abrogated, the 1962 constitution under Ayub, the 1973 constitution and its significance, and the subsequent amendments that have altered it. This thematic thread is more useful in the exam than knowing the dates of each amendment in isolation.
 
-> A list of dates tells you what happened. A thematic framework tells you why — and the why is what CSS questions ask about.
+> A list of dates tells you what happened. A thematic framework tells you why, and the why is what CSS questions ask about.
 
 ## The Overlap Strategy
 
 Pakistan Affairs shares significant content with both Islamic Studies and the History optional. The creation of Pakistan connects Islamic political thought with British colonial history. The Objective Resolution connects Pakistani constitutional law with Islamic jurisprudence. The separation of East Pakistan connects political science theory about federalism with geographic and cultural history.
 
-Preparing these overlapping topics together — studying the Objectives Resolution once for both Pakistan Affairs and Islamic Studies, for example — reduces total preparation time and produces deeper understanding. Cross-subject preparation is the most efficient use of study hours in CSS, and Pakistan Affairs is the subject that connects most naturally to the rest.
+Preparing these overlapping topics together, studying the Objectives Resolution once for both Pakistan Affairs and Islamic Studies, for example, reduces total preparation time and produces deeper understanding. Cross-subject preparation is the most efficient use of study hours in CSS, and Pakistan Affairs is the subject that connects most naturally to the rest.
 
-Spend roughly one-third of your Pakistan Affairs preparation on the pre-1947 background — the political context of partition, the major figures and their arguments — and two-thirds on post-independence developments. The exam consistently tests both, but the post-independence period has greater depth of content and more frequent analytical questions.`
+Spend roughly one-third of your Pakistan Affairs preparation on the pre-1947 background, the political context of partition, the major figures and their arguments, and two-thirds on post-independence developments. The exam consistently tests both, but the post-independence period has greater depth of content and more frequent analytical questions.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)
@@ -63,7 +63,7 @@ export default function BlogPost() {
       />
       <BlogPostShell
         title="Pakistan Affairs for CSS: How to Build a Timeline That Actually Helps"
-        subtitle="Dates alone will not get you through the Pakistan Affairs paper. The exam asks why things happened — and that requires a different kind of preparation."
+        subtitle="Dates alone will not get you through the Pakistan Affairs paper. The exam asks why things happened, and that requires a different kind of preparation."
         author="Imtehan Team"
         date="February 5, 2025"
         readTime="5 min read"

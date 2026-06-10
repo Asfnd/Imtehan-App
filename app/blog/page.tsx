@@ -18,7 +18,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'exam-prep-myths-pakistan',
     title: '5 Things Pakistan\'s Exam Prep Culture Gets Completely Wrong',
-    excerpt: 'From 18-hour study days to the noble suffering trap — the widely-held preparation beliefs that are actively hurting students across CSS, MDCAT, and PPSC.',
+    excerpt: 'From 18-hour study days to the noble suffering trap, the widely-held preparation beliefs that are actively hurting students across CSS, MDCAT, and PPSC.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '7 min read',
@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'why-you-fail-mock-tests',
     title: 'The Real Reason You Keep Failing Mock Tests (It\'s Not What You Think)',
-    excerpt: 'Mock scores that refuse to improve despite more studying are almost always one of four specific problems — each with a direct fix that has nothing to do with knowing more.',
+    excerpt: 'Mock scores that refuse to improve despite more studying are almost always one of four specific problems, each with a direct fix that has nothing to do with knowing more.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -36,7 +36,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'fsc-marks-mdcat-trap',
     title: 'Why Your FSc Percentage Is a Trap for MDCAT Preparation',
-    excerpt: 'Students with 95%+ FSc fail MDCAT every year. Students with 80% make the merit list. The gap between board exam skill and MDCAT skill — and how to close it.',
+    excerpt: 'Students with 95%+ FSc fail MDCAT every year. Students with 80% make the merit list. The gap between board exam skill and MDCAT skill, and how to close it.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -54,7 +54,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'what-css-toppers-actually-do',
     title: 'What CSS Toppers Actually Do (That They Don\'t Mention in Interviews)',
-    excerpt: 'The advice CSS toppers give in newspaper interviews is polished and safe. The actual preparation habits behind their scores are often different — and more honest.',
+    excerpt: 'The advice CSS toppers give in newspaper interviews is polished and safe. The actual preparation habits behind their scores are often different, and more honest.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -63,7 +63,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'css-6-month-preparation-plan',
     title: 'CSS Preparation in 6 Months: What a Realistic Plan Actually Looks Like',
-    excerpt: 'Six months is not generous time for CSS — it is the minimum. Month-by-month breakdown of what to cover, when to start mocks, and the sequencing most plans get backwards.',
+    excerpt: 'Six months is not generous time for CSS. It is the minimum. Month-by-month breakdown of what to cover, when to start mocks, and the sequencing most plans get backwards.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '8 min read',
@@ -72,7 +72,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'css-vs-corporate-career',
     title: 'CSS vs a Corporate Career: The Honest Comparison Nobody Makes',
-    excerpt: 'CSS is a powerful career. But it deserves an honest comparison — salary timelines, opportunity costs, and the questions worth asking before committing years of your life to it.',
+    excerpt: 'CSS is a powerful career. But it deserves an honest comparison: salary timelines, opportunity costs, and the questions worth asking before committing years of your life to it.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '7 min read',
@@ -108,7 +108,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'nts-test-preparation-strategy',
     title: 'NTS Test Preparation: Why Knowledgeable Candidates Keep Failing It',
-    excerpt: 'NTS GAT and NAT are speed and pattern recognition tests — not knowledge tests. Here is how to train specifically for what NTS measures and stop plateauing.',
+    excerpt: 'NTS GAT and NAT are speed and pattern recognition tests, not knowledge tests. Here is how to train specifically for what NTS measures and stop plateauing.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -117,7 +117,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'negative-marking-exam-strategy',
     title: 'Negative Marking: The Strategy Most Candidates Get Completely Wrong',
-    excerpt: 'Negative marking does not mean guess less — it means guess smarter. The actual math behind when to attempt, when to skip, and what to do in the final ten minutes.',
+    excerpt: 'Negative marking does not mean guess less. It means guess smarter. The actual math behind when to attempt, when to skip, and what to do in the final ten minutes.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '5 min read',
@@ -126,7 +126,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'how-to-study-with-no-motivation',
     title: 'How to Study When You Have Absolutely Zero Motivation',
-    excerpt: 'Motivation disappears during every long exam preparation. The candidates who make it through are not the most motivated — they are the ones who stopped waiting for it.',
+    excerpt: 'Motivation disappears during every long exam preparation. The candidates who make it through are not the most motivated. They are the ones who stopped waiting for it.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -135,7 +135,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'engineering-entry-test-pakistan',
     title: 'NUST, UET, or GIKI? A Practical Comparison of Engineering Entry Tests',
-    excerpt: 'Three tests, the same syllabus — but they reward different things. NUST NET rewards concepts, UET ECAT rewards speed, GIKI rewards analytical depth. Here is what to prepare.',
+    excerpt: 'Three tests, the same syllabus, but they reward different things. NUST NET rewards concepts, UET ECAT rewards speed, GIKI rewards analytical depth. Here is what to prepare.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '7 min read',
@@ -153,7 +153,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'forgetting-curve-spaced-repetition',
     title: 'Why You Forget Everything You Study (And How to Fix It)',
-    excerpt: 'You studied a topic for three hours. A week later, your mind went blank. This is not a memory problem — it is a timing problem. Here is the spaced repetition fix.',
+    excerpt: 'You studied a topic for three hours. A week later, your mind went blank. This is not a memory problem. It is a timing problem. Here is the spaced repetition fix.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -162,7 +162,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'mdcat-chemistry-high-yield-topics',
     title: 'MDCAT Chemistry: The 5 Topics That Will Decide Your Score',
-    excerpt: 'Chemistry is where MDCAT merit ranks are made and lost. These five chapters — Equilibrium, Periodicity, Organic, Electrochemistry, Thermodynamics — contribute the most marks.',
+    excerpt: 'Chemistry is where MDCAT merit ranks are made and lost. These five chapters (Equilibrium, Periodicity, Organic, Electrochemistry, Thermodynamics) contribute the most marks.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '7 min read',
@@ -180,7 +180,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'night-before-exam-strategy',
     title: 'What to Do the Night Before Your Exam (And What to Avoid)',
-    excerpt: 'Six months of preparation can unravel in one bad night. The exact routine — what to review, when to stop, and how to sleep — that protects your preparation.',
+    excerpt: 'Six months of preparation can unravel in one bad night. The exact routine (what to review, when to stop, and how to sleep) that protects your preparation.',
     date: 'Feb 24, 2026',
     author: 'Imtehan Team',
     readTime: '5 min read',
@@ -279,7 +279,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'css-time-management-3-hour-mcq-exam',
     title: 'CSS MCQ Exam: Managing Three Hours Without Running Out of Time',
-    excerpt: 'The CSS MCQ paper gives you three hours for one hundred questions. The three hours is always enough — the pacing is the problem.',
+    excerpt: 'The CSS MCQ paper gives you three hours for one hundred questions. The three hours is always enough. The pacing is the problem.',
     date: 'Feb 19, 2025',
     author: 'Imtehan Team',
     readTime: '5 min read',
@@ -297,7 +297,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'css-past-papers-analysis-trends',
     title: 'What CSS Past Papers Actually Reveal',
-    excerpt: 'Analyze CSS past papers 2015–2023. Identify recurring topics, question patterns, scoring trends. Essential strategy for exam preparation.',
+    excerpt: 'Analyze CSS past papers 2015-2023. Identify recurring topics, question patterns, scoring trends. Essential strategy for exam preparation.',
     date: 'Feb 11, 2025',
     author: 'Imtehan Team',
     readTime: '6 min read',
@@ -305,7 +305,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     slug: 'pakistan-affairs-important-facts-by-year',
-    title: 'Pakistan Affairs: Important Facts by Year (1947–2025)',
+    title: 'Pakistan Affairs: Important Facts by Year (1947-2025)',
     excerpt: 'Essential Pakistan Affairs facts organized by year. Partition, wars, constitutions, key figures, and important events for CSS exam.',
     date: 'Jan 3, 2026',
     author: 'Imtehan Team',
@@ -414,7 +414,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'css-past-papers-analysis-what-to-expect',
     title: 'CSS Past Papers Analysis: Patterns & What to Expect',
-    excerpt: 'Analyze CSS past papers from 2015–2023. Understand exam patterns, recurring topics, and scoring analysis to better prepare.',
+    excerpt: 'Analyze CSS past papers from 2015-2023. Understand exam patterns, recurring topics, and scoring analysis to better prepare.',
     date: 'Dec 20, 2024',
     author: 'Imtehan Team',
     readTime: '14 min read',

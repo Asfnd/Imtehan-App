@@ -9,8 +9,8 @@ interface GamifiedQuizShellProps {
   mobileRail?: ReactNode
   className?: string
   /**
-   * `split` — main column + right panel (practice quizzes).
-   * `single` — one centered column, full width (timed mocks).
+   * `split`: main column + right panel (practice quizzes).
+   * `single`: one centered column, full width (timed mocks).
    */
   variant?: 'split' | 'single'
 }

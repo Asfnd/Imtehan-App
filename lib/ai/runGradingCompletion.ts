@@ -3,10 +3,10 @@
  * Chain = most capable free models first; first success wins.
  *
  * Override (comma-separated model IDs):
- * - `OPENROUTER_MODEL_CHAIN_CSS` — CSS Writing Coach (`/css/essay-grader`, examType css)
- * - `OPENROUTER_MODEL_CHAIN_PMS` — PMS variant (examType pms)
- * - `OPENROUTER_MODEL_CHAIN` — fallback when the exam-specific override is unset
- * Catalog: https://openrouter.ai/models (filter free) — verify IDs with GET https://openrouter.ai/api/v1/models
+ * - `OPENROUTER_MODEL_CHAIN_CSS`: CSS Writing Coach (`/css/essay-grader`, examType css)
+ * - `OPENROUTER_MODEL_CHAIN_PMS`: PMS variant (examType pms)
+ * - `OPENROUTER_MODEL_CHAIN`: fallback when the exam-specific override is unset
+ * Catalog: https://openrouter.ai/models (filter free); verify IDs with GET https://openrouter.ai/api/v1/models
  */
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
@@ -19,7 +19,7 @@ export type GradingExamType = 'css' | 'pms'
  * Excludes non-chat models (e.g. Lyria audio).
  */
 export const DEFAULT_FREE_MODEL_CHAIN = [
-  'nousresearch/hermes-3-llama-3.1-405b:free', // 405B instruction-tuned — strongest free tier for JSON
+  'nousresearch/hermes-3-llama-3.1-405b:free', // 405B instruction-tuned: strongest free tier for JSON
   'qwen/qwen3.6-plus:free', // 1M context, very strong general
   'nvidia/nemotron-3-super-120b-a12b:free', // large MoE
   'openai/gpt-oss-120b:free', // OpenAI open-weight 120B

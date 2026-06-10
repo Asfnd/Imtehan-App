@@ -24,7 +24,7 @@ export function generateOrganizationSchema(): SchemaMarkup {
     '@type': 'Organization',
     name: 'Imtehan',
     url: 'https://imtehan.com',
-    logo: 'https://imtehan.com/og-image.svg',
+    logo: 'https://imtehan.com/logo.png',
     description: 'CSS and MPT Exam Preparation Platform',
     sameAs: [
       'https://www.instagram.com/imtehanofficial/',
@@ -56,8 +56,8 @@ export function generateEducationalPlatformSchema(stats: {
     name: 'Imtehan',
     description: 'Comprehensive CSS and MPT exam preparation platform with practice MCQs, past papers, and expert guidance.',
     url: 'https://imtehan.com',
-    logo: 'https://imtehan.com/og-image.svg',
-    image: 'https://imtehan.com/og-image.svg',
+    logo: 'https://imtehan.com/logo.png',
+    image: 'https://imtehan.com/og-image.png',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -86,7 +86,7 @@ export function generateCourseSchema(): SchemaMarkup {
     name: 'CSS Exam Preparation',
     description: 'Complete CSS competitive exam preparation with MCQ practice, past papers, and expert resources.',
     url: 'https://imtehan.com/css',
-    image: 'https://imtehan.com/og-image.svg',
+    image: 'https://imtehan.com/og-image.png',
     inLanguage: 'en-US',
     provider: {
       '@type': 'Organization',
@@ -137,7 +137,7 @@ export function generateBlogPostingSchema(post: {
   category: string
 }): SchemaMarkup {
   const url = `https://imtehan.com/blog/${post.slug}`
-  const image = 'https://imtehan.com/og-image.svg'
+  const image = 'https://imtehan.com/og-image.png'
 
   return {
     '@context': 'https://schema.org',
@@ -157,7 +157,7 @@ export function generateBlogPostingSchema(post: {
       name: 'Imtehan',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://imtehan.com/og-image.svg',
+        url: 'https://imtehan.com/logo.png',
       },
     },
     mainEntityOfPage: {

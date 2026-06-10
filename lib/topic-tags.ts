@@ -56,7 +56,7 @@ export const TABLE_POPULAR_TAGS: Record<string, string[]> = {
   ],
 }
 
-// PMS tables share the same tag taxonomy — queries fail silently (no tags col) so counts → 0
+// PMS tables share the same tag taxonomy: queries fail silently (no tags col) so counts → 0
 const PMS_MAP: [string, string][] = [
   ['pms_general_knowledge', 'general_knowledge'],
   ['pms_pakistan_studies',  'pakistan_studies'],

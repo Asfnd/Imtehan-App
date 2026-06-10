@@ -36,7 +36,7 @@ export default async function MDCATSetPage({
   const setNumber = parseInt(setNumStr)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  // Always decode — safe even if Next.js already decoded it
+  // Always decode: safe even if Next.js already decoded it
   const topic      = decodeURIComponent(rawTopic)
   const difficulty = DIFFICULTY_DB[topic]  // defined only for easy/medium/hard
   const offset     = (setNumber - 1) * MCQS_PER_SET

@@ -120,7 +120,7 @@ export default function BlogComments({ slug }: { slug: string }) {
         </div>
       ) : comments.length === 0 ? (
         <p className="text-sm text-gray-400 text-center py-8">
-          No comments yet — be the first to share your thoughts!
+          No comments yet. Be the first to share your thoughts!
         </p>
       ) : (
         <div className="space-y-7">

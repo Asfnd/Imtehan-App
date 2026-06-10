@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-// Flag removed — report button no longer in question card
+// Flag removed: report button no longer in question card
 import dynamic from 'next/dynamic'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { useAnalytics } from '@/lib/hooks/useAnalytics'
@@ -554,7 +554,7 @@ function CSSQuizContent() {
   }
 
   const level = Math.min(99, Math.max(1, 1 + Math.floor(points / 250)))
-  const journeyFootnote = isQuestionSolved ? 'Nice — onward.' : undefined
+  const journeyFootnote = isQuestionSolved ? 'Nice. Onward.' : undefined
 
   let dockPhase: QuizDockPhase = 'hidden'
   if (isQuestionSolved) dockPhase = 'correct'
@@ -654,7 +654,7 @@ function CSSQuizContent() {
         title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
         subtitle={
           dockPhase === 'correct'
-            ? currentMCQ.explanation_detailed?.slice(0, 220) || 'Great job — keep going!'
+            ? currentMCQ.explanation_detailed?.slice(0, 220) || 'Great job, keep going!'
             : undefined
         }
         continueLabel="Continue"

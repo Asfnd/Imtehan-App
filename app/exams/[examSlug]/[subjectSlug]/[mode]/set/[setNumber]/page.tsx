@@ -59,7 +59,7 @@ export default async function QuizSetPage({
   let mcqs
 
   // Deterministic id ordering on every branch so .range() pagination is
-  // stable across requests — without it Postgres can return overlapping rows
+  // stable across requests; without it Postgres can return overlapping rows
   // between sets, which was the root cause of the "same MCQs in every batch"
   // user complaints. See S1.1 in the cleanup pipeline.
   if (modeConfig.type === 'mixed') {

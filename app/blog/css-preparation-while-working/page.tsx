@@ -27,13 +27,13 @@ const TAGS = ['CSS While Working', 'CSS 2026', 'Working Professional', 'CSS Prep
 
 const CONTENT = `A meaningful proportion of CSS qualifiers every year were employed during their preparation. This fact gets almost no attention in the standard CSS preparation narrative, which is designed around the assumption that you have eight to ten free hours per day.
 
-If you are working — whether in a government department, a private company, or running a business — the full-time preparation model does not apply to you. A modified version does. Here is what it actually looks like.
+If you are working, whether in a government department, a private company, or running a business, the full-time preparation model does not apply to you. A modified version does. Here is what it actually looks like.
 
 ## The Honest Time Audit
 
 Start here. Before adjusting your preparation plan, map what you actually have.
 
-A standard working day leaves roughly four to five hours of non-work, non-commute, non-maintenance time. Of these, usable study hours — when you are alert enough to do productive work rather than passive reading — are typically two to three. Not four.
+A standard working day leaves roughly four to five hours of non-work, non-commute, non-maintenance time. Of these, usable study hours, when you are alert enough to do productive work rather than passive reading, are typically two to three. Not four.
 
 Most working candidates significantly overestimate their available time at the start and burn out by month two when the gap between their plan and their reality becomes unsustainable.
 
@@ -44,13 +44,13 @@ The realistic baseline for a working professional is:
 
 That is eighteen to twenty hours per week. A full-time candidate does thirty to forty. The gap is real and your plan needs to account for it.
 
-## What to Cut — and What Cannot Be Cut
+## What to Cut, and What Cannot Be Cut
 
 With eighteen to twenty hours per week instead of thirty-five, something has to go. The question is what.
 
-**Cannot be cut:** English practice. CSS English — essay and précis — requires the most consistent long-term practice. Even two or three writing sessions per week over six months is enough to build real skill. None per week for four months followed by intensive cramming is not. The writing practice has to stay, even if reduced.
+**Cannot be cut:** English practice. CSS English, essay and précis, requires the most consistent long-term practice. Even two or three writing sessions per week over six months is enough to build real skill. None per week for four months followed by intensive cramming is not. The writing practice has to stay, even if reduced.
 
-**Cannot be cut:** Daily Current Affairs reading. Forty focused minutes of Dawn, note-taking, every day. This is actually more compatible with a working lifestyle than most other preparation activities — you can do it on your commute, at lunch, or first thing in the morning.
+**Cannot be cut:** Daily Current Affairs reading. Forty focused minutes of Dawn, note-taking, every day. This is actually more compatible with a working lifestyle than most other preparation activities. You can do it on your commute, at lunch, or first thing in the morning.
 
 **Cannot be cut:** Regular MCQ practice on compulsory subjects. Even twenty minutes of MCQs on your phone during a commute keeps the material active.
 
@@ -62,15 +62,15 @@ With eighteen to twenty hours per week instead of thirty-five, something has to 
 
 The most sustainable pattern for working candidates:
 
-**Morning (30–45 minutes before work):** Current Affairs reading and note-taking. This gets done before the day's energy is consumed. It also means you arrive at the office having already done something useful.
+**Morning (30-45 minutes before work):** Current Affairs reading and note-taking. This gets done before the day's energy is consumed. It also means you arrive at the office having already done something useful.
 
-**Lunch break (20–30 minutes):** MCQ practice on phone — compulsory subject topics currently being revised. No new material. Retrieval only.
+**Lunch break (20-30 minutes):** MCQ practice on phone, compulsory subject topics currently being revised. No new material. Retrieval only.
 
 **Evening (90 minutes to 2 hours after dinner):** The main study session. New material reading and MCQs on the topic covered. One essay outline or paragraph per week during this slot.
 
 **Weekend:** One longer session on Saturday (three to four hours) for optional subject coverage. Sunday morning for review of the week's wrong answers and a shorter session.
 
-This is not as productive as full-time preparation. It is consistent, sustainable, and — if maintained for six months — sufficient for a genuine attempt.
+This is not as productive as full-time preparation. It is consistent, sustainable, and, if maintained for six months, sufficient for a genuine attempt.
 
 ## The Six-Month Timeline Adjustment
 
@@ -82,7 +82,7 @@ The exam allows you to choose which optional questions to answer within your gro
 
 ## Mock Tests Are Non-Negotiable Even With a Full Schedule
 
-The temptation for working candidates is to skip mock tests because there is no time. This is backwards. Mock tests are more important for working candidates because the performance-under-pressure skill — which full-time candidates build through daily volume — has to be built more deliberately.
+The temptation for working candidates is to skip mock tests because there is no time. This is backwards. Mock tests are more important for working candidates because the performance-under-pressure skill, which full-time candidates build through daily volume, has to be built more deliberately.
 
 One full mock test every two weeks in the final three months is the minimum. Not ideal, but the minimum. Treat it like an immovable appointment. The diagnostic value of a mock test, especially for identifying weak areas that need the remaining study hours, is too high to sacrifice.
 
@@ -109,7 +109,7 @@ export default function BlogPost() {
       />
       <BlogPostShell
         title="Preparing for CSS While Working Full-Time: The Honest Guide"
-        subtitle="It is harder than full-time preparation. It is also done successfully every cycle. Here is the specific approach — what to cut, what cannot be cut, and the daily structure that holds."
+        subtitle="It is harder than full-time preparation. It is also done successfully every cycle. Here is the specific approach: what to cut, what cannot be cut, and the daily structure that holds."
         author="Imtehan Team"
         date="February 24, 2026"
         readTime="7 min read"

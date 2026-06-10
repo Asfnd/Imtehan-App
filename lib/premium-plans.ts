@@ -1,6 +1,6 @@
 /**
  * Single source of truth for Imtehan Premium pricing and included features.
- * Import from here only — do not duplicate amounts elsewhere.
+ * Import from here only; do not duplicate amounts elsewhere.
  */
 
 export interface PremiumPlan {
@@ -81,16 +81,16 @@ export const PREMIUM_FEATURES: PremiumFeature[] = [
   { text: 'Progress tracking and attempt history', isNew: false },
 ]
 
-/** Subtext under “Plans from” on upgrade popups — keep in sync with PREMIUM_PLANS tiers. */
+/** Subtext under “Plans from” on upgrade popups: keep in sync with PREMIUM_PLANS tiers. */
 export const PREMIUM_POPUP_VALUE_HINT = 'Longer plans: one payment for the full window at Rs. 500/mo'
 
 /**
  * PKR amount for Meta Pixel / CAPI `Subscribe` when the user’s paid plan is unknown
- * (matches highest tier list price — adjust if you store plan on user metadata later).
+ * (matches highest tier list price; adjust if you store plan on user metadata later).
  */
 export const PREMIUM_SUBSCRIBE_VALUE_PKR = 6000
 
-/** Entry plan price (first tier) for popups — always mirrors PREMIUM_PLANS[0].price */
+/** Entry plan price (first tier) for popups: always mirrors PREMIUM_PLANS[0].price */
 export function getPremiumEntryPrice(): string {
   return PREMIUM_PLANS[0]?.price ?? 'Rs. 500'
 }

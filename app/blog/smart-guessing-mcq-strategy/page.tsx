@@ -25,7 +25,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['MCQ Strategy', 'Logical Elimination', 'Exam Hacking', 'PPSC', 'MDCAT', 'CSS']
 
-const CONTENT = `Let’s be honest: in a paper of 100 MCQs, you will rarely know the absolute, 100% correct answer to more than 60 of them. The difference between those who make the merit list and those who miss it by two marks isn’t just "knowledge"—it’s how they handle the remaining 40 questions. 
+const CONTENT = `Let’s be honest: in a paper of 100 MCQs, you will rarely know the absolute, 100% correct answer to more than 60 of them. The difference between those who make the merit list and those who miss it by two marks isn’t just "knowledge". It’s how they handle the remaining 40 questions. 
 
 Toppers don't just "guess"; they use a framework of logical elimination. With our expansion to 250,000+ MCQs, we’ve seen how examiners hide the right answer, and more importantly, how they design the wrong ones. 
 
@@ -33,7 +33,7 @@ Toppers don't just "guess"; they use a framework of logical elimination. With ou
 
 A blind guess gives you a 25% chance of being right. In exams with negative marking (like PPSC or MDCAT), blind guessing is a slow form of academic suicide. Smart guessing, however, is about increasing your probability. If you can rule out just two options, your chances of being right jump to 50%. 
 
-The goal of practicing with 250,000+ questions on Imtehan isn't just to memorize answers; it's to develop an "examiner's intuition"—the ability to look at a question you've never seen before and say, "I don't know what the answer is, but I know for a fact it isn't A or D."
+The goal of practicing with 250,000+ questions on Imtehan isn't just to memorize answers; it's to develop an "examiner's intuition", the ability to look at a question you've never seen before and say, "I don't know what the answer is, but I know for a fact it isn't A or D."
 
 > Knowledge gets you to the 60th mark. Logic and elimination get you to the 80th.
 
@@ -49,7 +49,7 @@ This is a subtle one that many students miss. Sometimes, the lead-in part of the
 
 ## Rule 3: The Outlier vs. The Cluster
 
-Look for "clusters" in the answers. If the options are 10, 15, 17, and 150—the number 150 is the "outlier." Examiners usually put one wildly incorrect answer and three that are close together to confuse you. If you're guessing, avoid the outlier. The battle is almost always between the two options that look most similar.
+Look for "clusters" in the answers. If the options are 10, 15, 17, and 150, the number 150 is the "outlier." Examiners usually put one wildly incorrect answer and three that are close together to confuse you. If you're guessing, avoid the outlier. The battle is almost always between the two options that look most similar.
 
 ## Practice Makes Intuiton
 

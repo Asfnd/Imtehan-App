@@ -21,7 +21,7 @@ export function MetaPixelConversions() {
   const { user, loading } = useAuth()
   const prevPremium = useRef<boolean | null>(null)
 
-  // CompleteRegistration + StartTrial (free tier) — once per user id
+  // CompleteRegistration + StartTrial (free tier): once per user id
   useEffect(() => {
     if (loading || !user?.id) return
 
@@ -42,7 +42,7 @@ export function MetaPixelConversions() {
     }
   }, [user, loading])
 
-  // Subscribe — when active premium flips from false to true (activation after payment)
+  // Subscribe: when active premium flips from false to true (activation after payment)
   useEffect(() => {
     if (loading || !user?.id) {
       if (!user) prevPremium.current = null

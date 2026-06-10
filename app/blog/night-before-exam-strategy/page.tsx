@@ -35,23 +35,23 @@ Commit to this completely. No new topics, no new facts, no unfamiliar MCQs. The 
 
 There is a well-documented phenomenon where cramming a new topic the night before an exam causes that fresh, poorly-encoded material to scramble what you had previously learned well. The new content and the old content compete during consolidation. You wake up less confident in both.
 
-The only exception: a fifteen-minute review of your personal error list — the specific MCQs you consistently got wrong during practice. Not to re-study the topic. Just to remind yourself of the answers you previously struggled with. This is retrieval of known information, not learning of new information.
+The only exception: a fifteen-minute review of your personal error list, the specific MCQs you consistently got wrong during practice. Not to re-study the topic. Just to remind yourself of the answers you previously struggled with. This is retrieval of known information, not learning of new information.
 
 ## What to Actually Do That Evening
 
-Spend the first hour after dinner reviewing your strongest areas. Not your weakest — your strongest. This is counterintuitive but deliberate. Reviewing what you know well builds confidence and primes your brain for active retrieval. You go into the exam room with your mind already producing correct answers, not stuck on gaps.
+Spend the first hour after dinner reviewing your strongest areas. Not your weakest. Your strongest. This is counterintuitive but deliberate. Reviewing what you know well builds confidence and primes your brain for active retrieval. You go into the exam room with your mind already producing correct answers, not stuck on gaps.
 
-Then do this: write down five things you feel genuinely solid on. One sentence each. Not a study exercise — an anchoring exercise. When anxiety spikes the following morning, having written confirmation of your own knowledge is a surprisingly effective tool. Read it while you are waiting to enter the hall.
+Then do this: write down five things you feel genuinely solid on. One sentence each. Not a study exercise, but an anchoring exercise. When anxiety spikes the following morning, having written confirmation of your own knowledge is a surprisingly effective tool. Read it while you are waiting to enter the hall.
 
-After that, stop studying. Not slow down — stop.
+After that, stop studying. Not slow down. Stop.
 
 > You cannot study your way to confidence the night before. Confidence comes from preparation already done. The night before is about delivery, not preparation.
 
-## Sleep Is Not Optional — But Anxiety Is Real
+## Sleep Is Not Optional, But Anxiety Is Real
 
 You already know you should sleep early. The reason most people cannot is anxiety, not laziness. You lie down and your mind immediately starts cycling through topics, doubts, and worst-case scenarios.
 
-One technique that genuinely works: the brain dump. Before bed, open a blank page and write every exam-related thought currently in your head. Not organised notes. Just a raw list of whatever is spinning — topics you are unsure about, questions you are dreading, logistics you are worried about. Write all of it down.
+One technique that genuinely works: the brain dump. Before bed, open a blank page and write every exam-related thought currently in your head. Not organised notes. Just a raw list of whatever is spinning: topics you are unsure about, questions you are dreading, logistics you are worried about. Write all of it down.
 
 The act of writing removes it from working memory. Your brain stops trying to hold onto it because it is now on paper. Sleep tends to come much more easily after this.
 
@@ -65,7 +65,7 @@ Get to the venue early. The stress of running late destroys composure that took 
 
 ## What the Exam Actually Tests
 
-The exam does not test what you study the night before. It tests what you built across the months before that. The night before is about delivery — showing up rested, composed, and able to access what you already know.
+The exam does not test what you study the night before. It tests what you built across the months before that. The night before is about delivery: showing up rested, composed, and able to access what you already know.
 
 Protect your sleep. Protect your composure. Then let the preparation speak.`
 

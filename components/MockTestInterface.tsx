@@ -281,7 +281,7 @@ export default function MockTestInterface({
           stored[mockNumber] = pct
         }
         localStorage.setItem(key, JSON.stringify(stored))
-      } catch { /* storage unavailable — silent */ }
+      } catch { /* storage unavailable: silent */ }
       // Shared store (local + DB sync for signed-in users), keyed like every other flow.
       markCompleted(`exams-mock:${examSlug}`, mockNumber, pct)
     }
@@ -502,7 +502,7 @@ export default function MockTestInterface({
                 </button>
               </div>
 
-              {/* No flex-1 justify-center — options stay fixed under the stem so layout does not shift by question length */}
+              {/* No flex-1 justify-center: options stay fixed under the stem so layout does not shift by question length */}
               <div className="flex flex-col gap-2 sm:gap-2.5">
                 {options.map(({ label, text }) => {
                   const visual = getOptionVisual(label, userAnswer, currentMCQ.correct_answer, visualCtx)

@@ -2,8 +2,8 @@
  * Official syllabus topic map for all 223 exams.
  *
  * Structure:
- *   TOPICS_BY_DB_TABLE  — baseline topics per shared MCQ table (used when no exam override exists)
- *   EXAM_TOPIC_OVERRIDES — per-exam topic lists keyed by dbTable, replacing the baseline for that exam
+ *   TOPICS_BY_DB_TABLE:  baseline topics per shared MCQ table (used when no exam override exists)
+ *   EXAM_TOPIC_OVERRIDES: per-exam topic lists keyed by dbTable, replacing the baseline for that exam
  *
  * Generation script usage:
  *   const topics = getTopicsForExamSection(examSlug, dbTable)
@@ -30,7 +30,7 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
   ],
 
   pakistan_studies: [
-    'Freedom movement (1857–1947): key events, leaders, milestones',
+    'Freedom movement (1857-1947): key events, leaders, milestones',
     'Partition of Bengal 1905 and Simla Deputation 1906',
     'Lucknow Pact 1916, Khilafat Movement, Non-Cooperation',
     'Simon Commission, Allahabad Address 1930, Round Table Conferences',
@@ -39,7 +39,7 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
     'Quaid-e-Azam Muhammad Ali Jinnah: life, role, speeches',
     'Liaquat Ali Khan and early governance',
     'Constitutions of Pakistan: 1956, 1962, 1973',
-    'Constitutional amendments (1st–26th)',
+    'Constitutional amendments (1st-26th)',
     'Parliamentary system: National Assembly, Senate, President, PM',
     'Provincial setup: Punjab, Sindh, KPK, Balochistan, AJK, GB',
     'Federally Administered Tribal Areas (FATA) merger with KPK',
@@ -66,7 +66,7 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
     'Scientific discoveries and inventors',
     'Technology: internet, AI, space exploration milestones',
     'Current world records and superlatives (tallest, largest, longest)',
-    'Sports: cricket, football, Olympics — records and champions',
+    'Sports: cricket, football, Olympics, records and champions',
     'Awards and international honors',
     'Basic astronomy: planets, stars, solar system',
     'Environment: climate change, biodiversity, global summits',
@@ -120,8 +120,8 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
     'Ghazwat (battles): Badr, Uhud, Khandaq, Khyber, Makkah conquest',
     'Farewell Hajj and Last Sermon',
     'Khulafa-e-Rashideen: Abu Bakr, Umar, Uthman, Ali (RA)',
-    'Umayyad Caliphate (661–750 CE): key caliphs and events',
-    'Abbasid Caliphate (750–1258 CE)',
+    'Umayyad Caliphate (661-750 CE): key caliphs and events',
+    'Abbasid Caliphate (750-1258 CE)',
     'Hadith: definition, major collections (Bukhari, Muslim, Tirmizi)',
     'Islamic jurisprudence (Fiqh): four madhabs',
     'Zakat: nisab, calculation, eligible recipients',
@@ -153,7 +153,7 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
     'Hardware components: CPU, RAM, ROM, HDD, SSD, GPU, motherboard',
     'Input devices (keyboard, mouse, scanner) and output devices (monitor, printer)',
     'Software: system software vs application software',
-    'Operating systems: Windows, Linux, macOS — basics and features',
+    'Operating systems: Windows, Linux, macOS, basics and features',
     'File management: folders, paths, extensions, copying, moving',
     'MS Word: formatting, tables, mail merge, track changes',
     'MS Excel: formulas (SUM, AVERAGE, IF, VLOOKUP), charts, pivot tables',
@@ -204,7 +204,7 @@ export const TOPICS_BY_DB_TABLE: Record<string, string[]> = {
   general_math: [
     'Number system: natural, whole, integers, rational, irrational numbers',
     'HCF and LCM with word problems',
-    'Fractions, decimals, and percentages — conversions and calculations',
+    'Fractions, decimals, and percentages: conversions and calculations',
     'Profit and loss, discount, and marked price',
     'Simple interest and compound interest',
     'Ratio and proportion; partnership problems',
@@ -481,10 +481,10 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
       'Pakistan economy: sectors, major exports, fiscal challenges',
       'National culture, languages, arts, and UNESCO heritage sites of Pakistan',
       'Pakistan\'s nuclear program and defence policy',
-      'Regional organizations: SAARC, ECO, SCO — Pakistan\'s role',
+      'Regional organizations: SAARC, ECO, SCO, Pakistan\'s role',
     ],
     current_affairs: [
-      'Pakistan domestic affairs: political events, government decisions 2022–2025',
+      'Pakistan domestic affairs: political events, government decisions 2022-2025',
       'Pakistan economy: IMF programs, budget, inflation, fiscal policy',
       'CPEC: latest developments and projects',
       'Pakistan foreign relations: recent developments with India, Afghanistan, China, USA',
@@ -912,7 +912,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
       'Anti-Money Laundering basics: suspicious transaction reporting',
       'Immigration laws: illegal entry, passport fraud',
       'Human trafficking: definitions, penalties',
-      'Pakistan\'s intelligence agencies: ISI, MI, IB, FIA — comparative overview',
+      'Pakistan\'s intelligence agencies: ISI, MI, IB, FIA, comparative overview',
     ],
   },
 
@@ -1232,7 +1232,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
 
   'etea-ct': {
     pakistan_studies: [
-      'Middle school education curriculum: KPK Class 6–8',
+      'Middle school education curriculum: KPK Class 6-8',
       'Teaching methods for middle level: inquiry-based learning',
       'Subject content for Certificate Teachers: general knowledge',
       'Classroom management strategies',
@@ -1939,7 +1939,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
       'Plant diseases: fungal, bacterial, viral; prevention and treatment',
       'Crop pests: locusts, aphids, stem borers; Integrated Pest Management (IPM)',
       'Agricultural machinery: tractors, combine harvesters, threshers',
-      'Livestock in Pakistan: cattle, buffalo, sheep, goat — breeds and management',
+      'Livestock in Pakistan: cattle, buffalo, sheep, goat, breeds and management',
       'Green Revolution and agricultural productivity',
       'Pakistan Agriculture Policy and subsidies',
     ],
@@ -1989,7 +1989,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
       'Animal husbandry: cattle, buffalo, sheep, goat, poultry management',
       'Livestock breeds of Pakistan: Sahiwal, Nili-Ravi buffalo, Beetal goat',
       'Animal nutrition: feeds, fodder, nutritional requirements',
-      'Livestock diseases: FMD, PPR, Anthrax, Brucellosis — vaccines and treatment',
+      'Livestock diseases: FMD, PPR, Anthrax, Brucellosis, vaccines and treatment',
       'Veterinary basics: vaccination, deworming, hoof care',
       'Dairy farming: milk yield, milking hygiene, cold chain',
       'Poultry farming: broiler and layer management',

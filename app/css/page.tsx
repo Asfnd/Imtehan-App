@@ -484,10 +484,10 @@ function DashboardContent() {
             </div>
           )}
 
-          {/* Practice Cards — ordered by priority */}
+          {/* Practice Cards: ordered by priority */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 
-            {/* 1 — Most Repeated MCQs */}
+            {/* 1: Most Repeated MCQs */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -507,7 +507,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 2 — Most Important MCQs */}
+            {/* 2: Most Important MCQs */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -527,7 +527,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 3 — MPT Practice */}
+            {/* 3: MPT Practice */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -547,7 +547,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 4 — Past MCQs Practice */}
+            {/* 4: Past MCQs Practice */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -567,7 +567,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 5 — 2026 Guess Papers */}
+            {/* 5: 2026 Guess Papers */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -587,7 +587,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 6 — Practice Mode */}
+            {/* 6: Practice Mode */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -607,7 +607,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 7 — Past Papers */}
+            {/* 7: Past Papers */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">
@@ -627,7 +627,7 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* 8 — Solved Papers */}
+            {/* 8: Solved Papers */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative p-5 flex-1 flex flex-col">

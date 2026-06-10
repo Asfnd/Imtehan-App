@@ -220,7 +220,7 @@ export default function NavigationBar({
           )}
         </div>
 
-        {/* Center — Browse Exams + Blog + Community, or custom centerContent */}
+        {/* Center: Browse Exams + Blog + Community, or custom centerContent */}
         <div className={`hidden md:flex items-center gap-3 absolute left-1/2 -translate-x-1/2 ${!showCenterNav && !centerContent ? 'invisible' : ''}`}>
           {centerContent ? centerContent : (
             <>
@@ -254,7 +254,7 @@ export default function NavigationBar({
                         ))}
                       </div>
                     </div>
-                    {/* Civil Services — featured */}
+                    {/* Civil Services: featured */}
                     <div className="border-t-2 border-gray-200 pt-4">
                       <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.12em] mb-2">⭐ Civil Services</p>
                       <div className="flex gap-2 mb-3">

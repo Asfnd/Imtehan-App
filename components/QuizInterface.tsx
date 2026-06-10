@@ -397,7 +397,7 @@ export default function QuizInterface({
   ]
 
   const level = Math.min(99, Math.max(1, 1 + Math.floor(totalXp / 250)))
-  const journeyFootnote = isQuestionSolved ? 'Nice — onward.' : undefined
+  const journeyFootnote = isQuestionSolved ? 'Nice. Onward.' : undefined
 
   const dockContinue = () => {
     if (currentIndex < activeMCQs.length - 1) {
@@ -537,7 +537,7 @@ export default function QuizInterface({
         phase={dockPhase}
         correct={isQuestionSolved}
         title={isQuestionSolved ? 'Excellent!' : 'Incorrect!'}
-        subtitle={isQuestionSolved ? (currentMCQ.explanation || 'Great job — keep going!') : undefined}
+        subtitle={isQuestionSolved ? (currentMCQ.explanation || 'Great job, keep going!') : undefined}
         continueLabel="Continue"
         onContinue={dockContinue}
         isLastStep={currentIndex === activeMCQs.length - 1}
@@ -564,7 +564,7 @@ export default function QuizInterface({
               <Pause className="h-7 w-7 text-indigo-600" />
             </div>
             <h2 className="mb-2 text-xl font-bold text-slate-800">Quiz paused</h2>
-            <p className="mb-6 text-sm text-slate-500">Take a breather — your progress is saved.</p>
+            <p className="mb-6 text-sm text-slate-500">Take a breather. Your progress is saved.</p>
             <button
               type="button"
               onClick={() => setIsPaused(false)}

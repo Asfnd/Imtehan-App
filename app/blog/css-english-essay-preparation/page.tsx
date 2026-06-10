@@ -26,7 +26,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Essay Writing', 'CSS English', 'Writing Framework', 'Civil Services']
 
-const CONTENT = `CSS essays are marked on thinking, not grammar. Most candidates lose marks not because their sentences are weak but because their argument is weak — or absent entirely. An examiner reading two hundred essays on the same prompt can tell within the first paragraph whether the candidate has an actual position or is simply listing facts in sequence.
+const CONTENT = `CSS essays are marked on thinking, not grammar. Most candidates lose marks not because their sentences are weak but because their argument is weak, or absent entirely. An examiner reading two hundred essays on the same prompt can tell within the first paragraph whether the candidate has an actual position or is simply listing facts in sequence.
 
 ## What Examiners Are Actually Scoring
 
@@ -38,25 +38,25 @@ A perfectly written paragraph that says nothing memorable scores lower than a sl
 
 Before writing a single sentence, answer three questions on paper:
 
-What is the essay really asking? Not the surface question — the underlying tension or debate. A prompt about technology and education is really asking whether the benefits outweigh the risks given specific conditions.
+What is the essay really asking? Not the surface question, but the underlying tension or debate. A prompt about technology and education is really asking whether the benefits outweigh the risks given specific conditions.
 
 What is my single answer to that question? Not a list. One clear claim. "Technology improves learning outcomes only when teachers are adequately trained to use it."
 
 What three pieces of evidence best support that claim? One strong example. One counter-consideration you address. One implication for Pakistan specifically.
 
-Write nothing until you have answered all three. This planning stage — ten minutes at most — is what keeps an essay coherent from beginning to end.
+Write nothing until you have answered all three. This planning stage, ten minutes at most, is what keeps an essay coherent from beginning to end.
 
 > A well-written essay without an argument is a list with punctuation. The argument is everything.
 
 ## The Structure That Carries the Argument
 
-Once you have your three answers, structure follows naturally. Open with context and your claim — two sentences maximum. The examiner should know your position before the end of the first paragraph.
+Once you have your three answers, structure follows naturally. Open with context and your claim, two sentences maximum. The examiner should know your position before the end of the first paragraph.
 
-Each body paragraph proves one part of your argument. Topic sentence first, then evidence, then connection back to your central claim. End with a conclusion that restates what the evidence showed — not a summary of what you wrote, but a conclusion from it.
+Each body paragraph proves one part of your argument. Topic sentence first, then evidence, then connection back to your central claim. End with a conclusion that restates what the evidence showed, not a summary of what you wrote, but a conclusion from it.
 
 Avoid the temptation to show everything you know. A focused essay covering three points deeply scores higher than an exhaustive essay covering seven points shallowly. Examiners reward precision.
 
-Practice this framework weekly on current affairs topics — not by writing perfect essays, but by practicing the three-question planning stage until it becomes fast and automatic. The writing itself improves through repetition. The thinking improves through deliberate planning.`
+Practice this framework weekly on current affairs topics, not by writing perfect essays, but by practicing the three-question planning stage until it becomes fast and automatic. The writing itself improves through repetition. The thinking improves through deliberate planning.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

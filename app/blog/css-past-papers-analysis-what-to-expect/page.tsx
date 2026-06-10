@@ -26,27 +26,27 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Past Papers', 'CSS Analysis', 'Exam Patterns', 'What to Expect']
 
-const CONTENT = `Reading CSS past papers is one of the most productive things a candidate can do early in preparation — not to practice answering questions, but to calibrate expectations. Candidates who have read five or six years of past papers before starting substantive study know what level of depth the exam requires, which topics recur, and which areas the exam has never tested. This calibration shapes better preparation decisions than any syllabus document.
+const CONTENT = `Reading CSS past papers is one of the most productive things a candidate can do early in preparation, not to practice answering questions, but to calibrate expectations. Candidates who have read five or six years of past papers before starting substantive study know what level of depth the exam requires, which topics recur, and which areas the exam has never tested. This calibration shapes better preparation decisions than any syllabus document.
 
 ## The Consistent Patterns
 
-Certain topics appear in Pakistan Affairs questions so reliably that candidates who know them well are prepared for a significant portion of the paper before the exam begins. Constitutional history — the sequence of constitutions, the circumstances of their introduction and abrogation, the key provisions of the 1973 constitution — is tested every year in some form. Significant bilateral relationships, particularly with China, the United States, India, and Afghanistan, also appear annually.
+Certain topics appear in Pakistan Affairs questions so reliably that candidates who know them well are prepared for a significant portion of the paper before the exam begins. Constitutional history, the sequence of constitutions, the circumstances of their introduction and abrogation, the key provisions of the 1973 constitution, is tested every year in some form. Significant bilateral relationships, particularly with China, the United States, India, and Afghanistan, also appear annually.
 
-Islamic Studies shows similar consistency. Questions about the relationship between Islam and Pakistani governance, the Objectives Resolution, and the major Islamization policies return in different forms across years. The framing changes — sometimes it is a direct question about the Objectives Resolution, sometimes it is a question about the Council of Islamic Ideology — but the underlying topic is constant.
+Islamic Studies shows similar consistency. Questions about the relationship between Islam and Pakistani governance, the Objectives Resolution, and the major Islamization policies return in different forms across years. The framing changes. Sometimes it is a direct question about the Objectives Resolution, sometimes it is a question about the Council of Islamic Ideology, but the underlying topic is constant.
 
 ## Where Candidates Are Caught Off Guard
 
 Everyday Science is the subject where past paper review most frequently reveals an unexpected depth of specificity. Questions about basic physics and chemistry principles, environmental topics, and health and nutrition appear at a level of detail that surprises candidates who assumed the subject required only general familiarity.
 
-General Knowledge question difficulty varies significantly year to year. Some years include straightforward questions about the capitals of major countries and the founding dates of international organizations. Other years include questions about specific UN resolutions, recent Nobel laureates, or the details of recent multilateral agreements. The inconsistency itself is a finding — it means wide preparation is more reliable than targeted preparation for this subject.
+General Knowledge question difficulty varies significantly year to year. Some years include straightforward questions about the capitals of major countries and the founding dates of international organizations. Other years include questions about specific UN resolutions, recent Nobel laureates, or the details of recent multilateral agreements. The inconsistency itself is a finding: it means wide preparation is more reliable than targeted preparation for this subject.
 
-> Past papers do not predict the next exam. They reveal the range of what is possible — which is far more useful for preparation than any prediction.
+> Past papers do not predict the next exam. They reveal the range of what is possible, which is far more useful for preparation than any prediction.
 
 ## How to Use This Information
 
 The practical implication is straightforward. For high-consistency subjects like Pakistan Affairs and Islamic Studies, thorough preparation of the recurring topics is high-yield and reliable. For variable subjects like General Knowledge and Everyday Science, broad preparation that avoids deep gaps is more useful than trying to identify specific likely questions.
 
-Reading past papers also calibrates your sense of question difficulty. The questions that seem hardest when you first encounter them — specific dates, named agreements, exact membership of organizations — are precisely the questions that reward the kind of systematic note-making described elsewhere. When you have seen a topic tested three times across different years, you know it warrants careful preparation.`
+Reading past papers also calibrates your sense of question difficulty. The questions that seem hardest when you first encounter them, specific dates, named agreements, exact membership of organizations, are precisely the questions that reward the kind of systematic note-making described elsewhere. When you have seen a topic tested three times across different years, you know it warrants careful preparation.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

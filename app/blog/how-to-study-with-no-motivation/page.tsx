@@ -6,7 +6,7 @@ import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
   title: 'How to Study When You Have Zero Motivation | Imtehan',
-  description: 'Motivation disappears during every long exam preparation. The candidates who make it through are not the most motivated — they are the ones who stopped waiting for it.',
+  description: 'Motivation disappears during every long exam preparation. The candidates who make it through are not the most motivated. They are the ones who stopped waiting for it.',
   alternates: { canonical: 'https://imtehan.com/blog/how-to-study-with-no-motivation' },
   openGraph: {
     title: 'How to Study When You Have Zero Motivation',
@@ -27,11 +27,11 @@ const TAGS = ['Motivation', 'Study Habits', 'Consistency', 'CSS', 'MDCAT', 'Ment
 
 const CONTENT = `There will be stretches of your preparation where you sit down to study and feel nothing. No urgency, no interest in the material, no sense that it is going anywhere. You open the book, an hour passes where you stared at words without absorbing a single one. You close it feeling worse than before.
 
-This is not a personal failure. It is the predictable middle phase of every long preparation journey, and almost every student experiences it — usually somewhere between months two and four. The candidates who come out the other side are not the ones who had more motivation. They are the ones who stopped waiting for it to return before acting.
+This is not a personal failure. It is the predictable middle phase of every long preparation journey, and almost every student experiences it, usually somewhere between months two and four. The candidates who come out the other side are not the ones who had more motivation. They are the ones who stopped waiting for it to return before acting.
 
 ## The Motivation Myth
 
-Motivation is the feeling that makes starting easy. It is not what sustains long-term preparation. Waiting for motivation before you study is the same as waiting to feel like exercising before you work out — the feeling rarely arrives first. Action comes first. The feeling sometimes follows.
+Motivation is the feeling that makes starting easy. It is not what sustains long-term preparation. Waiting for motivation before you study is the same as waiting to feel like exercising before you work out: the feeling rarely arrives first. Action comes first. The feeling sometimes follows.
 
 Every CSS officer and MDCAT top scorer you could speak to had weeks where opening a book felt impossible. They kept going not because they felt inspired but because they had built a system that did not require inspiration to operate. The system ran on habit and environment, not on how they felt that day.
 
@@ -49,15 +49,15 @@ Do not wait for it. Let it catch up after you have already started.
 
 ## Redesign Your Environment, Not Your Willpower
 
-If you keep losing study sessions to your phone, the problem is not a lack of willpower. Willpower is a limited, depletable resource — and it runs out faster when you are already unmotivated.
+If you keep losing study sessions to your phone, the problem is not a lack of willpower. Willpower is a limited, depletable resource, and it runs out faster when you are already unmotivated.
 
-The solution is not trying harder. It is making distraction harder to access. Put the phone in another room. Delete the most consuming apps temporarily. Use a website blocker during your designated study hours. These are not hacks or tricks — they are the same approach that professional writers, athletes, and researchers use because relying on willpower alone is structurally unsound.
+The solution is not trying harder. It is making distraction harder to access. Put the phone in another room. Delete the most consuming apps temporarily. Use a website blocker during your designated study hours. These are not hacks or tricks. They are the same approach that professional writers, athletes, and researchers use because relying on willpower alone is structurally unsound.
 
 Your environment shapes your behaviour more reliably than your intentions. Arrange it deliberately.
 
 ## The Invisible Progress Problem
 
-Motivation often disappears when progress becomes invisible — which it always does after the first month or two. You cannot feel yourself knowing more than you did. The chapters do not look different. The mock test scores move slowly.
+Motivation often disappears when progress becomes invisible, which it always does after the first month or two. You cannot feel yourself knowing more than you did. The chapters do not look different. The mock test scores move slowly.
 
 The progress is real. It is just not visible. And invisible progress does not fuel motivation.
 
@@ -67,7 +67,7 @@ You are not tracking to compete with anyone. You are tracking to make your own p
 
 ## What to Do After a Lost Week
 
-If you have lost an entire week — it happens to almost everyone at least once in a long preparation cycle — do not attempt to recover by tripling your workload the following week. That approach almost always leads to another crash within days.
+If you have lost an entire week (it happens to almost everyone at least once in a long preparation cycle), do not attempt to recover by tripling your workload the following week. That approach almost always leads to another crash within days.
 
 Return at the normal pace instead. One normal day of sessions resets the psychology far more effectively than a punishing catch-up schedule that reinforces the feeling that studying is suffering.
 
@@ -94,7 +94,7 @@ export default function BlogPost() {
       />
       <BlogPostShell
         title="How to Study When You Have Absolutely Zero Motivation"
-        subtitle="Motivation is not reliable and it will disappear. Here is how to keep moving when it does — which it will, multiple times."
+        subtitle="Motivation is not reliable and it will disappear. Here is how to keep moving when it does, which it will, multiple times."
         author="Imtehan Team"
         date="February 24, 2026"
         readTime="6 min read"

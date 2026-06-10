@@ -26,13 +26,13 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Compulsory Subjects', 'CSS Syllabus', 'Pakistan Affairs', 'Islamic Studies', 'Preparation']
 
-const CONTENT = `Seven compulsory subjects sit between every CSS candidate and the written exam. They cover Pakistan Affairs, Current Affairs, Islamic Studies, General Knowledge, Everyday Science, English Essay, and English Précis. Together they account for the majority of marks, and together they represent the most demanding breadth of content in the exam. Understanding what each one actually requires — not just what it covers — is the first step to preparing for any of them properly.
+const CONTENT = `Seven compulsory subjects sit between every CSS candidate and the written exam. They cover Pakistan Affairs, Current Affairs, Islamic Studies, General Knowledge, Everyday Science, English Essay, and English Précis. Together they account for the majority of marks, and together they represent the most demanding breadth of content in the exam. Understanding what each one actually requires, not just what it covers, is the first step to preparing for any of them properly.
 
 ## The High-Stakes Three
 
-Pakistan Affairs, Islamic Studies, and Current Affairs deserve the most preparation time because they are conceptually connected and frequently tested together in essay questions. Pakistan Affairs rewards candidates who understand the country's political and constitutional history as an evolving story rather than isolated facts. Islamic Studies rewards understanding of core principles and their application to modern governance — not memorization of Hadith without context. Current Affairs rewards the candidate who reads analytically, not the one who reads the most.
+Pakistan Affairs, Islamic Studies, and Current Affairs deserve the most preparation time because they are conceptually connected and frequently tested together in essay questions. Pakistan Affairs rewards candidates who understand the country's political and constitutional history as an evolving story rather than isolated facts. Islamic Studies rewards understanding of core principles and their application to modern governance, not memorization of Hadith without context. Current Affairs rewards the candidate who reads analytically, not the one who reads the most.
 
-These three subjects share content constantly. A question about parliamentary democracy connects Pakistan Affairs and Islamic Studies. A question about water policy connects Current Affairs and Pakistan Affairs. Preparing them together — not separately — is far more efficient.
+These three subjects share content constantly. A question about parliamentary democracy connects Pakistan Affairs and Islamic Studies. A question about water policy connects Current Affairs and Pakistan Affairs. Preparing them together, not separately, is far more efficient.
 
 ## General Knowledge and Everyday Science
 
@@ -42,7 +42,7 @@ These two subjects are where candidates underinvest. They feel manageable becaus
 
 ## English: Essay and Précis
 
-The English component has two distinct papers. The essay paper rewards the argument-first approach — a clear claim, organized evidence, and a conclusion that follows from the analysis. The précis paper rewards the ability to compress a passage to its essential meaning without distortion.
+The English component has two distinct papers. The essay paper rewards the argument-first approach: a clear claim, organized evidence, and a conclusion that follows from the analysis. The précis paper rewards the ability to compress a passage to its essential meaning without distortion.
 
 Both papers reward regular practice over content knowledge. You cannot study your way to a good précis score. You can only write your way there. Set aside two précis exercises per week from the beginning of your preparation. By exam time, the compression skill becomes automatic.
 

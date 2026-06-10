@@ -16,7 +16,7 @@ export type ExamPracticeGridCardProps = {
 }
 
 /**
- * Compact tile shared by mock tiers, mocks, and subject practice — matches original subject card scale.
+ * Compact tile shared by mock tiers, mocks, and subject practice: matches original subject card scale.
  */
 export default function ExamPracticeGridCard({
   onClick,

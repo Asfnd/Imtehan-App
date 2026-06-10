@@ -43,7 +43,7 @@ export default function PremiumPage() {
       <div className="pt-10 pb-2 text-center px-6">
         <h1 className="text-2xl font-bold text-gray-900">Choose Your Plan</h1>
         <p className="text-sm text-gray-500 mt-1.5 max-w-xl mx-auto">
-          All plans include the same features—full access to practice, mocks, premium materials, and analytics on
+          All plans include the same features: full access to practice, mocks, premium materials, and analytics on
           Imtehan.
         </p>
       </div>

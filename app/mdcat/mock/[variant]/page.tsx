@@ -156,7 +156,7 @@ export default function MDCATMockListingPage() {
           </div>
         </div>
 
-        {/* Batch selector — horizontal scroll on mobile */}
+        {/* Batch selector: horizontal scroll on mobile */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4 md:hidden">
           {Array.from({ length: totalBatches }, (_, i) => i + 1).map((batchNum) => {
             const isSelected = batchNum === selectedBatch
@@ -176,7 +176,7 @@ export default function MDCATMockListingPage() {
 
         <div className="grid grid-cols-12 gap-4">
 
-          {/* Batch sidebar — desktop only */}
+          {/* Batch sidebar: desktop only */}
           <div className="hidden md:block md:col-span-3">
             <div className="bg-white rounded-2xl border border-slate-200 p-3 sticky top-24 shadow-sm">
               <p className="font-bold text-xs text-slate-700 mb-0.5">Batches</p>

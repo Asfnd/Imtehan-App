@@ -243,10 +243,10 @@ export function HomeClient() {
               { text: "Geography",                  subtext: "3,500+ MCQs" },
               { text: "Urdu",                       subtext: "3,500+ MCQs" },
               { text: "CSS / MPT Mock Tests",       subtext: "20 per exam" },
-              { text: "PPSC — 50+ Posts",           subtext: "All subjects" },
-              { text: "FPSC — 15+ Posts",           subtext: "All subjects" },
-              { text: "Police — All Provinces",     subtext: "SI & Constable" },
-              { text: "Banks — NBP · SBP · HBL",   subtext: "Officer grade" },
+              { text: "PPSC: 50+ Posts",           subtext: "All subjects" },
+              { text: "FPSC: 15+ Posts",           subtext: "All subjects" },
+              { text: "Police: All Provinces",     subtext: "SI & Constable" },
+              { text: "Banks: NBP · SBP · HBL",   subtext: "Officer grade" },
             ]}
           />
         </div>
@@ -367,7 +367,7 @@ export function HomeClient() {
               </div>
               <h3 className="text-lg font-semibold mb-2.5">Massive question bank</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                70,000+ MCQs across 195 exams — CSS, PPSC, FPSC, Police, Banks & more
+                70,000+ MCQs across 195 exams: CSS, PPSC, FPSC, Police, Banks & more
               </p>
             </Link>
           </div>

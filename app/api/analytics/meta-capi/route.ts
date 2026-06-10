@@ -8,7 +8,7 @@ const ALLOWED_EVENTS = new Set(['CompleteRegistration', 'Subscribe', 'StartTrial
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 /**
- * POST body from client — must match browser fbq `eventID` for deduplication.
+ * POST body from client: must match browser fbq `eventID` for deduplication.
  */
 export async function POST(request: Request) {
   const user = await getAuthenticatedUserForRoute(request)

@@ -32,13 +32,13 @@ const CONTENT = `Islamic Studies is one of the compulsory subjects most candidat
 
 The CSS Islamic Studies paper focuses on three areas. First, the foundational framework: the pillars of Islam, the Quran and Sunnah as sources of guidance, the basic biographical timeline of the Prophet, and the early caliphate period. This is the factual foundation every candidate needs.
 
-Second, and more critically for CSS, it tests the application of Islamic principles to governance, society, and Pakistan's constitutional identity. Questions about the Objectives Resolution, the role of Islam in Pakistan's constitutional framework, and the relationship between Islamic jurisprudence and modern law appear regularly. These questions cannot be answered by quoting Hadith — they require understanding of how Islamic principles have been interpreted and applied in the context of a modern state.
+Second, and more critically for CSS, it tests the application of Islamic principles to governance, society, and Pakistan's constitutional identity. Questions about the Objectives Resolution, the role of Islam in Pakistan's constitutional framework, and the relationship between Islamic jurisprudence and modern law appear regularly. These questions cannot be answered by quoting Hadith; they require understanding of how Islamic principles have been interpreted and applied in the context of a modern state.
 
-Third, contemporary Islamic world affairs — the Organisation of Islamic Cooperation, major Muslim-majority countries' governance structures, and recent developments affecting Muslim communities globally — form a smaller but consistent part of the paper.
+Third, contemporary Islamic world affairs (the Organisation of Islamic Cooperation, major Muslim-majority countries' governance structures, and recent developments affecting Muslim communities globally) form a smaller but consistent part of the paper.
 
 ## The Conceptual Preparation Approach
 
-Prepare Islamic Studies the same way you would prepare an analytical subject, not a religious one. For each major topic — the role of Shura, the concept of Ijma, the principles of Islamic economics — build a conceptual understanding: what does the principle mean, where does it come from, and how has it been applied or debated in Pakistan's context?
+Prepare Islamic Studies the same way you would prepare an analytical subject, not a religious one. For each major topic (the role of Shura, the concept of Ijma, the principles of Islamic economics) build a conceptual understanding: what does the principle mean, where does it come from, and how has it been applied or debated in Pakistan's context?
 
 This is more work than memorization, but it serves you far better. A CSS question asking you to discuss how Islamic principles inform Pakistan's constitutional structure requires synthesis, not recall.
 
@@ -50,7 +50,7 @@ A significant portion of Islamic Studies content overlaps with Pakistan Affairs.
 
 Prepare them together. Read the Objectives Resolution as a constitutional document and understand both its religious and political significance. Study the Council of Islamic Ideology's mandate and some of its notable recommendations. Understand the Hudood Ordinances in their historical context. This preparation serves both subjects and reduces total study time significantly.
 
-The candidates who score well in Islamic Studies are not necessarily more religious. They are more analytically prepared — they understand the subject as a system of principles with historical and contemporary applications, not as a body of text to be memorized.`
+The candidates who score well in Islamic Studies are not necessarily more religious. They are more analytically prepared: they understand the subject as a system of principles with historical and contemporary applications, not as a body of text to be memorized.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

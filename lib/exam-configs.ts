@@ -31,7 +31,7 @@ export interface ExamConfig {
 export const EXAM_CONFIGS: Record<string, ExamConfig> = {
 
   // ============================================================
-  // MEDICAL — MDCAT (Medical & Dental College Admission Test)
+  // MEDICAL: MDCAT (Medical & Dental College Admission Test)
   // ============================================================
 
   'mdcat': {
@@ -51,7 +51,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // NATIONAL — CSS & PMS (Federal Competitive)
+  // NATIONAL: CSS & PMS (Federal Competitive)
   // ============================================================
 
   'css-mpt': {
@@ -73,7 +73,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
-  /** PMS general paper — same subject modules and shared MCQ bank as CSS MPT (`english`, `general_knowledge`, …). */
+  /** PMS general paper: same subject modules and shared MCQ bank as CSS MPT (`english`, `general_knowledge`, …). */
   'pms-competitive': {
     name: 'PMS Competitive (General)',
     category: 'pms',
@@ -82,14 +82,14 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     guide: {
-      authority: 'Provincial Public Service Commission (e.g. PPSC, KPPSC — varies by province)',
+      authority: 'Provincial Public Service Commission (e.g. PPSC, KPPSC, varies by province)',
       officialLink: 'https://www.ppsc.gop.pk/',
       eligibility: [
         'Qualification and age limits follow each commission’s advertisement (often graduate-level for PMS).',
         'Domicile and quota rules apply as per the official notification.',
       ],
       important: [
-        'Real exams add compulsory English Essay & Précis/Composition and General Knowledge papers — use MCQs here for screening-style practice and the PMS Writing Coach for written papers.',
+        'Real exams add compulsory English Essay & Précis/Composition and General Knowledge papers. Use MCQs here for screening-style practice and the PMS Writing Coach for written papers.',
         'Syllabus and marks distribution differ by province; confirm from your commission’s latest syllabus PDF.',
       ],
       helpful: [
@@ -110,7 +110,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PPSC — Punjab Public Service Commission
+  // PPSC: Punjab Public Service Commission
   // ============================================================
 
   'ppsc-assistant': {
@@ -315,7 +315,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // FPSC — Federal Public Service Commission
+  // FPSC: Federal Public Service Commission
   // ============================================================
 
   'fpsc-assistant': {
@@ -422,7 +422,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — PMS & PSC Exams
+  // PROVINCIAL: PMS & PSC Exams
   // ============================================================
 
   'pms-punjab': {
@@ -548,7 +548,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // ETEA — Educational Testing & Evaluation Agency (KPK)
+  // ETEA: Educational Testing & Evaluation Agency (KPK)
   // ============================================================
 
   'etea-pst': {
@@ -619,7 +619,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // NTS — National Testing Service
+  // NTS: National Testing Service
   // ============================================================
 
   'nts-general': {
@@ -705,7 +705,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // OTS — Open Testing Service
+  // OTS: Open Testing Service
   // ============================================================
 
   'ots-general': {
@@ -822,7 +822,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PPSC — Additional Posts
+  // PPSC: Additional Posts
   // ============================================================
 
   'ppsc-zilladar': {
@@ -956,7 +956,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // FPSC — Additional Posts
+  // FPSC: Additional Posts
   // ============================================================
 
   'fpsc-ib-officer': {
@@ -1040,7 +1040,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // FIA — Federal Investigation Agency
+  // FIA: Federal Investigation Agency
   // ============================================================
 
   'fia-sub-inspector': {
@@ -1264,7 +1264,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — KPPSC & SPSC Specific Posts
+  // PROVINCIAL: KPPSC & SPSC Specific Posts
   // ============================================================
 
   'kppsc-assistant': {
@@ -1369,7 +1369,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // NTS — Additional Posts
+  // NTS: Additional Posts
   // ============================================================
 
   'nts-nadra': {
@@ -1454,11 +1454,11 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // MILITARY — Armed Forces Initial Tests
+  // MILITARY: Armed Forces Initial Tests
   // ============================================================
 
   'military-pak-army': {
-    name: 'Join Pak Army — Initial Academic Test',
+    name: 'Join Pak Army: Initial Academic Test',
     category: 'military',
     totalMCQs: 100,
     duration: 60,
@@ -1473,7 +1473,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'military-pak-navy': {
-    name: 'Join Pak Navy — Initial Academic Test',
+    name: 'Join Pak Navy: Initial Academic Test',
     category: 'military',
     totalMCQs: 100,
     duration: 60,
@@ -1488,7 +1488,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'military-paf-airman': {
-    name: 'Join PAF — Airman Initial Test',
+    name: 'Join PAF: Airman Initial Test',
     category: 'military',
     totalMCQs: 100,
     duration: 60,
@@ -1503,7 +1503,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'military-rangers': {
-    name: 'Pakistan Rangers — Initial Test',
+    name: 'Pakistan Rangers: Initial Test',
     category: 'military',
     totalMCQs: 100,
     duration: 60,
@@ -1518,7 +1518,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'military-fc': {
-    name: 'Frontier Corps (FC) — Initial Test',
+    name: 'Frontier Corps (FC): Initial Test',
     category: 'military',
     totalMCQs: 100,
     duration: 60,
@@ -1533,7 +1533,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // BANKS — Banking Sector Tests (NTS / IBA Sukkur)
+  // BANKS: Banking Sector Tests (NTS / IBA Sukkur)
   // ============================================================
 
   'banks-nbp-officer': {
@@ -1617,7 +1617,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PPSC — Additional Posts
+  // PPSC: Additional Posts
   // ============================================================
 
   'ppsc-municipal-officer': {
@@ -1803,7 +1803,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // FPSC — Additional Posts
+  // FPSC: Additional Posts
   // ============================================================
 
   'fpsc-stenographer': {
@@ -1852,7 +1852,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — BPSC (Balochistan)
+  // PROVINCIAL: BPSC (Balochistan)
   // ============================================================
 
   'bpsc-assistant': {
@@ -1919,7 +1919,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — AJKPSC Additional
+  // PROVINCIAL: AJKPSC Additional
   // ============================================================
 
   'ajkpsc-assistant': {
@@ -1954,7 +1954,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — KPPSC Additional
+  // PROVINCIAL: KPPSC Additional
   // ============================================================
 
   'kppsc-deo': {
@@ -2003,7 +2003,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — SPSC Additional
+  // PROVINCIAL: SPSC Additional
   // ============================================================
 
   'spsc-deo': {
@@ -2038,7 +2038,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // POLICE — Provincial & Federal
+  // POLICE: Provincial & Federal
   // ============================================================
 
   'police-punjab-constable': {
@@ -2137,7 +2137,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // JUDICIARY — Court & Tribunal Posts
+  // JUDICIARY: Court & Tribunal Posts
   // ============================================================
 
   'judiciary-high-court-clerk': {
@@ -2216,7 +2216,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PAKISTAN RAILWAYS — Direct Recruitment
+  // PAKISTAN RAILWAYS: Direct Recruitment
   // ============================================================
 
   'railways-station-master': {
@@ -2310,7 +2310,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // DEVELOPMENT AUTHORITIES — CDA, LDA, KDA, MDA, RDA
+  // DEVELOPMENT AUTHORITIES: CDA, LDA, KDA, MDA, RDA
   // ============================================================
 
   'cda-assistant': {
@@ -2404,7 +2404,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // POLICE — More Constable Posts
+  // POLICE: More Constable Posts
   // ============================================================
 
   'police-sindh-constable': {
@@ -2454,7 +2454,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // JUDICIARY — More Courts
+  // JUDICIARY: More Courts
   // ============================================================
 
   'judiciary-sindh-high-court': {
@@ -2503,7 +2503,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PPSC — Lady Health & Director Level
+  // PPSC: Lady Health & Director Level
   // ============================================================
 
   'ppsc-lady-health-supervisor': {
@@ -2537,7 +2537,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // FPSC — Additional Posts
+  // FPSC: Additional Posts
   // ============================================================
 
   'fpsc-customs-appraiser': {
@@ -2571,7 +2571,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // MILITARY — ANF & PAF Officer
+  // MILITARY: ANF & PAF Officer
   // ============================================================
 
   'military-anf-inspector': {
@@ -2621,7 +2621,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'military-army-civilian': {
-    name: 'Pak Army Civilian Posts — GD Clerk / LDC',
+    name: 'Pak Army Civilian Posts: GD Clerk / LDC',
     category: 'military',
     totalMCQs: 100,
     duration: 90,
@@ -2636,7 +2636,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // NTS — More Organizations
+  // NTS: More Organizations
   // ============================================================
 
   'nts-hec': {
@@ -2729,7 +2729,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // OTS — Additional Departments
+  // OTS: Additional Departments
   // ============================================================
 
   'ots-water-sanitation': {
@@ -2778,11 +2778,11 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // ETEA — Additional Posts
+  // ETEA: Additional Posts
   // ============================================================
 
   'etea-lady-health-visitor': {
-    name: 'ETEA Lady Health Visitor (LHV) — KPK',
+    name: 'ETEA Lady Health Visitor (LHV), KPK',
     category: 'etea',
     totalMCQs: 100,
     duration: 90,
@@ -2797,7 +2797,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'etea-nurse': {
-    name: 'ETEA Staff Nurse / Midwife — KPK',
+    name: 'ETEA Staff Nurse / Midwife, KPK',
     category: 'etea',
     totalMCQs: 100,
     duration: 90,
@@ -2812,7 +2812,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'etea-junior-clerk': {
-    name: 'ETEA Junior Clerk / Assistant — KPK Govt',
+    name: 'ETEA Junior Clerk / Assistant, KPK Govt',
     category: 'etea',
     totalMCQs: 100,
     duration: 90,
@@ -2827,7 +2827,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // BANKS — More Institutions
+  // BANKS: More Institutions
   // ============================================================
 
   'banks-ubl-officer': {
@@ -2892,7 +2892,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // NAB — National Accountability Bureau
+  // NAB: National Accountability Bureau
   // ============================================================
 
   'nab-investigation-officer': {
@@ -2926,7 +2926,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // GBPSC — Gilgit-Baltistan Additional Posts
+  // GBPSC: Gilgit-Baltistan Additional Posts
   // ============================================================
 
   'gbpsc-assistant': {
@@ -2976,7 +2976,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // AJKPSC — Additional Posts
+  // AJKPSC: Additional Posts
   // ============================================================
 
   'ajkpsc-junior-clerk': {
@@ -3010,7 +3010,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // BPSC & SPSC — Additional Posts
+  // BPSC & SPSC: Additional Posts
   // ============================================================
 
   'bpsc-patwari': {
@@ -3059,7 +3059,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PPSC — Remaining Specialist Posts
+  // PPSC: Remaining Specialist Posts
   // ============================================================
 
   'ppsc-fisheries-officer': {
@@ -3108,7 +3108,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // MILITARY — Coast Guard
+  // MILITARY: Coast Guard
   // ============================================================
 
   'military-coast-guard': {
@@ -3128,7 +3128,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // NTS — LESCO / DISCO Power Distribution Companies
+  // NTS: LESCO / DISCO Power Distribution Companies
   // ============================================================
 
   'nts-lesco': {
@@ -3162,7 +3162,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // OTS — Remaining Departments
+  // OTS: Remaining Departments
   // ============================================================
 
   'ots-fisheries': {
@@ -3211,7 +3211,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PPSC — Educators (PST / SST / EST)
+  // PPSC: Educators (PST / SST / EST)
   // ============================================================
 
   'ppsc-pst': {
@@ -3266,7 +3266,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // PROVINCIAL — PMS Balochistan / AJK / GB
+  // PROVINCIAL: PMS Balochistan / AJK / GB
   // ============================================================
 
   'pms-balochistan': {
@@ -3324,7 +3324,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // POLICE — Balochistan / AJK / Motorway (NH&MP)
+  // POLICE: Balochistan / AJK / Motorway (NH&MP)
   // ============================================================
 
   'police-balochistan-si': {
@@ -3423,7 +3423,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // BANKS — Bank of Punjab / Bank of Khyber
+  // BANKS: Bank of Punjab / Bank of Khyber
   // ============================================================
 
   'banks-bop-officer': {
@@ -3459,7 +3459,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // RESCUE — Punjab Rescue 1122 Emergency Services
+  // RESCUE: Punjab Rescue 1122 Emergency Services
   // ============================================================
 
   'rescue-1122-rescuer': {
@@ -3513,7 +3513,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // REVENUE — Provincial Tax & Revenue Authorities
+  // REVENUE: Provincial Tax & Revenue Authorities
   // ============================================================
 
   'pra-assistant': {
@@ -3581,7 +3581,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // ENGINEERING — Primary Exams (full 4-module practice)
+  // ENGINEERING: Primary Exams (full 4-module practice)
   // ============================================================
 
   'ecat': {
@@ -3666,7 +3666,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // ENGINEERING — Secondary Exams (mock tests only)
+  // ENGINEERING: Secondary Exams (mock tests only)
   // ============================================================
 
   'comsats-engineering': {

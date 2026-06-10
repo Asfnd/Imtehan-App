@@ -56,7 +56,7 @@ export async function generateMetadata({
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
   const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
 
-  const title = `${examName} — ${subjectName} MCQs with Answers | Imtehan`
+  const title = `${examName}: ${subjectName} MCQs with Answers | Imtehan`
   const description = `Practice ${examName} ${subjectName} MCQs in sets of 20. Includes most repeated, most important, and past paper questions with detailed explanations.`
 
   return {
@@ -102,7 +102,7 @@ export default async function ExamSubjectLayout({
       quizJsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Quiz',
-        'name': `${examName} — ${subjectName} MCQs with Answers`,
+        'name': `${examName}: ${subjectName} MCQs with Answers`,
         'description': `Practice ${examName} ${subjectName} MCQs. Most repeated and important questions with explanations for exam preparation in Pakistan.`,
         'url': `https://imtehan.com/exams/${examSlug}/${subjectSlug}`,
         'provider': { '@type': 'Organization', 'name': 'Imtehan', 'url': 'https://imtehan.com' },

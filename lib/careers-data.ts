@@ -70,7 +70,7 @@ export const OPEN_ROLES: Role[] = [
     location: 'Remote · Pakistan',
     type: 'Full-time',
     summary:
-      'Shape focused, accessible study experiences — from practice flows to results — that help students build confidence under exam pressure.',
+      'Shape focused, accessible study experiences (from practice flows to results) that help students build confidence under exam pressure.',
     responsibilities: [
       'Own UX for practice, analytics, premium, and onboarding journeys',
       'Deliver high-fidelity designs in Figma consistent with the Imtehan brand',
@@ -112,7 +112,7 @@ export const OPEN_ROLES: Role[] = [
     location: 'Remote · Pakistan',
     type: 'Full-time · Part-time',
     summary:
-      'Deliver responsive, empathetic support that helps students succeed — and channel their feedback into product improvements.',
+      'Deliver responsive, empathetic support that helps students succeed, and channel their feedback into product improvements.',
     responsibilities: [
       'Respond to inquiries via WhatsApp, email, and in-app channels',
       'Guide users through premium activation and platform features',
@@ -132,7 +132,7 @@ export const VALUES = [
   {
     title: 'Mission-first',
     description:
-      'We measure success by student outcomes — every decision should make preparation more effective, not just ship faster.',
+      'We measure success by student outcomes: every decision should make preparation more effective, not just ship faster.',
   },
   {
     title: 'Rigorous quality',
@@ -147,7 +147,7 @@ export const VALUES = [
   {
     title: 'Clear ownership',
     description:
-      'Small team, direct accountability, async-friendly collaboration — we value thoughtful execution over process for its own sake.',
+      'Small team, direct accountability, async-friendly collaboration: we value thoughtful execution over process for its own sake.',
   },
 ]
 
@@ -209,7 +209,7 @@ export function applicationHref(roleId?: string | null): string {
 }
 
 export function generalApplicationMailto() {
-  const subject = encodeURIComponent('General application — Imtehan')
+  const subject = encodeURIComponent('General application: Imtehan')
   const body = encodeURIComponent(
     'Dear Imtehan team,\n\nI would like to be considered for future opportunities.\n\nRole of interest:\n\nLinkedIn / portfolio:\n\nRelevant experience:\n\nWhy Imtehan:\n\n'
   )

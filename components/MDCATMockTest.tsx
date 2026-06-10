@@ -77,7 +77,7 @@ const MDCAT_EXAM_BADGE = {
 // ── Configs ────────────────────────────────────────────────────────────────────
 
 const MOCK_CONFIGS: Record<string, MockConfig> = {
-  // Legacy alias — keep for backward compat
+  // Legacy alias: keep for backward compat
   provincial: {
     name: 'PMC National MDCAT 2025',
     badge: 'UHS · SIBA · BUMHS · SZABMU · All Provinces',
@@ -239,7 +239,7 @@ async function fetchSectionMCQs(
   sectionIndex: number,
   mockNumber?: number,
 ): Promise<MockMCQ[]> {
-  // Deterministic mode — Mock N uses rows [(N-1)*count … N*count-1], ordered by id
+  // Deterministic mode: Mock N uses rows [(N-1)*count … N*count-1], ordered by id
   if (mockNumber !== undefined) {
     const offset = (mockNumber - 1) * section.count
     const { data, error } = await supabase
@@ -257,7 +257,7 @@ async function fetchSectionMCQs(
     }))
   }
 
-  // Random mode — fetch a large window and shuffle
+  // Random mode: fetch a large window and shuffle
   const totalRows = TABLE_SIZES[section.table] ?? 1000
   const fetchCount = Math.min(section.count * 5, 400)
   const maxOffset = Math.max(0, totalRows - fetchCount)
@@ -378,7 +378,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
       wrongAnswers:   wrong,
       skippedAnswers: skipped,
       timeInSeconds:  timeUsed,
-    }).catch(() => {/* silent — analytics failure should never block UI */})
+    }).catch(() => {/* silent: analytics failure should never block UI */})
   }, [phase]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleFlag = (index: number) => {
@@ -671,7 +671,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
               </p>
               {mcqs.length - answeredCount > 0 && (
                 <p className="text-sm font-medium text-amber-600">
-                  {mcqs.length - answeredCount} unanswered — will count as wrong.
+                  {mcqs.length - answeredCount} unanswered, will count as wrong.
                 </p>
               )}
               <div className="mt-5 flex gap-3">
@@ -719,7 +719,7 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
       .map((mcq, idx) => ({ mcq, idx, userAnswer: answers[idx] }))
       .filter(({ mcq, idx }) => answers[idx] !== mcq.correct_answer)
 
-    // Review mode — show wrong answers one by one
+    // Review mode: show wrong answers one by one
     if (reviewMode) {
       // Guard: if somehow reviewMode is active with no wrong items, exit cleanly
       if (wrongItems.length === 0 || reviewIndex >= wrongItems.length) {

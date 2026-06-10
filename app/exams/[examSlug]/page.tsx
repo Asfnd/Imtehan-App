@@ -162,7 +162,7 @@ function ExamDashboard() {
     }
   }, [config])
 
-  // Mock completion badges — read local (guest) + DB (signed-in), same as the mock list page.
+  // Mock completion badges: read local (guest) + DB (signed-in), same as the mock list page.
   // Without this, returning here after finishing a mock shows no "completed" badge.
   useEffect(() => {
     if (!examSlug) return
@@ -201,7 +201,7 @@ function ExamDashboard() {
             }
           })
         }
-      } catch { /* graceful — local completions still show */ }
+      } catch { /* graceful: local completions still show */ }
 
       if (!cancelled) {
         setCompletedMockIds(ids)
@@ -336,7 +336,7 @@ function ExamDashboard() {
       />
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Analytics Bar — handles sign-in CTA, stats, today's focus */}
+        {/* Analytics Bar: handles sign-in CTA, stats, today's focus */}
         <ExamAnalyticsBar examSlug={examSlug} signInHref={`/signin?next=${encodeURIComponent(`/exams/${examSlug}`)}`} />
 
         {examSlug === 'pms-competitive' && (

@@ -142,11 +142,11 @@ export default function BatchSetSelector() {
     },
     {
       question: `Are these ${sectionCfg?.label || subjectSlug} ${modeConfig.label} MCQs useful for ${examConfig?.name || examSlug}?`,
-      answer: `Yes — these MCQs are curated specifically for ${examConfig?.name || examSlug} candidates. ${modeConfig.description}. Practising set by set builds confidence and improves your score systematically.`,
+      answer: `Yes, these MCQs are curated specifically for ${examConfig?.name || examSlug} candidates. ${modeConfig.description}. Practising set by set builds confidence and improves your score systematically.`,
     },
     {
       question: `How should I use these ${modeConfig.label} sets for ${examConfig?.name || examSlug} preparation?`,
-      answer: `Start from Set 1 and complete each set in one session. Review every explanation — especially for wrong answers — before moving to the next set. Consistency across multiple sets is key to strong exam performance.`,
+      answer: `Start from Set 1 and complete each set in one session. Review every explanation (especially for wrong answers) before moving to the next set. Consistency across multiple sets is key to strong exam performance.`,
     },
   ]
 
@@ -186,7 +186,7 @@ export default function BatchSetSelector() {
         </div>
 
         <div className="grid grid-cols-12 gap-4 md:gap-6">
-          {/* LEFT — Batches */}
+          {/* LEFT: Batches */}
           <div className="col-span-4 md:col-span-4 lg:col-span-3">
             <div className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 sticky top-24">
               <h2 className="font-bold text-sm text-gray-900 mb-1">Batches</h2>
@@ -223,7 +223,7 @@ export default function BatchSetSelector() {
             </div>
           </div>
 
-          {/* RIGHT — Sets */}
+          {/* RIGHT: Sets */}
           <div className="col-span-8 md:col-span-8 lg:col-span-9">
             <div className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 max-h-[640px] overflow-y-auto">
               <div className="mb-4">

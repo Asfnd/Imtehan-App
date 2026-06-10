@@ -1,4 +1,4 @@
-// No 'use client' — this file is safe to import from server components
+// No 'use client': this file is safe to import from server components
 
 export interface Heading {
   id: string

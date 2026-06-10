@@ -6,7 +6,7 @@ import { useAuth } from '@/lib/contexts/AuthContext'
 import NavigationBar from '@/components/NavigationBar'
 import { Paperclip, Send, Trash2 } from 'lucide-react'
 
-// Singleton client — created once, not on every render
+// Singleton client: created once, not on every render
 const supabase = createClient()
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -383,7 +383,7 @@ function CommunityChatContent() {
       // Revert on failure
       setMessages((prev) => prev.filter((m) => m.id !== tempId))
     } else if (data) {
-      // Replace temp with real (realtime may also fire — deduplication handles it)
+      // Replace temp with real (realtime may also fire; deduplication handles it)
       setMessages((prev) => prev.map((m) => m.id === tempId ? data : m))
     }
 

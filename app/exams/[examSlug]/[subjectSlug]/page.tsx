@@ -277,7 +277,7 @@ export default function SubjectModesPage() {
               title="Past MCQs"
               subtitle="Actual exam questions, 2015 onwards"
               statPrimary={roundMCQs(counts.pastCount)}
-              statSecondary="2015 – 2026"
+              statSecondary="2015 - 2026"
             />
             <PracticeCard
               onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/practice`)}
@@ -290,7 +290,7 @@ export default function SubjectModesPage() {
           </div>
         </section>
 
-        {/* ── By Topic — premium-gated featured card ── */}
+        {/* ── By Topic: premium-gated featured card ── */}
         {hasTopics && (
           <section>
             <SectionLabel chip={`${topicsWithCounts.length} topics`}>

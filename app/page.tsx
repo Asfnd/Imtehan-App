@@ -31,25 +31,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#F9FAFB]">
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Imtehan',
-            url: 'https://imtehan.com',
-            description: 'Comprehensive exam preparation platform for CSS, MPT, and competitive exams',
-            logo: 'https://imtehan.com/favicon.svg',
-            sameAs: [
-              'https://www.facebook.com/imtehan',
-              'https://www.twitter.com/imtehan',
-            ],
-          }),
-        }}
-      />
-
+      {/* Organization + WebSite structured data is rendered once in the root layout
+          (components/seo/StructuredData) to avoid duplicate Organization entities. */}
       <HomeClient />
     </main>
   )

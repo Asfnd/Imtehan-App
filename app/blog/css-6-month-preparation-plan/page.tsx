@@ -6,11 +6,11 @@ import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
   title: 'CSS Preparation in 6 Months: A Realistic Week-by-Week Plan | Imtehan',
-  description: 'Six months is not generous time for CSS — it is the minimum. Here is exactly how to use every week without wasting the first two months on the wrong things.',
+  description: 'Six months is not generous time for CSS. It is the minimum. Here is exactly how to use every week without wasting the first two months on the wrong things.',
   alternates: { canonical: 'https://imtehan.com/blog/css-6-month-preparation-plan' },
   openGraph: {
     title: 'CSS Preparation in 6 Months: A Realistic Week-by-Week Plan',
-    description: 'The month-by-month CSS preparation plan that works — what to cover, when to start mocks, and how to handle the final weeks.',
+    description: 'The month-by-month CSS preparation plan that works: what to cover, when to start mocks, and how to handle the final weeks.',
     url: 'https://imtehan.com/blog/css-6-month-preparation-plan',
     type: 'article',
     publishedTime: '2026-02-24T00:00:00Z',
@@ -27,7 +27,7 @@ const TAGS = ['CSS 2026', 'CSS Study Plan', '6 Month Plan', 'CSS Preparation', '
 
 const CONTENT = `Six months is not generous time for CSS. It is the minimum. Candidates who have twelve months available use ten of them. Candidates who have six months available tend to waste the first two, panic in month four, and arrive at the exam either underprepared or exhausted.
 
-The plan below assumes six months of real, consistent preparation — not six months on the calendar. It is a rough structure. The specific books and MCQ sets you use matter less than the sequence and the daily habit.
+The plan below assumes six months of real, consistent preparation, not six months on the calendar. It is a rough structure. The specific books and MCQ sets you use matter less than the sequence and the daily habit.
 
 ## Before Month One: Choose Subjects First
 
@@ -41,13 +41,13 @@ Do not choose three new-to-you subjects. Choose at most one subject you are lear
 
 ## Month One and Two: Compulsory Subjects and Foundation
 
-The first two months should be overwhelmingly weighted toward compulsory subjects — English Essay, English Précis and Composition, Pakistan Affairs, Islamic Studies, Current Affairs, and General Knowledge.
+The first two months should be overwhelmingly weighted toward compulsory subjects: English Essay, English Précis and Composition, Pakistan Affairs, Islamic Studies, Current Affairs, and General Knowledge.
 
 The logic: compulsory subjects are non-negotiable. You cannot bank on optional subjects compensating for weak compulsory scores. Solid compulsory performance creates a floor that optionals build on.
 
-**English specifically** — essay structure, précis technique, and grammar — requires the most lead time. You cannot build writing skills in weeks. Start writing one full essay and one précis per week from day one. Get feedback if possible. Review past CSS English papers to understand what the marking standard looks like.
+**English specifically**, essay structure, précis technique, and grammar, requires the most lead time. You cannot build writing skills in weeks. Start writing one full essay and one précis per week from day one. Get feedback if possible. Review past CSS English papers to understand what the marking standard looks like.
 
-**Daily reading habit** — Dawn editorial and national pages, forty focused minutes, two-column notes — starts here and does not stop.
+**Daily reading habit**: Dawn editorial and national pages, forty focused minutes, two-column notes. This starts here and does not stop.
 
 ## Month Three and Four: Optional Subjects
 
@@ -55,16 +55,16 @@ By month three, your compulsory subject foundation should be solid enough that y
 
 This is the knowledge-building phase for optionals. Cover the syllabus topic by topic. Use the read-then-MCQ loop: study a topic, then immediately solve MCQs on that topic before moving on. Do not cover an entire optional subject before testing yourself on any of it.
 
-One full essay or analytical paragraph on each optional subject topic per week. Not to polish your writing — to force yourself to organise and reproduce the material from memory. Writing from memory reveals gaps that reading hides.
+One full essay or analytical paragraph on each optional subject topic per week. Not to polish your writing, but to force yourself to organise and reproduce the material from memory. Writing from memory reveals gaps that reading hides.
 
 At the end of month four, you should have covered the full syllabus for both compulsory and optional subjects at least once, with active testing throughout.
 
 ## Month Five: First Mock Tests and Gap Identification
 
-Month five is when most candidates realise how different exam performance is from preparation performance. This realisation is valuable. It is why mock tests should start in month five — not month six.
+Month five is when most candidates realise how different exam performance is from preparation performance. This realisation is valuable. It is why mock tests should start in month five, not month six.
 
 **Two full mock tests per week**, ideally timed to simulate the actual CSS exam day format. After each test:
-- Score every section individually — not just overall.
+- Score every section individually, not just overall.
 - List every question you got wrong by topic, not by subject.
 - Identify the three topics where your wrong-answer rate is highest. These become next week's focused revision targets.
 
@@ -76,11 +76,11 @@ The mock test is not a measurement tool at this stage. It is a diagnostic. What 
 
 Month six has one goal: convert knowledge into exam performance under conditions. New topics end here. This month is about retrieving what you have already built.
 
-**Weeks one and two:** Intensive revision of the weak topics identified in mock testing. MCQs only — no new reading. The goal is retrieval and reinforcement, not learning.
+**Weeks one and two:** Intensive revision of the weak topics identified in mock testing. MCQs only, no new reading. The goal is retrieval and reinforcement, not learning.
 
-**Weeks three and four:** Full-paper mock tests three times per week. Essay practice every three days. Review only wrong answers after each test — not the full paper.
+**Weeks three and four:** Full-paper mock tests three times per week. Essay practice every three days. Review only wrong answers after each test, not the full paper.
 
-**Final ten days:** No new MCQs. Review your personal error list — the specific questions and topics you have gotten wrong repeatedly. Read previous essays you have written and note what you would improve. Sleep properly. The preparation is done. Protect it.
+**Final ten days:** No new MCQs. Review your personal error list, the specific questions and topics you have gotten wrong repeatedly. Read previous essays you have written and note what you would improve. Sleep properly. The preparation is done. Protect it.
 
 ## The One Thing Most Six-Month Plans Get Wrong
 
@@ -94,14 +94,14 @@ export default function BlogPost() {
     <>
       <ArticleSchema
         title="CSS Preparation in 6 Months: A Realistic Week-by-Week Plan"
-        description="A practical month-by-month CSS preparation plan — what to cover when, how to use mock tests, and the sequence most plans get wrong."
+        description="A practical month-by-month CSS preparation plan: what to cover when, how to use mock tests, and the sequence most plans get wrong."
         content={CONTENT}
         publishDate="2026-02-24"
         url="https://imtehan.com/blog/css-6-month-preparation-plan"
       />
       <BlogPostShell
         title="CSS Preparation in 6 Months: What a Realistic Plan Actually Looks Like"
-        subtitle="Six months is not generous time for CSS — it is the minimum. Here is how to use every week of it without wasting the first two months on the wrong things."
+        subtitle="Six months is not generous time for CSS. It is the minimum. Here is how to use every week of it without wasting the first two months on the wrong things."
         author="Imtehan Team"
         date="February 24, 2026"
         readTime="8 min read"

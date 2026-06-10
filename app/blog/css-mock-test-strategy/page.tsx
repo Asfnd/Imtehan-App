@@ -26,7 +26,7 @@ const RELATED: RelatedPost[] = [
 
 const TAGS = ['Mock Tests', 'CSS Strategy', 'Practice Tests', 'Exam Preparation']
 
-const CONTENT = `Taking a mock test and checking your score is not practice — it is measurement. Practice is what happens in the thirty minutes after the test when you go through every question you got wrong and understand exactly why. Most candidates skip this completely. They see their score, feel either encouraged or discouraged, and move on to more reading. Their scores on subsequent tests barely improve.
+const CONTENT = `Taking a mock test and checking your score is not practice. It is measurement. Practice is what happens in the thirty minutes after the test when you go through every question you got wrong and understand exactly why. Most candidates skip this completely. They see their score, feel either encouraged or discouraged, and move on to more reading. Their scores on subsequent tests barely improve.
 
 ## When to Start Mock Tests
 
@@ -36,19 +36,19 @@ Month four or five of a twelve-month preparation is typically right. By then you
 
 ## The Review Is the Practice
 
-After every mock test, before looking at the answer key, go back through the questions you were uncertain about and try to reason through them again. This second attempt, unaided, is valuable — it trains the kind of thinking you need in the actual exam.
+After every mock test, before looking at the answer key, go back through the questions you were uncertain about and try to reason through them again. This second attempt, unaided, is valuable: it trains the kind of thinking you need in the actual exam.
 
 Then use the answer key. For every wrong answer, ask two questions: why did I choose what I chose, and why is the correct answer correct? The first question reveals your reasoning errors. The second builds knowledge. Both matter.
 
-Keep a log of wrong answers by subject. After three or four tests you will see a pattern — two or three subjects consistently dragging your score down. Those subjects need focused study, not more mock tests.
+Keep a log of wrong answers by subject. After three or four tests you will see a pattern: two or three subjects consistently dragging your score down. Those subjects need focused study, not more mock tests.
 
 > The test tells you what is weak. The review tells you why. Without the review, you are just measuring the same weakness repeatedly.
 
 ## Simulating Real Conditions
 
-A mock test taken casually — phone nearby, breaks allowed, open notes — tells you almost nothing useful. Exam-day conditions are strict, and your performance under those conditions is genuinely different from your performance in comfortable ones.
+A mock test taken casually, phone nearby, breaks allowed, open notes, tells you almost nothing useful. Exam-day conditions are strict, and your performance under those conditions is genuinely different from your performance in comfortable ones.
 
-Set a timer. Sit at a desk. No interruptions for the full duration. This is uncomfortable, especially early in preparation. That discomfort is exactly the point — you are training your concentration, not just your knowledge.
+Set a timer. Sit at a desk. No interruptions for the full duration. This is uncomfortable, especially early in preparation. That discomfort is exactly the point: you are training your concentration, not just your knowledge.
 
 After five or six tests under real conditions, sitting through three hours of focused work stops feeling extraordinary. By exam day it feels routine. That shift in familiarity is worth more than any amount of additional content study.
 
@@ -56,7 +56,7 @@ After five or six tests under real conditions, sitting through three hours of fo
 
 Two full mock tests per week in the final two months is the right cadence. Any more and you are not leaving enough time for the review and focused study that should follow each one. Any fewer and you are not building the stamina and pacing that make exam day manageable.
 
-Earlier in preparation, one test per fortnight is sufficient — enough to measure progress without consuming time better spent on content.`
+Earlier in preparation, one test per fortnight is sufficient, enough to measure progress without consuming time better spent on content.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)
@@ -71,7 +71,7 @@ export default function BlogPost() {
       />
       <BlogPostShell
         title="CSS Mock Tests: How to Use Them So They Actually Help"
-        subtitle="Taking a test and checking your score is measurement, not practice. The improvement happens in the review — and most candidates skip it entirely."
+        subtitle="Taking a test and checking your score is measurement, not practice. The improvement happens in the review, and most candidates skip it entirely."
         author="Imtehan Team"
         date="February 8, 2025"
         readTime="5 min read"

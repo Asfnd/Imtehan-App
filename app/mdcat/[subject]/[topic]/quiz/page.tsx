@@ -331,7 +331,7 @@ export default function MDCATQuizPage() {
   }
 
   const level = Math.min(99, Math.max(1, 1 + Math.floor(totalXp / 250)))
-  const journeyFootnote = isQuestionSolved ? 'Nice — onward.' : undefined
+  const journeyFootnote = isQuestionSolved ? 'Nice. Onward.' : undefined
 
   let dockPhase: QuizDockPhase = 'hidden'
   if (isQuestionSolved) dockPhase = 'correct'
@@ -420,7 +420,7 @@ export default function MDCATQuizPage() {
         title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
         subtitle={
           dockPhase === 'correct'
-            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job — keep going!'
+            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job, keep going!'
             : undefined
         }
         continueLabel="Continue"

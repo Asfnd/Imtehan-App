@@ -193,7 +193,7 @@ export default function PrivacyPolicy() {
                   Your data is stored securely using Supabase with industry-standard encryption. We implement appropriate measures to protect your information.
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-                  Scanned question images are transmitted over HTTPS and processed in real-time. We do not store raw images — only anonymised solution data for service improvement.
+                  Scanned question images are transmitted over HTTPS and processed in real-time. We do not store raw images, only anonymised solution data for service improvement.
                 </p>
               </div>
 
@@ -205,12 +205,12 @@ export default function PrivacyPolicy() {
                   <h3 className="text-xl font-bold">Third-Party Services</h3>
                 </div>
                 <div className="space-y-1 text-xs text-muted-foreground mb-3">
-                  <p>• Supabase — Database, authentication &amp; backend infrastructure</p>
-                  <p>• Google Gemini AI — Processes exam question images to generate solutions</p>
-                  <p>• Groq (Meta Llama) — Fallback AI provider for question solving</p>
-                  <p>• OpenRouter — Fallback AI provider for question solving</p>
-                  <p>• Mistral AI — Math verification and study content generation</p>
-                  <p>• Google OAuth — Sign-in authentication</p>
+                  <p>• Supabase: Database, authentication &amp; backend infrastructure</p>
+                  <p>• Google Gemini AI: Processes exam question images to generate solutions</p>
+                  <p>• Groq (Meta Llama): Fallback AI provider for question solving</p>
+                  <p>• OpenRouter: Fallback AI provider for question solving</p>
+                  <p>• Mistral AI: Math verification and study content generation</p>
+                  <p>• Google OAuth: Sign-in authentication</p>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   When you use the Scan feature, your image is transmitted to one of the above AI providers for processing. On Google&apos;s free tier, submitted content may be used to improve Google&apos;s models per their terms. We do not control third-party data practices beyond contractual obligations.

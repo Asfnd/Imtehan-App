@@ -36,7 +36,7 @@ export async function generateMetadata({
   const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
   const modeMeta = MODE_LABELS[mode] ?? { label: mode, desc: 'practice' }
 
-  const title = `${examName} ${subjectName} — ${modeMeta.label} MCQs | Imtehan`
+  const title = `${examName} ${subjectName}: ${modeMeta.label} MCQs | Imtehan`
   const description = `Practice ${examName} ${subjectName} ${modeMeta.desc} MCQs in topic-wise sets of 20. Detailed explanations and answers for every question.`
 
   return {
