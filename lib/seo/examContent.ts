@@ -376,6 +376,85 @@ function listToProse(items: string[]): string {
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
 }
 
+// ---- MDCAT subject content -------------------------------------------------
+
+interface MdcatSubject {
+  label: string
+  approxMcqs: string
+  topics: string[]
+  note: string
+}
+
+const MDCAT_SUBJECTS: Record<string, MdcatSubject> = {
+  biology: {
+    label: 'Biology',
+    approxMcqs: '5,900+',
+    topics: ['Cell Biology', 'Biological Molecules', 'Genetics', 'Evolution', 'Coordination & Control', 'Reproduction'],
+    note: 'Biology carries the most marks in MDCAT, so mastering it is the single biggest lever on your score.',
+  },
+  chemistry: {
+    label: 'Chemistry',
+    approxMcqs: '6,200+',
+    topics: ['Atomic Structure', 'Chemical Bonding', 'Organic Chemistry', 'Physical Chemistry', 'Thermodynamics', 'Electrochemistry'],
+    note: 'Chemistry rewards consistent practice across organic, physical and inorganic topics.',
+  },
+  physics: {
+    label: 'Physics',
+    approxMcqs: '4,600+',
+    topics: ['Mechanics', 'Electricity & Magnetism', 'Waves & Oscillations', 'Thermodynamics', 'Modern Physics'],
+    note: 'Physics is concept and formula driven, so practising application-style MCQs matters most.',
+  },
+  english: {
+    label: 'English',
+    approxMcqs: '900+',
+    topics: ['Grammar', 'Vocabulary', 'Sentence Structure', 'Comprehension'],
+    note: 'English is high-yield per hour because the rules are finite and repeat often.',
+  },
+  'logical-reasoning': {
+    label: 'Logical Reasoning',
+    approxMcqs: '1,100+',
+    topics: ['Critical Thinking', 'Logical Deduction', 'Analytical Reasoning', 'Problem Solving'],
+    note: 'Logical Reasoning rewards pattern practice and speed rather than memorisation.',
+  },
+}
+
+export interface MdcatSubjectSeoContent {
+  h1: string
+  subjectName: string
+  intro: string
+  topics: string[]
+  faqs: ExamFaq[]
+}
+
+export function getMdcatSubjectSeoContent(subjectSlug: string): MdcatSubjectSeoContent | null {
+  const s = MDCAT_SUBJECTS[subjectSlug]
+  if (!s) return null
+
+  const h1 = `MDCAT ${s.label} MCQs with Answers & Explanations`
+  const intro =
+    `Practice ${s.approxMcqs} MDCAT ${s.label} MCQs on Imtehan, organised topic by topic with answers and explanations. ` +
+    `${s.note} You can practise by topic, ramp up difficulty, and attempt full mock tests built for the PMC, ETEA, NUMS and AKU patterns.`
+
+  const faqs: ExamFaq[] = [
+    {
+      question: `How many MDCAT ${s.label} MCQs are on Imtehan?`,
+      answer:
+        `Imtehan has ${s.approxMcqs} MDCAT ${s.label} MCQs covering ${listToProse(s.topics)}, grouped into topic-wise sets ` +
+        `with answers and explanations, plus full mock tests.`,
+    },
+    {
+      question: `Which ${s.label} topics does MDCAT cover?`,
+      answer: `Key MDCAT ${s.label} topics include ${listToProse(s.topics)}. You can practise each topic separately on Imtehan.`,
+    },
+    {
+      question: `Is MDCAT ${s.label} practice free?`,
+      answer: `Yes. You can practise MDCAT ${s.label} MCQs and topic-wise sets for free, with premium adding analytics and unlimited mock attempts.`,
+    },
+  ]
+
+  return { h1, subjectName: s.label, intro, topics: s.topics, faqs }
+}
+
 /** Human-readable subject names shared by metadata and SEO content. */
 export const SUBJECT_LABELS: Record<string, string> = {
   english: 'English',
