@@ -193,3 +193,78 @@ function listToProse(items: string[]): string {
   if (items.length === 2) return `${items[0]} and ${items[1]}`
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
 }
+
+/** Human-readable subject names shared by metadata and SEO content. */
+export const SUBJECT_LABELS: Record<string, string> = {
+  english: 'English',
+  'general-knowledge': 'General Knowledge',
+  'pakistan-affairs': 'Pakistan Affairs',
+  'islamic-studies': 'Islamic Studies',
+  'current-affairs': 'Current Affairs',
+  'everyday-science': 'Everyday Science',
+  mathematics: 'Mathematics',
+  geography: 'Geography',
+  computer: 'Computer Science',
+  urdu: 'Urdu',
+  biology: 'Biology',
+  chemistry: 'Chemistry',
+  physics: 'Physics',
+  'logical-reasoning': 'Logical Reasoning',
+}
+
+export function subjectLabel(slug: string): string {
+  return SUBJECT_LABELS[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
+export interface SubjectSeoContent {
+  h1: string
+  examName: string
+  subjectName: string
+  intro: string
+  modes: { label: string; slug: string; desc: string }[]
+  faqs: ExamFaq[]
+}
+
+export function getSubjectSeoContent(
+  examSlug: string,
+  subjectSlug: string,
+  config: ExamConfig,
+): SubjectSeoContent {
+  const examName = config.name
+  const subjectName = subjectLabel(subjectSlug)
+
+  const h1 = `${examName}: ${subjectName} MCQs with Answers`
+  const intro =
+    `Practice ${examName} ${subjectName} multiple-choice questions with answers and detailed explanations. ` +
+    `Imtehan organises ${subjectName} into most-repeated, most-important and past-paper sets of around 20 questions each, ` +
+    `plus timed mock tests, so you can build the accuracy and speed the real ${examName} paper demands.`
+
+  const modes = [
+    { label: 'Most Repeated', slug: 'most-repeated', desc: `${subjectName} questions that appear most often in ${examName}.` },
+    { label: 'Most Important', slug: 'most-important', desc: `High-yield ${subjectName} questions worth prioritising first.` },
+    { label: 'Past Papers', slug: 'past-papers', desc: `${subjectName} questions taken from previous ${examName} papers.` },
+    { label: 'Practice', slug: 'practice', desc: `Open ${subjectName} practice across the full question bank.` },
+  ]
+
+  const faqs: ExamFaq[] = [
+    {
+      question: `How many ${subjectName} MCQs does ${examName} have on Imtehan?`,
+      answer:
+        `Imtehan offers a large, regularly updated bank of ${examName} ${subjectName} MCQs, grouped into sets of about 20 questions ` +
+        `with answers and explanations. You can practise most-repeated, most-important and past-paper questions separately.`,
+    },
+    {
+      question: `Do the ${examName} ${subjectName} MCQs include answers and explanations?`,
+      answer:
+        `Yes. Every ${subjectName} MCQ shows the correct answer immediately after you respond, with an explanation where available, ` +
+        `so you learn from each question as you practise.`,
+    },
+    {
+      question: `Is ${examName} ${subjectName} practice free on Imtehan?`,
+      answer:
+        `Yes, you can practise ${examName} ${subjectName} MCQs for free. A premium plan adds detailed analytics and unlimited mock attempts.`,
+    },
+  ]
+
+  return { h1, examName, subjectName, intro, modes, faqs }
+}

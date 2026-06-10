@@ -101,7 +101,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/exams/pms-competitive`,  lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.88 },
     { url: `${baseUrl}/exams/pms-competitive/essay-grader`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.87 },
     { url: `${baseUrl}/css/css-practice`,       lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.8  },
-    { url: `${baseUrl}/css/css-practice/quiz`,  lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.75 },
     { url: `${baseUrl}/css/css-practice/idioms`,lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.7  },
     { url: `${baseUrl}/css/css-gsa`,            lastModified: currentDate, changeFrequency: 'weekly',  priority: 0.75 },
     { url: `${baseUrl}${PREMIUM_PAGE_PATH}`,      lastModified: currentDate, changeFrequency: 'monthly', priority: 0.85 },
@@ -145,13 +144,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   // Info pages
+  // Static / legal pages rarely change, so use a stable date instead of
+  // stamping "today" on every build (a false freshness signal Google distrusts).
+  const staticDate = '2026-06-01'
   const infoPages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/about`,   lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/careers`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/faq`,     lastModified: currentDate, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/privacy`, lastModified: currentDate, changeFrequency: 'yearly',  priority: 0.5 },
-    { url: `${baseUrl}/terms`,   lastModified: currentDate, changeFrequency: 'yearly',  priority: 0.5 },
+    { url: `${baseUrl}/about`,   lastModified: staticDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/careers`, lastModified: staticDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/contact`, lastModified: staticDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/faq`,     lastModified: staticDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/privacy`, lastModified: staticDate, changeFrequency: 'yearly',  priority: 0.5 },
+    { url: `${baseUrl}/terms`,   lastModified: staticDate, changeFrequency: 'yearly',  priority: 0.5 },
   ]
 
   // Dynamically generated exam + subject pages from all 211 exam configs
