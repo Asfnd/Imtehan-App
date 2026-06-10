@@ -11,6 +11,8 @@ Disallow: /admin/
 Disallow: /profile/
 Disallow: /signin/
 Disallow: /auth/
+# Cloudflare internal paths (e.g. /cdn-cgi/l/email-protection) — not real pages
+Disallow: /cdn-cgi/
 
 # Block thin quiz set pages (noindex via metadata as well)
 Disallow: /mdcat/*/*/set/
