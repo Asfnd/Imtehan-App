@@ -58,11 +58,6 @@ export function generateEducationalPlatformSchema(stats: {
     url: 'https://imtehan.com',
     logo: 'https://imtehan.com/logo.png',
     image: 'https://imtehan.com/og-image.png',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '5000',
-    },
     potentialAction: {
       '@type': 'TradeAction',
       target: {
@@ -92,11 +87,6 @@ export function generateCourseSchema(): SchemaMarkup {
       '@type': 'Organization',
       name: 'Imtehan',
       url: 'https://imtehan.com',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '5000',
     },
     educationalLevel: 'Undergraduate',
     learningResourceType: ['Practice Test', 'Study Guide', 'Assessment'],
