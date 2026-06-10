@@ -113,6 +113,168 @@ export interface ExamSeoContent {
   facts: { label: string; value: string }[]
   subjects: { label: string; slug: string }[]
   faqs: ExamFaq[]
+  /** Hand-written key facts for top exams (eligibility, pattern, scope). */
+  highlights?: string[]
+  /** Hand-written preparation strategy for top exams. */
+  prep?: string[]
+}
+
+interface ExamOverride {
+  intro?: string
+  highlights?: string[]
+  prep?: string[]
+  faqs?: ExamFaq[]
+}
+
+/**
+ * Hand-crafted, evergreen content for the highest-search-volume exams.
+ * These pages compete for real queries (e.g. "css screening test", "ppsc
+ * assistant past papers", "patwari test preparation"), so generic templated
+ * text is not enough — they get genuinely unique, useful copy here.
+ */
+const TOP_EXAM_OVERRIDES: Record<string, ExamOverride> = {
+  'css-mpt': {
+    intro:
+      'The CSS Screening Test, also called the MPT (MCQ-based Preliminary Test), is the first stage of Pakistan\'s CSS examination, conducted by the Federal Public Service Commission (FPSC). It is a 200-MCQ qualifying test that decides who is eligible to sit the CSS written papers. On Imtehan you can practice CSS screening MCQs subject by subject, attempt full timed mock tests, and review answers with explanations to clear the test on your first attempt.',
+    highlights: [
+      'Conducted by FPSC as the screening stage before the CSS written exam',
+      '200 MCQs spanning English, General Knowledge, Pakistan Affairs, Islamic Studies, Current Affairs, Everyday Science, Mathematics and Geography',
+      'A qualifying test: clearing it makes you eligible for the CSS compulsory and optional written papers',
+      'Rewards breadth and speed across general knowledge and current affairs',
+    ],
+    prep: [
+      'Lock down high-frequency Pakistan Affairs, Islamic Studies and Current Affairs facts first',
+      'Practice English vocabulary, grammar and comprehension every day',
+      'Attempt full 200-question timed mocks to build stamina and pacing',
+      'Re-practice your two weakest subjects until they stop costing you marks',
+    ],
+    faqs: [
+      {
+        question: 'What is the CSS screening test (MPT)?',
+        answer:
+          'The CSS screening test, or MPT, is an FPSC-administered MCQ test that candidates must clear before they are allowed to sit the CSS written examination. It has 200 multiple-choice questions covering general subjects, and Imtehan provides subject-wise practice plus full mock tests for it.',
+      },
+      {
+        question: 'How many MCQs are in the CSS screening test?',
+        answer:
+          'The CSS screening test has 200 MCQs drawn from English, General Knowledge, Pakistan Affairs, Islamic Studies, Current Affairs, Everyday Science, Mathematics and Geography. You can practice each of these subjects on Imtehan.',
+      },
+    ],
+  },
+  'pms-competitive': {
+    intro:
+      'PMS (Provincial Management Services) is the provincial counterpart of CSS, conducted by the relevant Provincial Public Service Commission to recruit officers for provincial management cadres. Its general paper draws on the same broad knowledge base as the CSS MPT. On Imtehan you can practice PMS MCQs subject by subject and use the PMS Writing Coach for essay, précis and long-answer feedback tuned to provincial marking.',
+    highlights: [
+      'Provincial equivalent of CSS, conducted by the Provincial Public Service Commission',
+      'General paper covers English, GK, Pakistan Affairs, Islamiat, Current Affairs, Everyday Science, Maths and Geography',
+      'Same core MCQ knowledge base as the CSS screening test',
+      'Includes essay and précis writing practice through the PMS Writing Coach',
+    ],
+    prep: [
+      'Build a strong base in Pakistan Affairs, Current Affairs and Islamiat',
+      'Practice MCQs subject-wise, then attempt full mocks under time',
+      'Use the PMS Writing Coach to sharpen essay and précis answers',
+      'Track weak areas and revisit them weekly',
+    ],
+  },
+  'ppsc-assistant': {
+    intro:
+      'The PPSC Assistant (BS-16) test is conducted by the Punjab Public Service Commission to recruit Assistants across Punjab government departments. It is a one-paper MCQ test covering general subjects. On Imtehan you can practice PPSC Assistant MCQs subject by subject, work through past-paper style questions, and take full mock tests with answers and explanations.',
+    highlights: [
+      'Conducted by PPSC for Assistant (BS-16) posts in Punjab departments',
+      'Single MCQ paper covering General Knowledge, Pakistan Studies, Islamic Studies, English, Mathematics, Computer and Current Affairs',
+      'Highly competitive, so accuracy on general subjects is decisive',
+    ],
+    prep: [
+      'Focus on General Knowledge, Pakistan Studies and Current Affairs, which carry the most weight',
+      'Practice English grammar and basic mathematics for quick, reliable marks',
+      'Attempt full mock tests to manage time across the whole paper',
+    ],
+  },
+  'ppsc-sub-inspector': {
+    intro:
+      'The PPSC Sub Inspector test recruits Sub Inspectors for the Punjab Police through the Punjab Public Service Commission. It is an MCQ test of general subjects and reasoning. On Imtehan you can practice PPSC Sub Inspector MCQs subject by subject and attempt full mock tests with answers.',
+    highlights: [
+      'Conducted by PPSC for Punjab Police Sub Inspector recruitment',
+      'MCQ paper covering General Knowledge, Pakistan Affairs, English, Current Affairs and more',
+      'Followed by physical and other selection stages',
+    ],
+    prep: [
+      'Prioritise General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English and everyday science for steady marks',
+      'Use timed mocks to build speed and accuracy together',
+    ],
+  },
+  'ppsc-patwari': {
+    intro:
+      'The PPSC Patwari test recruits revenue Patwaris in Punjab through the Punjab Public Service Commission. The paper is MCQ-based and leans heavily on mathematics, general knowledge and Pakistan studies. On Imtehan you can practice PPSC Patwari MCQs subject by subject and take full mock tests with answers and explanations.',
+    highlights: [
+      'Conducted by PPSC for revenue Patwari posts in Punjab',
+      'MCQ paper with a strong weighting toward Mathematics and General Knowledge',
+      'Also covers Pakistan Affairs, English and basic computer knowledge',
+    ],
+    prep: [
+      'Drill arithmetic and basic mathematics until they are fast and accurate',
+      'Revise General Knowledge and Pakistan Studies thoroughly',
+      'Attempt full mock tests to lock in timing',
+    ],
+  },
+  'ppsc-tehsildar': {
+    intro:
+      'The PPSC Tehsildar test recruits Tehsildars in Punjab\'s revenue administration through the Punjab Public Service Commission. It is an MCQ test of general subjects. On Imtehan you can practice PPSC Tehsildar MCQs subject by subject and attempt full mock tests with answers.',
+    highlights: [
+      'Conducted by PPSC for Tehsildar posts in Punjab revenue administration',
+      'MCQ paper covering General Knowledge, Pakistan Affairs, Current Affairs, Islamic Studies and more',
+    ],
+    prep: [
+      'Build a strong base in General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English and Islamic Studies for reliable marks',
+      'Use full mocks to rehearse the real paper',
+    ],
+  },
+  'fpsc-assistant': {
+    intro:
+      'The FPSC Assistant test is conducted by the Federal Public Service Commission to recruit Assistants in federal government departments. It is an MCQ test covering general subjects. On Imtehan you can practice FPSC Assistant MCQs subject by subject and take full mock tests with answers and explanations.',
+    highlights: [
+      'Conducted by FPSC for Assistant posts in federal departments',
+      'MCQ paper covering English, General Knowledge, Pakistan Affairs, Islamic Studies, Mathematics and Computer',
+    ],
+    prep: [
+      'Prioritise English, General Knowledge and Current Affairs',
+      'Practice basic mathematics and computer MCQs for quick marks',
+      'Take full timed mocks before the real test',
+    ],
+  },
+  'kppsc-assistant': {
+    intro:
+      'The KPPSC Assistant test is conducted by the Khyber Pakhtunkhwa Public Service Commission to recruit Assistants in KP government departments. It is an MCQ test of general subjects. On Imtehan you can practice KPPSC Assistant MCQs subject by subject and attempt full mock tests with answers.',
+    highlights: [
+      'Conducted by KPPSC for Assistant posts in Khyber Pakhtunkhwa departments',
+      'MCQ paper covering General Knowledge, Pakistan Affairs, English, Islamic Studies and more',
+    ],
+  },
+  'spsc-assistant': {
+    intro:
+      'The SPSC Assistant test is conducted by the Sindh Public Service Commission to recruit Assistants in Sindh government departments. It is an MCQ test of general subjects. On Imtehan you can practice SPSC Assistant MCQs subject by subject and attempt full mock tests with answers.',
+    highlights: [
+      'Conducted by SPSC for Assistant posts in Sindh departments',
+      'MCQ paper covering General Knowledge, Pakistan Affairs, English, Islamic Studies and more',
+    ],
+  },
+  'nts-general': {
+    intro:
+      'NTS (National Testing Service) tests, including the GAT and NAT, are standardized tests used across Pakistan for jobs and admissions. They reward speed, accuracy and pattern recognition rather than rote knowledge. On Imtehan you can practice NTS-style MCQs subject by subject and attempt full mock tests with answers and explanations.',
+    highlights: [
+      'Standardized testing used for recruitment and admissions across Pakistan',
+      'Covers verbal, quantitative and analytical reasoning plus general knowledge',
+      'Speed and accuracy matter as much as knowledge',
+    ],
+    prep: [
+      'Practice quantitative and analytical reasoning under time pressure',
+      'Build English vocabulary and grammar for the verbal section',
+      'Attempt full mocks to learn the NTS pacing',
+    ],
+  },
 }
 
 export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoContent {
@@ -124,9 +286,11 @@ export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoCont
   const totalMcqs = config.totalMCQs?.toLocaleString('en-US') ?? 'thousands of'
   const perMock = config.sections.reduce((sum, s) => sum + (s.count ?? 0), 0)
 
+  const override = TOP_EXAM_OVERRIDES[slug]
   const h1 = `${name} MCQs, Past Papers & Mock Tests`
 
   const intro =
+    override?.intro ??
     `${name} is ${info.about}, conducted by ${info.authority}. ` +
     `On Imtehan you can practice ${totalMcqs}+ ${name} MCQs covering ${subjectList}. ` +
     `Every subject has most-repeated, most-important and past-paper question sets with answers and explanations, ` +
@@ -184,7 +348,25 @@ export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoCont
     })
   }
 
-  return { h1, intro, facts, subjects, faqs }
+  // Prepend hand-written exam-specific FAQs, dedupe by question, cap the list.
+  const mergedFaqs = [...(override?.faqs ?? []), ...faqs]
+  const seen = new Set<string>()
+  const dedupedFaqs = mergedFaqs.filter((f) => {
+    const key = f.question.toLowerCase()
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  }).slice(0, 6)
+
+  return {
+    h1,
+    intro,
+    facts,
+    subjects,
+    faqs: dedupedFaqs,
+    highlights: override?.highlights,
+    prep: override?.prep,
+  }
 }
 
 function listToProse(items: string[]): string {

@@ -11,7 +11,7 @@ import { getExamSeoContent } from '@/lib/seo/examContent'
  * rank, instead of being treated as a thin duplicate of the others.
  */
 export default function ExamSeoSection({ slug, config }: { slug: string; config: ExamConfig }) {
-  const { h1, intro, facts, subjects, faqs } = getExamSeoContent(slug, config)
+  const { h1, intro, facts, subjects, faqs, highlights, prep } = getExamSeoContent(slug, config)
   const base = `https://imtehan.com/exams/${slug}`
 
   const faqJsonLd = {
@@ -44,6 +44,34 @@ export default function ExamSeoSection({ slug, config }: { slug: string; config:
               </div>
             ))}
           </dl>
+        )}
+
+        {highlights && highlights.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold text-gray-900">{config.name}: key facts</h2>
+            <ul className="mt-3 space-y-2">
+              {highlights.map((h) => (
+                <li key={h} className="flex gap-2 text-sm leading-relaxed text-gray-600">
+                  <span aria-hidden className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {prep && prep.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold text-gray-900">How to prepare for {config.name}</h2>
+            <ol className="mt-3 space-y-2">
+              {prep.map((p, i) => (
+                <li key={p} className="flex gap-3 text-sm leading-relaxed text-gray-600">
+                  <span aria-hidden className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-semibold text-blue-700">{i + 1}</span>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         )}
 
         {subjects.length > 0 && (
