@@ -277,6 +277,259 @@ const TOP_EXAM_OVERRIDES: Record<string, ExamOverride> = {
   },
 }
 
+interface CategoryContent {
+  highlights: string[]
+  prep: string[]
+  faq?: ExamFaq
+}
+
+/**
+ * Category-level content applied to EVERY exam in a category (FIA, police,
+ * banks, NTS, etc.). This makes all 200+ exam pages read distinctly for their
+ * domain — not just the handful with bespoke overrides — so each is genuinely
+ * differentiated for search.
+ */
+const CATEGORY_CONTENT: Record<string, CategoryContent> = {
+  css: {
+    highlights: [
+      'CSS recruitment to Pakistan\'s Central Superior Services, conducted by FPSC',
+      'MCQ screening test followed by written papers and an interview',
+      'Rewards broad general knowledge, current affairs and strong English',
+    ],
+    prep: [
+      'Build deep Pakistan Affairs, Current Affairs and Islamic Studies knowledge',
+      'Read English daily for vocabulary, grammar and comprehension',
+      'Attempt full timed mocks to manage all subjects under pressure',
+    ],
+  },
+  pms: {
+    highlights: [
+      'Provincial Management Services recruitment by the Provincial Public Service Commission',
+      'Provincial equivalent of CSS with a similar general-subject MCQ base',
+      'Includes essay and précis writing alongside MCQs',
+    ],
+    prep: [
+      'Master Pakistan Affairs, Current Affairs and Islamiat fundamentals',
+      'Practice MCQs subject-wise, then full mocks under time',
+      'Sharpen essay and précis writing for the descriptive papers',
+    ],
+  },
+  ppsc: {
+    highlights: [
+      'Recruitment for posts under the Government of Punjab through PPSC',
+      'One-paper MCQ test of General Knowledge, Pakistan Studies, Islamic Studies, English, Maths, Computer and Current Affairs',
+      'Highly competitive, so speed and accuracy on general subjects decide the result',
+    ],
+    prep: [
+      'Prioritise General Knowledge, Pakistan Studies and Current Affairs',
+      'Practice English and basic mathematics for quick, reliable marks',
+      'Attempt full mock tests to manage time across the whole paper',
+    ],
+    faq: {
+      question: 'How are PPSC MCQ tests structured?',
+      answer:
+        'PPSC posts are filled through a one-paper MCQ test covering General Knowledge, Pakistan Studies, Islamic Studies, English, Mathematics, Computer and Current Affairs. On Imtehan you can practice each subject and take full mock tests with answers and explanations.',
+    },
+  },
+  fpsc: {
+    highlights: [
+      'Recruitment for federal government posts through the Federal Public Service Commission',
+      'MCQ test of English, General Knowledge, Pakistan Affairs, Islamic Studies, Mathematics and Computer',
+      'Used for a wide range of federal cadres and departments',
+    ],
+    prep: [
+      'Focus on English, General Knowledge and Current Affairs',
+      'Practice basic mathematics and computer MCQs for fast marks',
+      'Take full timed mocks before the real test',
+    ],
+  },
+  fia: {
+    highlights: [
+      'Recruitment for the Federal Investigation Agency, Pakistan\'s premier federal law-enforcement body, through FPSC or an authorised testing agency',
+      'Posts span Constable, ASI and Sub-Inspector through Assistant and clerical/technical cadres (BS-05 to BS-16)',
+      'MCQ test of General Knowledge, Pakistan Affairs, Current Affairs, English, Islamic Studies and basic mathematics, often followed by physical and medical tests',
+    ],
+    prep: [
+      'Build a strong base in General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English grammar, vocabulary and basic mathematics for quick marks',
+      'Revise current affairs from the last 6-12 months and attempt full mocks',
+    ],
+    faq: {
+      question: 'How do I prepare for FIA recruitment tests?',
+      answer:
+        'FIA tests are MCQ-based and cover General Knowledge, Pakistan Affairs, Current Affairs, English, Islamic Studies and basic mathematics. On Imtehan you can practice each subject, take full mock tests, and review answers with explanations for FIA posts from Constable and ASI to Sub-Inspector, Assistant and clerical cadres.',
+    },
+  },
+  provincial: {
+    highlights: [
+      'Recruitment by a Provincial Public Service Commission (PPSC, SPSC, KPPSC, BPSC, AJKPSC or GBPSC)',
+      'MCQ test of General Knowledge, Pakistan Affairs, English, Islamic Studies and Current Affairs',
+      'Covers a broad range of provincial government posts',
+    ],
+    prep: [
+      'Prioritise General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English and Islamic Studies for steady marks',
+      'Attempt full mocks under timed conditions',
+    ],
+  },
+  police: {
+    highlights: [
+      'Recruitment for provincial police posts (Constable, ASI, Sub-Inspector) through the police department or its testing agency',
+      'MCQ test of General Knowledge, Pakistan Affairs, English, Current Affairs and reasoning',
+      'Followed by physical, medical and other selection stages',
+    ],
+    prep: [
+      'Prioritise General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English and everyday science for reliable marks',
+      'Use timed mocks to build speed and accuracy together',
+    ],
+  },
+  military: {
+    highlights: [
+      'Initial selection test for joining the Pakistan Armed Forces (Army, Navy, PAF) and allied forces',
+      'Tests verbal and non-verbal intelligence, academic subjects and general knowledge',
+      'Followed by ISSB, physical and medical assessments',
+    ],
+    prep: [
+      'Practice intelligence and reasoning questions until they are fast and intuitive',
+      'Revise core academic subjects and general knowledge',
+      'Attempt full timed mocks to build test temperament',
+    ],
+  },
+  nts: {
+    highlights: [
+      'Standardized NTS testing used for recruitment and admissions across Pakistan',
+      'Covers verbal, quantitative and analytical reasoning plus subject and general knowledge',
+      'Speed and pattern recognition matter as much as knowledge',
+    ],
+    prep: [
+      'Practice quantitative and analytical reasoning under time pressure',
+      'Build English vocabulary and grammar for the verbal section',
+      'Attempt full mocks to learn the NTS pacing',
+    ],
+  },
+  ots: {
+    highlights: [
+      'Standardized OTS recruitment testing used by departments across Pakistan',
+      'MCQ test of General Knowledge, English, Mathematics, Pakistan Studies and analytical reasoning',
+      'Post-specific knowledge is sometimes added to the general paper',
+    ],
+    prep: [
+      'Cover General Knowledge, Pakistan Studies and Current Affairs thoroughly',
+      'Practice English and quantitative reasoning for quick marks',
+      'Attempt full mocks to manage the paper under time',
+    ],
+  },
+  etea: {
+    highlights: [
+      'Standardized ETEA testing used for recruitment and admissions in Khyber Pakhtunkhwa',
+      'MCQ test of General Knowledge, English, Mathematics and subject-specific topics',
+      'Known for a disciplined, well-structured paper pattern',
+    ],
+    prep: [
+      'Practice the relevant subject MCQs alongside General Knowledge',
+      'Build English and mathematics fundamentals',
+      'Attempt full timed mocks in the ETEA pattern',
+    ],
+  },
+  railways: {
+    highlights: [
+      'Recruitment for Pakistan Railways posts through its appointed testing agency',
+      'MCQ test of General Knowledge, Pakistan Affairs, English, Mathematics and basic technical topics',
+      'Covers operational, clerical and technical cadres',
+    ],
+    prep: [
+      'Focus on General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English and mathematics for reliable marks',
+      'Attempt full mocks under timed conditions',
+    ],
+  },
+  banks: {
+    highlights: [
+      'Recruitment for officer and clerical posts in the banking sector through IBP, NTS or the bank\'s own process',
+      'Tests quantitative aptitude, English, general and banking awareness and reasoning',
+      'Banking and economic current affairs often carry extra weight',
+    ],
+    prep: [
+      'Practice quantitative aptitude and reasoning until they are fast',
+      'Build English and banking/economic awareness',
+      'Attempt full timed mocks to handle the pace',
+    ],
+  },
+  judiciary: {
+    highlights: [
+      'Recruitment for judicial and court-establishment posts through the relevant High Court or testing agency',
+      'MCQ test of General Knowledge, English, basic law and current affairs',
+      'Accuracy on English and general knowledge is decisive',
+    ],
+    prep: [
+      'Build General Knowledge, Pakistan Affairs and Current Affairs',
+      'Practice English grammar and comprehension carefully',
+      'Attempt full mocks to rehearse the paper',
+    ],
+  },
+  devauth: {
+    highlights: [
+      'Recruitment for development-authority posts (such as CDA, LDA, KDA) through a testing agency',
+      'MCQ test of General Knowledge, English, Mathematics and post-relevant topics',
+      'Covers administrative, clerical and technical cadres',
+    ],
+    prep: [
+      'Cover General Knowledge, Pakistan Studies and Current Affairs',
+      'Practice English and mathematics for quick marks',
+      'Attempt full timed mocks before the test',
+    ],
+  },
+  revenue: {
+    highlights: [
+      'Recruitment for provincial revenue and tax authority posts through a testing agency',
+      'MCQ test of General Knowledge, Mathematics, English and Pakistan Studies',
+      'Numerical accuracy is especially important for revenue roles',
+    ],
+    prep: [
+      'Drill mathematics and General Knowledge until they are reliable',
+      'Revise Pakistan Studies and Current Affairs',
+      'Attempt full mocks to lock in timing',
+    ],
+  },
+  rescue: {
+    highlights: [
+      'Recruitment for Rescue 1122 emergency-service posts through the testing agency',
+      'MCQ test of General Knowledge, Pakistan Affairs, English and basic science',
+      'Followed by physical and skill-based assessments',
+    ],
+    prep: [
+      'Focus on General Knowledge, Pakistan Affairs and everyday science',
+      'Practice English for steady marks',
+      'Attempt full timed mocks before the test',
+    ],
+  },
+  engineering: {
+    highlights: [
+      'Entry test for admission to engineering and computing degree programs in Pakistan',
+      'Tests Mathematics, Physics, Chemistry or Computer Science and English',
+      'Each admitting university weights subjects slightly differently',
+    ],
+    prep: [
+      'Build strong fundamentals in Mathematics and Physics',
+      'Practice application-style MCQs against the clock',
+      'Attempt full mocks in the format of your target university',
+    ],
+  },
+  medical: {
+    highlights: [
+      'National admission test for MBBS and BDS programs in Pakistan',
+      'Tests Biology, Chemistry, Physics, English and Logical Reasoning',
+      'Biology carries the most marks, so it is the biggest lever on your score',
+    ],
+    prep: [
+      'Prioritise high-yield Biology and Chemistry topics',
+      'Practice application-style MCQs under time pressure',
+      'Attempt full mocks in the PMC, ETEA, NUMS or AKU pattern',
+    ],
+  },
+}
+
 export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoContent {
   const info = CATEGORY_INFO[config.category] ?? DEFAULT_INFO
   const name = config.name
@@ -287,6 +540,7 @@ export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoCont
   const perMock = config.sections.reduce((sum, s) => sum + (s.count ?? 0), 0)
 
   const override = TOP_EXAM_OVERRIDES[slug]
+  const categoryContent = CATEGORY_CONTENT[config.category]
   const h1 = `${name} MCQs, Past Papers & Mock Tests`
 
   const intro =
@@ -348,8 +602,13 @@ export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoCont
     })
   }
 
-  // Prepend hand-written exam-specific FAQs, dedupe by question, cap the list.
-  const mergedFaqs = [...(override?.faqs ?? []), ...faqs]
+  // Merge FAQs: per-exam overrides first, then the category FAQ, then generic.
+  // Dedupe by question and cap the list.
+  const mergedFaqs = [
+    ...(override?.faqs ?? []),
+    ...(categoryContent?.faq ? [categoryContent.faq] : []),
+    ...faqs,
+  ]
   const seen = new Set<string>()
   const dedupedFaqs = mergedFaqs.filter((f) => {
     const key = f.question.toLowerCase()
@@ -364,8 +623,9 @@ export function getExamSeoContent(slug: string, config: ExamConfig): ExamSeoCont
     facts,
     subjects,
     faqs: dedupedFaqs,
-    highlights: override?.highlights,
-    prep: override?.prep,
+    // Per-exam overrides win; otherwise every exam still gets category content.
+    highlights: override?.highlights ?? categoryContent?.highlights,
+    prep: override?.prep ?? categoryContent?.prep,
   }
 }
 
