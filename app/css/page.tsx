@@ -661,9 +661,13 @@ function DashboardContent() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
             {/* Left: Logo + Copyright */}
             <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-                <BookOpen className="w-4 h-4 text-primary-foreground" />
-              </div>
+              <img
+                src="/favicon.svg"
+                alt="Imtehan logo"
+                width={28}
+                height={28}
+                className="w-7 h-7 flex-shrink-0 object-contain"
+              />
               <div className="text-sm text-muted-foreground">
                 &copy; 2025 Imtehan. All rights reserved.
               </div>
@@ -1278,7 +1282,7 @@ function CSSEligibilityChecker({ onClose }: { onClose: () => void }) {
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #2563eb, #4f46e5);
+          background: linear-gradient(to bottom, #2563eb, #3b5bdb);
         }
 
         /* Ensure modal is always on top */

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ChevronDown, BookOpen, HelpCircle } from 'lucide-react'
+import { ChevronDown, HelpCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
@@ -180,9 +180,13 @@ export default function FAQPage() {
           <div className="grid md:grid-cols-6 gap-12 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center">
-                  <BookOpen className="w-4 h-4 text-white" />
-                </div>
+                <img
+                  src="/favicon.svg"
+                  alt="Imtehan logo"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7 flex-shrink-0 object-contain"
+                />
                 <span className="font-semibold">Imtehan</span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">

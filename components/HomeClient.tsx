@@ -437,9 +437,13 @@ export function HomeClient() {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-                  <BookOpen className="w-4 h-4 text-primary-foreground" />
-                </div>
+                <img
+                  src="/favicon.svg"
+                  alt="Imtehan logo"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7 flex-shrink-0 object-contain"
+                />
                 <span className="font-semibold">Imtehan</span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">

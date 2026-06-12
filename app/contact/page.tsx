@@ -62,9 +62,13 @@ export default function ContactPage() {
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <BookOpen className="w-4.5 h-4.5 text-primary-foreground" />
-            </div>
+            <img
+              src="/favicon.svg"
+              alt="Imtehan logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 flex-shrink-0 object-contain"
+            />
             <span className="font-semibold text-lg">Imtehan</span>
           </Link>
           <div className="flex items-center gap-4">
