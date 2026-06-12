@@ -1,21 +1,18 @@
-<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#4D6BE6"/>
-      <stop offset="0.55" stop-color="#3B5BDB"/>
-      <stop offset="1" stop-color="#2F44B0"/>
-    </linearGradient></defs>
-  <rect x="64" y="64" width="896" height="896" rx="192" fill="url(#bg)"/>
-  
-  <g stroke="white" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M318 200 H200 V318"/>
-    <path d="M706 200 H824 V318"/>
-    <path d="M200 706 V824 H318"/>
-    <path d="M824 706 V824 H706"/>
-  </g>
-  
-  <g stroke="white" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M256 704V320c0-16 16-48 64-64 48-16 128-16 192 32v448c-64-48-144-48-192-32-48 16-64 32-64 32z"/>
-    <path d="M768 704V320c0-16-16-48-64-64-48-16-128-16-192 32v448c64-48 144-48 192-32 48 16 64 32 64 32z"/>
+    <linearGradient id="imtehanGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3B5BDB"></stop>
+      <stop offset="1" stop-color="#2F44B1"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#imtehanGrad)"></rect>
+  <g fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M103 182 V131 a28 28 0 0 1 28 -28 H180"></path>
+    <path d="M332 103 H381 a28 28 0 0 1 28 28 V182"></path>
+    <path d="M409 330 V381 a28 28 0 0 1 -28 28 H332"></path>
+    <path d="M180 409 H131 a28 28 0 0 1 -28 -28 V330"></path>
+    <path d="M256 189 V336"></path>
+    <path d="M251 190 C214 183 185 185 162 192 L160 327 C184 333 214 335 251 332"></path>
+    <path d="M261 190 C298 183 327 185 350 192 L352 327 C328 333 298 335 261 332"></path>
   </g>
 </svg>
