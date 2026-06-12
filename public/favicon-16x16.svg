@@ -1,12 +1,21 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Rounded rectangle background matching primary color -->
-  <rect x="1" y="1" width="14" height="14" rx="3" fill="oklch(0.55 0.22 253)"/>
-
-  <!-- BookOpen icon (Lucide) -->
-  <g stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <!-- Left page -->
-    <path d="M4 11V5c0-.25.25-.75 1-1 .75-.25 2-.25 3 .5v7c-1-.75-2.25-.75-3-.5-.75.25-1 .5-1 .5z"/>
-    <!-- Right page -->
-    <path d="M12 11V5c0-.25-.25-.75-1-1-.75-.25-2-.25-3 .5v7c1-.75 2.25-.75 3-.5.75.25 1 .5 1 .5z"/>
+<svg width="32" height="32" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4D6BE6"/>
+      <stop offset="0.55" stop-color="#3B5BDB"/>
+      <stop offset="1" stop-color="#2F44B0"/>
+    </linearGradient></defs>
+  <rect x="0" y="0" width="1024" height="1024" rx="224" fill="url(#bg)"/>
+  
+  <g stroke="white" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M318 200 H200 V318"/>
+    <path d="M706 200 H824 V318"/>
+    <path d="M200 706 V824 H318"/>
+    <path d="M824 706 V824 H706"/>
+  </g>
+  
+  <g stroke="white" stroke-width="52" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M256 704V320c0-16 16-48 64-64 48-16 128-16 192 32v448c-64-48-144-48-192-32-48 16-64 32-64 32z"/>
+    <path d="M768 704V320c0-16-16-48-64-64-48-16-128-16-192 32v448c64-48 144-48 192-32 48 16 64 32 64 32z"/>
   </g>
 </svg>

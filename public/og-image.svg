@@ -1,69 +1,50 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background gradient -->
-  <rect width="1200" height="630" fill="url(#bgGradient)"/>
-
-  <!-- Decorative elements -->
+  <rect width="1200" height="630" fill="url(#ogbg)"/>
   <circle cx="110" cy="110" r="60" fill="white" fill-opacity="0.08"/>
   <circle cx="1090" cy="540" r="90" fill="white" fill-opacity="0.08"/>
   <circle cx="1060" cy="140" r="34" fill="white" fill-opacity="0.12"/>
   <circle cx="150" cy="520" r="22" fill="white" fill-opacity="0.12"/>
-
-  <!-- Content frame -->
   <rect x="64" y="64" width="1072" height="502" rx="28" fill="white" fill-opacity="0.06" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
 
-  <!-- Brand row: book icon + wordmark -->
   <g transform="translate(110, 110)">
-    <rect width="72" height="72" rx="16" fill="white" fill-opacity="0.12"/>
-    <g transform="translate(20,20) scale(1.3)" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <path d="M8 22V10c0-.5.5-1.5 2-2 1.5-.5 4-.5 6 1v14c-2-1.5-4.5-1.5-6-1-1.5.5-2 1-2 1z"/>
-      <path d="M24 22V10c0-.5-.5-1.5-2-2-1.5-.5-4-.5-6 1v14c2-1.5 4.5-1.5 6-1 1.5.5 2 1 2 1z"/>
+    <rect width="72" height="72" rx="16" fill="white" fill-opacity="0.14"/>
+    <g transform="translate(36,36) scale(0.0586) translate(-512,-512)">
+      <g stroke="white" stroke-width="68" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M318 200 H200 V318"/><path d="M706 200 H824 V318"/>
+        <path d="M200 706 V824 H318"/><path d="M824 706 V824 H706"/>
+      </g>
+      <g stroke="white" stroke-width="72" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M256 704V320c0-16 16-48 64-64 48-16 128-16 192 32v448c-64-48-144-48-192-32-48 16-64 32-64 32z"/>
+        <path d="M768 704V320c0-16-16-48-64-64-48-16-128-16-192 32v448c64-48 144-48 192-32 48 16 64 32 64 32z"/>
+      </g>
     </g>
     <text x="92" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="white">Imtehan</text>
-    <text x="92" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="white" fill-opacity="0.75">imtehan.com</text>
+    <text x="92" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="white" fill-opacity="0.78">imtehan.com</text>
   </g>
 
-  <!-- Headline -->
   <text x="110" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" fill="white">Pakistan's Smartest</text>
-  <text x="110" y="372" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" fill="url(#accentGradient)">Exam Prep Platform</text>
+  <text x="110" y="372" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" fill="url(#ogaccent)">Exam Prep Platform</text>
 
-  <!-- Exam pills -->
   <g font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="white">
-    <g transform="translate(110, 410)">
-      <rect width="92" height="44" rx="22" fill="white" fill-opacity="0.14"/>
-      <text x="46" y="29" text-anchor="middle">CSS</text>
-    </g>
-    <g transform="translate(214, 410)">
-      <rect width="100" height="44" rx="22" fill="white" fill-opacity="0.14"/>
-      <text x="50" y="29" text-anchor="middle">PMS</text>
-    </g>
-    <g transform="translate(326, 410)">
-      <rect width="124" height="44" rx="22" fill="white" fill-opacity="0.14"/>
-      <text x="62" y="29" text-anchor="middle">MDCAT</text>
-    </g>
-    <g transform="translate(462, 410)">
-      <rect width="112" height="44" rx="22" fill="white" fill-opacity="0.14"/>
-      <text x="56" y="29" text-anchor="middle">PPSC</text>
-    </g>
-    <g transform="translate(586, 410)">
-      <rect width="232" height="44" rx="22" fill="white" fill-opacity="0.14"/>
-      <text x="116" y="29" text-anchor="middle">+ 200 more exams</text>
-    </g>
+    <g transform="translate(110, 410)"><rect width="92" height="44" rx="22" fill="white" fill-opacity="0.16"/><text x="46" y="29" text-anchor="middle">CSS</text></g>
+    <g transform="translate(214, 410)"><rect width="100" height="44" rx="22" fill="white" fill-opacity="0.16"/><text x="50" y="29" text-anchor="middle">PMS</text></g>
+    <g transform="translate(326, 410)"><rect width="124" height="44" rx="22" fill="white" fill-opacity="0.16"/><text x="62" y="29" text-anchor="middle">MDCAT</text></g>
+    <g transform="translate(462, 410)"><rect width="112" height="44" rx="22" fill="white" fill-opacity="0.16"/><text x="56" y="29" text-anchor="middle">PPSC</text></g>
+    <g transform="translate(586, 410)"><rect width="232" height="44" rx="22" fill="white" fill-opacity="0.16"/><text x="116" y="29" text-anchor="middle">+ 200 more exams</text></g>
   </g>
 
-  <!-- Feature line -->
   <text x="110" y="510" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="500" fill="white" fill-opacity="0.92">70,000+ MCQs  •  Past Papers  •  Mock Tests  •  AI Essay Grading</text>
 
-  <!-- Definitions -->
   <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
-      <stop offset="35%" style="stop-color:#1e293b;stop-opacity:1" />
-      <stop offset="75%" style="stop-color:#4F46E5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    <linearGradient id="ogbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101C52"/>
+      <stop offset="42%" stop-color="#2438A8"/>
+      <stop offset="80%" stop-color="#3B5BDB"/>
+      <stop offset="100%" stop-color="#5C7AF2"/>
     </linearGradient>
-    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#A5B4FC;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#F0ABFC;stop-opacity:1" />
+    <linearGradient id="ogaccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#BFD0FF"/>
+      <stop offset="100%" stop-color="#E6ECFF"/>
     </linearGradient>
   </defs>
 </svg>
