@@ -28,7 +28,7 @@ const TAGS = ['PPSC', 'FPSC', 'General Knowledge', 'Govt Jobs', 'Pakistan Affair
 
 const CONTENT = `The PPSC and FPSC General Knowledge paper is often dismissed as a "luck-based" test. Candidates spend months memorizing random facts from thick books, only to realize that the actual paper feels like it came from a different universe. This disconnect happens because most aspirants prepare with a passive mindset, trying to "store" information without ever practicing its retrieval.
 
-In reality, the GK paper isn't about knowing everything; it's about recognizing patterns and mastering the high-yield topics that appear year after year. With our expansion to 70,000+ MCQs, we’ve analyzed these patterns to build a strategy that works.
+In reality, the GK paper isn't about knowing everything; it's about recognizing patterns and mastering the high-yield topics that appear year after year. With our expansion to 150,000+ MCQs, we’ve analyzed these patterns to build a strategy that works.
 
 ## The Illusion of Knowledge
 
@@ -49,7 +49,7 @@ The PPSC and FPSC papers generally follow a specific weightage. Instead of tryin
 
 ## The "Data-Driven" Prep Method
 
-With access to a bank of 70,000+ MCQs, you should stop preparing chronologically and start preparing statistically. Use the Imtehan PPSC/FPSC modules to identify which subjects are your weakest. 
+With access to a bank of 150,000+ MCQs, you should stop preparing chronologically and start preparing statistically. Use the Imtehan PPSC/FPSC modules to identify which subjects are your weakest. 
 
 Don't just solve the question and move on. Read the "Why" behind the answer. If you get a question wrong about the United Nations, don't just memorize the correct year. Spend five minutes on our platform or the community chat discussing the UN's structure. This contextual learning ensures that you don't just memorize an answer; you understand the topic.
 
@@ -59,7 +59,7 @@ One of the biggest hurdles in PPSC/FPSC prep is isolation. You're often studying
 
 When you explain a complex geographical border to another student, your own understanding deepens. This "social learning" is the secret weapon of toppers who consistently score 80+ in the GK paper.
 
-Success in one-paper exams is a system, not a secret. It’s about disciplined testing, focused analysis of your errors, and a refusal to rely on passive reading. Start your diagnostic test today, find your weak spots, and let the 70,000 questions do the rest.`
+Success in one-paper exams is a system, not a secret. It’s about disciplined testing, focused analysis of your errors, and a refusal to rely on passive reading. Start your diagnostic test today, find your weak spots, and let the 150,000 questions do the rest.`
 
 export default function BlogPost() {
   const headings = extractHeadings(CONTENT)

@@ -34,7 +34,7 @@ import {
 } from '@/lib/careers-data'
 
 const STATS = [
-  { value: '70,000+', label: 'Practice questions' },
+  { value: '150,000+', label: 'Practice questions' },
   { value: '200+', label: 'Exams supported' },
   { value: 'Remote', label: 'Pakistan-wide team' },
 ]

@@ -367,7 +367,7 @@ export function HomeClient() {
               </div>
               <h3 className="text-lg font-semibold mb-2.5">Massive question bank</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                70,000+ MCQs across 195 exams: CSS, PPSC, FPSC, Police, Banks & more
+                150,000+ MCQs across 200+ exams: CSS, PPSC, FPSC, Police, Banks & more
               </p>
             </Link>
           </div>

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Imtehan: CSS, PMS, MDCAT & Competitive Exam Prep',
     short_name: 'Imtehan',
     description:
-      'Pakistan\'s exam preparation platform: 70,000+ practice MCQs, past papers, mock tests and AI essay grading for CSS, PMS, MDCAT, PPSC, FPSC and 200+ exams.',
+      'Pakistan\'s exam prep, done right: 150,000+ practice MCQs, past papers, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC and 200+ exams.',
     start_url: '/?utm_source=pwa',
     scope: '/',
     display: 'standalone',
