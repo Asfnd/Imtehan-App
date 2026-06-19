@@ -25,7 +25,10 @@
     "test-premium-gates": "tsx scripts/test-premium-gates.ts",
     "test-deactivate-db": "tsx scripts/test-deactivate-expired-db.ts",
     "test-question-reports": "tsx scripts/test-question-reports-e2e.ts",
-    "test-premium": "npm run test-is-active-premium && npm run test-premium-gates && npm run test-deactivate-db"
+    "test-premium": "npm run test-is-active-premium && npm run test-premium-gates && npm run test-deactivate-db",
+    "auto-push": "bash scripts/auto-push.sh",
+    "install-git-hooks": "bash scripts/install-git-hooks.sh",
+    "prepare": "bash scripts/install-git-hooks.sh"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.969.0",
