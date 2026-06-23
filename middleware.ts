@@ -181,6 +181,9 @@ export default async function middleware(request: NextRequest) {
   // OPTIMIZATION: Skip middleware for static/cached routes to save edge CPU
   // This reduces Edge Request CPU Duration by ~70%
   if (
+    pathname === '/' ||
+    pathname === '/exams' ||
+    pathname.startsWith('/exams/') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname.includes('.') ||

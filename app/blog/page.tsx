@@ -488,6 +488,31 @@ export default function BlogPage() {
     <div className="min-h-screen bg-white">
       <NavigationBar />
 
+      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '32px 24px 0' }}>
+        <h1
+          style={{
+            fontFamily: 'var(--font-inter), system-ui, sans-serif',
+            fontSize: 'clamp(28px, 5vw, 40px)',
+            fontWeight: 700,
+            lineHeight: 1.2,
+            color: '#111111',
+            marginBottom: '8px',
+          }}
+        >
+          CSS, MPT &amp; PPSC Exam Preparation Blog
+        </h1>
+        <p
+          style={{
+            fontFamily: 'var(--font-inter), system-ui, sans-serif',
+            fontSize: '16px',
+            color: '#52525B',
+            marginBottom: '24px',
+          }}
+        >
+          Free guides on syllabus, past papers, MCQ strategy and Pakistan competitive exams.
+        </p>
+      </div>
+
       <div
         style={{
           maxWidth: '960px',
@@ -567,7 +592,7 @@ export default function BlogPage() {
 
               {/* Title */}
               <h2 style={{
-                fontFamily: 'var(--font-libre-baskerville), Georgia, serif',
+                fontFamily: 'var(--font-inter), system-ui, sans-serif',
                 fontSize: '22px',
                 fontWeight: 700,
                 lineHeight: 1.35,

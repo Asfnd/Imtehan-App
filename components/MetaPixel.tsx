@@ -36,10 +36,7 @@ fbq('track','PageView');
 
 /**
  * Meta Pixel base code (PageView). Must only be used in `app/layout.tsx`.
- * Loaded `afterInteractive` (not `beforeInteractive`) so the tracking script
- * never blocks hydration or render. PageView still fires reliably on load,
- * which is all a pixel needs, while keeping mobile Core Web Vitals (LCP/TBT)
- * fast for the ~75% of traffic on mobile.
+ * Loaded `lazyOnload` so the pixel never competes with LCP on mobile.
  */
 export function MetaPixel() {
   if (!PIXEL_ID) return null
@@ -47,7 +44,7 @@ export function MetaPixel() {
   return (
     <>
       {/* Meta Pixel Code */}
-      <Script id="meta-pixel" strategy="afterInteractive">
+      <Script id="meta-pixel" strategy="lazyOnload">
         {buildPixelScript(PIXEL_ID)}
       </Script>
       <noscript>

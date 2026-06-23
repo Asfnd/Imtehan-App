@@ -154,7 +154,7 @@ const nextConfig: NextConfig = {
             supabase: {
               test: /[\\/]node_modules[\\/]@supabase[\\/]/,
               name: 'supabase',
-              chunks: 'all',
+              chunks: 'async',
               priority: 20,
             },
             // Vendor chunks

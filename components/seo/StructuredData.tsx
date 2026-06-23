@@ -1,5 +1,3 @@
-'use client'
-
 /**
  * Structured Data Components for SEO
  * Implements Schema.org markup for better search engine understanding
@@ -207,7 +205,8 @@ export function EducationalOrganizationSchema({
 interface ArticleSchemaProps {
   title: string
   description: string
-  content: string
+  /** @deprecated Not emitted in JSON-LD — kept for call-site compatibility */
+  content?: string
   author?: string
   publishDate: string
   modifiedDate?: string
@@ -218,7 +217,6 @@ interface ArticleSchemaProps {
 export function ArticleSchema({
   title,
   description,
-  content,
   author = 'Imtehan',
   publishDate,
   modifiedDate,
@@ -230,10 +228,6 @@ export function ArticleSchema({
     '@type': 'BlogPosting',
     headline: title,
     description,
-    content: {
-      '@type': 'Text',
-      text: content,
-    },
     author: {
       '@type': 'Organization',
       name: author,

@@ -7,7 +7,7 @@ import { LogOut, Menu, X, LayoutGrid, ChevronDown, MessageSquare, Pin } from 'lu
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { Button } from '@/components/ui/Button'
-import { EXAM_CONFIGS } from '@/lib/exam-configs'
+import { AVAILABLE_NAV_CATEGORIES, EXAMS_BY_CATEGORY } from '@/lib/nav-exam-counts'
 import { trackLogin } from '@/lib/analytics/events'
 import { isActivePremium } from '@/lib/is-active-premium'
 
@@ -74,13 +74,9 @@ function usePinnedExam() {
   return { pinned, unpin }
 }
 
-// Compute category exam counts from static config (runs once at module load)
-const examsByCategory = Object.values(EXAM_CONFIGS).reduce((acc, config) => {
-  acc[config.category] = (acc[config.category] || 0) + 1
-  return acc
-}, {} as Record<string, number>)
-
-const availableCategories = CATEGORY_ORDER.filter((cat) => examsByCategory[cat] > 0)
+// Lightweight category counts (see lib/nav-exam-counts.ts)
+const examsByCategory = EXAMS_BY_CATEGORY
+const availableCategories = AVAILABLE_NAV_CATEGORIES
 
 interface NavigationBarProps {
   showEligibilityButton?: boolean
