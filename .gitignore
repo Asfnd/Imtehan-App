@@ -16,6 +16,7 @@
 # next.js
 /.next/
 /out/
+.sitemap-url-snapshot.json
 
 # production
 /build

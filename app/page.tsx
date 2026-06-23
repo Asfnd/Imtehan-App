@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { HomeClient } from "@/components/HomeClient"
 import { HomeHero } from "@/components/HomeHero"
+import { HomeIndexingRelay } from "@/components/seo/HomeIndexingRelay"
 
 export const metadata: Metadata = {
   title: 'CSS, PMS & MDCAT Exam Preparation with 150,000+ MCQs | Imtehan',
@@ -33,6 +34,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#F9FAFB]">
       <HomeHero />
+      <HomeIndexingRelay />
       <HomeClient />
     </main>
   )

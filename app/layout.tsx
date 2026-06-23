@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_PK',
     url: 'https://imtehan.com',
     siteName: 'Imtehan',
     title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
