@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { HomeClient } from "@/components/HomeClient"
+import { HomeHero } from "@/components/HomeHero"
 
 export const metadata: Metadata = {
   title: 'CSS, PMS & MDCAT Exam Preparation with 150,000+ MCQs | Imtehan',
@@ -31,8 +32,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#F9FAFB]">
-      {/* Organization + WebSite structured data is rendered once in the root layout
-          (components/seo/StructuredData) to avoid duplicate Organization entities. */}
+      <HomeHero />
       <HomeClient />
     </main>
   )

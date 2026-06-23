@@ -1,20 +1,19 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'MPT Practice Tests - Mock Papers & MCQs | Imtehan',
-  description: 'Prepare for MPT (Military Personnel Test) with practice mock tests and MCQs. Free MPT practice papers, subject-wise questions, and performance analytics.',
+  title: 'CSS MPT Practice Test 2026 — Free MCQs & Mock Exams | Imtehan',
+  description: 'Free CSS MPT (Mandatory Preliminary Test) practice with subject-wise MCQs, timed mock tests and past paper questions. Prepare for the FPSC screening test online.',
   alternates: {
     canonical: 'https://imtehan.com/mpt-practice',
   },
   keywords: [
-    'MPT practice', 'MPT test', 'MPT mock test',
-    'MPT exam preparation', 'MPT practice papers',
-    'MPT question bank', 'MPT MCQs', 'Military personnel test',
-    'MPT online practice', 'Free MPT practice',
+    'CSS MPT practice', 'CSS MPT mock test', 'CSS screening test',
+    'CSS MPT MCQs', 'FPSC MPT preparation', 'CSS mandatory preliminary test',
+    'MPT practice test', 'MPT exam preparation', 'Free MPT practice',
   ],
   openGraph: {
-    title: 'MPT Practice & Mock Tests | Imtehan',
-    description: 'Comprehensive MPT practice tests with detailed solutions and performance tracking.',
+    title: 'CSS MPT Practice & Mock Tests 2026 | Imtehan',
+    description: 'Free CSS MPT practice tests with subject-wise MCQs and timed mocks for the FPSC screening exam.',
     url: 'https://imtehan.com/mpt-practice',
     type: 'website',
   },

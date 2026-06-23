@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isSeoIndexableExam } from '@/lib/seo/sitemap-tiers'
 
 // Known publish/update dates for blog posts (freshness signal). Any blog post
 // directory not listed here still gets indexed; it just falls back to today.
@@ -163,12 +164,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   examPages.push({ url: `${baseUrl}/exams`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 })
 
   for (const [slug, config] of Object.entries(EXAM_CONFIGS)) {
+    if (!isSeoIndexableExam(slug, config.category)) continue
+
     // Exam hub page
     examPages.push({
       url: `${baseUrl}/exams/${slug}`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.85,
+      priority: config.category === 'css' || config.category === 'pms' ? 0.9 : 0.85,
     })
     // Subject pages
     for (const section of config.sections) {
@@ -176,7 +179,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/exams/${slug}/${section.slug}`,
         lastModified: currentDate,
         changeFrequency: 'weekly',
-        priority: 0.75,
+        priority: config.category === 'css' || config.category === 'pms' ? 0.8 : 0.75,
       })
     }
   }

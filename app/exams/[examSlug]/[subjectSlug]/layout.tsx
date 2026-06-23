@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 
 const SUBJECT_LABELS: Record<string, string> = {
   'english':           'English',
@@ -58,6 +59,9 @@ export async function generateMetadata({
 
   const title = `${examName}: ${subjectName} MCQs with Answers | Imtehan`
   const description = `Practice ${examName} ${subjectName} MCQs in sets of 20. Includes most repeated, most important, and past paper questions with detailed explanations.`
+  const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}`
+  const parentCanonical = `https://imtehan.com/exams/${examSlug}`
+  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical, parentCanonical)
 
   return {
     title,
@@ -69,9 +73,8 @@ export async function generateMetadata({
       `${examName} MCQ practice`,
       'competitive exam MCQs Pakistan',
     ],
-    alternates: {
-      canonical: `https://imtehan.com/exams/${examSlug}/${subjectSlug}`,
-    },
+    robots: indexing.robots,
+    alternates: { canonical: indexing.canonical },
     openGraph: {
       title,
       description,

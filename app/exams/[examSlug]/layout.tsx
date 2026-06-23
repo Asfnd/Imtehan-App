@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
+import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 
 const EXAM_SEO: Record<string, {
   description: string
@@ -74,6 +75,8 @@ export async function generateMetadata({
   const categoryKws = CATEGORY_KEYWORDS[config.category] ?? []
   const description = seo?.description
     ?? `Practice ${config.name} MCQs subject-wise. ${config.totalMCQs}+ questions with answers and explanations for complete exam preparation.`
+  const selfCanonical = `https://imtehan.com/exams/${examSlug}`
+  const indexing = examIndexingMeta(examSlug, config.category, selfCanonical, 'https://imtehan.com/exams')
 
   return {
     title: `${config.name} MCQs: Practice Sets with Answers | Imtehan`,
@@ -85,9 +88,8 @@ export async function generateMetadata({
       'MCQ practice Pakistan',
       'Imtehan exam preparation',
     ],
-    alternates: {
-      canonical: `https://imtehan.com/exams/${examSlug}`,
-    },
+    robots: indexing.robots,
+    alternates: { canonical: indexing.canonical },
     openGraph: {
       title: `${config.name} MCQs | Imtehan`,
       description,

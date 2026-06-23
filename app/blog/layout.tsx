@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { BlogSchemaRenderer } from '@/components/seo/BlogSchemaRenderer'
 
 export const metadata: Metadata = {
-  title: 'CSS & MPT Exam Blog - Study Tips, Guides & Resources | Imtehan',
-  description: 'Read expert guides on CSS and MPT exam preparation. Learn study strategies, access past paper analysis, subject-wise tips, and interview preparation advice.',
+  title: 'CSS & MPT Exam Prep Blog: Syllabus, Books, Past Papers & MCQ Tips | Imtehan',
+  description: 'Free CSS 2026 preparation guides — best books, past paper analysis, Pakistan Affairs MCQs, MPT strategy, and PPSC/FPSC tips from Imtehan.',
   alternates: {
     canonical: 'https://imtehan.com/blog',
   },
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     'MPT exam blog', 'competitive exam preparation',
   ],
   openGraph: {
-    title: 'CSS & MPT Exam Blog | Study Tips & Guides',
-    description: 'Expert guides on CSS and MPT exam preparation with study strategies and resources.',
+    title: 'CSS 2026 Prep Guides: Books, Syllabus & Free MCQs | Imtehan',
+    description: 'Expert CSS, MPT, PPSC and MDCAT preparation guides with past paper analysis and free MCQ practice.',
     url: 'https://imtehan.com/blog',
     type: 'website',
   },

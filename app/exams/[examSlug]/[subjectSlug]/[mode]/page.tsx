@@ -8,7 +8,6 @@ import { createClient } from '@/lib/supabase/client'
 import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
-import { FAQSchema } from '@/components/seo/StructuredData'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
@@ -135,21 +134,6 @@ export default function BatchSetSelector() {
 
   if (!modeConfig) return null
 
-  const faqItems = [
-    {
-      question: `How many ${examConfig?.name || examSlug} ${sectionCfg?.label || subjectSlug} ${modeConfig.label} MCQs are available?`,
-      answer: `Imtehan has ${totalMCQs.toLocaleString()} ${modeConfig.label} MCQs for ${examConfig?.name || examSlug} ${sectionCfg?.label || subjectSlug}, organised in sets of 20 questions each for focused exam preparation.`,
-    },
-    {
-      question: `Are these ${sectionCfg?.label || subjectSlug} ${modeConfig.label} MCQs useful for ${examConfig?.name || examSlug}?`,
-      answer: `Yes, these MCQs are curated specifically for ${examConfig?.name || examSlug} candidates. ${modeConfig.description}. Practising set by set builds confidence and improves your score systematically.`,
-    },
-    {
-      question: `How should I use these ${modeConfig.label} sets for ${examConfig?.name || examSlug} preparation?`,
-      answer: `Start from Set 1 and complete each set in one session. Review every explanation (especially for wrong answers) before moving to the next set. Consistency across multiple sets is key to strong exam performance.`,
-    },
-  ]
-
   const totalSets   = Math.ceil(totalMCQs / 20)
   const totalBatches = Math.ceil(totalSets / SETS_PER_BATCH)
   const startSet    = (selectedBatch - 1) * SETS_PER_BATCH + 1
@@ -171,12 +155,10 @@ export default function BatchSetSelector() {
         ]} />
       </div>
 
-      <FAQSchema items={faqItems} />
-
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-xl font-semibold text-gray-900">{modeConfig.label}</h1>
+          <h2 className="text-xl font-semibold text-gray-900">{modeConfig.label}</h2>
           <p className="text-sm text-gray-500 mt-1">
             {modeConfig.description} •{' '}
             <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>

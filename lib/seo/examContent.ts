@@ -789,3 +789,69 @@ export function getSubjectSeoContent(
 
   return { h1, examName, subjectName, intro, modes, faqs }
 }
+
+const MODE_COPY: Record<string, { label: string; desc: string }> = {
+  'most-repeated': {
+    label: 'Most Repeated',
+    desc: 'high-yield questions that appear most often in the real paper',
+  },
+  'most-important': {
+    label: 'Most Important',
+    desc: 'critical must-know MCQs to prioritise before the exam',
+  },
+  'past-papers': {
+    label: 'Past Papers',
+    desc: 'questions drawn from previous exam papers and official patterns',
+  },
+  practice: {
+    label: 'Practice',
+    desc: 'mixed practice sets across the full question bank',
+  },
+}
+
+export interface ModeSeoContent {
+  h1: string
+  examName: string
+  subjectName: string
+  modeLabel: string
+  intro: string
+  faqs: ExamFaq[]
+}
+
+export function getModeSeoContent(
+  _examSlug: string,
+  subjectSlug: string,
+  mode: string,
+  config: ExamConfig,
+): ModeSeoContent {
+  const examName = config.name
+  const subjectName = subjectLabel(subjectSlug)
+  const modeMeta = MODE_COPY[mode] ?? { label: mode.replace(/-/g, ' '), desc: 'practice' }
+
+  const h1 = `${examName} ${subjectName}: ${modeMeta.label} MCQs with Answers`
+  const intro =
+    `Practise ${examName} ${subjectName} ${modeMeta.label.toLowerCase()} MCQs in sets of about 20 questions with instant answers and explanations. ` +
+    `This page focuses on ${modeMeta.desc}, helping you build accuracy and speed for the actual ${examName} paper.`
+
+  const faqs: ExamFaq[] = [
+    {
+      question: `What are ${modeMeta.label.toLowerCase()} ${subjectName} MCQs for ${examName}?`,
+      answer:
+        `${modeMeta.label} ${subjectName} MCQs are ${modeMeta.desc}. ` +
+        `On Imtehan they are grouped into short sets so you can review one topic at a time before moving to timed mocks.`,
+    },
+    {
+      question: `How many ${examName} ${subjectName} ${modeMeta.label.toLowerCase()} questions can I practise?`,
+      answer:
+        `Imtehan organises ${examName} ${subjectName} questions into multiple sets. ` +
+        `Start with the sample questions below, then open a set to practise interactively with scoring and explanations.`,
+    },
+    {
+      question: `Is ${examName} ${subjectName} ${modeMeta.label.toLowerCase()} practice free?`,
+      answer:
+        `Yes — you can practise ${examName} ${subjectName} MCQs for free on Imtehan. Premium unlocks detailed analytics and unlimited mock attempts.`,
+    },
+  ]
+
+  return { h1, examName, subjectName, modeLabel: modeMeta.label, intro, faqs }
+}

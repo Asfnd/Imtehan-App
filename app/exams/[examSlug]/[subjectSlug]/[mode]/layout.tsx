@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
+import ModeSeoSection from '@/components/seo/ModeSeoSection'
+import { fetchSampleMcqs } from '@/lib/seo/fetch-sample-mcqs'
+import { examIndexingMeta, isSeoIndexableExam } from '@/lib/seo/sitemap-tiers'
 
 const SUBJECT_LABELS: Record<string, string> = {
   'english':           'English',
@@ -38,6 +41,9 @@ export async function generateMetadata({
 
   const title = `${examName} ${subjectName}: ${modeMeta.label} MCQs | Imtehan`
   const description = `Practice ${examName} ${subjectName} ${modeMeta.desc} MCQs in topic-wise sets of 20. Detailed explanations and answers for every question.`
+  const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}/${mode}`
+  const parentCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}`
+  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical, parentCanonical)
 
   return {
     title,
@@ -49,18 +55,45 @@ export async function generateMetadata({
       `${subjectName} MCQs Pakistan`,
       'competitive exam MCQ practice',
     ],
-    alternates: {
-      canonical: `https://imtehan.com/exams/${examSlug}/${subjectSlug}/${mode}`,
-    },
+    robots: indexing.robots,
+    alternates: { canonical: indexing.canonical },
     openGraph: {
       title,
       description,
-      url: `https://imtehan.com/exams/${examSlug}/${subjectSlug}/${mode}`,
+      url: selfCanonical,
       type: 'website',
     },
   }
 }
 
-export default function ExamModeLayout({ children }: { children: React.ReactNode }) {
-  return children
+export default async function ExamModeLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ examSlug: string; subjectSlug: string; mode: string }>
+}) {
+  const { examSlug, subjectSlug, mode } = await params
+  const config = getExamConfig(examSlug)
+  const section = config?.sections.find((s) => s.slug === subjectSlug)
+  const indexable = isSeoIndexableExam(examSlug, config?.category)
+
+  const sampleMcqs =
+    indexable && section?.dbTable
+      ? await fetchSampleMcqs(section.dbTable, mode, 5)
+      : []
+
+  return (
+    <>
+      {children}
+      {indexable && (
+        <ModeSeoSection
+          examSlug={examSlug}
+          subjectSlug={subjectSlug}
+          mode={mode}
+          sampleMcqs={sampleMcqs}
+        />
+      )}
+    </>
+  )
 }
