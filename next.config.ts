@@ -231,6 +231,10 @@ const nextConfig: NextConfig = {
         source: '/imtehan-indexnow-key.txt',
         destination: '/imtehan-indexnow-key',
       },
+      {
+        source: '/sitemap.xml',
+        destination: '/sitemap-index',
+      },
     ]
   },
   async redirects() {
