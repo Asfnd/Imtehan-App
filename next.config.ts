@@ -235,6 +235,10 @@ const nextConfig: NextConfig = {
         source: '/sitemap.xml',
         destination: '/sitemap-index',
       },
+      {
+        source: '/sitemap/:segment.xml',
+        destination: '/sitemap-segment/:segment',
+      },
     ]
   },
   async redirects() {
