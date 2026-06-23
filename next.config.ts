@@ -225,6 +225,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     // Empty config to silence the warning
   },
+  async rewrites() {
+    return [
+      {
+        source: '/imtehan-indexnow-key.txt',
+        destination: '/imtehan-indexnow-key',
+      },
+    ]
+  },
   async redirects() {
     return [
       // Redirect old CSS practice routes to new structure
@@ -367,6 +375,23 @@ const nextConfig: NextConfig = {
             value: '0',
           },
         ],
+      },
+      // SEO discovery files — short CDN TTL so deploys propagate quickly
+      {
+        source: '/robots.txt',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=300, s-maxage=3600' }],
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=300, s-maxage=3600' }],
+      },
+      {
+        source: '/sitemap/:segment.xml',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=300, s-maxage=3600' }],
+      },
+      {
+        source: '/imtehan-indexnow-key.txt',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],
       },
       // Cache pages with stale-while-revalidate
       {
