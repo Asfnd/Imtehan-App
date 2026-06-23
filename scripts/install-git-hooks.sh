@@ -8,8 +8,10 @@ SRC="$ROOT/scripts/git-hooks/post-commit"
 
 chmod +x "$ROOT/scripts/auto-push.sh"
 chmod +x "$SRC"
+chmod +x "$ROOT/.cursor/hooks/"*.sh 2>/dev/null || true
 cp "$SRC" "$HOOKS_DIR/post-commit"
 chmod +x "$HOOKS_DIR/post-commit"
 
 echo "Installed post-commit hook -> $HOOKS_DIR/post-commit"
 echo "Auto-push log: $ROOT/auto-push.log"
+echo "Cursor hooks: $ROOT/.cursor/hooks.json (sessionStart + stop)"

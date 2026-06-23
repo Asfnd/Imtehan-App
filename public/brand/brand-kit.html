@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imtehan — download brand kit (PNG for social + SVG for design)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --text: #0f172a; --muted: #64748b; --primary: oklch(0.55 0.22 253); }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem clamp(1rem, 3vw, 2.5rem) 4rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin: 0 0 0.5rem; }
+    h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 2rem 0 1rem; }
+    .lede { color: var(--muted); max-width: 64ch; margin: 0 0 1.5rem; }
+    a { color: var(--primary); }
+    .row { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; }
+    .row + .row { margin-top: 0.4rem; }
+    .kit { max-width: 900px; }
+    .item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 0.85rem; }
+    .item h3 { font-size: 1rem; font-weight: 600; margin: 0 0 0.35rem; }
+    .item p { font-size: 0.86rem; color: var(--muted); margin: 0 0 0.6rem; }
+    .item-inner { display: flex; gap: 1rem; align-items: flex-start; }
+    .thumb { width: 96px; height: 96px; border-radius: 12px; border: 1px solid var(--border); object-fit: cover; flex-shrink: 0; background: #e2e8f0; }
+    .thumb-wide { width: 160px; height: 54px; object-fit: cover; object-position: left center; }
+    button, .btn {
+      font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.85rem; border-radius: 8px;
+      border: 1px solid var(--border); background: #fff; color: var(--text); cursor: pointer; text-decoration: none; display: inline-block;
+    }
+    button:hover, .btn:hover { background: #f1f5f9; }
+    .btn-primary { background: var(--primary); color: #fff; border-color: transparent; }
+    .btn-primary:hover { filter: brightness(1.05); }
+    .note { font-size: 0.8rem; color: var(--muted); max-width: 64ch; margin-top: 1.5rem; }
+    code { font-size: 0.85em; background: #e2e8f0; padding: 0.1em 0.35em; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="kit">
+    <h1>Imtehan brand kit</h1>
+    <p class="lede"><strong>Instagram and most apps do not accept SVG for profile photos</strong> — use <strong>PNG</strong> or <strong>JPEG</strong>. The <strong>two-line wordmark</strong> includes <strong>ready-made HD files</strong> (<code>pfp-two-line-1080.png</code> through <code>4096.png</code>, plus JPEGs) in this folder, rendered from the 4K master with Sharp. <strong>SVG</strong> is for Figma / print only. Instagram crops profile photos in a <strong>circle</strong> — keep the important part in the center two-thirds.</p>
+    <p class="lede" style="margin-top: 0"><a href="../logo-gallery.html">← Logo gallery</a></p>
+
+    <h2>Assets</h2>
+    <div id="assets"></div>
+
+    <p class="note" id="export-status" aria-live="polite"></p>
+
+    <h2>Where to upload</h2>
+    <p class="lede" style="margin: 0; font-size: 0.9rem">When you upload a new profile picture, pick the <strong>downloaded .png</strong> (not the SVG). Instagram: Profile → Edit profile → change photo. WhatsApp, X, Facebook, LinkedIn: use PNG the same way. The <strong>book (light)</strong> or <strong>gradient orb</strong> stay clearest if the two-line wordmark feels too small in the little circle on mobile.</p>
+  </div>
+
+  <script>
+    (function () {
+      function assetUrl(name) {
+        return new URL(name, window.location.href).href
+      }
+      var list = [
+        { f: "pfp-book-1024.svg", t: "PFP — book (light)", d: "Main site icon, largest clarity at tiny sizes. Best default for Instagram.", square: true },
+        { f: "pfp-book-dark-1024.svg", t: "PFP — book (dark)", d: "On-brand dark; stands out in light UIs and DM lists.", square: true },
+        { f: "pfp-orb-1024.svg", t: "PFP — gradient orb", d: "Softer, premium feel. Still the same open-book mark.", square: true },
+        { f: "pfp-ring-1024.svg", t: "PFP — focus rings", d: "Concentric rings = focus. Good for “serious prep” story highlights.", square: true },
+        { f: "pfp-check-1024.svg", t: "PFP — check (bold)", d: "Maximum simplicity at 32px; all meaning in one shape.", square: true },
+        { f: "pfp-initial-i-1024.svg", t: "PFP — “I” monogram", d: "Single initial on primary. Strong at stamp size; pair with the book PFP in highlights.", square: true },
+        { f: "pfp-two-line-1024.svg", t: "PFP — two-line wordmark", d: "imtehan + subline, padding for the circular crop. <strong>Instagram needs a PNG, not an SVG</strong> — use the blue PNG buttons first.", square: true },
+        { f: "banner-1500x500.svg", t: "Web / X header 1500×500", d: "Not for profile: use in link-in-bio landing pages, X header, or crop for stories.", square: false },
+      ]
+      var out = document.getElementById("assets")
+      var statusEl = document.getElementById("export-status")
+
+      function downloadBlob(blob, name) {
+        var a = document.createElement("a")
+        a.href = URL.createObjectURL(blob)
+        a.download = name
+        a.click()
+        setTimeout(function () { URL.revokeObjectURL(a.href) }, 2000)
+      }
+
+      function renderPng(svgPath, outName, pixelSize) {
+        pixelSize = pixelSize || 1080
+        if (pixelSize > 4096) pixelSize = 4096
+        statusEl.textContent = "Rendering " + outName + " at " + pixelSize + "px…"
+        var img = new Image()
+        img.crossOrigin = "anonymous"
+        img.onload = function () {
+          var c = document.createElement("canvas")
+          var w = pixelSize, h = pixelSize
+          c.width = w
+          c.height = h
+          var ctx = c.getContext("2d")
+          ctx.fillStyle = "#ffffff"
+          ctx.fillRect(0, 0, w, h)
+          var iw = img.naturalWidth, ih = img.naturalHeight
+          if (!iw) { statusEl.textContent = "Could not read size — use SVG + Preview/Photoshop."; return }
+          var s = w / Math.max(iw, ih)
+          var dw = iw * s, dh = ih * s
+          ctx.imageSmoothingEnabled = true
+          if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = "high"
+          ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh)
+          c.toBlob(function (blob) {
+            if (blob) { downloadBlob(blob, outName); statusEl.textContent = "Downloaded " + outName + " (" + pixelSize + "px)" } else { statusEl.textContent = "PNG not available — use the 4K SVG in Figma or try another browser." }
+          }, "image/png")
+        }
+        img.onerror = function () { statusEl.textContent = "Open " + svgPath + " in a new tab if load fails; try a different browser." }
+        img.src = svgPath
+      }
+
+      list.forEach(function (x) {
+        var wrap = document.createElement("div")
+        wrap.className = "item"
+        wrap.id = "kit-" + x.f.replace(/\.svg$/i, "")
+        var u = assetUrl(x.f)
+        var isTwoLine = x.f === "pfp-two-line-1024.svg"
+        var u4k = isTwoLine ? assetUrl("pfp-two-line-4096.svg") : u
+        var left = x.square
+          ? "<img class=\"thumb\" src=\"" + (isTwoLine ? u4k : u) + "\" alt=\"\" width=\"96\" height=\"96\"/>"
+          : "<img class=\"thumb thumb-wide\" src=\"" + u + "\" alt=\"\" width=\"160\" height=\"54\"/>"
+        var actions
+        if (isTwoLine) {
+          var u1080png = assetUrl("pfp-two-line-1080.png")
+          var u2048png = assetUrl("pfp-two-line-2048.png")
+          var u4096png = assetUrl("pfp-two-line-4096.png")
+          var u1080jpg = assetUrl("pfp-two-line-1080.jpg")
+          var u2048jpg = assetUrl("pfp-two-line-2048.jpg")
+          actions =
+            "<p style=\"margin:0 0 0.45rem;font-size:0.78rem;font-weight:600;color:#0f172a\">Ready HD files (Instagram / WhatsApp / X — PNG or JPEG)</p>" +
+            "<div class=\"row\" style=\"margin-bottom:0.55rem\">" +
+            "<a class=\"btn btn-primary\" href=\"" + u1080png + "\" download=\"pfp-two-line-1080.png\">PNG 1080</a> " +
+            "<a class=\"btn btn-primary\" href=\"" + u2048png + "\" download=\"pfp-two-line-2048.png\">PNG 2048</a> " +
+            "<a class=\"btn btn-primary\" href=\"" + u4096png + "\" download=\"pfp-two-line-4096.png\">PNG 4096</a> " +
+            "<a class=\"btn\" href=\"" + u1080jpg + "\" download=\"pfp-two-line-1080.jpg\">JPEG 1080</a> " +
+            "<a class=\"btn\" href=\"" + u2048jpg + "\" download=\"pfp-two-line-2048.jpg\">JPEG 2048</a> " +
+            "</div>" +
+            "<p style=\"margin:0 0 0.35rem;font-size:0.72rem;color:#64748b\">Vectors (not for Insta profile):</p>" +
+            "<div class=\"row\" style=\"margin-bottom:0.45rem\">" +
+            "<a class=\"btn\" href=\"" + u4k + "\" download=\"pfp-two-line-4096.svg\">SVG 4K</a> " +
+            "<a class=\"btn\" href=\"" + u + "\" download=\"pfp-two-line-1024.svg\">SVG 1K</a> " +
+            "<a class=\"btn\" href=\"" + u4k + "\" target=\"_blank\" rel=\"noopener\">Preview 4K</a> " +
+            "</div>" +
+            "<p style=\"margin:0 0 0.35rem;font-size:0.72rem;color:#94a3b8\">If a file 404s after deploy, run <code>npm run export-two-line-pfp</code> or use in-browser:</p>" +
+            "<div class=\"row\">" +
+            "<button type=\"button\" class=\"btn png\" data-px=\"1080\">PNG 1080</button> " +
+            "<button type=\"button\" class=\"btn png\" data-px=\"2048\">PNG 2048</button> " +
+            "<button type=\"button\" class=\"btn png\" data-px=\"4096\">PNG 4096</button> " +
+            "</div>"
+        } else {
+          actions =
+            (x.square
+              ? "<button type=\"button\" class=\"btn btn-primary png\" data-px=\"1080\">PNG 1080 (for Instagram, etc.)</button> " +
+                "<a class=\"btn\" href=\"" + u + "\" download=\"" + x.f + "\">SVG (Figma, web)</a> "
+              : "<a class=\"btn btn-primary\" href=\"" + u + "\" download=\"" + x.f + "\">Download SVG</a> "
+            ) +
+            "<a class=\"btn\" href=\"" + u + "\" target=\"_blank\" rel=\"noopener\">Open in tab</a>"
+        }
+        wrap.innerHTML =
+          "<div class=\"item-inner\">" +
+          left +
+          "<div><h3>" +
+          x.t +
+          "</h3><p>" +
+          x.d +
+          (isTwoLine ? " <strong>PNG + JPEG above</strong> are exported from the 4K master (Sharp) — use those for profile photos. SVG is not accepted on Instagram." : "") +
+          "</p><div class=\"row\">" +
+          actions +
+          "</div></div></div>"
+        if (x.square) {
+          wrap.querySelectorAll("button.png").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              var px = parseInt(btn.getAttribute("data-px") || "1080", 10)
+              var base = (isTwoLine ? "pfp-two-line" : x.f.replace(".svg", "")) + "-" + px + ".png"
+              renderPng(isTwoLine ? u4k : u, base, px)
+            })
+          })
+        }
+        out.appendChild(wrap)
+      })
+
+      var h = window.location.hash.replace(/^#/, "")
+      if (h) {
+        requestAnimationFrame(function () {
+          var el = document.getElementById(h)
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+        })
+      }
+    })()
+  </script>
+</body>
+</html>

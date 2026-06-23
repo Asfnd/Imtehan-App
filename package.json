@@ -27,8 +27,8 @@
     "test-question-reports": "tsx scripts/test-question-reports-e2e.ts",
     "ping-search-engines": "tsx scripts/ping-search-engines.ts",
     "ping-search-engines:priority": "tsx scripts/ping-search-engines.ts --priority",
-    "auto-push": "bash scripts/auto-push.sh",
     "install-git-hooks": "bash scripts/install-git-hooks.sh",
+    "auto-push": "bash scripts/auto-push.sh",
     "prepare": "bash scripts/install-git-hooks.sh"
   },
   "dependencies": {

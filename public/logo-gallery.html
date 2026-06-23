@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imtehan — logo explorations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Text:ital,wght@0,400;0,500&family=Epilogue:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Figtree:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@300;400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Jost:ital,wght@0,400;0,500;0,600&family=Kalam:wght@400;700&family=Lexend:wght@400;500;600&family=Manrope:wght@500;600;700&family=Onest:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Schibsted+Grotesk:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #0f766e;
+      --accent2: #4338ca;
+      --radius: 14px;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+    }
+    header {
+      max-width: 1200px;
+      margin: 0 auto 2.5rem;
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      letter-spacing: -0.02em;
+      margin: 0 0 0.5rem;
+    }
+    .lede {
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 1rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 1.25rem;
+    }
+    .toolbar label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .toolbar input { accent-color: var(--accent); }
+    .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    section {
+      max-width: 1200px;
+      margin: 2.5rem auto 1rem;
+    }
+    section h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card .preview {
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .card .preview.wm-slim {
+      aspect-ratio: 2.5 / 1;
+      min-height: 0;
+      padding: 1rem 1.25rem;
+    }
+    @media (max-width: 500px) {
+      .card .preview.wm-slim { aspect-ratio: 2 / 1; }
+    }
+    .card .preview.wm-2l {
+      aspect-ratio: 1.85 / 1;
+    }
+    .card .preview.creative-sq {
+      aspect-ratio: 1;
+      background: #fafafa;
+    }
+    .card .preview.creative-sq.darkish {
+      background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+    }
+    .card .preview.creative-wide {
+      aspect-ratio: 2.15 / 1;
+      min-height: 0;
+      padding: 0.9rem 1.1rem;
+    }
+    .card .preview.premium-wide {
+      aspect-ratio: 2.35 / 1;
+      min-height: 0;
+      padding: 1.35rem 1.5rem;
+      background: #fafaf9;
+      border-bottom: 1px solid #f0f0ee;
+    }
+    .card .preview.premium-wide.onyx {
+      background: linear-gradient(160deg, #0a0a0a 0%, #141414 100%);
+      border-bottom-color: #1f1f1f;
+    }
+    .card .preview.premium-hero {
+      aspect-ratio: 1.1 / 1;
+      min-height: 0;
+      padding: 1.5rem 1.25rem;
+      background: #f7f6f3;
+    }
+    .card .preview.premium-hero.onyx {
+      background: radial-gradient(120% 80% at 50% 0%, #1a1a1a 0%, #0a0a0a 100%);
+    }
+    .card .preview.premium-tall {
+      aspect-ratio: 0.9 / 1;
+      min-height: 0;
+      padding: 1.5rem 1.25rem;
+      background: #fafaf9;
+    }
+    .card .preview.light { background: #f8fafc; }
+    .card .preview.dark { background: #0f172a; }
+    .card .preview.split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0;
+    }
+    .card .preview.split > div {
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+    .card .preview.split .l { background: #fafafa; }
+    .card .preview.split .d { background: #0c1222; }
+    body.invert-previews .card .preview.light { background: #0f172a; }
+    body.invert-previews .card .preview.dark { background: #fafafa; }
+    body.invert-previews .card .preview.split .l { background: #0c1222; }
+    body.invert-previews .card .preview.split .d { background: #fafafa; }
+    .card footer {
+      padding: 1rem 1.1rem 1.15rem;
+      border-top: 1px solid var(--border);
+    }
+    .card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0 0 0.35rem;
+    }
+    .card p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .card svg { max-width: 100%; height: auto; }
+    .mono-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .grid.wide-1 { grid-template-columns: 1fr; }
+    .card.theme-board {
+      border-left: 4px solid var(--tb, #0f766e);
+    }
+    .themed-canvas {
+      min-height: 0;
+      aspect-ratio: auto;
+      display: block;
+      padding: 1.1rem 1.25rem 1.25rem;
+    }
+    .theme-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+    .theme-name {
+      font-family: "Sora", sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin: 0;
+    }
+    .theme-mood {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 0.2rem 0 0;
+      max-width: 50ch;
+    }
+    .swatches {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .sw {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,.09);
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+    .sw span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+    .sw { position: relative; }
+    .theme-samples {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 900px) {
+      .theme-samples { grid-template-columns: repeat(2, 1fr); }
+    }
+    .ts {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      padding: 0.75rem 0.5rem;
+      min-height: 108px;
+    }
+    .ts.soft { background: #fafafa; }
+    .ts.ink { background: #0c1222; }
+    .ts.cream { background: #fffbeb; }
+    .ts.mist { background: #f0f9ff; }
+    .ts.limebg { background: #ecfccb; }
+    .ts.sand { background: #fff7ed; }
+    .ts.berrybg { background: #fdf4ff; }
+    .ts.cocoa { background: #1c1008; }
+    .ts.void { background: #09090b; }
+    .ts.slate2 { background: #1e293b; }
+    .brand-cta {
+      max-width: 1200px;
+      margin: 0 auto 2.25rem;
+      padding: 1.25rem 1.5rem;
+      background: oklch(0.99 0.01 255);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .brand-cta h2 { margin: 0 0 0.4rem; font-size: 1.05rem; color: var(--text); }
+    .brand-cta p { margin: 0; font-size: 0.88rem; color: var(--muted); max-width: 72ch; }
+    .brand-cta a.primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #fff;
+      background: oklch(0.55 0.22 253);
+      text-decoration: none;
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+    }
+    .brand-cta a.primary:hover { filter: brightness(1.06); }
+    .brand-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+    .brand-preview img {
+      max-width: 86%;
+      max-height: 86%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .banner-preview {
+      aspect-ratio: 2.2;
+      min-height: 168px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem !important;
+      background: #f1f5f9;
+    }
+    .banner-preview img {
+      width: 100%;
+      max-height: 130px;
+      height: auto;
+      object-fit: contain;
+      object-position: left center;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .card-downloads {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    a.dl-btn {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.38rem 0.7rem;
+      border-radius: 7px;
+      background: #4860EB;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+    a.dl-btn:hover { filter: brightness(1.06); }
+    a.dl-btn.dl-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    a.dl-btn.dl-secondary:hover { background: #f8fafc; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Logo explorations</h1>
+    <p class="lede">
+      Minimal marks and wordmarks for <strong>Imtehan</strong> (exam prep, MCQs, confidence) — now including
+      <strong>full color theme boards</strong> and a <strong>vivid mark lab</strong>. Open this file in a browser. Each concept is pure SVG: copy the block from DevTools or use “Open image in new tab” on the SVG.
+    </p>
+    <div class="toolbar">
+      <label><input type="checkbox" id="invert" /> Invert split previews (simulate dark UI)</label>
+    </div>
+  </header>
+
+  <div class="brand-cta" role="region" aria-label="Downloadable social assets">
+    <h2>Profile photo &amp; social downloads</h2>
+    <p>Ready-to-use PFPs in the site <strong>primary + muted</strong> palette. <strong>Profile photos (Instagram, WhatsApp, X, etc.) need PNG (or JPEG), not SVG</strong> — open the brand kit and use the <strong>PNG</strong> buttons. Keep SVGs for Figma, print, and PWA work.</p>
+    <a class="primary" href="brand/brand-kit.html">Open Imtehan brand kit (PNG for social) →</a>
+  </div>
+
+  <section><h2>New — social PFPs (on-theme)</h2></section>
+  <p class="mono-note" style="margin-bottom:0.5rem">Paths are <strong>relative</strong> to this page (<code>brand/…</code>). <strong>Instagram and similar apps do not use SVG for profile photos</strong> — use the brand kit&rsquo;s <strong>PNG 1080</strong> (or 2048 / 4096 for the two-line) when uploading. SVG links are for design tools only. Primary: <code>#4860EB</code>.</p>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-book-1024.svg" width="200" height="200" alt="Book on light background" />
+      </div>
+      <footer><h3>Book (light)</h3><p>Same mark as the site favicon — best default for profile photos.</p>
+        <div class="card-downloads"><a class="dl-btn" href="brand/brand-kit.html#kit-pfp-book-1024">PNG 1080 (for Instagram, etc.)</a><a class="dl-btn dl-secondary" download="pfp-book-1024.svg" href="brand/pfp-book-1024.svg">SVG (design only)</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-book-dark-1024.svg" width="200" height="200" alt="Book on dark tile" />
+      </div>
+      <footer><h3>Book (dark)</h3><p>Dark field; stands out in light feeds and DM lists.</p>
+        <div class="card-downloads"><a class="dl-btn" href="brand/brand-kit.html#kit-pfp-book-dark-1024">PNG 1080 (for Instagram, etc.)</a><a class="dl-btn dl-secondary" download="pfp-book-dark-1024.svg" href="brand/pfp-book-dark-1024.svg">SVG (design only)</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-two-line-1024.svg" width="200" height="200" alt="Two-line wordmark" />
+      </div>
+      <footer><h3>Two-line wordmark</h3><p>Name + subline; padding for circular Instagram crop.</p>
+        <div class="card-downloads">
+          <a class="dl-btn" download="pfp-two-line-1080.png" href="brand/pfp-two-line-1080.png">PNG 1080 (Insta)</a>
+          <a class="dl-btn" download="pfp-two-line-2048.png" href="brand/pfp-two-line-2048.png">PNG 2048 HD</a>
+          <a class="dl-btn" download="pfp-two-line-4096.png" href="brand/pfp-two-line-4096.png">PNG 4096</a>
+          <a class="dl-btn dl-secondary" download="pfp-two-line-1080.jpg" href="brand/pfp-two-line-1080.jpg">JPEG 1080</a>
+          <a class="dl-btn dl-secondary" href="brand/brand-kit.html#kit-pfp-two-line-1024">More in kit</a>
+        </div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-orb-1024.svg" width="200" height="200" alt="Gradient orb with book" />
+      </div>
+      <footer><h3>Gradient orb</h3><p>Soft primary ramp; open book centered.</p>
+        <div class="card-downloads"><a class="dl-btn" href="brand/brand-kit.html#kit-pfp-orb-1024">PNG 1080 (for Instagram, etc.)</a><a class="dl-btn dl-secondary" download="pfp-orb-1024.svg" href="brand/pfp-orb-1024.svg">SVG (design only)</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-ring-1024.svg" width="200" height="200" alt="Rings and book" />
+      </div>
+      <footer><h3>Focus rings</h3><p>Concentric rings + book; “exam / focus” metaphor.</p>
+        <div class="card-downloads"><a class="dl-btn" href="brand/brand-kit.html#kit-pfp-ring-1024">PNG 1080 (for Instagram, etc.)</a><a class="dl-btn dl-secondary" download="pfp-ring-1024.svg" href="brand/pfp-ring-1024.svg">SVG (design only)</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-check-1024.svg" width="200" height="200" alt="Check mark on primary" />
+      </div>
+      <footer><h3>Bold check</h3><p>Maximum simplicity at tiny sizes.</p>
+        <div class="card-downloads"><a class="dl-btn" href="brand/brand-kit.html#kit-pfp-check-1024">PNG 1080 (for Instagram, etc.)</a><a class="dl-btn dl-secondary" download="pfp-check-1024.svg" href="brand/pfp-check-1024.svg">SVG (design only)</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq brand-preview">
+        <img src="brand/pfp-initial-i-1024.svg" width="200" height="200" alt="I monogram" />
+      </div>
+      <footer><h3>“I” monogram</h3><p>Single initial on primary disc.</p>
+        <div class="card-downloads"><a class="dl-btn" href="brand/brand-kit.html#kit-pfp-initial-i-1024">PNG 1080 (for Instagram, etc.)</a><a class="dl-btn dl-secondary" download="pfp-initial-i-1024.svg" href="brand/pfp-initial-i-1024.svg">SVG (design only)</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light banner-preview">
+        <img src="brand/banner-1500x500.svg" width="400" height="134" alt="Wide banner" />
+      </div>
+      <footer><h3>Wide 1500×500</h3><p>Icon + wordmark + URL for X header or landing pages (not square).</p>
+        <div class="card-downloads"><a class="dl-btn" download="banner-1500x500.svg" href="brand/banner-1500x500.svg">Download SVG</a><a class="dl-btn dl-secondary" href="brand/brand-kit.html#kit-banner-1500x500">Open in kit</a></div></footer>
+    </article>
+  </div>
+
+  <section><h2>New — name-only minimal logos (Imtehan)</h2></section>
+  <p class="mono-note" style="margin-bottom:0.55rem">Only the name <strong>Imtehan</strong>, using your theme colors (<code>#4860EB</code>, <code>#111827</code>, <code>#334155</code>). Clean, sharp, minimal. Download the SVG under each card.</p>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light wm-slim"><img src="brand/wordmark-imtehan-classic.svg" alt="Imtehan classic dark wordmark" style="width:100%;max-height:72px;object-fit:contain"/></div>
+      <footer><h3>Classic dark</h3><p>Default premium look for website headers.</p><div class="card-downloads"><a class="dl-btn" download="wordmark-imtehan-classic.svg" href="brand/wordmark-imtehan-classic.svg">Download SVG</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><img src="brand/wordmark-imtehan-primary.svg" alt="Imtehan primary blue wordmark" style="width:100%;max-height:72px;object-fit:contain"/></div>
+      <footer><h3>Primary blue</h3><p>Strong brand-forward single-color version.</p><div class="card-downloads"><a class="dl-btn" download="wordmark-imtehan-primary.svg" href="brand/wordmark-imtehan-primary.svg">Download SVG</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><img src="brand/wordmark-imtehan-accent-e.svg" alt="Imtehan accent e wordmark" style="width:100%;max-height:72px;object-fit:contain"/></div>
+      <footer><h3>Accent “e”</h3><p>Subtle signature highlight without extra icons.</p><div class="card-downloads"><a class="dl-btn" download="wordmark-imtehan-accent-e.svg" href="brand/wordmark-imtehan-accent-e.svg">Download SVG</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><img src="brand/wordmark-imtehan-two-tone.svg" alt="Imtehan two-tone wordmark" style="width:100%;max-height:72px;object-fit:contain"/></div>
+      <footer><h3>Two-tone split</h3><p>Balanced brand + editorial tone for marketing use.</p><div class="card-downloads"><a class="dl-btn" download="wordmark-imtehan-two-tone.svg" href="brand/wordmark-imtehan-two-tone.svg">Download SVG</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><img src="brand/wordmark-imtehan-upper-spaced.svg" alt="Imtehan uppercase spaced wordmark" style="width:100%;max-height:72px;object-fit:contain"/></div>
+      <footer><h3>Uppercase spaced</h3><p>Minimal high-end look for hero sections.</p><div class="card-downloads"><a class="dl-btn" download="wordmark-imtehan-upper-spaced.svg" href="brand/wordmark-imtehan-upper-spaced.svg">Download SVG</a></div></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><img src="brand/wordmark-imtehan-muted-sharp.svg" alt="Imtehan muted sharp wordmark" style="width:100%;max-height:72px;object-fit:contain"/></div>
+      <footer><h3>Muted sharp</h3><p>Soft charcoal for clean UI chrome and nav bars.</p><div class="card-downloads"><a class="dl-btn" download="wordmark-imtehan-muted-sharp.svg" href="brand/wordmark-imtehan-muted-sharp.svg">Download SVG</a></div></footer>
+    </article>
+  </div>
+
+  <section><h2>Lettermarks & geometric</h2></section>
+  <div class="grid">
+    <!-- 1 Ascending I -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="g1" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0f766e"/><stop offset="100%" stop-color="#14b8a6"/></linearGradient></defs><path fill="none" stroke="url(#g1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M38 88 L38 32 L58 52 L58 28 L82 28 L82 88"/><circle cx="82" cy="28" r="6" fill="#4338ca"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#5eead4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M38 88 L38 32 L58 52 L58 28 L82 28 L82 88"/><circle cx="82" cy="28" r="6" fill="#a5b4fc"/></svg></div>
+      </div>
+      <footer><h3>Ascending stroke</h3><p>Single path “I” with a step — progress and rigor.</p></footer>
+    </article>
+
+    <!-- 2 Twin peaks M -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#111827" d="M28 92 L28 36 L48 36 L60 58 L72 36 L92 36 L92 92 L78 92 L78 52 L60 78 L42 52 L42 92 Z"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#f8fafc" d="M28 92 L28 36 L48 36 L60 58 L72 36 L92 36 L92 92 L78 92 L78 52 L60 78 L42 52 L42 92 Z"/></svg></div>
+      </div>
+      <footer><h3>Geometric M</h3><p>Bold silhouette; reads well as app icon at 32px.</p></footer>
+    </article>
+
+    <!-- 3 Rounded IM ligature -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#111827" d="M32 88 L32 40 C32 32 38 28 46 28 L54 28 C60 28 64 31 66 36 L66 36 C68 31 73 28 79 28 L87 28 C95 28 100 33 100 42 L100 88 L84 88 L84 48 C84 44 82 42 78 42 C74 42 72 45 72 50 L72 88 L56 88 L56 50 C56 45 54 42 50 42 C46 42 44 44 44 48 L44 88 Z"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#f1f5f9" d="M32 88 L32 40 C32 32 38 28 46 28 L54 28 C60 28 64 31 66 36 L66 36 C68 31 73 28 79 28 L87 28 C95 28 100 33 100 42 L100 88 L84 88 L84 48 C84 44 82 42 78 42 C74 42 72 45 72 50 L72 88 L56 88 L56 50 C56 45 54 42 50 42 C46 42 44 44 44 48 L44 88 Z"/></svg></div>
+      </div>
+      <footer><h3>Soft IM monogram</h3><p>Friendly rounded “im” negative space in one blob.</p></footer>
+    </article>
+
+    <!-- 4 Thin I + orbit -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="34" fill="none" stroke="#cbd5e1" stroke-width="3"/><rect x="54" y="28" width="12" height="64" rx="2" fill="#0f766e"/><circle cx="60" cy="36" r="5" fill="#4338ca"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="34" fill="none" stroke="#334155" stroke-width="3"/><rect x="54" y="28" width="12" height="64" rx="2" fill="#5eead4"/><circle cx="60" cy="36" r="5" fill="#a5b4fc"/></svg></div>
+      </div>
+      <footer><h3>Focus ring</h3><p>“I” centered — concentration and mock-test mode.</p></footer>
+    </article>
+
+    <!-- 5 Corner bracket I -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#111827" stroke-width="5" stroke-linecap="square" d="M32 38 L32 32 L88 32 L88 38 M32 82 L32 88 L88 88 L88 82"/><rect x="54" y="44" width="12" height="32" fill="#111827"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="square" d="M32 38 L32 32 L88 32 L88 38 M32 82 L32 88 L88 88 L88 82"/><rect x="54" y="44" width="12" height="32" fill="#f8fafc"/></svg></div>
+      </div>
+      <footer><h3>Exam frame</h3><p>Brackets suggest paper, form, structure.</p></footer>
+    </article>
+
+    <!-- 6 Dot grid + accent -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><g fill="#cbd5e1"><circle cx="36" cy="36" r="5"/><circle cx="60" cy="36" r="5"/><circle cx="84" cy="36" r="5"/><circle cx="36" cy="60" r="5"/><circle cx="84" cy="60" r="5"/><circle cx="36" cy="84" r="5"/><circle cx="60" cy="84" r="5"/><circle cx="84" cy="84" r="5"/></g><circle cx="60" cy="60" r="9" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><g fill="#334155"><circle cx="36" cy="36" r="5"/><circle cx="60" cy="36" r="5"/><circle cx="84" cy="36" r="5"/><circle cx="36" cy="60" r="5"/><circle cx="84" cy="60" r="5"/><circle cx="36" cy="84" r="5"/><circle cx="60" cy="84" r="5"/><circle cx="84" cy="84" r="5"/></g><circle cx="60" cy="60" r="9" fill="#2dd4bf"/></svg></div>
+      </div>
+      <footer><h3>MCQ field</h3><p>Grid of choices; center is “your answer.”</p></footer>
+    </article>
+
+    <!-- 7 Check arc -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#111827" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M34 62 L52 78 L88 42"/><path fill="none" stroke="#0f766e" stroke-width="4" opacity=".35" d="M60 22 A44 44 0 1 1 59.9 22"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#f8fafc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M34 62 L52 78 L88 42"/><path fill="none" stroke="#5eead4" stroke-width="4" opacity=".4" d="M60 22 A44 44 0 1 1 59.9 22"/></svg></div>
+      </div>
+      <footer><h3>Validated arc</h3><p>Confidence and completion without cliché badge shapes.</p></footer>
+    </article>
+
+    <!-- 8 Open book abstract -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#111827" d="M30 88 L30 44 C30 38 48 34 60 42 C72 34 90 38 90 44 L90 88 C74 76 46 76 30 88 Z"/><line x1="60" y1="42" x2="60" y2="82" stroke="#fafafa" stroke-width="3"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#e2e8f0" d="M30 88 L30 44 C30 38 48 34 60 42 C72 34 90 38 90 44 L90 88 C74 76 46 76 30 88 Z"/><line x1="60" y1="42" x2="60" y2="82" stroke="#0f172a" stroke-width="3"/></svg></div>
+      </div>
+      <footer><h3>Open spread</h3><p>Symmetry; reads as study without literal book iconography.</p></footer>
+    </article>
+
+    <!-- 9 Spark -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#4338ca" d="M60 22 L66 48 L92 54 L66 60 L60 86 L54 60 L28 54 L54 48 Z"/><circle cx="60" cy="54" r="8" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#818cf8" d="M60 22 L66 48 L92 54 L66 60 L60 86 L54 60 L28 54 L54 48 Z"/><circle cx="60" cy="54" r="8" fill="#5eead4"/></svg></div>
+      </div>
+      <footer><h3>North spark</h3><p>Direction + insight; pairs with geometric wordmark.</p></footer>
+    </article>
+
+    <!-- 10 Layers -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="28" y="68" width="64" height="14" rx="3" fill="#e2e8f0"/><rect x="34" y="50" width="52" height="14" rx="3" fill="#94a3b8"/><rect x="40" y="32" width="40" height="14" rx="3" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="28" y="68" width="64" height="14" rx="3" fill="#1e293b"/><rect x="34" y="50" width="52" height="14" rx="3" fill="#475569"/><rect x="40" y="32" width="40" height="14" rx="3" fill="#2dd4bf"/></svg></div>
+      </div>
+      <footer><h3>Study stack</h3><p>Layered syllabus / levels — very minimal.</p></footer>
+    </article>
+
+    <!-- 11 Pen nib -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#111827" d="M60 24 L88 84 L72 84 L60 58 L48 84 L32 84 Z"/><circle cx="60" cy="72" r="6" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#f1f5f9" d="M60 24 L88 84 L72 84 L60 58 L48 84 L32 84 Z"/><circle cx="60" cy="72" r="6" fill="#5eead4"/></svg></div>
+      </div>
+      <footer><h3>Nib mark</h3><p>CSS essays &amp; written papers — aspirational.</p></footer>
+    </article>
+
+    <!-- 12 Hex I -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#111827" d="M60 22 L88 38 L88 70 L60 86 L32 70 L32 38 Z"/><rect x="54" y="40" width="12" height="36" rx="1" fill="#fafafa"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#e2e8f0" d="M60 22 L88 38 L88 70 L60 86 L32 70 L32 38 Z"/><rect x="54" y="40" width="12" height="36" rx="1" fill="#0f172a"/></svg></div>
+      </div>
+      <footer><h3>Hex core</h3><p>Tech-meets-tradition; “I” cutout for recognition.</p></footer>
+    </article>
+
+    <!-- 13 Overlap circles -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="48" cy="60" r="28" fill="#0f766e" opacity=".85"/><circle cx="72" cy="60" r="28" fill="#4338ca" opacity=".75"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="48" cy="60" r="28" fill="#14b8a6" opacity=".9"/><circle cx="72" cy="60" r="28" fill="#6366f1" opacity=".75"/></svg></div>
+      </div>
+      <footer><h3>Dual focus</h3><p>Practice + competition; blend reads as depth.</p></footer>
+    </article>
+
+    <!-- 14 Wave I -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#111827" stroke-width="10" stroke-linecap="round" d="M40 78 Q60 28 80 78"/><circle cx="60" cy="52" r="8" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#f8fafc" stroke-width="10" stroke-linecap="round" d="M40 78 Q60 28 80 78"/><circle cx="60" cy="52" r="8" fill="#2dd4bf"/></svg></div>
+      </div>
+      <footer><h3>Flow I</h3><p>Motion of revision loops; distinctive silhouette.</p></footer>
+    </article>
+
+    <!-- 15 Square with cut -->
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="30" y="30" width="60" height="60" rx="8" fill="#111827"/><path fill="#fafafa" d="M54 30 H78 V90 H54 V62 H30 V54 H54 V30 Z"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="30" y="30" width="60" height="60" rx="8" fill="#f8fafc"/><path fill="#0f172a" d="M54 30 H78 V90 H54 V62 H30 V54 H54 V30 Z"/></svg></div>
+      </div>
+      <footer><h3>Negative L</h3><p>Abstract “corner” mark; works as favicon square.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Wordmarks (SVG text — outline fonts)</h2></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light"><svg width="260" height="80" viewBox="0 0 260 80" aria-hidden="true"><text x="10" y="52" font-family="Sora, sans-serif" font-size="36" font-weight="700" fill="#0f172a">imtehan</text></svg></div>
+      <footer><h3>Sora bold</h3><p>Geometric, startup-clean. Use font-weight 600–700.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="280" height="80" viewBox="0 0 280 80" aria-hidden="true"><text x="8" y="50" font-family="Outfit, sans-serif" font-size="34" font-weight="500" fill="#0f172a" letter-spacing="0.02em">Imtehan</text></svg></div>
+      <footer><h3>Outfit medium</h3><p>Slightly wider; premium editorial feel.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="300" height="80" viewBox="0 0 300 80" aria-hidden="true"><text x="6" y="52" font-family="Instrument Sans, sans-serif" font-size="38" font-weight="600" fill="#0f172a">imtehan</text></svg></div>
+      <footer><h3>Instrument Sans</h3><p>Contemporary UI-native wordmark.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview dark"><svg width="300" height="80" viewBox="0 0 300 80" aria-hidden="true"><text x="8" y="52" font-family="Sora, sans-serif" font-size="34" font-weight="600" fill="#f8fafc" letter-spacing="-0.02em">imtehan</text><circle cx="268" cy="38" r="6" fill="#2dd4bf"/></svg></div>
+      <footer><h3>Word + dot</h3><p>Accent dot = “selected answer” or live status.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="320" height="90" viewBox="0 0 320 90" aria-hidden="true"><text x="10" y="48" font-family='Fraunces, Georgia, serif' font-size="32" font-weight="600" fill="#0f172a">Imtehan</text><text x="10" y="72" font-family="DM Sans, sans-serif" font-size="11" font-weight="500" fill="#64748b" letter-spacing="0.18em">EXAM PREPARATION</text></svg></div>
+      <footer><h3>Serif + tag</h3><p>Fraunces headline with small caps descriptor.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="300" height="80" viewBox="0 0 300 80" aria-hidden="true"><rect x="8" y="18" width="44" height="44" rx="10" fill="#0f766e"/><path fill="#fff" d="M22 44 L30 52 L42 36" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="64" y="52" font-family="Sora, sans-serif" font-size="32" font-weight="600" fill="#0f172a">imtehan</text></svg></div>
+      <footer><h3>Lockup: tile + word</h3><p>Square app tile with micro-check beside logotype.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>More wordmarks — minimal &amp; modern</h2>
+  <p class="lede" style="max-width: 72ch; margin: 0.35rem 0 0; font-size: 0.88rem">Tight, text-only treatments. Favor a single weight system site-wide. Hairlines and micro-accents are optional; remove them if you want the purest wordmark.</p></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="600" fill="#0f172a" letter-spacing="-0.03em">imtehan</text></svg></div>
+      <footer><h3>Inter semibold</h3><p>Default “product” look; invisible but confident.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="500" fill="#374151" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Inter medium</h3><p>Softer; pairs with strong photography or colored UI.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Manrope, sans-serif" font-size="33" font-weight="600" fill="#0f172a" letter-spacing="-0.01em">imtehan</text></svg></div>
+      <footer><h3>Manrope 600</h3><p>Friendly grotesk; very legible in Urdu+Latin UIs.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Onest, sans-serif" font-size="34" font-weight="600" fill="#0f172a" letter-spacing="-0.04em">imtehan</text></svg></div>
+      <footer><h3>Onest 600</h3><p>Geometric and compact; good for app shell headers.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Space Grotesk, sans-serif" font-size="34" font-weight="500" fill="#0f172a" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Space Grotesk 500</h3><p>Slightly technical; feels like a serious tool.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="50" font-family="Lexend, sans-serif" font-size="32" font-weight="500" fill="#111827" letter-spacing="0.01em">imtehan</text></svg></div>
+      <footer><h3>Lexend 500</h3><p>Wide aperture; slightly more open than Inter.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="50" font-family="Figtree, sans-serif" font-size="35" font-weight="600" fill="#0f172a" letter-spacing="-0.025em">imtehan</text></svg></div>
+      <footer><h3>Figtree 600</h3><p>Rounded, calm — minimal “soft product” brand.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Epilogue, sans-serif" font-size="33" font-weight="600" fill="#0f172a" letter-spacing="0em">imtehan</text></svg></div>
+      <footer><h3>Epilogue 600</h3><p>Neutral humanist; works next to long-form content.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="50" font-family="Schibsted Grotesk, sans-serif" font-size="32" font-weight="600" fill="#111827" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Schibsted Grotesk</h3><p>Editorial‑leaning sans; distinctive without noise.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="360" height="80" viewBox="0 0 360 80" aria-hidden="true"><text x="14" y="50" font-family="Outfit, sans-serif" font-size="30" font-weight="500" fill="#4b5563" letter-spacing="0.16em">IMTEHAN</text></svg></div>
+      <footer><h3>Outfit all caps</h3><p>Spaced capitals; use sparingly (hero, certificates).</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="360" height="80" viewBox="0 0 360 80" aria-hidden="true"><text x="14" y="50" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#0f172a">imte·han</text></svg></div>
+      <footer><h3>Inter + middle dot</h3><p>One stroke of rhythm; the dot is easy to recolor as accent.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="360" height="80" viewBox="0 0 360 80" aria-hidden="true"><line x1="12" y1="58" x2="100" y2="58" stroke="#0f172a" stroke-width="0.6" opacity="0.35"/><text x="12" y="48" font-family="Manrope, sans-serif" font-size="30" font-weight="600" fill="#0f172a" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Manrope + hairline</h3><p>Ultra-light rule under; subtle anchor for nav bars.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim wm-2l"><svg width="360" height="88" viewBox="0 0 360 88" aria-hidden="true"><text x="12" y="40" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#0f172a" letter-spacing="-0.02em">imte</text><text x="12" y="68" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#6b7280" letter-spacing="-0.02em">han</text></svg></div>
+      <footer><h3>Inter stack (4+2)</h3><p>Stacked syllables; good for mobile splash where width is tight.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Sora, sans-serif" font-size="34" font-weight="600" letter-spacing="-0.01em"><tspan fill="#0f172a">imt</tspan><tspan fill="#0d9488">e</tspan><tspan fill="#0f172a">han</tspan></text></svg></div>
+      <footer><h3>Single letter accent</h3><p>One teal “e” for brand color without a separate icon.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim"><svg width="360" height="80" viewBox="0 0 360 80" aria-hidden="true"><defs><linearGradient id="wmxFade" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0f172a" stop-opacity="0.2"/><stop offset="100%" stop-color="#0f172a" stop-opacity="1"/></linearGradient></defs><text x="12" y="48" font-family="Sora, sans-serif" font-size="33" font-weight="700" fill="url(#wmxFade)" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Gradient density</h3><p>Left-to-right “build” in one line — can animate the gradient in CSS on the app.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview dark wm-slim"><svg width="320" height="72" viewBox="0 0 320 72" aria-hidden="true"><text x="12" y="48" font-family="Inter, sans-serif" font-size="33" font-weight="600" fill="#f1f5f9" letter-spacing="-0.03em">imtehan</text></svg></div>
+      <footer><h3>Inter (dark field)</h3><p>Same as light; check contrast on your gray900.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light wm-slim wm-2l"><svg width="360" height="80" viewBox="0 0 360 80" aria-hidden="true"><text x="12" y="40" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="oklch(0.55 0.22 253)" letter-spacing="0.03em">imtehan</text><text x="12" y="64" font-family="Inter, system-ui, sans-serif" font-size="9.5" font-weight="500" fill="oklch(0.52 0.02 254)" letter-spacing="0.2em">PRACTICE · COMPETE</text></svg></div>
+      <footer><h3>Two-line: brand + line</h3><p>Primary <code>oklch(0.55 0.22 253)</code> + muted foreground, matching <code>app/globals.css</code> and the book icon. Inter. Use <code>oklch(0.12 0 0)</code> for the first line to align with the gray “Imtehan” in the top nav.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Creative &amp; expressive</h2>
+  <p class="lede" style="max-width: 75ch; margin: 0.35rem 0 0; font-size: 0.88rem">Bolder art-direction: curved type, bento cells, glass shadows, and tiny marks. Treat these as “season two” of the system — you’ll probably pick one hook (curve, bento, or pill) and simplify elsewhere.</p></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><defs><path id="cxpArcA" d="M 20 50 Q 200 4 380 50" fill="none"/></defs><text font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="600" fill="#0f172a"><textPath href="#cxpArcA" startOffset="50%" text-anchor="middle">imtehan</textPath></text><path d="M 20 50 Q 200 4 380 50" fill="none" stroke="#0d9488" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="2 3"/></svg></div>
+      <footer><h3>Smile baseline</h3><p>Soft upward arc; pair with a flat subline in mockups.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="360" height="64" viewBox="0 0 360 64" aria-hidden="true"><text x="16" y="45" font-family="Sora, sans-serif" font-size="32" font-weight="700" fill="none" stroke="#0f172a" stroke-width="1.1" paint-order="stroke" stroke-linejoin="round">imtehan</text></svg></div>
+      <footer><h3>Hollow outline</h3><p>Chalk / vinyl sticker energy; add fill for contrast on photos.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="360" height="64" viewBox="0 0 360 64" aria-hidden="true"><g style="user-select: none"><text x="20" y="45" font-family="Inter" font-size="32" font-weight="700" fill="#e5e7eb">imtehan</text><text x="14" y="40" font-family="Inter" font-size="32" font-weight="700" fill="#0f172a">imtehan</text></g></svg></div>
+      <footer><h3>Soft drop stack</h3><p>Offset shadow without blur — still crisp in SVG exports.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><defs><linearGradient id="cxpLin1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0d9488"/><stop offset="55%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#6366f1"/></linearGradient></defs><text x="10" y="45" font-family="Manrope" font-size="32" font-weight="700" fill="url(#cxpLin1)" letter-spacing="-0.02em">imtehan</text><line x1="10" y1="50" x2="280" y2="50" stroke="url(#cxpLin1)" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/></svg></div>
+      <footer><h3>Spectrum + rule</h3><p>Gradient type with matching under‑rule; CTA can pick up the mid hue.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><g transform="skewX(-6)"><text x="20" y="45" font-family="Space Grotesk" font-size="32" font-weight="600" fill="#1e293b">imtehan</text></g><line x1="5" y1="52" x2="200" y2="52" stroke="#cbd5e1" stroke-width="1" transform="skewX(-6)"/></svg></div>
+      <footer><h3>Italic skew</h3><p>Optical “forward” motion; keep body copy unskewed.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide" style="background: linear-gradient(90deg, #f8fafc 0%, #f0fdfa 50%, #f8fafc 100%)"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><line x1="6" y1="12" x2="6" y2="50" stroke="#0f172a" stroke-width="0.5" opacity="0.2"/><line x1="2" y1="12" x2="2" y2="50" stroke="#0f172a" stroke-width="0.5" opacity="0.2"/><text x="18" y="44" font-family="Bricolage Grotesque, sans-serif" font-size="30" font-weight="600" fill="#0f172a">imtehan</text><line x1="200" y1="12" x2="200" y2="50" stroke="#0f172a" stroke-width="0.5" opacity="0.2"/><line x1="204" y1="12" x2="204" y2="50" stroke="#0f172a" stroke-width="0.5" opacity="0.2"/></svg></div>
+      <footer><h3>Margin + spine</h3><p>Notebook / exam sheet metaphor; add ruled lines in marketing.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><text x="14" y="32" font-family="Syne" font-size="26" font-weight="800" fill="#0f172a" letter-spacing="0.02em">imte</text><text x="14" y="54" font-family="Inter" font-size="14" font-weight="500" fill="#6b7280" letter-spacing="0.2em">HAN</text><text x="200" y="50" font-family="DM Sans" font-size="8" font-weight="600" fill="#94a3b8" transform="rotate(-90 200 50)">est. prep</text></svg></div>
+      <footer><h3>Split display</h3><p>Heavy + light stack; good for app splash, not the nav bar.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><g font-family="Sora" font-size="19" font-weight="700" fill="#0f172a"><rect x="0" y="6" width="32" height="40" rx="5" fill="#e0f2fe" stroke="#bae6fd" stroke-width="0.5"/><text x="16" y="36" text-anchor="middle">i</text><rect x="36" y="6" width="32" height="40" rx="5" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.5"/><text x="52" y="36" text-anchor="middle">m</text><rect x="72" y="6" width="32" height="40" rx="5" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="0.5"/><text x="88" y="36" text-anchor="middle">t</text><rect x="108" y="6" width="32" height="40" rx="5" fill="#ede9fe" stroke="#c4b5fd" stroke-width="0.5"/><text x="124" y="36" text-anchor="middle">e</text><rect x="144" y="6" width="32" height="40" rx="5" fill="#fae8ff" stroke="#e9d5ff" stroke-width="0.5"/><text x="160" y="36" text-anchor="middle">h</text><rect x="180" y="6" width="32" height="40" rx="5" fill="#fce7f3" stroke="#fbcfe8" stroke-width="0.5"/><text x="196" y="36" text-anchor="middle">a</text><rect x="216" y="6" width="32" height="40" rx="5" fill="#ffedd5" stroke="#fed7aa" stroke-width="0.5"/><text x="232" y="36" text-anchor="middle">n</text></g></svg></div>
+      <footer><h3>Bento cells</h3><p>Letter‑by‑letter tiles; export as 7 slices for a playful load animation.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><line x1="2" y1="32" x2="2" y2="56" stroke="#0d9488" stroke-width="0.4"/><text x="8" y="50" font-family="Manrope" font-size="11" font-weight="600" fill="#0d9488" letter-spacing="0.1em" transform="rotate(-90 8 50)">Syllable</text><line x1="100" y1="32" x2="100" y2="56" stroke="#64748b" stroke-width="0.4" opacity="0.5"/><line x1="200" y1="32" x2="200" y2="56" stroke="#64748b" stroke-width="0.4" opacity="0.5"/><line x1="300" y1="32" x2="300" y2="56" stroke="#64748b" stroke-width="0.4" opacity="0.5"/><text x="14" y="50" font-family="Manrope" font-size="30" font-weight="600" fill="#0d9488">im</text><text x="110" y="50" font-family="Manrope" font-size="30" font-weight="600" fill="#334155">te</text><text x="210" y="50" font-family="Manrope" font-size="30" font-weight="600" fill="#0f172a">han</text></svg></div>
+      <footer><h3>Syllable score</h3><p>Three “bars” of sound; the left rail is optional in tight layouts.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><line x1="0" y1="32" x2="8" y2="32" stroke="#d1d5db"/><text x="14" y="38" font-family="Onest" font-size="12" font-weight="600" fill="#9ca3af" letter-spacing="0.08em">/prep</text><text x="68" y="50" font-family="Onest" font-size="30" font-weight="600" fill="#0f172a">imtehan</text></svg></div>
+      <footer><h3>Prefix path</h3><p>Reads like a clean URL; great for a subdomain lockup.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><text x="12" y="44" font-family="IBM Plex Mono" font-size="30" font-weight="600" fill="#0f172a">imtehan::</text><line x1="0" y1="48" x2="210" y2="48" stroke="#22d3ee" stroke-width="2" opacity="0.7"/></svg></div>
+      <footer><h3>Mono + cursor</h3><p>“Terminal focus” for power users; pair with a monospace MCQ view.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><g transform="translate(0,2) scale(0.4)"><line x1="0" y1="50" x2="600" y2="50" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="6 4"/><line x1="0" y1="0" x2="600" y2="0" stroke="#e2e8f0" stroke-width="1.4" stroke-dasharray="4 6"/></g><g transform="translate(8,0)"><text x="0" y="18" font-family="IBM Plex Mono" font-size="6" font-weight="500" fill="#94a3b8" opacity="0.5">0</text><text x="40" y="18" font-size="6" font-family="IBM Plex Mono" font-weight="500" fill="#94a3b8" opacity="0.5">20</text><text x="80" y="18" font-size="6" font-family="IBM Plex Mono" font-weight="500" fill="#94a3b8" opacity="0.5">40</text></g><text x="12" y="48" font-family="IBM Plex Mono" font-size="30" font-weight="600" fill="#0f172a">imtehan</text></svg></div>
+      <footer><h3>Plot grid</h3><p>Data / progress connotation; subtle top axis tick marks.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide" style="background: #fefce8"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><g transform="skewX(-3)"><rect x="2" y="4" width="200" height="50" rx="2" fill="#fbbf24" fill-opacity="0.35" stroke="#f59e0b" stroke-width="0.3"/><text x="20" y="40" font-family="Kalam" font-size="36" font-weight="700" fill="#78350f" transform="skewX(3)">imtehan</text></g><rect x="12" y="3" width="2" height="2" fill="#1c1917" fill-opacity="0.15" transform="rotate(45)"/></svg></div>
+      <footer><h3>Sticky tape</h3><p>Hand + yellow tape feel for campaign graphics.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><text x="14" y="32" font-family="Epilogue" font-size="9" font-weight="600" fill="#94a3b8" letter-spacing="0.2em">THE PLATFORM FOR</text><text x="14" y="52" font-family="Bricolage Grotesque" font-size="28" font-weight="600" fill="#0f172a" letter-spacing="-0.01em">imtehan</text><circle cx="340" cy="44" r="2.5" fill="#ef4444"/></svg></div>
+      <footer><h3>Magazine kicker</h3><p>Overline + wordmark; red dot = “live / recording session.”</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-wide"><svg width="380" height="64" viewBox="0 0 380 64" aria-hidden="true"><g transform="translate(180,34) scale(0.4)"><circle r="1.5" fill="#06b6d4"/><g stroke="#64748b" stroke-width="0.6" fill="none" opacity="0.7"><line x1="-8" y1="0" x2="0" y2="0"/><line x1="0" y1="0" x2="10" y2="-6"/><line x1="0" y1="0" x2="6" y2="8"/></g></g><text x="14" y="44" font-family="Space Grotesk" font-size="32" font-weight="500" fill="#0f172a" letter-spacing="-0.01em">imt<tspan font-weight="800" fill="#06b6d4">e</tspan>han</text><text x="12" y="20" font-family="DM Sans" font-size="7" font-weight="500" fill="#9ca3af" letter-spacing="0.1em">CONSTELLATION MARK</text></svg></div>
+      <footer><h3>Star + e</h3><p>Micro constellation; “e” stays the accent.</p></footer>
+    </article>
+  </div>
+
+  <div class="grid" style="margin-top:1rem">
+    <article class="card">
+      <div class="preview light creative-sq darkish" style="background: radial-gradient(ellipse 90% 80% at 50% 0%, #1e293b 0%, #0c1222 100%)"><svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true"><text x="100" y="108" text-anchor="middle" font-family="Fraunces" font-size="32" font-weight="600" fill="none" stroke="url(#cxpNeon)" stroke-width="0.4">imt</text><text x="100" y="142" text-anchor="middle" font-family="Fraunces" font-size="32" font-weight="600" fill="none" stroke="url(#cxpNeon)" stroke-width="0.4">ehan</text><defs><linearGradient id="cxpNeon" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2dd4bf" stop-opacity="0.2"/><stop offset="0.5" stop-color="#2dd4bf" stop-opacity="0.9"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0.3"/></linearGradient></defs><circle cx="100" cy="100" r="64" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.3"/><line x1="100" y1="36" x2="100" y2="44" stroke="#334155" stroke-width="0.3"/><line x1="100" y1="156" x2="100" y2="164" stroke="#334155" stroke-width="0.3"/></svg></div>
+      <footer><h3>Neon clock</h3><p>Split serif lines + faint compass; for dark-mode landing videos.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq" style="background: #fef3c7"><svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true"><path fill="none" stroke="#f59e0b" stroke-width="0.2" d="M20 40 H180 M20 100 H180 M20 160 H180" opacity="0.2"/><g transform="translate(100,100) rotate(15) scale(0.5)"><rect x="-3" y="-4" width="3" height="2" fill="#0f172a" opacity="0.15" transform="rotate(45)"/><line x1="-1.5" y1="-1" x2="2" y2="3" stroke="#0f172a" stroke-width="0.1"/></g><text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Bricolage Grotesque" font-size="36" font-weight="700" fill="#92400e" transform="rotate(-3 100 100)">imt</text><text x="100" y="136" text-anchor="middle" font-family="Bricolage Grotesque" font-size="36" font-weight="700" fill="#b45309" transform="rotate(-3 100 136)">ehan</text><path d="M32 32 L32 20 L48 20" fill="none" stroke="#0f172a" stroke-width="0.2" stroke-opacity="0.15"/><path d="M168 168 L168 180 L152 180" fill="none" stroke="#0f172a" stroke-width="0.2" stroke-opacity="0.15"/></svg></div>
+      <footer><h3>Desk scribble</h3><p>Slight wobble, corner ticks; poster / Instagram pattern.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light creative-sq" style="background: linear-gradient(130deg, #e0e7ff 0%, #fce7f3 50%, #ccfbf1 100%)"><svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true"><g opacity="0.4"><rect x="40" y="48" width="48" height="32" fill="#4f46e5" opacity="0.2" transform="rotate(-8 64 64)"/><rect x="100" y="100" width="40" height="30" fill="#ec4899" opacity="0.2" transform="rotate(4 120 115)"/></g><text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-family="Outfit" font-size="20" font-weight="600" fill="#1e1b4b" letter-spacing="0.35em">I M T E H A N</text><line x1="20" y1="170" x2="180" y2="170" stroke="#1e1b4b" stroke-width="0.2" stroke-opacity="0.15" stroke-linecap="round" stroke-dasharray="2 2"/></svg></div>
+      <footer><h3>Glassmorphism</h3><p>Soft parallelograms, ultra‑spaced capitals, pastel wash.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Premium &amp; minimal (UI craft)</h2>
+  <p class="lede" style="max-width: 78ch; margin: 0.35rem 0 0; font-size: 0.88rem">Quiet luxury: one accent per lockup, hairline rules, and editorial spacing. Built for a product that should feel <em>intentional</em> — not loud.</p></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><text x="50%" y="44" text-anchor="middle" font-family="Jost, system-ui, sans-serif" font-size="21" font-weight="500" fill="#0c0c0c" letter-spacing="0.32em" opacity="0.95">imtehan</text><line x1="88" y1="50" x2="312" y2="50" stroke="#0c0c0c" stroke-width="0.3" stroke-opacity="0.15"/></svg></div>
+      <footer><h3>Swiss breath</h3><p>Wide tracking + 0.3px rule — editorial fashion energy.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><text x="20" y="40" font-family="Cormorant Garamond, Georgia, serif" font-size="32" font-weight="500" fill="#171717" font-style="italic" letter-spacing="-0.01em">Imte</text><text x="108" y="40" font-family="Inter" font-size="20" font-weight="500" fill="#525252" letter-spacing="0.06em">han</text></svg></div>
+      <footer><h3>Serif + humanist</h3><p>Italic Cormorant for warmth; Inter for precision — luxury dashboard tone.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><line x1="0" y1="20" x2="400" y2="20" stroke="#d6d3d1" stroke-width="0.35"/><line x1="0" y1="24" x2="400" y2="24" stroke="#d6d3d1" stroke-width="0.35" opacity="0.45"/><text x="50%" y="48" text-anchor="middle" font-family="Inter" font-size="25" font-weight="500" fill="#171717" letter-spacing="-0.025em">imtehan</text></svg></div>
+      <footer><h3>Double top rule</h3><p>Two-hairline header — use only on hero, then plain text app-wide.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide onyx"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><defs><linearGradient id="prmGld" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b5a3a" stop-opacity="0.3"/><stop offset="0.4" stop-color="#c4a574" stop-opacity="0.9"/><stop offset="1" stop-color="#5c4a32" stop-opacity="0.3"/></linearGradient></defs><text x="50%" y="42" text-anchor="middle" font-family="Inter" font-size="26" font-weight="500" fill="#f5f5f4" letter-spacing="-0.02em">imtehan</text><line x1="110" y1="50" x2="290" y2="50" stroke="url(#prmGld)" stroke-width="0.45"/></svg></div>
+      <footer><h3>Onyx + champagne</h3><p>Dark mode launch screen; one warm metallic rule.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><text x="50%" y="42" text-anchor="middle" font-family="Inter" font-size="30" font-weight="400" fill="#0a0a0a" letter-spacing="-0.04em" opacity="0.92">imtehan</text><line x1="72" y1="48" x2="328" y2="48" stroke="#0a0a0a" stroke-width="0.25" opacity="0.12"/></svg></div>
+      <footer><h3>Whisper line</h3><p>Almost invisible base rule — for nav underlines on hover, match 0.25px at 0.1 opacity.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><rect x="8" y="4" width="400" height="50" fill="none" stroke="#e7e5e4" stroke-width="0.4"/><text x="210" y="40" text-anchor="middle" font-family="Inter" font-size="22" font-weight="500" fill="#262626" letter-spacing="0.02em">imtehan</text></svg></div>
+      <footer><h3>Cartier frame</h3><p>1px keyline box — use at 0.4px stroke in CSS for Retina.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><text x="0" y="20" font-family="Inter" font-size="9" font-weight="500" fill="#a3a3a3" letter-spacing="0.2em">INDEX</text><line x1="0" y1="26" x2="32" y2="26" stroke="#d4d4d4" stroke-width="0.2"/><text x="44" y="46" font-family="Inter" font-size="28" font-weight="500" fill="#0a0a0a" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Editorial index</h3><p>“INDEX” micro kicker; optional in settings / about.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><circle cx="18" cy="34" r="10" fill="none" stroke="#0a0a0a" stroke-width="0.4"/><text x="18" y="39" text-anchor="middle" font-family="Inter" font-size="12" font-weight="600" fill="#0a0a0a">I</text><text x="34" y="40" font-family="Inter" font-size="22" font-weight="500" fill="#171717" letter-spacing="0.01em">mtehan</text></svg></div>
+      <footer><h3>Micro seal</h3><p>“I” in a hairline ring + rest of the word; swap to full <strong>imtehan</strong> in production if the split feels odd.</p></footer>
+    </article>
+  </div>
+
+  <div class="grid" style="margin-top:0.5rem">
+    <article class="card">
+      <div class="preview premium-wide onyx"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><defs><linearGradient id="prmGld2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5c4a2e"/><stop offset="0.5" stop-color="#c9a968"/><stop offset="1" stop-color="#3d3320"/></linearGradient></defs><line x1="100" y1="16" x2="100" y2="50" stroke="url(#prmGld2)" stroke-width="0.4"/><text x="112" y="44" font-family="Inter" font-size="25" font-weight="500" fill="#ececec" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Gold spine</h3><p>One vertical bar — Aesop / luxury retail adjacency; keep bar 1px in UI.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><defs><linearGradient id="prmMtl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#404040"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient></defs><text x="50%" y="42" text-anchor="middle" font-family="Inter" font-size="30" font-weight="500" fill="url(#prmMtl)">imtehan</text><line x1="0" y1="51" x2="400" y2="51" stroke="#d4d4d4" stroke-width="0.2"/></svg></div>
+      <footer><h3>Metal type</h3><p>Vertical value gradient; reads like engraved steel.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide" style="background: linear-gradient(90deg, #f7f6f3 0%, #faf9f6 100%)"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><line x1="0" y1="32" x2="4" y2="32" stroke="#d1cfc8" stroke-width="0.25" opacity="0.6"/><line x1="396" y1="32" x2="400" y2="32" stroke="#d1cfc8" stroke-width="0.25" opacity="0.6"/><text x="50%" y="42" text-anchor="middle" font-family="Jost" font-size="25" font-weight="500" fill="#1c1c1c" letter-spacing="0.08em">imtehan</text><text x="50%" y="20" text-anchor="middle" font-family="Inter" font-size="7" font-weight="500" fill="#9ca3af" letter-spacing="0.2em" opacity="0.85">SESSION</text></svg></div>
+      <footer><h3>Vault rails</h3><p>Subtle end caps; pairs with a centered nav cluster.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><line x1="0" y1="32" x2="0" y2="24" stroke="#0a0a0a" stroke-width="0.2"/><line x1="0" y1="32" x2="0" y2="40" stroke="#0a0a0a" stroke-width="0.2"/><line x1="400" y1="32" x2="400" y2="24" stroke="#0a0a0a" stroke-width="0.2"/><line x1="400" y1="32" x2="400" y2="40" stroke="#0a0a0a" stroke-width="0.2"/><text x="200" y="40" text-anchor="middle" font-family="Inter" font-size="26" font-weight="500" fill="#0a0a0a" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Corner only</h3><p>Four 8px notches; zero full frame — for certificate borders.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="400" height="64" viewBox="0 0 400 64" aria-hidden="true"><text x="50%" y="36" text-anchor="middle" font-family="Inter" font-size="27" font-weight="500" fill="#171717" letter-spacing="-0.02em">imtehan</text><line x1="0" y1="48" x2="400" y2="48" stroke="#0a0a0a" stroke-width="0.1" stroke-dasharray="1.5 3" stroke-opacity="0.18"/></svg></div>
+      <footer><h3>Ledger dash</h3><p>Hairline dotted rule; accounting / precision metaphor.</p></footer>
+    </article>
+  </div>
+
+  <div class="grid" style="margin-top:0.5rem">
+    <article class="card">
+      <div class="preview premium-hero onyx"><svg width="320" height="200" viewBox="0 0 320 200" aria-hidden="true"><line x1="0" y1="100" x2="320" y2="100" stroke="#2a2a2a" stroke-width="0.15"/><line x1="0" y1="101" x2="320" y2="101" stroke="#1a1a1a" stroke-width="0.1" opacity="0.5"/><text x="50%" y="48" text-anchor="middle" font-family="Jost" font-size="8" font-weight="500" fill="#737373" letter-spacing="0.35em">LUXURY MINIMAL</text><text x="50%" y="150" text-anchor="middle" font-family="Inter" font-size="28" font-weight="500" fill="#e5e5e5" letter-spacing="-0.02em">imtehan</text></svg></div>
+      <footer><h3>Hero: quiet scale</h3><p>Micro label, optical center line, word at golden lower third.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-tall"><svg width="280" height="240" viewBox="0 0 280 240" aria-hidden="true"><line x1="0" y1="40" x2="280" y2="40" stroke="#e7e5e4" stroke-width="0.2"/><line x1="0" y1="200" x2="280" y2="200" stroke="#e7e5e4" stroke-width="0.2"/><text x="20" y="32" font-family="Inter" font-size="6" font-weight="500" fill="#a1a1aa" letter-spacing="0.2em">PREMIUM</text><text x="20" y="196" font-family="Inter" font-size="6" font-weight="500" fill="#a1a1aa" letter-spacing="0.2em" opacity="0.6">UI</text><text x="50%" y="220" text-anchor="middle" font-family="Inter" font-size="22" font-weight="500" fill="#0a0a0a" letter-spacing="-0.01em" opacity="0.88">imtehan</text></svg></div>
+      <footer><h3>Letter sheet</h3><p>Top and bottom margin rules; use for A4 / PDF cover exports.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-hero" style="background: #fcfcfa"><svg width="320" height="200" viewBox="0 0 320 200" aria-hidden="true"><rect x="20" y="20" width="200" height="32" fill="#ffffff" fill-opacity="0.55" stroke="#ebe9e4" stroke-width="0.3" rx="2" stroke-opacity="0.45"/><text x="32" y="40" font-family="Inter" font-size="8" font-weight="500" fill="#6b6b6b" letter-spacing="0.04em">imtehan / session</text><line x1="0" y1="120" x2="320" y2="120" stroke="#0a0a0a" stroke-width="0.1" stroke-opacity="0.06"/><text x="20" y="100" font-family="DM Serif Text" font-size="32" font-style="italic" font-weight="400" fill="#1a1a1a">imtehan</text><text x="20" y="118" font-family="Inter" font-size="7" font-weight="500" fill="#a1a1aa" letter-spacing="0.12em" opacity="0.75">EDITION 01</text></svg></div>
+      <footer><h3>Glass keyline</h3><p>Soft “system prompt” field + italic DM Serif word — hybrid UI + editorial.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Site-color matched (clean modern)</h2>
+  <p class="lede" style="max-width:75ch; margin:0.35rem 0 0; font-size:0.88rem">Built around your app tokens: <strong>primary blue</strong> and <strong>accent teal</strong> with neutral grays. These are cleaner, production-ready options aligned to your existing UI system.</p></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><defs><linearGradient id="siteBlue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient></defs><text x="24" y="42" font-family="Inter, sans-serif" font-size="30" font-weight="600" fill="#0f172a" letter-spacing="-0.025em">imtehan</text><line x1="24" y1="49" x2="204" y2="49" stroke="url(#siteBlue)" stroke-width="1.1" stroke-linecap="round"/></svg></div>
+      <footer><h3>Primary underline</h3><p>Neutral wordmark with your real primary blue as the only accent.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><defs><linearGradient id="siteMix1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#0F766E"/></linearGradient></defs><text x="22" y="42" font-family="Plus Jakarta Sans, sans-serif" font-size="28" font-weight="700" fill="#0f172a" letter-spacing="-0.02em">imt</text><text x="86" y="42" font-family="Plus Jakarta Sans, sans-serif" font-size="28" font-weight="700" fill="url(#siteMix1)">e</text><text x="104" y="42" font-family="Plus Jakarta Sans, sans-serif" font-size="28" font-weight="700" fill="#0f172a">han</text><circle cx="206" cy="31" r="2.5" fill="#0F766E"/></svg></div>
+      <footer><h3>Blue-teal accent e</h3><p>Very minimal hook: accented <code>e</code> + tiny teal dot.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide onyx"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><defs><linearGradient id="siteNight" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient></defs><text x="22" y="42" font-family="Inter, sans-serif" font-size="28" font-weight="500" fill="#f8fafc" letter-spacing="-0.02em">imtehan</text><line x1="22" y1="49" x2="190" y2="49" stroke="url(#siteNight)" stroke-width="0.9"/></svg></div>
+      <footer><h3>Dark mode line</h3><p>For dark UI shells: soft white text with blue-teal spectrum rule.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><rect x="14" y="14" width="34" height="34" rx="8" fill="#2563EB"/><path fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M23 32 L29 38 L39 24"/><text x="58" y="40" font-family="Sora, sans-serif" font-size="26" font-weight="600" fill="#0f172a" letter-spacing="-0.015em">imtehan</text></svg></div>
+      <footer><h3>Blue tile lockup</h3><p>Simple app-icon tile + clean wordmark for navbar/header.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><circle cx="32" cy="32" r="16" fill="none" stroke="#0F766E" stroke-width="2"/><rect x="29" y="20" width="6" height="24" rx="1" fill="#0F766E"/><text x="58" y="41" font-family="Manrope, sans-serif" font-size="27" font-weight="600" fill="#111827">imtehan</text></svg></div>
+      <footer><h3>Teal monoline I</h3><p>Uses your accent token; feels calm and modern.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-wide"><svg width="420" height="64" viewBox="0 0 420 64" aria-hidden="true"><text x="22" y="43" font-family="Inter, sans-serif" font-size="27" font-weight="600" fill="#111827" letter-spacing="-0.02em">imtehan</text><text x="186" y="43" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#6b7280" letter-spacing="0.16em">PREP</text><line x1="182" y1="30" x2="182" y2="46" stroke="#d1d5db" stroke-width="1"/><circle cx="206" cy="24" r="2.2" fill="#2563EB"/><circle cx="214" cy="24" r="2.2" fill="#0F766E"/></svg></div>
+      <footer><h3>Dual token dots</h3><p>Both brand colors represented in a tiny premium detail.</p></footer>
+    </article>
+  </div>
+
+  <div class="grid" style="margin-top:0.6rem">
+    <article class="card">
+      <div class="preview premium-hero"><svg width="320" height="200" viewBox="0 0 320 200" aria-hidden="true"><defs><linearGradient id="siteHeroA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DBEAFE"/><stop offset="1" stop-color="#CCFBF1"/></linearGradient></defs><rect x="24" y="26" width="272" height="148" rx="12" fill="url(#siteHeroA)" stroke="#e5e7eb"/><text x="44" y="78" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2563EB" letter-spacing="0.16em">IMTEHAN</text><text x="44" y="116" font-family="Inter, sans-serif" font-size="26" font-weight="600" fill="#0f172a" letter-spacing="-0.02em">learn smarter</text><text x="44" y="142" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#475569">practice better • compete confidently</text></svg></div>
+      <footer><h3>Token gradient hero</h3><p>Blue + teal wash from your token family; ideal launch splash.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-hero onyx"><svg width="320" height="200" viewBox="0 0 320 200" aria-hidden="true"><defs><linearGradient id="siteHeroB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient></defs><line x1="22" y1="40" x2="298" y2="40" stroke="#1f2937" stroke-width="1"/><text x="24" y="34" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#64748b" letter-spacing="0.16em">APP BRAND</text><text x="24" y="120" font-family="Inter, sans-serif" font-size="34" font-weight="500" fill="#f8fafc" letter-spacing="-0.02em">imtehan</text><line x1="24" y1="130" x2="184" y2="130" stroke="url(#siteHeroB)" stroke-width="1.3"/></svg></div>
+      <footer><h3>Midnight premium</h3><p>Dark premium look using softened token tints from your system.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview premium-tall"><svg width="280" height="240" viewBox="0 0 280 240" aria-hidden="true"><rect x="20" y="20" width="240" height="200" fill="#ffffff" stroke="#e5e7eb"/><line x1="20" y1="60" x2="260" y2="60" stroke="#e5e7eb"/><text x="32" y="48" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#2563EB" letter-spacing="0.16em">WORDMARK SPEC</text><text x="32" y="118" font-family="Inter, sans-serif" font-size="30" font-weight="600" fill="#111827" letter-spacing="-0.03em">imtehan</text><line x1="32" y1="126" x2="164" y2="126" stroke="#0F766E" stroke-width="1.1"/><text x="32" y="168" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#6b7280">Primary: #2563EB</text><text x="32" y="184" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#6b7280">Accent: #0F766E</text></svg></div>
+      <footer><h3>Brand spec card</h3><p>Minimal style guide card using your real site color pair.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Icon + word horizontal lockups</h2></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light"><svg width="280" height="64" viewBox="0 0 280 64" aria-hidden="true"><g transform="translate(8,8)"><circle cx="24" cy="24" r="22" fill="#0f172a"/><path fill="none" stroke="#5eead4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M14 24 L20 30 L34 16"/></g><text x="64" y="40" font-family="Sora, sans-serif" font-size="22" font-weight="600" fill="#0f172a">imtehan</text></svg></div>
+      <footer><h3>Circle check lockup</h3><p>Compact for header nav.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview dark"><svg width="280" height="64" viewBox="0 0 280 64" aria-hidden="true"><g transform="translate(8,10)"><path fill="#2dd4bf" d="M24 4 L44 44 L4 44 Z"/><rect x="18" y="22" width="12" height="14" fill="#0f172a"/></g><text x="58" y="40" font-family="Sora, sans-serif" font-size="22" font-weight="600" fill="#f1f5f9">imtehan</text></svg></div>
+      <footer><h3>Triangle play + I</h3><p>Suggests “start session” / forward motion.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="300" height="64" viewBox="0 0 300 64" aria-hidden="true"><g transform="translate(6,6)"><rect x="4" y="4" width="40" height="40" rx="8" fill="#4338ea"/><rect x="18" y="12" width="12" height="24" rx="1" fill="#fff"/></g><text x="58" y="40" font-family="Instrument Sans, sans-serif" font-size="24" font-weight="600" fill="#111827">imtehan</text></svg></div>
+      <footer><h3>Purple tile I</h3><p>Indigo accent differentiator in market.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Ultra-minimal favicon set (16–32px)</h2></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview split">
+        <div class="l" style="transform:scale(2)"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0f172a"/><rect x="13" y="8" width="6" height="16" fill="#fff"/></svg></div>
+        <div class="d" style="transform:scale(2)"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#14b8a6"/><rect x="13" y="8" width="6" height="16" fill="#0f172a"/></svg></div>
+      </div>
+      <footer><h3>Favicon I-bar</h3><p>Dead simple; maximum legibility at 16px.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l" style="transform:scale(2)"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#4338ca"/><circle cx="16" cy="16" r="6" fill="#fff"/></svg></div>
+        <div class="d" style="transform:scale(2)"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1e293b"/><circle cx="16" cy="16" r="6" fill="#2dd4bf"/></svg></div>
+      </div>
+      <footer><h3>Favicon dot</h3><p>Selected option — works as notification badge base.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l" style="transform:scale(2)"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path fill="#0f766e" d="M6 26 L16 6 L26 26 Z"/><path fill="#fff" d="M14 22h4v2h-4z"/></svg></div>
+        <div class="d" style="transform:scale(2)"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path fill="#2dd4bf" d="M6 26 L16 6 L26 26 Z"/><path fill="#0f172a" d="M14 22h4v2h-4z"/></svg></div>
+      </div>
+      <footer><h3>Favicon mountain</h3><p>Tiny peak = “level up.”</p></footer>
+    </article>
+  </div>
+
+  <section><h2>More marks</h2></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#111827" stroke-width="6" stroke-linecap="round" d="M36 58 C36 40 52 36 60 50 C68 36 84 40 84 58 C84 76 68 80 60 66 C52 80 36 76 36 58 Z"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round" d="M36 58 C36 40 52 36 60 50 C68 36 84 40 84 58 C84 76 68 80 60 66 C52 80 36 76 36 58 Z"/></svg></div>
+      </div>
+      <footer><h3>Continuous loop</h3><p>Revision cycles, infinite practice mode.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" d="M28 72 L44 72 M52 72 L68 72 M76 72 L92 72"/><path fill="none" stroke="#111827" stroke-width="8" stroke-linecap="round" d="M28 48 L40 48 M48 48 L72 48 M80 48 L92 48"/><path fill="none" stroke="#4338ca" stroke-width="8" stroke-linecap="round" d="M28 24 L52 24 M60 24 L92 24"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#5eead4" stroke-width="8" stroke-linecap="round" d="M28 72 L44 72 M52 72 L68 72 M76 72 L92 72"/><path fill="none" stroke="#94a3b8" stroke-width="8" stroke-linecap="round" d="M28 48 L40 48 M48 48 L72 48 M80 48 L92 48"/><path fill="none" stroke="#a5b4fc" stroke-width="8" stroke-linecap="round" d="M28 24 L52 24 M60 24 L92 24"/></svg></div>
+      </div>
+      <footer><h3>Signal strength</h3><p>Readiness / score metaphor without numbers.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#111827" d="M30 30 H90 V90 H30 Z" opacity=".12"/><path fill="#111827" d="M30 30 H90 L30 90 Z"/><circle cx="72" cy="48" r="8" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#f8fafc" d="M30 30 H90 V90 H30 Z" opacity=".08"/><path fill="#e2e8f0" d="M30 30 H90 L30 90 Z"/><circle cx="72" cy="48" r="8" fill="#2dd4bf"/></svg></div>
+      </div>
+      <footer><h3>Folded corner</h3><p>PDF / past paper association.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="34" y="34" width="52" height="52" rx="12" fill="none" stroke="#111827" stroke-width="4"/><path fill="#0f766e" d="M50 70 L58 78 L74 54 L66 48 L58 60 L52 54 Z"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="34" y="34" width="52" height="52" rx="12" fill="none" stroke="#64748b" stroke-width="4"/><path fill="#2dd4bf" d="M50 70 L58 78 L74 54 L66 48 L58 60 L52 54 Z"/></svg></div>
+      </div>
+      <footer><h3>Rounded verify</h3><p>Soft square + check — friendly completion.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="24" x2="60" y2="96" stroke="#111827" stroke-width="4"/><line x1="36" y1="40" x2="84" y2="80" stroke="#111827" stroke-width="4" opacity=".35"/><line x1="84" y1="40" x2="36" y2="80" stroke="#111827" stroke-width="4" opacity=".35"/><circle cx="60" cy="60" r="10" fill="#4338ca"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="24" x2="60" y2="96" stroke="#f8fafc" stroke-width="4"/><line x1="36" y1="40" x2="84" y2="80" stroke="#64748b" stroke-width="4"/><line x1="84" y1="40" x2="36" y2="80" stroke="#64748b" stroke-width="4"/><circle cx="60" cy="60" r="10" fill="#a5b4fc"/></svg></div>
+      </div>
+      <footer><h3>Axis star</h3><p>Compass / calibration — precision prep.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Sora,sans-serif" font-size="52" font-weight="700" fill="#111827">i</text><circle cx="69" cy="38" r="7" fill="#0f766e"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Sora,sans-serif" font-size="52" font-weight="700" fill="#f8fafc">i</text><circle cx="69" cy="38" r="7" fill="#2dd4bf"/></svg></div>
+      </div>
+      <footer><h3>Lowercase i mark</h3><p>Literal brand initial; dot as accent color.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Full color theme systems</h2>
+  <p class="lede" style="max-width:70ch; margin:0.25rem 0 0; font-size:0.9rem">Each block uses one coherent palette: icon, wordmark gradient, and dark-mode variant. Pick a row you love, then lock the hex codes in your design system.</p></section>
+  <div class="grid wide-1" style="grid-template-columns:1fr; max-width:1200px; margin:0 auto">
+    <article class="card theme-board" style="--tb: #e11d48">
+      <div class="themed-canvas" style="background: linear-gradient(160deg, #fff7ed 0%, #ffffff 50%)">
+        <div class="theme-head">
+          <div>
+            <h3 class="theme-name">Sunset sorbet</h3>
+            <p class="theme-mood">Rose and coral; energetic, friendly, great for social and onboarding.</p>
+          </div>
+          <div class="swatches" role="list" aria-label="Swatches">
+            <div class="sw" style="background:#e11d48" title="rose"></div>
+            <div class="sw" style="background:#f97316" title="coral"></div>
+            <div class="sw" style="background:#fbbf24" title="amber"></div>
+            <div class="sw" style="background:#1c1917" title="ink"></div>
+          </div>
+        </div>
+        <div class="theme-samples">
+          <div class="ts sand"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><circle cx="46" cy="60" r="30" fill="#e11d48" opacity=".88"/><circle cx="74" cy="60" r="30" fill="#f97316" opacity=".8"/></svg></div>
+          <div class="ts sand"><svg width="220" height="64" viewBox="0 0 220 64" aria-hidden="true"><defs><linearGradient id="pSunW" x1="0%" y1="0%" x2="100%" y2="0"><stop offset="0%" stop-color="#e11d48"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs><text x="4" y="44" font-family="Plus Jakarta Sans, sans-serif" font-size="28" font-weight="800" fill="url(#pSunW)">imtehan</text></svg></div>
+          <div class="ts soft"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="pSunH" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#e11d48"/></linearGradient></defs><path fill="url(#pSunH)" d="M60 22 L88 38 L88 70 L60 86 L32 70 L32 38 Z"/><rect x="54" y="40" width="12" height="36" rx="1" fill="#fff7ed"/></svg></div>
+          <div class="ts cocoa"><svg width="32" height="32" viewBox="0 0 32 32" style="width:100%; max-width:120px" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e11d48"/><path fill="#fff7ed" d="M6 20 L12 25 L24 9" stroke="#fff7ed" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <footer><h3>Palette · warm juice</h3><p>Contrast: ink text on cream; use amber for “correct” states.</p></footer>
+    </article>
+
+    <article class="card theme-board" style="--tb: #0ea5e9">
+      <div class="themed-canvas" style="background: linear-gradient(180deg, #f0f9ff 0%, #fff 45%)">
+        <div class="theme-head">
+          <div>
+            <h3 class="theme-name">Nordic ice</h3>
+            <p class="theme-mood">Sky blue, crisp, trustworthy; fits academic and govt-prep context.</p>
+          </div>
+          <div class="swatches" aria-label="Swatches">
+            <div class="sw" style="background:#0284c7" title="blue"></div>
+            <div class="sw" style="background:#7dd3fc" title="ice"></div>
+            <div class="sw" style="background:#0c4a6e" title="navy text"></div>
+            <div class="sw" style="background:#f0f9ff" title="mist"></div>
+          </div>
+        </div>
+        <div class="theme-samples">
+          <div class="ts mist"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="40" fill="none" stroke="#7dd3fc" stroke-width="3"/><rect x="54" y="28" width="12" height="64" rx="2" fill="#0284c7"/></svg></div>
+          <div class="ts mist"><svg width="240" height="64" viewBox="0 0 240 64" aria-hidden="true"><text x="2" y="40" font-family="Space Grotesk, sans-serif" font-size="30" font-weight="600" fill="#0c4a6e">imtehan</text></svg></div>
+          <div class="ts mist"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" d="M34 62 L52 78 L88 42"/><path fill="none" stroke="#7dd3fc" stroke-width="3" d="M60 22 A40 40 0 1 1 60 18"/></svg></div>
+          <div class="ts ink"><svg width="32" height="32" viewBox="0 0 32 32" style="width:100%; max-width:120px" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0c4a6e"/><circle cx="16" cy="16" r="6" fill="#7dd3fc"/></svg></div>
+        </div>
+      </div>
+      <footer><h3>Palette · arctic</h3><p>Pair ice blue for highlights and disabled UI; navy for all body copy on white.</p></footer>
+    </article>
+
+    <article class="card theme-board" style="--tb: #6d28d9">
+      <div class="themed-canvas" style="background: linear-gradient(145deg, #f5f3ff 0%, #ffffff 60%)">
+        <div class="theme-head">
+          <div>
+            <h3 class="theme-name">Regal amethyst &amp; gold</h3>
+            <p class="theme-mood">Premium coaching; gold accents for achievements and “selected” options.</p>
+          </div>
+          <div class="swatches" aria-label="Swatches">
+            <div class="sw" style="background:#5b21b6" title="violet"></div>
+            <div class="sw" style="background:#d97706" title="gold"></div>
+            <div class="sw" style="background:#1e1b4b" title="midnight"></div>
+            <div class="sw" style="background:#fef3c7" title="parchment"></div>
+          </div>
+        </div>
+        <div class="theme-samples">
+          <div class="ts soft"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><rect x="24" y="24" width="72" height="72" rx="12" fill="#1e1b4b"/><rect x="32" y="40" width="36" height="3" fill="#4c1d95" opacity=".4"/><rect x="32" y="50" width="48" height="3" fill="#4c1d95" opacity=".35"/><rect x="32" y="60" width="30" height="2.5" fill="#4c1d95" opacity=".3"/><rect x="54" y="68" width="12" height="22" rx="1" fill="#d97706"/></svg></div>
+          <div class="ts soft"><svg width="280" height="64" viewBox="0 0 280 64" aria-hidden="true"><text x="4" y="42" font-family="Fraunces, Georgia, serif" font-size="32" font-weight="600" fill="#1e1b4b">Imte</text><text x="86" y="42" font-family="Fraunces, Georgia, serif" font-size="32" font-weight="600" fill="#5b21b6">han</text></svg></div>
+          <div class="ts cream"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#d97706" stroke-width="4" d="M60 22 L60 100"/><path fill="none" stroke="#5b21b6" stroke-width="3" d="M28 44 L60 32 L92 44"/><circle cx="60" cy="70" r="8" fill="#1e1b4b" stroke="#d97706" stroke-width="2"/></svg></div>
+          <div class="ts" style="background:#1e1b4b"><svg width="32" height="32" viewBox="0 0 32 32" style="width:100%; max-width:120px" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#5b21b6"/><text x="16" y="22" text-anchor="middle" font-family="Sora" font-size="16" font-weight="700" fill="#fbbf24">i</text></svg></div>
+        </div>
+      </div>
+      <footer><h3>Palette · royal study</h3><p>Gold sparingly: badges, streaks, and primary CTAs; purple drives the brand mark.</p></footer>
+    </article>
+
+    <article class="card theme-board" style="--tb: #a3e635">
+      <div class="themed-canvas" style="background: #18181b; color: #e4e4e7">
+        <div class="theme-head" style="color: #a1a1aa">
+          <div>
+            <h3 class="theme-name" style="color: #f4f4f5">Lime on graphite</h3>
+            <p class="theme-mood" style="color: #a1a1aa">Contemporary “studio” / dev-tool energy; very legible in dark mode.</p>
+          </div>
+          <div class="swatches" aria-label="Swatches">
+            <div class="sw" style="background:#a3e635" title="lime"></div>
+            <div class="sw" style="background:#22d3ee" title="cyan"></div>
+            <div class="sw" style="background:#18181b" title="graphite" style="box-shadow: inset 0 0 0 1px #3f3f46"></div>
+            <div class="sw" style="background:#fafafa" title="chalk"></div>
+          </div>
+        </div>
+        <div class="theme-samples">
+          <div class="ts void"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><rect x="32" y="32" width="56" height="56" rx="12" fill="none" stroke="#3f3f46" stroke-width="2"/><path fill="none" stroke="#a3e635" stroke-width="4" stroke-linecap="round" d="M38 64 L56 80 L90 40"/><circle cx="60" cy="44" r="4" fill="#22d3ee"/></svg></div>
+          <div class="ts void"><svg width="250" height="64" viewBox="0 0 250 64" aria-hidden="true"><text x="4" y="42" font-family="Space Grotesk" font-size="32" font-weight="600" fill="#fafafa">im</text><text x="64" y="42" font-family="Space Grotesk" font-size="32" font-weight="600" fill="#a3e635">te</text><text x="98" y="42" font-family="Space Grotesk" font-size="32" font-weight="600" fill="#fafafa">han</text></svg></div>
+          <div class="ts void"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke-width="3.5" stroke-linecap="round"><path stroke="#3f3f46" d="M36 30 H84 V90 H36 Z"/><path stroke="#a3e635" d="M44 44 H76 M44 58 H72 M44 72 H78"/></g></svg></div>
+          <div class="ts void"><svg width="32" height="32" viewBox="0 0 32 32" style="width:100%; max-width:120px" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#27272a"/><path fill="none" stroke="#a3e635" stroke-width="2" d="M8 16h16M16 8v16"/></svg></div>
+        </div>
+      </div>
+      <footer><h3>Palette · night code</h3><p>Neon is secondary; use zinc grays for surfaces so lime stays punchy.</p></footer>
+    </article>
+
+    <article class="card theme-board" style="--tb: #78350f">
+      <div class="themed-canvas" style="background: linear-gradient(180deg, #fffbeb 0%, #fff 55%)">
+        <div class="theme-head">
+          <div>
+            <h3 class="theme-name">Mocha &amp; caramel</h3>
+            <p class="theme-mood">Café / library warmth; less “tech,” more focused study time.</p>
+          </div>
+          <div class="swatches" aria-label="Swatches">
+            <div class="sw" style="background:#78350f" title="mocha"></div>
+            <div class="sw" style="background:#f59e0b" title="amber"></div>
+            <div class="sw" style="background:#fef3c7" title="caramel paper"></div>
+            <div class="sw" style="background:#292524" title="espresso text"></div>
+          </div>
+        </div>
+        <div class="theme-samples">
+          <div class="ts cream"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><rect x="34" y="30" width="52" height="64" rx="3" fill="#78350f"/><rect x="40" y="40" width="18" height="2.5" fill="#fef3c7" opacity=".4"/><rect x="40" y="48" width="40" height="2" fill="#fef3c7" opacity=".3"/><rect x="40" y="56" width="36" height="2" fill="#fef3c7" opacity=".25"/><circle cx="60" cy="80" r="5" fill="#f59e0b"/></svg></div>
+          <div class="ts cream"><svg width="260" height="64" viewBox="0 0 260 64" aria-hidden="true"><text x="2" y="40" font-family="Instrument Sans" font-size="30" font-weight="600" fill="#292524" letter-spacing="-0.02em">imtehan</text><rect x="176" y="20" width="3" height="3" rx="0.5" fill="#d97706"/></svg></div>
+          <div class="ts soft"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><path fill="#d97706" d="M60 28 L80 50 L70 50 L70 90 L50 90 L50 50 L40 50 Z" opacity=".85"/><rect x="56" y="52" width="8" height="20" fill="#fffbeb" rx="1"/></svg></div>
+          <div class="ts" style="background:#292524"><svg width="32" height="32" viewBox="0 0 32 32" style="width:100%; max-width:120px" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#78350f"/><rect x="12" y="7" width="8" height="12" fill="#fffbeb" rx="1"/></svg></div>
+        </div>
+      </div>
+      <footer><h3>Palette · study lounge</h3><p>Rich brown for depth; use caramel paper for cards and question stems.</p></footer>
+    </article>
+
+    <article class="card theme-board" style="--tb: #db2777">
+      <div class="themed-canvas" style="background: linear-gradient(200deg, #fdf4ff 0%, #ffffff 55%)">
+        <div class="theme-head">
+          <div>
+            <h3 class="theme-name">Berry soda</h3>
+            <p class="theme-mood">Vibrant Gen-Z app feel; fuchsia and violet for personality.</p>
+          </div>
+          <div class="swatches" aria-label="Swatches">
+            <div class="sw" style="background:#be185d" title="fuchsia"></div>
+            <div class="sw" style="background:#7c3aed" title="violet"></div>
+            <div class="sw" style="background:#fbcfe8" title="blossom"></div>
+            <div class="sw" style="background:#4b5563" title="slate text"></div>
+          </div>
+        </div>
+        <div class="theme-samples">
+          <div class="ts berrybg"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="pBerG" x1="0%" y1="100%" x2="100%" y2="0"><stop stop-color="#be185d"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><circle cx="50" cy="60" r="32" fill="url(#pBerG)" opacity=".92"/><circle cx="70" cy="60" r="12" fill="#fdf4ff"/></svg></div>
+          <div class="ts berrybg"><svg width="250" height="64" viewBox="0 0 250 64" aria-hidden="true"><text x="2" y="42" font-family="Sora" font-size="32" font-weight="700" fill="#86198f">imt</text><text x="72" y="42" font-family="Sora" font-size="32" font-weight="700" fill="#6d28d9">ehan</text></svg></div>
+          <div class="ts soft"><svg width="100" height="100" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke-width="3.2" stroke-linecap="round"><path stroke="#be185d" d="M32 50 H88"/><path stroke="#7c3aed" d="M32 62 H88" opacity=".75"/><path stroke="#f472b6" d="M32 74 H80" opacity=".6"/></g><circle cx="100" cy="50" r="4" fill="#7c3aed"/></svg></div>
+          <div class="ts" style="background:#701a75"><svg width="32" height="32" viewBox="0 0 32 32" style="width:100%; max-width:120px" aria-hidden="true"><defs><linearGradient id="pBerFav" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#c026d3"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#pBerFav)"/><circle cx="16" cy="16" r="4" fill="#ffffff"/></svg></div>
+        </div>
+      </div>
+      <footer><h3>Palette · fizzy</h3><p>Balance with soft blossom backgrounds; reserve gradient for the logo only.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Vivid mark lab (mixed concepts)</h2>
+  <p class="lede" style="max-width:70ch; margin:0.25rem 0 0; font-size:0.9rem">New shapes, gradients, and duotone treatments — all minimal, all scalable SVG.</p></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="vC1" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#fb7185"/><stop offset="100%" stop-color="#7c2d12"/></radialGradient></defs><circle cx="60" cy="60" r="40" fill="url(#vC1)"/><rect x="52" y="32" width="16" height="48" rx="2" fill="#fff1f2" opacity="0.98"/><circle cx="60" cy="28" r="5" fill="#fff1f2"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="40" fill="#1e1b4b" stroke="#fb7185" stroke-width="2"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="Sora" font-size="44" font-weight="800" fill="#f43f5e">i</text><circle cx="70" cy="40" r="5" fill="#a78bfa"/></svg></div>
+      </div>
+      <footer><h3>Radial I</h3><p>Soft sunset orb with crisp “I” — wallpaper-friendly.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="vO1" x1="0" y1="0" x2="120" y2="120"><stop stop-color="#34d399"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><path fill="url(#vO1)" d="M60 20 L100 100 H20 Z"/><rect x="54" y="52" width="12" height="28" fill="white" opacity=".95" rx="1"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="#0f172a" stroke="#22c55e" stroke-width="1.5" d="M60 20 L100 100 H20 Z"/><rect x="54" y="52" width="12" height="28" fill="#38bdf8" rx="1"/></svg></div>
+      </div>
+      <footer><h3>Coastal peak</h3><p>Triangle + I bar: mountain meets ocean gradient.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 28 C38 28 30 50 30 50 L30 92 H90 S90 50 60 28" fill="none" stroke="#6366f1" stroke-width="5" stroke-linecap="round"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 28 C38 28 30 50 30 50 L30 92 H90 S90 50 60 28" fill="none" stroke="#a5b4fc" stroke-width="5" stroke-linecap="round" opacity=".85"/></svg></div>
+      </div>
+      <footer><h3>Ribbons I</h3><p>Single indigo stroke forming abstract “I” and shield.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="32" y="32" width="24" height="24" fill="#1e3a5f" opacity=".9"/><rect x="64" y="32" width="24" height="24" fill="#0ea5e9" opacity=".85"/><rect x="32" y="64" width="24" height="24" fill="#0ea5e9" opacity=".5"/><rect x="64" y="64" width="24" height="24" fill="#f59e0b"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="32" y="32" width="24" height="24" fill="#334155"/><rect x="64" y="32" width="24" height="24" fill="#22d3ee" opacity=".9"/><rect x="32" y="64" width="24" height="24" fill="#22d3ee" opacity=".35"/><rect x="64" y="64" width="24" height="24" fill="#fbbf24"/></svg></div>
+      </div>
+      <footer><h3>Quad tile</h3><p>Four-paper grid; one golden “highlight” block.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="vA1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fde047"/><stop offset="1" stop-color="#eab308"/></linearGradient></defs><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="Fraunces" font-size="64" font-weight="700" fill="url(#vA1)">I</text><line x1="32" y1="96" x2="88" y2="96" stroke="#292524" stroke-width="2"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="Fraunces" font-size="64" font-weight="700" fill="#fde047">I</text><line x1="32" y1="96" x2="88" y2="96" stroke="#a3a3a3" stroke-width="2" opacity=".5"/></svg></div>
+      </div>
+      <footer><h3>Column serif I</h3><p>Gold-gradient roman “I” + baseline — essay gravitas.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke-linecap="round" stroke-width="3.5" d="M32 50 Q60 28 88 50 Q60 72 32 50" stroke="#14b8a6"/><path fill="none" stroke-width="3.5" d="M40 64 Q60 40 80 64 Q60 88 40 64" stroke="#0d9488"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke-linecap="round" stroke-width="3.5" d="M32 50 Q60 28 88 50 Q60 72 32 50" stroke="#2dd4bf" opacity=".9"/><path fill="none" stroke-width="3.5" d="M40 64 Q60 40 80 64 Q60 88 40 64" stroke="#5eead4" opacity=".7"/></svg></div>
+      </div>
+      <footer><h3>Teal lenses</h3><p>Two nested rings — “focus on what matters.”</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60 60)"><circle r="6" fill="#0ea5e9" transform="rotate(0) translate(0 -34)"/><circle r="5" fill="#8b5cf6" transform="rotate(60) translate(0 -34)"/><circle r="5" fill="#ec4899" transform="rotate(120) translate(0 -34)"/><circle r="4" fill="#f59e0b" transform="rotate(180) translate(0 -34)"/><circle r="4" fill="#22c55e" transform="rotate(240) translate(0 -34)"/><circle r="3" fill="#6366f1" transform="rotate(300) translate(0 -34)"/></g><circle cx="60" cy="60" r="6" fill="#0f172a"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><g transform="translate(60 60)"><circle r="5" fill="#7dd3fc" transform="rotate(0) translate(0 -34)"/><circle r="5" fill="#c4b5fd" transform="rotate(72) translate(0 -34)"/><circle r="5" fill="#f9a8d4" transform="rotate(144) translate(0 -34)"/><circle r="4" fill="#fbbf24" transform="rotate(216) translate(0 -34)"/><circle r="3" fill="#4ade80" transform="rotate(288) translate(0 -34)"/></g><circle cx="60" cy="60" r="6" fill="#e2e8f0"/></svg></div>
+      </div>
+      <footer><h3>Subject orbit</h3><p>Colorful micro-dots for multi-subject breadth.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview split">
+        <div class="l"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#64748b" stroke-width="2" d="M32 32 H88 V88 H32 Z" stroke-dasharray="4 3"/><line x1="32" y1="48" x2="88" y2="80" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <div class="d"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><path fill="none" stroke="#475569" stroke-width="2" d="M32 32 H88 V88 H32 Z" stroke-dasharray="4 3"/><line x1="32" y1="48" x2="88" y2="80" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/></svg></div>
+      </div>
+      <footer><h3>Answer line</h3><p>Diagonal “slash” on MCQ form — your choice, marked.</p></footer>
+    </article>
+  </div>
+
+  <section><h2>Alternate palettes (original + extras)</h2></section>
+  <div class="grid">
+    <article class="card">
+      <div class="preview light"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="warm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c2410c"/><stop offset="100%" stop-color="#ea580c"/></linearGradient></defs><path fill="url(#warm)" d="M60 22 L88 38 L88 70 L60 86 L32 70 L32 38 Z"/><rect x="54" y="40" width="12" height="36" rx="1" fill="#fffbeb"/></svg></div>
+      <footer><h3>Warm hex</h3><p>Energetic, coaching vibe vs cool teal.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="48" cy="60" r="28" fill="#0369a1" opacity=".9"/><circle cx="72" cy="60" r="28" fill="#7c3aed" opacity=".75"/></svg></div>
+      <footer><h3>Cool overlap</h3><p>Blue + violet for trust + ambition.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="28" y="28" width="64" height="64" rx="16" fill="#171717"/><path fill="#fafafa" d="M52 28 H76 V92 H52 V64 H28 V56 H52 V28 Z"/></svg></div>
+      <footer><h3>Monochrome</h3><p>Print-safe, merch, X profile.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="exMint" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2dd4bf"/><stop offset="1" stop-color="#059669"/></linearGradient></defs><rect x="28" y="28" width="64" height="64" rx="20" fill="url(#exMint)"/><text x="60" y="72" text-anchor="middle" font-size="40" font-weight="800" font-family="Sora" fill="white" opacity=".95">i</text></svg></div>
+      <footer><h3>Mint gel</h3><p>Soft-UI tile; iOS / Material friendly.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect x="24" y="24" width="72" height="72" rx="10" fill="#0c0a09"/><path fill="none" stroke="#eab308" stroke-width="2.2" d="M36 70 L50 80 L86 40"/><rect x="52" y="36" width="4" height="20" fill="#fbbf24" rx="1" transform="rotate(12 54 46)"/></svg></div>
+      <footer><h3>Noir gold</h3><p>High-contrast luxury: black + single gold check.</p></footer>
+    </article>
+    <article class="card">
+      <div class="preview light"><svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" fill="#dbeafe" opacity="0"/><circle cx="50" cy="50" r="32" fill="#1d4ed8" opacity=".25"/><circle cx="70" cy="70" r="32" fill="#dc2626" opacity=".22"/><text x="60" y="68" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="32" font-weight="800" fill="#1e3a8a">I</text></svg></div>
+      <footer><h3>Flag echo</h3><p>Abstract halftone circles — subtle, use only if you want a civic nod.</p></footer>
+    </article>
+  </div>
+
+  <p class="mono-note">
+    Tip: pick one <strong>icon rule</strong> (stroke weight, corner radius, grid) and one <strong>wordmark</strong>, then reuse the accent only for CTAs. For production, export SVG → optimize with SVGO, and generate PNG/WebP at 32, 64, 192, 512 for PWA.
+  </p>
+
+  <script>
+    document.getElementById('invert').addEventListener('change', function () {
+      document.body.classList.toggle('invert-previews', this.checked);
+    });
+  </script>
+</body>
+</html>

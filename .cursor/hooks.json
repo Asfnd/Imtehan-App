@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/ensure-auto-push.sh"
+      }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/auto-push.sh"
+      }
+    ]
+  }
+}
