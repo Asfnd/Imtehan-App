@@ -95,15 +95,7 @@ export default function ExamSeoSection({ slug, config }: { slug: string; config:
               ))}
             </ul>
             <p className="mt-3 text-sm text-gray-500">
-              Each subject has{' '}
-              <Link href={`/exams/${slug}/${subjects[0]?.slug}/most-repeated`} className="text-blue-600 hover:underline">
-                most repeated
-              </Link>
-              ,{' '}
-              <Link href={`/exams/${slug}/${subjects[0]?.slug}/past-papers`} className="text-blue-600 hover:underline">
-                past paper
-              </Link>
-              {' '}and practice mode sets.
+              Each subject has most repeated, past paper and practice mode sets — open any subject above to start.
             </p>
           </div>
         )}

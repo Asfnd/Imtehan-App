@@ -29,7 +29,9 @@ export default function SubjectSeoSection({
     config,
   )
   const subjectBase = `/exams/${examSlug}/${subjectSlug}`
-  const related = getRelatedExamSlugs(examSlug, config.category, 5)
+  const related = getRelatedExamSlugs(examSlug, config.category, 5).filter((exam) =>
+    getExamConfig(exam.slug)?.sections.some((s) => s.slug === subjectSlug),
+  )
 
   const faqJsonLd = {
     '@context': 'https://schema.org',

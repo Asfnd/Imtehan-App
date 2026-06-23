@@ -116,13 +116,14 @@ export default async function ExamSubjectLayout({
           const correctText = (mcq as unknown as Record<string, string>)[correctKey] ?? mcq.correct_answer
           return {
             '@type': 'Question',
-            'name': mcq.question,
-            'acceptedAnswer': { '@type': 'Answer', 'text': correctText },
-            'suggestedAnswer': [
-              { '@type': 'Answer', 'text': mcq.option_a },
-              { '@type': 'Answer', 'text': mcq.option_b },
-              { '@type': 'Answer', 'text': mcq.option_c },
-              { '@type': 'Answer', 'text': mcq.option_d },
+            eduQuestionType: 'Multiple choice',
+            text: mcq.question,
+            acceptedAnswer: { '@type': 'Answer', text: correctText },
+            suggestedAnswer: [
+              { '@type': 'Answer', text: mcq.option_a },
+              { '@type': 'Answer', text: mcq.option_b },
+              { '@type': 'Answer', text: mcq.option_c },
+              { '@type': 'Answer', text: mcq.option_d },
             ],
           }
         }),

@@ -754,7 +754,7 @@ export function getSubjectSeoContent(
   const examName = config.name
   const subjectName = subjectLabel(subjectSlug)
 
-  const h1 = `${examName}: ${subjectName} MCQs with Answers`
+  const h1 = `${examName} ${subjectName} MCQs with Answers — Past Papers & Practice`
   const intro =
     `Practice ${examName} ${subjectName} multiple-choice questions with answers and detailed explanations. ` +
     `Imtehan organises ${subjectName} into most-repeated, most-important and past-paper sets of around 20 questions each, ` +
