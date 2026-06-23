@@ -3,7 +3,8 @@ import fs from 'fs'
 import path from 'path'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
-import { isSeoIndexableExam } from '@/lib/seo/sitemap-tiers'
+import { PRACTICE_MODES } from '@/lib/seo/sitemap-tiers'
+import { CATEGORY_SLUGS } from '@/lib/seo/categoryContent'
 
 // Known publish/update dates for blog posts (freshness signal). Any blog post
 // directory not listed here still gets indexed; it just falls back to today.
@@ -157,30 +158,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/terms`,   lastModified: staticDate, changeFrequency: 'yearly',  priority: 0.5 },
   ]
 
-  // Dynamically generated exam + subject pages from all 211 exam configs
+  // Category hub pages (PPSC, FPSC, FIA, etc.) — editorial pillars for internal linking
+  const categoryPages: MetadataRoute.Sitemap = CATEGORY_SLUGS.map((category) => ({
+    url: `${baseUrl}/exams/category/${category}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.88,
+  }))
+
+  // All exam hubs, subject pages, and mode pages (primary ranking URLs)
   const examPages: MetadataRoute.Sitemap = []
 
-  // /exams browse page
   examPages.push({ url: `${baseUrl}/exams`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 })
 
   for (const [slug, config] of Object.entries(EXAM_CONFIGS)) {
-    if (!isSeoIndexableExam(slug, config.category)) continue
+    const hubPriority =
+      config.category === 'css' || config.category === 'pms' ? 0.9 : 0.85
 
-    // Exam hub page
     examPages.push({
       url: `${baseUrl}/exams/${slug}`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: config.category === 'css' || config.category === 'pms' ? 0.9 : 0.85,
+      priority: hubPriority,
     })
-    // Subject pages
+
     for (const section of config.sections) {
       examPages.push({
         url: `${baseUrl}/exams/${slug}/${section.slug}`,
         lastModified: currentDate,
         changeFrequency: 'weekly',
-        priority: config.category === 'css' || config.category === 'pms' ? 0.8 : 0.75,
+        priority: hubPriority - 0.05,
       })
+
+      for (const mode of PRACTICE_MODES) {
+        examPages.push({
+          url: `${baseUrl}/exams/${slug}/${section.slug}/${mode}`,
+          lastModified: currentDate,
+          changeFrequency: 'weekly',
+          priority: 0.72,
+        })
+      }
     }
   }
 
@@ -192,6 +209,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...fscPages,
     ...blogPages,
     ...infoPages,
+    ...categoryPages,
     ...examPages,
   ]
 }

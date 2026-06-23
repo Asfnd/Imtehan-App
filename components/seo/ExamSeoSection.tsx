@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { ExamConfig } from '@/lib/exam-configs'
 import { getExamSeoContent } from '@/lib/seo/examContent'
+import { getRelatedExamSlugs } from '@/lib/seo/related-exams'
 
 /**
  * Server-rendered, exam-specific SEO content for each exam hub page.
@@ -13,6 +14,8 @@ import { getExamSeoContent } from '@/lib/seo/examContent'
 export default function ExamSeoSection({ slug, config }: { slug: string; config: ExamConfig }) {
   const { h1, intro, facts, subjects, faqs, highlights, prep } = getExamSeoContent(slug, config)
   const base = `https://imtehan.com/exams/${slug}`
+  const related = getRelatedExamSlugs(slug, config.category)
+  const categoryHub = `/exams/category/${config.category}`
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -90,6 +93,43 @@ export default function ExamSeoSection({ slug, config }: { slug: string; config:
                   </Link>
                 </li>
               ))}
+            </ul>
+            <p className="mt-3 text-sm text-gray-500">
+              Each subject has{' '}
+              <Link href={`/exams/${slug}/${subjects[0]?.slug}/most-repeated`} className="text-blue-600 hover:underline">
+                most repeated
+              </Link>
+              ,{' '}
+              <Link href={`/exams/${slug}/${subjects[0]?.slug}/past-papers`} className="text-blue-600 hover:underline">
+                past paper
+              </Link>
+              {' '}and practice mode sets.
+            </p>
+          </div>
+        )}
+
+        {related.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold text-gray-900">Related exams</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {related.map((exam) => (
+                <li key={exam.slug}>
+                  <Link
+                    href={`/exams/${exam.slug}`}
+                    className="inline-flex rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-sm font-medium text-gray-700 hover:border-blue-300 hover:bg-blue-50"
+                  >
+                    {exam.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href={categoryHub}
+                  className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3.5 py-1.5 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
+                >
+                  All {config.category.toUpperCase()} exams →
+                </Link>
+              </li>
             </ul>
           </div>
         )}

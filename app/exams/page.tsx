@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { FileText, ChevronDown, LayoutGrid } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
+import ExamsBrowseSeoSection from '@/components/seo/ExamsBrowseSeoSection'
 
 const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; description: string }> = {
   medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'Medical & Dental College Admission Test: UHS, NUMS, AKU' },

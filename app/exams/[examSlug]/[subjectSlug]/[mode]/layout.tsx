@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
 import ModeSeoSection from '@/components/seo/ModeSeoSection'
 import { fetchSampleMcqs } from '@/lib/seo/fetch-sample-mcqs'
-import { examIndexingMeta, isSeoIndexableExam } from '@/lib/seo/sitemap-tiers'
+import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 
 const SUBJECT_LABELS: Record<string, string> = {
   'english':           'English',
@@ -24,8 +24,8 @@ const SUBJECT_LABELS: Record<string, string> = {
 const MODE_LABELS: Record<string, { label: string; desc: string }> = {
   'most-repeated':  { label: 'Most Repeated',  desc: 'high-yield frequently asked' },
   'most-important': { label: 'Most Important', desc: 'critical must-know' },
-  'past-papers':    { label: 'Past Papers',    desc: 'actual past paper' },
-  'practice':       { label: 'Practice',       desc: 'mixed' },
+  'past-papers':    { label: 'Past Papers',    desc: 'solved past paper' },
+  'practice':       { label: 'Practice',       desc: 'mixed practice' },
 }
 
 export async function generateMetadata({
@@ -39,19 +39,19 @@ export async function generateMetadata({
   const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
   const modeMeta = MODE_LABELS[mode] ?? { label: mode, desc: 'practice' }
 
-  const title = `${examName} ${subjectName}: ${modeMeta.label} MCQs | Imtehan`
-  const description = `Practice ${examName} ${subjectName} ${modeMeta.desc} MCQs in topic-wise sets of 20. Detailed explanations and answers for every question.`
   const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}/${mode}`
-  const parentCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}`
-  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical, parentCanonical)
+  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical)
+
+  const title = `${examName} ${subjectName} ${modeMeta.label} MCQs Solved Online | Imtehan`
+  const description = `Free ${examName} ${subjectName} ${modeMeta.desc} MCQs with solved answers. Practice online in sets of 20 — most repeated & past paper questions for Pakistan competitive exams.`
 
   return {
     title,
     description,
     keywords: [
       `${examName} ${subjectName} ${modeMeta.label.toLowerCase()} MCQs`,
-      `${examName} ${subjectName} MCQs`,
-      `${examName} ${modeMeta.label.toLowerCase()} questions`,
+      `${examName} ${subjectName} past papers solved`,
+      `${examName} ${subjectName} MCQs online test`,
       `${subjectName} MCQs Pakistan`,
       'competitive exam MCQ practice',
     ],
@@ -76,24 +76,20 @@ export default async function ExamModeLayout({
   const { examSlug, subjectSlug, mode } = await params
   const config = getExamConfig(examSlug)
   const section = config?.sections.find((s) => s.slug === subjectSlug)
-  const indexable = isSeoIndexableExam(examSlug, config?.category)
 
-  const sampleMcqs =
-    indexable && section?.dbTable
-      ? await fetchSampleMcqs(section.dbTable, mode, 5)
-      : []
+  const sampleMcqs = section?.dbTable
+    ? await fetchSampleMcqs(section.dbTable, mode, 5)
+    : []
 
   return (
     <>
       {children}
-      {indexable && (
-        <ModeSeoSection
-          examSlug={examSlug}
-          subjectSlug={subjectSlug}
-          mode={mode}
-          sampleMcqs={sampleMcqs}
-        />
-      )}
+      <ModeSeoSection
+        examSlug={examSlug}
+        subjectSlug={subjectSlug}
+        mode={mode}
+        sampleMcqs={sampleMcqs}
+      />
     </>
   )
 }

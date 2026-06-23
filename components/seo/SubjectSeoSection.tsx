@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getExamConfig } from '@/lib/exam-configs'
 import { getSubjectSeoContent } from '@/lib/seo/examContent'
+import { getRelatedExamSlugs } from '@/lib/seo/related-exams'
 
 /**
  * Server-rendered, exam+subject-specific SEO content for each exam subject page.
@@ -28,6 +29,7 @@ export default function SubjectSeoSection({
     config,
   )
   const subjectBase = `/exams/${examSlug}/${subjectSlug}`
+  const related = getRelatedExamSlugs(examSlug, config.category, 5)
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -65,6 +67,24 @@ export default function SubjectSeoSection({
             ))}
           </ul>
         </div>
+
+        {related.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold text-gray-900">Similar exams</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {related.map((exam) => (
+                <li key={exam.slug}>
+                  <Link
+                    href={`/exams/${exam.slug}/${subjectSlug}`}
+                    className="inline-flex rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-blue-300 hover:bg-blue-50"
+                  >
+                    {exam.name} {subjectName}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="mt-10">
           <h2 className="text-lg font-semibold text-gray-900">

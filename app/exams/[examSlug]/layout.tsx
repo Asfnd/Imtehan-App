@@ -76,7 +76,7 @@ export async function generateMetadata({
   const description = seo?.description
     ?? `Practice ${config.name} MCQs subject-wise. ${config.totalMCQs}+ questions with answers and explanations for complete exam preparation.`
   const selfCanonical = `https://imtehan.com/exams/${examSlug}`
-  const indexing = examIndexingMeta(examSlug, config.category, selfCanonical, 'https://imtehan.com/exams')
+  const indexing = examIndexingMeta(examSlug, config.category, selfCanonical)
 
   return {
     title: `${config.name} MCQs: Practice Sets with Answers | Imtehan`,

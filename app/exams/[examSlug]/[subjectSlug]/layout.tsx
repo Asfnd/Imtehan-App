@@ -57,11 +57,11 @@ export async function generateMetadata({
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
   const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
 
-  const title = `${examName}: ${subjectName} MCQs with Answers | Imtehan`
-  const description = `Practice ${examName} ${subjectName} MCQs in sets of 20. Includes most repeated, most important, and past paper questions with detailed explanations.`
   const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}`
-  const parentCanonical = `https://imtehan.com/exams/${examSlug}`
-  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical, parentCanonical)
+  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical)
+
+  const title = `${examName} ${subjectName} MCQs with Answers — Past Papers & Practice | Imtehan`
+  const description = `Practice ${examName} ${subjectName} MCQs online free. Most repeated, past paper and practice sets of 20 with solved answers and explanations.`
 
   return {
     title,
