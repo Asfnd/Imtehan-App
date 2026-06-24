@@ -18,7 +18,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
  */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [initialized, setInitialized] = useState(false)
 
   useEffect(() => {
@@ -40,7 +40,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    checkInitialAuth()
+    const runAuthCheck = () => {
+      void checkInitialAuth()
+    }
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(runAuthCheck, { timeout: 2500 })
+    } else {
+      setTimeout(runAuthCheck, 0)
+    }
 
     // Subscribe to auth changes (triggered by sign in/out/token refresh)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(

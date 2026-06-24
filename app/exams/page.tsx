@@ -203,12 +203,7 @@ const EXAMS_CATALOG_JSONLD = JSON.stringify({
   name: 'Competitive Exams on Imtehan',
   description: 'Catalog of Pakistani competitive exams available for MCQ practice on Imtehan.',
   numberOfItems: Object.keys(EXAM_CONFIGS).length,
-  itemListElement: Object.entries(EXAM_CONFIGS).map(([slug, config], i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    name: config.name,
-    url: `https://imtehan.com/exams/${slug}`,
-  })),
+  url: 'https://imtehan.com/exams',
 })
 
 const EXAMS_BREADCRUMB_JSONLD = JSON.stringify({

@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import NavigationBar from '@/components/NavigationBar'
-import BlogComments from './BlogComments'
 import { createClient } from '@/lib/supabase/client'
 import type { Heading, RelatedPost } from './blog-utils'
+
+const BlogComments = dynamic(() => import('./BlogComments'), { ssr: false })
 
 export type { Heading, RelatedPost }
 
@@ -53,7 +55,7 @@ export default function BlogPostShell({
   const [saved, setSaved]                 = useState(false)
   const [copied, setCopied]               = useState(false)
 
-  // Load clap count + whether this session has clapped
+  // Load clap count after first paint
   useEffect(() => {
     async function loadClaps() {
       const supabase   = createClient()
@@ -75,7 +77,15 @@ export default function BlogPostShell({
       setClaps(count ?? 0)
       setClapped(!!mine)
     }
-    loadClaps()
+
+    const run = () => {
+      void loadClaps()
+    }
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(run, { timeout: 3000 })
+    } else {
+      setTimeout(run, 500)
+    }
   }, [slug])
 
   // Load saved state from localStorage

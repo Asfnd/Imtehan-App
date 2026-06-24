@@ -1,113 +1,16 @@
 'use client'
 
 import Link from "next/link"
+import dynamic from 'next/dynamic'
 import { Button } from "@/components/ui/Button"
-import { ArrowRight, BookOpen, BarChart3, Users, Trophy, Target, Clock, ChevronDown } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { InfiniteMarquee } from "@/components/InfiniteMarquee"
-import { AnimatedText } from "@/components/AnimatedText"
-import NavigationBar from "@/components/NavigationBar"
-import { CSSExamCountdown } from "@/components/CSSExamCountdown"
+import { ArrowRight, BookOpen, BarChart3, Users, Trophy, Target, Clock } from "lucide-react"
+import { useState } from "react"
 import { PREMIUM_PAGE_PATH } from "@/lib/routes"
 
-const MEDICAL_CATEGORIES = [
-  { key: 'mdcat', label: 'MDCAT', href: '/mdcat' },
-  { key: 'fsc', label: 'FSc Pre-Medical', href: '/fsc' },
-];
-
-const ENGINEERING_CATEGORIES = [
-  { key: 'ecat', label: 'ECAT', href: '/exams?category=engineering&exam=ecat' },
-  { key: 'net-engineering', label: 'NUST NET', href: '/exams?category=engineering&exam=net-engineering' },
-  { key: 'giki-entry', label: 'GIKI', href: '/exams?category=engineering&exam=giki-entry' },
-  { key: 'pieas-entry', label: 'PIEAS', href: '/exams?category=engineering&exam=pieas-entry' },
-  { key: 'lums-engineering', label: 'LUMS LCAT', href: '/exams?category=engineering&exam=lums-engineering' },
-  { key: 'comsats', label: 'COMSATS', href: '/exams?category=engineering&exam=comsats-engineering' },
-];
-
-const COMPETITIVE_CATEGORIES = [
-  { key: 'css', label: 'CSS', href: '/css' },
-  { key: 'pms', label: 'PMS', href: '/exams/pms-competitive' },
-  { key: 'ppsc', label: 'PPSC', href: '/exams?category=ppsc' },
-  { key: 'fpsc', label: 'FPSC', href: '/exams?category=fpsc' },
-  { key: 'fia', label: 'FIA', href: '/exams?category=fia' },
-  { key: 'provincial', label: 'Provincial', href: '/exams?category=provincial' },
-  { key: 'police', label: 'Police', href: '/exams?category=police' },
-  { key: 'military', label: 'Military', href: '/exams?category=military' },
-  { key: 'nts', label: 'NTS', href: '/exams?category=nts' },
-  { key: 'ots', label: 'OTS', href: '/exams?category=ots' },
-  { key: 'etea', label: 'ETEA', href: '/exams?category=etea' },
-  { key: 'railways', label: 'Railways', href: '/exams?category=railways' },
-  { key: 'banks', label: 'Banks', href: '/exams?category=banks' },
-  { key: 'judiciary', label: 'Judiciary', href: '/exams?category=judiciary' },
-  { key: 'devauth', label: 'Dev Authority', href: '/exams?category=devauth' },
-  { key: 'rescue', label: 'Rescue 1122', href: '/exams?category=rescue' },
-  { key: 'revenue', label: 'Revenue Auth', href: '/exams?category=revenue' },
-];
-
-
-
-function ExamPicker() {
-  const router = useRouter()
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [])
-
-  return (
-    <div ref={ref} className="relative inline-block">
-      <button
-        onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-2.5 h-[52px] px-8 text-[16px] font-semibold bg-black hover:bg-gray-900 text-white rounded-xl shadow-sm transition-colors"
-      >
-        Start Preparing
-        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
-      </button>
-
-      {open && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border border-gray-200/70 rounded-2xl shadow-xl z-50 p-5 w-[92vw] max-w-[440px]">
-          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {MEDICAL_CATEGORIES.map(cat => (
-              <button key={cat.key} onClick={() => { router.push(cat.href); setOpen(false) }}
-                className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                {cat.label}
-              </button>
-            ))}
-          </div>
-          <div className="border-t border-gray-100 pt-4 mb-4">
-            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
-            <div className="flex flex-wrap gap-1.5">
-              {ENGINEERING_CATEGORIES.map(cat => (
-                <button key={cat.key} onClick={() => { router.push(cat.href); setOpen(false) }}
-                  className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="border-t border-gray-100 pt-4">
-            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Competitive Exams</p>
-            <div className="flex flex-wrap gap-1.5">
-              {COMPETITIVE_CATEGORIES.map(cat => (
-                <button key={cat.key} onClick={() => { router.push(cat.href); setOpen(false) }}
-                  className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
+const InfiniteMarquee = dynamic(
+  () => import('@/components/InfiniteMarquee').then((m) => ({ default: m.InfiniteMarquee })),
+  { loading: () => <div className="h-24" aria-hidden /> },
+)
 
 function NewsletterSection() {
   const [email, setEmail] = useState('')
@@ -193,39 +96,6 @@ function NewsletterSection() {
 export function HomeClient() {
   return (
     <>
-      <NavigationBar />
-
-      {/* CSS Exam Countdown - Below Nav */}
-      <CSSExamCountdown />
-
-      <section className="relative bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 sm:pt-20 sm:pb-16 md:pt-32 md:pb-20">
-          <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-[28px] sm:text-[38px] md:text-[52px] lg:text-[64px] font-bold tracking-tight mb-6 sm:mb-8 leading-[1.2] text-black">
-              <div className="text-center">Prepare for competitive exams</div>
-              <div className="text-center mt-1 pl-0 sm:pl-12 md:pl-24">
-                <span className="inline-flex items-baseline gap-3">
-                  <span>with</span>
-                  <AnimatedText
-                    words={['confidence', 'precision', 'intelligence', 'excellence']}
-                    interval={1400}
-                  />
-                </span>
-              </div>
-            </h1>
-
-            <p className="text-[15px] sm:text-[17px] md:text-[19px] text-gray-600 mb-8 sm:mb-10 leading-[1.6] max-w-2xl mx-auto font-normal px-2 sm:px-0">
-              A comprehensive learning platform designed to help you excel in competitive examinations through effective practice, personalized insights, and proven strategies.
-            </p>
-
-            <div className="flex justify-center">
-              <ExamPicker />
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       <section className="py-12 md:py-16 border-b bg-[#FAFAFA] overflow-hidden">
         <div className="mb-6">
           <InfiniteMarquee
