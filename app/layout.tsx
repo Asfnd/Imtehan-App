@@ -1,7 +1,7 @@
 import type React from "react"
 import { Suspense } from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Libre_Baskerville } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from "@/lib/contexts/AuthContext"
@@ -16,7 +16,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: 'swap',
   variable: '--font-inter',
-  preload: true,
+})
+
+const libreBaskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  display: 'swap',
+  variable: '--font-libre-baskerville',
 })
 
 export const metadata: Metadata = {
@@ -117,7 +124,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <WebSiteSchema />
       </head>
-      <body className={`${inter.className} ${inter.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} ${libreBaskerville.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <Suspense fallback={null}>
             <MetaPixelRouteTracker />
