@@ -26,6 +26,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import type { ExamConfig } from '@/lib/exam-configs'
+import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 import {
   EXAM_MOCK_DIFFICULTY_ORDER,
   examMocksForDifficulty,
@@ -78,13 +79,14 @@ const TIER_LEVEL: Record<ExamMockDifficulty, { headline: string; tagline: string
 const HEADER_CHIP =
   'border border-blue-200 bg-blue-50 text-xs font-medium text-blue-600'
 
-function mockQuestionCount(config: ExamConfig, multiplier: number) {
-  const paperTotal = config.sections.reduce((sum, s) => sum + s.count, 0)
-  return Math.round(paperTotal * multiplier)
+function mockQuestionCount(examSlug: string, config: ExamConfig, multiplier: number) {
+  const official = getEffectiveExamSettings(examSlug, config)
+  return Math.round(official.totalMCQs * multiplier)
 }
 
-function mockDurationMinutes(config: ExamConfig, multiplier: number) {
-  return Math.round(config.duration * multiplier)
+function mockDurationMinutes(examSlug: string, config: ExamConfig, multiplier: number) {
+  const official = getEffectiveExamSettings(examSlug, config)
+  return Math.round(official.duration * multiplier)
 }
 
 export type ExamMockSectionsProps = {
@@ -138,8 +140,8 @@ export default function ExamMockSections({
     const mockId = spec.id
     const locked = isLocked(mockId)
     const Icon = ICON_MAP[spec.iconKey]
-    const qs = mockQuestionCount(config, spec.multiplier)
-    const mins = mockDurationMinutes(config, spec.multiplier)
+    const qs = mockQuestionCount(examSlug, config, spec.multiplier)
+    const mins = mockDurationMinutes(examSlug, config, spec.multiplier)
     const completed = !locked && (completedMockIds?.has(mockId) ?? false)
     const completedScore = completed ? mockScores?.[mockId] : undefined
 

@@ -4,6 +4,7 @@ import { getExamConfig } from '@/lib/exam-configs'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import MockTestInterface from '@/components/MockTestInterface'
 import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
+import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
@@ -34,12 +35,12 @@ export default async function MockTestPage({
   const spec = EXAM_MOCK_SPECS[mockNumber]
   if (!spec) notFound()
   const { multiplier, qTypes } = spec
+  const official = getEffectiveExamSettings(examSlug, config)
 
   const supabase = await createServerSupabaseClient()
   const allMCQs: any[] = []
 
-  for (const section of config.sections) {
-    // Exact per-section question count as defined in the exam config
+  for (const section of official.sections) {
     const limit = Math.max(1, Math.round(section.count * multiplier))
 
     // 1. Try to fetch from the mock's intended question types
@@ -80,7 +81,7 @@ export default async function MockTestPage({
     .sort((a, b) => a.hash - b.hash)
     .map(({ mcq }) => mcq)
 
-  const mockDuration = Math.round(config.duration * multiplier)
+  const mockDuration = Math.round(official.duration * multiplier)
 
   return (
     <>
@@ -89,7 +90,8 @@ export default async function MockTestPage({
         examName={config.name}
         duration={mockDuration}
         passingPercentage={config.passingPercentage}
-        negativeMarking={config.negativeMarking}
+        negativeMarking={official.negativeMarking}
+        negativeMarkingValue={official.negativeMarkingValue}
         examSlug={examSlug}
         mockNumber={mockNumber}
         mockTitle={spec.title}

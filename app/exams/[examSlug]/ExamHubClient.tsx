@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpen, X, ExternalLink, PenLine } from 'lucide-react'
-import { getExamConfig, ExamConfig } from '@/lib/exam-configs'
+import { getExamConfig } from '@/lib/exam-configs'
 import { examMockSpec } from '@/lib/exam-mock-specs'
 import ExamMockSections from '@/components/exams/ExamMockSections'
 import ExamPracticeGridCard from '@/components/exams/ExamPracticeGridCard'
@@ -16,6 +16,7 @@ import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { examDashboardMockClick } from '@/lib/premium-gates'
+import { getEffectiveExamSettings, getExamGuideView, type ExamGuideView, type EffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 
 interface SubjectProgress {
   subject: string
@@ -23,109 +24,11 @@ interface SubjectProgress {
   accuracy: number
 }
 
-interface ExamGuideView {
-  authority: string
-  officialLink?: string
-  lastUpdated?: string
-  eligibility: string[]
-  important: string[]
-  helpful: string[]
-}
-
 const roundMCQs = (n: number) => {
   if (n >= 10000) return `${Math.floor(n / 1000)}k+`
   if (n >= 1000) return `${Math.floor(n / 500) * 500}+`
   if (n >= 100) return `${Math.floor(n / 50) * 50}+`
   return `${n}`
-}
-
-const bankCount = (seed: string, base: number): string => {
-  let h = 5381
-  for (let i = 0; i < seed.length; i++) h = Math.imul(33, h) ^ seed.charCodeAt(i)
-  const value = base + (Math.abs(h) % base)
-  const rounded = Math.round(value / 100) * 100
-  if (rounded >= 1000) {
-    const k = Math.round(rounded / 100) / 10
-    return k % 1 === 0 ? `${k}k+` : `${k.toFixed(1)}k+`
-  }
-  return `${rounded}+`
-}
-
-const CATEGORY_AUTHORITIES: Record<string, string> = {
-  ppsc: 'Punjab Public Service Commission (PPSC)',
-  fpsc: 'Federal Public Service Commission (FPSC)',
-  fia: 'Federal Investigation Agency (FIA)',
-  provincial: 'Relevant Provincial Public Service Commission',
-  police: 'Relevant Police Recruitment Authority',
-  military: 'Relevant Armed Forces Recruitment Body',
-  nts: 'National Testing Service (NTS)',
-  ots: 'Open Testing Service (OTS)',
-  etea: 'Educational Testing and Evaluation Agency (ETEA)',
-  mdcat: 'Relevant Medical Admissions Authority',
-}
-
-const CATEGORY_LINKS: Record<string, string> = {
-  ppsc: 'https://www.ppsc.gop.pk/',
-  fpsc: 'https://www.fpsc.gov.pk/',
-  fia: 'https://fia.gov.pk/',
-  nts: 'https://www.nts.org.pk/',
-  ots: 'https://ots.org.pk/',
-  etea: 'https://etea.edu.pk/',
-}
-
-function extractBSLevel(examName: string): number | null {
-  const match = examName.match(/BS[-\s]?(\d+)/i)
-  if (!match) return null
-  const parsed = parseInt(match[1], 10)
-  return Number.isNaN(parsed) ? null : parsed
-}
-
-function buildExamGuide(examSlug: string, config: ExamConfig): ExamGuideView {
-  const bsLevel = extractBSLevel(config.name)
-  const qualification = bsLevel === null
-    ? 'Qualification varies by post (typically Intermediate to Bachelor).'
-    : bsLevel >= 16
-      ? 'Typically Bachelor (14/16 years education) or higher.'
-      : bsLevel >= 11
-        ? 'Typically Intermediate (FA/FSc/ICS/ICom) or equivalent.'
-        : 'Typically Matric (or equivalent), sometimes with relevant license/experience.'
-
-  const ageRange = ['police', 'fia', 'military'].includes(config.category)
-    ? 'Commonly 18-30 years (can vary by post and quota relaxations).'
-    : 'Commonly 18-28 years (age relaxations may apply by policy).'
-
-  const sectionBreakdown = config.sections.map((s) => `${s.label} (${s.count})`).join(', ')
-  const defaultGuide: ExamGuideView = {
-    authority: CATEGORY_AUTHORITIES[config.category] ?? 'Relevant recruiting/testing authority',
-    officialLink: CATEGORY_LINKS[config.category],
-    eligibility: [
-      qualification,
-      ageRange,
-      'Domicile/quota requirements follow the official advertisement.',
-    ],
-    important: [
-      `Paper pattern: ${config.totalMCQs} MCQs in ${config.duration} minutes.`,
-      `Passing threshold in app: ${config.passingPercentage}%.`,
-      `Negative marking: ${config.negativeMarking ? 'Yes' : 'No'}.`,
-      `Core subjects: ${sectionBreakdown}.`,
-    ],
-    helpful: [
-      'Start with subject-wise practice, then move to timed mocks.',
-      'Prioritize weak sections from analytics before attempting full mocks.',
-      'Always verify age/qualification rules from the latest official ad before applying.',
-    ],
-  }
-
-  if (!config.guide) return defaultGuide
-
-  return {
-    authority: config.guide.authority ?? defaultGuide.authority,
-    officialLink: config.guide.officialLink ?? defaultGuide.officialLink,
-    lastUpdated: config.guide.lastUpdated,
-    eligibility: config.guide.eligibility.length > 0 ? config.guide.eligibility : defaultGuide.eligibility,
-    important: config.guide.important.length > 0 ? config.guide.important : defaultGuide.important,
-    helpful: config.guide.helpful.length > 0 ? config.guide.helpful : defaultGuide.helpful,
-  }
 }
 
 export function ExamHubClient() {
@@ -224,7 +127,8 @@ function ExamDashboard() {
   }
 
   const isPremium = isActivePremium(user)
-  const examGuide = buildExamGuide(examSlug, config)
+  const official = getEffectiveExamSettings(examSlug, config)
+  const examGuide = getExamGuideView(examSlug, config)
 
   const handleMockClick = (mockId: number) => {
     const action = examDashboardMockClick(mockId, !!user, isPremium)
@@ -380,7 +284,7 @@ function ExamDashboard() {
               </span>
               <div className="hidden h-4 w-px bg-gray-300 sm:block" />
               <span className="hidden text-xs text-gray-500 sm:inline">
-                {config.sections.reduce((s, x) => s + x.count, 0)} Qs · {config.duration}m full mock
+                {official.totalMCQs} Qs · {official.duration}m · {official.blueprint.label}
               </span>
               <div className="flex-1" />
               <Link
@@ -406,7 +310,7 @@ function ExamDashboard() {
         )}
 
         {/* Subjects */}
-        {!config.mockOnly && <div className="mb-8">
+        {config.sections.length > 0 && <div className="mb-8">
           <div className="flex items-center gap-3 mb-5">
             <h3 className="text-base font-semibold text-gray-900">
               {preselectedMode === 'most-repeated' && 'Most Repeated: Pick a Subject'}
@@ -460,7 +364,7 @@ function ExamDashboard() {
     <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
     {pendingMockId && (
       <MockPatternPopup
-        config={config}
+        official={official}
         examSlug={examSlug}
         mockId={pendingMockId}
         onConfirm={() => {
@@ -488,27 +392,10 @@ function ExamDashboard() {
 const BAR_COLORS = ['bg-blue-500','bg-violet-500','bg-emerald-500','bg-amber-500','bg-rose-500','bg-cyan-500']
 const TEXT_COLORS = ['text-blue-600','text-violet-600','text-emerald-600','text-amber-600','text-rose-600','text-cyan-600']
 
-// Official exam notes per exam slug
-const EXAM_NOTES: Record<string, { negative: boolean; passMark: string; note?: string }> = {
-  'ecat':               { negative: false, passMark: '50%', note: 'UET Lahore + affiliated engineering colleges' },
-  'net-engineering':    { negative: false, passMark: '50%', note: 'NUST NET only (separate from NTS tests)' },
-  'giki-entry':         { negative: false, passMark: '60%', note: 'GIKI undergraduate entry test pattern' },
-  'pieas-entry':        { negative: false, passMark: '60%', note: 'PIEAS undergraduate entry test pattern' },
-  'lums-engineering':   { negative: false, passMark: '60%', note: 'LCAT-style test; Math-heavy pattern' },
-  'comsats-engineering':{ negative: false, passMark: '50%', note: 'COMSATS own admission test' },
-  'fast-nuces':         { negative: false, passMark: '50%', note: 'FAST NU own test, heavy on Math & IQ' },
-  'paf-initial':        { negative: false, passMark: '50%', note: 'PAF commissioned officer initial screening' },
-  'pma-long-course':    { negative: false, passMark: '50%', note: 'Pakistan Military Academy academic test' },
-  'nts-nat-ie':         { negative: false, passMark: '50%', note: 'NTS NAT-IE for Engineering admissions' },
-  'muet':               { negative: false, passMark: '50%', note: 'Mehran UET, Jamshoro' },
-  'air-university':     { negative: false, passMark: '50%', note: 'Air University Islamabad own entry test' },
-  'nts-gat':            { negative: false, passMark: '50%', note: 'NTS GAT-General for postgrad admissions' },
-}
-
 function MockPatternPopup({
-  config, examSlug, mockId, onConfirm, onClose,
+  official, examSlug, mockId, onConfirm, onClose,
 }: {
-  config: ExamConfig
+  official: EffectiveExamSettings
   examSlug: string
   mockId: number
   onConfirm: () => void
@@ -516,10 +403,10 @@ function MockPatternPopup({
 }) {
   const specRow = examMockSpec(mockId)
   const multiplier = specRow?.multiplier ?? 1
-  const totalQs = Math.round(config.totalMCQs * multiplier)
-  const duration = Math.round(config.duration * multiplier)
-  const total = config.sections.reduce((s, x) => s + x.count, 0)
-  const examNote = EXAM_NOTES[examSlug]
+  const totalQs = Math.round(official.totalMCQs * multiplier)
+  const duration = Math.round(official.duration * multiplier)
+  const total = official.totalMCQs
+  const config = getExamConfig(examSlug)
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center p-4" onClick={onClose}>
@@ -527,27 +414,23 @@ function MockPatternPopup({
         className="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="bg-gradient-to-r from-slate-800 to-blue-900 px-5 py-4">
           <p className="text-[11px] text-blue-300 font-medium uppercase tracking-wider mb-0.5">Mock {mockId}</p>
           <h3 className="text-base font-bold text-white">{specRow?.title ?? `Mock ${mockId}`}</h3>
-          <p className="text-xs text-blue-200 mt-0.5">{examNote?.note ?? config.name}</p>
+          <p className="text-xs text-blue-200 mt-0.5">{official.blueprint.label}</p>
         </div>
 
-        {/* Pattern */}
         <div className="px-5 py-4">
           <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-3">Official Pattern</p>
 
-          {/* Distribution bar */}
           <div className="flex rounded-full overflow-hidden h-2 mb-3">
-            {config.sections.map((sec, i) => (
+            {official.sections.map((sec, i) => (
               <div key={sec.slug} className={BAR_COLORS[i % BAR_COLORS.length]} style={{ width: `${(sec.count/total)*100}%` }} />
             ))}
           </div>
 
-          {/* Subject rows */}
           <div className="space-y-2 mb-4">
-            {config.sections.map((sec, i) => {
+            {official.sections.map((sec, i) => {
               const qs = Math.round(sec.count * multiplier)
               const pct = Math.round((sec.count/total)*100)
               return (
@@ -565,7 +448,6 @@ function MockPatternPopup({
             })}
           </div>
 
-          {/* Stats row */}
           <div className="flex gap-3 mb-4">
             <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
               <div className="text-base font-bold text-gray-900">{totalQs}</div>
@@ -576,19 +458,20 @@ function MockPatternPopup({
               <div className="text-[10px] text-gray-400">Duration</div>
             </div>
             <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
-              <div className="text-base font-bold text-gray-900">{config.passingPercentage}%</div>
+              <div className="text-base font-bold text-gray-900">{config?.passingPercentage ?? 50}%</div>
               <div className="text-[10px] text-gray-400">Pass Mark</div>
             </div>
           </div>
 
-          {config.negativeMarking && (
+          {official.negativeMarking && (
             <div className="flex items-center gap-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2 mb-4">
               <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
-              <span className="text-xs text-red-600 font-medium">Negative marking applies</span>
+              <span className="text-xs text-red-600 font-medium">
+                Negative marking: −{official.negativeMarkingValue} per wrong answer
+              </span>
             </div>
           )}
 
-          {/* Actions */}
           <div className="flex gap-2">
             <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
               Cancel

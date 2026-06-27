@@ -37,6 +37,7 @@ interface MockTestInterfaceProps {
   duration: number
   passingPercentage: number
   negativeMarking?: boolean
+  negativeMarkingValue?: number
   examSlug: string
   mockNumber?: number
   mockTitle?: string
@@ -132,6 +133,7 @@ export default function MockTestInterface({
   duration,
   passingPercentage,
   negativeMarking = false,
+  negativeMarkingValue = 0.25,
   examSlug,
   mockNumber,
   mockTitle,
@@ -245,7 +247,7 @@ export default function MockTestInterface({
       else if (answers[idx] === mcq.correct_answer) correct++
       else incorrect++
     })
-    const obtained = negativeMarking ? correct - incorrect * 0.25 : correct
+    const obtained = negativeMarking ? correct - incorrect * negativeMarkingValue : correct
     const pct = Math.round((Math.max(0, obtained) / activeMCQs.length) * 100)
     return {
       correct,
@@ -301,6 +303,7 @@ export default function MockTestInterface({
     totalDurationSeconds,
     passingPercentage,
     negativeMarking,
+    negativeMarkingValue,
   ])
 
   handleSubmitRef.current = handleSubmit

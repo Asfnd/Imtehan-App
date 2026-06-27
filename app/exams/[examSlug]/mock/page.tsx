@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
+import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 import { createClient } from '@/lib/supabase/client'
 import NavigationBar from '@/components/NavigationBar'
 import ExamMockSections from '@/components/exams/ExamMockSections'
@@ -67,8 +68,9 @@ export default function MockTestsPage() {
     return null
   }
 
-  const d = config.duration
-  const t = config.sections.reduce((sum, s) => sum + s.count, 0)
+  const official = getEffectiveExamSettings(examSlug, config)
+  const d = official.duration
+  const t = official.totalMCQs
 
   return (
     <div className="min-h-screen bg-gray-50">

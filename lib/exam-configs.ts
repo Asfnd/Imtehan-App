@@ -3495,7 +3495,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',      count: 30 },
       { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',          count: 20 },
@@ -3512,7 +3511,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 30 },
@@ -3527,7 +3525,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 60,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',      count: 20 },
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
@@ -3543,7 +3540,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 45,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 20 },
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 20 },
@@ -3558,7 +3554,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 30 },
       { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics', count: 30 },
@@ -3574,7 +3569,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 25 },
       { slug: 'mathematics', label: 'Mathematics',  dbTable: 'engineering_mathematics', count: 25 },
@@ -3590,7 +3584,6 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 30 },
       { slug: 'physics',       label: 'Physics',      dbTable: 'engineering_physics',      count: 30 },
@@ -3602,12 +3595,11 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
 
   'nts-gat': {
     name: 'NTS GAT General',
-    category: 'engineering',
+    category: 'nts',
     totalMCQs: 2344,
     duration: 90,
     passingPercentage: 50,
     negativeMarking: false,
-    mockOnly: true,
     sections: [
       { slug: 'english',       label: 'English',      dbTable: 'engineering_english',      count: 40 },
       { slug: 'mathematics',   label: 'Mathematics',  dbTable: 'engineering_mathematics',  count: 40 },
