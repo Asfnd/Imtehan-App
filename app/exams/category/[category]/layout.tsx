@@ -15,11 +15,13 @@ export async function generateMetadata({
   if (!content) return { title: 'Exams | Imtehan' }
 
   const url = `https://imtehan.com/exams/category/${category}`
+  const title = `${content.label} exams`
+  const description = `Practice ${content.label} recruitment tests with subject-wise MCQs and mock tests on Imtehan.`
   return {
-    title: `${content.h1} | Imtehan`,
-    description: content.intro.slice(0, 155),
+    title: `${title} | Imtehan`,
+    description,
     alternates: { canonical: url },
-    openGraph: { title: content.h1, description: content.intro.slice(0, 155), url, type: 'website' },
+    openGraph: { title, description, url, type: 'website' },
   }
 }
 

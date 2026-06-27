@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
-import ModeSeoSection from '@/components/seo/ModeSeoSection'
-import { fetchSampleMcqs } from '@/lib/seo/fetch-sample-mcqs'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 
 const SUBJECT_LABELS: Record<string, string> = {
@@ -66,30 +64,6 @@ export async function generateMetadata({
   }
 }
 
-export default async function ExamModeLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: Promise<{ examSlug: string; subjectSlug: string; mode: string }>
-}) {
-  const { examSlug, subjectSlug, mode } = await params
-  const config = getExamConfig(examSlug)
-  const section = config?.sections.find((s) => s.slug === subjectSlug)
-
-  const sampleMcqs = section?.dbTable
-    ? await fetchSampleMcqs(section.dbTable, mode, 5)
-    : []
-
-  return (
-    <>
-      {children}
-      <ModeSeoSection
-        examSlug={examSlug}
-        subjectSlug={subjectSlug}
-        mode={mode}
-        sampleMcqs={sampleMcqs}
-      />
-    </>
-  )
+export default function ExamModeLayout({ children }: { children: React.ReactNode }) {
+  return children
 }
