@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Spellings and commonly confused words",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Parts of speech",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Famous historical personalities and their contributions",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Nobel Prize winners",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Average, weighted average",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic algebra: linear equations, simplification, factoring",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Provincial setup: Punjab, Sindh, KPK, Balochistan, AJK, GB",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Federally Administered Tribal Areas merger with KPK",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Abbasid Caliphate",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hadith: definition, major collections",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Infectious and non-infectious diseases; vaccines and antibiotics",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Cell biology: cell types, organelles, mitosis, meiosis",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan economy: budget, GDP, inflation, CPEC updates",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Regional affairs: India-Pakistan relations, Afghanistan, Iran, China",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Email: composing, CC/BCC, attachments, spam, phishing",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Networking: LAN, WAN, Wi-Fi, IP address, DNS, router basics",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "\u0645\u062d\u0627\u0648\u0631\u06d2 \u0627\u0648\u0631 \u0636\u0631\u0628 \u0627\u0644\u0627\u0645\u062b\u0627\u0644",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu poets: Mir Taqi Mir, Ghalib, Iqbal, Faiz, Josh",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Rivers and drainage systems: Pakistan and world",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Khyber Pakhtunkhwa and tribal belt geography",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Professional ethics: public service, civil service code of conduct",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Environmental ethics and sustainable development",
+    "type": "most_important",
+    "count": 26
+  }
+]

@@ -121,6 +121,25 @@ TABLE_POPULAR_TAGS['mdcat_logical_reasoning'] = [
   'course-of-action', 'logical-problems', 'logical-deductions',
 ]
 
+TABLE_POPULAR_TAGS['issb_english'] = [
+  'synonyms', 'antonyms', 'fill_in_blanks', 'prepositions', 'idioms',
+  'sentence_correction', 'one_word_substitution', 'spelling',
+]
+TABLE_POPULAR_TAGS['issb_mathematics'] = [
+  'percentages', 'ratios', 'number_series', 'algebra', 'geometry',
+  'speed_distance', 'averages', 'profit_loss',
+]
+TABLE_POPULAR_TAGS['issb_general_knowledge'] = [
+  'science', 'geography', 'international_organizations', 'awards', 'computer_basics',
+]
+TABLE_POPULAR_TAGS['issb_pakistan_affairs'] = [
+  'pakistan_history', 'constitution', 'geography', 'modern_history', 'culture',
+]
+TABLE_POPULAR_TAGS['issb_intelligence'] = [
+  'analogies', 'odd_one_out', 'letter_coding', 'letter_series', 'blood_relations',
+  'number_series', 'syllogisms', 'pattern_recognition',
+]
+
 // ─── Slug → actual DB topic value ────────────────────────────────────────────
 
 export const ENGINEERING_TOPIC_VALUES: Record<string, Record<string, string>> = {
@@ -250,6 +269,11 @@ export const TOPIC_COL_TABLES = new Set([
   'mdcat_physics',
   'mdcat_english',
   'mdcat_logical_reasoning',
+  'issb_english',
+  'issb_mathematics',
+  'issb_general_knowledge',
+  'issb_pakistan_affairs',
+  'issb_intelligence',
 ])
 
 /** Returns the correct DB value for a topic slug. */

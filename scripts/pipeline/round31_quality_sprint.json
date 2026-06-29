@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Prepositions and conjunctions in context",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Idioms and phrases",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Current world records and superlatives",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Awards and international honors",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "HCF and LCM with word problems",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Fractions, decimals, and percentages \u2014 conversions and calculations",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Pakistan Resolution 1940",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Independence 1947: Radcliffe Award, refugee crisis, early challenges",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Holy Quran: total Surahs , Paras , revelation, memorization",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Important Quranic Surahs and their themes",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Light: reflection, refraction, lenses, spectrum, lasers",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Electricity: current, voltage, resistance, circuits",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Natural disasters and humanitarian responses",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan domestic politics: elections, government decisions, legislation",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Input devices and output devices",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Software: system software vs application software",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Comprehension of Urdu passages",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu grammar: \u0627\u0633\u0645\u060c \u0636\u0645\u06cc\u0631\u060c \u0641\u0639\u0644\u060c \u0635\u0641\u062a\u060c \u0645\u062a\u0639\u0644\u0642 \u0641\u0639\u0644",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Climate types: tropical, arid, temperate, polar",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "World capitals, countries, and major landmarks",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civil society and role of institutions",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Conflict resolution and peaceful coexistence",
+    "type": "practice",
+    "count": 26
+  }
+]

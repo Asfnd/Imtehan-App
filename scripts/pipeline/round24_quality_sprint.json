@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Spellings and commonly confused words",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Parts of speech",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Technology: internet, AI, space exploration milestones",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Current world records and superlatives",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Average, weighted average",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic algebra: linear equations, simplification, factoring",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Quaid-e-Azam Muhammad Ali Jinnah: life, role, speeches",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Liaquat Ali Khan and early governance",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Role of Islam in Pakistan's creation",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Pillars of Islam: Shahada, Salah, Zakat, Sawm, Ramadan, Hajj",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Environmental issues: pollution, deforestation, global warming, ozone layer",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Basic chemistry: elements, compounds, mixtures, acids, bases, salts",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Climate and environment summits",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Global conflicts and peace processes",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS Word: formatting, tables, mail merge, track changes",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS Excel: formulas , charts, pivot tables",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Comprehension of Urdu passages",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu grammar: \u0627\u0633\u0645\u060c \u0636\u0645\u06cc\u0631\u060c \u0641\u0639\u0644\u060c \u0635\u0641\u062a\u060c \u0645\u062a\u0639\u0644\u0642 \u0641\u0639\u0644",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Population geography: density, distribution, urbanization, migration",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Physical geography: landforms, plate tectonics, volcanoes, earthquakes",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civic virtues: honesty, integrity, accountability, transparency",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Social justice, equality, and non-discrimination",
+    "type": "most_repeated",
+    "count": 26
+  }
+]

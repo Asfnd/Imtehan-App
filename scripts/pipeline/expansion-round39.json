@@ -1,0 +1,18 @@
+[
+  {"mode": "issb", "table": "issb_english", "topic": "One word substitution", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_english", "topic": "Active and passive voice", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "HCF LCM and divisibility", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Geometry triangles and circles", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Pakistan rivers dams and passes", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Physics units and laws", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "Pakistan foreign policy and alliances", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "Freedom movement 1857 to 1947", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Mirror and water images", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Logical deduction puzzles", "type": "most_repeated", "count": 12},
+  {"mode": "css", "subject": "Statistics", "topic": "Probability and distributions basics", "count": 10},
+  {"mode": "css", "subject": "Psychology", "topic": "Learning theories and memory", "count": 10},
+  {"mode": "css", "subject": "Geology", "topic": "Rocks minerals and plate tectonics", "count": 10},
+  {"mode": "css", "subject": "Public Administration", "topic": "Bureaucracy and governance reforms", "count": 10},
+  {"mode": "css", "subject": "International Relations", "topic": "Realism liberalism and Pakistan foreign policy", "count": 10},
+  {"mode": "css", "subject": "Computer Science", "topic": "Algorithms data structures networking basics", "count": 10}
+]

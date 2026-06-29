@@ -1,0 +1,14 @@
+[
+  { "table": "english", "topic": "Parts of speech", "type": "practice", "count": 25 },
+  { "table": "english", "topic": "Tenses and agreement", "type": "practice", "count": 25 },
+  { "table": "general_knowledge", "topic": "UN agencies and headquarters", "type": "most_repeated", "count": 25 },
+  { "table": "general_knowledge", "topic": "World capitals and currencies", "type": "most_repeated", "count": 25 },
+  { "table": "pakistan_studies", "topic": "Constitution of 1973", "type": "most_important", "count": 25 },
+  { "table": "pakistan_studies", "topic": "Pakistan Movement 1940-1947", "type": "most_repeated", "count": 25 },
+  { "table": "current_affairs", "topic": "Pakistan economy and IMF 2023-2025", "type": "most_important", "count": 25 },
+  { "table": "islamiat", "topic": "Pillars of Islam and articles of faith", "type": "most_repeated", "count": 25 },
+  { "table": "everyday_science", "topic": "Human body systems and vitamins", "type": "most_repeated", "count": 25 },
+  { "table": "general_math", "topic": "Percentage profit loss and ratio", "type": "practice", "count": 25 },
+  { "table": "basic_computer", "topic": "MS Office and keyboard shortcuts", "type": "most_repeated", "count": 25 },
+  { "table": "geography", "topic": "Pakistan rivers dams and provinces", "type": "most_repeated", "count": 25 }
+]

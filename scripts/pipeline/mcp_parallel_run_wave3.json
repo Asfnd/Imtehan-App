@@ -1,0 +1,18 @@
+[
+  {"table": "current_affairs", "topic": "SIFC, foreign investment, and Pakistan economic reforms 2024-25", "type": "most_important", "count": 50},
+  {"table": "current_affairs", "topic": "OIC, SAARC, and Pakistan regional diplomacy", "type": "most_repeated", "count": 50},
+  {"table": "ethics_civics", "topic": "NAB Ordinance, Wafaqi Mohtasib, and PPRA procurement ethics", "type": "most_important", "count": 50},
+  {"table": "ethics_civics", "topic": "Separation of powers and judicial independence in Pakistan", "type": "practice", "count": 50},
+  {"table": "geography", "topic": "Pakistan deserts, plateaus, and coastal features", "type": "most_repeated", "count": 50},
+  {"table": "geography", "topic": "El Nino, La Nina, and South Asian climate impacts", "type": "most_important", "count": 50},
+  {"table": "urdu", "topic": "Faiz Ahmed Faiz and Habib Jalib — poetry and resistance themes", "type": "most_repeated", "count": 50},
+  {"table": "urdu", "topic": "Literary terms — Tashbih, Istiara, Kinaya, Iham", "type": "most_important", "count": 50},
+  {"table": "basic_computer", "topic": "Number systems binary hex octal conversion", "type": "most_repeated", "count": 50},
+  {"table": "basic_computer", "topic": "Cloud computing, virtualization, and backup basics", "type": "practice", "count": 50},
+  {"table": "islamiat", "topic": "Four madhabs and sources of Islamic law Usul al-Fiqh", "type": "most_important", "count": 50},
+  {"table": "islamiat", "topic": "Salah, Zakat, Sawm, Hajj — conditions and rulings", "type": "most_repeated", "count": 50},
+  {"table": "pakistan_studies", "topic": "CPEC phases, Gwadar, and economic corridor facts", "type": "most_important", "count": 50},
+  {"table": "pakistan_studies", "topic": "Kashmir dispute and Pakistan foreign policy milestones", "type": "most_repeated", "count": 50},
+  {"table": "general_knowledge", "topic": "World rivers, lakes, and straits students confuse", "type": "most_repeated", "count": 50},
+  {"table": "general_knowledge", "topic": "Famous inventors and scientific discoveries", "type": "most_important", "count": 50}
+]

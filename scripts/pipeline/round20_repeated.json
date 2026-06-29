@@ -1,0 +1,1052 @@
+[
+  {
+    "table": "english",
+    "topic": "Parts of speech",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Tenses: simple, continuous, perfect, perfect-continuous",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Subject-verb agreement and sentence structure",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Prepositions and conjunctions in context",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Vocabulary: synonyms, antonyms, one-word substitution",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Idioms and phrases",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Sentence correction and improvement",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Reading comprehension",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Active and passive voice",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Direct and indirect speech",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Articles: definite and indefinite usage",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "english",
+    "topic": "Spellings and commonly confused words",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "World geography: continents, oceans, major rivers, mountain ranges",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Countries, capitals, and currencies of the world",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "International organizations: UN, NATO, SAARC, OIC, SCO, G20",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "UN agencies: WHO, UNESCO, UNICEF, UNDP, FAO, IMF, World Bank",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "World history: ancient civilizations, colonialism, world wars",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Famous historical personalities and their contributions",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Books and authors",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Nobel Prize winners",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Scientific discoveries and inventors",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Technology: internet, AI, space exploration milestones",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Current world records and superlatives",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Sports: cricket, football, Olympics \u2014 records and champions",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Awards and international honors",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Basic astronomy: planets, stars, solar system",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Environment: climate change, biodiversity, global summits",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Famous paintings, music, and cultural heritage",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Number system: natural, whole, integers, rational, irrational numbers",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "HCF and LCM with word problems",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Fractions, decimals, and percentages \u2014 conversions and calculations",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Profit and loss, discount, and marked price",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Simple interest and compound interest",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Ratio and proportion; partnership problems",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Time and work problems",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Time, speed, and distance; trains and boats",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Pipes and cisterns",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Average, weighted average",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic algebra: linear equations, simplification, factoring",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Geometry: triangles",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Circles: area, circumference, arc, sector",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Quadrilaterals and polygons",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Volume and surface area of cubes, cuboids, cylinders, spheres",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic statistics: mean, median, mode, range",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Probability basics",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "general_math",
+    "topic": "Number series and patterns",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Freedom movement : key events, leaders, milestones",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Partition of Bengal 1905 and Simla Deputation 1906",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Lucknow Pact 1916, Khilafat Movement, Non-Cooperation",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Simon Commission, Allahabad Address 1930, Round Table Conferences",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Pakistan Resolution 1940",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Independence 1947: Radcliffe Award, refugee crisis, early challenges",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Quaid-e-Azam Muhammad Ali Jinnah: life, role, speeches",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Liaquat Ali Khan and early governance",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Constitutions of Pakistan: 1956, 1962, 1973",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Constitutional amendments",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Parliamentary system: National Assembly, Senate, President, PM",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Provincial setup: Punjab, Sindh, KPK, Balochistan, AJK, GB",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Federally Administered Tribal Areas merger with KPK",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Foreign policy: relations with India, China, USA, Middle East",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "CPEC",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Pakistan geography: mountains, rivers, plains, deserts",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Major rivers: Indus, Jhelum, Chenab, Ravi, Sutlej, Kabul",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Mountain ranges: Himalayas, Karakoram, Hindu Kush",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Natural resources: coal, gas, oil, minerals",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Agriculture: crops, crop seasons",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Culture, languages, and festivals of Pakistan",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "National symbols: flag, anthem, animal, bird, flower",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Pillars of Islam: Shahada, Salah, Zakat, Sawm, Ramadan, Hajj",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Pillars of Iman : six articles of faith",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Holy Quran: total Surahs , Paras , revelation, memorization",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Important Quranic Surahs and their themes",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Prophet Muhammad : life , key events",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hijra 622 CE",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Ghazwat : Badr, Uhud, Khandaq, Khyber, Makkah conquest",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Farewell Hajj and Last Sermon",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Khulafa-e-Rashideen: Abu Bakr, Umar, Uthman, Ali",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Umayyad Caliphate : key caliphs and events",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Abbasid Caliphate",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hadith: definition, major collections",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic jurisprudence : four madhabs",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Zakat: nisab, calculation, eligible recipients",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hajj: rituals, conditions, Arkan-ul-Hajj",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic months and their significance",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic ethics: honesty, justice, compassion, brotherhood",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Famous Islamic scholars: Al-Kindi, Ibn Sina, Al-Ghazali, Al-Biruni",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "islamiat",
+    "topic": "Role of Islam in Pakistan's creation",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Human body systems: digestive, respiratory, circulatory, nervous, skeletal",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Vitamins, minerals, and their deficiency diseases",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Infectious and non-infectious diseases; vaccines and antibiotics",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Cell biology: cell types, organelles, mitosis, meiosis",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Genetics: DNA, chromosomes, heredity basics",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Ecology: food chains, food webs, ecosystems, biomes",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Environmental issues: pollution, deforestation, global warming, ozone layer",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Basic chemistry: elements, compounds, mixtures, acids, bases, salts",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Periodic table: groups, periods, properties",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Chemical reactions in daily life",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Physics: force, motion, Newton's laws, gravity",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Energy forms and conversion: kinetic, potential, thermal, electrical",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Sound: properties, speed, frequency, ultrasound",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Light: reflection, refraction, lenses, spectrum, lasers",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Electricity: current, voltage, resistance, circuits",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Heat: conduction, convection, radiation, thermometers",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Scientific instruments and their uses",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Inventions and the scientists behind them",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Space: planets, satellites, comets, black holes",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan domestic politics: elections, government decisions, legislation",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan economy: budget, GDP, inflation, CPEC updates",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Regional affairs: India-Pakistan relations, Afghanistan, Iran, China",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "International relations: US, UK, EU, Gulf states",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "United Nations: resolutions, peacekeeping, summits",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Climate and environment summits",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Global conflicts and peace processes",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Science and technology breakthroughs",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Major appointments: PM, President, Army Chief, foreign leaders",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Sports: recent cricket, football, Olympics results",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Natural disasters and humanitarian responses",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Global economy: trade deals, sanctions, oil prices",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Computer history: generations of computers",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Hardware components: CPU, RAM, ROM, HDD, SSD, GPU, motherboard",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Input devices and output devices",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Software: system software vs application software",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Operating systems: Windows, Linux, macOS \u2014 basics and features",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "File management: folders, paths, extensions, copying, moving",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS Word: formatting, tables, mail merge, track changes",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS Excel: formulas , charts, pivot tables",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS PowerPoint: slides, transitions, animations, presentations",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Internet: WWW, browsers, URLs, HTTP/HTTPS, search engines",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Email: composing, CC/BCC, attachments, spam, phishing",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Networking: LAN, WAN, Wi-Fi, IP address, DNS, router basics",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Cybersecurity: viruses, malware, antivirus, passwords, encryption",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Database basics: tables, records, queries, SQL concepts",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Binary number system and data representation",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Programming concepts: algorithms, flowcharts, variables, loops",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Cloud computing: storage, SaaS, Google Drive, OneDrive",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Social media and digital communication tools",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu grammar: \u0627\u0633\u0645\u060c \u0636\u0645\u06cc\u0631\u060c \u0641\u0639\u0644\u060c \u0635\u0641\u062a\u060c \u0645\u062a\u0639\u0644\u0642 \u0641\u0639\u0644",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Tenses in Urdu: \u0645\u0627\u0636\u06cc\u060c \u062d\u0627\u0644\u060c \u0645\u0633\u062a\u0642\u0628\u0644",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu sentence structure: \u0641\u0627\u0639\u0644\u060c \u0641\u0639\u0644\u060c \u0645\u0641\u0639\u0648\u0644",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "\u0645\u062a\u0631\u0627\u062f\u0641\u0627\u062a \u0627\u0648\u0631 \u0645\u062a\u0636\u0627\u062f\u0627\u062a",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "\u0645\u062d\u0627\u0648\u0631\u06d2 \u0627\u0648\u0631 \u0636\u0631\u0628 \u0627\u0644\u0627\u0645\u062b\u0627\u0644",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Literary terms: \u063a\u0632\u0644\u060c \u0646\u0638\u0645\u060c \u0642\u0635\u06cc\u062f\u06c1\u060c \u0645\u0631\u062b\u06cc\u06c1\u060c \u0627\u0641\u0633\u0627\u0646\u06c1\u060c \u0646\u0627\u0648\u0644",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu poets: Mir Taqi Mir, Ghalib, Iqbal, Faiz, Josh",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Allama Iqbal: life, philosophy, famous works",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu prose writers: Manto, Prem Chand, Qurrat-ul-Ain",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu literature history: Dilli Darbar to Pakistan movement",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu spelling and punctuation rules",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Translation: English to Urdu and Urdu to English",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "urdu",
+    "topic": "Comprehension of Urdu passages",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Physical geography: landforms, plate tectonics, volcanoes, earthquakes",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Rivers and drainage systems: Pakistan and world",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Climate types: tropical, arid, temperate, polar",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Soils: types, formation, importance for agriculture",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Vegetation and biomes: forests, grasslands, deserts, tundra",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Pakistan geography: Northern Areas, Punjab plains, Sindh delta",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Khyber Pakhtunkhwa and tribal belt geography",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Balochistan plateau and coastal areas",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "World capitals, countries, and major landmarks",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Oceans, seas, gulfs, straits, and islands",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Map reading: scale, contour lines, compass directions, projections",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Economic geography: natural resources, agriculture, industries",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Population geography: density, distribution, urbanization, migration",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "geography",
+    "topic": "Environmental geography: deforestation, desertification, water scarcity",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Definition and scope of ethics; ethical theories",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civic virtues: honesty, integrity, accountability, transparency",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Human rights: UDHR, fundamental rights in Pakistan Constitution",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Social justice, equality, and non-discrimination",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Democracy and democratic values",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civil society and role of institutions",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Governance: good governance principles, e-governance",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Rule of law and due process",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Professional ethics: public service, civil service code of conduct",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Environmental ethics and sustainable development",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Conflict resolution and peaceful coexistence",
+    "type": "most_repeated",
+    "count": 30
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Citizenship duties and responsibilities",
+    "type": "most_repeated",
+    "count": 30
+  }
+]

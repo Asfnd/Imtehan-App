@@ -1,0 +1,14 @@
+[
+  { "table": "current_affairs",  "topic": "Pakistan Budget 2024-25 and Taxation",                    "type": "most_important", "count": 50 },
+  { "table": "current_affairs",  "topic": "Pakistan Political Developments 2023-2024",               "type": "most_repeated",  "count": 50 },
+  { "table": "ethics_civics",    "topic": "Local Government and Devolution in Pakistan",             "type": "most_important", "count": 50 },
+  { "table": "ethics_civics",    "topic": "Media Ethics Press Freedom and Digital Rights",           "type": "most_repeated",  "count": 50 },
+  { "table": "geography",        "topic": "European Geography Countries Capitals Rivers",            "type": "most_repeated",  "count": 50 },
+  { "table": "geography",        "topic": "Africa and Americas Physical Geography",                  "type": "most_repeated",  "count": 50 },
+  { "table": "urdu",             "topic": "Urdu Theatre Drama and Television Literature",            "type": "most_important", "count": 50 },
+  { "table": "urdu",             "topic": "Urdu Tazkira and Literary Movements History",             "type": "most_important", "count": 50 },
+  { "table": "english",          "topic": "Advanced Vocabulary GRE Level Synonyms Antonyms",        "type": "most_repeated",  "count": 50 },
+  { "table": "english",          "topic": "Figures of Speech and Literary Devices",                 "type": "most_repeated",  "count": 50 },
+  { "table": "islamiat",         "topic": "Islamic History Umayyad and Abbasid Caliphates",         "type": "most_important", "count": 50 },
+  { "table": "pakistan_studies", "topic": "Pakistan Constitutional History 1947 to 1973",           "type": "most_important", "count": 50 }
+]

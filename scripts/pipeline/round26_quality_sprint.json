@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Prepositions and conjunctions in context",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Vocabulary: synonyms, antonyms, one-word substitution",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Basic astronomy: planets, stars, solar system",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Environment: climate change, biodiversity, global summits",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic statistics: mean, median, mode, range",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Probability basics",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "CPEC",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Pakistan geography: mountains, rivers, plains, deserts",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic months and their significance",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic ethics: honesty, justice, compassion, brotherhood",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Periodic table: groups, periods, properties",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Chemical reactions in daily life",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Natural disasters and humanitarian responses",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "United Nations: resolutions, peacekeeping, summits",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Computer history: generations of computers",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Hardware components: CPU, RAM, ROM, HDD, SSD, GPU, motherboard",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu spelling and punctuation rules",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Translation: English to Urdu and Urdu to English",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Oceans, seas, gulfs, straits, and islands",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Map reading: scale, contour lines, compass directions, projections",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civil society and role of institutions",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Governance: good governance principles, e-governance",
+    "type": "most_repeated",
+    "count": 26
+  }
+]

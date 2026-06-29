@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Reading comprehension",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Direct and indirect speech",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Countries, capitals, and currencies of the world",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "International organizations: UN, NATO, SAARC, OIC, SCO, G20",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Simple interest and compound interest",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Ratio and proportion; partnership problems",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "National symbols: flag, anthem, animal, bird, flower",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Partition of Bengal 1905 and Simla Deputation 1906",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Prophet Muhammad : life , key events",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hijra 622 CE",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Scientific instruments and their uses",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Inventions and the scientists behind them",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan economy: budget, GDP, inflation, CPEC updates",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "United Nations: resolutions, peacekeeping, summits",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "File management: folders, paths, extensions, copying, moving",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS PowerPoint: slides, transitions, animations, presentations",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Tenses in Urdu: \u0645\u0627\u0636\u06cc\u060c \u062d\u0627\u0644\u060c \u0645\u0633\u062a\u0642\u0628\u0644",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu sentence structure: \u0641\u0627\u0639\u0644\u060c \u0641\u0639\u0644\u060c \u0645\u0641\u0639\u0648\u0644",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Physical geography: landforms, plate tectonics, volcanoes, earthquakes",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Climate types: tropical, arid, temperate, polar",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Professional ethics: public service, civil service code of conduct",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Definition and scope of ethics; ethical theories",
+    "type": "practice",
+    "count": 26
+  }
+]

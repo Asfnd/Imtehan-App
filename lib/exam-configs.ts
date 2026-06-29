@@ -3,6 +3,10 @@ export interface ExamSection {
   label: string
   dbTable: string
   count: number
+  /** Tables without a `type` column (MDCAT, css_mcqs_enhanced slices, etc.) */
+  noTypeFilter?: boolean
+  /** Filter shared banks (e.g. css_mcqs_enhanced) by `subject` column */
+  subjectField?: string
 }
 
 export interface ExamConfig {
@@ -34,6 +38,35 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   // MEDICAL: MDCAT (Medical & Dental College Admission Test)
   // ============================================================
 
+  /** Shared MDCAT section list — banks have no `type` column; use mixed/practice fetch. */
+  ...(() => {
+    const MDCAT_SECTIONS: ExamSection[] = [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 68, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 54, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 54, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 18, noTypeFilter: true },
+      { slug: 'logical-reasoning', label: 'Logical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 16, noTypeFilter: true },
+    ]
+    const MDCAT_ETEA_SECTIONS: ExamSection[] = [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 60, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 60, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 60, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
+    ]
+    const MDCAT_NUMS_SECTIONS: ExamSection[] = [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 60, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 38, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 37, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+    ]
+    const MDCAT_AKU_SECTIONS: ExamSection[] = [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 20, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 20, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 20, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
+      { slug: 'logical-reasoning', label: 'Logical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 20, noTypeFilter: true },
+    ]
+    return {
   'mdcat': {
     name: 'MDCAT (Medical & Dental)',
     category: 'medical',
@@ -41,14 +74,438 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     duration: 180,
     passingPercentage: 65,
     negativeMarking: false,
-    sections: [
-      { slug: 'biology',    label: 'Biology',    dbTable: 'mdcat_biology',    count: 68 },
-      { slug: 'chemistry',  label: 'Chemistry',  dbTable: 'mdcat_chemistry',  count: 54 },
-      { slug: 'physics',    label: 'Physics',    dbTable: 'mdcat_physics',    count: 54 },
-      { slug: 'english',    label: 'English',    dbTable: 'mdcat_english',    count: 18 },
-      { slug: 'logical-reasoning', label: 'Logical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 16 },
-    ]
+    sections: MDCAT_SECTIONS,
+    guide: {
+      authority: 'Pakistan Medical Commission (PMC)',
+      officialLink: 'https://pmc.gov.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent with minimum 60% marks (varies by province).'],
+      important: ['National MDCAT is the gateway to MBBS/BDS in public and private medical colleges across Pakistan.'],
+      helpful: ['Practice Biology and Chemistry heavily — together they carry ~65% of the paper.'],
+    },
   },
+
+  'mdcat-pmc': {
+    name: 'PMC National MDCAT',
+    category: 'medical',
+    totalMCQs: 180,
+    duration: 180,
+    passingPercentage: 65,
+    negativeMarking: false,
+    sections: MDCAT_SECTIONS,
+    guide: {
+      authority: 'Pakistan Medical Commission (PMC)',
+      officialLink: 'https://pmc.gov.pk/',
+      eligibility: ['Open to all provinces — UHS, SZABMU, SIBA, BUMHS and other provincial bodies use PMC pattern.'],
+      important: ['180 MCQs: Biology 81, Chemistry 45, Physics 36, English 9, Logical Reasoning 9.'],
+      helpful: ['Use full mocks under /mdcat/mock/pmc for timed simulation.'],
+    },
+  },
+
+  'mdcat-uhs': {
+    name: 'UHS Punjab MDCAT',
+    category: 'medical',
+    totalMCQs: 180,
+    duration: 180,
+    passingPercentage: 65,
+    negativeMarking: false,
+    sections: MDCAT_SECTIONS,
+    guide: {
+      authority: 'University of Health Sciences (UHS), Lahore',
+      officialLink: 'https://www.uhs.edu.pk/',
+      eligibility: ['Punjab domicile or as per latest UHS admission policy.'],
+      important: ['Follows PMC national pattern with provincial merit aggregation.'],
+      helpful: ['Largest pre-med cohort in Pakistan — start early with Biology high-yield topics.'],
+    },
+  },
+
+  'mdcat-etea': {
+    name: 'ETEA / KMU MDCAT (KPK)',
+    category: 'medical',
+    totalMCQs: 200,
+    duration: 150,
+    passingPercentage: 60,
+    negativeMarking: true,
+    sections: MDCAT_ETEA_SECTIONS,
+    guide: {
+      authority: 'Educational Testing & Evaluation Agency (ETEA), KPK',
+      officialLink: 'https://www.etea.edu.pk/',
+      eligibility: ['KPK domicile or as per KMU/ETEA advertisement.'],
+      important: ['200 MCQs with negative marking — accuracy matters more than speed.'],
+      helpful: ['Equal weight on Bio, Chem, Physics (60 each) — no logical reasoning section.'],
+    },
+  },
+
+  'mdcat-nums': {
+    name: 'NUMS MDCAT (Military Medical)',
+    category: 'medical',
+    totalMCQs: 150,
+    duration: 165,
+    passingPercentage: 55,
+    negativeMarking: false,
+    sections: MDCAT_NUMS_SECTIONS,
+    guide: {
+      authority: 'National University of Medical Sciences (NUMS)',
+      officialLink: 'https://www.numspak.edu.pk/',
+      eligibility: ['FSc Pre-Medical; separate criteria for Army Medical College and affiliated institutes.'],
+      important: ['150 MCQs focused on core sciences — competitive cutoff for military medical colleges.'],
+      helpful: ['Strong Chemistry and Biology performance is essential for NUMS merit.'],
+    },
+  },
+
+  'mdcat-aku': {
+    name: 'AKU Entry Test',
+    category: 'medical',
+    totalMCQs: 100,
+    duration: 135,
+    passingPercentage: 70,
+    negativeMarking: false,
+    sections: MDCAT_AKU_SECTIONS,
+    guide: {
+      authority: 'Aga Khan University (AKU), Karachi',
+      officialLink: 'https://www.aku.edu/',
+      eligibility: ['FSc Pre-Medical with high academic standing; AKU-specific admission criteria.'],
+      important: ['Balanced 20 MCQs per section including Logical Reasoning — highly competitive private medical entry.'],
+      helpful: ['English and LR sections distinguish top AKU candidates — do not neglect them.'],
+    },
+  },
+    } as Record<string, ExamConfig>
+  })(),
+
+  'fsc-pre-medical': {
+    name: 'FSc Pre-Medical',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 68, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 54, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 54, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 18, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'Board of Intermediate & Secondary Education (BISE)',
+      officialLink: 'https://www.fbiise.edu.pk/',
+      eligibility: ['Matric Science or equivalent; first year of the two-year FSc Pre-Medical programme.'],
+      important: ['Board exams and MDCAT prep both draw from the same FSc syllabus. Build chapter-wise strength in Bio and Chem early.'],
+      helpful: ['Use this module for inter-year revision before PMC MDCAT or NUMS entry tests.'],
+    },
+  },
+
+  'fsc-pre-engineering': {
+    name: 'FSc Pre-Engineering',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'physics', label: 'Physics', dbTable: 'engineering_physics', count: 30 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'engineering_mathematics', count: 30 },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'engineering_chemistry', count: 30 },
+      { slug: 'english', label: 'English', dbTable: 'engineering_english', count: 10 },
+    ],
+    guide: {
+      authority: 'Board of Intermediate & Secondary Education (BISE)',
+      eligibility: ['Matric Science; first or second year FSc Pre-Engineering.'],
+      important: ['Physics and Mathematics carry the most weight in ECAT, NET, and NED entry tests.'],
+      helpful: ['Pair this with NAT-IE practice when applying to NTS-affiliated engineering universities.'],
+    },
+  },
+
+  'hec-lat': {
+    name: 'HEC Law Admission Test (LAT)',
+    category: 'judiciary',
+    totalMCQs: 10000,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english', label: 'English', dbTable: 'english', count: 40 },
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 30 },
+      { slug: 'pakistan-affairs', label: 'Pakistan Studies', dbTable: 'pakistan_studies', count: 20 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'general_math', count: 20 },
+      { slug: 'islamic-studies', label: 'Islamic Studies', dbTable: 'islamiat', count: 20 },
+    ],
+    guide: {
+      authority: 'Higher Education Commission (HEC), Pakistan',
+      officialLink: 'https://etc.hec.gov.pk/',
+      eligibility: ['Intermediate or equivalent for admission to 5-year LLB programmes at HEC-recognised law colleges.'],
+      important: ['LAT is mandatory for most public and private law schools. English and GK sections decide merit at top colleges.'],
+      helpful: ['Read newspaper editorials daily. LAT essay and personal statement come after the MCQ test.'],
+    },
+  },
+
+  'pharm-d-entry': {
+    name: 'Pharm-D Entry Test (D Pharmacy)',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 50, noTypeFilter: true },
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 40, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 30, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'Pharmacy Council of Pakistan / university admission cells',
+      officialLink: 'https://www.pharmacycouncil.org.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent with Chemistry and Biology. Some universities accept Pre-Engineering with biology as additional subject.'],
+      important: ['Chemistry carries the highest weight in most Pharm-D entry tests. Organic and biochemistry chapters appear repeatedly.'],
+      helpful: ['Pair this with FSc Pre-Medical revision before university-specific entry tests.'],
+    },
+  },
+
+  'bsn-nursing-entry': {
+    name: 'BSN Nursing Entry Test',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology & Anatomy Basics', dbTable: 'mdcat_biology', count: 45, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+      { slug: 'nursing-science', label: 'Health & Nursing Science', dbTable: 'everyday_science', count: 15 },
+    ],
+    guide: {
+      authority: 'College of Nursing / university admission authority',
+      eligibility: ['FSc Pre-Medical or nursing diploma as per institution advertisement. Age and domicile rules vary by province.'],
+      important: ['Biology and basic health sciences dominate BSN entry papers at public colleges in Punjab, Sindh, and KPK.'],
+      helpful: ['Revise human physiology and microbiology from FSc Biology before timed practice sets.'],
+    },
+  },
+
+  'dpt-entry': {
+    name: 'DPT Entry Test (Physiotherapy)',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology & Human Anatomy', dbTable: 'mdcat_biology', count: 45, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 30, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'University / college of physiotherapy admission cell',
+      officialLink: 'https://www.hpec.org.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent with Biology, Chemistry, and Physics. Some institutes accept A-level science combinations.'],
+      important: ['Biology and anatomy basics carry the highest weight in most DPT entry tests across Punjab and Sindh universities.'],
+      helpful: ['Pair with MDCAT biology revision. Focus on muscles, joints, and nervous system chapters.'],
+    },
+  },
+
+  'bds-entry': {
+    name: 'BDS Dental Entry Test',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 45, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 40, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'Pakistan Medical Commission / dental college admission authority',
+      officialLink: 'https://pmc.gov.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent. BDS admissions follow MDCAT merit at most public dental colleges.'],
+      important: ['Biology and Chemistry together form most of the paper. Organic chemistry and cell biology repeat often.'],
+      helpful: ['Use national MDCAT practice sets first, then drill university-specific dental college mock tests.'],
+    },
+  },
+
+  'dow-entry': {
+    name: 'Dow University MDCAT / Entry Test',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 45, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 35, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'Dow University of Health Sciences (DUHS), Karachi',
+      officialLink: 'https://www.duhs.edu.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent. Sindh domicile and provincial quota rules apply to public seats.'],
+      important: ['DUHS MBBS/BDS merit combines provincial MDCAT scores with institutional criteria. Biology weightage is highest.'],
+      helpful: ['Practice alongside Sindh MDCAT and national PMC paper patterns before Dow-specific timed mocks.'],
+    },
+  },
+
+  'nust-net-medical': {
+    name: 'NUST NET Medical / Biological Sciences',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 40, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 35, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 10, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'National University of Sciences & Technology (NUST)',
+      officialLink: 'https://www.nust.edu.pk/admissions',
+      eligibility: ['FSc Pre-Medical or equivalent for BS Biological Sciences, Biotechnology, and allied programmes at NUST.'],
+      important: ['NUST NET for medical-science tracks tests Biology and Chemistry heavily with analytical Physics questions.'],
+      helpful: ['Combine with NET engineering practice only for shared English and analytical sections.'],
+    },
+  },
+
+  'tevta-skills-test': {
+    name: 'TEVTA Punjab Skills Assessment',
+    category: 'ots',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english', label: 'English', dbTable: 'english', count: 25 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'general_math', count: 20 },
+      { slug: 'basic-computer', label: 'Basic Computer', dbTable: 'basic_computer', count: 15 },
+      { slug: 'urdu', label: 'Urdu', dbTable: 'urdu', count: 15 },
+    ],
+    guide: {
+      authority: 'Technical Education & Vocational Training Authority (TEVTA), Punjab',
+      officialLink: 'https://www.tevta.gop.pk/',
+      eligibility: ['Matric or intermediate as per trade/course advertisement. Domicile rules follow each batch.'],
+      important: ['TEVTA assessments gate admission to diploma and certificate trades across Punjab.'],
+      helpful: ['Revise basic arithmetic and computer literacy alongside trade theory from your FSc or matric syllabus.'],
+    },
+  },
+
+  'icap-ca-foundation': {
+    name: 'ICAP CA Foundation Entry',
+    category: 'banks',
+    totalMCQs: 10000,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english', label: 'English', dbTable: 'english', count: 30 },
+      { slug: 'mathematics', label: 'Quantitative Techniques', dbTable: 'general_math', count: 30 },
+      { slug: 'basic-computer', label: 'Business & IT Basics', dbTable: 'basic_computer', count: 20 },
+      { slug: 'general-knowledge', label: 'Business Awareness', dbTable: 'general_knowledge', count: 20 },
+    ],
+    guide: {
+      authority: 'Institute of Chartered Accountants of Pakistan (ICAP)',
+      officialLink: 'https://www.icap.org.pk/',
+      eligibility: ['Intermediate or A-Level with required marks as per ICAP registration rules.'],
+      important: ['Foundation module MCQs test English, maths, and business awareness before CA professional stages.'],
+      helpful: ['Pair with Accountancy optional CSS MCQs for overlapping commercial law and finance concepts.'],
+    },
+  },
+
+  'kpk-educators-etea': {
+    name: 'KPK Educators (ETEA)',
+    category: 'etea',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english', label: 'English', dbTable: 'english', count: 25 },
+      { slug: 'pakistan-affairs', label: 'Pakistan Studies', dbTable: 'pakistan_studies', count: 20 },
+      { slug: 'islamic-studies', label: 'Islamic Studies', dbTable: 'islamiat', count: 15 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'general_math', count: 15 },
+    ],
+    guide: {
+      authority: 'Educational Testing & Evaluation Agency (ETEA), KPK',
+      officialLink: 'https://www.etea.edu.pk/',
+      eligibility: ['BA/BSc or B.Ed as per KPK School Education Department advertisement.'],
+      important: ['ETEA conducts primary and secondary teacher recruitment for KPK government schools.'],
+      helpful: ['Compare with Punjab Educators hub but expect more KPK geography and history emphasis.'],
+    },
+  },
+
+  'sindh-educators': {
+    name: 'Sindh Educators Recruitment Hub',
+    category: 'provincial',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english', label: 'English', dbTable: 'english', count: 25 },
+      { slug: 'urdu', label: 'Urdu', dbTable: 'urdu', count: 20 },
+      { slug: 'pakistan-affairs', label: 'Pakistan Affairs', dbTable: 'pakistan_studies', count: 15 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'general_math', count: 15 },
+    ],
+    guide: {
+      authority: 'School Education & Literacy Department, Sindh / STS',
+      officialLink: 'https://www.sts.net.pk/',
+      eligibility: ['Intermediate or graduation as per JEST/PST/SST advertisement. Sindh domicile usually required.'],
+      important: ['Unified practice for STS Sindh teacher posts including JEST, PST, and subject specialist screens.'],
+      helpful: ['Also use STS Sindh JEST slug for JEST-specific weightage drills.'],
+    },
+  },
+
+  'balochistan-educators': {
+    name: 'Balochistan Educators Recruitment',
+    category: 'provincial',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 25 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'islamic-studies',   label: 'Islamic Studies',    dbTable: 'islamiat',          count: 15 },
+    ],
+    guide: {
+      authority: 'Balochistan Public Service Commission (BPSC) / School Education Department',
+      officialLink: 'https://www.bpsc.gob.pk/',
+      eligibility: ['BA/B.Ed or MA as per PST, CT, and SST advertisements. Balochistan domicile usually required.'],
+      important: ['Balochistan educator tests follow the standard one-paper MCQ format with strong Urdu and Pakistan Studies weight.'],
+      helpful: ['Review Balochistan geography, tribes, and provincial education policy for GK sections.'],
+    },
+  },
+
+  'gb-educators': {
+    name: 'Gilgit-Baltistan Educators Recruitment',
+    category: 'provincial',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 25 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 15 },
+    ],
+    guide: {
+      authority: 'Gilgit-Baltistan Public Service Commission (GBPSC) / Education Department GB',
+      officialLink: 'https://gbpsc.gob.pk/',
+      eligibility: ['BA/B.Ed or equivalent as per GB educator advertisement. GB domicile required for most posts.'],
+      important: ['GB educator MCQs mirror other provincial teacher tests with added focus on northern areas geography and CPEC basics.'],
+      helpful: ['Combine with GBPSC general recruitment practice for shared English and GK patterns.'],
+    },
+  },
+
+  // Remove duplicate old mdcat block — merged above
 
   // ============================================================
   // NATIONAL: CSS & PMS (Federal Competitive)
@@ -1291,6 +1748,94 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
+  'issb-academic': {
+    name: 'ISSB Academic & Intelligence Test',
+    category: 'military',
+    totalMCQs: 660,
+    duration: 90,
+    passingPercentage: 60,
+    negativeMarking: false,
+    guide: {
+      authority: 'Inter Services Selection Board (ISSB)',
+      officialLink: 'https://issb.com.pk/',
+      eligibility: [
+        'Candidates who clear initial tests of Pak Army, Navy, or PAF (Long Course, SSC, PN Cadet, GD Pilot, etc.).',
+        'Minimum FSc/A-Level or graduate qualification as per the service advertisement.',
+      ],
+      important: [
+        'ISSB is a 4–5 day selection process: academic screening, psychological tests, group tasks, and interview.',
+        'This module covers the written academic & intelligence MCQ portion — English, Maths, GK, Pakistan Affairs, and reasoning.',
+        'Every MCQ includes a detailed explanation to build the analytical mindset ISSB expects.',
+      ],
+      helpful: [
+        'Practice daily — consistency beats cramming for ISSB academic screening.',
+        'Read explanations carefully; ISSB rewards clarity of thought, not guessing.',
+        'Combine with physical fitness and current affairs reading for holistic preparation.',
+      ],
+    },
+    sections: [
+      { slug: 'english',           label: 'English',              dbTable: 'issb_english',           count: 25 },
+      { slug: 'mathematics',       label: 'Mathematics & IQ',     dbTable: 'issb_mathematics',       count: 25 },
+      { slug: 'general-knowledge', label: 'General Knowledge',    dbTable: 'issb_general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',     dbTable: 'issb_pakistan_affairs',  count: 20 },
+      { slug: 'intelligence',      label: 'Intelligence & Reasoning', dbTable: 'issb_intelligence',  count: 10 },
+    ],
+  },
+
+  'issb-army': {
+    name: 'ISSB — Pak Army Officer Selection',
+    category: 'military',
+    totalMCQs: 660,
+    duration: 90,
+    passingPercentage: 60,
+    negativeMarking: false,
+    sourceExam: 'issb-academic',
+    sourceExamLabel: 'ISSB Academic & Intelligence Test',
+    sections: [
+      { slug: 'english',           label: 'English',              dbTable: 'issb_english',           count: 25 },
+      { slug: 'mathematics',       label: 'Mathematics & IQ',     dbTable: 'issb_mathematics',       count: 25 },
+      { slug: 'general-knowledge', label: 'General Knowledge',    dbTable: 'issb_general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',     dbTable: 'issb_pakistan_affairs',  count: 20 },
+      { slug: 'intelligence',      label: 'Intelligence & Reasoning', dbTable: 'issb_intelligence',  count: 10 },
+    ],
+  },
+
+  'issb-navy': {
+    name: 'ISSB — Pak Navy Officer Selection',
+    category: 'military',
+    totalMCQs: 660,
+    duration: 90,
+    passingPercentage: 60,
+    negativeMarking: false,
+    sourceExam: 'issb-academic',
+    sourceExamLabel: 'ISSB Academic & Intelligence Test',
+    sections: [
+      { slug: 'english',           label: 'English',              dbTable: 'issb_english',           count: 25 },
+      { slug: 'mathematics',       label: 'Mathematics & IQ',     dbTable: 'issb_mathematics',       count: 25 },
+      { slug: 'general-knowledge', label: 'General Knowledge',    dbTable: 'issb_general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',     dbTable: 'issb_pakistan_affairs',  count: 20 },
+      { slug: 'intelligence',      label: 'Intelligence & Reasoning', dbTable: 'issb_intelligence',  count: 10 },
+    ],
+  },
+
+  'issb-paf': {
+    name: 'ISSB — PAF Officer Selection',
+    category: 'military',
+    totalMCQs: 660,
+    duration: 90,
+    passingPercentage: 60,
+    negativeMarking: false,
+    sourceExam: 'issb-academic',
+    sourceExamLabel: 'ISSB Academic & Intelligence Test',
+    sections: [
+      { slug: 'english',           label: 'English',              dbTable: 'issb_english',           count: 25 },
+      { slug: 'mathematics',       label: 'Mathematics & IQ',     dbTable: 'issb_mathematics',       count: 25 },
+      { slug: 'general-knowledge', label: 'General Knowledge',    dbTable: 'issb_general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',     dbTable: 'issb_pakistan_affairs',  count: 20 },
+      { slug: 'intelligence',      label: 'Intelligence & Reasoning', dbTable: 'issb_intelligence',  count: 10 },
+    ],
+  },
+
   'military-pak-navy': {
     name: 'Join Pak Navy: Initial Academic Test',
     category: 'military',
@@ -1854,6 +2399,28 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 15 },
       { slug: 'current-affairs',   label: 'Current Affairs',    dbTable: 'current_affairs',   count: 10 },
     ]
+  },
+
+  'sts-sindh-jest': {
+    name: 'STS Sindh JEST (Junior Elementary Teacher)',
+    category: 'provincial',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 25 },
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 15 },
+    ],
+    guide: {
+      authority: 'Sindh Testing Service (STS) / School Education Department Sindh',
+      eligibility: ['Intermediate or graduation as per JEST advertisement. Sindh domicile usually required.'],
+      important: ['STS conducts JEST and other Sindh educator posts. English and Urdu comprehension appear in almost every paper.'],
+      helpful: ['Compare with Punjab educator papers but expect more Sindh-specific GK and current affairs.'],
+    },
   },
 
   // ============================================================
@@ -3084,6 +3651,30 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
+  'punjab-educators': {
+    name: 'Punjab Educators (PST / SST / EST Hub)',
+    category: 'ppsc',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'urdu',              label: 'Urdu',               dbTable: 'urdu',              count: 25 },
+      { slug: 'english',           label: 'English',            dbTable: 'english',           count: 20 },
+      { slug: 'general-knowledge', label: 'General Knowledge',  dbTable: 'general_knowledge', count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Affairs',   dbTable: 'pakistan_studies',  count: 15 },
+      { slug: 'mathematics',       label: 'Mathematics',        dbTable: 'general_math',      count: 10 },
+      { slug: 'islamic-studies',   label: 'Islamic Studies',    dbTable: 'islamiat',          count: 10 },
+    ],
+    guide: {
+      authority: 'Punjab Public Service Commission (PPSC) / School Education Department',
+      officialLink: 'https://www.ppsc.gop.pk/',
+      eligibility: ['BA/BSc or B.Ed as per post (PST, SST Biology/Math, EST). Domicile and age limits follow each advertisement.'],
+      important: ['One hub for all Punjab educator recruitment MCQs. Urdu and pedagogy-heavy GK decide merit in most batches.'],
+      helpful: ['Also drill post-specific papers under PST, SST, and EST slugs for exact weightage.'],
+    },
+  },
+
   // ============================================================
   // PROVINCIAL: PMS Balochistan / AJK / GB
   // ============================================================
@@ -3419,6 +4010,74 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
+  'uet-taxila': {
+    name: 'UET Taxila Entry Test',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    pastPapersExam: 'ECAT',
+    sections: [
+      { slug: 'physics',     label: 'Physics',     dbTable: 'engineering_physics',     count: 30 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'engineering_mathematics', count: 30 },
+      { slug: 'chemistry',   label: 'Chemistry',   dbTable: 'engineering_chemistry',   count: 30 },
+      { slug: 'english',     label: 'English',     dbTable: 'engineering_english',     count: 10 },
+    ],
+    guide: {
+      authority: 'University of Engineering & Technology (UET), Taxila',
+      officialLink: 'https://www.uettaxila.edu.pk/',
+      eligibility: ['FSc Pre-Engineering or equivalent with Mathematics, Physics, and Chemistry.'],
+      important: ['UET Taxila uses the same ECAT-style pattern as UET Lahore. Math and Physics decide merit at top engineering seats.'],
+      helpful: ['Practice ECAT timed sets here. Same syllabus applies to affiliated colleges in Rawalpindi region.'],
+    },
+  },
+
+  'ned-entry': {
+    name: 'NED University Entry Test',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'engineering_mathematics', count: 35 },
+      { slug: 'physics', label: 'Physics', dbTable: 'engineering_physics', count: 35 },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'engineering_chemistry', count: 20 },
+      { slug: 'english', label: 'English', dbTable: 'engineering_english', count: 10 },
+    ],
+    guide: {
+      authority: 'NED University of Engineering & Technology, Karachi',
+      officialLink: 'https://www.neduet.edu.pk/',
+      eligibility: ['FSc Pre-Engineering or equivalent with Mathematics, Physics, and Chemistry.'],
+      important: ['Karachi\'s flagship public engineering university. Math and physics weightage is high in entry tests.'],
+      helpful: ['Practice engineering bank MCQs under timed sets before NED-specific mock exams.'],
+    },
+  },
+
+  'pu-cet-lahore': {
+    name: 'PU CET Lahore (Engineering & CS)',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'physics', label: 'Physics', dbTable: 'engineering_physics', count: 30 },
+      { slug: 'mathematics', label: 'Mathematics', dbTable: 'engineering_mathematics', count: 30 },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'engineering_chemistry', count: 20 },
+      { slug: 'english', label: 'English', dbTable: 'engineering_english', count: 10 },
+      { slug: 'computer-science', label: 'Computer Science', dbTable: 'engineering_computer_science', count: 10 },
+    ],
+    guide: {
+      authority: 'University of the Punjab (PU), Lahore',
+      officialLink: 'https://pu.edu.pk/',
+      eligibility: ['FSc Pre-Engineering / ICS for BS Engineering and CS programmes at PU constituent colleges.'],
+      important: ['PU CET covers Punjab\'s largest public university engineering and computer science admissions.'],
+      helpful: ['Combine with ECAT practice if you are applying to both UET and PU colleges.'],
+    },
+  },
+
   'net-engineering': {
     name: 'NUST NET Engineering Test',
     category: 'engineering',
@@ -3560,6 +4219,91 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       { slug: 'chemistry',   label: 'Chemistry',   dbTable: 'engineering_chemistry',   count: 30 },
       { slug: 'english',     label: 'English',     dbTable: 'engineering_english',     count: 10 },
     ]
+  },
+
+  'nts-nat-im': {
+    name: 'NTS NAT-IM (Medical / Pre-Medical Track)',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology',   label: 'Biology',   dbTable: 'mdcat_biology',   count: 40, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 35, noTypeFilter: true },
+      { slug: 'physics',   label: 'Physics',   dbTable: 'mdcat_physics',   count: 25, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'National Testing Service (NTS)',
+      officialLink: 'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
+      eligibility: ['FSc Pre-Medical or equivalent for medical-degree university admission via NAT.'],
+      important: ['NAT-IM is required by many private and public universities for MBBS/BDS/BSc medical programs.'],
+      helpful: ['Focus on Biology and Chemistry — together ~75% of the paper.'],
+    },
+  },
+
+  'nts-nat-ics': {
+    name: 'NTS NAT-ICS (Computer Science Track)',
+    category: 'engineering',
+    totalMCQs: 5109,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'computer-science', label: 'Computer Science', dbTable: 'engineering_computer_science', count: 40 },
+      { slug: 'mathematics',      label: 'Mathematics',      dbTable: 'engineering_mathematics',      count: 35 },
+      { slug: 'physics',          label: 'Physics',          dbTable: 'engineering_physics',          count: 25 },
+    ],
+    guide: {
+      authority: 'National Testing Service (NTS)',
+      officialLink: 'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
+      eligibility: ['FSc Pre-Engineering / ICS or equivalent.'],
+      important: ['Required for CS/IT degree programs at NTS-affiliated universities.'],
+      helpful: ['Computer Science and Mathematics carry the highest weightage.'],
+    },
+  },
+
+  'nts-nat-igs': {
+    name: 'NTS NAT-IGS (General Science Track)',
+    category: 'nts',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english',           label: 'English',           dbTable: 'english',           count: 40 },
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 35 },
+      { slug: 'mathematics',       label: 'Mathematics',       dbTable: 'general_math',      count: 25 },
+    ],
+    guide: {
+      authority: 'National Testing Service (NTS)',
+      officialLink: 'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
+      eligibility: ['Intermediate or equivalent for general science / arts-science degree programs.'],
+      important: ['NAT-IGS covers English, analytical math, and general knowledge for broad undergraduate admission.'],
+      helpful: ['Strong English vocabulary and basic arithmetic speed up this paper significantly.'],
+    },
+  },
+
+  'nts-nat-ia': {
+    name: 'NTS NAT-IA (Arts / Humanities Track)',
+    category: 'nts',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'english', label: 'English', dbTable: 'english', count: 40 },
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 30 },
+      { slug: 'pakistan-affairs', label: 'Pakistan Studies', dbTable: 'pakistan_studies', count: 15 },
+      { slug: 'islamic-studies', label: 'Islamic Studies', dbTable: 'islamiat', count: 15 },
+    ],
+    guide: {
+      authority: 'National Testing Service (NTS)',
+      officialLink: 'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
+      eligibility: ['Intermediate Arts / Humanities or equivalent for BA, BCom, and social science degree programmes.'],
+      important: ['NAT-IA is required by many private universities for arts, law, and social science admissions.'],
+      helpful: ['English and Pakistan Studies carry steady weight. Build vocabulary from past NAT papers.'],
+    },
   },
 
   'muet': {

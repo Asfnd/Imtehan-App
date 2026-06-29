@@ -1,0 +1,14 @@
+[
+  {"table": "ethics_civics", "topic": "Human rights conventions — UDHR, ICCPR, CEDAW key articles", "type": "most_important", "count": 50},
+  {"table": "ethics_civics", "topic": "Good governance, SDGs, and Transparency International CPI", "type": "most_repeated", "count": 50},
+  {"table": "current_affairs", "topic": "Pakistan political developments — 2024 elections and governance", "type": "most_important", "count": 50},
+  {"table": "current_affairs", "topic": "Climate and environment — Pakistan floods, GLOF, Paris Agreement", "type": "practice", "count": 50},
+  {"table": "geography", "topic": "World straits, canals, and landlocked countries", "type": "most_repeated", "count": 50},
+  {"table": "urdu", "topic": "Iqbal poetry — themes, works, and philosophical ideas", "type": "most_important", "count": 50},
+  {"table": "urdu", "topic": "Urdu grammar — Ism, Fail, Harf, Imla rules", "type": "most_repeated", "count": 50},
+  {"table": "basic_computer", "topic": "Cybersecurity — malware, phishing, encryption, firewall", "type": "most_important", "count": 50},
+  {"table": "basic_computer", "topic": "MS Office shortcuts and everyday software for clerk exams", "type": "most_repeated", "count": 50},
+  {"table": "islamiat", "topic": "Hadith — six collections and classification Sahih Hasan Daif", "type": "most_important", "count": 50},
+  {"table": "pakistan_studies", "topic": "Independence movement 1857 to 1947 — key events and leaders", "type": "most_repeated", "count": 50},
+  {"table": "general_knowledge", "topic": "UN agencies headquarters and founding years", "type": "most_repeated", "count": 50}
+]

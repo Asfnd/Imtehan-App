@@ -1,0 +1,92 @@
+[
+  {
+    "table": "general_knowledge",
+    "topic": "Famous paintings, music, and cultural heritage",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "World geography: continents, oceans, major rivers, mountain ranges",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Quadrilaterals and polygons",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Volume and surface area of cubes, cuboids, cylinders, spheres",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Constitutional amendments",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Parliamentary system: National Assembly, Senate, President, PM",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Umayyad Caliphate : key caliphs and events",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Famous Islamic scholars: Al-Kindi, Ibn Sina, Al-Ghazali, Al-Biruni",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Cell biology: cell types, organelles, mitosis, meiosis",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Genetics: DNA, chromosomes, heredity basics",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Networking: LAN, WAN, Wi-Fi, IP address, DNS, router basics",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Binary number system and data representation",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Tenses in Urdu: \u0645\u0627\u0636\u06cc\u060c \u062d\u0627\u0644\u060c \u0645\u0633\u062a\u0642\u0628\u0644",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Economic geography: natural resources, agriculture, industries",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Rivers and drainage systems: Pakistan and world",
+    "type": "most_repeated",
+    "count": 26
+  }
+]

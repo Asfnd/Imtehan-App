@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Active and passive voice",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Articles: definite and indefinite usage",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Nobel Prize winners",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Scientific discoveries and inventors",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Time, speed, and distance; trains and boats",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Pipes and cisterns",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Lucknow Pact 1916, Khilafat Movement, Non-Cooperation",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Simon Commission, Allahabad Address 1930, Round Table Conferences",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Zakat: nisab, calculation, eligible recipients",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hajj: rituals, conditions, Arkan-ul-Hajj",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Space: planets, satellites, comets, black holes",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Vitamins, minerals, and their deficiency diseases",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Regional affairs: India-Pakistan relations, Afghanistan, Iran, China",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "International relations: US, UK, EU, Gulf states",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Cybersecurity: viruses, malware, antivirus, passwords, encryption",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Database basics: tables, records, queries, SQL concepts",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu poets: Mir Taqi Mir, Ghalib, Iqbal, Faiz, Josh",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu prose writers: Manto, Prem Chand, Qurrat-ul-Ain",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Khyber Pakhtunkhwa and tribal belt geography",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Balochistan plateau and coastal areas",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Environmental ethics and sustainable development",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Conflict resolution and peaceful coexistence",
+    "type": "most_repeated",
+    "count": 26
+  }
+]

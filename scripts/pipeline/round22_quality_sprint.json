@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Idioms and phrases",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Sentence correction and improvement",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "World history: ancient civilizations, colonialism, world wars",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Famous historical personalities and their contributions",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Ratio and proportion; partnership problems",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Time and work problems",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Pakistan Resolution 1940",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Independence 1947: Radcliffe Award, refugee crisis, early challenges",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hadith: definition, major collections",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic jurisprudence : four madhabs",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Light: reflection, refraction, lenses, spectrum, lasers",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Electricity: current, voltage, resistance, circuits",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Global economy: trade deals, sanctions, oil prices",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan domestic politics: elections, government decisions, legislation",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Input devices and output devices",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Software: system software vs application software",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu sentence structure: \u0641\u0627\u0639\u0644\u060c \u0641\u0639\u0644\u060c \u0645\u0641\u0639\u0648\u0644",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "\u0645\u062a\u0631\u0627\u062f\u0641\u0627\u062a \u0627\u0648\u0631 \u0645\u062a\u0636\u0627\u062f\u0627\u062a",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Climate types: tropical, arid, temperate, polar",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Soils: types, formation, importance for agriculture",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Citizenship duties and responsibilities",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Definition and scope of ethics; ethical theories",
+    "type": "most_important",
+    "count": 26
+  }
+]

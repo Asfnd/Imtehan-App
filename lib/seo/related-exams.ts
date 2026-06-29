@@ -34,8 +34,17 @@ export const FEATURED_EXAM_SLUGS = [
   'net-engineering',
   'nts-general',
   'military-pak-army',
+  'issb-academic',
   'police-punjab-constable',
   'mdcat',
+  'pharm-d-entry',
+  'dpt-entry',
+  'bds-entry',
+  'punjab-educators',
+  'hec-lat',
+  'ned-entry',
+  'uet-taxila',
+  'sts-sindh-jest',
 ] as const
 
 export function getFeaturedExams(): { slug: string; name: string; category: string }[] {

@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Prepositions and conjunctions in context",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Vocabulary: synonyms, antonyms, one-word substitution",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Basic astronomy: planets, stars, solar system",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Environment: climate change, biodiversity, global summits",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Time and work problems",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Time, speed, and distance; trains and boats",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Foreign policy: relations with India, China, USA, Middle East",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "CPEC",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Khulafa-e-Rashideen: Abu Bakr, Umar, Uthman, Ali",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Umayyad Caliphate : key caliphs and events",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Human body systems: digestive, respiratory, circulatory, nervous, skeletal",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Vitamins, minerals, and their deficiency diseases",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Major appointments: PM, President, Army Chief, foreign leaders",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Sports: recent cricket, football, Olympics results",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS PowerPoint: slides, transitions, animations, presentations",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Internet: WWW, browsers, URLs, HTTP/HTTPS, search engines",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Comprehension of Urdu passages",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu grammar: \u0627\u0633\u0645\u060c \u0636\u0645\u06cc\u0631\u060c \u0641\u0639\u0644\u060c \u0635\u0641\u062a\u060c \u0645\u062a\u0639\u0644\u0642 \u0641\u0639\u0644",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Soils: types, formation, importance for agriculture",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Pakistan geography: Northern Areas, Punjab plains, Sindh delta",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civil society and role of institutions",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Governance: good governance principles, e-governance",
+    "type": "most_important",
+    "count": 26
+  }
+]

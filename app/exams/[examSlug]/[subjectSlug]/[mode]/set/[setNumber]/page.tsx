@@ -62,7 +62,7 @@ export default async function QuizSetPage({
   // stable across requests; without it Postgres can return overlapping rows
   // between sets, which was the root cause of the "same MCQs in every batch"
   // user complaints. See S1.1 in the cleanup pipeline.
-  if (modeConfig.type === 'mixed') {
+  if (modeConfig.type === 'mixed' || section.noTypeFilter) {
     const { data, error } = await supabase
       .from(section.dbTable)
       .select('*')

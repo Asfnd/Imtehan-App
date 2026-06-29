@@ -1,0 +1,17 @@
+[
+  {"mode": "issb", "table": "issb_english", "topic": "Phrasal verbs and collocations", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_english", "topic": "Reading comprehension short passages", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Profit loss and discount", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Time speed distance trains", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "World organizations and HQs", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Human body and health basics", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "1973 constitution articles", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "CPEC and major development projects", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Coding decoding letters", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Seating arrangement and ranking", "type": "practice", "count": 12},
+  {"mode": "css", "subject": "Philosophy", "topic": "Ethics: utilitarianism and deontology", "count": 10},
+  {"mode": "css", "subject": "Journalism and Mass Communication", "topic": "Media theories and PEMRA", "count": 10},
+  {"mode": "css", "subject": "Environmental Science", "topic": "Climate change and Pakistan impacts", "count": 10},
+  {"mode": "css", "subject": "Muslim Law and Jurisprudence", "topic": "Sources of Islamic law", "count": 10},
+  {"mode": "css", "subject": "Criminology", "topic": "Penology and rehabilitation", "count": 10}
+]

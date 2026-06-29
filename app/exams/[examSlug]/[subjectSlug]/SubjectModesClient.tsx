@@ -145,6 +145,28 @@ export function SubjectModesClient() {
     async function loadCounts() {
       const supabase = createClient()
       const titleCase = TITLE_CASE_DIFFICULTY_TABLES.has(dbTable)
+      const skipType = !!section?.noTypeFilter
+
+      if (skipType) {
+        const [
+          { count: totalCount },
+          { count: easyCount }, { count: mediumCount }, { count: hardCount },
+        ] = await Promise.all([
+          supabase.from(dbTable).select('*', { count: 'exact', head: true }),
+          supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Easy'   : 'easy'),
+          supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Medium' : 'medium'),
+          supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Hard'   : 'hard'),
+        ])
+        const total = totalCount || 0
+        if (cancelled) return
+        setCounts({
+          pastCount: total, importantCount: total, repeatedCount: total,
+          easyCount: easyCount || 0, mediumCount: mediumCount || 0, hardCount: hardCount || 0,
+        })
+        setTopicCounts({})
+        setLoading(false)
+        return
+      }
 
       const [
         { count: pastCount }, { count: importantCount }, { count: repeatedCount },

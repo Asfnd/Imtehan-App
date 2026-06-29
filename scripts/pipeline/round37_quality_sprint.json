@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Direct and indirect speech",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Articles: definite and indefinite usage",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Scientific discoveries and inventors",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Current world records and superlatives",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Pipes and cisterns",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic algebra: linear equations, simplification, factoring",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Major rivers: Indus, Jhelum, Chenab, Ravi, Sutlej, Kabul",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Natural resources: coal, gas, oil, minerals",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Hijra 622 CE",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Ghazwat : Badr, Uhud, Khandaq, Khyber, Makkah conquest",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Inventions and the scientists behind them",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Vitamins, minerals, and their deficiency diseases",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "United Nations: resolutions, peacekeeping, summits",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Science and technology breakthroughs",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "MS PowerPoint: slides, transitions, animations, presentations",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Internet: WWW, browsers, URLs, HTTP/HTTPS, search engines",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu sentence structure: \u0641\u0627\u0639\u0644\u060c \u0641\u0639\u0644\u060c \u0645\u0641\u0639\u0648\u0644",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu literature history: Dilli Darbar to Pakistan movement",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Map reading: scale, contour lines, compass directions, projections",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Economic geography: natural resources, agriculture, industries",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Citizenship duties and responsibilities",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Social justice, equality, and non-discrimination",
+    "type": "practice",
+    "count": 26
+  }
+]

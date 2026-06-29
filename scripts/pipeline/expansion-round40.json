@@ -1,0 +1,18 @@
+[
+  {"mode": "issb", "table": "issb_english", "topic": "Synonyms and antonyms in context", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_english", "topic": "Sentence correction and grammar", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Percentages profit loss and discount", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Linear and quadratic equations", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Sports awards and international organizations", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Basic computer IT and internet terms", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "Constitution 1973 and parliamentary system", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "Kashmir issue and Pakistan foreign relations", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Verbal analogy and classification", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Number and letter series patterns", "type": "most_repeated", "count": 12},
+  {"mode": "css", "subject": "Agriculture and Forestry", "topic": "Crop rotation soil fertility and irrigation", "count": 10},
+  {"mode": "css", "subject": "Mercantile Law", "topic": "Contract act sale of goods and partnership", "count": 10},
+  {"mode": "css", "subject": "Business Administration", "topic": "Marketing management and organizational behavior", "count": 10},
+  {"mode": "css", "subject": "Botany", "topic": "Plant physiology photosynthesis and reproduction", "count": 10},
+  {"mode": "css", "subject": "Anthropology", "topic": "Culture kinship and Pakistani tribal societies", "count": 10},
+  {"mode": "css", "subject": "Law", "topic": "Constitutional law fundamental rights and courts", "count": 10}
+]

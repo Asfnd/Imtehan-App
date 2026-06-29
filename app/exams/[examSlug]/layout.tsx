@@ -51,6 +51,62 @@ const EXAM_SEO: Record<string, {
       'Punjab tehsildar MCQ test', 'PPSC revenue MCQs',
     ],
   },
+  'issb-academic': {
+    description: 'Practice ISSB academic & intelligence MCQs: English, Mathematics, General Knowledge, Pakistan Affairs, and reasoning. Every question includes a detailed explanation.',
+    keywords: [
+      'ISSB MCQs', 'ISSB academic test', 'ISSB preparation Pakistan',
+      'ISSB English MCQs', 'ISSB intelligence test', 'Pak Army ISSB MCQs',
+    ],
+  },
+  'pharm-d-entry': {
+    description: 'Practice Pharm-D entry test MCQs: Chemistry, Biology, Physics, and English. Subject-wise sets with answers for D Pharmacy admission in Pakistan.',
+    keywords: [
+      'Pharm-D entry test MCQs', 'D Pharmacy entry test', 'pharmacy admission Pakistan',
+      'Pharm-D chemistry MCQs', 'pharmacy college entry test',
+    ],
+  },
+  'dpt-entry': {
+    description: 'Practice DPT physiotherapy entry test MCQs: Biology, Chemistry, Physics, and English. Timed sets with explanations for university admission.',
+    keywords: [
+      'DPT entry test MCQs', 'physiotherapy entry test Pakistan', 'DPT admission MCQs',
+      'physiotherapy university test', 'DPT biology MCQs',
+    ],
+  },
+  'bds-entry': {
+    description: 'Practice BDS dental entry test MCQs: Biology, Chemistry, Physics, and English. MDCAT-style preparation for dental college admission.',
+    keywords: [
+      'BDS entry test MCQs', 'dental college admission Pakistan', 'BDS MCQ practice',
+      'dental entry test preparation', 'BDS biology chemistry MCQs',
+    ],
+  },
+  'punjab-educators': {
+    description: 'Practice Punjab Educators MCQs for PST, SST, and EST: Urdu, English, General Knowledge, Pakistan Studies, Mathematics, and Islamic Studies.',
+    keywords: [
+      'Punjab educators MCQs', 'PPSC educators test', 'PST SST EST MCQs',
+      'Punjab teacher recruitment', 'educators entry test Punjab',
+    ],
+  },
+  'hec-lat': {
+    description: 'Practice HEC Law Admission Test (LAT) MCQs: English, General Knowledge, Pakistan Studies, Mathematics, and Islamic Studies for LLB admission.',
+    keywords: [
+      'HEC LAT MCQs', 'law admission test Pakistan', 'LAT preparation',
+      'LLB entry test MCQs', 'HEC law test practice',
+    ],
+  },
+  'ned-entry': {
+    description: 'Practice NED University entry test MCQs: Mathematics, Physics, Chemistry, and English. Engineering admission preparation for Karachi.',
+    keywords: [
+      'NED entry test MCQs', 'NED University admission', 'NED engineering test',
+      'NED Karachi entry test', 'NED math physics MCQs',
+    ],
+  },
+  'uet-taxila': {
+    description: 'Practice UET Taxila entry test MCQs: Physics, Mathematics, Chemistry, and English. ECAT-style preparation for Rawalpindi region engineering colleges.',
+    keywords: [
+      'UET Taxila entry test MCQs', 'UET Taxila admission', 'ECAT UET Taxila',
+      'engineering entry test Taxila', 'UET Rawalpindi MCQs',
+    ],
+  },
 }
 
 const CATEGORY_KEYWORDS: Record<string, string[]> = {

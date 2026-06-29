@@ -1,0 +1,122 @@
+[
+  {
+    "table": "general_knowledge",
+    "topic": "Sports: cricket, football, Olympics \u2014 records and champions",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Awards and international honors",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Volume and surface area of cubes, cuboids, cylinders, spheres",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Basic statistics: mean, median, mode, range",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Independence 1947: Radcliffe Award, refugee crisis, early challenges",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Quaid-e-Azam Muhammad Ali Jinnah: life, role, speeches",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic jurisprudence : four madhabs",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Zakat: nisab, calculation, eligible recipients",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Genetics: DNA, chromosomes, heredity basics",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Ecology: food chains, food webs, ecosystems, biomes",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Regional affairs: India-Pakistan relations, Afghanistan, Iran, China",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "International relations: US, UK, EU, Gulf states",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Binary number system and data representation",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Programming concepts: algorithms, flowcharts, variables, loops",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu poets: Mir Taqi Mir, Ghalib, Iqbal, Faiz, Josh",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu prose writers: Manto, Prem Chand, Qurrat-ul-Ain",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Population geography: density, distribution, urbanization, migration",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Balochistan plateau and coastal areas",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Civic virtues: honesty, integrity, accountability, transparency",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Democracy and democratic values",
+    "type": "most_important",
+    "count": 26
+  }
+]

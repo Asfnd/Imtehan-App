@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Direct and indirect speech",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Reading comprehension",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "International organizations: UN, NATO, SAARC, OIC, SCO, G20",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Books and authors",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "National symbols: flag, anthem, animal, bird, flower",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Constitutions of Pakistan: 1956, 1962, 1973",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Farewell Hajj and Last Sermon",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Abbasid Caliphate",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Infectious and non-infectious diseases; vaccines and antibiotics",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Human body systems: digestive, respiratory, circulatory, nervous, skeletal",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan economy: budget, GDP, inflation, CPEC updates",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Science and technology breakthroughs",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Profit and loss, discount, and marked price",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Number system: natural, whole, integers, rational, irrational numbers",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Operating systems: Windows, Linux, macOS \u2014 basics and features",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Programming concepts: algorithms, flowcharts, variables, loops",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "\u0645\u062d\u0627\u0648\u0631\u06d2 \u0627\u0648\u0631 \u0636\u0631\u0628 \u0627\u0644\u0627\u0645\u062b\u0627\u0644",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Allama Iqbal: life, philosophy, famous works",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Pakistan geography: Northern Areas, Punjab plains, Sindh delta",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Environmental geography: deforestation, desertification, water scarcity",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Professional ethics: public service, civil service code of conduct",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Human rights: UDHR, fundamental rights in Pakistan Constitution",
+    "type": "most_important",
+    "count": 26
+  }
+]

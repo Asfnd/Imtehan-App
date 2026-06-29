@@ -15,7 +15,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What exams can I prepare for?',
-    a: 'Currently we offer CSS preparation with 10,000+ questions and 500+ past papers. FPSC is coming soon. We plan to add more competitive exams based on user demand.',
+    a: 'Imtehan covers 230+ exams: CSS MPT, PMS, PPSC, FPSC, FIA, ISSB, MDCAT (PMC/NUMS/AKU/UHS), engineering entry tests, NTS/OTS, police, military, banks, and more — with 170,000+ MCQs and detailed explanations.',
   },
   {
     q: 'Can I track my progress?',

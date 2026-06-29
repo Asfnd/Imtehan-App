@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+"""Validate expansion JSON batches before Supabase insert. Exit 1 if any fail."""
+from __future__ import annotations
+
+import json
+import re
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[1]
+EXP = REPO / "data" / "expansion"
+ISSB = {
+    "issb_english", "issb_mathematics", "issb_general_knowledge",
+    "issb_pakistan_affairs", "issb_intelligence",
+}
+DASH = re.compile(r"[\u2013\u2014]")
+AI = re.compile(r"\b(it is worth noting|delve|landscape|leverage|multifaceted)\b", re.I)
+
+
+def check_issb(row: dict, path: str, i: int) -> list[str]:
+    errs = []
+    for f in ("question", "option_a", "option_b", "option_c", "option_d", "explanation", "topic"):
+        if not (row.get(f) or "").strip():
+            errs.append(f"{path}[{i}] missing {f}")
+    if row.get("table") not in ISSB:
+        errs.append(f"{path}[{i}] bad table {row.get('table')}")
+    ans = (row.get("correct_answer") or "").strip().upper()[:1]
+    if ans not in "ABCD":
+        errs.append(f"{path}[{i}] bad answer {ans}")
+    opts = [row.get(f"option_{c}", "").strip().lower() for c in "abcd"]
+    if len(set(opts)) < 4:
+        errs.append(f"{path}[{i}] duplicate options")
+    expl = row.get("explanation") or ""
+    if len(expl.split()) < 5:
+        errs.append(f"{path}[{i}] explanation too short")
+    if DASH.search(expl) or DASH.search(row.get("question") or ""):
+        errs.append(f"{path}[{i}] en/em dash found")
+    if AI.search(expl):
+        errs.append(f"{path}[{i}] AI fluff in explanation")
+    return errs
+
+
+def check_css(row: dict, path: str, i: int) -> list[str]:
+    errs = []
+    if row.get("year") is not None:
+        errs.append(f"{path}[{i}] year must be null for practice")
+    for f in ("subject", "question_text", "option_a", "option_b", "option_c", "option_d", "explanation_detailed"):
+        if not (row.get(f) or "").strip():
+            errs.append(f"{path}[{i}] missing {f}")
+    ans = (row.get("correct_answer") or "").strip().upper()[:1]
+    if ans not in "ABCD":
+        errs.append(f"{path}[{i}] bad answer")
+    opts = [row.get(f"option_{c}", "").strip().lower() for c in "abcd"]
+    if len(set(opts)) < 4:
+        errs.append(f"{path}[{i}] duplicate options")
+    expl = row.get("explanation_detailed") or ""
+    if DASH.search(expl):
+        errs.append(f"{path}[{i}] en/em dash")
+    if AI.search(expl):
+        errs.append(f"{path}[{i}] AI fluff")
+    return errs
+
+
+def main() -> None:
+    manifest = EXP / ".applied-manifest.json"
+    applied: set[str] = set()
+    if manifest.exists():
+        applied = set(json.loads(manifest.read_text()).get("applied", []))
+
+    pending = [
+        p for p in sorted(EXP.glob("*.json"))
+        if p.name != ".applied-manifest.json" and p.name not in applied
+    ]
+    if not pending:
+        print("No pending expansion batches to validate.")
+        return
+
+    all_errs: list[str] = []
+    total = 0
+    for path in pending:
+        rows = json.loads(path.read_text())
+        if not isinstance(rows, list):
+            all_errs.append(f"{path.name}: not a list")
+            continue
+        total += len(rows)
+        is_css = path.name.startswith("css-practice")
+        for i, row in enumerate(rows):
+            if is_css:
+                all_errs.extend(check_css(row, path.name, i))
+            else:
+                all_errs.extend(check_issb(row, path.name, i))
+
+    if all_errs:
+        print(f"FAIL {len(all_errs)} issues in {len(pending)} files ({total} rows):")
+        for e in all_errs[:30]:
+            print(" ", e)
+        if len(all_errs) > 30:
+            print(f"  ... and {len(all_errs) - 30} more")
+        sys.exit(1)
+    print(f"OK {len(pending)} pending files, {total} MCQs passed quality checks.")
+
+
+if __name__ == "__main__":
+    main()

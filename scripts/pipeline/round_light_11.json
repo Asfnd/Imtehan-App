@@ -1,0 +1,13 @@
+[
+  {"table": "english", "topic": "Parts of speech", "type": "practice", "count": 26},
+  {"table": "general_knowledge", "topic": "UN agencies: WHO, UNESCO, UNICEF, UNDP, FAO, IMF, World Bank", "type": "most_repeated", "count": 26},
+  {"table": "general_math", "topic": "Percentage profit loss discount word problems", "type": "practice", "count": 26},
+  {"table": "pakistan_studies", "topic": "Constitution of Pakistan 1973 fundamental rights", "type": "most_important", "count": 26},
+  {"table": "islamiat", "topic": "Pillars of Islam and articles of faith", "type": "most_repeated", "count": 26},
+  {"table": "everyday_science", "topic": "Human body organs hormones and blood groups", "type": "practice", "count": 26},
+  {"table": "current_affairs", "topic": "Pakistan economy budget GDP inflation IMF CPEC updates", "type": "most_important", "count": 26},
+  {"table": "basic_computer", "topic": "MS Office spreadsheets email and shortcuts", "type": "practice", "count": 26},
+  {"table": "urdu", "topic": "Urdu adab key poets and adab periods", "type": "most_important", "count": 26},
+  {"table": "geography", "topic": "Pakistan rivers dams mountain passes", "type": "most_repeated", "count": 26},
+  {"table": "ethics_civics", "topic": "Constitutional articles provincial autonomy local government", "type": "practice", "count": 26}
+]

@@ -110,7 +110,7 @@ export default function BatchSetSelector() {
 
       if (mode === 'past-papers' && config?.pastPapersExam) {
         query = query.eq('target_exam', config.pastPapersExam)
-      } else if (modeConfig.dbType) {
+      } else if (modeConfig.dbType && !section.noTypeFilter) {
         query = query.eq('type', modeConfig.dbType)
       }
 

@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Vocabulary: synonyms, antonyms, one-word substitution",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Sentence correction and improvement",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Countries, capitals, and currencies of the world",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "UN agencies: WHO, UNESCO, UNICEF, UNDP, FAO, IMF, World Bank",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Number system: natural, whole, integers, rational, irrational numbers",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "HCF and LCM with word problems",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Constitutional amendments",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Parliamentary system: National Assembly, Senate, President, PM",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Islamic ethics: honesty, justice, compassion, brotherhood",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Famous Islamic scholars: Al-Kindi, Ibn Sina, Al-Ghazali, Al-Biruni",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Chemical reactions in daily life",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Physics: force, motion, Newton's laws, gravity",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Global economy: trade deals, sanctions, oil prices",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Pakistan domestic politics: elections, government decisions, legislation",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Hardware components: CPU, RAM, ROM, HDD, SSD, GPU, motherboard",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Software: system software vs application software",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Famous Urdu prose writers: Manto, Prem Chand, Qurrat-ul-Ain",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu spelling and punctuation rules",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Soils: types, formation, importance for agriculture",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Vegetation and biomes: forests, grasslands, deserts, tundra",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Governance: good governance principles, e-governance",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Rule of law and due process",
+    "type": "most_repeated",
+    "count": 26
+  }
+]

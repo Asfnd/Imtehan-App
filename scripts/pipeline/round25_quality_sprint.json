@@ -1,0 +1,134 @@
+[
+  {
+    "table": "english",
+    "topic": "Tenses: simple, continuous, perfect, perfect-continuous",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "english",
+    "topic": "Subject-verb agreement and sentence structure",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Sports: cricket, football, Olympics \u2014 records and champions",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Awards and international honors",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Geometry: triangles",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Circles: area, circumference, arc, sector",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Freedom movement : key events, leaders, milestones",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Partition of Bengal 1905 and Simla Deputation 1906",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Holy Quran: total Surahs , Paras , revelation, memorization",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Important Quranic Surahs and their themes",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Energy forms and conversion: kinetic, potential, thermal, electrical",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Sound: properties, speed, frequency, ultrasound",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Major appointments: PM, President, Army Chief, foreign leaders",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "current_affairs",
+    "topic": "Sports: recent cricket, football, Olympics results",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Cloud computing: storage, SaaS, Google Drive, OneDrive",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Social media and digital communication tools",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Literary terms: \u063a\u0632\u0644\u060c \u0646\u0638\u0645\u060c \u0642\u0635\u06cc\u062f\u06c1\u060c \u0645\u0631\u062b\u06cc\u06c1\u060c \u0627\u0641\u0633\u0627\u0646\u06c1\u060c \u0646\u0627\u0648\u0644",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Urdu literature history: Dilli Darbar to Pakistan movement",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Vegetation and biomes: forests, grasslands, deserts, tundra",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "World capitals, countries, and major landmarks",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Rule of law and due process",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "ethics_civics",
+    "topic": "Democracy and democratic values",
+    "type": "most_repeated",
+    "count": 26
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {"table": "ethics_civics", "topic": "Civil Service Ethics and Accountability Frameworks (PEEDA, conduct rules, conflict of interest)", "type": "most_important", "count": 50},
+  {"table": "ethics_civics", "topic": "FATF, AML, and anti-corruption frameworks in Pakistan", "type": "most_repeated", "count": 50},
+  {"table": "current_affairs", "topic": "Pakistan economy — IMF, SBP policy rate, inflation, remittances 2024-25", "type": "most_repeated", "count": 50},
+  {"table": "current_affairs", "topic": "Regional geopolitics — SCO, CPEC, Afghanistan, India-Pakistan relations", "type": "most_important", "count": 50},
+  {"table": "geography", "topic": "Pakistan mountain ranges, passes, and the Indus river system", "type": "most_repeated", "count": 50},
+  {"table": "geography", "topic": "Koppen climate classification and monsoon systems in South Asia", "type": "practice", "count": 50},
+  {"table": "urdu", "topic": "Classical poetry — Mir Taqi Mir and Ghalib (works, style, takhallus)", "type": "most_important", "count": 50},
+  {"table": "urdu", "topic": "Muhavare and Zarb-ul-Amsal — meanings and contextual use", "type": "practice", "count": 50},
+  {"table": "basic_computer", "topic": "OSI model layers, TCP/IP, and common port numbers", "type": "most_important", "count": 50},
+  {"table": "basic_computer", "topic": "Database normalization, keys, ACID, and SQL JOIN types", "type": "practice", "count": 50},
+  {"table": "islamiat", "topic": "Quran — Surahs, paras, revelation order, and major themes", "type": "most_repeated", "count": 50},
+  {"table": "pakistan_studies", "topic": "Constitution of Pakistan 1973 — fundamental rights and key articles", "type": "most_important", "count": 50}
+]
