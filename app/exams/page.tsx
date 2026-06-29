@@ -7,7 +7,7 @@ import { FileText, ChevronDown, LayoutGrid } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 
 const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; description: string }> = {
-  medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'PMC, NUMS, DPT, BDS, Dow, Pharm-D, BSN & FSc Pre-Medical' },
+  medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'PMC, Shifa, CMH, DPT, BDS, Dow, Pharm-D, BSN & FSc Pre-Medical' },
   engineering: { label: 'Engineering',  shortLabel: 'Engineering',  description: 'NUST, ECAT, UET Taxila, NED, PU CET, COMSATS, FAST & more' },
   css:         { label: 'CSS',          shortLabel: 'CSS',          description: 'Central Superior Services: MPT screening & compulsory MCQs' },
   pms:         { label: 'PMS',          shortLabel: 'PMS',          description: 'Provincial Management Services: general paper MCQs, same bank as CSS MPT' },

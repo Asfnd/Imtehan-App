@@ -1,0 +1,23 @@
+[
+  {"mode": "issb", "table": "issb_english", "topic": "Reading comprehension and inference", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_english", "topic": "Prepositions and phrasal verbs", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Ratio proportion and averages", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_mathematics", "topic": "Time speed distance and work", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Pakistan geography rivers and dams", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_general_knowledge", "topic": "Everyday science physics and chemistry basics", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "Pakistan economy and CPEC basics", "type": "most_important", "count": 12},
+  {"mode": "issb", "table": "issb_pakistan_affairs", "topic": "Indo-Pak wars and key treaties", "type": "most_repeated", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Direction sense and ranking puzzles", "type": "practice", "count": 12},
+  {"mode": "issb", "table": "issb_intelligence", "topic": "Coding decoding and pattern completion", "type": "most_important", "count": 12},
+  {"mode": "css", "subject": "Sociology", "topic": "Social institutions family and education", "count": 10},
+  {"mode": "css", "subject": "Zoology", "topic": "Animal physiology and classification", "count": 10},
+  {"mode": "css", "subject": "English Literature", "topic": "Shakespeare poetry and literary devices", "count": 10},
+  {"mode": "css", "subject": "British History", "topic": "Industrial revolution and Victorian era", "count": 10},
+  {"mode": "css", "subject": "European History", "topic": "French Revolution and World War causes", "count": 10},
+  {"mode": "css", "subject": "Accountancy and Auditing", "topic": "Financial statements and audit basics", "count": 10},
+  {"mode": "css", "subject": "Constitutional Law", "topic": "Fundamental rights and judicial review", "count": 10},
+  {"mode": "css", "subject": "Geography", "topic": "Climate zones and natural resources of Pakistan", "count": 10},
+  {"mode": "css", "subject": "Governance and Public Policies", "topic": "Public policy cycle and accountability", "count": 10},
+  {"mode": "css", "subject": "History of Pakistan and India", "topic": "Mughal decline and British expansion", "count": 10},
+  {"mode": "css", "subject": "Town Planning and Urban Management", "topic": "Urban sprawl and sustainable cities", "count": 10}
+]

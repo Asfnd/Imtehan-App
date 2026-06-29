@@ -1,0 +1,104 @@
+[
+  {
+    "table": "english",
+    "topic": "Parts of speech",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "World history: ancient civilizations, colonialism, world wars",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "general_knowledge",
+    "topic": "Books and authors",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Quadrilaterals and polygons",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "general_math",
+    "topic": "Number series and patterns",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "Culture, languages, and festivals of Pakistan",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "pakistan_studies",
+    "topic": "National symbols: flag, anthem, animal, bird, flower",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Pillars of Iman : six articles of faith",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "islamiat",
+    "topic": "Holy Quran: total Surahs , Paras , revelation, memorization",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Sound: properties, speed, frequency, ultrasound",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "everyday_science",
+    "topic": "Electricity: current, voltage, resistance, circuits",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Binary number system and data representation",
+    "type": "practice",
+    "count": 26
+  },
+  {
+    "table": "basic_computer",
+    "topic": "Programming concepts: algorithms, flowcharts, variables, loops",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Translation: English to Urdu and Urdu to English",
+    "type": "most_repeated",
+    "count": 26
+  },
+  {
+    "table": "urdu",
+    "topic": "Allama Iqbal: life, philosophy, famous works",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Map reading: scale, contour lines, compass directions, projections",
+    "type": "most_important",
+    "count": 26
+  },
+  {
+    "table": "geography",
+    "topic": "Environmental geography: deforestation, desertification, water scarcity",
+    "type": "practice",
+    "count": 26
+  }
+]

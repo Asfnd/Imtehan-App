@@ -20,7 +20,7 @@ if [[ -z "$CORE_PLAN" || ! -f "$CORE_PLAN" ]]; then
   CORE_PLAN="scripts/pipeline/round37_quality_sprint.json"
 fi
 
-EXPANSION_PLAN="${EXPANSION_PLAN:-scripts/pipeline/expansion-round40.json}"
+EXPANSION_PLAN="${EXPANSION_PLAN:-scripts/pipeline/expansion-round41.json}"
 
 log "== ALL MCQ AGENTS (low CPU) =="
 log "Core plan: $CORE_PLAN"

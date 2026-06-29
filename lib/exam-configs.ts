@@ -368,6 +368,73 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     },
   },
 
+  'shifa-entry': {
+    name: 'Shifa International Entry Test',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 45, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 35, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'Shifa International Hospitals / Shifa Tameer-e-Millat University',
+      officialLink: 'https://www.shifa.com.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent for MBBS/BDS programmes at Shifa-associated medical colleges.'],
+      important: ['Shifa entry tests follow national MDCAT-style weightage with strong Biology and Chemistry emphasis.'],
+      helpful: ['Practice national MDCAT timed sets first, then drill Shifa-specific mock papers.'],
+    },
+  },
+
+  'cmh-lahore-entry': {
+    name: 'CMH Lahore Medical & Dental Entry',
+    category: 'medical',
+    totalMCQs: 18962,
+    duration: 120,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 45, noTypeFilter: true },
+      { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 35, noTypeFilter: true },
+      { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 25, noTypeFilter: true },
+      { slug: 'english', label: 'English', dbTable: 'mdcat_english', count: 15, noTypeFilter: true },
+    ],
+    guide: {
+      authority: 'Combined Military Hospital (CMH) Lahore Medical & Dental College',
+      officialLink: 'https://www.cmh.edu.pk/',
+      eligibility: ['FSc Pre-Medical or equivalent. CMH Lahore admits on merit via institutional entry test and MDCAT scores.'],
+      important: ['Biology and Chemistry together form the bulk of CMH Lahore entry papers. Physics and English carry steady weight.'],
+      helpful: ['Revise FSc Pre-Medical core chapters before attempting full-length CMH practice mocks.'],
+    },
+  },
+
+  'ajk-educators': {
+    name: 'AJK Educators Recruitment',
+    category: 'provincial',
+    totalMCQs: 10000,
+    duration: 90,
+    passingPercentage: 45,
+    negativeMarking: false,
+    sections: [
+      { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 25 },
+      { slug: 'english', label: 'English', dbTable: 'english', count: 25 },
+      { slug: 'urdu', label: 'Urdu', dbTable: 'urdu', count: 20 },
+      { slug: 'pakistan-affairs', label: 'Pakistan Affairs', dbTable: 'pakistan_studies', count: 15 },
+      { slug: 'islamic-studies', label: 'Islamic Studies', dbTable: 'islamiat', count: 15 },
+    ],
+    guide: {
+      authority: 'AJK Public Service Commission / School Education Department AJK',
+      officialLink: 'https://www.ajkpsc.gov.pk/',
+      eligibility: ['BA/B.Ed or MA as per PST, CT, and SST advertisements. AJK domicile required for most educator posts.'],
+      important: ['AJK educator MCQs mirror Punjab/Sindh teacher tests with added focus on Kashmir and AJK geography.'],
+      helpful: ['Pair with AJKPSC general recruitment practice for shared English and GK patterns.'],
+    },
+  },
+
   'tevta-skills-test': {
     name: 'TEVTA Punjab Skills Assessment',
     category: 'ots',
