@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import NavigationBar from '@/components/NavigationBar'
+import { WhatsAppMessageBubble } from '@/components/community/WhatsAppMessageBubble'
 import { Paperclip, Send, Trash2 } from 'lucide-react'
 
 // Singleton client: created once, not on every render
@@ -208,6 +209,20 @@ function ReactionsBar({ msgId, reactions, myId, onToggle, loggedIn }: {
   )
 }
 
+function reactionChips(msgId: number, reactions: Reaction[], myId?: string) {
+  const grouped: { emoji: string; count: number; mine: boolean }[] = []
+  reactions.filter((r) => r.message_id === msgId).forEach((r) => {
+    const existing = grouped.find((g) => g.emoji === r.emoji)
+    if (existing) {
+      existing.count++
+      if (r.user_id === myId) existing.mine = true
+    } else {
+      grouped.push({ emoji: r.emoji, count: 1, mine: r.user_id === myId })
+    }
+  })
+  return grouped
+}
+
 // ─── Own message ──────────────────────────────────────────────────────────────
 
 function OwnMessage({ msg, reactions, myId, onDelete, isDeleting, onReaction }: {
@@ -247,13 +262,15 @@ function OwnMessage({ msg, reactions, myId, onDelete, isDeleting, onReaction }: 
       </div>
 
       <div className={`max-w-[70%] transition-opacity ${isDeleting ? 'opacity-40' : 'opacity-100'}`}>
-        <div className="bg-blue-600 rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
-          <p className="text-white text-sm leading-relaxed break-words">{msg.message}</p>
-        </div>
-        <div className="flex justify-end">
-          <ReactionsBar msgId={msg.id} reactions={reactions} myId={myId} onToggle={onReaction} loggedIn={!!myId} />
-        </div>
-        <p className="text-[11px] text-gray-400 mt-1 text-right">{formatTime(msg.created_at)}</p>
+        <WhatsAppMessageBubble
+          message={msg.message}
+          isOwn
+          messageId={msg.id}
+          reactions={reactionChips(msg.id, reactions, myId)}
+          loggedIn={!!myId}
+          onReact={onReaction}
+        />
+        <p className="text-[11px] text-gray-400 mt-3 text-right">{formatTime(msg.created_at)}</p>
       </div>
     </div>
   )
@@ -498,11 +515,15 @@ function CommunityChatContent() {
                     <Avatar name={msg.user_name} src={msg.user_avatar} />
                     <div className="flex-1 min-w-0">
                       <p className="text-[13px] font-semibold text-gray-900 mb-1">{msg.user_name}</p>
-                      <div className="bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xl shadow-sm">
-                        <p className="text-gray-800 text-sm leading-relaxed break-words">{msg.message}</p>
-                      </div>
-                      <ReactionsBar msgId={msg.id} reactions={msgReactions} myId={myId} onToggle={handleReaction} loggedIn={!!user} />
-                      <p className="text-[11px] text-gray-400 mt-1">{formatTime(msg.created_at)}</p>
+                      <WhatsAppMessageBubble
+                        message={msg.message}
+                        isOwn={false}
+                        messageId={msg.id}
+                        reactions={reactionChips(msg.id, msgReactions, myId)}
+                        loggedIn={!!user}
+                        onReact={handleReaction}
+                      />
+                      <p className="text-[11px] text-gray-400 mt-3">{formatTime(msg.created_at)}</p>
                     </div>
                   </div>
                 )
