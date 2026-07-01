@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
+import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import NavigationBar from '@/components/NavigationBar'
 import { WhatsAppMessageBubble } from '@/components/community/WhatsAppMessageBubble'
-import { Paperclip, Send, Trash2 } from 'lucide-react'
+import { buildChatListItems, avatarGradient } from '@/lib/community-chat-utils'
+import { Paperclip, Send, Trash2, ChevronDown } from 'lucide-react'
 
 // Singleton client: created once, not on every render
 const supabase = createClient()
@@ -38,31 +39,6 @@ const CHANNELS = [
   { key: 'ppsc',     label: 'PPSC' },
 ]
 
-const QUICK_REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🙏']
-
-const EMOJI_CATEGORIES = [
-  {
-    label: '😊 Smileys',
-    emojis: ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🫡','🤔','😐','😑','😶','🙄','😏','😒','🙃','😔','😪','🤤','😴','😷','🤒','🤕','🥴','😵','🤯','🤠','🥳','😎','🤓'],
-  },
-  {
-    label: '👋 Hands',
-    emojis: ['👍','👎','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝️','👋','🤚','🖐️','✋','🖖','🫶','🤝','👏','🙌','🫙','🤲','🙏','✍️','💪','🦾','🫰'],
-  },
-  {
-    label: '❤️ Hearts',
-    emojis: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❤️‍🔥','❤️‍🩹','💕','💞','💓','💗','💖','💘','💝','💟','♥️'],
-  },
-  {
-    label: '🎉 Celebration',
-    emojis: ['🎉','🎊','🎈','🎁','🏆','🥇','🥈','🥉','🎖️','🏅','🎗️','🎀','🎯','🎮','🕹️','🎲','🃏','🎴','🎭','🎨','🎬','🎤','🎧','🎼','🎵','🎶','🎸','🎹','🥁','🎺','🎷'],
-  },
-  {
-    label: '🔥 Popular',
-    emojis: ['🔥','💯','✨','⭐','🌟','💫','⚡','💥','🎯','🚀','💡','🙈','🙉','🙊','💀','👻','👽','🤖','💩','🫠','😈','👿','🤡','💃','🕺','🫶'],
-  },
-]
-
 // ─── Avatar ───────────────────────────────────────────────────────────────────
 
 function Avatar({ name, src, size = 'md' }: { name: string; src: string | null; size?: 'sm' | 'md' }) {
@@ -75,135 +51,6 @@ function Avatar({ name, src, size = 'md' }: { name: string; src: string | null; 
       </div>
       {src && !imgFailed && (
         <img src={src} alt={name} className="absolute inset-0 w-full h-full object-cover" onError={() => setImgFailed(true)} />
-      )}
-    </div>
-  )
-}
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function formatTime(iso: string) {
-  return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-}
-
-function formatDateLabel(iso: string) {
-  const d = new Date(iso)
-  const today = new Date()
-  const yesterday = new Date(today)
-  yesterday.setDate(today.getDate() - 1)
-  if (d.toDateString() === today.toDateString()) return 'Today'
-  if (d.toDateString() === yesterday.toDateString()) return 'Yesterday'
-  return d.toLocaleDateString([], { month: 'long', day: 'numeric' })
-}
-
-// ─── Full emoji picker ────────────────────────────────────────────────────────
-
-function FullEmojiPicker({ onPick, onClose }: { onPick: (e: string) => void; onClose: () => void }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [activeTab, setActiveTab] = useState(0)
-
-  useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose()
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [onClose])
-
-  return (
-    <div ref={ref} className="absolute bottom-full right-0 mb-2 bg-white border border-gray-200 rounded-2xl shadow-2xl z-40 overflow-hidden" style={{ width: 288 }}>
-      <div className="flex border-b border-gray-100 px-1 pt-1.5 gap-0.5">
-        {EMOJI_CATEGORIES.map((cat, i) => (
-          <button key={i} onClick={() => setActiveTab(i)} title={cat.label}
-            className={`flex-shrink-0 text-lg px-2.5 py-1.5 rounded-lg transition-colors ${activeTab === i ? 'bg-blue-50 scale-110' : 'hover:bg-gray-100'}`}>
-            {cat.label.split(' ')[0]}
-          </button>
-        ))}
-      </div>
-      <p className="text-[10px] text-gray-400 px-3 py-1 font-medium">{EMOJI_CATEGORIES[activeTab].label.split(' ').slice(1).join(' ')}</p>
-      <div className="px-2 pb-2 grid grid-cols-8 gap-0.5 max-h-48 overflow-y-auto">
-        {EMOJI_CATEGORIES[activeTab].emojis.map((emoji) => (
-          <button key={emoji} onClick={() => { onPick(emoji); onClose() }}
-            className="text-xl w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 hover:scale-110 transition-all">
-            {emoji}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-// ─── Reactions bar ────────────────────────────────────────────────────────────
-
-function ReactionsBar({ msgId, reactions, myId, onToggle, loggedIn }: {
-  msgId: number; reactions: Reaction[]; myId: string | undefined
-  onToggle: (msgId: number, emoji: string) => void; loggedIn: boolean
-}) {
-  const [mode, setMode] = useState<'closed' | 'quick' | 'full'>('closed')
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (mode === 'closed') return
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setMode('closed')
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [mode])
-
-  const grouped: { emoji: string; count: number; mine: boolean }[] = []
-  reactions.filter((r) => r.message_id === msgId).forEach((r) => {
-    const existing = grouped.find((g) => g.emoji === r.emoji)
-    if (existing) { existing.count++; if (r.user_id === myId) existing.mine = true }
-    else grouped.push({ emoji: r.emoji, count: 1, mine: r.user_id === myId })
-  })
-
-  if (grouped.length === 0 && !loggedIn) return null
-
-  return (
-    <div className="flex items-center gap-1 mt-1.5 overflow-x-auto max-w-sm" style={{ scrollbarWidth: 'none' }}>
-      {grouped.map(({ emoji, count, mine }) => (
-        <button key={emoji} onClick={() => loggedIn && onToggle(msgId, emoji)}
-          className={`flex-shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border transition-all hover:scale-105 ${
-            mine ? 'bg-blue-50 border-blue-300 text-blue-700' : 'bg-gray-100 border-gray-200 text-gray-600 hover:bg-gray-200'
-          } ${!loggedIn ? 'cursor-default' : ''}`}>
-          <span>{emoji}</span><span>{count}</span>
-        </button>
-      ))}
-
-      {loggedIn && (
-        <div className="relative flex-shrink-0" ref={ref}>
-          <button onClick={() => setMode((m) => m === 'closed' ? 'quick' : 'closed')}
-            className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-200 transition-colors" title="Add reaction">
-            <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none">
-              <circle cx="8.5" cy="10" r="6.5" stroke="#9ca3af" strokeWidth="1.5"/>
-              <path d="M6 12c.5 1 1.5 1.5 2.5 1.5S10.5 13 11 12" stroke="#9ca3af" strokeWidth="1.3" strokeLinecap="round"/>
-              <circle cx="7" cy="9" r="0.7" fill="#9ca3af"/>
-              <circle cx="10" cy="9" r="0.7" fill="#9ca3af"/>
-              <path d="M15 5v4M13 7h4" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </button>
-
-          {mode === 'quick' && (
-            <div className="absolute bottom-full right-0 mb-2 bg-white border border-gray-200 rounded-full shadow-xl px-2 py-1.5 flex items-center gap-0.5 z-30 whitespace-nowrap">
-              {QUICK_REACTIONS.map((emoji) => (
-                <button key={emoji} onClick={() => { onToggle(msgId, emoji); setMode('closed') }}
-                  className="text-xl w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 hover:scale-125 transition-all">
-                  {emoji}
-                </button>
-              ))}
-              <span className="w-px h-5 bg-gray-200 mx-1" />
-              <button onClick={() => setMode('full')}
-                className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-500 font-bold text-base" title="More emojis">
-                +
-              </button>
-            </div>
-          )}
-
-          {mode === 'full' && (
-            <FullEmojiPicker onPick={(e) => { onToggle(msgId, e); setMode('closed') }} onClose={() => setMode('closed')} />
-          )}
-        </div>
       )}
     </div>
   )
@@ -225,9 +72,10 @@ function reactionChips(msgId: number, reactions: Reaction[], myId?: string) {
 
 // ─── Own message ──────────────────────────────────────────────────────────────
 
-function OwnMessage({ msg, reactions, myId, onDelete, isDeleting, onReaction }: {
+function OwnMessage({ msg, reactions, myId, onDelete, isDeleting, onReaction, group, showInlineTime }: {
   msg: CommunityMessage; reactions: Reaction[]; myId: string | undefined
   onDelete: (id: number) => void; isDeleting: boolean; onReaction: (msgId: number, emoji: string) => void
+  group: 'single' | 'first' | 'middle' | 'last'; showInlineTime: boolean
 }) {
   const [hovered, setHovered] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -261,16 +109,18 @@ function OwnMessage({ msg, reactions, myId, onDelete, isDeleting, onReaction }: 
         )}
       </div>
 
-      <div className={`max-w-[70%] transition-opacity ${isDeleting ? 'opacity-40' : 'opacity-100'}`}>
+      <div className={`max-w-[min(100%,32rem)] transition-opacity ${isDeleting ? 'opacity-40' : 'opacity-100'}`}>
         <WhatsAppMessageBubble
           message={msg.message}
           isOwn
           messageId={msg.id}
+          group={group}
+          createdAt={msg.created_at}
+          showInlineTime={showInlineTime}
           reactions={reactionChips(msg.id, reactions, myId)}
           loggedIn={!!myId}
           onReact={onReaction}
         />
-        <p className="text-[11px] text-gray-400 mt-3 text-right">{formatTime(msg.created_at)}</p>
       </div>
     </div>
   )
@@ -289,10 +139,30 @@ function CommunityChatContent() {
   const [isSending, setIsSending] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [lastSentAt, setLastSentAt] = useState(0)
+  const [atBottom, setAtBottom] = useState(true)
+  const [pendingNew, setPendingNew] = useState(0)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const activeChannelRef = useRef(activeChannel)
+  const atBottomRef = useRef(true)
+  const prevMsgCountRef = useRef(0)
   activeChannelRef.current = activeChannel
+  atBottomRef.current = atBottom
+
+  const scrollToEnd = useCallback((smooth = true) => {
+    bottomRef.current?.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant' })
+    setAtBottom(true)
+    setPendingNew(0)
+  }, [])
+
+  const checkAtBottom = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const near = el.scrollHeight - el.scrollTop - el.clientHeight < 80
+    setAtBottom(near)
+    if (near) setPendingNew(0)
+  }, [])
 
   // Fetch messages + reactions when channel changes
   useEffect(() => {
@@ -319,6 +189,13 @@ function CommunityChatContent() {
         }
       })
   }, [activeChannel])
+
+  useEffect(() => {
+    prevMsgCountRef.current = 0
+    setPendingNew(0)
+    setAtBottom(true)
+    requestAnimationFrame(() => scrollToEnd(false))
+  }, [activeChannel, scrollToEnd])
 
   // Realtime: messages + reactions
   useEffect(() => {
@@ -351,10 +228,22 @@ function CommunityChatContent() {
     return () => { supabase.removeChannel(channel) }
   }, [])
 
-  // Auto-scroll on new messages
+  // Auto-scroll when pinned to bottom; count new messages otherwise
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    const count = messages.length
+    const prev = prevMsgCountRef.current
+    prevMsgCountRef.current = count
+
+    if (count === 0) return
+    if (count <= prev) return
+
+    const added = count - prev
+    if (atBottomRef.current) {
+      requestAnimationFrame(() => scrollToEnd(true))
+    } else {
+      setPendingNew((n) => n + added)
+    }
+  }, [messages, scrollToEnd])
 
   const autoResize = useCallback(() => {
     const el = textareaRef.current
@@ -389,6 +278,7 @@ function CommunityChatContent() {
     setMessages((prev) => [...prev, optimisticMsg])
     setInputValue('')
     if (textareaRef.current) textareaRef.current.style.height = 'auto'
+    requestAnimationFrame(() => scrollToEnd(true))
 
     const { data, error } = await supabase
       .from('community_messages')
@@ -455,110 +345,193 @@ function CommunityChatContent() {
   }
 
   // Group messages by date
-  const grouped: { label: string; messages: CommunityMessage[] }[] = []
-  messages.forEach((msg) => {
-    const label = formatDateLabel(msg.created_at)
-    const last = grouped[grouped.length - 1]
-    if (last && last.label === label) last.messages.push(msg)
-    else grouped.push({ label, messages: [msg] })
-  })
-
   const myId = user?.id
   const myName = user?.user_metadata?.name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'U'
   const myAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null
+
+  const listItems = useMemo(() => buildChatListItems(messages, myId), [messages, myId])
+  const channelLabel = CHANNELS.find(c => c.key === activeChannel)?.label ?? 'Community'
 
   return (
     <div className="flex flex-col bg-white" style={{ height: '100dvh' }}>
       <NavigationBar />
 
+      {/* Channel header strip */}
+      <div className="bg-white border-b border-gray-100 flex-shrink-0 px-4 py-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+          </span>
+          <span className="text-sm font-semibold text-gray-800">{channelLabel}</span>
+          <span className="text-xs text-gray-400">· live</span>
+        </div>
+        {messages.length > 0 && (
+          <span className="text-xs font-medium text-gray-400">{messages.length} messages</span>
+        )}
+      </div>
+
       {/* Channel tabs */}
       <nav className="bg-white border-b border-gray-100 flex-shrink-0 overflow-x-auto">
-        <div className="flex">
+        <div className="flex gap-2 px-4 py-2">
           {CHANNELS.map(({ key, label }) => (
-            <button key={key} onClick={() => setActiveChannel(key)}
-              className={`px-5 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
-                activeChannel === key ? 'text-blue-600 border-blue-600' : 'text-gray-500 border-transparent hover:text-gray-700'
-              }`}>
+            <button
+              key={key}
+              onClick={() => setActiveChannel(key)}
+              className={`px-4 py-2 text-sm font-semibold whitespace-nowrap rounded-full transition-all ${
+                activeChannel === key
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
               {label}
             </button>
           ))}
         </div>
       </nav>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-4" style={{ backgroundColor: '#f8f9fb' }}>
+      {/* Messages — WhatsApp-style wallpaper */}
+      <div className="relative flex-1 min-h-0">
+      <div
+        ref={scrollRef}
+        onScroll={checkAtBottom}
+        className="absolute inset-0 overflow-y-auto px-3 sm:px-5 py-4 scroll-smooth"
+        style={{
+          backgroundColor: '#ECE9E4',
+          backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.045) 1px, transparent 1px)',
+          backgroundSize: '18px 18px',
+        }}
+      >
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
-            <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-7 h-7 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full gap-2 text-gray-400">
-            <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            <p className="text-sm">No messages yet in #{CHANNELS.find(c => c.key === activeChannel)?.label}. Be the first!</p>
+          <div className="flex flex-col items-center justify-center h-full gap-3 text-gray-500 px-6 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-white border border-gray-200 shadow-sm flex items-center justify-center">
+              <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <p className="text-base font-bold text-gray-800">Start the conversation</p>
+            <p className="text-sm text-gray-500 max-w-sm">Be the first in #{channelLabel}. Ask a question, share a tip, or say hi.</p>
           </div>
         ) : (
-          grouped.map((group) => (
-            <div key={group.label} className="space-y-4">
-              <div className="flex justify-center">
-                <span className="bg-gray-200/70 text-gray-500 text-xs font-medium px-3 py-1 rounded-full">{group.label}</span>
-              </div>
-              {group.messages.map((msg) => {
-                const msgReactions = reactions.filter((r) => r.message_id === msg.id)
-                const isOwn = msg.user_id === myId
-                return isOwn ? (
-                  <OwnMessage key={msg.id} msg={msg} reactions={msgReactions} myId={myId}
-                    onDelete={handleDelete} isDeleting={deletingId === msg.id} onReaction={handleReaction} />
-                ) : (
-                  <div key={msg.id} className="flex gap-3">
-                    <Avatar name={msg.user_name} src={msg.user_avatar} />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[13px] font-semibold text-gray-900 mb-1">{msg.user_name}</p>
-                      <WhatsAppMessageBubble
-                        message={msg.message}
-                        isOwn={false}
-                        messageId={msg.id}
-                        reactions={reactionChips(msg.id, msgReactions, myId)}
-                        loggedIn={!!user}
-                        onReact={handleReaction}
-                      />
-                      <p className="text-[11px] text-gray-400 mt-3">{formatTime(msg.created_at)}</p>
-                    </div>
+          <div className="max-w-3xl mx-auto space-y-1">
+            {listItems.map((item) => {
+              if (item.kind === 'date') {
+                return (
+                  <div key={item.key} className="flex justify-center my-3">
+                    <span className="bg-white/90 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm border border-gray-200/80">
+                      {item.label}
+                    </span>
                   </div>
                 )
-              })}
-            </div>
-          ))
+              }
+
+              const msg = item.message as CommunityMessage
+              const msgReactions = reactions.filter((r) => r.message_id === msg.id)
+              const showInlineTime = item.group === 'single' || item.group === 'last'
+              const marginClass = item.compact ? 'mb-0.5' : 'mb-2'
+
+              if (item.mine) {
+                return (
+                  <div key={item.key} className={`${marginClass} animate-in fade-in slide-in-from-bottom-2 duration-200`}>
+                    <OwnMessage
+                      msg={msg}
+                      reactions={msgReactions}
+                      myId={myId}
+                      onDelete={handleDelete}
+                      isDeleting={deletingId === msg.id}
+                      onReaction={handleReaction}
+                      group={item.group}
+                      showInlineTime={showInlineTime}
+                    />
+                  </div>
+                )
+              }
+
+              const grad = avatarGradient(msg.user_name)
+              return (
+                <div key={item.key} className={`flex gap-2 ${marginClass} animate-in fade-in slide-in-from-bottom-2 duration-200`}>
+                  <div className="w-9 flex-shrink-0">
+                    {item.showAvatar ? (
+                      msg.user_avatar ? (
+                        <img src={msg.user_avatar} alt="" className="w-9 h-9 rounded-full object-cover shadow-sm" />
+                      ) : (
+                        <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${grad.bg} flex items-center justify-center text-white text-sm font-bold shadow-sm`}>
+                          {msg.user_name.charAt(0).toUpperCase()}
+                        </div>
+                      )
+                    ) : null}
+                  </div>
+                  <div className="flex-1 min-w-0 pb-1">
+                    {item.showName && (
+                      <p className="text-[12px] font-bold text-gray-700 mb-1 ml-0.5">{msg.user_name}</p>
+                    )}
+                    <WhatsAppMessageBubble
+                      message={msg.message}
+                      isOwn={false}
+                      messageId={msg.id}
+                      group={item.group}
+                      createdAt={msg.created_at}
+                      showInlineTime={showInlineTime}
+                      reactions={reactionChips(msg.id, msgReactions, myId)}
+                      loggedIn={!!user}
+                      onReact={handleReaction}
+                    />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         )}
         <div ref={bottomRef} />
       </div>
 
+      {!atBottom && messages.length > 0 && (
+        <button
+          type="button"
+          onClick={() => scrollToEnd(true)}
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 bg-white border border-gray-200 text-gray-700 text-sm font-semibold pl-3 pr-4 py-2 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all animate-in fade-in slide-in-from-bottom-2 duration-200"
+        >
+          <ChevronDown className="w-4 h-4 text-blue-600" />
+          {pendingNew > 0 ? `${pendingNew} new message${pendingNew === 1 ? '' : 's'}` : 'Jump to latest'}
+        </button>
+      )}
+      </div>
+
       {/* Input bar */}
       {user ? (
-        <div className="bg-white border-t border-gray-200 px-4 sm:px-6 py-4 flex-shrink-0">
+        <div className="bg-white/95 backdrop-blur border-t border-gray-200 px-4 sm:px-6 py-3 flex-shrink-0">
           <div className="flex items-end gap-3 max-w-3xl mx-auto">
             <Avatar name={myName} src={myAvatar} size="sm" />
-            <div className="flex-1 flex items-end bg-white border-2 border-gray-200 rounded-2xl px-4 py-3 gap-3 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all shadow-sm">
-              <textarea ref={textareaRef} value={inputValue}
+            <div className="flex-1 flex items-end bg-gray-50 border border-gray-200 rounded-3xl px-4 py-2.5 gap-2 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 focus-within:bg-white transition-all shadow-sm">
+              <textarea
+                ref={textareaRef}
+                value={inputValue}
                 onChange={(e) => { setInputValue(e.target.value); autoResize() }}
                 onKeyDown={handleKeyDown}
-                placeholder={`Message #${CHANNELS.find(c => c.key === activeChannel)?.label}…`}
-                maxLength={500} rows={1}
-                className="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-400 resize-none focus:outline-none"
-                style={{ maxHeight: '120px', lineHeight: '1.5' }} />
-              <button className="text-gray-400 hover:text-gray-600 transition-colors pb-0.5 flex-shrink-0">
+                placeholder={`Message ${channelLabel}…`}
+                maxLength={500}
+                rows={1}
+                className="flex-1 bg-transparent text-[15px] text-gray-800 placeholder-gray-400 resize-none focus:outline-none leading-relaxed"
+                style={{ maxHeight: '120px' }}
+              />
+              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors pb-1 flex-shrink-0" aria-label="Attach">
                 <Paperclip className="w-4 h-4" />
               </button>
             </div>
-            <button onClick={handleSend} disabled={!inputValue.trim() || isSending}
-              className="w-11 h-11 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-full flex items-center justify-center flex-shrink-0 shadow transition-all active:scale-95">
+            <button
+              onClick={handleSend}
+              disabled={!inputValue.trim() || isSending}
+              className={`w-12 h-12 text-white rounded-full flex items-center justify-center flex-shrink-0 shadow-md transition-all active:scale-95 disabled:opacity-40 disabled:scale-95 ${
+                inputValue.trim() ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300'
+              }`}
+            >
               <Send className="w-4 h-4 translate-x-0.5 -translate-y-0.5" />
             </button>
           </div>
-          <p className="text-center text-[11px] text-gray-400 mt-2">
-            Press <kbd className="bg-gray-100 border border-gray-300 rounded px-1 text-gray-500 text-[10px]">Enter</kbd> to send &middot; <kbd className="bg-gray-100 border border-gray-300 rounded px-1 text-gray-500 text-[10px]">Shift+Enter</kbd> for new line
-          </p>
         </div>
       ) : (
         <div className="bg-white border-t border-gray-200 px-4 sm:px-6 py-4 flex-shrink-0">

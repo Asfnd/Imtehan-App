@@ -1,8 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { bubbleRadiusClass, formatMessageTime, type MessageGroupPos } from '@/lib/community-chat-utils'
 
-export const WHATSAPP_REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🙏'] as const
+export const WHATSAPP_REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🙏', '👏', '🔥'] as const
 
 type ReactionChip = { emoji: string; count: number; mine: boolean }
 
@@ -10,16 +11,25 @@ type Props = {
   message: string
   isOwn: boolean
   messageId: number
+  group?: MessageGroupPos
+  createdAt?: string
+  showInlineTime?: boolean
   reactions: ReactionChip[]
   loggedIn: boolean
   onReact: (msgId: number, emoji: string) => void
 }
 
-function groupedReactions(reactions: ReactionChip[]) {
-  return reactions.filter((r) => r.count > 0)
-}
-
-export function WhatsAppMessageBubble({ message, isOwn, messageId, reactions, loggedIn, onReact }: Props) {
+export function WhatsAppMessageBubble({
+  message,
+  isOwn,
+  messageId,
+  group = 'single',
+  createdAt,
+  showInlineTime = true,
+  reactions,
+  loggedIn,
+  onReact,
+}: Props) {
   const bubbleRef = useRef<HTMLDivElement>(null)
   const [pickerOpen, setPickerOpen] = useState(false)
   const [anchor, setAnchor] = useState<{ top: number; left: number; width: number } | null>(null)
@@ -59,7 +69,7 @@ export function WhatsAppMessageBubble({ message, isOwn, messageId, reactions, lo
   const onPointerDown = (e: React.PointerEvent) => {
     if (!loggedIn || e.button !== 0) return
     clearTimer()
-    longTimer.current = setTimeout(openPicker, 420)
+    longTimer.current = setTimeout(openPicker, 400)
   }
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -97,12 +107,14 @@ export function WhatsAppMessageBubble({ message, isOwn, messageId, reactions, lo
     return () => document.removeEventListener('mousedown', onDoc)
   }, [pickerOpen, messageId, closePicker])
 
-  const chips = groupedReactions(reactions)
+  const chips = reactions.filter((r) => r.count > 0)
   const barWidth = WHATSAPP_REACTIONS.length * 44 + 52
   const barLeft = anchor ? Math.min(Math.max(12, anchor.left + anchor.width / 2 - barWidth / 2), window.innerWidth - barWidth - 12) : 0
+  const radius = bubbleRadiusClass(isOwn, group)
+  const timeStr = createdAt && showInlineTime ? formatMessageTime(createdAt) : ''
 
   return (
-    <div className={`relative max-w-xl ${isOwn ? 'ml-auto' : ''}`}>
+    <div className={`relative max-w-[min(100%,28rem)] ${isOwn ? 'ml-auto' : ''}`}>
       <div
         ref={bubbleRef}
         onPointerDown={onPointerDown}
@@ -114,21 +126,32 @@ export function WhatsAppMessageBubble({ message, isOwn, messageId, reactions, lo
           e.preventDefault()
           openPicker()
         }}
-        className={`rounded-2xl px-4 py-3 shadow-sm select-none touch-none transition-transform ${
-          isOwn ? 'bg-blue-600 rounded-tr-sm text-white' : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm'
-        } ${pickerOpen ? 'scale-[1.02] ring-2 ring-blue-200' : ''}`}
+        className={`relative px-3.5 py-2.5 shadow-sm select-none touch-none transition-all duration-150 ${radius} ${
+          isOwn
+            ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white'
+            : 'bg-white border border-gray-200/90 text-gray-800'
+        } ${pickerOpen ? 'scale-[1.02] ring-2 ring-blue-300/60 shadow-md' : 'hover:shadow-md'}`}
       >
-        <p className="text-sm leading-relaxed break-words">{message}</p>
+        <p className={`text-[15px] leading-relaxed break-words ${timeStr ? 'pr-12' : ''}`}>{message}</p>
+        {timeStr && (
+          <span
+            className={`absolute bottom-1.5 right-2.5 text-[10px] font-semibold tabular-nums ${
+              isOwn ? 'text-white/70' : 'text-gray-400'
+            }`}
+          >
+            {timeStr}
+          </span>
+        )}
       </div>
 
       {chips.length > 0 && (
-        <div className={`absolute -bottom-2 flex flex-wrap gap-1 ${isOwn ? 'right-2' : 'left-2'}`}>
+        <div className={`absolute -bottom-2.5 flex flex-wrap gap-1 ${isOwn ? 'right-2' : 'left-2'}`}>
           {chips.map(({ emoji, count, mine }) => (
             <button
               key={emoji}
               type="button"
               onClick={() => loggedIn && onReact(messageId, emoji)}
-              className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border shadow-sm transition-transform hover:scale-105 ${
+              className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border shadow-sm transition-all hover:scale-105 active:scale-95 ${
                 mine ? 'bg-blue-50 border-blue-300 text-blue-700' : 'bg-white border-gray-200 text-gray-600'
               }`}
             >
@@ -141,7 +164,7 @@ export function WhatsAppMessageBubble({ message, isOwn, messageId, reactions, lo
 
       {pickerOpen && anchor && (
         <>
-          <div className="fixed inset-0 z-40 bg-black/30" onClick={closePicker} aria-hidden />
+          <div className="fixed inset-0 z-40 bg-black/35 backdrop-blur-[1px]" onClick={closePicker} aria-hidden />
           <div
             id={`rxn-bar-${messageId}`}
             className="fixed z-50 flex items-center gap-0.5 bg-white border border-gray-200 rounded-full shadow-2xl px-2 py-1.5 animate-in fade-in zoom-in-95 duration-150"
@@ -152,7 +175,7 @@ export function WhatsAppMessageBubble({ message, isOwn, messageId, reactions, lo
                 key={emoji}
                 type="button"
                 onClick={() => pick(emoji)}
-                className={`w-11 h-11 flex items-center justify-center rounded-full text-2xl transition-transform ${
+                className={`w-11 h-11 flex items-center justify-center rounded-full text-2xl transition-transform duration-150 ${
                   hoverIdx === i ? 'scale-125 bg-blue-50' : 'hover:bg-gray-100 hover:scale-110'
                 }`}
               >
