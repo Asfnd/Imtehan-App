@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Imtehan"
   },
   description:
-    "Imtehan — Pakistan's exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.",
+    "Imtehan  -  Pakistan's exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.",
   keywords: [
     'CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams',
     'CSS past papers PDF', 'CSS MCQs with answers', 'CSS Islamic Studies MCQs',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: 'https://imtehan.com',
     siteName: 'Imtehan',
     title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
-    description: 'Imtehan — Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
+    description: 'Imtehan  -  Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
     images: [
       {
         url: '/og-image.png',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@imtehan',
     title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
-    description: 'Imtehan — Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
+    description: 'Imtehan  -  Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
     images: ['/og-image.png']
   },
   robots: {

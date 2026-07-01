@@ -60,7 +60,7 @@ export async function generateMetadata({
   const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}`
   const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical)
 
-  const title = `${examName} ${subjectName} MCQs with Answers — Past Papers & Practice | Imtehan`
+  const title = `${examName} ${subjectName} MCQs with Answers  -  Past Papers & Practice | Imtehan`
   const description = `Practice ${examName} ${subjectName} MCQs online free. Most repeated, past paper and practice sets of 20 with solved answers and explanations.`
 
   return {

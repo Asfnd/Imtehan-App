@@ -41,7 +41,7 @@ export async function generateMetadata({
   const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical)
 
   const title = `${examName} ${subjectName} ${modeMeta.label} MCQs Solved Online | Imtehan`
-  const description = `Free ${examName} ${subjectName} ${modeMeta.desc} MCQs with solved answers. Practice online in sets of 20 — most repeated & past paper questions for Pakistan competitive exams.`
+  const description = `Free ${examName} ${subjectName} ${modeMeta.desc} MCQs with solved answers. Practice online in sets of 20  -  most repeated & past paper questions for Pakistan competitive exams.`
 
   return {
     title,

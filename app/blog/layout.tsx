@@ -4,7 +4,7 @@ import { BreadcrumbListSchema } from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   title: 'CSS & MPT Exam Prep Blog: Syllabus, Books, Past Papers & MCQ Tips | Imtehan',
-  description: 'Free CSS 2026 preparation guides — best books, past paper analysis, Pakistan Affairs MCQs, MPT strategy, and PPSC/FPSC tips from Imtehan.',
+  description: 'Free CSS 2026 preparation guides - best books, past paper analysis, Pakistan Affairs MCQs, MPT strategy, and PPSC/FPSC tips from Imtehan.',
   alternates: {
     canonical: 'https://imtehan.com/blog',
   },

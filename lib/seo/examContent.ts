@@ -130,7 +130,7 @@ interface ExamOverride {
  * Hand-crafted, evergreen content for the highest-search-volume exams.
  * These pages compete for real queries (e.g. "css screening test", "ppsc
  * assistant past papers", "patwari test preparation"), so generic templated
- * text is not enough — they get genuinely unique, useful copy here.
+ * text is not enough  -  they get genuinely unique, useful copy here.
  */
 const TOP_EXAM_OVERRIDES: Record<string, ExamOverride> = {
   'css-mpt': {
@@ -286,7 +286,7 @@ interface CategoryContent {
 /**
  * Category-level content applied to EVERY exam in a category (FIA, police,
  * banks, NTS, etc.). This makes all 200+ exam pages read distinctly for their
- * domain — not just the handful with bespoke overrides — so each is genuinely
+ * domain  -  not just the handful with bespoke overrides  -  so each is genuinely
  * differentiated for search.
  */
 const CATEGORY_CONTENT: Record<string, CategoryContent> = {
@@ -754,7 +754,7 @@ export function getSubjectSeoContent(
   const examName = config.name
   const subjectName = subjectLabel(subjectSlug)
 
-  const h1 = `${examName} ${subjectName} MCQs with Answers — Past Papers & Practice`
+  const h1 = `${examName} ${subjectName} MCQs with Answers  -  Past Papers & Practice`
   const intro =
     `Practice ${examName} ${subjectName} multiple-choice questions with answers and detailed explanations. ` +
     `Imtehan organises ${subjectName} into most-repeated, most-important and past-paper sets of around 20 questions each, ` +
@@ -849,7 +849,7 @@ export function getModeSeoContent(
     {
       question: `Is ${examName} ${subjectName} ${modeMeta.label.toLowerCase()} practice free?`,
       answer:
-        `Yes — you can practise ${examName} ${subjectName} MCQs for free on Imtehan. Premium unlocks detailed analytics and unlimited mock attempts.`,
+        `Yes  -  you can practise ${examName} ${subjectName} MCQs for free on Imtehan. Premium unlocks detailed analytics and unlimited mock attempts.`,
     },
   ]
 

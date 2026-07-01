@@ -17,9 +17,9 @@ const CATEGORY_META: Record<
 > = {
   ppsc: {
     label: 'PPSC',
-    h1: 'PPSC One Paper MCQs 2026 — All Posts, Past Papers & Online Tests',
+    h1: 'PPSC One Paper MCQs 2026  -  All Posts, Past Papers & Online Tests',
     intro:
-      'Practice Punjab Public Service Commission (PPSC) One Paper MCQs for every advertised post — Assistant BS-16, Tehsildar, Sub Inspector, Patwari, Clerk and more. ' +
+      'Practice Punjab Public Service Commission (PPSC) One Paper MCQs for every advertised post  -  Assistant BS-16, Tehsildar, Sub Inspector, Patwari, Clerk and more. ' +
       'Imtehan has subject-wise sets in General Knowledge, Pakistan Affairs, Current Affairs, English, Islamiat and Everyday Science with solved answers and timed mock tests.',
     highlights: [
       'One Paper format: typically 100 MCQs in 90 minutes with negative marking on many posts',
@@ -34,7 +34,7 @@ const CATEGORY_META: Record<
   },
   fpsc: {
     label: 'FPSC',
-    h1: 'FPSC MCQs 2026 — Federal Posts, Past Papers & Solved Online Tests',
+    h1: 'FPSC MCQs 2026  -  Federal Posts, Past Papers & Solved Online Tests',
     intro:
       'Prepare for Federal Public Service Commission (FPSC) recruitment tests including LDC, UDC, Assistant, Inspector, FIA posts and more. ' +
       'Practice subject-wise MCQs with answers, past paper questions and full mock tests on Imtehan.',
@@ -51,7 +51,7 @@ const CATEGORY_META: Record<
   },
   fia: {
     label: 'FIA',
-    h1: 'FIA Test Preparation 2026 — Constable, Assistant & Inspector MCQs',
+    h1: 'FIA Test Preparation 2026  -  Constable, Assistant & Inspector MCQs',
     intro:
       'Practice Federal Investigation Agency (FIA) recruitment MCQs for Constable, Assistant BS-15, Sub Inspector, LDC, UDC and Staff Car Driver posts. ' +
       'Subject-wise practice with most repeated questions, past papers and full mock tests.',
@@ -68,7 +68,7 @@ const CATEGORY_META: Record<
   },
   css: {
     label: 'CSS',
-    h1: 'CSS Exam Preparation 2026 — MPT MCQs, Past Papers & Mock Tests',
+    h1: 'CSS Exam Preparation 2026  -  MPT MCQs, Past Papers & Mock Tests',
     intro:
       'Complete CSS (Central Superior Services) preparation on Imtehan: MPT screening test MCQs, compulsory subject practice, past papers and full mock exams conducted by FPSC.',
     highlights: [
@@ -84,7 +84,7 @@ const CATEGORY_META: Record<
   },
   pms: {
     label: 'PMS',
-    h1: 'PMS MCQs 2026 — Provincial Management Services Practice Tests',
+    h1: 'PMS MCQs 2026  -  Provincial Management Services Practice Tests',
     intro:
       'Practice Provincial Management Services (PMS) MCQs for Punjab, Sindh, KPK and other provinces. Same subject bank as CSS MPT with province-specific mock tests.',
     highlights: [
@@ -100,7 +100,7 @@ const CATEGORY_META: Record<
   },
   nts: {
     label: 'NTS',
-    h1: 'NTS Test Preparation 2026 — GAT, NAT & Recruitment MCQs',
+    h1: 'NTS Test Preparation 2026  -  GAT, NAT & Recruitment MCQs',
     intro:
       'Practice National Testing Service (NTS) MCQs for GAT, NAT, recruitment tests and department-specific exams. Subject-wise sets with answers and explanations.',
     highlights: [
@@ -116,7 +116,7 @@ const CATEGORY_META: Record<
   },
   etea: {
     label: 'ETEA',
-    h1: 'ETEA Test Preparation 2026 — PST, SST & KPK Recruitment MCQs',
+    h1: 'ETEA Test Preparation 2026  -  PST, SST & KPK Recruitment MCQs',
     intro:
       'Practice Educational Testing & Evaluation Agency (ETEA) KPK MCQs for PST, SST, CT, Lady Health Visitor and general recruitment tests.',
     highlights: [
@@ -132,7 +132,7 @@ const CATEGORY_META: Record<
   },
   police: {
     label: 'Police',
-    h1: 'Police Test MCQs 2026 — Constable, ASI & SI Online Practice',
+    h1: 'Police Test MCQs 2026  -  Constable, ASI & SI Online Practice',
     intro:
       'Prepare for Punjab, Sindh, KPK, Balochistan and Islamabad Police recruitment tests. Constable, ASI and Sub Inspector MCQs with past papers and mock tests.',
     highlights: [
@@ -148,13 +148,13 @@ const CATEGORY_META: Record<
   },
   military: {
     label: 'Military',
-    h1: 'Pak Army, Navy & PAF Test MCQs 2026 — Initial Test Practice',
+    h1: 'Pak Army, Navy & PAF Test MCQs 2026  -  Initial Test Practice',
     intro:
       'Practice Pakistan Armed Forces initial selection test MCQs for Pak Army, Navy, PAF, Rangers, FC and ANF. Intelligence, academic and general knowledge sections.',
     highlights: [
       'Initial tests include intelligence, maths, English and general knowledge',
       'Each service (Army, Navy, PAF) has a slightly different emphasis',
-      'Speed and accuracy matter — practice under timed conditions',
+      'Speed and accuracy matter  -  practice under timed conditions',
     ],
     prep: [
       'Practice intelligence and non-verbal reasoning daily',
@@ -164,7 +164,7 @@ const CATEGORY_META: Record<
   },
   banks: {
     label: 'Banks',
-    h1: 'Bank Officer Test MCQs 2026 — NBP, SBP, HBL & More',
+    h1: 'Bank Officer Test MCQs 2026  -  NBP, SBP, HBL & More',
     intro:
       'Practice banking sector recruitment MCQs for NBP, SBP, HBL, UBL, Meezan Bank and other officer and clerical posts in Pakistan.',
     highlights: [
@@ -180,7 +180,7 @@ const CATEGORY_META: Record<
   },
   engineering: {
     label: 'Engineering',
-    h1: 'Engineering Entry Test MCQs 2026 — NET, ECAT, GIKI & PIEAS',
+    h1: 'Engineering Entry Test MCQs 2026  -  NET, ECAT, GIKI & PIEAS',
     intro:
       'Practice engineering university entry test MCQs for NUST NET, UET ECAT, GIKI, PIEAS, COMSATS, LUMS and more. Physics, Maths, Chemistry and English sets.',
     highlights: [
@@ -196,7 +196,7 @@ const CATEGORY_META: Record<
   },
   medical: {
     label: 'MDCAT',
-    h1: 'MDCAT MCQs 2026 — Biology, Chemistry, Physics & English Practice',
+    h1: 'MDCAT MCQs 2026  -  Biology, Chemistry, Physics & English Practice',
     intro:
       'Practice MDCAT (Medical & Dental College Admission Test) MCQs for PMC, NUMS, ETEA and AKU patterns. Topic-wise Biology, Chemistry, Physics and English sets.',
     highlights: [
@@ -212,7 +212,7 @@ const CATEGORY_META: Record<
   },
   judiciary: {
     label: 'Judiciary',
-    h1: 'Judiciary Clerk & Steno Test MCQs 2026 — High Court Practice',
+    h1: 'Judiciary Clerk & Steno Test MCQs 2026  -  High Court Practice',
     intro:
       'Practice judiciary recruitment MCQs for High Court Clerk, Stenographer, Sessions Court and Supreme Court assistant posts across Pakistan.',
     highlights: [
@@ -228,7 +228,7 @@ const CATEGORY_META: Record<
   },
   provincial: {
     label: 'Provincial',
-    h1: 'Provincial Commission MCQs 2026 — SPSC, KPPSC, BPSC & More',
+    h1: 'Provincial Commission MCQs 2026  -  SPSC, KPPSC, BPSC & More',
     intro:
       'Practice provincial public service commission MCQs for Sindh (SPSC), KPK (KPPSC), Balochistan (BPSC), AJK and GB recruitment tests.',
     highlights: [
@@ -244,7 +244,7 @@ const CATEGORY_META: Record<
   },
   ots: {
     label: 'OTS',
-    h1: 'OTS Test MCQs 2026 — Open Testing Service Practice',
+    h1: 'OTS Test MCQs 2026  -  Open Testing Service Practice',
     intro:
       'Practice Open Testing Service (OTS) recruitment MCQs for education, health and government department posts across Pakistan.',
     highlights: [
@@ -260,7 +260,7 @@ const CATEGORY_META: Record<
   },
   railways: {
     label: 'Railways',
-    h1: 'Pakistan Railways Test MCQs 2026 — Recruitment Practice',
+    h1: 'Pakistan Railways Test MCQs 2026  -  Recruitment Practice',
     intro:
       'Practice Pakistan Railways recruitment MCQs for Station Master, Guard, TTE, Clerk and other posts with subject-wise sets and mock tests.',
     highlights: [
@@ -292,7 +292,7 @@ const CATEGORY_META: Record<
   },
   rescue: {
     label: 'Rescue 1122',
-    h1: 'Rescue 1122 Test MCQs 2026 — Emergency Services Practice',
+    h1: 'Rescue 1122 Test MCQs 2026  -  Emergency Services Practice',
     intro:
       'Practice Punjab Rescue 1122 recruitment MCQs for Rescuer, Driver, Operator and emergency services posts.',
     highlights: [

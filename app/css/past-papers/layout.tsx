@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
-  title: 'CSS Past Papers 2015–2025 with Answers (Free PDF Practice) | Imtehan',
-  description: 'Download and practise CSS past papers 2015–2025 with solved MCQs. Year-wise FPSC papers, trend analysis, and free online practice for every compulsory subject.',
+  title: 'CSS Past Papers 2015-2025 with Answers (Free PDF Practice) | Imtehan',
+  description: 'Download and practise CSS past papers 2015-2025 with solved MCQs. Year-wise FPSC papers, trend analysis, and free online practice for every compulsory subject.',
   alternates: {
     canonical: 'https://imtehan.com/css/past-papers',
   },
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     'CSS exam pattern', 'CSS question papers', 'CSS paper analysis',
   ],
   openGraph: {
-    title: 'CSS Past Papers 2015–2025 with Answers | Imtehan',
+    title: 'CSS Past Papers 2015-2025 with Answers | Imtehan',
     description: 'Free CSS past papers with solved MCQs, year-wise practice and expert analysis for FPSC candidates.',
     url: 'https://imtehan.com/css/past-papers',
     type: 'website',

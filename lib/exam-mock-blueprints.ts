@@ -1,18 +1,18 @@
 import type { ExamConfig } from './exam-configs'
 
 /**
- * Mock blueprints — each exam's mock follows its REAL, official pattern: the right number
+ * Mock blueprints  -  each exam's mock follows its REAL, official pattern: the right number
  * of MCQs, the official time limit, official negative marking, and a subject split that
  * reflects real weightage. Verified via research, June 2026.
  *
  * Three layers:
- *  1. RESEARCHED — exact official patterns with a published per-subject split that matches
+ *  1. RESEARCHED  -  exact official patterns with a published per-subject split that matches
  *     our sections (CSS MPT, national MDCAT, UET ECAT, NUST NET, NTS GAT, NTS NAT-IE / COMSATS,
  *     PMS screening).
- *  2. PARAM_OVERRIDE — exams with a verified official total / time / negative marking but whose
+ *  2. PARAM_OVERRIDE  -  exams with a verified official total / time / negative marking but whose
  *     real subjects don't map cleanly to our sections (PIEAS, GIKI, FAST, MUET); the split is
  *     distributed across the exam's own sections by weightage.
- *  3. CATEGORY_PATTERN + per-body overrides — the standard one-paper format for each recruitment
+ *  3. CATEGORY_PATTERN + per-body overrides  -  the standard one-paper format for each recruitment
  *     family. Negative marking is set by the CONDUCTING BODY (the key finding): PPSC, SPSC and
  *     PMS deduct 0.25 per wrong; FPSC, KPPSC, AJKPSC, GBPSC, NTS/OTS/ETEA recruitment, banks and
  *     the armed forces do not.
@@ -156,15 +156,15 @@ const OFFICIAL_EXAM_AUTHORITIES: Record<string, string> = {
   'giki-entry':          'Ghulam Ishaq Khan Institute of Engineering Sciences & Technology (GIKI)',
   'pieas-entry':         'Pakistan Institute of Engineering and Applied Sciences (PIEAS)',
   'net-engineering':     'National University of Sciences & Technology (NUST)',
-  'ecat':                'UET Lahore — Engineering College Admission Test (ECAT)',
+  'ecat':                'UET Lahore  -  Engineering College Admission Test (ECAT)',
   'css-mpt':             'Federal Public Service Commission (FPSC)',
   'fia-constable':       'Federal Investigation Agency (FIA)',
   'ppsc-assistant':      'Punjab Public Service Commission (PPSC)',
   'mdcat':               'Pakistan Medical Commission (National MDCAT)',
   'fast-nuces':          'FAST-NUCES (National University of Computer & Emerging Sciences)',
   'comsats-engineering': 'COMSATS University Islamabad (NTS NAT-IE admission test)',
-  'nts-gat':             'National Testing Service (NTS) — GAT General',
-  'nts-nat-ie':          'National Testing Service (NTS) — NAT-IE (Engineering)',
+  'nts-gat':             'National Testing Service (NTS)  -  GAT General',
+  'nts-nat-ie':          'National Testing Service (NTS)  -  NAT-IE (Engineering)',
   'lums-engineering':    'Lahore University of Management Sciences (LUMS)',
   'air-university':      'Air University, Islamabad',
   'muet':                'Mehran University of Engineering & Technology (MUET)',
@@ -221,17 +221,17 @@ const EXAM_ELIGIBILITY: Record<string, string[]> = {
   ],
   'css-mpt': [
     'Bachelor\'s degree (14 years) from an HEC-recognised university.',
-    'Age 21–30 years on the cut-off date (relaxations per FPSC rules).',
+    'Age 21-30 years on the cut-off date (relaxations per FPSC rules).',
     'Pakistani citizenship; MPT is the mandatory screening test before CSS written exam.',
   ],
   'fia-constable': [
     'Matriculation (2nd Division) or equivalent from a recognised board.',
-    'Age 18–25 years; height, chest and medical standards per FIA advertisement.',
+    'Age 18-25 years; height, chest and medical standards per FIA advertisement.',
     'Pakistani citizenship; domicile and quota rules apply as notified.',
   ],
   'ppsc-assistant': [
     'Bachelor\'s degree (2nd Division) from a recognised university.',
-    'Age 21–28 years; Punjab domicile typically required for BS-16 posts.',
+    'Age 21-28 years; Punjab domicile typically required for BS-16 posts.',
     'Computer typing test may follow the written MCQ paper per PPSC advertisement.',
   ],
   'mdcat': [
@@ -564,7 +564,7 @@ function defaultEligibility(examSlug: string, config: ExamConfig): string[] {
 function buildImportantFromSettings(settings: EffectiveExamSettings): string[] {
   const { blueprint, sections, totalMCQs, duration, negativeMarking, negativeMarkingValue } = settings
   const negLine = negativeMarking
-    ? `Yes — ${negativeMarkingValue} mark deducted per wrong answer.`
+    ? `Yes  -  ${negativeMarkingValue} mark deducted per wrong answer.`
     : 'No negative marking.'
   const split = sections.map((s) => `${s.label} ${s.count}`).join(' · ')
   return [
@@ -579,27 +579,27 @@ function buildHelpfulFromSettings(examSlug: string, settings: EffectiveExamSetti
   const tips: string[] = []
   const top = [...sections].sort((a, b) => b.count - a.count)[0]
   if (top) {
-    tips.push(`${top.label} carries the most weight (${top.count} of ${totalMCQs} MCQs) — prioritise this in timed practice.`)
+    tips.push(`${top.label} carries the most weight (${top.count} of ${totalMCQs} MCQs)  -  prioritise this in timed practice.`)
   }
   if (negativeMarking) {
     tips.push(`With −${settings.negativeMarkingValue} per wrong answer, skip uncertain questions rather than guess blindly.`)
   } else {
-    tips.push('No negative marking — attempt every question; leave nothing blank in the real test.')
+    tips.push('No negative marking  -  attempt every question; leave nothing blank in the real test.')
   }
   tips.push(`Full mocks here use ${totalMCQs} MCQs / ${duration} min to match the official paper timing.`)
 
   if (examSlug === 'mdcat') {
-    tips.push('National MDCAT is 180 MCQs / 180 min — one minute per question on average.')
+    tips.push('National MDCAT is 180 MCQs / 180 min  -  one minute per question on average.')
   } else if (examSlug === 'ecat') {
     tips.push('ECAT allocates equal weight to Mathematics, Physics and Chemistry (30 MCQs each).')
   } else if (examSlug === 'net-engineering') {
-    tips.push('NUST NET Engineering: Mathematics 80 MCQs — strongest section by official weightage.')
+    tips.push('NUST NET Engineering: Mathematics 80 MCQs  -  strongest section by official weightage.')
   } else if (examSlug === 'fast-nuces') {
     tips.push('FAST entry test: 120 MCQs / 120 min with 0.25 negative marking per wrong answer.')
   } else if (examSlug === 'giki-entry') {
-    tips.push('GIKI entry test: 80 MCQs / 120 min — no negative marking.')
+    tips.push('GIKI entry test: 80 MCQs / 120 min  -  no negative marking.')
   } else if (examSlug === 'pieas-entry') {
-    tips.push('PIEAS entry test: 100 MCQs / 180 min — no negative marking.')
+    tips.push('PIEAS entry test: 100 MCQs / 180 min  -  no negative marking.')
   } else if (examSlug === 'css-mpt') {
     tips.push('FPSC CSS MPT: 200 MCQs / 200 min screening test before the CSS written examination.')
   } else if (examSlug.startsWith('fia-')) {

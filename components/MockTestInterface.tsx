@@ -18,6 +18,7 @@ import {
   ExamQuestionPickerTrigger,
   QuizResultsCard,
 } from '@/components/gamified-quiz'
+import { plainText, plainTextMcqFields } from '@/lib/plain-text'
 
 interface MCQ {
   id: number
@@ -141,7 +142,7 @@ export default function MockTestInterface({
   const router = useRouter()
 
   // Shuffle options once per session to eliminate answer-position bias
-  const [shuffledMCQs] = useState(() => mcqs.map(shuffleOptions))
+  const [shuffledMCQs] = useState(() => mcqs.map((m) => shuffleOptions(plainTextMcqFields(m))))
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})

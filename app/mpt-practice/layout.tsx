@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CSS MPT Practice Test 2026 — Free MCQs & Mock Exams | Imtehan',
+  title: 'CSS MPT Practice Test 2026  -  Free MCQs & Mock Exams | Imtehan',
   description: 'Free CSS MPT (Mandatory Preliminary Test) practice with subject-wise MCQs, timed mock tests and past paper questions. Prepare for the FPSC screening test online.',
   alternates: {
     canonical: 'https://imtehan.com/mpt-practice',

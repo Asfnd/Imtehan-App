@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { Flag, Pause, Play } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
@@ -30,6 +30,7 @@ import {
   QuizResultsCard,
   quizAccuracyPercent,
 } from '@/components/gamified-quiz'
+import { plainTextMcqFields } from '@/lib/plain-text'
 
 interface MCQ {
   id: number
@@ -118,6 +119,8 @@ export default function QuizInterface({
   const [showXpPop, setShowXpPop] = useState(false)
   const [confettiBurst, setConfettiBurst] = useState(0)
 
+  const sanitizedMcqs = useMemo(() => mcqs.map((m) => plainTextMcqFields(m)), [mcqs])
+
   useEffect(() => {
     if (authLoading) return
     const gate = tieredSetQuizPageAccess(setNumber, !!user, isPremium)
@@ -161,7 +164,7 @@ export default function QuizInterface({
     setWrongChoice(null)
   }, [currentIndex])
 
-  const activeMCQs = reviewMode ? reviewMCQs : mcqs
+  const activeMCQs = reviewMode ? reviewMCQs : sanitizedMcqs
   const currentMCQ = activeMCQs[currentIndex]
   const lockedAnswer = answers[currentIndex]
   const isQuestionSolved = lockedAnswer === currentMCQ?.correct_answer

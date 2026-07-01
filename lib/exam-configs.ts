@@ -1,3 +1,5 @@
+import { plainText } from './plain-text'
+
 export interface ExamSection {
   slug: string
   label: string
@@ -38,7 +40,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   // MEDICAL: MDCAT (Medical & Dental College Admission Test)
   // ============================================================
 
-  /** Shared MDCAT section list — banks have no `type` column; use mixed/practice fetch. */
+  /** Shared MDCAT section list  -  banks have no `type` column; use mixed/practice fetch. */
   ...(() => {
     const MDCAT_SECTIONS: ExamSection[] = [
       { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 68, noTypeFilter: true },
@@ -80,7 +82,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       officialLink: 'https://pmc.gov.pk/',
       eligibility: ['FSc Pre-Medical or equivalent with minimum 60% marks (varies by province).'],
       important: ['National MDCAT is the gateway to MBBS/BDS in public and private medical colleges across Pakistan.'],
-      helpful: ['Practice Biology and Chemistry heavily — together they carry ~65% of the paper.'],
+      helpful: ['Practice Biology and Chemistry heavily  -  together they carry ~65% of the paper.'],
     },
   },
 
@@ -95,7 +97,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     guide: {
       authority: 'Pakistan Medical Commission (PMC)',
       officialLink: 'https://pmc.gov.pk/',
-      eligibility: ['Open to all provinces — UHS, SZABMU, SIBA, BUMHS and other provincial bodies use PMC pattern.'],
+      eligibility: ['Open to all provinces  -  UHS, SZABMU, SIBA, BUMHS and other provincial bodies use PMC pattern.'],
       important: ['180 MCQs: Biology 81, Chemistry 45, Physics 36, English 9, Logical Reasoning 9.'],
       helpful: ['Use full mocks under /mdcat/mock/pmc for timed simulation.'],
     },
@@ -114,7 +116,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       officialLink: 'https://www.uhs.edu.pk/',
       eligibility: ['Punjab domicile or as per latest UHS admission policy.'],
       important: ['Follows PMC national pattern with provincial merit aggregation.'],
-      helpful: ['Largest pre-med cohort in Pakistan — start early with Biology high-yield topics.'],
+      helpful: ['Largest pre-med cohort in Pakistan  -  start early with Biology high-yield topics.'],
     },
   },
 
@@ -130,8 +132,8 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       authority: 'Educational Testing & Evaluation Agency (ETEA), KPK',
       officialLink: 'https://www.etea.edu.pk/',
       eligibility: ['KPK domicile or as per KMU/ETEA advertisement.'],
-      important: ['200 MCQs with negative marking — accuracy matters more than speed.'],
-      helpful: ['Equal weight on Bio, Chem, Physics (60 each) — no logical reasoning section.'],
+      important: ['200 MCQs with negative marking  -  accuracy matters more than speed.'],
+      helpful: ['Equal weight on Bio, Chem, Physics (60 each)  -  no logical reasoning section.'],
     },
   },
 
@@ -147,7 +149,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       authority: 'National University of Medical Sciences (NUMS)',
       officialLink: 'https://www.numspak.edu.pk/',
       eligibility: ['FSc Pre-Medical; separate criteria for Army Medical College and affiliated institutes.'],
-      important: ['150 MCQs focused on core sciences — competitive cutoff for military medical colleges.'],
+      important: ['150 MCQs focused on core sciences  -  competitive cutoff for military medical colleges.'],
       helpful: ['Strong Chemistry and Biology performance is essential for NUMS merit.'],
     },
   },
@@ -164,8 +166,8 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       authority: 'Aga Khan University (AKU), Karachi',
       officialLink: 'https://www.aku.edu/',
       eligibility: ['FSc Pre-Medical with high academic standing; AKU-specific admission criteria.'],
-      important: ['Balanced 20 MCQs per section including Logical Reasoning — highly competitive private medical entry.'],
-      helpful: ['English and LR sections distinguish top AKU candidates — do not neglect them.'],
+      important: ['Balanced 20 MCQs per section including Logical Reasoning  -  highly competitive private medical entry.'],
+      helpful: ['English and LR sections distinguish top AKU candidates  -  do not neglect them.'],
     },
   },
     } as Record<string, ExamConfig>
@@ -572,7 +574,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     },
   },
 
-  // Remove duplicate old mdcat block — merged above
+  // Remove duplicate old mdcat block  -  merged above
 
   // ============================================================
   // NATIONAL: CSS & PMS (Federal Competitive)
@@ -1564,7 +1566,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   // ============================================================
-  // FIA: Federal Investigation Agency — Written Test 2026
+  // FIA: Federal Investigation Agency  -  Written Test 2026
   // Official pattern: 100 MCQs, 90 min, no negative marking, English medium.
   // Subject split: English 20 · Islamic Study 10 · Pakistan Study 10 · GK 20 ·
   // Computer 10 · Math IQ 20 · FIA Act 1974 10.
@@ -1830,12 +1832,12 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         'Minimum FSc/A-Level or graduate qualification as per the service advertisement.',
       ],
       important: [
-        'ISSB is a 4–5 day selection process: academic screening, psychological tests, group tasks, and interview.',
-        'This module covers the written academic & intelligence MCQ portion — English, Maths, GK, Pakistan Affairs, and reasoning.',
+        'ISSB is a 4-5 day selection process: academic screening, psychological tests, group tasks, and interview.',
+        'This module covers the written academic & intelligence MCQ portion  -  English, Maths, GK, Pakistan Affairs, and reasoning.',
         'Every MCQ includes a detailed explanation to build the analytical mindset ISSB expects.',
       ],
       helpful: [
-        'Practice daily — consistency beats cramming for ISSB academic screening.',
+        'Practice daily  -  consistency beats cramming for ISSB academic screening.',
         'Read explanations carefully; ISSB rewards clarity of thought, not guessing.',
         'Combine with physical fitness and current affairs reading for holistic preparation.',
       ],
@@ -1850,7 +1852,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'issb-army': {
-    name: 'ISSB — Pak Army Officer Selection',
+    name: 'ISSB  -  Pak Army Officer Selection',
     category: 'military',
     totalMCQs: 660,
     duration: 90,
@@ -1868,7 +1870,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'issb-navy': {
-    name: 'ISSB — Pak Navy Officer Selection',
+    name: 'ISSB  -  Pak Navy Officer Selection',
     category: 'military',
     totalMCQs: 660,
     duration: 90,
@@ -1886,7 +1888,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   },
 
   'issb-paf': {
-    name: 'ISSB — PAF Officer Selection',
+    name: 'ISSB  -  PAF Officer Selection',
     category: 'military',
     totalMCQs: 660,
     duration: 90,
@@ -4305,7 +4307,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       officialLink: 'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
       eligibility: ['FSc Pre-Medical or equivalent for medical-degree university admission via NAT.'],
       important: ['NAT-IM is required by many private and public universities for MBBS/BDS/BSc medical programs.'],
-      helpful: ['Focus on Biology and Chemistry — together ~75% of the paper.'],
+      helpful: ['Focus on Biology and Chemistry  -  together ~75% of the paper.'],
     },
   },
 
@@ -4441,3 +4443,18 @@ export function getAllCategories(): string[] {
   const categories = new Set(Object.values(EXAM_CONFIGS).map((c) => c.category))
   return Array.from(categories)
 }
+
+function sanitizeExamCopy(config: ExamConfig): void {
+  config.name = plainText(config.name)
+  if (config.sourceExamLabel) config.sourceExamLabel = plainText(config.sourceExamLabel)
+  for (const s of config.sections) s.label = plainText(s.label)
+  const g = config.guide
+  if (g) {
+    if (g.authority) g.authority = plainText(g.authority)
+    g.eligibility = g.eligibility.map(plainText)
+    g.important = g.important.map(plainText)
+    g.helpful = g.helpful.map(plainText)
+  }
+}
+
+for (const cfg of Object.values(EXAM_CONFIGS)) sanitizeExamCopy(cfg)

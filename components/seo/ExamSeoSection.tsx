@@ -95,7 +95,7 @@ export default function ExamSeoSection({ slug, config }: { slug: string; config:
               ))}
             </ul>
             <p className="mt-3 text-sm text-gray-500">
-              Each subject has most repeated, past paper and practice mode sets — open any subject above to start.
+              Each subject has most repeated, past paper and practice mode sets  -  open any subject above to start.
             </p>
           </div>
         )}

@@ -19,7 +19,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 }
 
 /**
- * Homepage crawl relay — links Googlebot to category hubs and top exam/mode URLs
+ * Homepage crawl relay  -  links Googlebot to category hubs and top exam/mode URLs
  * within 2 clicks of /. Critical for "discovered not indexed" recovery.
  */
 export function HomeIndexingRelay() {
@@ -35,7 +35,7 @@ export function HomeIndexingRelay() {
           Practice by exam commission
         </h2>
         <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-gray-600">
-          200+ recruitment tests — PPSC, FPSC, FIA, NTS, police, military, banks, MDCAT and engineering entry tests.
+          200+ recruitment tests  -  PPSC, FPSC, FIA, NTS, police, military, banks, MDCAT and engineering entry tests.
         </p>
 
         <ul className="mt-6 flex flex-wrap justify-center gap-2">
