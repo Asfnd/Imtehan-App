@@ -13,6 +13,8 @@
     "delete-subjects": "tsx scripts/delete-uploaded-subjects.ts",
     "import-mcqs": "tsx scripts/import-mcqs-to-supabase.ts",
     "export-exam-syllabi": "tsx scripts/export-exam-syllabi-from-config.ts",
+    "export:mobile-exams": "tsx scripts/export-mobile-exam-configs.ts && tsx scripts/export-exam-guides.ts",
+    "compare:mobile-exams": "tsx scripts/compare-mobile-exams.ts",
     "merge-commission-sources": "tsx scripts/merge-commission-sources-into-exam-syllabi.ts",
     "build-ai-syllabi": "tsx scripts/build-ai-syllabus-packages.ts",
     "fetch-portal-syllabi": "tsx scripts/fetch-portal-syllabus-caches.ts",
