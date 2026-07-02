@@ -7,29 +7,51 @@ type PlayStoreButtonProps = {
   showNewBadge?: boolean
 }
 
-function PlayIcon({ className }: { className?: string }) {
+/** Official-style multicolor Google Play triangle. */
+function GooglePlayIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
+    <svg viewBox="0 0 512 512" className={className} aria-hidden>
       <path
-        fill="currentColor"
-        d="M3.6 1.8c-.3.2-.6.6-.6 1.1v18.2c0 .5.3.9.6 1.1l10.2-10.2L3.6 1.8zm11.4 9.2-2.5 2.5 2.5 2.5 5.9-3.4c.9-.5.9-1.7 0-2.2l-5.9-3.4zm-3.4 3.4-8.8 8.8c.2.3.6.5 1 .5.2 0 .4 0 .6-.1l7.2-4.2-2.5-2.5 2.1-2.5zm-.6-9.1L4 4.4c-.2-.1-.4-.1-.6-.1-.4 0-.8.2-1 .5l8.8 8.8 2.5-2.5z"
+        fill="#34A853"
+        d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z"
+      />
+      <path
+        fill="#FBBC04"
+        d="M325.3 234.3L385.4 174.3 256 44.9 104.6 13l280.8 161.2-60.1 60.1z"
+      />
+      <path
+        fill="#EA4335"
+        d="M325.3 234.3l60.1 60.1 82.4-47.4c26.2-15.1 26.2-52.8 0-67.9L325.3 234.3z"
+      />
+      <path
+        fill="#4285F4"
+        d="M104.6 13l280.8 161.2-60.1 60.1-200.1-208.1z"
       />
     </svg>
   )
 }
 
 export function PlayStoreButton({ size = 'md', className, showNewBadge = false }: PlayStoreButtonProps) {
-  const heights = { sm: 'h-10', md: 'h-11', lg: 'h-[52px]' }
-  const pads = { sm: 'px-3 gap-2', md: 'px-3.5 gap-2.5', lg: 'px-4 gap-3' }
+  const heights = { sm: 'h-10', md: 'h-11', lg: 'h-[54px]' }
+  const pads = { sm: 'px-3 gap-2.5', md: 'px-3.5 gap-3', lg: 'px-4 gap-3.5' }
   const labelSm = { sm: 'text-[8px]', md: 'text-[9px]', lg: 'text-[10px]' }
   const labelLg = { sm: 'text-[13px]', md: 'text-sm', lg: 'text-[17px]' }
-  const icon = { sm: 'w-5 h-5', md: 'w-6 h-6', lg: 'w-7 h-7' }
+  const icon = { sm: 'w-[22px] h-[22px]', md: 'w-6 h-6', lg: 'w-7 h-7' }
 
   return (
-    <div className={cn('inline-flex flex-col items-center gap-2', className)}>
+    <div className={cn('inline-flex flex-col items-start gap-2', className)}>
       {showNewBadge && (
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden />
+        <span
+          className={cn(
+            'inline-flex items-center gap-2 rounded-full px-3.5 py-1.5',
+            'border border-[#3DDC84]/35 bg-gradient-to-r from-[#3DDC84]/12 to-[#4285F4]/8',
+            'text-xs font-semibold text-[#0d652d] shadow-sm',
+          )}
+        >
+          <span className="relative flex h-2 w-2" aria-hidden>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#3DDC84] opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#3DDC84]" />
+          </span>
           Now on Google Play
         </span>
       )}
@@ -39,21 +61,39 @@ export function PlayStoreButton({ size = 'md', className, showNewBadge = false }
         rel="noopener noreferrer"
         aria-label="Get Imtehan on Google Play"
         className={cn(
-          'inline-flex items-center rounded-xl bg-[#0d0d0d] text-white shadow-lg shadow-black/15',
-          'ring-1 ring-black/10 transition-all duration-200',
-          'hover:-translate-y-0.5 hover:bg-black hover:shadow-xl hover:shadow-black/20',
+          'group inline-flex items-center rounded-[10px]',
+          'bg-gradient-to-b from-[#1a1a1a] to-black text-white',
+          'border border-white/10 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.45)]',
+          'transition-all duration-200 ease-out',
+          'hover:-translate-y-0.5 hover:border-[#3DDC84]/35',
+          'hover:shadow-[0_14px_32px_-8px_rgba(61,220,132,0.28)]',
           'active:translate-y-0 active:scale-[0.98]',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B5BDB] focus-visible:ring-offset-2',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3DDC84] focus-visible:ring-offset-2',
           heights[size],
           pads[size],
         )}
       >
-        <PlayIcon className={cn(icon[size], 'shrink-0 text-white')} />
+        <span
+          className={cn(
+            'flex shrink-0 items-center justify-center rounded-md bg-white/[0.06] p-0.5',
+            'ring-1 ring-white/10 transition-colors group-hover:bg-white/[0.1]',
+            icon[size],
+          )}
+        >
+        <GooglePlayIcon className="h-full w-full drop-shadow-sm" />
+        </span>
         <span className="flex flex-col items-start leading-none">
-          <span className={cn(labelSm[size], 'font-medium uppercase tracking-wide text-white/75')}>
+          <span
+            className={cn(
+              labelSm[size],
+              'font-medium uppercase tracking-[0.14em] text-white/70',
+            )}
+          >
             Get it on
           </span>
-          <span className={cn(labelLg[size], 'font-semibold tracking-tight')}>Google Play</span>
+          <span className={cn(labelLg[size], 'font-semibold tracking-tight text-white')}>
+            Google Play
+          </span>
         </span>
       </a>
     </div>

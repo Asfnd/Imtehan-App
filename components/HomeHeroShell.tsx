@@ -1,6 +1,5 @@
 import { HomeHeroAnimatedLine } from '@/components/HomeHeroAnimatedLine'
 import { HomeExamPicker } from '@/components/HomeExamPicker'
-import { PlayStoreButton } from '@/components/PlayStoreButton'
 
 /** Server-rendered hero shell — LCP text paints before client JS hydrates. */
 export function HomeHeroShell() {
@@ -16,10 +15,6 @@ export function HomeHeroShell() {
           <p className="text-[15px] sm:text-[17px] md:text-[19px] text-gray-600 mb-8 sm:mb-10 leading-[1.6] max-w-2xl mx-auto font-normal px-2 sm:px-0">
             A comprehensive learning platform designed to help you excel in competitive examinations through effective practice, personalized insights, and proven strategies.
           </p>
-
-          <div className="mb-8 sm:mb-10 flex justify-center">
-            <PlayStoreButton size="lg" showNewBadge />
-          </div>
 
           <div className="flex justify-center">
             <HomeExamPicker />

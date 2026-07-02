@@ -184,9 +184,9 @@ export default function NavigationBar({
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-[68px] flex items-center justify-between">
-        {/* Logo + Pinned Exam */}
-        <div className="flex items-center gap-0 flex-shrink-0">
-          <Link href="/" className="flex items-center gap-2 min-w-0">
+        {/* Logo + Play Store + Pinned Exam */}
+        <div className="flex items-center gap-0 flex-shrink-0 min-w-0">
+          <Link href="/" className="flex items-center gap-2 min-w-0 flex-shrink-0">
             <img
               src="/favicon.svg"
               alt="Imtehan Logo"
@@ -196,6 +196,9 @@ export default function NavigationBar({
             />
             <span className="font-bold text-base sm:text-lg md:text-xl text-gray-900 leading-none whitespace-nowrap">Imtehan</span>
           </Link>
+          <div className="ml-2 sm:ml-3 pl-2 sm:pl-3 border-l border-gray-200 flex-shrink-0">
+            <PlayStoreButton size="sm" />
+          </div>
           {pinned && (
             <div className="hidden md:flex items-center gap-1.5 ml-3 pl-3 border-l border-gray-200">
               <Link
@@ -305,8 +308,6 @@ export default function NavigationBar({
 
         {/* Right Side - Desktop */}
         <div className="hidden md:flex items-center gap-3">
-
-          <PlayStoreButton size="sm" />
 
           {/* Date Sheet Button (only on CSS dashboard) */}
           {showEligibilityButton && (
@@ -456,9 +457,6 @@ export default function NavigationBar({
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white shadow-lg">
           <div className="px-6 py-4 space-y-3">
-            <div className="flex justify-center pb-3 border-b border-gray-100">
-              <PlayStoreButton size="md" showNewBadge />
-            </div>
             {/* Pinned Exam */}
             {pinned && (
               <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg border border-gray-200">
