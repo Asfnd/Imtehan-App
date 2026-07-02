@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button'
 import { AVAILABLE_NAV_CATEGORIES, EXAMS_BY_CATEGORY } from '@/lib/nav-exam-counts'
 import { trackLogin } from '@/lib/analytics/events'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { PlayStoreButton } from '@/components/PlayStoreButton'
 
 const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
@@ -305,6 +306,8 @@ export default function NavigationBar({
         {/* Right Side - Desktop */}
         <div className="hidden md:flex items-center gap-3">
 
+          <PlayStoreButton size="sm" />
+
           {/* Date Sheet Button (only on CSS dashboard) */}
           {showEligibilityButton && (
             <a
@@ -453,6 +456,9 @@ export default function NavigationBar({
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white shadow-lg">
           <div className="px-6 py-4 space-y-3">
+            <div className="flex justify-center pb-3 border-b border-gray-100">
+              <PlayStoreButton size="md" showNewBadge />
+            </div>
             {/* Pinned Exam */}
             {pinned && (
               <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg border border-gray-200">

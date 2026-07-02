@@ -7,5 +7,9 @@ export const PREMIUM_PAGE_PATH = '/css/premium' as const
 /** Absolute URL for metadata, schema.org, and sitemap (production canonical). */
 export const PREMIUM_PAGE_URL = 'https://imtehan.com/css/premium' as const
 
+/** Google Play listing — Android app (com.imtehan.mobile). */
+export const PLAY_STORE_URL =
+  'https://play.google.com/store/apps/details?id=com.imtehan.mobile' as const
+
 /** PMS Writing Coach (essay, précis, long answer): provincial exam tuning. */
 export const PMS_WRITING_COACH_PATH = '/exams/pms-competitive/essay-grader' as const
