@@ -9,9 +9,9 @@ type PlayStoreButtonProps = {
 
 /** Official Google “Get it on Google Play” badge (646×250). Min display height per Google: 28px. */
 const BADGE_HEIGHT_CLASS = {
-  sm: 'h-10',   // 40px — nav compact
-  md: 'h-11',   // 44px — default, clearly legible
-  lg: 'h-14',   // 56px — hero / prominent CTA
+  sm: 'h-10',      // 40px
+  md: 'h-12',      // 48px
+  lg: 'h-[54px]',  // 54px — nav / prominent
 } as const
 
 export function PlayStoreButton({ size = 'md', className }: PlayStoreButtonProps) {

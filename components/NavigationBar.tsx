@@ -197,7 +197,7 @@ export default function NavigationBar({
             <span className="font-bold text-base sm:text-lg md:text-xl text-gray-900 leading-none whitespace-nowrap">Imtehan</span>
           </Link>
           <div className="ml-2 sm:ml-3 pl-2 sm:pl-3 border-l border-gray-200 flex-shrink-0">
-            <PlayStoreButton size="md" />
+            <PlayStoreButton size="lg" />
           </div>
           {pinned && (
             <div className="hidden md:flex items-center gap-1.5 ml-3 pl-3 border-l border-gray-200">
