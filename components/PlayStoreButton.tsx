@@ -3,7 +3,7 @@ import { PLAY_STORE_URL } from '@/lib/routes'
 import { cn } from '@/lib/utils'
 
 type PlayStoreButtonProps = {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   className?: string
 }
 
@@ -11,7 +11,8 @@ type PlayStoreButtonProps = {
 const BADGE_HEIGHT_CLASS = {
   sm: 'h-10',      // 40px
   md: 'h-12',      // 48px
-  lg: 'h-[54px]',  // 54px — nav / prominent
+  lg: 'h-[54px]',  // 54px — nav
+  xl: 'h-16',      // 64px — footer / end of page
 } as const
 
 export function PlayStoreButton({ size = 'md', className }: PlayStoreButtonProps) {

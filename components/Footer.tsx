@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { PlayStoreButton } from '@/components/PlayStoreButton'
 
 export function Footer() {
   return (
@@ -147,8 +148,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-4 flex justify-center items-center">
-          <p className="text-sm text-muted-foreground">&copy; 2025 Imtehan. All rights reserved.</p>
+        <div className="border-t border-gray-200 pt-8 pb-2 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <div>
+            <p className="text-sm font-medium text-gray-900 mb-3">Get the Imtehan Android app</p>
+            <PlayStoreButton size="xl" />
+          </div>
+          <p className="text-sm text-muted-foreground sm:pb-1">&copy; 2025 Imtehan. All rights reserved.</p>
         </div>
       </div>
     </footer>
