@@ -152,6 +152,24 @@ function ExamDashboard() {
 
     const counts = await Promise.all(
       config.sections.map(async (section) => {
+        if (section.noTypeFilter || section.subjectField) {
+          let query = supabase
+            .from(section.dbTable)
+            .select('*', { count: 'exact', head: true })
+          if (section.subjectField) {
+            query = query.eq('subject', section.subjectField)
+          }
+          const { count } = await query
+          const total = count || 0
+          return {
+            ...section,
+            repeatedCount: total,
+            importantCount: total,
+            pastCount: total,
+            totalMCQs: total,
+          }
+        }
+
         const { count: pastCount } = await supabase
           .from(section.dbTable)
           .select('*', { count: 'exact', head: true })

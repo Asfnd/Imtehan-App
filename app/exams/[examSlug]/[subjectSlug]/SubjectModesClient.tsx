@@ -158,12 +158,31 @@ export function SubjectModesClient() {
           supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Hard'   : 'hard'),
         ])
         const total = totalCount || 0
+
+        const tags = TABLE_POPULAR_TAGS[dbTable] ?? []
+        const useTopicCol = TOPIC_COL_TABLES.has(dbTable)
+        const topicResults = tags.length && useTopicCol
+          ? await Promise.all(
+              tags.map((tag) => {
+                const dbVal = topicDbValue(tag, dbTable)
+                return supabase
+                  .from(dbTable)
+                  .select('*', { count: 'exact', head: true })
+                  .eq('topic', dbVal)
+              })
+            )
+          : []
+
         if (cancelled) return
         setCounts({
           pastCount: total, importantCount: total, repeatedCount: total,
           easyCount: easyCount || 0, mediumCount: mediumCount || 0, hardCount: hardCount || 0,
         })
-        setTopicCounts({})
+        setTopicCounts(
+          tags.length && useTopicCol
+            ? Object.fromEntries(tags.map((tag, i) => [tag, topicResults[i].count || 0]))
+            : {}
+        )
         setLoading(false)
         return
       }
@@ -208,7 +227,10 @@ export function SubjectModesClient() {
   if (!config) { router.push('/exams'); return null }
   if (!section) { router.push(`/exams/${examSlug}`); return null }
 
-  const totalPracticeCount = counts.pastCount + counts.importantCount + counts.repeatedCount
+  const skipType = !!section.noTypeFilter
+  const totalPracticeCount = skipType
+    ? counts.pastCount
+    : counts.pastCount + counts.importantCount + counts.repeatedCount
   const topicsWithCounts = (TABLE_POPULAR_TAGS[section.dbTable] ?? [])
     .map(tag => ({ tag, count: topicCounts[tag] ?? 0 }))
     .filter(t => t.count > 0)
@@ -275,7 +297,19 @@ export function SubjectModesClient() {
 
         {/* ── Practice modes ── */}
         <section>
-          <SectionLabel>Practice Modes</SectionLabel>
+          <SectionLabel>{skipType ? 'Practice Sets' : 'Practice Modes'}</SectionLabel>
+          {skipType ? (
+            <div className="grid grid-cols-1 items-stretch gap-3 sm:max-w-sm sm:mx-auto">
+              <PracticeCard
+                onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/practice`)}
+                icon={Target}
+                title="Practice Sets"
+                subtitle="Timed-style sets of 20 unique MCQs"
+                statPrimary={roundMCQs(totalPracticeCount)}
+                statSecondary="Stem-deduped sets"
+              />
+            </div>
+          ) : (
           <div className="grid grid-cols-2 items-stretch gap-3 sm:grid-cols-4 sm:gap-4">
             <PracticeCard
               onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/most-repeated`)}
@@ -310,6 +344,7 @@ export function SubjectModesClient() {
               statSecondary="All types mixed"
             />
           </div>
+          )}
         </section>
 
         {/* ── By Topic: premium-gated featured card ── */}

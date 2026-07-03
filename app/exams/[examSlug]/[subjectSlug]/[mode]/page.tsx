@@ -12,6 +12,7 @@ import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
 import { fetchRemoteCompletions } from '@/lib/completion'
+import { countUniqueForMode } from '@/lib/quiz-fetcher'
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
@@ -104,18 +105,21 @@ export default function BatchSetSelector() {
       if (!section || !modeConfig) { setLoading(false); return }
 
       const supabase = createClient()
-      let query = supabase
-        .from(section.dbTable)
-        .select('*', { count: 'exact', head: true })
-
-      if (mode === 'past-papers' && config?.pastPapersExam) {
-        query = query.eq('target_exam', config.pastPapersExam)
-      } else if (modeConfig.dbType && !section.noTypeFilter) {
-        query = query.eq('type', modeConfig.dbType)
+      try {
+        const unique = await countUniqueForMode(supabase, {
+          dbTable: section.dbTable,
+          mode: modeConfig.dbType ?? 'mixed',
+          noTypeFilter: section.noTypeFilter,
+          subjectField: section.subjectField,
+          targetExam:
+            mode === 'past-papers' && config?.pastPapersExam
+              ? config.pastPapersExam
+              : undefined,
+        })
+        setTotalMCQs(unique)
+      } catch {
+        setTotalMCQs(0)
       }
-
-      const { count } = await query
-      setTotalMCQs(count || 0)
       setLoading(false)
     }
     fetchCount()
@@ -219,8 +223,9 @@ export default function BatchSetSelector() {
                 {setsInBatch.map((setNum) => {
                   const startMCQ    = (setNum - 1) * 20 + 1
                   const endMCQ      = Math.min(setNum * 20, totalMCQs)
-                  const needSignIn  = setNum === 3 && !user
-                  const needPremium = setNum >= 4 && !isPremium
+                  const nav = tieredSetTableNavigation(setNum, !!user, isPremium)
+                  const needSignIn  = nav === 'require_sign_in'
+                  const needPremium = nav === 'require_premium'
                   const isSetLocked = needSignIn || needPremium
                   const isCompleted = !isSetLocked && completedSets[setNum] != null
                   const score       = isCompleted ? Math.round(completedSets[setNum]) : null

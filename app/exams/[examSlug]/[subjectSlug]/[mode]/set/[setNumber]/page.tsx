@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
+import { fetchMCQsBySet } from '@/lib/quiz-fetcher'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import QuizInterface from '@/components/QuizInterface'
 
@@ -49,57 +50,22 @@ export default async function QuizSetPage({
     notFound()
   }
 
-  // Calculate offset for this set (sets are 1-indexed, but offset is 0-indexed)
-  const offset = (setNumber - 1) * 20
-  const limit = 20
-
-  // Fetch MCQs for this set
   const supabase = await createServerSupabaseClient()
 
-  let mcqs
+  const mcqs = await fetchMCQsBySet(supabase, {
+    dbTable: section.dbTable,
+    setNumber,
+    mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
+    noTypeFilter: section.noTypeFilter,
+    subjectField: section.subjectField,
+    targetExam:
+      mode === 'past-papers' && config.pastPapersExam
+        ? config.pastPapersExam
+        : undefined,
+  }).catch(() => null)
 
-  // Deterministic id ordering on every branch so .range() pagination is
-  // stable across requests; without it Postgres can return overlapping rows
-  // between sets, which was the root cause of the "same MCQs in every batch"
-  // user complaints. See S1.1 in the cleanup pipeline.
-  if (modeConfig.type === 'mixed' || section.noTypeFilter) {
-    const { data, error } = await supabase
-      .from(section.dbTable)
-      .select('*')
-      .order('id', { ascending: true })
-      .range(offset, offset + limit - 1)
-
-    if (error || !data || data.length === 0) {
-      notFound()
-    }
-
-    mcqs = data
-  } else if (mode === 'past-papers' && config.pastPapersExam) {
-    const { data, error } = await supabase
-      .from(section.dbTable)
-      .select('*')
-      .eq('target_exam', config.pastPapersExam)
-      .order('id', { ascending: true })
-      .range(offset, offset + limit - 1)
-
-    if (error || !data || data.length === 0) {
-      notFound()
-    }
-
-    mcqs = data
-  } else {
-    const { data, error } = await supabase
-      .from(section.dbTable)
-      .select('*')
-      .eq('type', modeConfig.type)
-      .order('id', { ascending: true })
-      .range(offset, offset + limit - 1)
-
-    if (error || !data || data.length === 0) {
-      notFound()
-    }
-
-    mcqs = data
+  if (!mcqs || mcqs.length === 0) {
+    notFound()
   }
 
   return (

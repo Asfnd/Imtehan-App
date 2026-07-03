@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
+import { fetchMCQsByTopicSet } from '@/lib/quiz-fetcher'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { isTagArrayTable, topicDbValue } from '@/lib/topic-tags'
 import QuizInterface from '@/components/QuizInterface'
@@ -30,22 +31,20 @@ export default async function TopicQuizSetPage({
   const setNumber = parseInt(setNumberStr)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  const offset = (setNumber - 1) * 20
-
+  const dbVal = topicDbValue(tagSlug, section.dbTable)
   const supabase = await createServerSupabaseClient()
-  const dbVal    = topicDbValue(tagSlug, section.dbTable)
-  const base     = supabase.from(section.dbTable).select('*')
-  const { data, error } = await (
-    isTagArrayTable(section.dbTable)
-      ? base.contains('tags', [dbVal])
-      : base.eq('topic', dbVal)
-  ).order('id', { ascending: true }).range(offset, offset + 19)
+  const mcqs = await fetchMCQsByTopicSet(supabase, {
+    dbTable: section.dbTable,
+    tag: dbVal,
+    useTagsArray: isTagArrayTable(section.dbTable),
+    setNumber,
+  }).catch(() => null)
 
-  if (error || !data || data.length === 0) notFound()
+  if (!mcqs || mcqs.length === 0) notFound()
 
   return (
     <QuizInterface
-      mcqs={data}
+      mcqs={mcqs}
       examSlug={examSlug}
       subjectSlug={subjectSlug}
       mode={`topic/${tagSlug}`}
