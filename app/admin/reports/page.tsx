@@ -21,7 +21,7 @@ interface Report {
 }
 
 export default function ReportsPage() {
-  const [reports, setReports] = useState<Report[]>([])
+  const [summary, setSummary] = useState<{ exam: string; count: number }[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>('all')
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null)
@@ -94,6 +94,23 @@ export default function ReportsPage() {
 
       if (error) throw error
       setReports(data || [])
+
+      const { data: pendingAll } = await supabase
+        .from('question_reports')
+        .select('question_type')
+        .eq('status', 'pending')
+        .limit(500)
+
+      const counts: Record<string, number> = {}
+      for (const row of pendingAll ?? []) {
+        const k = row.question_type || 'unknown'
+        counts[k] = (counts[k] ?? 0) + 1
+      }
+      setSummary(
+        Object.entries(counts)
+          .map(([exam, count]) => ({ exam, count }))
+          .sort((a, b) => b.count - a.count)
+      )
     } catch (error) {
       console.error('Error fetching reports:', error)
     } finally {
@@ -144,8 +161,20 @@ export default function ReportsPage() {
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Question Reports</h2>
           <p className="text-gray-600 text-sm mt-1">
-            {reports.length} total reports
+            {reports.length} shown · {summary.reduce((n, s) => n + s.count, 0)} pending total
           </p>
+          {summary.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              {summary.slice(0, 10).map((s) => (
+                <span
+                  key={s.exam}
+                  className="text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-full"
+                >
+                  {s.exam}: {s.count}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Filters */}

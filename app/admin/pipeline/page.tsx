@@ -87,12 +87,23 @@ export default async function PipelinePage() {
     { total: 0, verified: 0, unverified: 0, needs_review: 0, needs_tier2: 0, quarantined: 0, time_sensitive: 0, tagged: 0 }
   )
 
-  // Recent activity
-  const [{ data: archive }, { data: verification }, { data: dedupeMap }] = await Promise.all([
-    supabase.from('mcq_archive').select('archive_id, source_table, original_id, question, action, reason, archived_at').order('archived_at', { ascending: false }).limit(15),
-    supabase.from('mcq_verification').select('id, source_table, mcq_id, verdict, actual_answer, reason, confidence, model, tier, verified_at').order('verified_at', { ascending: false }).limit(25),
-    supabase.from('mcq_dedupe_map').select('source_table, deleted_id, kept_id, mapped_at').order('mapped_at', { ascending: false }).limit(5),
+  // User reports + generation activity (pipeline audit tables were removed 2026-06)
+  const [
+    { count: pendingReports },
+    { data: reportsByExam },
+    { data: genRuns },
+  ] = await Promise.all([
+    supabase.from('question_reports').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+    supabase.from('question_reports').select('question_type').eq('status', 'pending'),
+    supabase.from('mcq_generation_runs').select('id, exam_slug, subject, accepted, started_at, finished_at').order('started_at', { ascending: false }).limit(10),
   ])
+
+  const reportCounts: Record<string, number> = {}
+  for (const r of reportsByExam ?? []) {
+    const k = (r as { question_type: string }).question_type
+    reportCounts[k] = (reportCounts[k] ?? 0) + 1
+  }
+  const topReportExams = Object.entries(reportCounts).sort((a, b) => b[1] - a[1]).slice(0, 8)
 
   const pct = (n: number, d: number) => (d ? Math.round((100 * n) / d) : 0)
   const verifiedPct = pct(totals.verified, totals.total)
@@ -196,69 +207,47 @@ export default async function PipelinePage() {
           </table>
         </div>
 
-        {/* Two-column: recent verifications + recent archive */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-900 mb-3 flex items-center justify-between">
-              Recent verifier verdicts
-              <span className="text-xs text-gray-400 font-normal">{verification?.length ?? 0} shown</span>
-            </h2>
-            <div className="space-y-2 max-h-[480px] overflow-y-auto">
-              {(verification ?? []).map((v) => (
-                <div key={v.id} className="text-xs border-l-2 pl-3 py-1.5 border-gray-200">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-gray-500">{v.source_table}#{v.mcq_id}</span>
-                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
-                      v.verdict === 'correct' ? 'bg-emerald-100 text-emerald-700' :
-                      v.verdict === 'wrong' ? 'bg-rose-100 text-rose-700' :
-                      v.verdict === 'outdated' ? 'bg-amber-100 text-amber-700' :
-                      v.verdict === 'none_of_options' ? 'bg-orange-100 text-orange-700' :
-                      'bg-gray-100 text-gray-700'
-                    }`}>{v.verdict}</span>
-                  </div>
-                  {v.reason && <p className="text-gray-600 mt-1 line-clamp-2">{v.reason}</p>}
-                  <div className="text-gray-400 mt-1 flex gap-2">
-                    <span>tier {v.tier}</span>
-                    <span>·</span>
-                    <span>{v.confidence ? `conf ${Number(v.confidence).toFixed(2)}` : '-'}</span>
-                    <span>·</span>
-                    <span>{v.model}</span>
-                  </div>
-                </div>
-              ))}
-              {(!verification || verification.length === 0) && (
-                <p className="text-gray-400 text-sm">No verifier output yet.</p>
-              )}
-            </div>
+        {/* User reports backlog */}
+        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold text-gray-900">User-reported questions</h2>
+            <Link href="/admin/reports" className="text-xs text-blue-600 hover:underline">
+              Triage all →
+            </Link>
           </div>
-
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-900 mb-3 flex items-center justify-between">
-              Recent destructive changes (archive)
-              <span className="text-xs text-gray-400 font-normal">all reversible</span>
-            </h2>
-            <div className="space-y-2 max-h-[480px] overflow-y-auto">
-              {(archive ?? []).map((a) => (
-                <div key={a.archive_id} className="text-xs border-l-2 pl-3 py-1.5 border-gray-200">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-gray-500">{a.source_table}#{a.original_id}</span>
-                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
-                      a.action === 'delete' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
-                    }`}>{a.action}</span>
-                  </div>
-                  <p className="text-gray-700 mt-1 line-clamp-2">{a.question}</p>
-                  <div className="text-gray-400 mt-1">{a.reason}</div>
-                </div>
+          <div className="text-2xl font-bold text-rose-600">{pendingReports ?? 0} pending</div>
+          {topReportExams.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {topReportExams.map(([exam, n]) => (
+                <span key={exam} className="text-xs bg-rose-50 text-rose-700 border border-rose-100 px-2 py-1 rounded-full">
+                  {exam}: {n}
+                </span>
               ))}
-              {(!archive || archive.length === 0) && (
-                <p className="text-gray-400 text-sm">No archived changes yet.</p>
-              )}
             </div>
+          )}
+        </div>
+
+        {/* Generation runs */}
+        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-3">Recent generation runs</h2>
+          <div className="space-y-2 max-h-[320px] overflow-y-auto">
+            {(genRuns ?? []).map((run: { id: number; exam_slug: string; subject: string; accepted: number; started_at: string; finished_at: string | null }) => (
+              <div key={run.id} className="text-xs border-l-2 pl-3 py-1.5 border-gray-200">
+                <div className="flex justify-between">
+                  <span className="font-mono text-gray-700">{run.exam_slug} · {run.subject}</span>
+                  <span className="text-gray-400">{new Date(run.started_at).toLocaleDateString()}</span>
+                </div>
+                <div className="text-gray-500 mt-0.5">{run.accepted ?? 0} accepted{run.finished_at ? '' : ' · in progress'}</div>
+              </div>
+            ))}
+            {(!genRuns || genRuns.length === 0) && (
+              <p className="text-gray-400 text-sm">No generation runs logged yet.</p>
+            )}
           </div>
         </div>
 
         <div className="mt-6 text-xs text-gray-400">
-          Refresh the page to see new verifier output as background agents work.
+          Verifier audit tables were retired in June 2026. Use user reports + generation runs for quality triage.
         </div>
       </div>
     </div>
