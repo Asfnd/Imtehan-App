@@ -21,6 +21,7 @@ interface Report {
 }
 
 export default function ReportsPage() {
+  const [reports, setReports] = useState<Report[]>([])
   const [summary, setSummary] = useState<{ exam: string; count: number }[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>('all')
