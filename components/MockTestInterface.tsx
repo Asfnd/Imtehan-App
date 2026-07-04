@@ -480,6 +480,11 @@ export default function MockTestInterface({
                   {currentMCQ.subject}
                 </span>
                 <div className="flex shrink-0 items-center gap-2">
+                  {negativeMarking && !reviewMode && !hasSubmitted ? (
+                    <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-800 sm:text-xs">
+                      −{negativeMarkingValue}/wrong
+                    </span>
+                  ) : null}
                   <ExamQuestionPickerTrigger
                     total={activeMCQs.length}
                     currentIndex={currentIndex}

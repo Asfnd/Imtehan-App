@@ -239,20 +239,35 @@ export function SubjectModesClient() {
   const hasDifficulty = totalDifficultyCount > 0
   const hasTopics = topicsWithCounts.length > 0
 
-  const faqItems = [
-    {
-      question: `How many ${config.name} ${section.label} MCQs are available on Imtehan?`,
-      answer: `Imtehan has ${totalPracticeCount.toLocaleString()} ${config.name} ${section.label} MCQs across Most Repeated, Most Important, and Past Papers categories, organised in sets of 20.`,
-    },
-    {
-      question: `Which ${config.name} ${section.label} practice mode should I start with?`,
-      answer: `Start with Most Repeated MCQs to cover the highest-yield questions first, then move to Most Important for core concepts, and finally Past MCQs to practise actual exam questions from 2015 to 2026.`,
-    },
-    {
-      question: `Are ${config.name} ${section.label} MCQs on Imtehan updated for 2026?`,
-      answer: `Yes. Imtehan's ${config.name} ${section.label} question bank is continuously updated with the latest past papers and high-priority MCQs.`,
-    },
-  ]
+  const faqItems = skipType
+    ? [
+        {
+          question: `How many ${config.name} ${section.label} MCQs are available on Imtehan?`,
+          answer: `Imtehan has ${totalPracticeCount.toLocaleString()} ${config.name} ${section.label} MCQs organised in unique sets of 20.`,
+        },
+        {
+          question: `How should I practise ${config.name} ${section.label}?`,
+          answer: `Work through Practice Sets in order, then use By Difficulty or By Topic when available. Finish with full timed mocks on the exam dashboard.`,
+        },
+        {
+          question: `Are ${config.name} ${section.label} MCQs on Imtehan updated for 2026?`,
+          answer: `Yes. Imtehan's ${config.name} ${section.label} bank is continuously updated for the current admission cycle.`,
+        },
+      ]
+    : [
+        {
+          question: `How many ${config.name} ${section.label} MCQs are available on Imtehan?`,
+          answer: `Imtehan has ${totalPracticeCount.toLocaleString()} ${config.name} ${section.label} MCQs across Most Repeated, Most Important, and Past Papers categories, organised in sets of 20.`,
+        },
+        {
+          question: `Which ${config.name} ${section.label} practice mode should I start with?`,
+          answer: `Start with Most Repeated MCQs to cover the highest-yield questions first, then move to Most Important for core concepts, and finally Past MCQs to practise actual exam questions from 2015 to 2026.`,
+        },
+        {
+          question: `Are ${config.name} ${section.label} MCQs on Imtehan updated for 2026?`,
+          answer: `Yes. Imtehan's ${config.name} ${section.label} question bank is continuously updated with the latest past papers and high-priority MCQs.`,
+        },
+      ]
 
   if (loading) {
     return (
