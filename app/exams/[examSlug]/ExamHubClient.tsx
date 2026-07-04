@@ -9,6 +9,7 @@ import { examMockSpec } from '@/lib/exam-mock-specs'
 import ExamMockSections from '@/components/exams/ExamMockSections'
 import ExamPracticeGridCard from '@/components/exams/ExamPracticeGridCard'
 import { createClient } from '@/lib/supabase/client'
+import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import NavigationBar from '@/components/NavigationBar'
 import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
@@ -141,8 +142,7 @@ function ExamDashboard() {
   }
 
   const checkUser = async () => {
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const user = await getFreshAuthUser()
     setUser(user)
     setLoading(false)
   }

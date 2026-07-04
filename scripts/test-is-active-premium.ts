@@ -64,11 +64,19 @@ test('empty expires_at string → true', () => {
   assert.equal(isActivePremium({ user_metadata: { is_premium: true, expires_at: '' } }), true)
 })
 
-test('unparseable expires_at → false', () => {
+test('unparseable expires_at → true (fail open for paid users)', () => {
   assert.equal(
     isActivePremium({ user_metadata: { is_premium: true, expires_at: 'definitely-not-a-date' } }),
-    false
+    true
   )
+})
+
+test('Postgres timestamp expires_at in the future → true', () => {
+  const future = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .replace('T', ' ')
+    .replace('Z', '+00')
+  assert.equal(isActivePremium({ user_metadata: { is_premium: true, expires_at: future } }), true)
 })
 
 test('at expiry instant: not active (strictly before)', () => {

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
 import { createClient } from '@/lib/supabase/client'
+import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import {
   TABLE_POPULAR_TAGS, tagSlugToLabel,
   TITLE_CASE_DIFFICULTY_TABLES,
@@ -132,7 +133,7 @@ export function SubjectModesClient() {
   const isPremium = isActivePremium(user)
 
   useEffect(() => {
-    createClient().auth.getUser().then(({ data: { user } }) => setUser(user))
+    void getFreshAuthUser().then(setUser)
   }, [])
 
   useEffect(() => {

@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import type { User } from '@supabase/supabase-js'
 
 interface AuthContextType {
@@ -30,8 +31,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Check initial auth state (fires once on mount)
     const checkInitialAuth = async () => {
       try {
-        const { data: { user: currentUser } } = await supabase.auth.getUser()
-        setUser(currentUser ?? null)
+        const currentUser = await getFreshAuthUser()
+        setUser(currentUser)
       } catch (error) {
         console.error('Failed to check initial auth:', error)
         setUser(null)
@@ -50,10 +51,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setTimeout(runAuthCheck, 0)
     }
 
+    // Re-sync when tab regains focus (picks up admin premium grants without re-login)
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return
+      void getFreshAuthUser().then(setUser).catch(() => {})
+    }
+    document.addEventListener('visibilitychange', onVisible)
+
     // Subscribe to auth changes (triggered by sign in/out/token refresh)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+        if (
+          event === 'SIGNED_IN' ||
+          event === 'TOKEN_REFRESHED' ||
+          event === 'USER_UPDATED'
+        ) {
           setUser(session?.user ?? null)
         } else if (event === 'SIGNED_OUT') {
           setUser(null)
@@ -66,6 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Cleanup subscription on unmount
     return () => {
+      document.removeEventListener('visibilitychange', onVisible)
       subscription?.unsubscribe()
     }
   }, [initialized])

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { usageTracker } from '@/lib/usageTracker'
+import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 
@@ -83,9 +83,9 @@ export function useFreeTrial() {
   useEffect(() => {
     const supabase = createClient()
 
-    // Check auth status
+    // Check auth status — refresh session so premium metadata from Supabase is current
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
+      const user = await getFreshAuthUser()
       setUser(user)
       setLoading(false)
 
@@ -99,7 +99,11 @@ export function useFreeTrial() {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (event === 'SIGNED_IN') {
+        if (
+          event === 'SIGNED_IN' ||
+          event === 'TOKEN_REFRESHED' ||
+          event === 'USER_UPDATED'
+        ) {
           setUser(session?.user ?? null)
           setShowSignInPopup(false)
           // Fetch database usage immediately

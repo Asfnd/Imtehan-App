@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { createClient } from '@/lib/supabase/client'
+import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
@@ -67,7 +68,7 @@ export default function TopicSetPicker() {
   const isPremium  = isActivePremium(user)
 
   useEffect(() => {
-    createClient().auth.getUser().then(({ data: { user } }) => setUser(user))
+    void getFreshAuthUser().then(setUser)
   }, [])
 
   useEffect(() => {
