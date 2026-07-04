@@ -40,6 +40,41 @@ def check_issb(row: dict, path: str, i: int) -> list[str]:
     return errs
 
 
+MDCAT_TOPICS = {
+    "Vocabulary and Lexical Aspects",
+    "Direct and Indirect Speech",
+    "Active and Passive Voice",
+    "Transitional Devices",
+    "Sentence Inversion",
+    "Reading and Thinking Skills",
+}
+
+
+def check_mdcat(row: dict, path: str, i: int) -> list[str]:
+    errs = []
+    for f in ("question", "option_a", "option_b", "option_c", "option_d", "explanation", "topic"):
+        if not (row.get(f) or "").strip():
+            errs.append(f"{path}[{i}] missing {f}")
+    ans = (row.get("correct_answer") or "").strip().upper()[:1]
+    if ans not in "ABCD":
+        errs.append(f"{path}[{i}] bad answer")
+    opts = [row.get(f"option_{c}", "").strip().lower() for c in "abcd"]
+    if len(set(opts)) < 4:
+        errs.append(f"{path}[{i}] duplicate options")
+    expl = row.get("explanation") or ""
+    if len(expl.split()) < 6:
+        errs.append(f"{path}[{i}] explanation too short")
+    if DASH.search(expl) or DASH.search(row.get("question") or ""):
+        errs.append(f"{path}[{i}] en/em dash")
+    if AI.search(expl):
+        errs.append(f"{path}[{i}] AI fluff")
+    if row.get("difficulty") not in ("Easy", "Medium", "Hard"):
+        errs.append(f"{path}[{i}] difficulty must be Easy|Medium|Hard")
+    if row.get("topic") not in MDCAT_TOPICS:
+        errs.append(f"{path}[{i}] unknown MDCAT topic {row.get('topic')}")
+    return errs
+
+
 def check_css(row: dict, path: str, i: int) -> list[str]:
     errs = []
     if row.get("year") is not None:
@@ -83,10 +118,11 @@ def main() -> None:
             all_errs.append(f"{path.name}: not a list")
             continue
         total += len(rows)
-        is_css = path.name.startswith("css-practice")
         for i, row in enumerate(rows):
-            if is_css:
+            if path.name.startswith("css-practice"):
                 all_errs.extend(check_css(row, path.name, i))
+            elif path.name.startswith("mdcat-english"):
+                all_errs.extend(check_mdcat(row, path.name, i))
             else:
                 all_errs.extend(check_issb(row, path.name, i))
 

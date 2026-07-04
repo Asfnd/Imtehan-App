@@ -7,7 +7,8 @@
  *
  * ISSB tables: separate banks, no year column.
  *
- * Loads all data/expansion/issb-batch-*.json and css-practice-batch-*.json
+ * Loads all data/expansion/issb-batch-*.json, css-practice-batch-*.json,
+ * and mdcat-english-batch-*.json.
  * Skips files listed in data/expansion/.applied-manifest.json (idempotent).
  *
  * Run: npx tsx scripts/expand-mcqs-safe.ts
@@ -42,6 +43,18 @@ type CssPracticeRow = {
   topic: string
   difficulty: string
   year: null
+}
+
+type MdcatEnglishRow = {
+  question: string
+  option_a: string
+  option_b: string
+  option_c: string
+  option_d: string
+  correct_answer: string
+  explanation: string
+  topic: string
+  difficulty: string
 }
 
 const ISSB_TABLES = new Set([
@@ -118,6 +131,14 @@ async function main() {
   const cssFiles = readdirSync(expansionDir)
     .filter((f) => f.startsWith('css-practice-batch-') && f.endsWith('.json'))
     .sort()
+  const mdcatFiles = readdirSync(expansionDir)
+    .filter((f) => f.startsWith('mdcat-english-batch-') && f.endsWith('.json'))
+    .sort()
+
+  const { count: mdcatEngBefore } = await supabase
+    .from('mdcat_english')
+    .select('*', { count: 'exact', head: true })
+  console.log(`   mdcat_english: ${mdcatEngBefore ?? 0}`)
 
   for (const file of issbFiles) {
     if (manifest.applied.includes(file)) {
@@ -187,6 +208,42 @@ async function main() {
       process.exit(1)
     }
     console.log(`✅ CSS practice +${safeRows.length} (year=NULL) from ${file}`)
+    newlyApplied.push(file)
+  }
+
+  for (const file of mdcatFiles) {
+    if (manifest.applied.includes(file)) {
+      console.log(`⏭️  Skip (already applied): ${file}`)
+      continue
+    }
+    const batch = JSON.parse(readFileSync(join(expansionDir, file), 'utf8')) as MdcatEnglishRow[]
+    const rows = batch.map((r) => ({
+      question: r.question,
+      option_a: r.option_a,
+      option_b: r.option_b,
+      option_c: r.option_c,
+      option_d: r.option_d,
+      correct_answer: r.correct_answer.toUpperCase().slice(0, 1),
+      explanation: cleanExplanation(r.explanation),
+      topic: r.topic,
+      difficulty: r.difficulty,
+    }))
+    for (const r of rows) {
+      if (!r.explanation?.trim()) {
+        console.error(`ABORT: MDCAT English row missing explanation: ${r.question.slice(0, 40)}`)
+        process.exit(1)
+      }
+      if (!['Easy', 'Medium', 'Hard'].includes(r.difficulty)) {
+        console.error(`ABORT: MDCAT difficulty must be Easy|Medium|Hard, got ${r.difficulty}`)
+        process.exit(1)
+      }
+    }
+    const { error } = await supabase.from('mdcat_english').insert(rows)
+    if (error) {
+      console.error('MDCAT English insert failed:', error.message)
+      process.exit(1)
+    }
+    console.log(`✅ MDCAT English +${rows.length} from ${file}`)
     newlyApplied.push(file)
   }
 
