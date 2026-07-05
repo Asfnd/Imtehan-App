@@ -10,13 +10,13 @@ export const MIN_MCQS_PRACTICE_LIST = 100
 export const MIN_MCQS_THIN_WARNING = 60
 
 /** ISSB tables should support multiple unique mocks. */
-export const MIN_MCQS_ISSB_TABLE = 500
+export const MIN_MCQS_ISSB_TABLE = 700
 
 /** MDCAT English should be closer to other MDCAT subjects. */
-export const MIN_MCQS_MDCAT_ENGLISH = 2400
+export const MIN_MCQS_MDCAT_ENGLISH = 2800
 
 /** MDCAT logical reasoning was historically thin vs science banks. */
-export const MIN_MCQS_MDCAT_LOGICAL_REASONING = 1500
+export const MIN_MCQS_MDCAT_LOGICAL_REASONING = 2000
 
 /** Engineering CS — smallest engineering bank. */
 export const MIN_MCQS_ENGINEERING_CS = 2000
