@@ -29,7 +29,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
 }
 
 const CATEGORY_ORDER = [
-  'medical', 'engineering', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
+  'medical', 'engineering', 'hec', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]

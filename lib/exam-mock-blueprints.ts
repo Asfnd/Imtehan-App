@@ -50,6 +50,7 @@ const CATEGORY_PATTERN: Record<string, Pattern> = {
   pms:         { total: 100, durationMin: 120, negMarking: 0.25 },
   medical:     { total: 180, durationMin: 180, negMarking: 0 },
   engineering: { total: 100, durationMin: 100, negMarking: 0 },
+  hec:         { total: 100, durationMin: 120, negMarking: 0 },
   ppsc:        { total: 100, durationMin: 90,  negMarking: 0.25 },
   fpsc:        { total: 100, durationMin: 100, negMarking: 0 },
   fia:         { total: 100, durationMin: 90,  negMarking: 0 },
@@ -130,6 +131,10 @@ export const OFFICIAL_EXAM_LINKS: Record<string, string> = {
   'fsc-pre-medical':     'https://pmc.gov.pk/',
   'fsc-pre-engineering': 'https://www.uet.edu.pk/',
   'hec-lat':             'https://etc.hec.gov.pk/',
+  'hec-usat-e':          'https://etc.hec.gov.pk/',
+  'hec-usat-m':          'https://etc.hec.gov.pk/',
+  'hec-hat-1':           'https://etc.hec.gov.pk/',
+  'hec-law-gat':         'https://etc.hec.gov.pk/',
   'pharm-d-entry':       'https://www.pharmacycouncil.org.pk/',
   'dpt-entry':           'https://www.hpec.org.pk/',
   'bds-entry':           'https://pmc.gov.pk/',
@@ -475,6 +480,63 @@ const RESEARCHED: Record<string, MockBlueprint[]> = {
         { slug: 'mathematics', count: 10 },
         { slug: 'physics', count: 10 },
         { slug: 'chemistry', count: 10 },
+      ],
+    },
+  ],
+  'hec-lat': [
+    {
+      key: 'lat', label: 'HEC LAT', durationMin: 120, negMarking: 0,
+      sections: [
+        { slug: 'english', count: 25 },
+        { slug: 'general-knowledge', count: 25 },
+        { slug: 'pakistan-affairs', count: 20 },
+        { slug: 'mathematics', count: 15 },
+        { slug: 'islamic-studies', count: 15 },
+      ],
+    },
+  ],
+  'hec-usat-e': [
+    {
+      key: 'usat-e', label: 'USAT Part 1 (MCQs)', durationMin: 100, negMarking: 0,
+      sections: [
+        { slug: 'verbal-reasoning', count: 20 },
+        { slug: 'quantitative-reasoning', count: 25 },
+        { slug: 'physics', count: 10 },
+        { slug: 'chemistry', count: 10 },
+        { slug: 'mathematics', count: 10 },
+      ],
+    },
+  ],
+  'hec-usat-m': [
+    {
+      key: 'usat-m', label: 'USAT Part 1 (MCQs)', durationMin: 100, negMarking: 0,
+      sections: [
+        { slug: 'verbal-reasoning', count: 20 },
+        { slug: 'quantitative-reasoning', count: 25 },
+        { slug: 'physics', count: 8 },
+        { slug: 'chemistry', count: 8 },
+        { slug: 'biology', count: 14 },
+      ],
+    },
+  ],
+  'hec-hat-1': [
+    {
+      key: 'hat-1', label: 'HAT-1 Full Mock', durationMin: 120, negMarking: 0,
+      sections: [
+        { slug: 'english', count: 30 },
+        { slug: 'analytical-reasoning', count: 30 },
+        { slug: 'quantitative-reasoning', count: 40 },
+      ],
+    },
+  ],
+  'hec-law-gat': [
+    {
+      key: 'law-gat', label: 'Law-GAT', durationMin: 120, negMarking: 0,
+      sections: [
+        { slug: 'constitutional-law', count: 25 },
+        { slug: 'law', count: 25 },
+        { slug: 'muslim-law', count: 25 },
+        { slug: 'mercantile-law', count: 25 },
       ],
     },
   ],

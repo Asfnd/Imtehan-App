@@ -9,7 +9,7 @@
  *
  * Loads all data/expansion/issb-batch-*.json, css-practice-batch-*.json,
  * mdcat-english-batch-*.json, mdcat-logical-reasoning-batch-*.json, and
- * engineering-english-batch-*.json.
+ * engineering-english-batch-*.json, and engineering-intelligence-batch-*.json.
  * Skips files listed in data/expansion/.applied-manifest.json (idempotent).
  *
  * Run: npx tsx scripts/expand-mcqs-safe.ts
@@ -81,6 +81,19 @@ type EngineeringEnglishRow = {
   explanation: string
   topic: string
   difficulty: string
+}
+
+type EngineeringIntelligenceRow = {
+  question: string
+  option_a: string
+  option_b: string
+  option_c: string
+  option_d: string
+  correct_answer: string
+  explanation: string
+  topic: string
+  difficulty: string
+  target_exam: string
 }
 
 const ISSB_TABLES = new Set([
@@ -166,6 +179,9 @@ async function main() {
   const engineeringEngFiles = readdirSync(expansionDir)
     .filter((f) => f.startsWith('engineering-english-batch-') && f.endsWith('.json'))
     .sort()
+  const engineeringIntelFiles = readdirSync(expansionDir)
+    .filter((f) => f.startsWith('engineering-intelligence-batch-') && f.endsWith('.json'))
+    .sort()
 
   const { count: mdcatEngBefore } = await supabase
     .from('mdcat_english')
@@ -181,6 +197,11 @@ async function main() {
     .from('engineering_english')
     .select('*', { count: 'exact', head: true })
   console.log(`   engineering_english: ${engineeringEngBefore ?? 0}`)
+
+  const { count: engineeringIntelBefore } = await supabase
+    .from('engineering_intelligence')
+    .select('*', { count: 'exact', head: true })
+  console.log(`   engineering_intelligence: ${engineeringIntelBefore ?? 0}`)
 
   for (const file of issbFiles) {
     if (manifest.applied.includes(file)) {
@@ -368,6 +389,48 @@ async function main() {
     newlyApplied.push(file)
   }
 
+  for (const file of engineeringIntelFiles) {
+    if (manifest.applied.includes(file)) {
+      console.log(`⏭️  Skip (already applied): ${file}`)
+      continue
+    }
+    const batch = JSON.parse(readFileSync(join(expansionDir, file), 'utf8')) as EngineeringIntelligenceRow[]
+    const rows = batch.map((r) => ({
+      question: r.question,
+      option_a: r.option_a,
+      option_b: r.option_b,
+      option_c: r.option_c,
+      option_d: r.option_d,
+      correct_answer: r.correct_answer.toUpperCase().slice(0, 1),
+      explanation: cleanExplanation(r.explanation),
+      topic: r.topic,
+      difficulty: r.difficulty,
+      type: 'practice' as const,
+      target_exam: (r.target_exam || 'NET') as 'NET' | 'HEC',
+    }))
+    for (const r of rows) {
+      if (!r.explanation?.trim()) {
+        console.error(`ABORT: Engineering Intelligence row missing explanation: ${r.question.slice(0, 40)}`)
+        process.exit(1)
+      }
+      if (!['Easy', 'Medium', 'Hard'].includes(r.difficulty)) {
+        console.error(`ABORT: Engineering Intelligence difficulty must be Easy|Medium|Hard, got ${r.difficulty}`)
+        process.exit(1)
+      }
+      if (r.target_exam !== 'NET' && r.target_exam !== 'HEC') {
+        console.error(`ABORT: Engineering Intelligence target_exam must be NET or HEC, got ${r.target_exam}`)
+        process.exit(1)
+      }
+    }
+    const { error } = await supabase.from('engineering_intelligence').insert(rows)
+    if (error) {
+      console.error('Engineering Intelligence insert failed:', error.message)
+      process.exit(1)
+    }
+    console.log(`✅ Engineering Intelligence +${rows.length} from ${file}`)
+    newlyApplied.push(file)
+  }
+
   if (newlyApplied.length > 0) {
     saveManifest([...manifest.applied, ...newlyApplied])
     console.log(`\n📝 Manifest updated: ${newlyApplied.join(', ')}`)
@@ -397,6 +460,11 @@ async function main() {
     .from('engineering_english')
     .select('*', { count: 'exact', head: true })
   console.log(`   engineering_english: ${engineeringEngAfter ?? 0}`)
+
+  const { count: engineeringIntelAfter } = await supabase
+    .from('engineering_intelligence')
+    .select('*', { count: 'exact', head: true })
+  console.log(`   engineering_intelligence: ${engineeringIntelAfter ?? 0}`)
 
   console.log('✅ Year-wise past paper rows intact (insert-only, no updates)\n')
 }

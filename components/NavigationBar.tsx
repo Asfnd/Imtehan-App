@@ -14,6 +14,7 @@ import { PlayStoreButton } from '@/components/PlayStoreButton'
 
 const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
+  hec:        { label: 'HEC / ETC',    href: '/exams?category=hec' },
   css:        { label: 'CSS',          href: '/css' },
   pms:        { label: 'PMS',          href: '/exams/pms-competitive' },
   ppsc:       { label: 'PPSC',         href: '/exams?category=ppsc' },
@@ -43,7 +44,7 @@ const ENGINEERING_NAV = [
 ]
 
 const CATEGORY_ORDER = [
-  'engineering', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
+  'engineering', 'hec', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]

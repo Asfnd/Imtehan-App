@@ -65,6 +65,15 @@ ENGINEERING_ENGLISH_TOPICS = {
     "Analogies",
 }
 
+ENGINEERING_INTELLIGENCE_TOPICS = {
+    "Coding Decoding",
+    "Direction Sense",
+    "Odd One Out",
+    "Analytical Reasoning",
+    "Series Completion",
+    "Logical Problems",
+}
+
 
 def check_mdcat(row: dict, path: str, i: int) -> list[str]:
     errs = []
@@ -116,6 +125,33 @@ def check_mdcat_lr(row: dict, path: str, i: int) -> list[str]:
     return errs
 
 
+def check_engineering_intelligence(row: dict, path: str, i: int) -> list[str]:
+    errs = []
+    for f in ("question", "option_a", "option_b", "option_c", "option_d", "explanation", "topic"):
+        if not (row.get(f) or "").strip():
+            errs.append(f"{path}[{i}] missing {f}")
+    ans = (row.get("correct_answer") or "").strip().upper()[:1]
+    if ans not in "ABCD":
+        errs.append(f"{path}[{i}] bad answer")
+    opts = [row.get(f"option_{c}", "").strip().lower() for c in "abcd"]
+    if len(set(opts)) < 4:
+        errs.append(f"{path}[{i}] duplicate options")
+    expl = row.get("explanation") or ""
+    if len(expl.split()) < 8:
+        errs.append(f"{path}[{i}] explanation too short")
+    if DASH.search(expl) or DASH.search(row.get("question") or ""):
+        errs.append(f"{path}[{i}] en/em dash")
+    if AI.search(expl):
+        errs.append(f"{path}[{i}] AI fluff")
+    if row.get("difficulty") not in ("Easy", "Medium", "Hard"):
+        errs.append(f"{path}[{i}] difficulty must be Easy|Medium|Hard")
+    if row.get("topic") not in ENGINEERING_INTELLIGENCE_TOPICS:
+        errs.append(f"{path}[{i}] unknown engineering intelligence topic {row.get('topic')}")
+    if row.get("target_exam") not in ("NET", "HEC"):
+        errs.append(f"{path}[{i}] target_exam must be NET or HEC")
+    return errs
+
+
 def check_engineering_english(row: dict, path: str, i: int) -> list[str]:
     errs = []
     for f in ("question", "option_a", "option_b", "option_c", "option_d", "explanation", "topic"):
@@ -162,6 +198,23 @@ def check_css(row: dict, path: str, i: int) -> list[str]:
     return errs
 
 
+KNOWN_PREFIXES = (
+    "issb-batch-",
+    "css-practice-batch-",
+    "mdcat-english-batch-",
+    "mdcat-logical-reasoning-batch-",
+    "engineering-english-batch-",
+    "engineering-intelligence-batch-",
+)
+
+
+def batch_kind(name: str) -> str | None:
+    for prefix in KNOWN_PREFIXES:
+        if name.startswith(prefix):
+            return prefix.rstrip("-")
+    return None
+
+
 def main() -> None:
     manifest = EXP / ".applied-manifest.json"
     applied: set[str] = set()
@@ -178,7 +231,12 @@ def main() -> None:
 
     all_errs: list[str] = []
     total = 0
+    skipped: list[str] = []
     for path in pending:
+        kind = batch_kind(path.name)
+        if kind is None:
+            skipped.append(path.name)
+            continue
         rows = json.loads(path.read_text())
         if not isinstance(rows, list):
             all_errs.append(f"{path.name}: not a list")
@@ -193,8 +251,14 @@ def main() -> None:
                 all_errs.extend(check_mdcat_lr(row, path.name, i))
             elif path.name.startswith("engineering-english"):
                 all_errs.extend(check_engineering_english(row, path.name, i))
+            elif path.name.startswith("engineering-intelligence"):
+                all_errs.extend(check_engineering_intelligence(row, path.name, i))
             else:
                 all_errs.extend(check_issb(row, path.name, i))
+
+    if skipped:
+        print(f"Skip validation for {len(skipped)} unknown batch type(s): {', '.join(skipped[:5])}" +
+              (f" (+{len(skipped)-5} more)" if len(skipped) > 5 else ""))
 
     if all_errs:
         print(f"FAIL {len(all_errs)} issues in {len(pending)} files ({total} rows):")
