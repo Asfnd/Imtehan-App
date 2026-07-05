@@ -14,6 +14,7 @@ import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
 import { fetchRemoteCompletions } from '@/lib/completion'
 import { countUniqueForMode } from '@/lib/quiz-fetcher'
+import BatchSetPickerGrid, { setMcqRangeLabel } from '@/components/exams/BatchSetPickerGrid'
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated',  description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
@@ -170,58 +171,14 @@ export default function BatchSetSelector() {
 
         </div>
 
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
-          {/* LEFT: Batches */}
-          <div className="col-span-4 md:col-span-4 lg:col-span-3">
-            <div className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 sticky top-24">
-              <h2 className="font-bold text-sm text-gray-900 mb-1">Batches</h2>
-              <p className="text-[10px] text-gray-500 mb-3">Select a batch</p>
-
-              <div className="space-y-2 max-h-[560px] overflow-y-auto">
-                {Array.from({ length: totalBatches }, (_, i) => i + 1).map((batchNum) => {
-                  const isSelected    = batchNum === selectedBatch
-                  const batchStartSet = (batchNum - 1) * SETS_PER_BATCH + 1
-                  const batchEndSet   = Math.min(batchNum * SETS_PER_BATCH, totalSets)
-
-                  return (
-                    <button
-                      key={batchNum}
-                      onClick={() => setSelectedBatch(batchNum)}
-                      className={`w-full text-left px-2 md:px-4 py-2 md:py-3 rounded-lg transition-all ${
-                        isSelected
-                          ? 'bg-blue-600 text-white shadow-md'
-                          : 'bg-gray-50 text-gray-900 hover:bg-blue-50 border border-transparent hover:border-blue-200'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-semibold text-xs md:text-sm">Batch {batchNum}</div>
-                          <div className={`text-[10px] md:text-xs mt-0.5 ${isSelected ? 'text-blue-100' : 'text-gray-500'}`}>
-                            Sets {batchStartSet}-{batchEndSet}
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: Sets */}
-          <div className="col-span-8 md:col-span-8 lg:col-span-9">
-            <div className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 max-h-[640px] overflow-y-auto">
-              <div className="mb-4">
-                <h2 className="text-base md:text-lg font-bold text-gray-900">
-                  Batch {selectedBatch}: Practice Sets
-                </h2>
-
-              </div>
-
-              <div className="space-y-2">
+        <BatchSetPickerGrid
+          totalBatches={totalBatches}
+          totalSets={totalSets}
+          selectedBatch={selectedBatch}
+          onSelectBatch={setSelectedBatch}
+          setsPerBatch={SETS_PER_BATCH}
+        >
                 {setsInBatch.map((setNum) => {
-                  const startMCQ    = (setNum - 1) * 20 + 1
-                  const endMCQ      = Math.min(setNum * 20, totalMCQs)
                   const nav = tieredSetTableNavigation(setNum, !!user, isPremium)
                   const needSignIn  = nav === 'require_sign_in'
                   const needPremium = nav === 'require_premium'
@@ -266,7 +223,7 @@ export default function BatchSetSelector() {
                                 ? needSignIn ? 'Sign in free to unlock' : 'Premium required'
                                 : isCompleted
                                   ? `Completed · ${score}% score`
-                                  : `Q ${startMCQ}-${endMCQ} · 20 MCQs`
+                                  : setMcqRangeLabel(setNum, totalMCQs)
                               }
                             </div>
                           </div>
@@ -281,10 +238,7 @@ export default function BatchSetSelector() {
                     </button>
                   )
                 })}
-              </div>
-            </div>
-          </div>
-        </div>
+        </BatchSetPickerGrid>
 
         {!isPremium && (
           <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-4">

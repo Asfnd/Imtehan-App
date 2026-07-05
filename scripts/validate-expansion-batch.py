@@ -57,6 +57,14 @@ MDCAT_LR_TOPICS = {
     "Critical Thinking",
 }
 
+ENGINEERING_ENGLISH_TOPICS = {
+    "Vocabulary and Synonyms",
+    "Grammar and Parts of Speech",
+    "Sentence Completion",
+    "Reading Comprehension",
+    "Analogies",
+}
+
 
 def check_mdcat(row: dict, path: str, i: int) -> list[str]:
     errs = []
@@ -105,6 +113,31 @@ def check_mdcat_lr(row: dict, path: str, i: int) -> list[str]:
         errs.append(f"{path}[{i}] difficulty must be Easy|Medium|Hard")
     if row.get("topic") not in MDCAT_LR_TOPICS:
         errs.append(f"{path}[{i}] unknown MDCAT LR topic {row.get('topic')}")
+    return errs
+
+
+def check_engineering_english(row: dict, path: str, i: int) -> list[str]:
+    errs = []
+    for f in ("question", "option_a", "option_b", "option_c", "option_d", "explanation", "topic"):
+        if not (row.get(f) or "").strip():
+            errs.append(f"{path}[{i}] missing {f}")
+    ans = (row.get("correct_answer") or "").strip().upper()[:1]
+    if ans not in "ABCD":
+        errs.append(f"{path}[{i}] bad answer")
+    opts = [row.get(f"option_{c}", "").strip().lower() for c in "abcd"]
+    if len(set(opts)) < 4:
+        errs.append(f"{path}[{i}] duplicate options")
+    expl = row.get("explanation") or ""
+    if len(expl.split()) < 6:
+        errs.append(f"{path}[{i}] explanation too short")
+    if DASH.search(expl) or DASH.search(row.get("question") or ""):
+        errs.append(f"{path}[{i}] en/em dash")
+    if AI.search(expl):
+        errs.append(f"{path}[{i}] AI fluff")
+    if row.get("difficulty") not in ("Easy", "Medium", "Hard"):
+        errs.append(f"{path}[{i}] difficulty must be Easy|Medium|Hard")
+    if row.get("topic") not in ENGINEERING_ENGLISH_TOPICS:
+        errs.append(f"{path}[{i}] unknown engineering English topic {row.get('topic')}")
     return errs
 
 
@@ -158,6 +191,8 @@ def main() -> None:
                 all_errs.extend(check_mdcat(row, path.name, i))
             elif path.name.startswith("mdcat-logical-reasoning"):
                 all_errs.extend(check_mdcat_lr(row, path.name, i))
+            elif path.name.startswith("engineering-english"):
+                all_errs.extend(check_engineering_english(row, path.name, i))
             else:
                 all_errs.extend(check_issb(row, path.name, i))
 

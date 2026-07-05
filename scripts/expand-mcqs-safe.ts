@@ -8,7 +8,8 @@
  * ISSB tables: separate banks, no year column.
  *
  * Loads all data/expansion/issb-batch-*.json, css-practice-batch-*.json,
- * mdcat-english-batch-*.json, and mdcat-logical-reasoning-batch-*.json.
+ * mdcat-english-batch-*.json, mdcat-logical-reasoning-batch-*.json, and
+ * engineering-english-batch-*.json.
  * Skips files listed in data/expansion/.applied-manifest.json (idempotent).
  *
  * Run: npx tsx scripts/expand-mcqs-safe.ts
@@ -67,6 +68,18 @@ type MdcatLogicalReasoningRow = {
   explanation: string
   topic: string
   subtopic: string
+  difficulty: string
+}
+
+type EngineeringEnglishRow = {
+  question: string
+  option_a: string
+  option_b: string
+  option_c: string
+  option_d: string
+  correct_answer: string
+  explanation: string
+  topic: string
   difficulty: string
 }
 
@@ -150,6 +163,9 @@ async function main() {
   const mdcatLrFiles = readdirSync(expansionDir)
     .filter((f) => f.startsWith('mdcat-logical-reasoning-batch-') && f.endsWith('.json'))
     .sort()
+  const engineeringEngFiles = readdirSync(expansionDir)
+    .filter((f) => f.startsWith('engineering-english-batch-') && f.endsWith('.json'))
+    .sort()
 
   const { count: mdcatEngBefore } = await supabase
     .from('mdcat_english')
@@ -160,6 +176,11 @@ async function main() {
     .from('mdcat_logical_reasoning')
     .select('*', { count: 'exact', head: true })
   console.log(`   mdcat_logical_reasoning: ${mdcatLrBefore ?? 0}`)
+
+  const { count: engineeringEngBefore } = await supabase
+    .from('engineering_english')
+    .select('*', { count: 'exact', head: true })
+  console.log(`   engineering_english: ${engineeringEngBefore ?? 0}`)
 
   for (const file of issbFiles) {
     if (manifest.applied.includes(file)) {
@@ -309,6 +330,44 @@ async function main() {
     newlyApplied.push(file)
   }
 
+  for (const file of engineeringEngFiles) {
+    if (manifest.applied.includes(file)) {
+      console.log(`⏭️  Skip (already applied): ${file}`)
+      continue
+    }
+    const batch = JSON.parse(readFileSync(join(expansionDir, file), 'utf8')) as EngineeringEnglishRow[]
+    const rows = batch.map((r) => ({
+      question: r.question,
+      option_a: r.option_a,
+      option_b: r.option_b,
+      option_c: r.option_c,
+      option_d: r.option_d,
+      correct_answer: r.correct_answer.toUpperCase().slice(0, 1),
+      explanation: cleanExplanation(r.explanation),
+      topic: r.topic,
+      difficulty: r.difficulty,
+      type: 'practice' as const,
+      target_exam: 'NET' as const,
+    }))
+    for (const r of rows) {
+      if (!r.explanation?.trim()) {
+        console.error(`ABORT: Engineering English row missing explanation: ${r.question.slice(0, 40)}`)
+        process.exit(1)
+      }
+      if (!['Easy', 'Medium', 'Hard'].includes(r.difficulty)) {
+        console.error(`ABORT: Engineering English difficulty must be Easy|Medium|Hard, got ${r.difficulty}`)
+        process.exit(1)
+      }
+    }
+    const { error } = await supabase.from('engineering_english').insert(rows)
+    if (error) {
+      console.error('Engineering English insert failed:', error.message)
+      process.exit(1)
+    }
+    console.log(`✅ Engineering English +${rows.length} from ${file}`)
+    newlyApplied.push(file)
+  }
+
   if (newlyApplied.length > 0) {
     saveManifest([...manifest.applied, ...newlyApplied])
     console.log(`\n📝 Manifest updated: ${newlyApplied.join(', ')}`)
@@ -333,6 +392,11 @@ async function main() {
     .from('mdcat_logical_reasoning')
     .select('*', { count: 'exact', head: true })
   console.log(`   mdcat_logical_reasoning: ${mdcatLrAfter ?? 0}`)
+
+  const { count: engineeringEngAfter } = await supabase
+    .from('engineering_english')
+    .select('*', { count: 'exact', head: true })
+  console.log(`   engineering_english: ${engineeringEngAfter ?? 0}`)
 
   console.log('✅ Year-wise past paper rows intact (insert-only, no updates)\n')
 }
