@@ -14,6 +14,7 @@ import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
 import { tagSlugToLabel, isTagArrayTable, topicDbValue } from '@/lib/topic-tags'
 import { fetchRemoteCompletions } from '@/lib/completion'
+import { countUniqueMcqs } from '@/lib/quiz-fetcher'
 import BatchSetPickerGrid, { setMcqRangeLabel } from '@/components/exams/BatchSetPickerGrid'
 
 const SETS_PER_BATCH = 10
@@ -78,11 +79,19 @@ export default function TopicSetPicker() {
       const section = config?.sections.find((s) => s.slug === subjectSlug)
       if (!section) { setLoading(false); return }
       const dbVal = topicDbValue(tagSlug, section.dbTable)
-      const base  = createClient().from(section.dbTable).select('*', { count: 'exact', head: true })
-      const { count } = isTagArrayTable(section.dbTable)
-        ? await base.contains('tags', [dbVal])
-        : await base.eq('topic', dbVal)
-      setTotalMCQs(count || 0)
+      const supabase = createClient()
+      const buildQuery = () => {
+        const base = supabase.from(section.dbTable).select('*')
+        return isTagArrayTable(section.dbTable)
+          ? base.contains('tags', [dbVal])
+          : base.eq('topic', dbVal)
+      }
+      try {
+        const unique = await countUniqueMcqs(supabase, buildQuery)
+        setTotalMCQs(unique)
+      } catch {
+        setTotalMCQs(0)
+      }
       setLoading(false)
     }
     fetchCount()
