@@ -13,7 +13,10 @@ export const MIN_MCQS_THIN_WARNING = 60
 export const MIN_MCQS_ISSB_TABLE = 500
 
 /** MDCAT English should be closer to other MDCAT subjects. */
-export const MIN_MCQS_MDCAT_ENGLISH = 2000
+export const MIN_MCQS_MDCAT_ENGLISH = 2400
+
+/** MDCAT logical reasoning was historically thin vs science banks. */
+export const MIN_MCQS_MDCAT_LOGICAL_REASONING = 1500
 
 /** Engineering CS — smallest engineering bank. */
 export const MIN_MCQS_ENGINEERING_CS = 2000
