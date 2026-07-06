@@ -19,6 +19,7 @@
     "triage:reports": "tsx scripts/export-report-section-map.ts && python3 scripts/triage-question-reports.py",
     "backfill:explanations": "python3 -u scripts/backfill-pipeline-explanations.py",
     "generate:wave-18": "python3 scripts/generate-expansion-wave-18.py",
+    "generate:wave-19": "python3 scripts/generate-expansion-wave-19.py && python3 scripts/generate-mdcat-expansion-31-35.py",
     "audit:exams": "tsx scripts/audit-exam-quality.ts",
     "validate:quality": "npm run test-premium-gates && npm run compare:mobile-exams && npm run validate:bank-quality",
     "merge-commission-sources": "tsx scripts/merge-commission-sources-into-exam-syllabi.ts",
