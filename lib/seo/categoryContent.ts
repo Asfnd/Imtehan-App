@@ -180,9 +180,9 @@ const CATEGORY_META: Record<
   },
   engineering: {
     label: 'Engineering',
-    h1: 'Engineering Entry Test MCQs 2026  -  NET, ECAT, GIKI & PIEAS',
+    h1: 'Engineering Entry Test MCQs 2026  -  NET, ECAT, UET, GIKI & PIEAS',
     intro:
-      'Practice engineering university entry test MCQs for NUST NET, UET ECAT, GIKI, PIEAS, COMSATS, LUMS and more. Physics, Maths, Chemistry and English sets.',
+      'Practice engineering university entry test MCQs for NUST NET, UET ECAT, GIKI, PIEAS, Bahria, COMSATS, LUMS, NED, IBA Sukkur and more. Physics, Maths, Chemistry and English sets.',
     highlights: [
       'Entry tests are the gateway to engineering programs in Pakistan',
       'Mathematics and Physics carry the highest marks',
@@ -194,11 +194,27 @@ const CATEGORY_META: Record<
       'Attempt university-specific full mocks before your test date',
     ],
   },
-  medical: {
-    label: 'MDCAT',
-    h1: 'MDCAT MCQs 2026  -  Biology, Chemistry, Physics & English Practice',
+  hec: {
+    label: 'HEC / ETC',
+    h1: 'HEC USAT, HAT & LAT MCQs 2026  -  University Admission Tests',
     intro:
-      'Practice MDCAT (Medical & Dental College Admission Test) MCQs for PMC, NUMS, ETEA and AKU patterns. Topic-wise Biology, Chemistry, Physics and English sets.',
+      'Practice Higher Education Commission (HEC) Education Testing Council (ETC) MCQs for USAT, HAT, LAT, Law-GAT, SEE-LAW and NTS HEC GAT. Subject-wise sets with answers and timed mock tests.',
+    highlights: [
+      'USAT and HAT are mandatory for many public and private university undergraduate admissions',
+      'LAT and Law-GAT are required for LLB and law postgraduate programmes',
+      'Verbal reasoning, quantitative sections and subject papers vary by test type',
+    ],
+    prep: [
+      'Identify your exact HEC test (USAT-E/M/CS, HAT-1/2/3/4, LAT or Law-GAT)',
+      'Practice verbal and quantitative reasoning daily for USAT and HAT',
+      'Attempt full timed mocks matching your official paper pattern',
+    ],
+  },
+  medical: {
+    label: 'Medical Entry',
+    h1: 'MDCAT & Medical College Entry MCQs 2026  -  Biology, Chemistry, Physics',
+    intro:
+      'Practice MDCAT (Medical & Dental College Admission Test) and university medical entry MCQs for PMC, KEMU, JSMU, AMC, Dow, NUMS, Shifa, Riphah and more. Topic-wise Biology, Chemistry, Physics and English sets.',
     highlights: [
       'Biology carries the most marks in MDCAT',
       'Logical reasoning and English are high-yield per hour studied',

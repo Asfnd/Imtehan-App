@@ -13,6 +13,7 @@ import { isActivePremium } from '@/lib/is-active-premium'
 import { PlayStoreButton } from '@/components/PlayStoreButton'
 
 const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
+  medical:     { label: 'MDCAT',        href: '/exams?category=medical' },
   engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
   hec:        { label: 'HEC / ETC',    href: '/exams?category=hec' },
   css:        { label: 'CSS',          href: '/css' },
@@ -34,17 +35,36 @@ const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
   revenue:    { label: 'Revenue Auth',href: '/exams?category=revenue' },
 }
 
+const MEDICAL_NAV = [
+  { key: 'mdcat',              label: 'MDCAT',   href: '/mdcat' },
+  { key: 'king-edward-medical', label: 'KEMU',   href: '/exams/king-edward-medical' },
+  { key: 'jsmu-karachi',       label: 'JSMU',   href: '/exams/jsmu-karachi' },
+  { key: 'amc-entry',          label: 'AMC',    href: '/exams/amc-entry' },
+  { key: 'dow-entry',          label: 'Dow',    href: '/exams/dow-entry' },
+  { key: 'medical-all',        label: 'All Medical', href: '/exams?category=medical' },
+]
+
 const ENGINEERING_NAV = [
   { key: 'ecat',             label: 'ECAT',        href: '/exams?category=engineering&exam=ecat' },
+  { key: 'uet-lahore',       label: 'UET Lahore',  href: '/exams/uet-lahore' },
   { key: 'net-engineering',  label: 'NUST NET',    href: '/exams?category=engineering&exam=net-engineering' },
   { key: 'giki-entry',       label: 'GIKI',        href: '/exams?category=engineering&exam=giki-entry' },
   { key: 'pieas-entry',      label: 'PIEAS',       href: '/exams?category=engineering&exam=pieas-entry' },
-  { key: 'lums-engineering', label: 'LUMS LCAT',    href: '/exams?category=engineering&exam=lums-engineering' },
+  { key: 'bahria-university', label: 'Bahria',     href: '/exams/bahria-university' },
   { key: 'comsats',          label: 'COMSATS',      href: '/exams?category=engineering&exam=comsats-engineering' },
 ]
 
+const HEC_NAV = [
+  { key: 'hec-lat',     label: 'LAT',      href: '/exams/hec-lat' },
+  { key: 'hec-usat-e',  label: 'USAT-E',   href: '/exams/hec-usat-e' },
+  { key: 'hec-usat-m',  label: 'USAT-M',   href: '/exams/hec-usat-m' },
+  { key: 'hec-law-gat', label: 'Law-GAT',  href: '/exams/hec-law-gat' },
+  { key: 'hec-hat-1',   label: 'HAT-1',    href: '/exams/hec-hat-1' },
+  { key: 'hec-all',     label: 'All HEC',  href: '/exams?category=hec' },
+]
+
 const CATEGORY_ORDER = [
-  'engineering', 'hec', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
+  'medical', 'engineering', 'hec', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]
@@ -241,14 +261,28 @@ export default function NavigationBar({
                     {/* Medical */}
                     <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <Link href="/mdcat" onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">MDCAT</Link>
-                      <Link href="/fsc"   onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">FSc Pre-Medical</Link>
+                      {MEDICAL_NAV.map((item) => (
+                        <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                          {item.label}
+                        </Link>
+                      ))}
                     </div>
                     {/* Engineering */}
                     <div className="border-t-2 border-gray-200 pt-4 mb-4">
                       <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
                       <div className="flex flex-wrap gap-2">
                         {ENGINEERING_NAV.map((item) => (
+                          <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                    {/* HEC / ETC */}
+                    <div className="border-t-2 border-gray-200 pt-4 mb-4">
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">HEC / ETC</p>
+                      <div className="flex flex-wrap gap-2">
+                        {HEC_NAV.map((item) => (
                           <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
                             {item.label}
                           </Link>
@@ -273,7 +307,7 @@ export default function NavigationBar({
                     <div>
                       <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Other Competitive Exams</p>
                       <div className="flex flex-wrap gap-2">
-                        {availableCategories.filter(c => c !== 'engineering' && c !== 'css' && c !== 'pms').map((cat) => {
+                        {availableCategories.filter(c => c !== 'medical' && c !== 'engineering' && c !== 'hec' && c !== 'css' && c !== 'pms').map((cat) => {
                           const cfg = CATEGORY_CONFIG[cat]
                           return (
                             <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
@@ -485,13 +519,26 @@ export default function NavigationBar({
               <div className="pb-3 border-b border-gray-100">
                 <p className="px-1 pt-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Medical</p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  <Link href="/mdcat" onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">MDCAT</Link>
-                  <Link href="/fsc"   onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">FSc Pre-Medical</Link>
+                  {MEDICAL_NAV.map((item) => (
+                    <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
                 <div className="border-t border-gray-100 pt-3 mb-4">
                   <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Engineering</p>
                   <div className="flex flex-wrap gap-1.5">
                     {ENGINEERING_NAV.map((item) => (
+                      <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="border-t border-gray-100 pt-3 mb-4">
+                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">HEC / ETC</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {HEC_NAV.map((item) => (
                       <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
                         {item.label}
                       </Link>
@@ -512,7 +559,7 @@ export default function NavigationBar({
                   </div>
                   <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Other Competitive Exams</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {availableCategories.filter(c => c !== 'engineering' && c !== 'css' && c !== 'pms').map((cat) => {
+                    {availableCategories.filter(c => c !== 'medical' && c !== 'engineering' && c !== 'hec' && c !== 'css' && c !== 'pms').map((cat) => {
                       const cfg = CATEGORY_CONFIG[cat]
                       return (
                         <Link key={cat} href={cfg.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">

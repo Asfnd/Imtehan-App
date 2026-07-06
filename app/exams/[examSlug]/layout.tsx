@@ -114,7 +114,9 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
   pms: ['PMS MCQs', 'Provincial Management Services', 'PMS preparation Pakistan', 'PMS screening test'],
   ppsc: ['PPSC MCQs', 'Punjab Public Service Commission', 'PPSC preparation', 'PPSC past papers'],
   fpsc: ['FPSC MCQs', 'Federal Public Service Commission', 'FPSC preparation'],
-  medical: ['MDCAT MCQs', 'medical entry test Pakistan', 'PMC MCQ practice'],
+  medical: ['MDCAT MCQs', 'medical entry test Pakistan', 'PMC MCQ practice', 'KEMU entry test'],
+  engineering: ['ECAT MCQs', 'NET entry test', 'engineering admission Pakistan', 'UET Lahore ECAT'],
+  hec: ['HEC USAT MCQs', 'HAT test preparation', 'HEC LAT MCQs', 'Law-GAT Pakistan'],
 }
 
 export async function generateMetadata({

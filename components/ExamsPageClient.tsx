@@ -8,8 +8,9 @@ import { FileText, ChevronDown, LayoutGrid } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 
 const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; description: string }> = {
-  medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'Medical & Dental College Admission Test: UHS, NUMS, AKU' },
-  engineering: { label: 'Engineering',  shortLabel: 'Engineering',  description: 'NUST, COMSATS, FAST, GIKI, PIEAS, LUMS, Air University & more' },
+  medical:     { label: 'MDCAT',        shortLabel: 'MDCAT',        description: 'PMC, KEMU, JSMU, AMC, Dow, NUMS, Shifa, CMH, Pharm-D, BDS & FSc Pre-Medical' },
+  engineering: { label: 'Engineering',  shortLabel: 'Engineering',  description: 'NUST NET, ECAT, UET Lahore, GIKI, PIEAS, Bahria, NED, COMSATS, FAST & more' },
+  hec:         { label: 'HEC / ETC',    shortLabel: 'HEC',          description: 'USAT, HAT, LAT, Law-GAT, SEE-LAW & NTS HEC GAT for university admissions' },
   css:         { label: 'CSS',          shortLabel: 'CSS',          description: 'Central Superior Services: MPT screening & compulsory MCQs' },
   pms:         { label: 'PMS',          shortLabel: 'PMS',          description: 'Provincial Management Services: general paper MCQs, same bank as CSS MPT' },
   ppsc:       { label: 'PPSC',         shortLabel: 'PPSC',         description: 'Punjab Public Service Commission, all posts' },
@@ -23,14 +24,14 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
   etea:       { label: 'ETEA',         shortLabel: 'ETEA',         description: 'Educational Testing & Evaluation Agency, KPK' },
   railways:   { label: 'Railways',     shortLabel: 'Railways',     description: 'Pakistan Railways: Station Master, Guard, TTE, Clerk & more' },
   banks:      { label: 'Banks',        shortLabel: 'Banks',        description: 'NBP, SBP, UBL, HBL, MCB, ABL, Meezan & more' },
-  judiciary:  { label: 'Judiciary',    shortLabel: 'Judiciary',    description: 'High Court, District Court & Supreme Court clerical posts' },
+  judiciary:  { label: 'Judiciary',    shortLabel: 'Judiciary',    description: 'High Court, District Court & Supreme Court clerical and steno posts' },
   devauth:    { label: 'Dev Authority',shortLabel: 'Dev Auth',     description: 'CDA, LDA, KDA, MDA & RDA development authority posts' },
   rescue:     { label: 'Rescue 1122', shortLabel: 'Rescue',       description: 'Punjab Rescue 1122 Emergency Services: Rescuer, Driver & Operator' },
   revenue:    { label: 'Revenue Auth',shortLabel: 'Revenue',      description: 'PRA, SRB, KPRA & BRA: Provincial Revenue & Tax Authorities' },
 }
 
 const CATEGORY_ORDER = [
-  'medical', 'engineering', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
+  'medical', 'engineering', 'hec', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
   'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
   'rescue', 'revenue',
 ]

@@ -26,6 +26,10 @@ const CATEGORY_INFO: Record<string, CategoryInfo> = {
     authority: 'the admitting universities and their testing bodies (such as NUST, UET, GIKI and PIEAS)',
     about: 'an entry test for admission to engineering and computing degree programs in Pakistan',
   },
+  hec: {
+    authority: 'the Higher Education Commission (HEC) Education Testing Council (ETC)',
+    about: 'a university admission test administered by HEC for undergraduate and law programmes in Pakistan',
+  },
   css: {
     authority: 'the Federal Public Service Commission (FPSC)',
     about: 'Pakistan\'s premier competitive examination for recruitment to the Central Superior Services',
@@ -515,6 +519,23 @@ const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       'Practice application-style MCQs against the clock',
       'Attempt full mocks in the format of your target university',
     ],
+  },
+  hec: {
+    highlights: [
+      'HEC ETC conducts USAT, HAT, LAT and Law-GAT for university admissions across Pakistan',
+      'USAT and HAT combine verbal reasoning, quantitative sections and subject papers',
+      'LAT and Law-GAT are required for LLB and postgraduate law programmes',
+    ],
+    prep: [
+      'Confirm your exact HEC test type and official subject split',
+      'Practice verbal and quantitative reasoning under timed conditions',
+      'Attempt full mocks matching USAT, HAT, LAT or Law-GAT paper patterns',
+    ],
+    faq: {
+      question: 'What is the difference between USAT and HAT?',
+      answer:
+        'USAT (Undergraduate Studies Admission Test) is used for general undergraduate admissions with subject variants (E, M, CS, GS, A, COM). HAT (Higher Education Aptitude Test) is used for graduate and professional programmes with analytical and subject-specific sections. On Imtehan you can practice each variant with subject-wise MCQs and full mock tests.',
+    },
   },
   medical: {
     highlights: [

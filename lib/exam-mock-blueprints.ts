@@ -108,6 +108,22 @@ const BLUEPRINT_SLUG_ALIASES: Record<string, string> = {
   'issb-army': 'issb-academic',
   'issb-navy': 'issb-academic',
   'issb-paf': 'issb-academic',
+  'uet-lahore': 'ecat',
+  'king-edward-medical': 'mdcat-core',
+  'jsmu-karachi': 'mdcat-core',
+  'amc-entry': 'mdcat-nums',
+  'riphah-medical': 'mdcat-core',
+  'ziauddin-medical': 'mdcat-core',
+  'hec-usat-cs': 'hec-usat-e',
+  'hec-usat-gs': 'hec-usat-m',
+  'hec-usat-a': 'hec-usat-m',
+  'hec-usat-com': 'hec-usat-m',
+  'hec-hat-2': 'hec-hat-1',
+  'hec-hat-3': 'hec-hat-1',
+  'hec-hat-4': 'hec-hat-1',
+  'hec-hat-general': 'hec-hat-1',
+  'hec-see-law': 'hec-law-gat',
+  'nts-hec': 'nts-gat',
 }
 
 export const OFFICIAL_EXAM_LINKS: Record<string, string> = {
@@ -135,6 +151,15 @@ export const OFFICIAL_EXAM_LINKS: Record<string, string> = {
   'hec-usat-m':          'https://etc.hec.gov.pk/',
   'hec-hat-1':           'https://etc.hec.gov.pk/',
   'hec-law-gat':         'https://etc.hec.gov.pk/',
+  'uet-lahore':          'https://www.uet.edu.pk/admission/admission.aspx',
+  'bahria-university':   'https://www.bahria.edu.pk/',
+  'king-edward-medical': 'https://www.kemu.edu.pk/',
+  'jsmu-karachi':        'https://www.jsmu.edu.pk/',
+  'amc-entry':           'https://www.numspak.edu.pk/',
+  'riphah-medical':      'https://www.riphah.edu.pk/',
+  'ziauddin-medical':    'https://www.zu.edu.pk/',
+  'qau-entry':           'https://qau.edu.pk/',
+  'iba-karachi':         'https://www.iba.edu.pk/',
   'pharm-d-entry':       'https://www.pharmacycouncil.org.pk/',
   'dpt-entry':           'https://www.hpec.org.pk/',
   'bds-entry':           'https://pmc.gov.pk/',
@@ -304,6 +329,11 @@ function subjectWeight(category: string, slug: string): number {
   }
   if (category === 'engineering') {
     if (slug === 'mathematics' || slug === 'physics' || slug === 'chemistry' || slug === 'computer-science') return 3
+    return 1
+  }
+  if (category === 'hec') {
+    if (slug === 'verbal-reasoning' || slug === 'quantitative-reasoning' || slug === 'analytical-reasoning') return 3
+    if (slug === 'english') return 2
     return 1
   }
   const heavy: Record<string, number> = {
@@ -622,6 +652,12 @@ function defaultEligibility(examSlug: string, config: ExamConfig): string[] {
     return [
       'FSc Pre-Engineering or equivalent with Mathematics, Physics and Chemistry.',
       'Merit and eligibility follow the latest university admission advertisement.',
+    ]
+  }
+  if (config.category === 'hec') {
+    return [
+      'Intermediate or equivalent as per the HEC ETC test notification.',
+      'Age and programme eligibility follow the official university admission advertisement.',
     ]
   }
   if (config.category === 'fia' || config.category === 'police' || config.category === 'military') {
