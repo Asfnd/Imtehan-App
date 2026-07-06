@@ -16,6 +16,7 @@ import {
   QuizJourneyPanel,
   QuizResultsCard,
   quizAccuracyPercent,
+  quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string; color: string }> = {
@@ -419,8 +420,8 @@ export default function MDCATQuizPage() {
         correct
         title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
         subtitle={
-          dockPhase === 'correct'
-            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job, keep going!'
+          dockPhase !== 'hidden'
+            ? quizFeedbackExplanation(currentMCQ.explanation, dockPhase === 'correct')
             : undefined
         }
         continueLabel="Continue"

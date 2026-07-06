@@ -30,6 +30,7 @@ import {
   getQuizPathProgress,
   QuizGamificationHeader,
   QuizJourneyPanel,
+  quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 import type { AnswerOptionAppearance } from './components/AnswerOption'
 
@@ -653,8 +654,8 @@ function CSSQuizContent() {
         correct
         title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
         subtitle={
-          dockPhase === 'correct'
-            ? currentMCQ.explanation_detailed?.slice(0, 220) || 'Great job, keep going!'
+          dockPhase !== 'hidden'
+            ? quizFeedbackExplanation(currentMCQ.explanation_detailed, dockPhase === 'correct')
             : undefined
         }
         continueLabel="Continue"

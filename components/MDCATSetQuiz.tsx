@@ -477,8 +477,8 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
         correct
         title={dockPhase === 'wrong' ? 'Not quite' : 'Excellent!'}
         subtitle={
-          dockPhase === 'correct'
-            ? (currentMCQ.explanation || '').slice(0, 220) || 'Great job, keep going!'
+          dockPhase !== 'hidden'
+            ? quizFeedbackExplanation(currentMCQ.explanation, dockPhase === 'correct')
             : undefined
         }
         continueLabel="Continue"
