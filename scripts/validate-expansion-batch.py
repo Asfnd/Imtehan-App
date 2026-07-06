@@ -13,6 +13,13 @@ ISSB = {
     "issb_english", "issb_mathematics", "issb_general_knowledge",
     "issb_pakistan_affairs", "issb_intelligence",
 }
+JUNK_OPTION = re.compile(r"\balways\s+always\b", re.I)
+GENERIC_EXPL = re.compile(
+    r"(this is the correct (choice|answer)|essential for law-gat|"
+    r"this distinction is tested repeatedly|high-yield for issb)",
+    re.I,
+)
+BATCH_TAG = re.compile(r"\(w\d+-", re.I)
 DASH = re.compile(r"[\u2013\u2014]")
 AI = re.compile(r"\b(it is worth noting|delve|landscape|leverage|multifaceted)\b", re.I)
 
@@ -191,10 +198,21 @@ def check_css(row: dict, path: str, i: int) -> list[str]:
     if len(set(opts)) < 4:
         errs.append(f"{path}[{i}] duplicate options")
     expl = row.get("explanation_detailed") or ""
+    if len(expl.split()) < 12:
+        errs.append(f"{path}[{i}] CSS explanation too short (min 12 words)")
     if DASH.search(expl):
         errs.append(f"{path}[{i}] en/em dash")
     if AI.search(expl):
         errs.append(f"{path}[{i}] AI fluff")
+    if GENERIC_EXPL.search(expl):
+        errs.append(f"{path}[{i}] generic explanation filler")
+    qtext = row.get("question_text") or ""
+    if BATCH_TAG.search(qtext):
+        errs.append(f"{path}[{i}] batch tag in question stem")
+    for c in "abcd":
+        opt = row.get(f"option_{c}", "") or ""
+        if JUNK_OPTION.search(opt):
+            errs.append(f"{path}[{i}] junk distractor in option_{c}")
     return errs
 
 
