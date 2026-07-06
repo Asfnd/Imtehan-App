@@ -96,6 +96,20 @@ type EngineeringIntelligenceRow = {
   target_exam: string
 }
 
+type EngineeringCsRow = {
+  question: string
+  option_a: string
+  option_b: string
+  option_c: string
+  option_d: string
+  correct_answer: string
+  explanation: string
+  topic: string
+  difficulty: string
+  type: string
+  target_exam: string
+}
+
 const ISSB_TABLES = new Set([
   'issb_english',
   'issb_mathematics',
@@ -181,6 +195,9 @@ async function main() {
     .sort()
   const engineeringIntelFiles = readdirSync(expansionDir)
     .filter((f) => f.startsWith('engineering-intelligence-batch-') && f.endsWith('.json'))
+    .sort()
+  const engineeringCsFiles = readdirSync(expansionDir)
+    .filter((f) => f.startsWith('engineering-computer-science-batch-') && f.endsWith('.json'))
     .sort()
 
   const { count: mdcatEngBefore } = await supabase
@@ -428,6 +445,51 @@ async function main() {
       process.exit(1)
     }
     console.log(`✅ Engineering Intelligence +${rows.length} from ${file}`)
+    newlyApplied.push(file)
+  }
+
+  for (const file of engineeringCsFiles) {
+    if (manifest.applied.includes(file)) {
+      console.log(`⏭️  Skip (already applied): ${file}`)
+      continue
+    }
+    const batch = JSON.parse(readFileSync(join(expansionDir, file), 'utf8')) as EngineeringCsRow[]
+    const rows = batch.map((r) => ({
+      question: r.question,
+      option_a: r.option_a,
+      option_b: r.option_b,
+      option_c: r.option_c,
+      option_d: r.option_d,
+      correct_answer: r.correct_answer.toUpperCase().slice(0, 1),
+      explanation: cleanExplanation(r.explanation),
+      topic: r.topic,
+      difficulty: r.difficulty,
+      type: (['practice', 'most_repeated', 'most_important'].includes(r.type) ? r.type : 'practice') as
+        | 'practice'
+        | 'most_repeated'
+        | 'most_important',
+      target_exam: (['NET', 'ECAT', 'GIKI_PIEAS', 'LUMS_SAT'].includes(r.target_exam) ? r.target_exam : 'NET') as
+        | 'NET'
+        | 'ECAT'
+        | 'GIKI_PIEAS'
+        | 'LUMS_SAT',
+    }))
+    for (const r of rows) {
+      if (!r.explanation?.trim()) {
+        console.error(`ABORT: Engineering CS row missing explanation: ${r.question.slice(0, 40)}`)
+        process.exit(1)
+      }
+      if (!['Easy', 'Medium', 'Hard'].includes(r.difficulty)) {
+        console.error(`ABORT: Engineering CS difficulty must be Easy|Medium|Hard, got ${r.difficulty}`)
+        process.exit(1)
+      }
+    }
+    const { error } = await supabase.from('engineering_computer_science').insert(rows)
+    if (error) {
+      console.error('Engineering CS insert failed:', error.message)
+      process.exit(1)
+    }
+    console.log(`✅ Engineering CS +${rows.length} from ${file}`)
     newlyApplied.push(file)
   }
 

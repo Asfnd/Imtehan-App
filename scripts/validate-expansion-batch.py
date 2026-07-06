@@ -16,9 +16,14 @@ ISSB = {
 JUNK_OPTION = re.compile(r"\balways\s+always\b", re.I)
 GENERIC_EXPL = re.compile(
     r"(this is the correct (choice|answer)|essential for law-gat|"
-    r"this distinction is tested repeatedly|high-yield for issb)",
+    r"this distinction is tested repeatedly|high-yield for issb|"
+    r"exam time pressure|review why the correct option)",
     re.I,
 )
+OPTION_NEG = re.compile(
+    r"\boption\s+[ABCD]\b.*\b(fails?|wrong|incorrect|also correct|more suitable)\b", re.I
+)
+DISTRACTOR = re.compile(r"\b(distractors?|common exam distractor)\b", re.I)
 BATCH_TAG = re.compile(r"\(w\d+-", re.I)
 DASH = re.compile(r"[\u2013\u2014]")
 AI = re.compile(r"\b(it is worth noting|delve|landscape|leverage|multifaceted)\b", re.I)
@@ -40,6 +45,12 @@ def check_issb(row: dict, path: str, i: int) -> list[str]:
     expl = row.get("explanation") or ""
     if len(expl.split()) < 5:
         errs.append(f"{path}[{i}] explanation too short")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
     if DASH.search(expl) or DASH.search(row.get("question") or ""):
         errs.append(f"{path}[{i}] en/em dash found")
     if AI.search(expl):
@@ -96,6 +107,12 @@ def check_mdcat(row: dict, path: str, i: int) -> list[str]:
     expl = row.get("explanation") or ""
     if len(expl.split()) < 6:
         errs.append(f"{path}[{i}] explanation too short")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
     if DASH.search(expl) or DASH.search(row.get("question") or ""):
         errs.append(f"{path}[{i}] en/em dash")
     if AI.search(expl):
@@ -121,6 +138,12 @@ def check_mdcat_lr(row: dict, path: str, i: int) -> list[str]:
     expl = row.get("explanation") or ""
     if len(expl.split()) < 6:
         errs.append(f"{path}[{i}] explanation too short")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
     if DASH.search(expl) or DASH.search(row.get("question") or ""):
         errs.append(f"{path}[{i}] en/em dash")
     if AI.search(expl):
@@ -146,6 +169,14 @@ def check_engineering_intelligence(row: dict, path: str, i: int) -> list[str]:
     expl = row.get("explanation") or ""
     if len(expl.split()) < 8:
         errs.append(f"{path}[{i}] explanation too short")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
+    if GENERIC_EXPL.search(expl):
+        errs.append(f"{path}[{i}] generic explanation filler")
     if DASH.search(expl) or DASH.search(row.get("question") or ""):
         errs.append(f"{path}[{i}] en/em dash")
     if AI.search(expl):
@@ -173,6 +204,12 @@ def check_engineering_english(row: dict, path: str, i: int) -> list[str]:
     expl = row.get("explanation") or ""
     if len(expl.split()) < 6:
         errs.append(f"{path}[{i}] explanation too short")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
     if DASH.search(expl) or DASH.search(row.get("question") or ""):
         errs.append(f"{path}[{i}] en/em dash")
     if AI.search(expl):
@@ -200,6 +237,12 @@ def check_css(row: dict, path: str, i: int) -> list[str]:
     expl = row.get("explanation_detailed") or ""
     if len(expl.split()) < 12:
         errs.append(f"{path}[{i}] CSS explanation too short (min 12 words)")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] CSS explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
     if DASH.search(expl):
         errs.append(f"{path}[{i}] en/em dash")
     if AI.search(expl):
@@ -223,7 +266,58 @@ KNOWN_PREFIXES = (
     "mdcat-logical-reasoning-batch-",
     "engineering-english-batch-",
     "engineering-intelligence-batch-",
+    "engineering-computer-science-batch-",
 )
+
+
+ENGINEERING_CS_TOPICS = {
+    "Programming in C",
+    "Data Communication",
+    "Information Technology Basics",
+    "Databases",
+    "Computer Architecture",
+    "Information Networks",
+    "Network Security",
+}
+
+
+def check_engineering_cs(row: dict, path: str, i: int) -> list[str]:
+    errs = []
+    for f in ("question", "option_a", "option_b", "option_c", "option_d", "explanation", "topic", "type", "target_exam"):
+        if not (row.get(f) or "").strip():
+            errs.append(f"{path}[{i}] missing {f}")
+    ans = (row.get("correct_answer") or "").strip().upper()[:1]
+    if ans not in "ABCD":
+        errs.append(f"{path}[{i}] bad answer")
+    opts = [row.get(f"option_{c}", "").strip().lower() for c in "abcd"]
+    if len(set(opts)) < 4:
+        errs.append(f"{path}[{i}] duplicate options")
+    expl = row.get("explanation") or ""
+    if len(expl.split()) < 12:
+        errs.append(f"{path}[{i}] explanation too short")
+    if len(expl.split()) > 55:
+        errs.append(f"{path}[{i}] explanation too long (max 55 words)")
+    if OPTION_NEG.search(expl):
+        errs.append(f"{path}[{i}] negative option callout in explanation")
+    if DISTRACTOR.search(expl):
+        errs.append(f"{path}[{i}] distractor meta-language in explanation")
+    if GENERIC_EXPL.search(expl):
+        errs.append(f"{path}[{i}] generic explanation filler")
+    if DASH.search(expl) or DASH.search(row.get("question") or ""):
+        errs.append(f"{path}[{i}] en/em dash")
+    if AI.search(expl):
+        errs.append(f"{path}[{i}] AI fluff")
+    if GENERIC_EXPL.search(expl):
+        errs.append(f"{path}[{i}] generic explanation filler")
+    if row.get("difficulty") not in ("Easy", "Medium", "Hard"):
+        errs.append(f"{path}[{i}] difficulty must be Easy|Medium|Hard")
+    if row.get("topic") not in ENGINEERING_CS_TOPICS:
+        errs.append(f"{path}[{i}] unknown engineering CS topic {row.get('topic')}")
+    if row.get("type") not in ("practice", "most_repeated", "most_important"):
+        errs.append(f"{path}[{i}] bad type")
+    if row.get("target_exam") not in ("NET", "ECAT", "GIKI_PIEAS", "LUMS_SAT"):
+        errs.append(f"{path}[{i}] bad target_exam")
+    return errs
 
 
 def batch_kind(name: str) -> str | None:
@@ -271,6 +365,8 @@ def main() -> None:
                 all_errs.extend(check_engineering_english(row, path.name, i))
             elif path.name.startswith("engineering-intelligence"):
                 all_errs.extend(check_engineering_intelligence(row, path.name, i))
+            elif path.name.startswith("engineering-computer-science"):
+                all_errs.extend(check_engineering_cs(row, path.name, i))
             else:
                 all_errs.extend(check_issb(row, path.name, i))
 
