@@ -25,6 +25,7 @@ import {
   QuizJourneyPanel,
   QuizResultsCard,
   quizAccuracyPercent,
+  quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 
 interface MCQ {

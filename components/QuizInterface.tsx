@@ -29,6 +29,7 @@ import {
   QuizJourneyPanel,
   QuizResultsCard,
   quizAccuracyPercent,
+  quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 import { plainTextMcqFields } from '@/lib/plain-text'
 
@@ -410,10 +411,11 @@ export default function QuizInterface({
     }
   }
 
+  const feedbackVisible = !!lockedAnswer
   let dockPhase: QuizDockPhase = 'hidden'
-  if (lockedAnswer) dockPhase = 'correct'
+  if (feedbackVisible) dockPhase = 'correct'
 
-  const bottomPad = dockPhase === 'correct' ? 'pb-40' : 'pb-6'
+  const bottomPad = feedbackVisible ? 'pb-40' : 'pb-6'
 
   return (
     <>
@@ -539,8 +541,12 @@ export default function QuizInterface({
       <QuizFeedbackDock
         phase={dockPhase}
         correct={isQuestionSolved}
-        title={isQuestionSolved ? 'Excellent!' : 'Incorrect!'}
-        subtitle={isQuestionSolved ? (currentMCQ.explanation || 'Great job, keep going!') : undefined}
+        title={isQuestionSolved ? 'Excellent!' : 'Incorrect'}
+        subtitle={
+          feedbackVisible
+            ? quizFeedbackExplanation(currentMCQ.explanation, isQuestionSolved)
+            : undefined
+        }
         continueLabel="Continue"
         onContinue={dockContinue}
         isLastStep={currentIndex === activeMCQs.length - 1}

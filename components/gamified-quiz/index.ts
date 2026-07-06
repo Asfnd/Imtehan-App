@@ -8,6 +8,7 @@ export type { QuizDockPhase } from './QuizFeedbackDock'
 export { QuizGamificationHeader } from './QuizGamificationHeader'
 export { getQuizPathProgress, getQuizProgressPercent } from './quizPathProgress'
 export { QuizResultsCard } from './QuizResultsCard'
+export { quizFeedbackExplanation } from './quizExplanation'
 export {
   QuizResultDashboard,
   formatQuizDuration,
