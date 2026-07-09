@@ -1,27 +1,56 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { mdcatTopicIndexingMeta } from '@/lib/seo/topic-indexing'
+import { MdcatSetSeoShell } from '@/components/seo/MdcatTopicSeoShell'
 import MDCATSetQuiz from '@/components/MDCATSetQuiz'
 
-export const metadata: Metadata = {
-  robots: { index: false, follow: true },
-}
-
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
-  'biology':           { name: 'Biology',          table: 'mdcat_biology'           },
-  'chemistry':         { name: 'Chemistry',        table: 'mdcat_chemistry'         },
-  'physics':           { name: 'Physics',          table: 'mdcat_physics'           },
-  'english':           { name: 'English',          table: 'mdcat_english'           },
-  'logical-reasoning': { name: 'Logical Reasoning',table: 'mdcat_logical_reasoning' },
+  biology: { name: 'Biology', table: 'mdcat_biology' },
+  chemistry: { name: 'Chemistry', table: 'mdcat_chemistry' },
+  physics: { name: 'Physics', table: 'mdcat_physics' },
+  english: { name: 'English', table: 'mdcat_english' },
+  'logical-reasoning': { name: 'Logical Reasoning', table: 'mdcat_logical_reasoning' },
 }
 
-// Maps URL slugs to DB difficulty values
 const DIFFICULTY_DB: Record<string, string> = {
-  easy: 'Easy', medium: 'Medium', hard: 'Hard',
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Hard',
 }
 
 const MCQS_PER_SET = 20
 const COLS = 'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation, topic, subtopic'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ subject: string; topic: string; setNumber: string }>
+}): Promise<Metadata> {
+  const { subject, topic: rawTopic, setNumber: setStr } = await params
+  const subjectCfg = SUBJECT_CONFIG[subject]
+  if (!subjectCfg) return { title: 'MDCAT Practice' }
+
+  const topic = decodeURIComponent(rawTopic)
+  const setNumber = parseInt(setStr, 10)
+  const difficulty = DIFFICULTY_DB[topic]
+  const displayLabel = difficulty ?? topic
+  const encoded = encodeURIComponent(rawTopic)
+
+  const selfCanonical = `https://imtehan.com/mdcat/${subject}/${encoded}/set/${setNumber}`
+  const indexing = mdcatTopicIndexingMeta(selfCanonical, setNumber)
+
+  const title = `MDCAT ${subjectCfg.name} ${displayLabel} Set ${setNumber} — 20 MCQs Solved`
+  const description = `MDCAT ${subjectCfg.name} ${displayLabel} practice set ${setNumber}: 20 MCQs with detailed explanations for PMC, ETEA & NUMS.`
+
+  return {
+    title,
+    description,
+    robots: indexing.robots,
+    alternates: { canonical: indexing.canonical },
+    openGraph: { title, description, url: selfCanonical, type: 'website' },
+  }
+}
 
 export default async function MDCATSetPage({
   params,
@@ -33,13 +62,12 @@ export default async function MDCATSetPage({
   const subjectCfg = SUBJECT_CONFIG[subject]
   if (!subjectCfg) notFound()
 
-  const setNumber = parseInt(setNumStr)
+  const setNumber = parseInt(setNumStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  // Always decode: safe even if Next.js already decoded it
-  const topic      = decodeURIComponent(rawTopic)
-  const difficulty = DIFFICULTY_DB[topic]  // defined only for easy/medium/hard
-  const offset     = (setNumber - 1) * MCQS_PER_SET
+  const topic = decodeURIComponent(rawTopic)
+  const difficulty = DIFFICULTY_DB[topic]
+  const offset = (setNumber - 1) * MCQS_PER_SET
 
   const supabase = await createServerSupabaseClient()
 
@@ -59,17 +87,38 @@ export default async function MDCATSetPage({
   if (error || !data || data.length === 0) notFound()
 
   const totalSets = count ? Math.ceil(count / MCQS_PER_SET) : undefined
+  const displayLabel = difficulty ?? topic
+
+  const mcqs = data.map((row) => ({
+    id: Number(row.id),
+    question: String(row.question),
+    option_a: String(row.option_a),
+    option_b: String(row.option_b),
+    option_c: String(row.option_c),
+    option_d: String(row.option_d),
+    correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
+    explanation: row.explanation ? String(row.explanation) : undefined,
+  }))
 
   return (
-    <MDCATSetQuiz
-      mcqs={data}
-      examSlug="mdcat"
+    <MdcatSetSeoShell
       subject={subject}
-      subjectName={subjectCfg.name}
-      subjectGradient="from-blue-600 to-blue-700"
-      difficulty={topic}
+      topicLabel={topic}
+      isDifficulty={!!difficulty}
       setNumber={setNumber}
-      totalSets={totalSets}
-    />
+      dbTable={subjectCfg.table}
+      mcqs={mcqs}
+    >
+      <MDCATSetQuiz
+        mcqs={data}
+        examSlug="mdcat"
+        subject={subject}
+        subjectName={subjectCfg.name}
+        subjectGradient="from-blue-600 to-blue-700"
+        difficulty={topic}
+        setNumber={setNumber}
+        totalSets={totalSets}
+      />
+    </MdcatSetSeoShell>
   )
 }

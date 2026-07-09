@@ -24,6 +24,7 @@ export default async function ExamModePage({
       subjectSlug={subjectSlug}
       mode={mode}
       sampleMcqs={sampleMcqs}
+      dbTable={section.dbTable}
     >
       <ModeSetPicker />
     </ModeSeoShell>

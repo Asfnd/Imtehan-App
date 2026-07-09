@@ -20,6 +20,7 @@ export function SetSeoShell({
   subjectName,
   mode,
   setNumber,
+  dbTable,
   mcqs,
   children,
 }: {
@@ -29,6 +30,7 @@ export function SetSeoShell({
   subjectName: string
   mode: string
   setNumber: number
+  dbTable?: string
   mcqs: QuizMcqRow[]
   children: ReactNode
 }) {
@@ -89,7 +91,7 @@ export function SetSeoShell({
         {' / '}
         <span>Set {setNumber}</span>
       </SeoCrawlNav>
-      <McqCrawlBlock mcqs={mcqs} heading={`${h1} — questions and answers`} />
+      <McqCrawlBlock mcqs={mcqs} heading={`${h1} — questions and answers`} dbTable={dbTable} />
       {children}
     </>
   )

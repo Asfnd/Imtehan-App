@@ -4,6 +4,13 @@ import path from 'path'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { PRACTICE_MODES, isModeIndexable, maxIndexableSetNumber } from '@/lib/seo/sitemap-tiers'
+import {
+  MDCAT_DIFFICULTIES,
+  MDCAT_SUBJECT_TABLES,
+  maxIndexableTopicSetNumber,
+  isExamTopicIndexable,
+} from '@/lib/seo/topic-indexing'
+import { TABLE_POPULAR_TAGS, MDCAT_TOPIC_VALUES } from '@/lib/topic-tags'
 import { CATEGORY_SLUGS } from '@/lib/seo/categoryContent'
 
 export const BASE_URL = 'https://imtehan.com'
@@ -82,7 +89,7 @@ function getBlogSlugs(): string[] {
   }
 }
 
-export type SitemapSegment = 'core' | 'exams' | 'modes' | 'sets'
+export type SitemapSegment = 'core' | 'exams' | 'modes' | 'sets' | 'topics'
 
 export function buildCoreSitemap(): MetadataRoute.Sitemap {
   const lm = EXAM_SITEMAP_LASTMOD
@@ -210,6 +217,70 @@ export function buildSetsSitemap(): MetadataRoute.Sitemap {
   return entries
 }
 
+/** Topic hub + topic set/1 URLs for exams and MDCAT (high long-tail volume). */
+export function buildTopicsSitemap(): MetadataRoute.Sitemap {
+  const entries: MetadataRoute.Sitemap = []
+  const lm = EXAM_SITEMAP_LASTMOD
+
+  for (const [slug, config] of Object.entries(EXAM_CONFIGS)) {
+    const maxTopicSet = maxIndexableTopicSetNumber(slug)
+    for (const section of config.sections) {
+      const tags = TABLE_POPULAR_TAGS[section.dbTable]
+      if (!tags) continue
+      for (const tagSlug of tags) {
+        if (!isExamTopicIndexable(slug, config.category, section.dbTable, tagSlug)) continue
+        const hub = `${BASE_URL}/exams/${slug}/${section.slug}/topic/${tagSlug}`
+        entries.push({
+          url: hub,
+          lastModified: lm,
+          changeFrequency: 'weekly',
+          priority: 0.66,
+        })
+        for (let setNum = 1; setNum <= maxTopicSet; setNum++) {
+          entries.push({
+            url: `${hub}/set/${setNum}`,
+            lastModified: lm,
+            changeFrequency: 'weekly',
+            priority: setNum === 1 ? 0.64 : 0.62,
+          })
+        }
+      }
+    }
+  }
+
+  for (const [subject, table] of Object.entries(MDCAT_SUBJECT_TABLES)) {
+    for (const diff of MDCAT_DIFFICULTIES) {
+      const hub = `${BASE_URL}/mdcat/${subject}/${diff}`
+      entries.push({ url: hub, lastModified: lm, changeFrequency: 'weekly', priority: 0.72 })
+      for (let setNum = 1; setNum <= 3; setNum++) {
+        entries.push({
+          url: `${hub}/set/${setNum}`,
+          lastModified: lm,
+          changeFrequency: 'weekly',
+          priority: setNum === 1 ? 0.7 : 0.68,
+        })
+      }
+    }
+    const topicMap = MDCAT_TOPIC_VALUES[table]
+    if (!topicMap) continue
+    for (const dbValue of Object.values(topicMap)) {
+      const encoded = encodeURIComponent(dbValue)
+      const hub = `${BASE_URL}/mdcat/${subject}/${encoded}`
+      entries.push({ url: hub, lastModified: lm, changeFrequency: 'weekly', priority: 0.72 })
+      for (let setNum = 1; setNum <= 3; setNum++) {
+        entries.push({
+          url: `${hub}/set/${setNum}`,
+          lastModified: lm,
+          changeFrequency: 'weekly',
+          priority: setNum === 1 ? 0.7 : 0.68,
+        })
+      }
+    }
+  }
+
+  return entries
+}
+
 export function buildSitemapSegment(segment: SitemapSegment): MetadataRoute.Sitemap {
   switch (segment) {
     case 'core':
@@ -220,12 +291,14 @@ export function buildSitemapSegment(segment: SitemapSegment): MetadataRoute.Site
       return buildModesSitemap()
     case 'sets':
       return buildSetsSitemap()
+    case 'topics':
+      return buildTopicsSitemap()
   }
 }
 
 /** All indexable URLs — for IndexNow diff scripts. */
 export function buildAllIndexableUrls(): string[] {
-  return (['core', 'exams', 'modes', 'sets'] as const).flatMap((seg) =>
+  return (['core', 'exams', 'modes', 'sets', 'topics'] as const).flatMap((seg) =>
     buildSitemapSegment(seg).map((e) => e.url),
   )
 }

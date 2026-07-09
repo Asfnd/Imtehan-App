@@ -111,6 +111,7 @@ export default async function QuizSetPage({
       subjectName={subjectName}
       mode={mode}
       setNumber={setNumber}
+      dbTable={section.dbTable}
       mcqs={mcqs}
     >
       <QuizInterface

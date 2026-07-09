@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { correctOptionText, type SampleMcq } from '@/lib/seo/fetch-sample-mcqs'
 
@@ -21,9 +22,11 @@ function answerText(mcq: McqLike): string {
 export function McqCrawlBlock({
   mcqs,
   heading,
+  dbTable,
 }: {
   mcqs: McqLike[]
   heading: string
+  dbTable?: string
 }) {
   if (mcqs.length === 0) return null
 
@@ -31,27 +34,36 @@ export function McqCrawlBlock({
     <section aria-label={heading} className="sr-only">
       <h2>{heading}</h2>
       <ol>
-        {mcqs.map((mcq, i) => (
-          <li key={'id' in mcq ? mcq.id : i}>
-            <p>
-              <strong>Q{i + 1}.</strong> {mcq.question}
-            </p>
-            <ul>
-              <li>A) {mcq.option_a}</li>
-              <li>B) {mcq.option_b}</li>
-              <li>C) {mcq.option_c}</li>
-              <li>D) {mcq.option_d}</li>
-            </ul>
-            <p>
-              <strong>Answer:</strong> {answerText(mcq)}
-            </p>
-            {'explanation' in mcq && mcq.explanation ? (
+        {mcqs.map((mcq, i) => {
+          const id = 'id' in mcq ? mcq.id : undefined
+          const key = id ?? i
+          return (
+            <li key={key}>
+              {dbTable && id != null ? (
+                <p>
+                  <Link href={`/mcq/${dbTable}/${id}`}>Question {i + 1}</Link>
+                </p>
+              ) : null}
               <p>
-                <strong>Explanation:</strong> {mcq.explanation}
+                <strong>Q{i + 1}.</strong> {mcq.question}
               </p>
-            ) : null}
-          </li>
-        ))}
+              <ul>
+                <li>A) {mcq.option_a}</li>
+                <li>B) {mcq.option_b}</li>
+                <li>C) {mcq.option_c}</li>
+                <li>D) {mcq.option_d}</li>
+              </ul>
+              <p>
+                <strong>Answer:</strong> {answerText(mcq)}
+              </p>
+              {'explanation' in mcq && mcq.explanation ? (
+                <p>
+                  <strong>Explanation:</strong> {mcq.explanation}
+                </p>
+              ) : null}
+            </li>
+          )
+        })}
       </ol>
     </section>
   )

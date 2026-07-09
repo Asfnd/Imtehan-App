@@ -21,12 +21,14 @@ export function ModeSeoShell({
   subjectSlug,
   mode,
   sampleMcqs,
+  dbTable,
   children,
 }: {
   examSlug: string
   subjectSlug: string
   mode: string
   sampleMcqs: SampleMcq[]
+  dbTable?: string
   children: ReactNode
 }) {
   const config = getExamConfig(examSlug)
@@ -111,6 +113,7 @@ export function ModeSeoShell({
       <McqCrawlBlock
         mcqs={sampleMcqs}
         heading={`${examName} ${subjectName} ${modeLabel} sample MCQs`}
+        dbTable={dbTable}
       />
 
       <SeoDiscoverDetails label="Sample questions and FAQs">

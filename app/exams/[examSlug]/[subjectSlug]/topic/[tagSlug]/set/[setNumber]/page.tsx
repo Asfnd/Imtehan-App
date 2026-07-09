@@ -3,11 +3,66 @@ import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { fetchMCQsByTopicSet } from '@/lib/quiz-fetcher'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
-import { isTagArrayTable, topicDbValue } from '@/lib/topic-tags'
+import { isTagArrayTable, tagSlugToLabel, topicDbValue } from '@/lib/topic-tags'
+import { topicIndexingMeta } from '@/lib/seo/topic-indexing'
+import { TopicSetSeoShell } from '@/components/seo/TopicSeoShell'
 import QuizInterface from '@/components/QuizInterface'
 
-export const metadata: Metadata = {
-  robots: { index: false, follow: true },
+const SUBJECT_LABELS: Record<string, string> = {
+  english: 'English',
+  'general-knowledge': 'General Knowledge',
+  'pakistan-affairs': 'Pakistan Affairs',
+  'islamic-studies': 'Islamic Studies',
+  'current-affairs': 'Current Affairs',
+  'everyday-science': 'Everyday Science',
+  mathematics: 'Mathematics',
+  geography: 'Geography',
+  computer: 'Computer Science',
+  urdu: 'Urdu',
+  biology: 'Biology',
+  chemistry: 'Chemistry',
+  physics: 'Physics',
+  'logical-reasoning': 'Logical Reasoning',
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    examSlug: string
+    subjectSlug: string
+    tagSlug: string
+    setNumber: string
+  }>
+}): Promise<Metadata> {
+  const { examSlug, subjectSlug, tagSlug, setNumber: setStr } = await params
+  const config = getExamConfig(examSlug)
+  const section = config?.sections.find((s) => s.slug === subjectSlug)
+  const setNumber = parseInt(setStr, 10)
+  const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
+  const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
+  const topicLabel = tagSlugToLabel(tagSlug)
+
+  const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}/topic/${tagSlug}/set/${setNumber}`
+  const indexing = topicIndexingMeta(
+    examSlug,
+    config?.category,
+    section?.dbTable ?? '',
+    tagSlug,
+    selfCanonical,
+    { setNumber },
+  )
+
+  const title = `${examName} ${subjectName} ${topicLabel} Set ${setNumber} — 20 MCQs Solved`
+  const description = `${examName} ${subjectName} ${topicLabel} MCQs set ${setNumber} with solved answers — Pakistan competitive exam practice.`
+
+  return {
+    title,
+    description,
+    robots: indexing.robots,
+    alternates: { canonical: indexing.canonical },
+    openGraph: { title, description, url: selfCanonical, type: 'website' },
+  }
 }
 
 export default async function TopicQuizSetPage({
@@ -28,7 +83,7 @@ export default async function TopicQuizSetPage({
   const section = config.sections.find((s) => s.slug === subjectSlug)
   if (!section) notFound()
 
-  const setNumber = parseInt(setNumberStr)
+  const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
   const dbVal = topicDbValue(tagSlug, section.dbTable)
@@ -42,13 +97,28 @@ export default async function TopicQuizSetPage({
 
   if (!mcqs || mcqs.length === 0) notFound()
 
+  const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
+  const topicLabel = tagSlugToLabel(tagSlug)
+
   return (
-    <QuizInterface
-      mcqs={mcqs}
+    <TopicSetSeoShell
       examSlug={examSlug}
+      examName={config.name}
       subjectSlug={subjectSlug}
-      mode={`topic/${tagSlug}`}
+      subjectName={subjectName}
+      tagSlug={tagSlug}
+      topicLabel={topicLabel}
       setNumber={setNumber}
-    />
+      dbTable={section.dbTable}
+      mcqs={mcqs}
+    >
+      <QuizInterface
+        mcqs={mcqs}
+        examSlug={examSlug}
+        subjectSlug={subjectSlug}
+        mode={`topic/${tagSlug}`}
+        setNumber={setNumber}
+      />
+    </TopicSetSeoShell>
   )
 }
