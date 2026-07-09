@@ -21,5 +21,7 @@ ${urls}
 
 export const SITEMAP_XML_HEADERS = {
   'Content-Type': 'application/xml; charset=utf-8',
-  'Cache-Control': 'public, max-age=300, s-maxage=3600',
+  // Short TTL — index includes dynamic MCQ bank counts from Supabase
+  'Cache-Control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=600',
+  'CDN-Cache-Control': 'max-age=300',
 } as const

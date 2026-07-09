@@ -232,10 +232,6 @@ const nextConfig: NextConfig = {
         destination: '/imtehan-indexnow-key',
       },
       {
-        source: '/sitemap.xml',
-        destination: '/sitemap-index',
-      },
-      {
         source: '/sitemap/mcq/:bank/:page.xml',
         destination: '/sitemap-mcq/:bank/:page',
       },
@@ -395,7 +391,23 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/sitemap.xml',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=300, s-maxage=3600' }],
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, s-maxage=300, stale-while-revalidate=600',
+          },
+          { key: 'CDN-Cache-Control', value: 'max-age=300' },
+        ],
+      },
+      {
+        source: '/sitemap-index',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, s-maxage=300, stale-while-revalidate=600',
+          },
+          { key: 'CDN-Cache-Control', value: 'max-age=300' },
+        ],
       },
       {
         source: '/sitemap/:segment.xml',
