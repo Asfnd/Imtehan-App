@@ -37,15 +37,36 @@ export function isModeIndexable(
   return DEFAULT_INDEXABLE_MODES.includes(mode as PracticeMode)
 }
 
+export function isSetIndexable(
+  examSlug: string,
+  category: string | undefined,
+  mode: string,
+  setNumber: number,
+): boolean {
+  if (setNumber < 1 || !Number.isInteger(setNumber)) return false
+  if (!isModeIndexable(examSlug, category, mode)) return false
+  if (setNumber === 1) return true
+  // Featured exams: index sets 1–3 (FIA/CSS/PPSC winners in GSC)
+  if (setNumber <= 3 && featuredSet.has(examSlug)) return true
+  return false
+}
+
+export function maxIndexableSetNumber(examSlug: string): number {
+  return featuredSet.has(examSlug) ? 3 : 1
+}
+
 export function examIndexingMeta(
   examSlug: string,
   category: string | undefined,
   selfCanonical: string,
-  options?: { mode?: string },
+  options?: { mode?: string; setNumber?: number },
 ) {
   const mode = options?.mode
-  const index =
-    !mode || isModeIndexable(examSlug, category, mode)
+  const setNumber = options?.setNumber
+  let index = !mode || isModeIndexable(examSlug, category, mode)
+  if (index && setNumber != null) {
+    index = isSetIndexable(examSlug, category, mode ?? '', setNumber)
+  }
 
   return {
     robots: { index, follow: true } as const,

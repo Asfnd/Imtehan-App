@@ -15,7 +15,7 @@ export default async function ExamModePage({
   if (!config || !section) notFound()
 
   const sampleMcqs = section.dbTable
-    ? await fetchSampleMcqs(section.dbTable, mode, 5)
+    ? await fetchSampleMcqs(section.dbTable, mode, 20)
     : []
 
   return (

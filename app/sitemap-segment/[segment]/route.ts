@@ -1,7 +1,7 @@
 import { buildSitemapSegment, type SitemapSegment } from '@/lib/seo/sitemap-builders'
 import { SITEMAP_XML_HEADERS, serializeSitemap } from '@/lib/seo/sitemap-xml'
 
-const SEGMENTS = new Set<SitemapSegment>(['core', 'exams', 'modes'])
+const SEGMENTS = new Set<SitemapSegment>(['core', 'exams', 'modes', 'sets'])
 
 export async function GET(
   _request: Request,

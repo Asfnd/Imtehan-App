@@ -3,9 +3,10 @@ import type { ReactNode } from 'react'
 import { getExamConfig } from '@/lib/exam-configs'
 import { getModeSeoContent, subjectLabel } from '@/lib/seo/examContent'
 import type { SampleMcq } from '@/lib/seo/fetch-sample-mcqs'
-import { correctOptionText } from '@/lib/seo/fetch-sample-mcqs'
+import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { breadcrumbListNode, jsonLdString } from '@/lib/seo/jsonld'
 import { PRACTICE_MODES } from '@/lib/seo/sitemap-tiers'
+import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
 import { SeoDiscoverDetails, SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 const MODE_LABELS: Record<string, string> = {
@@ -76,21 +77,13 @@ export function ModeSeoShell({
       },
       ...(sampleMcqs.length > 0
         ? [
-            {
-              '@type': 'Quiz',
+            buildQuizJsonLd({
               name: h1,
               description: intro,
               url: canonical,
-              provider: { '@type': 'Organization', name: 'Imtehan', url: 'https://imtehan.com' },
-              educationalUse: 'practice',
-              inLanguage: 'en-PK',
-              hasPart: sampleMcqs.map((mcq) => ({
-                '@type': 'Question',
-                eduQuestionType: 'Multiple choice',
-                text: mcq.question,
-                acceptedAnswer: { '@type': 'Answer', text: correctOptionText(mcq) },
-              })),
-            },
+              mcqs: sampleMcqs,
+              bare: true,
+            }),
           ]
         : []),
     ],
@@ -115,61 +108,35 @@ export function ModeSeoShell({
 
       {children}
 
+      <McqCrawlBlock
+        mcqs={sampleMcqs}
+        heading={`${examName} ${subjectName} ${modeLabel} sample MCQs`}
+      />
+
       <SeoDiscoverDetails label="Sample questions and FAQs">
-        <ul className="mb-4 flex flex-wrap gap-2">
+        <ul>
           {siblingModes.map((m) => (
             <li key={m}>
-              <Link
-                href={`${subjectUrl}/${m}`}
-                className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
-              >
-                {MODE_LABELS[m] ?? m}
-              </Link>
+              <Link href={`${subjectUrl}/${m}`}>{MODE_LABELS[m] ?? m}</Link>
             </li>
           ))}
         </ul>
 
-        {sampleMcqs.length > 0 && (
-          <ol className="space-y-4">
-            {sampleMcqs.map((mcq, i) => (
-              <li key={i} className="rounded-lg border border-gray-100 bg-gray-50 p-3 text-sm">
-                <p className="font-medium text-gray-900">
-                  Q{i + 1}. {mcq.question}
-                </p>
-                <ul className="mt-1.5 space-y-0.5 text-gray-600">
-                  <li>A) {mcq.option_a}</li>
-                  <li>B) {mcq.option_b}</li>
-                  <li>C) {mcq.option_c}</li>
-                  <li>D) {mcq.option_d}</li>
-                </ul>
-                <p className="mt-1.5 text-xs font-medium text-green-700">
-                  Answer: {correctOptionText(mcq)}
-                </p>
-              </li>
-            ))}
-          </ol>
-        )}
-
         {relatedSubjects.length > 0 && (
-          <ul className="mt-4 flex flex-wrap gap-2">
+          <ul>
             {relatedSubjects.map((s) => (
               <li key={s.slug}>
-                <Link
-                  href={`/exams/${examSlug}/${s.slug}/${mode}`}
-                  className="inline-flex rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-700"
-                >
-                  {s.label}
-                </Link>
+                <Link href={`/exams/${examSlug}/${s.slug}/${mode}`}>{s.label}</Link>
               </li>
             ))}
           </ul>
         )}
 
-        <div className="mt-4 divide-y divide-gray-100">
+        <div>
           {faqs.map((f) => (
-            <div key={f.question} className="py-3 first:pt-0">
-              <h3 className="text-sm font-semibold text-gray-900">{f.question}</h3>
-              <p className="mt-1 text-sm text-gray-600">{f.answer}</p>
+            <div key={f.question}>
+              <h3>{f.question}</h3>
+              <p>{f.answer}</p>
             </div>
           ))}
         </div>

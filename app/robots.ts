@@ -8,7 +8,7 @@ const WILDCARD_DISALLOWS = [
   '/signin/',
   '/auth/',
   '/cdn-cgi/',
-  '/exams/*/*/*/set/',
+  '/exams/*/*/*/batch/',
   '/mdcat/*/*/set/',
   '/fsc/*/*/set/',
   '/css/past-papers/view',

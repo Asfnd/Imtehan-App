@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic'
 import { HomeHeroShell } from '@/components/HomeHeroShell'
 import { HomeNavStrip } from '@/components/HomeNavStrip'
 import { HomeIndexingRelay } from '@/components/seo/HomeIndexingRelay'
+import { buildCorpusDatasetJsonLd } from '@/lib/seo/quiz-jsonld'
+import { jsonLdString } from '@/lib/seo/jsonld'
 
 const HomeClient = dynamic(
   () => import('@/components/HomeClient').then((m) => ({ default: m.HomeClient })),
@@ -37,8 +39,11 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
+  const corpusJsonLd = buildCorpusDatasetJsonLd()
+
   return (
     <main className="min-h-screen bg-[#F9FAFB]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(corpusJsonLd) }} />
       <HomeNavStrip />
       <HomeHeroShell />
       <HomeClient />

@@ -20,9 +20,7 @@ const SUBJECT_LABELS: Record<string, string> = {
   'logical-reasoning': 'Logical Reasoning',
 }
 
-const OPTION_COLS: Record<string, string> = {
-  a: 'option_a', b: 'option_b', c: 'option_c', d: 'option_d',
-}
+import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 
 interface MCQRow {
   question: string
@@ -40,7 +38,7 @@ async function fetchSampleMCQs(dbTable: string): Promise<MCQRow[]> {
       .from(dbTable)
       .select('question, option_a, option_b, option_c, option_d, correct_answer')
       .eq('type', 'most_repeated')
-      .limit(7)
+      .limit(15)
     return (data as MCQRow[]) ?? []
   } catch {
     return []
@@ -102,32 +100,12 @@ export default async function ExamSubjectLayout({
   if (section?.dbTable) {
     const mcqs = await fetchSampleMCQs(section.dbTable)
     if (mcqs.length > 0) {
-      quizJsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'Quiz',
-        'name': `${examName}: ${subjectName} MCQs with Answers`,
-        'description': `Practice ${examName} ${subjectName} MCQs. Most repeated and important questions with explanations for exam preparation in Pakistan.`,
-        'url': `https://imtehan.com/exams/${examSlug}/${subjectSlug}`,
-        'provider': { '@type': 'Organization', 'name': 'Imtehan', 'url': 'https://imtehan.com' },
-        'educationalUse': 'practice',
-        'inLanguage': 'en',
-        'hasPart': mcqs.map(mcq => {
-          const correctKey = OPTION_COLS[mcq.correct_answer?.toLowerCase()] ?? 'option_a'
-          const correctText = (mcq as unknown as Record<string, string>)[correctKey] ?? mcq.correct_answer
-          return {
-            '@type': 'Question',
-            eduQuestionType: 'Multiple choice',
-            text: mcq.question,
-            acceptedAnswer: { '@type': 'Answer', text: correctText },
-            suggestedAnswer: [
-              { '@type': 'Answer', text: mcq.option_a },
-              { '@type': 'Answer', text: mcq.option_b },
-              { '@type': 'Answer', text: mcq.option_c },
-              { '@type': 'Answer', text: mcq.option_d },
-            ],
-          }
-        }),
-      }
+      quizJsonLd = buildQuizJsonLd({
+        name: `${examName}: ${subjectName} MCQs with Answers`,
+        description: `Practice ${examName} ${subjectName} MCQs. Most repeated and important questions with explanations for exam preparation in Pakistan.`,
+        url: `https://imtehan.com/exams/${examSlug}/${subjectSlug}`,
+        mcqs,
+      })
     }
   }
 

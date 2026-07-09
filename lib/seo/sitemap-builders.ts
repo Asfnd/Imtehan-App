@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
-import { PRACTICE_MODES, isModeIndexable } from '@/lib/seo/sitemap-tiers'
+import { PRACTICE_MODES, isModeIndexable, maxIndexableSetNumber } from '@/lib/seo/sitemap-tiers'
 import { CATEGORY_SLUGS } from '@/lib/seo/categoryContent'
 
 export const BASE_URL = 'https://imtehan.com'
@@ -82,7 +82,7 @@ function getBlogSlugs(): string[] {
   }
 }
 
-export type SitemapSegment = 'core' | 'exams' | 'modes'
+export type SitemapSegment = 'core' | 'exams' | 'modes' | 'sets'
 
 export function buildCoreSitemap(): MetadataRoute.Sitemap {
   const lm = EXAM_SITEMAP_LASTMOD
@@ -186,6 +186,30 @@ export function buildModesSitemap(): MetadataRoute.Sitemap {
   return entries
 }
 
+/** Set landing pages — full 20-MCQ pages for Google long-tail (set 1 all; sets 2–3 featured). */
+export function buildSetsSitemap(): MetadataRoute.Sitemap {
+  const entries: MetadataRoute.Sitemap = []
+  const lm = EXAM_SITEMAP_LASTMOD
+
+  for (const [slug, config] of Object.entries(EXAM_CONFIGS)) {
+    const maxSet = maxIndexableSetNumber(slug)
+    for (const section of config.sections) {
+      for (const mode of PRACTICE_MODES) {
+        if (!isModeIndexable(slug, config.category, mode)) continue
+        for (let setNum = 1; setNum <= maxSet; setNum++) {
+          entries.push({
+            url: `${BASE_URL}/exams/${slug}/${section.slug}/${mode}/set/${setNum}`,
+            lastModified: lm,
+            changeFrequency: 'weekly',
+            priority: setNum === 1 ? (mode === 'past-papers' ? 0.7 : 0.68) : 0.65,
+          })
+        }
+      }
+    }
+  }
+  return entries
+}
+
 export function buildSitemapSegment(segment: SitemapSegment): MetadataRoute.Sitemap {
   switch (segment) {
     case 'core':
@@ -194,12 +218,14 @@ export function buildSitemapSegment(segment: SitemapSegment): MetadataRoute.Site
       return buildExamsSitemap()
     case 'modes':
       return buildModesSitemap()
+    case 'sets':
+      return buildSetsSitemap()
   }
 }
 
 /** All indexable URLs — for IndexNow diff scripts. */
 export function buildAllIndexableUrls(): string[] {
-  return (['core', 'exams', 'modes'] as const).flatMap((seg) =>
+  return (['core', 'exams', 'modes', 'sets'] as const).flatMap((seg) =>
     buildSitemapSegment(seg).map((e) => e.url),
   )
 }
