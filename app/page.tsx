@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { HomeHeroShell } from '@/components/HomeHeroShell'
 import { HomeNavStrip } from '@/components/HomeNavStrip'
+import { HomeIndexingRelay } from '@/components/seo/HomeIndexingRelay'
 
 const HomeClient = dynamic(
   () => import('@/components/HomeClient').then((m) => ({ default: m.HomeClient })),
@@ -9,7 +10,7 @@ const HomeClient = dynamic(
 )
 
 export const metadata: Metadata = {
-  title: 'CSS, PMS & MDCAT Exam Preparation with 150,000+ MCQs | Imtehan',
+  title: 'CSS, PMS & MDCAT Exam Preparation with 150,000+ MCQs',
   description: 'Prepare for CSS, PMS, MDCAT, PPSC, FPSC and 200+ competitive exams in Pakistan with 150,000+ MCQs, real mock tests, past papers and AI scan-to-solve. Free to start.',
   keywords: 'CSS exam preparation, MPT practice, past papers, study guides, competitive exams',
   alternates: { canonical: 'https://imtehan.com' },
@@ -41,6 +42,7 @@ export default function Home() {
       <HomeNavStrip />
       <HomeHeroShell />
       <HomeClient />
+      <HomeIndexingRelay />
     </main>
   )
 }

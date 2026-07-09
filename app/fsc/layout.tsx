@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'FSc Pre-Medical MCQs: Biology, Chemistry & Physics | Imtehan',
+  title: 'FSc Pre-Medical MCQs: Biology, Chemistry & Physics',
   description: 'Practice FSc Pre-Medical MCQs chapter-wise for Biology, Chemistry and Physics. Sets of 20 aligned with the Punjab Board curriculum, ideal for MDCAT prep.',
   keywords: [
     'FSc Pre-Medical MCQs', 'FSc biology MCQs', 'FSc chemistry MCQs',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: 'https://imtehan.com/fsc',
   },
   openGraph: {
-    title: 'FSc Pre-Medical MCQs: Biology, Chemistry & Physics | Imtehan',
+    title: 'FSc Pre-Medical MCQs: Biology, Chemistry & Physics',
     description: 'Chapter-wise FSc Pre-Medical MCQs for Biology, Chemistry & Physics. Aligned with Punjab Board curriculum. Practice sets of 20 questions.',
     url: 'https://imtehan.com/fsc',
     type: 'website',

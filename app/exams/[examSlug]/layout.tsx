@@ -127,7 +127,7 @@ export async function generateMetadata({
   const { examSlug } = await params
   const config = getExamConfig(examSlug)
 
-  if (!config) return { title: 'Exam Practice | Imtehan' }
+  if (!config) return { title: 'Exam Practice' }
 
   const seo = EXAM_SEO[examSlug]
   const categoryKws = CATEGORY_KEYWORDS[config.category] ?? []
@@ -137,7 +137,7 @@ export async function generateMetadata({
   const indexing = examIndexingMeta(examSlug, config.category, selfCanonical)
 
   return {
-    title: `${config.name} MCQs: Practice Sets with Answers | Imtehan`,
+    title: `${config.name} MCQs: Practice Sets with Answers`,
     description,
     keywords: [
       ...(seo?.keywords ?? []),
@@ -149,7 +149,7 @@ export async function generateMetadata({
     robots: indexing.robots,
     alternates: { canonical: indexing.canonical },
     openGraph: {
-      title: `${config.name} MCQs | Imtehan`,
+      title: `${config.name} MCQs`,
       description,
       url: `https://imtehan.com/exams/${examSlug}`,
       type: 'website',

@@ -12,13 +12,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category } = await params
   const content = getCategorySeoContent(category)
-  if (!content) return { title: 'Exams | Imtehan' }
+  if (!content) return { title: 'Exams' }
 
   const url = `https://imtehan.com/exams/category/${category}`
   const title = `${content.label} exams`
   const description = `Practice ${content.label} recruitment tests with subject-wise MCQs and mock tests on Imtehan.`
   return {
-    title: `${title} | Imtehan`,
+    title: title,
     description,
     alternates: { canonical: url },
     openGraph: { title, description, url, type: 'website' },

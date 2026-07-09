@@ -1,0 +1,272 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import { Play, Lock, CheckCircle } from 'lucide-react'
+import NavigationBar from '@/components/NavigationBar'
+import { createClient } from '@/lib/supabase/client'
+import { getFreshAuthUser } from '@/lib/auth/fresh-user'
+import { getExamConfig } from '@/lib/exam-configs'
+import SignInPopup from '@/components/auth/SignInPopup'
+import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { isActivePremium } from '@/lib/is-active-premium'
+import { tieredSetTableNavigation } from '@/lib/premium-gates'
+import { fetchRemoteCompletions } from '@/lib/completion'
+import { countUniqueForMode } from '@/lib/quiz-fetcher'
+import BatchSetPickerGrid, { setMcqRangeLabel } from '@/components/exams/BatchSetPickerGrid'
+
+const MODE_CONFIG = {
+  'most-repeated': { label: 'Most Repeated', description: 'High-yield frequently asked questions', dbType: 'most_repeated' as string | null },
+  'most-important': { label: 'Most Important', description: 'Critical must-know MCQs', dbType: 'most_important' as string | null },
+  'past-papers': { label: 'Past Papers', description: 'Past exam questions from a sister exam board', dbType: 'practice' as string | null },
+  practice: { label: 'Practice Mode', description: 'Mixed random sets from all types', dbType: null },
+}
+
+const SETS_PER_BATCH = 10
+
+const roundMCQs = (n: number) => {
+  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
+  if (n >= 1000) return `${(Math.floor(n / 100) * 100).toLocaleString()}+`
+  if (n >= 100) return `${Math.floor(n / 10) * 10}+`
+  return `${n}`
+}
+
+export function ModeSetPicker() {
+  const params = useParams()
+  const router = useRouter()
+  const examSlug = params.examSlug as string
+  const subjectSlug = params.subjectSlug as string
+  const mode = params.mode as string
+
+  const [selectedBatch, setSelectedBatch] = useState(1)
+  const [totalMCQs, setTotalMCQs] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
+  const [showSignIn, setShowSignIn] = useState(false)
+  const [completedSets, setCompletedSets] = useState<Record<number, number>>({})
+
+  const modeConfig = MODE_CONFIG[mode as keyof typeof MODE_CONFIG]
+  const examConfig = getExamConfig(examSlug)
+
+  useEffect(() => {
+    async function fetchUser() {
+      setUser(await getFreshAuthUser())
+    }
+    fetchUser()
+  }, [])
+
+  useEffect(() => {
+    if (!examSlug || !subjectSlug || !mode) return
+    let cancelled = false
+    try {
+      const key = `imtehan_set_done_${examSlug}_${subjectSlug}_${mode}`
+      const stored = JSON.parse(localStorage.getItem(key) || '{}')
+      const mapped: Record<number, number> = {}
+      for (const [k, v] of Object.entries(stored)) mapped[Number(k)] = Number(v)
+      setCompletedSets(mapped)
+    } catch { /* storage unavailable */ }
+    fetchRemoteCompletions(`exams-set:${examSlug}:${subjectSlug}:${mode}`).then((remote) => {
+      if (cancelled || Object.keys(remote).length === 0) return
+      setCompletedSets((prev) => {
+        const next = { ...prev }
+        for (const [k, v] of Object.entries(remote)) {
+          const n = Number(k)
+          if (next[n] == null || v > next[n]) next[n] = v
+        }
+        return next
+      })
+    })
+    return () => { cancelled = true }
+  }, [examSlug, subjectSlug, mode])
+
+  const isPremium = isActivePremium(user)
+
+  const handleSetClick = (setNum: number) => {
+    const next = tieredSetTableNavigation(setNum, !!user, isPremium)
+    if (next === 'require_sign_in') {
+      setShowSignIn(true)
+      return
+    }
+    if (next === 'require_premium') {
+      router.push(PREMIUM_PAGE_PATH)
+      return
+    }
+    router.push(`/exams/${examSlug}/${subjectSlug}/${mode}/set/${setNum}`)
+  }
+
+  useEffect(() => {
+    async function fetchCount() {
+      const config = getExamConfig(examSlug)
+      const section = config?.sections.find((s) => s.slug === subjectSlug)
+      if (!section || !modeConfig) {
+        setLoading(false)
+        return
+      }
+
+      const supabase = createClient()
+      try {
+        const unique = await countUniqueForMode(supabase, {
+          dbTable: section.dbTable,
+          mode: modeConfig.dbType ?? 'mixed',
+          noTypeFilter: section.noTypeFilter,
+          subjectField: section.subjectField,
+          targetExam:
+            mode === 'past-papers' && config?.pastPapersExam
+              ? config.pastPapersExam
+              : undefined,
+        })
+        setTotalMCQs(unique)
+      } catch {
+        setTotalMCQs(0)
+      }
+      setLoading(false)
+    }
+    fetchCount()
+  }, [examSlug, subjectSlug, mode, modeConfig])
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[40vh] items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-b-2 border-blue-600" />
+          <p className="mt-3 text-sm text-gray-500">Loading sets…</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!modeConfig) return null
+
+  const totalSets = Math.ceil(totalMCQs / 20)
+  const totalBatches = Math.ceil(totalSets / SETS_PER_BATCH)
+  const startSet = (selectedBatch - 1) * SETS_PER_BATCH + 1
+  const endSet = Math.min(selectedBatch * SETS_PER_BATCH, totalSets)
+  const setsInBatch = Array.from({ length: endSet - startSet + 1 }, (_, i) => startSet + i)
+
+  return (
+    <>
+      <div className="min-h-screen bg-gray-50">
+        <NavigationBar />
+
+        <div className="container mx-auto max-w-7xl px-4 py-6">
+          <p className="mb-5 text-sm text-gray-500">
+            {modeConfig.description} ·{' '}
+            <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>
+            {' '}· <span className="font-medium text-gray-700">{totalBatches} batches</span>
+          </p>
+
+          <BatchSetPickerGrid
+            totalBatches={totalBatches}
+            totalSets={totalSets}
+            selectedBatch={selectedBatch}
+            onSelectBatch={setSelectedBatch}
+            setsPerBatch={SETS_PER_BATCH}
+          >
+            {setsInBatch.map((setNum) => {
+              const nav = tieredSetTableNavigation(setNum, !!user, isPremium)
+              const needSignIn = nav === 'require_sign_in'
+              const needPremium = nav === 'require_premium'
+              const isSetLocked = needSignIn || needPremium
+              const isCompleted = !isSetLocked && completedSets[setNum] != null
+              const score = isCompleted ? Math.round(completedSets[setNum]) : null
+
+              return (
+                <button
+                  key={setNum}
+                  onClick={() => handleSetClick(setNum)}
+                  className={`w-full rounded-lg border px-2 py-2 text-left transition-all md:px-4 md:py-3 ${
+                    isSetLocked
+                      ? 'cursor-pointer border-gray-100 bg-gray-50 hover:border-gray-200'
+                      : isCompleted
+                        ? 'border-emerald-100 bg-emerald-50 hover:border-emerald-200 hover:shadow-sm'
+                        : 'border-transparent bg-gray-50 hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex min-w-0 flex-1 items-center gap-2 md:gap-3">
+                      <div
+                        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg md:h-10 md:w-10 ${
+                          isSetLocked ? 'bg-gray-200' : isCompleted ? 'bg-emerald-500' : 'bg-blue-600'
+                        }`}
+                      >
+                        {isSetLocked ? (
+                          <Lock className="h-4 w-4 text-gray-400" />
+                        ) : isCompleted ? (
+                          <CheckCircle className="h-4 w-4 text-white md:h-5 md:w-5" />
+                        ) : (
+                          <span className="text-sm font-bold text-white">{setNum}</span>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div
+                          className={`text-xs font-semibold md:text-sm ${
+                            isSetLocked ? 'text-gray-400' : isCompleted ? 'text-emerald-800' : 'text-gray-900'
+                          }`}
+                        >
+                          Set {setNum}
+                          {needSignIn && (
+                            <span className="ml-1.5 rounded-full bg-blue-100 px-1.5 py-0.5 text-[9px] font-semibold text-blue-700">
+                              Sign In
+                            </span>
+                          )}
+                          {needPremium && (
+                            <span className="ml-1.5 rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700">
+                              Premium
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-0.5 text-[10px] text-gray-400 md:text-xs">
+                          {isSetLocked
+                            ? needSignIn
+                              ? 'Sign in free to unlock'
+                              : 'Premium required'
+                            : isCompleted
+                              ? `Completed · ${score}% score`
+                              : setMcqRangeLabel(setNum, totalMCQs)}
+                        </div>
+                      </div>
+                    </div>
+                    {isSetLocked ? (
+                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-400">
+                        Unlock
+                      </span>
+                    ) : isCompleted ? (
+                      <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                        {score}%
+                      </span>
+                    ) : (
+                      <Play className="h-4 w-4 flex-shrink-0 fill-current text-blue-600 md:h-5 md:w-5" />
+                    )}
+                  </div>
+                </button>
+              )
+            })}
+          </BatchSetPickerGrid>
+
+          {!isPremium && (
+            <div className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-blue-200 bg-blue-50 p-4">
+              <div>
+                <p className="text-sm font-semibold text-blue-900">
+                  {!user ? 'Sign in free to unlock Set 3 · Premium unlocks everything' : 'Set 4+ requires Premium'}
+                </p>
+                <p className="mt-0.5 text-xs text-blue-600">Unlimited sets, all mock tests, and solved papers</p>
+              </div>
+              <button
+                onClick={() => (user ? router.push(PREMIUM_PAGE_PATH) : setShowSignIn(true))}
+                className="flex-shrink-0 rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700"
+              >
+                {user ? 'Upgrade' : 'Sign In'}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <SignInPopup
+        isOpen={showSignIn}
+        onClose={() => setShowSignIn(false)}
+        message="Sign in to access more practice sets"
+      />
+    </>
+  )
+}

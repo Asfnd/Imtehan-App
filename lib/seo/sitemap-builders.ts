@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
-import { PRACTICE_MODES } from '@/lib/seo/sitemap-tiers'
+import { PRACTICE_MODES, isModeIndexable } from '@/lib/seo/sitemap-tiers'
 import { CATEGORY_SLUGS } from '@/lib/seo/categoryContent'
 
 export const BASE_URL = 'https://imtehan.com'
@@ -173,11 +173,12 @@ export function buildModesSitemap(): MetadataRoute.Sitemap {
   for (const [slug, config] of Object.entries(EXAM_CONFIGS)) {
     for (const section of config.sections) {
       for (const mode of PRACTICE_MODES) {
+        if (!isModeIndexable(slug, config.category, mode)) continue
         entries.push({
           url: `${BASE_URL}/exams/${slug}/${section.slug}/${mode}`,
           lastModified: lm,
           changeFrequency: 'weekly',
-          priority: 0.72,
+          priority: mode === 'past-papers' ? 0.75 : 0.72,
         })
       }
     }

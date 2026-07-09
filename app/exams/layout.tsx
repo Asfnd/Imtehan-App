@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 const BASE = 'https://imtehan.com'
 
 export const metadata: Metadata = {
-  title: 'CSS, PMS, MDCAT, PPSC & 200+ Exams to Practice | Imtehan',
+  title: 'CSS, PMS, MDCAT, PPSC & 200+ Exams to Practice',
   description:
     'Practice 200+ Pakistani competitive exams in one place: CSS, PMS, MDCAT, PPSC, FPSC, NTS, police, and engineering tests. 150,000+ subject-wise MCQs with answers, past papers and mock tests.',
   keywords: [
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: `${BASE}/exams` },
   openGraph: {
-    title: 'Browse 200+ Competitive Exams | Imtehan',
+    title: 'Browse 200+ Competitive Exams',
     description:
       'CSS, PMS, MDCAT, PPSC, FPSC and 200+ more. 150,000+ MCQs, past papers and mock tests in one platform.',
     url: `${BASE}/exams`,

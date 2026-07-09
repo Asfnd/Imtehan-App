@@ -38,9 +38,9 @@ export async function generateMetadata({
   const modeMeta = MODE_LABELS[mode] ?? { label: mode, desc: 'practice' }
 
   const selfCanonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}/${mode}`
-  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical)
+  const indexing = examIndexingMeta(examSlug, config?.category, selfCanonical, { mode })
 
-  const title = `${examName} ${subjectName} ${modeMeta.label} MCQs Solved Online | Imtehan`
+  const title = `${examName} ${subjectName} ${modeMeta.label} MCQs Solved Online`
   const description = `Free ${examName} ${subjectName} ${modeMeta.desc} MCQs with solved answers. Practice online in sets of 20  -  most repeated & past paper questions for Pakistan competitive exams.`
 
   return {

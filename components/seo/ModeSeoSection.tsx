@@ -1,10 +1,12 @@
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { getExamConfig } from '@/lib/exam-configs'
 import { getModeSeoContent, subjectLabel } from '@/lib/seo/examContent'
 import type { SampleMcq } from '@/lib/seo/fetch-sample-mcqs'
 import { correctOptionText } from '@/lib/seo/fetch-sample-mcqs'
 import { breadcrumbListNode, jsonLdString } from '@/lib/seo/jsonld'
 import { PRACTICE_MODES } from '@/lib/seo/sitemap-tiers'
+import { SeoDiscoverDetails, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 const MODE_LABELS: Record<string, string> = {
   'most-repeated': 'Most Repeated',
@@ -13,21 +15,23 @@ const MODE_LABELS: Record<string, string> = {
   practice: 'Practice',
 }
 
-export default function ModeSeoSection({
+export function ModeSeoShell({
   examSlug,
   subjectSlug,
   mode,
   sampleMcqs,
+  children,
 }: {
   examSlug: string
   subjectSlug: string
   mode: string
   sampleMcqs: SampleMcq[]
+  children: ReactNode
 }) {
   const config = getExamConfig(examSlug)
-  if (!config) return null
+  if (!config) return <>{children}</>
   const section = config.sections.find((s) => s.slug === subjectSlug)
-  if (!section) return null
+  if (!section) return <>{children}</>
 
   const subjectName = subjectLabel(subjectSlug)
   const { h1, examName, modeLabel, intro, faqs } = getModeSeoContent(
@@ -61,11 +65,6 @@ export default function ModeSeoSection({
         description: intro,
         inLanguage: 'en-PK',
         isPartOf: { '@id': 'https://imtehan.com/#website' },
-        about: {
-          '@type': 'EducationalOccupationalProgram',
-          name: examName,
-          provider: { '@type': 'Organization', name: 'Imtehan' },
-        },
       },
       {
         '@type': 'FAQPage',
@@ -90,12 +89,6 @@ export default function ModeSeoSection({
                 eduQuestionType: 'Multiple choice',
                 text: mcq.question,
                 acceptedAnswer: { '@type': 'Answer', text: correctOptionText(mcq) },
-                suggestedAnswer: [
-                  { '@type': 'Answer', text: mcq.option_a },
-                  { '@type': 'Answer', text: mcq.option_b },
-                  { '@type': 'Answer', text: mcq.option_c },
-                  { '@type': 'Answer', text: mcq.option_d },
-                ],
               })),
             },
           ]
@@ -103,112 +96,93 @@ export default function ModeSeoSection({
     ],
   }
 
-  return (
-    <section aria-label={`${examName} ${subjectName} ${modeLabel} guide`} className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
+  const shortIntro = intro.length > 160 ? `${intro.slice(0, 157)}…` : intro
 
-      <nav aria-label="Breadcrumb" className="mb-4 text-sm text-gray-500">
-        <Link href="/" className="hover:text-blue-600">Home</Link>
-        <span className="mx-1.5">/</span>
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
+      <SeoPageHeader title={h1} subtitle={shortIntro} />
+
+      <nav aria-label="Breadcrumb" className="border-b border-gray-100 bg-white px-4 py-2 text-xs text-gray-500 sm:px-6">
         <Link href="/exams" className="hover:text-blue-600">Exams</Link>
-        <span className="mx-1.5">/</span>
+        <span className="mx-1">/</span>
         <Link href={`/exams/${examSlug}`} className="hover:text-blue-600">{examName}</Link>
-        <span className="mx-1.5">/</span>
+        <span className="mx-1">/</span>
         <Link href={subjectUrl} className="hover:text-blue-600">{subjectName}</Link>
-        <span className="mx-1.5">/</span>
-        <span className="text-gray-900">{modeLabel}</span>
+        <span className="mx-1">/</span>
+        <span className="text-gray-800">{modeLabel}</span>
       </nav>
 
-      <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{h1}</h1>
-        <p className="mt-4 text-[15px] leading-relaxed text-gray-600">{intro}</p>
+      {children}
 
-        <div className="mt-6">
-          <h2 className="text-sm font-semibold text-gray-900">Other {examName} {subjectName} modes</h2>
-          <ul className="mt-2 flex flex-wrap gap-2">
-            {siblingModes.map((m) => (
-              <li key={m}>
+      <SeoDiscoverDetails label="Sample questions & FAQs" hint={`${sampleMcqs.length} preview MCQs`}>
+        <ul className="mb-4 flex flex-wrap gap-2">
+          {siblingModes.map((m) => (
+            <li key={m}>
+              <Link
+                href={`${subjectUrl}/${m}`}
+                className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
+              >
+                {MODE_LABELS[m] ?? m}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {sampleMcqs.length > 0 && (
+          <ol className="space-y-4">
+            {sampleMcqs.map((mcq, i) => (
+              <li key={i} className="rounded-lg border border-gray-100 bg-gray-50 p-3 text-sm">
+                <p className="font-medium text-gray-900">
+                  Q{i + 1}. {mcq.question}
+                </p>
+                <ul className="mt-1.5 space-y-0.5 text-gray-600">
+                  <li>A) {mcq.option_a}</li>
+                  <li>B) {mcq.option_b}</li>
+                  <li>C) {mcq.option_c}</li>
+                  <li>D) {mcq.option_d}</li>
+                </ul>
+                <p className="mt-1.5 text-xs font-medium text-green-700">
+                  Answer: {correctOptionText(mcq)}
+                </p>
+              </li>
+            ))}
+          </ol>
+        )}
+
+        {relatedSubjects.length > 0 && (
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {relatedSubjects.map((s) => (
+              <li key={s.slug}>
                 <Link
-                  href={`${subjectUrl}/${m}`}
-                  className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
+                  href={`/exams/${examSlug}/${s.slug}/${mode}`}
+                  className="inline-flex rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-700"
                 >
-                  {MODE_LABELS[m] ?? m}
+                  {s.label}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
-
-        {relatedSubjects.length > 0 && (
-          <div className="mt-4">
-            <h2 className="text-sm font-semibold text-gray-900">More {examName} subjects</h2>
-            <ul className="mt-2 flex flex-wrap gap-2">
-              {relatedSubjects.map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    href={`/exams/${examSlug}/${s.slug}/${mode}`}
-                    className="inline-flex rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700 hover:border-blue-300"
-                  >
-                    {s.label} {MODE_LABELS[mode] ?? mode}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         )}
 
-        {sampleMcqs.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Sample {examName} {subjectName} {modeLabel.toLowerCase()} questions
-            </h2>
-            <ol className="mt-4 space-y-6">
-              {sampleMcqs.map((mcq, i) => (
-                <li key={i} className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-                  <p className="text-sm font-medium text-gray-900">
-                    <span className="text-gray-500">Q{i + 1}.</span> {mcq.question}
-                  </p>
-                  <ul className="mt-2 space-y-1 text-sm text-gray-600">
-                    <li>A) {mcq.option_a}</li>
-                    <li>B) {mcq.option_b}</li>
-                    <li>C) {mcq.option_c}</li>
-                    <li>D) {mcq.option_d}</li>
-                  </ul>
-                  <p className="mt-2 text-xs font-medium text-green-700">
-                    Answer: {correctOptionText(mcq)}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        )}
-
-        <div className="mt-10">
-          <h2 className="text-lg font-semibold text-gray-900">Frequently asked questions</h2>
-          <div className="mt-4 divide-y divide-gray-100">
-            {faqs.map((f) => (
-              <div key={f.question} className="py-4">
-                <h3 className="text-[15px] font-semibold text-gray-900">{f.question}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{f.answer}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-4 divide-y divide-gray-100">
+          {faqs.map((f) => (
+            <div key={f.question} className="py-3 first:pt-0">
+              <h3 className="text-sm font-semibold text-gray-900">{f.question}</h3>
+              <p className="mt-1 text-sm text-gray-600">{f.answer}</p>
+            </div>
+          ))}
         </div>
-
-        <p className="mt-8 text-sm text-gray-500">
-          <Link href={subjectUrl} className="font-medium text-blue-600 hover:underline">
-            All {examName} {subjectName} modes
-          </Link>
-          {' · '}
-          <Link href={`/exams/category/${config.category}`} className="font-medium text-blue-600 hover:underline">
-            {config.category.toUpperCase()} exam guide
-          </Link>
-          {' · '}
-          <Link href={`/exams/${examSlug}`} className="font-medium text-blue-600 hover:underline">
-            {examName} subjects
-          </Link>
-        </p>
-      </div>
-    </section>
+      </SeoDiscoverDetails>
+    </>
   )
+}
+
+export default function ModeSeoSection(props: {
+  examSlug: string
+  subjectSlug: string
+  mode: string
+  sampleMcqs: SampleMcq[]
+}) {
+  return <ModeSeoShell {...props}>{null}</ModeSeoShell>
 }
