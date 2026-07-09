@@ -6,7 +6,7 @@ import type { SampleMcq } from '@/lib/seo/fetch-sample-mcqs'
 import { correctOptionText } from '@/lib/seo/fetch-sample-mcqs'
 import { breadcrumbListNode, jsonLdString } from '@/lib/seo/jsonld'
 import { PRACTICE_MODES } from '@/lib/seo/sitemap-tiers'
-import { SeoDiscoverDetails, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoDiscoverDetails, SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 const MODE_LABELS: Record<string, string> = {
   'most-repeated': 'Most Repeated',
@@ -103,19 +103,19 @@ export function ModeSeoShell({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
       <SeoPageHeader title={h1} subtitle={shortIntro} />
 
-      <nav aria-label="Breadcrumb" className="border-b border-gray-100 bg-white px-4 py-2 text-xs text-gray-500 sm:px-6">
-        <Link href="/exams" className="hover:text-blue-600">Exams</Link>
-        <span className="mx-1">/</span>
-        <Link href={`/exams/${examSlug}`} className="hover:text-blue-600">{examName}</Link>
-        <span className="mx-1">/</span>
-        <Link href={subjectUrl} className="hover:text-blue-600">{subjectName}</Link>
-        <span className="mx-1">/</span>
-        <span className="text-gray-800">{modeLabel}</span>
-      </nav>
+      <SeoCrawlNav label="Breadcrumb">
+        <Link href="/exams">Exams</Link>
+        <span> / </span>
+        <Link href={`/exams/${examSlug}`}>{examName}</Link>
+        <span> / </span>
+        <Link href={subjectUrl}>{subjectName}</Link>
+        <span> / </span>
+        <span>{modeLabel}</span>
+      </SeoCrawlNav>
 
       {children}
 
-      <SeoDiscoverDetails label="Sample questions & FAQs" hint={`${sampleMcqs.length} preview MCQs`}>
+      <SeoDiscoverDetails label="Sample questions and FAQs">
         <ul className="mb-4 flex flex-wrap gap-2">
           {siblingModes.map((m) => (
             <li key={m}>

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import type { ExamConfig } from '@/lib/exam-configs'
 import { getExamSeoContent } from '@/lib/seo/examContent'
 import { getRelatedExamSlugs } from '@/lib/seo/related-exams'
-import { SeoDiscoverDetails, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoDiscoverDetails, SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 export function ExamSeoShell({
   slug,
@@ -37,25 +37,20 @@ export function ExamSeoShell({
       <SeoPageHeader title={h1} subtitle={shortIntro} />
 
       {subjects.length > 0 && (
-        <nav aria-label={`${config.name} subjects`} className="border-b border-gray-100 bg-white">
-          <ul className="mx-auto flex max-w-7xl flex-wrap gap-2 px-4 py-2.5 sm:px-6">
+        <SeoCrawlNav label={`${config.name} subjects`}>
+          <ul>
             {subjects.map((s) => (
               <li key={s.slug}>
-                <Link
-                  href={`/exams/${slug}/${s.slug}`}
-                  className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
-                >
-                  {s.label}
-                </Link>
+                <Link href={`/exams/${slug}/${s.slug}`}>{s.label}</Link>
               </li>
             ))}
           </ul>
-        </nav>
+        </SeoCrawlNav>
       )}
 
       {children}
 
-      <SeoDiscoverDetails label={`About ${config.name}`} hint="Syllabus, prep tips & FAQs">
+      <SeoDiscoverDetails label={`About ${config.name}`}>
         <p className="text-sm leading-relaxed text-gray-600">{intro}</p>
 
         {facts.length > 0 && (

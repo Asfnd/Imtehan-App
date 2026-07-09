@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { getCategorySeoContent } from '@/lib/seo/categoryContent'
@@ -57,7 +56,7 @@ export function CategoryHubShell({
 
       {children}
 
-      <SeoDiscoverDetails label={`${content.label} preparation guide`} hint="Highlights, prep steps & FAQs">
+      <SeoDiscoverDetails label={`${content.label} preparation guide`}>
         <div>
           <h3 className="mb-2 text-sm font-semibold text-gray-800">What you need to know</h3>
           <ul className="space-y-1.5">

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { getExamConfig } from '@/lib/exam-configs'
 import { getSubjectSeoContent } from '@/lib/seo/examContent'
 import { getRelatedExamSlugs } from '@/lib/seo/related-exams'
-import { SeoDiscoverDetails, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoDiscoverDetails, SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 export function SubjectSeoShell({
   examSlug,
@@ -46,24 +46,19 @@ export function SubjectSeoShell({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <SeoPageHeader title={h1} subtitle={shortIntro} />
 
-      <nav aria-label="Practice modes" className="border-b border-gray-100 bg-white">
-        <ul className="mx-auto flex max-w-7xl flex-wrap gap-2 px-4 py-2.5 sm:px-6">
+      <SeoCrawlNav label="Practice modes">
+        <ul>
           {modes.map((m) => (
             <li key={m.slug}>
-              <Link
-                href={`${subjectBase}/${m.slug}`}
-                className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
-              >
-                {m.label}
-              </Link>
+              <Link href={`${subjectBase}/${m.slug}`}>{m.label}</Link>
             </li>
           ))}
         </ul>
-      </nav>
+      </SeoCrawlNav>
 
       {children}
 
-      <SeoDiscoverDetails label={`${subjectName} guide`} hint="Practice modes & FAQs">
+      <SeoDiscoverDetails label={`${subjectName} guide`}>
         <p className="text-sm leading-relaxed text-gray-600">{intro}</p>
 
         {related.length > 0 && (

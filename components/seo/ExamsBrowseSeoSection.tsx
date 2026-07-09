@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { CATEGORY_SLUGS, getCategorySeoContent } from '@/lib/seo/categoryContent'
 import { getFeaturedExams } from '@/lib/seo/related-exams'
-import { SeoDiscoverDetails, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoDiscoverDetails, SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 const CATEGORY_LABELS: Record<string, string> = {
   medical: 'MDCAT',
@@ -81,24 +81,21 @@ export function ExamsBrowseShell({ children }: { children: ReactNode }) {
         subtitle="CSS, PMS, MDCAT, PPSC, FIA, NTS, police, military & engineering entry tests."
       />
 
-      <nav aria-label="Exam categories" className="border-b border-gray-100 bg-white">
-        <ul className="mx-auto flex max-w-7xl flex-wrap gap-2 px-4 py-2.5 sm:px-6">
+      <SeoCrawlNav label="Exam categories">
+        <ul>
           {CATEGORY_SLUGS.map((slug) => (
             <li key={slug}>
-              <Link
-                href={`/exams/category/${slug}`}
-                className="inline-flex rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700 hover:border-blue-300 hover:bg-blue-50"
-              >
+              <Link href={`/exams/category/${slug}`}>
                 {CATEGORY_LABELS[slug] ?? slug.toUpperCase()}
               </Link>
             </li>
           ))}
         </ul>
-      </nav>
+      </SeoCrawlNav>
 
       {children}
 
-      <SeoDiscoverDetails label="Exam preparation guide" hint="Categories, popular exams & FAQs">
+      <SeoDiscoverDetails label="Exam preparation guide">
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORY_SLUGS.map((slug) => {
             const content = getCategorySeoContent(slug)
