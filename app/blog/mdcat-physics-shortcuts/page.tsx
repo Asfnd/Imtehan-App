@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'MDCAT Physics: The Art of Solving Without a Calculator | Imtehan',
+  title: 'MDCAT Physics: The Art of Solving Without a Calculator',
   description: 'Most MDCAT Physics questions are designed to be solved without long calculations. Learn the "No-Math" tricks like Dimensional Analysis and Ratio Scaling to save time.',
   alternates: { canonical: 'https://imtehan.com/blog/mdcat-physics-shortcuts' },
   openGraph: {

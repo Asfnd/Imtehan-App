@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Time Management During the CSS Exam | Imtehan',
+  title: 'Time Management During the CSS Exam',
   description: 'Three hours sounds like enough time until you are sitting in the hall. Here is how to pace yourself through the CSS MCQ paper without running out of time.',
   alternates: { canonical: 'https://imtehan.com/blog/time-management-css-exam' },
   openGraph: {

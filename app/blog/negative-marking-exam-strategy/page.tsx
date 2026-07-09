@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Negative Marking: The Strategy Most Candidates Get Completely Wrong | Imtehan',
+  title: 'Negative Marking: The Strategy Most Candidates Get Completely Wrong',
   description: 'Negative marking does not mean guess less. It means guess smarter. Here is the exact math behind when to attempt, when to skip, and when to change your answer.',
   alternates: { canonical: 'https://imtehan.com/blog/negative-marking-exam-strategy' },
   openGraph: {

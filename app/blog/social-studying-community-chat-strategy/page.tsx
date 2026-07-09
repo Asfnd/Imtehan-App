@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Social Studying: Using Community Chat to Boost Your Score | Imtehan',
+  title: 'Social Studying: Using Community Chat to Boost Your Score',
   description: 'How to use the Imtehan Community Chat to leverage the Protégé Effect, solve complex MCQs, and stay motivated through the toughest exam seasons.',
   alternates: { canonical: 'https://imtehan.com/blog/social-studying-community-chat-strategy' },
   openGraph: {

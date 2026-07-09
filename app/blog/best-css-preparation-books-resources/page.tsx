@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Preparation Books: What to Actually Use and What to Skip | Imtehan',
+  title: 'CSS Preparation Books: What to Actually Use and What to Skip',
   description: 'The market for CSS preparation books is flooded. Here is an honest guide to the resources that are genuinely useful and the ones that waste your time.',
   alternates: { canonical: 'https://imtehan.com/blog/best-css-preparation-books-resources' },
   openGraph: {

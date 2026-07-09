@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Compulsory Subjects: What You Are Actually Dealing With | Imtehan',
+  title: 'CSS Compulsory Subjects: What You Are Actually Dealing With',
   description: 'Seven compulsory subjects, each with its own logic. Here is an honest look at what each one demands and where most candidates go wrong.',
   alternates: { canonical: 'https://imtehan.com/blog/css-compulsory-subjects-overview' },
   openGraph: {

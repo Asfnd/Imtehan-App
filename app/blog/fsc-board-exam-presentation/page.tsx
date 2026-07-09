@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'FSc Board Exams: The "Examiner Psychology" Hack for Paper Presentation | Imtehan',
+  title: 'FSc Board Exams: The "Examiner Psychology" Hack for Paper Presentation',
   description: 'In FSc, presentation is 50% of your marks. Learn how to structure headings, use blue/black markers, and make your paper "easy to check" for maximum marks.',
   alternates: { canonical: 'https://imtehan.com/blog/fsc-board-exam-presentation' },
   openGraph: {

@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'How to Score 7 Bands in IELTS Without Coaching | Imtehan',
+  title: 'How to Score 7 Bands in IELTS Without Coaching',
   description: 'A module-by-module breakdown of what IELTS actually tests and how to score 7+ bands through self-study, without spending Rs. 50,000 on a coaching centre.',
   alternates: { canonical: 'https://imtehan.com/blog/ielts-7-band-without-coaching' },
   openGraph: {

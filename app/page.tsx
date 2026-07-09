@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'Imtehan',
     images: [
       {
-        url: 'https://imtehan.com/og-image.svg',
+        url: 'https://imtehan.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Imtehan - CSS & MPT Exam Preparation',

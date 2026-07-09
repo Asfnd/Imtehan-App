@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Why Smart Students Fail Exams (And Average Ones Make Merit List) | Imtehan',
+  title: 'Why Smart Students Fail Exams (And Average Ones Make Merit List)',
   description: 'Intelligence is not the bottleneck in CSS, MDCAT, or PPSC. Here is the real reason smart candidates keep missing the cut-off while less-prepared ones get selected.',
   alternates: { canonical: 'https://imtehan.com/blog/why-smart-students-fail-exams' },
   openGraph: {

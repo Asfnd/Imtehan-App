@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'PPSC Paper Pattern Decoded: What 10 Years of Past Papers Reveal | Imtehan',
+  title: 'PPSC Paper Pattern Decoded: What 10 Years of Past Papers Reveal',
   description: 'An honest analysis of PPSC General Recruitment paper patterns: which subjects repeat most, how marks are distributed, and the two mistakes that cost most candidates their score.',
   alternates: { canonical: 'https://imtehan.com/blog/ppsc-paper-pattern-decoded' },
   openGraph: {

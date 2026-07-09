@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Is a Coaching Academy (KIPS, AKS) Worth It? An Honest Answer | Imtehan',
+  title: 'Is a Coaching Academy (KIPS, AKS) Worth It? An Honest Answer',
   description: 'Half a million students enrol in KIPS, AKS, and similar academies every year. Some get real results. Many do not. Here is what actually determines which group you end up in.',
   alternates: { canonical: 'https://imtehan.com/blog/is-coaching-academy-worth-it' },
   openGraph: {

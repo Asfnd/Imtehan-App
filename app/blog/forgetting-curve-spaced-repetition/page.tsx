@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Why You Forget Everything You Study (And How to Fix It) | Imtehan',
+  title: 'Why You Forget Everything You Study (And How to Fix It)',
   description: 'The science behind the forgetting curve and how spaced repetition with MCQ practice can permanently fix your memory, for CSS, MDCAT, and PPSC.',
   alternates: { canonical: 'https://imtehan.com/blog/forgetting-curve-spaced-repetition' },
   openGraph: {

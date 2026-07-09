@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'What to Do the Night Before Your Exam (And What to Avoid) | Imtehan',
+  title: 'What to Do the Night Before Your Exam (And What to Avoid)',
   description: 'The night before the CSS, MDCAT, or PPSC exam has one job: protect your preparation. Here is the exact routine that keeps six months of study intact.',
   alternates: { canonical: 'https://imtehan.com/blog/night-before-exam-strategy' },
   openGraph: {

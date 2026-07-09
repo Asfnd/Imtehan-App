@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Current Affairs for CSS: How to Stay on Top Without Drowning | Imtehan',
+  title: 'Current Affairs for CSS: How to Stay on Top Without Drowning',
   description: 'Current affairs is the most open-ended part of CSS prep. Here is a focused system that keeps you informed without wasting hours daily.',
   alternates: { canonical: 'https://imtehan.com/blog/current-affairs-css-how-to-prepare' },
   openGraph: {

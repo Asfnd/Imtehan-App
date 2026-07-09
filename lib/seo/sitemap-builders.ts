@@ -12,6 +12,7 @@ import {
   maxIndexableTopicSetNumber,
   isExamTopicIndexable,
   isExamDifficultyIndexable,
+  isTopicBankSupported,
 } from '@/lib/seo/topic-indexing'
 import { TABLE_POPULAR_TAGS, MDCAT_TOPIC_VALUES } from '@/lib/topic-tags'
 import { CATEGORY_SLUGS } from '@/lib/seo/categoryContent'
@@ -117,6 +118,7 @@ export function buildCoreSitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}${PREMIUM_PAGE_PATH}`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${BASE_URL}/mpt-practice`, lastModified: lm, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/mpt-practice/past-papers`, lastModified: lm, changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${BASE_URL}/mpt-practice/live`, lastModified: lm, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${BASE_URL}/mdcat/biology`, lastModified: lm, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${BASE_URL}/mdcat/chemistry`, lastModified: lm, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${BASE_URL}/mdcat/physics`, lastModified: lm, changeFrequency: 'weekly', priority: 0.85 },
@@ -126,6 +128,10 @@ export function buildCoreSitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/mdcat/mock/etea`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/mdcat/mock/nums`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/mdcat/mock/aku`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE_URL}/mdcat/mock/uhs`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE_URL}/mdcat/mock/szabmu`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE_URL}/mdcat/mock/siba`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE_URL}/mdcat/mock/bumhs`, lastModified: staticLm, changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE_URL}/fsc/biology`, lastModified: lm, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/fsc/chemistry`, lastModified: lm, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/fsc/physics`, lastModified: lm, changeFrequency: 'weekly', priority: 0.8 },
@@ -171,7 +177,21 @@ export function buildExamsSitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'weekly',
         priority: hubPriority - 0.05,
       })
+      if (TABLE_POPULAR_TAGS[section.dbTable] && isTopicBankSupported(section.dbTable)) {
+        entries.push({
+          url: `${BASE_URL}/exams/${slug}/${section.slug}/topics`,
+          lastModified: lm,
+          changeFrequency: 'weekly',
+          priority: hubPriority - 0.08,
+        })
+      }
     }
+    entries.push({
+      url: `${BASE_URL}/exams/${slug}/mock`,
+      lastModified: lm,
+      changeFrequency: 'weekly',
+      priority: hubPriority - 0.03,
+    })
   }
   return entries
 }
@@ -229,7 +249,7 @@ export function buildTopicsSitemap(): MetadataRoute.Sitemap {
     const maxTopicSet = maxIndexableTopicSetNumber(slug)
     for (const section of config.sections) {
       const tags = TABLE_POPULAR_TAGS[section.dbTable]
-      if (tags) {
+      if (tags && isTopicBankSupported(section.dbTable)) {
         for (const tagSlug of tags) {
           if (!isExamTopicIndexable(slug, config.category, section.dbTable, tagSlug)) continue
           const hub = `${BASE_URL}/exams/${slug}/${section.slug}/topic/${tagSlug}`

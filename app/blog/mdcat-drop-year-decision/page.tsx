@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'The MDCAT Drop Year: What Nobody Tells You Before You Decide | Imtehan',
+  title: 'The MDCAT Drop Year: What Nobody Tells You Before You Decide',
   description: 'Taking a drop year to retry MDCAT is one of the most consequential decisions in Pakistani pre-medical life. Here is the honest version: costs, odds, and the alternative paths nobody discusses.',
   alternates: { canonical: 'https://imtehan.com/blog/mdcat-drop-year-decision' },
   openGraph: {

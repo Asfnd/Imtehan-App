@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'NUST, UET, or GIKI? Engineering Entry Tests in Pakistan Compared | Imtehan',
+  title: 'NUST, UET, or GIKI? Engineering Entry Tests in Pakistan Compared',
   description: 'NUST NET, UET ECAT, and GIKI entry tests test different things despite sharing the same syllabus. Here is what each rewards, and how to prepare for the one you are targeting.',
   alternates: { canonical: 'https://imtehan.com/blog/engineering-entry-test-pakistan' },
   openGraph: {

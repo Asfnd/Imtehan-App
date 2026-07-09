@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'FSc Chemistry Organic Section: How to Stop Dreading It and Start Scoring | Imtehan',
+  title: 'FSc Chemistry Organic Section: How to Stop Dreading It and Start Scoring',
   description: 'Most FSc students hate Organic Chemistry because they try to memorise reactions. Here is how understanding functional groups and practising board past papers changes everything.',
   alternates: { canonical: 'https://imtehan.com/blog/fsc-chemistry-organic-tips' },
   openGraph: {

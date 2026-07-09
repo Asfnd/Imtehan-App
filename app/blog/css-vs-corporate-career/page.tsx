@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS vs a Corporate Career: The Honest Comparison Nobody Makes | Imtehan',
+  title: 'CSS vs a Corporate Career: The Honest Comparison Nobody Makes',
   description: 'CSS is a powerful career path. But it deserves to be compared honestly: salary timelines, opportunity costs, and whether the service fits the person choosing it.',
   alternates: { canonical: 'https://imtehan.com/blog/css-vs-corporate-career' },
   openGraph: {

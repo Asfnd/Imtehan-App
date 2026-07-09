@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Viva Voce: What the Interview Actually Tests | Imtehan',
+  title: 'CSS Viva Voce: What the Interview Actually Tests',
   description: 'The CSS viva is not a knowledge test. It is a character and composure test. Most candidates prepare for the wrong thing.',
   alternates: { canonical: 'https://imtehan.com/blog/css-interview-preparation' },
   openGraph: {

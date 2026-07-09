@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Pakistan Affairs for CSS: How to Build a Timeline That Actually Helps | Imtehan',
+  title: 'Pakistan Affairs for CSS: How to Build a Timeline That Actually Helps',
   description: 'Memorizing dates in Pakistan Affairs is the wrong approach. Here is how to build a connected understanding that answers both factual and analytical questions.',
   alternates: { canonical: 'https://imtehan.com/blog/pakistan-affairs-important-facts-by-year' },
   openGraph: {

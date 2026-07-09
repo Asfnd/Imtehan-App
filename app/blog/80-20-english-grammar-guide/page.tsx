@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'The 80/20 of English Grammar: What Examiners Actually Care About | Imtehan',
+  title: 'The 80/20 of English Grammar: What Examiners Actually Care About',
   description: 'Stop studying useless grammar rules. Learn the high-yield topics like Subject-Verb Agreement, Prepositions, and Tenses that actually appear in CSS, PPSC, and FPSC exams.',
   alternates: { canonical: 'https://imtehan.com/blog/80-20-english-grammar-guide' },
   openGraph: {

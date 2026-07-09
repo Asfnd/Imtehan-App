@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Past Papers: Patterns, Surprises, and What to Expect | Imtehan',
+  title: 'CSS Past Papers: Patterns, Surprises, and What to Expect',
   description: 'Past papers reveal what CSS consistently tests and where candidates are regularly caught off guard. Here is what ten years of papers show.',
   alternates: { canonical: 'https://imtehan.com/blog/css-past-papers-analysis-what-to-expect' },
   openGraph: {

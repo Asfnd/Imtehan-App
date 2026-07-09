@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'How to Choose CSS Optional Subjects | Imtehan',
+  title: 'How to Choose CSS Optional Subjects',
   description: 'Choosing the wrong optional subjects wastes months of preparation. Here is the overlap-first framework that top scorers use.',
   alternates: { canonical: 'https://imtehan.com/blog/css-optional-subjects-guide' },
   openGraph: {

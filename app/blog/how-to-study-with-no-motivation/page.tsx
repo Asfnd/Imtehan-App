@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'How to Study When You Have Zero Motivation | Imtehan',
+  title: 'How to Study When You Have Zero Motivation',
   description: 'Motivation disappears during every long exam preparation. The candidates who make it through are not the most motivated. They are the ones who stopped waiting for it.',
   alternates: { canonical: 'https://imtehan.com/blog/how-to-study-with-no-motivation' },
   openGraph: {

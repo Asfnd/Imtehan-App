@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Why Your FSc Percentage Is a Trap for MDCAT Preparation | Imtehan',
+  title: 'Why Your FSc Percentage Is a Trap for MDCAT Preparation',
   description: 'Students with 95%+ FSc fail MDCAT every year. Students with 80% make the merit list. Here is the gap between board exam performance and MDCAT performance, and how to close it.',
   alternates: { canonical: 'https://imtehan.com/blog/fsc-marks-mdcat-trap' },
   openGraph: {

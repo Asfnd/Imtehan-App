@@ -48,6 +48,14 @@ export function ExamSeoShell({
         </SeoCrawlNav>
       )}
 
+      <SeoCrawlNav label="Full mock tests">
+        <ul>
+          <li>
+            <Link href={`/exams/${slug}/mock`}>{config.name} mock tests</Link>
+          </li>
+        </ul>
+      </SeoCrawlNav>
+
       {children}
 
       <SeoDiscoverDetails label={`About ${config.name}`}>

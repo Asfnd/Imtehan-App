@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'The Smart-Guessing Framework: How to Rule Out Options Like a Pro | Imtehan',
+  title: 'The Smart-Guessing Framework: How to Rule Out Options Like a Pro',
   description: 'Master the art of logical elimination and smart guessing for CSS, MDCAT, and PPSC exams. Learn how to increase your score when you don\'t know the answer.',
   alternates: { canonical: 'https://imtehan.com/blog/smart-guessing-mcq-strategy' },
   openGraph: {

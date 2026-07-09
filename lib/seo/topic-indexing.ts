@@ -44,7 +44,17 @@ export const MCQ_INDEXABLE_BANKS = new Set([
   'engineering_intelligence',
   'engineering_computer_science',
   'ethics_civics',
+  'issb_english',
+  'issb_mathematics',
+  'issb_general_knowledge',
+  'issb_pakistan_affairs',
+  'issb_intelligence',
 ])
+
+export function isTopicBankSupported(dbTable: string): boolean {
+  if (dbTable.startsWith('pms_')) return false
+  return !!TABLE_POPULAR_TAGS[dbTable]
+}
 
 export function isExamTopicIndexable(
   examSlug: string,
@@ -52,9 +62,9 @@ export function isExamTopicIndexable(
   dbTable: string,
   tagSlug: string,
 ): boolean {
+  if (!isTopicBankSupported(dbTable)) return false
   const tags = TABLE_POPULAR_TAGS[dbTable]
   if (!tags?.includes(tagSlug)) return false
-  // Index topic hubs for every exam that shares a tagged bank (unique URL per exam).
   return true
 }
 

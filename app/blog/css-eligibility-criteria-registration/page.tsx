@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Eligibility and Registration: What You Need to Know Before You Apply | Imtehan',
+  title: 'CSS Eligibility and Registration: What You Need to Know Before You Apply',
   description: 'Age limits, degree requirements, attempt limits, and the registration process. Everything you need confirmed before committing to CSS preparation.',
   alternates: { canonical: 'https://imtehan.com/blog/css-eligibility-criteria-registration' },
   openGraph: {

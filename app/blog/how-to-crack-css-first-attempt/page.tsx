@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'How to Crack CSS in First Attempt | Imtehan',
+  title: 'How to Crack CSS in First Attempt',
   description: 'The exact study system that first-attempt passers use. Not motivation: a repeatable method.',
   alternates: { canonical: 'https://imtehan.com/blog/how-to-crack-css-first-attempt' },
   openGraph: {

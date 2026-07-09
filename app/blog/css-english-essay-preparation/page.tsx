@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Essay Writing: The Framework That Gets High Marks | Imtehan',
+  title: 'CSS Essay Writing: The Framework That Gets High Marks',
   description: 'Most CSS essays fail not because of weak writing but because of weak thinking. Here is the argument-first framework that examiners reward.',
   alternates: { canonical: 'https://imtehan.com/blog/css-english-essay-preparation' },
   openGraph: {

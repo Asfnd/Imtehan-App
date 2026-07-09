@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Preparing for CSS While Working Full-Time: The Honest Guide | Imtehan',
+  title: 'Preparing for CSS While Working Full-Time: The Honest Guide',
   description: 'Thousands of employed candidates clear CSS every cycle. Here is the specific schedule, the trade-offs, and the preparation adjustments that make it possible without burning out.',
   alternates: { canonical: 'https://imtehan.com/blog/css-preparation-while-working' },
   openGraph: {

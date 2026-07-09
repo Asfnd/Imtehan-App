@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'NTS Test Preparation: Why Knowledgeable Candidates Keep Failing It | Imtehan',
+  title: 'NTS Test Preparation: Why Knowledgeable Candidates Keep Failing It',
   description: 'NTS GAT and NAT are speed and pattern recognition tests, not knowledge tests. Here is how to train specifically for what NTS measures, and stop plateauing.',
   alternates: { canonical: 'https://imtehan.com/blog/nts-test-preparation-strategy' },
   openGraph: {

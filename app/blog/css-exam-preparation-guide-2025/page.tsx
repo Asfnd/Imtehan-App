@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Exam Preparation Guide 2025 | Imtehan',
+  title: 'CSS Exam Preparation Guide 2025',
   description: 'A practical, no-fluff guide to preparing for the CSS exam in 2025. Covers structure, study strategy, and what actually gets you through.',
   alternates: { canonical: 'https://imtehan.com/blog/css-exam-preparation-guide-2025' },
   openGraph: {

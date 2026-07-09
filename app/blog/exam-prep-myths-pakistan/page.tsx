@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: '5 Things Pakistan\'s Exam Prep Culture Gets Completely Wrong | Imtehan',
+  title: '5 Things Pakistan\'s Exam Prep Culture Gets Completely Wrong',
   description: 'From the 18-hour study day myth to the noble suffering trap, an honest breakdown of the preparation beliefs that are actively hurting students across CSS, MDCAT, and PPSC.',
   alternates: { canonical: 'https://imtehan.com/blog/exam-prep-myths-pakistan' },
   openGraph: {

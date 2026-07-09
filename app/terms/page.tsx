@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button'
 import { ArrowLeft, Scale, FileText, Shield, CheckCircle } from 'lucide-react'
 
 export const metadata = {
-  title: 'Terms of Service | Imtehan',
+  title: 'Terms of Service',
   description: 'Read our terms of service. Understand the rules and conditions for using Imtehan CSS Practice Platform.',
   keywords: 'terms of service, conditions of use, user agreement'
 }

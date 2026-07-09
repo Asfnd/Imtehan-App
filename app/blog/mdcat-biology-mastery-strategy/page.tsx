@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'MDCAT Biology: Master the Most Rewarding Section | Imtehan',
+  title: 'MDCAT Biology: Master the Most Rewarding Section',
   description: 'How to score 95% in MDCAT Biology using the conceptual framework, avoiding rote memorization, and practicing with our 10,000+ specialized Biology MCQs.',
   alternates: { canonical: 'https://imtehan.com/blog/mdcat-biology-mastery-strategy' },
   openGraph: {

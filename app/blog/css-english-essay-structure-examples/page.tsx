@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS English Essay Structure: What a High-Scoring Essay Actually Looks Like | Imtehan',
+  title: 'CSS English Essay Structure: What a High-Scoring Essay Actually Looks Like',
   description: 'The structure of a CSS essay that scores 75+ is not complicated. Most candidates just never see one laid out clearly.',
   alternates: { canonical: 'https://imtehan.com/blog/css-english-essay-structure-examples' },
   openGraph: {

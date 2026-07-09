@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Mock Tests: How to Use Them So They Actually Help | Imtehan',
+  title: 'CSS Mock Tests: How to Use Them So They Actually Help',
   description: 'Most candidates take mock tests and move on. The ones who improve spend more time on the review than the test itself.',
   alternates: { canonical: 'https://imtehan.com/blog/css-mock-test-strategy' },
   openGraph: {

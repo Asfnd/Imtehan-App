@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { isTopicBankSupported, DIFFICULTY_LEVELS } from '@/lib/seo/topic-indexing'
 import { getExamConfig } from '@/lib/exam-configs'
 import { getSubjectSeoContent } from '@/lib/seo/examContent'
 import { getRelatedExamSlugs } from '@/lib/seo/related-exams'
@@ -55,6 +56,23 @@ export function SubjectSeoShell({
           ))}
         </ul>
       </SeoCrawlNav>
+
+      {isTopicBankSupported(config.sections.find((s) => s.slug === subjectSlug)?.dbTable ?? '') && (
+        <SeoCrawlNav label="Topic and difficulty practice">
+          <ul>
+            <li>
+              <Link href={`${subjectBase}/topics`}>All topics</Link>
+            </li>
+            {DIFFICULTY_LEVELS.map((level) => (
+              <li key={level}>
+                <Link href={`${subjectBase}/difficulty/${level}`}>
+                  {level.charAt(0).toUpperCase() + level.slice(1)} MCQs
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </SeoCrawlNav>
+      )}
 
       {children}
 

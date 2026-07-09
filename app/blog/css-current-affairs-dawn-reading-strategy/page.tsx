@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'How to Read Dawn for CSS Current Affairs (Without Wasting Your Morning) | Imtehan',
+  title: 'How to Read Dawn for CSS Current Affairs (Without Wasting Your Morning)',
   description: 'A practical system for reading Dawn newspaper for CSS Current Affairs: two-column notes, what to skip, and the weekly review method that makes facts actually stick.',
   alternates: { canonical: 'https://imtehan.com/blog/css-current-affairs-dawn-reading-strategy' },
   openGraph: {

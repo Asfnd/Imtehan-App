@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Islamic Studies for CSS: What the Exam Actually Tests | Imtehan',
+  title: 'Islamic Studies for CSS: What the Exam Actually Tests',
   description: 'CSS Islamic Studies rewards conceptual understanding over memorization. Here is how to prepare it the right way.',
   alternates: { canonical: 'https://imtehan.com/blog/islamic-studies-css-complete-syllabus' },
   openGraph: {

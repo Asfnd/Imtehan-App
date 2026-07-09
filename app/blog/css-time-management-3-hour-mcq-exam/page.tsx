@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS MCQ Exam: Managing Three Hours Without Running Out of Time | Imtehan',
+  title: 'CSS MCQ Exam: Managing Three Hours Without Running Out of Time',
   description: 'The CSS MCQ paper is three hours. Here is the exact pacing strategy that ensures you reach the last question with time left.',
   alternates: { canonical: 'https://imtehan.com/blog/css-time-management-3-hour-mcq-exam' },
   openGraph: {

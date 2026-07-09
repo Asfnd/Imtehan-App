@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'MDCAT Chemistry: The 5 Topics That Decide Your Score | Imtehan',
+  title: 'MDCAT Chemistry: The 5 Topics That Decide Your Score',
   description: 'Stop studying Chemistry equally. These five high-yield MDCAT Chemistry topics (Equilibrium, Periodicity, Organic, Electrochemistry, Thermodynamics) contribute the most marks.',
   alternates: { canonical: 'https://imtehan.com/blog/mdcat-chemistry-high-yield-topics' },
   openGraph: {

@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'Pakistan Affairs MCQs: What the Most Repeated Questions Actually Test | Imtehan',
+  title: 'Pakistan Affairs MCQs: What the Most Repeated Questions Actually Test',
   description: 'The most repeated Pakistan Affairs MCQs share a common pattern. Understanding that pattern is more valuable than memorizing individual answers.',
   alternates: { canonical: 'https://imtehan.com/blog/pakistan-affairs-mcqs-top-100-questions' },
   openGraph: {

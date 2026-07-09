@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'PPSC and FPSC Preparation: The General Knowledge Strategy | Imtehan',
+  title: 'PPSC and FPSC Preparation: The General Knowledge Strategy',
   description: 'Why most candidates fail the GK paper in PPSC and FPSC exams, and the exact strategy to score 80+ marks using active recall and smart testing.',
   alternates: { canonical: 'https://imtehan.com/blog/ppsc-fpsc-general-knowledge-strategy' },
   openGraph: {

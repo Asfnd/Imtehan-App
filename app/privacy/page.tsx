@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button'
 import { ArrowLeft, Shield, Lock, CheckCircle, Eye, Database, Users } from 'lucide-react'
 
 export const metadata = {
-  title: 'Privacy Policy | Imtehan',
+  title: 'Privacy Policy',
   description: 'Learn how Imtehan protects your personal data and privacy. Our comprehensive privacy policy explains data collection and usage.',
   keywords: 'privacy policy, data protection, user privacy'
 }

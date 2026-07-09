@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'General Knowledge for CSS: Why Candidates Underestimate It | Imtehan',
+  title: 'General Knowledge for CSS: Why Candidates Underestimate It',
   description: 'General Knowledge feels manageable until you start solving MCQs. Here is how to prepare it properly without it consuming your entire schedule.',
   alternates: { canonical: 'https://imtehan.com/blog/general-knowledge-css-exam' },
   openGraph: {

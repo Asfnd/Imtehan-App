@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Précis Writing: The Skill Nobody Teaches You Properly | Imtehan',
+  title: 'CSS Précis Writing: The Skill Nobody Teaches You Properly',
   description: 'Précis is the most mechanical skill in CSS English, and the most neglected. Here is how to develop it in six weeks.',
   alternates: { canonical: 'https://imtehan.com/blog/css-english-precis-composition-tips' },
   openGraph: {

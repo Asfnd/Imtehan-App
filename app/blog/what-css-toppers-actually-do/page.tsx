@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'What CSS Toppers Actually Do (That They Don\'t Mention in Interviews) | Imtehan',
+  title: 'What CSS Toppers Actually Do (That They Don\'t Mention in Interviews)',
   description: 'The advice CSS toppers give in newspapers is polished and safe. The actual preparation habits that produced their scores are often different, and more honest.',
   alternates: { canonical: 'https://imtehan.com/blog/what-css-toppers-actually-do' },
   openGraph: {

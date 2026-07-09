@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'The Real Reason You Keep Failing Mock Tests (It\'s Not What You Think) | Imtehan',
+  title: 'The Real Reason You Keep Failing Mock Tests (It\'s Not What You Think)',
   description: 'Mock scores that refuse to improve despite more studying are almost always one of four specific problems, each with a direct fix that has nothing to do with studying more.',
   alternates: { canonical: 'https://imtehan.com/blog/why-you-fail-mock-tests' },
   openGraph: {

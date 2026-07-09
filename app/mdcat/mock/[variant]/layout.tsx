@@ -83,17 +83,17 @@ export async function generateMetadata({
   const { variant } = await params
   const meta = VARIANT_META[variant]
 
-  if (!meta) return { title: 'MDCAT Mock Test | Imtehan' }
+  if (!meta) return { title: 'MDCAT Mock Test' }
 
   return {
-    title: `${meta.name} Mock Test 2026: Full Practice Tests with Answers | Imtehan`,
+    title: `${meta.name} Mock Test 2026: Full Practice Tests with Answers`,
     description: meta.description,
     keywords: meta.keywords,
     alternates: {
       canonical: `https://imtehan.com/mdcat/mock/${variant}`,
     },
     openGraph: {
-      title: `${meta.name} Mock Test 2026 | Imtehan`,
+      title: `${meta.name} Mock Test 2026`,
       description: meta.description,
       url: `https://imtehan.com/mdcat/mock/${variant}`,
       type: 'website',

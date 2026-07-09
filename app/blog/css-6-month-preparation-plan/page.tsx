@@ -5,7 +5,7 @@ import { extractHeadings, renderBlogContent } from '@/components/blog/blog-utils
 import type { RelatedPost } from '@/components/blog/blog-utils'
 
 export const metadata: Metadata = {
-  title: 'CSS Preparation in 6 Months: A Realistic Week-by-Week Plan | Imtehan',
+  title: 'CSS Preparation in 6 Months: A Realistic Week-by-Week Plan',
   description: 'Six months is not generous time for CSS. It is the minimum. Here is exactly how to use every week without wasting the first two months on the wrong things.',
   alternates: { canonical: 'https://imtehan.com/blog/css-6-month-preparation-plan' },
   openGraph: {

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button'
 import { ArrowLeft, Trash2, Smartphone, Mail, ShieldCheck, Database } from 'lucide-react'
 
 export const metadata = {
-  title: 'Delete Your Account | Imtehan',
+  title: 'Delete Your Account',
   description:
     'How to permanently delete your Imtehan account and all associated data, what data is removed, what is retained, and the retention period.',
   keywords: 'delete account, data deletion, account removal, Imtehan',
