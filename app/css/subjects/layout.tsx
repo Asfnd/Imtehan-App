@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { SchemaRenderer } from '@/components/seo/SchemaRenderer'
 
 export const metadata: Metadata = {
-  title: 'CSS MCQs Practice - 40+ Subjects | Imtehan',
+  title: 'CSS MCQs Practice - 40+ Subjects',
   description: 'Practice CSS exam MCQs from 40+ subjects including Pakistan Affairs, Islamic Studies, Current Affairs, English, and all optional subjects. 10,000+ questions with answers.',
   keywords: [
     'CSS MCQs', 'CSS practice questions', 'CSS subjects', 'Pakistan Affairs MCQs',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: 'https://imtehan.com/css/subjects',
   },
   openGraph: {
-    title: 'CSS MCQs Practice - 40+ Subjects | Imtehan',
+    title: 'CSS MCQs Practice - 40+ Subjects',
     description: 'Practice CSS exam MCQs from 40+ subjects. 10,000+ questions with detailed answers.',
     url: 'https://imtehan.com/css/subjects',
     type: 'website',

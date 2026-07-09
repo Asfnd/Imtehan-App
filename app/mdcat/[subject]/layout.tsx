@@ -60,17 +60,17 @@ export async function generateMetadata({
   const { subject } = await params
   const meta = SUBJECT_META[subject]
 
-  if (!meta) return { title: 'MDCAT MCQs | Imtehan' }
+  if (!meta) return { title: 'MDCAT MCQs' }
 
   return {
-    title: `MDCAT ${meta.name} MCQs 2026 : Topic-wise Practice with Answers | Imtehan`,
+    title: `MDCAT ${meta.name} MCQs 2026: Topic-wise Practice with Answers`,
     description: meta.description,
     keywords: meta.keywords,
     alternates: {
       canonical: `https://imtehan.com/mdcat/${subject}`,
     },
     openGraph: {
-      title: `MDCAT ${meta.name} MCQs 2026 : Topic-wise Practice | Imtehan`,
+      title: `MDCAT ${meta.name} MCQs 2026: Topic-wise Practice`,
       description: meta.description,
       url: `https://imtehan.com/mdcat/${subject}`,
       type: 'website',

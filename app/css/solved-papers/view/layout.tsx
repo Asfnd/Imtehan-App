@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'View Solved Paper | Imtehan',
+  title: 'View Solved Paper',
   description: 'View CSS solved paper PDF with our integrated viewer.',
   robots: {
     index: false, // Don't index view pages (dynamic content with query params)

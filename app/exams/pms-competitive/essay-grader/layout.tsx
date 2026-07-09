@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 
-const title = 'PMS Writing Coach: Essay, Précis & Long Answer | Imtehan'
+const title = 'PMS Writing Coach: Essay, Précis & Long Answer'
 const description =
   'AI-powered PMS English practice: get examiner-style feedback on essays (~1,400-1,600 words), précis, and optional-paper long answers. Provincial competitive exam tuning to complement your MCQ prep on Imtehan.'
 

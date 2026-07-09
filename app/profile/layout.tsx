@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Your Profile | Imtehan',
+  title: 'Your Profile',
   description: 'View and manage your Imtehan profile, track your CSS and MPT exam preparation progress, and manage your account settings.',
   alternates: {
     canonical: 'https://imtehan.com/profile',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'Your Profile | Imtehan',
+    title: 'Your Profile',
     description: 'Manage your Imtehan account and track exam preparation progress.',
     url: 'https://imtehan.com/profile',
     type: 'website',

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Sign In | Imtehan',
+  title: 'Sign In',
   description: 'Sign in to Imtehan to access CSS and MPT exam preparation resources, track your progress, and unlock premium features.',
   alternates: {
     canonical: 'https://imtehan.com/signin',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'Sign In | Imtehan',
+    title: 'Sign In',
     description: 'Sign in to access CSS and MPT exam preparation resources.',
     url: 'https://imtehan.com/signin',
     type: 'website',

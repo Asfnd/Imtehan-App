@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CSS Solved Papers with Expert Explanations | Imtehan',
+  title: 'CSS Solved Papers with Expert Explanations',
   description: 'Access CSS solved papers with detailed expert explanations. Learn from comprehensive solutions for past CSS exams and improve your understanding of exam patterns.',
   alternates: {
     canonical: 'https://imtehan.com/css/solved-papers',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'CSS explained answers', 'CSS solved MCQs', 'CSS essay solutions',
   ],
   openGraph: {
-    title: 'CSS Solved Papers with Solutions | Imtehan',
+    title: 'CSS Solved Papers with Solutions',
     description: 'Detailed solutions and expert explanations for CSS past papers.',
     url: 'https://imtehan.com/css/solved-papers',
     type: 'website',

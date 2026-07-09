@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'AI CSS Essay Checker : Instant Marking & Examiner Feedback | Imtehan',
+  title: 'AI CSS Essay Checker : Instant Marking & Examiner Feedback',
   description: 'Grade your CSS essay instantly with AI that marks like a real FPSC examiner. Get scores out of 20, line-by-line feedback, and improvement tips for Essay, Précis, Pakistan Affairs, IR & all CSS written subjects.',
   keywords: [
     'CSS essay checker', 'CSS essay grader', 'CSS essay AI', 'grade CSS essay',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     canonical: 'https://imtehan.com/css/essay-grader',
   },
   openGraph: {
-    title: 'AI CSS Essay Checker : Grade My Essay | Imtehan',
+    title: 'AI CSS Essay Checker : Grade My Essay',
     description: 'The first AI that marks your CSS essays like a real FPSC examiner. Instant score out of 20 with detailed feedback. Works for Essay, Précis & all CSS written subjects.',
     url: 'https://imtehan.com/css/essay-grader',
     type: 'website',

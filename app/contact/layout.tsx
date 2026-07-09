@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Get Help with CSS & MPT Preparation | Imtehan',
+  title: 'Contact Us - Get Help with CSS & MPT Preparation',
   description: 'Contact Imtehan support team. Get help with CSS and MPT exam preparation, technical support, or feature requests. Quick response guaranteed.',
   alternates: {
     canonical: 'https://imtehan.com/contact',

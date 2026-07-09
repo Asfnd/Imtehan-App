@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'CSS English Idioms & Phrases Practice | Imtehan',
+  title: 'CSS English Idioms & Phrases Practice',
   description: 'Learn and practice English idioms and phrases commonly asked in CSS exams. Comprehensive collection with meanings and usage examples.',
   alternates: {
     canonical: 'https://imtehan.com/css/css-practice/idioms',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'CSS English paper', 'idioms and phrases', 'CSS vocabulary',
   ],
   openGraph: {
-    title: 'CSS English Idioms & Phrases | Imtehan',
+    title: 'CSS English Idioms & Phrases',
     description: 'Learn English idioms commonly asked in CSS exams.',
     url: 'https://imtehan.com/css/css-practice/idioms',
     type: 'website',

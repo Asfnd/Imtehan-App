@@ -42,17 +42,17 @@ export async function generateMetadata({
   const { subject } = await params
   const meta = SUBJECT_META[subject]
 
-  if (!meta) return { title: 'FSc MCQs | Imtehan' }
+  if (!meta) return { title: 'FSc MCQs' }
 
   return {
-    title: `FSc ${meta.name} MCQs : Chapter-wise Practice for Punjab Board | Imtehan`,
+    title: `FSc ${meta.name} MCQs: Chapter-wise Practice for Punjab Board`,
     description: meta.description,
     keywords: meta.keywords,
     alternates: {
       canonical: `https://imtehan.com/fsc/${subject}`,
     },
     openGraph: {
-      title: `FSc ${meta.name} Chapter-wise MCQs | Imtehan`,
+      title: `FSc ${meta.name} Chapter-wise MCQs`,
       description: meta.description,
       url: `https://imtehan.com/fsc/${subject}`,
       type: 'website',

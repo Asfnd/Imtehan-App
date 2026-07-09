@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "tsx scripts/generate-seo-assets.ts && next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "clean": "rm -rf .next",
@@ -43,6 +43,7 @@
     "ping-search-engines": "tsx scripts/ping-search-engines.ts",
     "ping-search-engines:priority": "tsx scripts/ping-search-engines.ts --priority",
     "ping-search-engines:flush": "tsx scripts/ping-search-engines.ts --flush",
+    "generate:seo-assets": "tsx scripts/generate-seo-assets.ts",
     "install-git-hooks": "bash scripts/install-git-hooks.sh",
     "auto-push": "bash scripts/auto-push.sh",
     "prepare": "bash scripts/install-git-hooks.sh"

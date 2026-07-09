@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'MPT Quiz Practice | Imtehan',
+  title: 'MPT Quiz Practice',
   description: 'Practice MPT questions with our interactive quiz system. Get instant feedback and track your progress across different topics.',
   alternates: {
     canonical: 'https://imtehan.com/mpt-practice/quiz',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'MPT Quiz Practice | Imtehan',
+    title: 'MPT Quiz Practice',
     description: 'Interactive MPT quiz practice with instant feedback.',
     url: 'https://imtehan.com/mpt-practice/quiz',
     type: 'website',
