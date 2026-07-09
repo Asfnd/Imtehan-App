@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
 import { SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoSiblingSetLinks } from '@/components/seo/SeoSiblingSetLinks'
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString, breadcrumbListNode } from '@/lib/seo/jsonld'
 
@@ -74,6 +75,7 @@ export function TopicSeoShell({
         heading={`${h1} — sample questions`}
         dbTable={dbTable}
       />
+      <SeoSiblingSetLinks basePath={topicUrl} currentSet={0} maxSet={3} label="Topic sets" />
       {children}
     </>
   )
@@ -137,6 +139,7 @@ export function TopicSetSeoShell({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
       <SeoPageHeader title={h1} subtitle={subtitle} />
       <McqCrawlBlock mcqs={mcqs} heading={h1} dbTable={dbTable} />
+      <SeoSiblingSetLinks basePath={topicUrl} currentSet={setNumber} maxSet={3} />
       {children}
     </>
   )

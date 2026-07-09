@@ -16,7 +16,7 @@ export async function generateMetadata({
   const chapter = decodeURIComponent(rawChapter)
   const canonicalChapter = encodeURIComponent(chapter)
 
-  const title = `FSc ${subjectName}: ${chapter} MCQs | Imtehan`
+  const title = `FSc ${subjectName}: ${chapter} MCQs with Answers`
   const description = `Practice FSc ${subjectName} ${chapter} MCQs with 20 questions per set. Aligned with Punjab Board curriculum, perfect for board exam and MDCAT preparation.`
 
   return {
@@ -31,6 +31,7 @@ export async function generateMetadata({
       'FSc Pre-Medical MCQs',
       'board exam MCQ practice Pakistan',
     ],
+    robots: { index: true, follow: true },
     alternates: {
       canonical: `https://imtehan.com/fsc/${subject}/${canonicalChapter}`,
     },

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
 import { SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoSiblingSetLinks } from '@/components/seo/SeoSiblingSetLinks'
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString, breadcrumbListNode } from '@/lib/seo/jsonld'
 
@@ -21,6 +22,7 @@ export function SetSeoShell({
   mode,
   setNumber,
   dbTable,
+  maxSiblingSets = 3,
   mcqs,
   children,
 }: {
@@ -31,6 +33,7 @@ export function SetSeoShell({
   mode: string
   setNumber: number
   dbTable?: string
+  maxSiblingSets?: number
   mcqs: QuizMcqRow[]
   children: ReactNode
 }) {
@@ -92,6 +95,11 @@ export function SetSeoShell({
         <span>Set {setNumber}</span>
       </SeoCrawlNav>
       <McqCrawlBlock mcqs={mcqs} heading={`${h1} — questions and answers`} dbTable={dbTable} />
+      <SeoSiblingSetLinks
+        basePath={`/exams/${examSlug}/${subjectSlug}/${mode}`}
+        currentSet={setNumber}
+        maxSet={maxSiblingSets}
+      />
       {children}
     </>
   )

@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     description: 'Imtehan  -  Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Imtehan - Exam Preparation Platform'

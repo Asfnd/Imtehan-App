@@ -7,8 +7,11 @@ import { PRACTICE_MODES, isModeIndexable, maxIndexableSetNumber } from '@/lib/se
 import {
   MDCAT_DIFFICULTIES,
   MDCAT_SUBJECT_TABLES,
+  FSC_SUBJECT_TABLES,
+  DIFFICULTY_LEVELS,
   maxIndexableTopicSetNumber,
   isExamTopicIndexable,
+  isExamDifficultyIndexable,
 } from '@/lib/seo/topic-indexing'
 import { TABLE_POPULAR_TAGS, MDCAT_TOPIC_VALUES } from '@/lib/topic-tags'
 import { CATEGORY_SLUGS } from '@/lib/seo/categoryContent'
@@ -226,23 +229,43 @@ export function buildTopicsSitemap(): MetadataRoute.Sitemap {
     const maxTopicSet = maxIndexableTopicSetNumber(slug)
     for (const section of config.sections) {
       const tags = TABLE_POPULAR_TAGS[section.dbTable]
-      if (!tags) continue
-      for (const tagSlug of tags) {
-        if (!isExamTopicIndexable(slug, config.category, section.dbTable, tagSlug)) continue
-        const hub = `${BASE_URL}/exams/${slug}/${section.slug}/topic/${tagSlug}`
-        entries.push({
-          url: hub,
-          lastModified: lm,
-          changeFrequency: 'weekly',
-          priority: 0.66,
-        })
-        for (let setNum = 1; setNum <= maxTopicSet; setNum++) {
+      if (tags) {
+        for (const tagSlug of tags) {
+          if (!isExamTopicIndexable(slug, config.category, section.dbTable, tagSlug)) continue
+          const hub = `${BASE_URL}/exams/${slug}/${section.slug}/topic/${tagSlug}`
           entries.push({
-            url: `${hub}/set/${setNum}`,
+            url: hub,
             lastModified: lm,
             changeFrequency: 'weekly',
-            priority: setNum === 1 ? 0.64 : 0.62,
+            priority: 0.66,
           })
+          for (let setNum = 1; setNum <= maxTopicSet; setNum++) {
+            entries.push({
+              url: `${hub}/set/${setNum}`,
+              lastModified: lm,
+              changeFrequency: 'weekly',
+              priority: setNum === 1 ? 0.64 : 0.62,
+            })
+          }
+        }
+      }
+      if (isExamDifficultyIndexable(slug, section.dbTable)) {
+        for (const level of DIFFICULTY_LEVELS) {
+          const diffHub = `${BASE_URL}/exams/${slug}/${section.slug}/difficulty/${level}`
+          entries.push({
+            url: diffHub,
+            lastModified: lm,
+            changeFrequency: 'weekly',
+            priority: 0.64,
+          })
+          for (let setNum = 1; setNum <= maxTopicSet; setNum++) {
+            entries.push({
+              url: `${diffHub}/set/${setNum}`,
+              lastModified: lm,
+              changeFrequency: 'weekly',
+              priority: setNum === 1 ? 0.62 : 0.6,
+            })
+          }
         }
       }
     }
@@ -273,6 +296,24 @@ export function buildTopicsSitemap(): MetadataRoute.Sitemap {
           lastModified: lm,
           changeFrequency: 'weekly',
           priority: setNum === 1 ? 0.7 : 0.68,
+        })
+      }
+    }
+  }
+
+  for (const [subject, table] of Object.entries(FSC_SUBJECT_TABLES)) {
+    const topicMap = MDCAT_TOPIC_VALUES[table]
+    if (!topicMap) continue
+    for (const dbValue of Object.values(topicMap)) {
+      const encoded = encodeURIComponent(dbValue)
+      const hub = `${BASE_URL}/fsc/${subject}/${encoded}`
+      entries.push({ url: hub, lastModified: lm, changeFrequency: 'weekly', priority: 0.7 })
+      for (let setNum = 1; setNum <= 3; setNum++) {
+        entries.push({
+          url: `${hub}/set/${setNum}`,
+          lastModified: lm,
+          changeFrequency: 'weekly',
+          priority: setNum === 1 ? 0.68 : 0.66,
         })
       }
     }

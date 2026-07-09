@@ -3,13 +3,12 @@
  */
 
 import { FEATURED_EXAM_SLUGS } from '@/lib/seo/related-exams'
-import { TABLE_POPULAR_TAGS } from '@/lib/topic-tags'
+import { TABLE_POPULAR_TAGS, TOPIC_COL_TABLES, MDCAT_TOPIC_VALUES } from '@/lib/topic-tags'
 
 const featuredSet = new Set<string>(FEATURED_EXAM_SLUGS)
 
-const TOPIC_INDEXABLE_CATEGORIES = new Set([
-  'fia', 'css', 'pms', 'ppsc', 'fpsc', 'police', 'medical', 'engineering', 'hec',
-])
+const DIFFICULTY_LEVELS = ['easy', 'medium', 'hard'] as const
+export { DIFFICULTY_LEVELS }
 
 export const MDCAT_SUBJECT_TABLES: Record<string, string> = {
   biology: 'mdcat_biology',
@@ -41,19 +40,22 @@ export const MCQ_INDEXABLE_BANKS = new Set([
   'engineering_physics',
   'engineering_chemistry',
   'engineering_mathematics',
+  'engineering_english',
+  'engineering_intelligence',
+  'engineering_computer_science',
+  'ethics_civics',
 ])
 
 export function isExamTopicIndexable(
   examSlug: string,
-  category: string | undefined,
+  _category: string | undefined,
   dbTable: string,
   tagSlug: string,
 ): boolean {
   const tags = TABLE_POPULAR_TAGS[dbTable]
   if (!tags?.includes(tagSlug)) return false
-  if (featuredSet.has(examSlug)) return true
-  if (category && TOPIC_INDEXABLE_CATEGORIES.has(category)) return true
-  return false
+  // Index topic hubs for every exam that shares a tagged bank (unique URL per exam).
+  return true
 }
 
 export function isTopicSetIndexable(
@@ -74,8 +76,40 @@ export function maxIndexableTopicSetNumber(examSlug: string): number {
   return featuredSet.has(examSlug) ? 3 : 1
 }
 
+export const FSC_SUBJECT_TABLES: Record<string, string> = {
+  biology: 'mdcat_biology',
+  chemistry: 'mdcat_chemistry',
+  physics: 'mdcat_physics',
+}
+
 export function isMdcatTopicIndexable(): boolean {
   return true
+}
+
+export function isExamDifficultyIndexable(
+  _examSlug: string,
+  dbTable: string,
+): boolean {
+  return !!TABLE_POPULAR_TAGS[dbTable] || TOPIC_COL_TABLES.has(dbTable)
+}
+
+export function isDifficultySetIndexable(
+  examSlug: string,
+  dbTable: string,
+  setNumber: number,
+): boolean {
+  if (!isExamDifficultyIndexable(examSlug, dbTable)) return false
+  if (setNumber === 1) return true
+  if (setNumber <= 3 && featuredSet.has(examSlug)) return true
+  return false
+}
+
+export function isFscChapterIndexable(): boolean {
+  return true
+}
+
+export function isFscSetIndexable(setNumber: number): boolean {
+  return setNumber >= 1 && setNumber <= 3
 }
 
 export function isMdcatSetIndexable(setNumber: number): boolean {
@@ -103,6 +137,30 @@ export function topicIndexingMeta(
   if (index && setNumber != null) {
     index = isTopicSetIndexable(examSlug, category, tagSlug, dbTable, setNumber)
   }
+  return {
+    robots: { index, follow: true } as const,
+    canonical: selfCanonical,
+  }
+}
+
+export function difficultyIndexingMeta(
+  examSlug: string,
+  dbTable: string,
+  selfCanonical: string,
+  setNumber?: number,
+) {
+  let index = isExamDifficultyIndexable(examSlug, dbTable)
+  if (index && setNumber != null) {
+    index = isDifficultySetIndexable(examSlug, dbTable, setNumber)
+  }
+  return {
+    robots: { index, follow: true } as const,
+    canonical: selfCanonical,
+  }
+}
+
+export function fscChapterIndexingMeta(selfCanonical: string, setNumber?: number) {
+  const index = setNumber == null ? isFscChapterIndexable() : isFscSetIndexable(setNumber)
   return {
     robots: { index, follow: true } as const,
     canonical: selfCanonical,

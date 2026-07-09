@@ -236,6 +236,10 @@ const nextConfig: NextConfig = {
         destination: '/sitemap-index',
       },
       {
+        source: '/sitemap/mcq/:bank/:page.xml',
+        destination: '/sitemap-mcq/:bank/:page',
+      },
+      {
         source: '/sitemap/:segment.xml',
         destination: '/sitemap-segment/:segment',
       },

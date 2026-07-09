@@ -18,10 +18,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   judiciary: 'Judiciary',
 }
 
-/**
- * Homepage crawl relay — category hubs & top exam URLs for Googlebot.
- * sr-only: zero visual change to the homepage.
- */
 export function HomeIndexingRelay() {
   const featured = getFeaturedExams()
 
@@ -29,9 +25,20 @@ export function HomeIndexingRelay() {
     <section aria-label="Exam preparation categories" className="sr-only">
       <h2>Practice by exam commission</h2>
       <p>
-        200+ recruitment tests — PPSC, FPSC, FIA, NTS, police, military, banks, MDCAT and
+        200+ recruitment tests — PPSC, FPSC, FIA, NTS, police, military, banks, MDCAT, FSc and
         engineering entry tests.
       </p>
+
+      <nav aria-label="Product hubs">
+        <ul>
+          <li><Link href="/exams">All exams</Link></li>
+          <li><Link href="/mdcat">MDCAT preparation</Link></li>
+          <li><Link href="/fsc">FSc Pre-Medical MCQs</Link></li>
+          <li><Link href="/css">CSS exam preparation</Link></li>
+          <li><Link href="/mpt-practice">CSS MPT practice</Link></li>
+          <li><Link href="/blog">Exam prep blog</Link></li>
+        </ul>
+      </nav>
 
       <nav aria-label="Exam categories">
         <ul>
@@ -52,21 +59,12 @@ export function HomeIndexingRelay() {
               <Link href={`/exams/${exam.slug}`}>{exam.name}</Link>
             </li>
           ))}
-          <li>
-            <Link href="/exams/ppsc-assistant/general-knowledge/past-papers">PPSC GK Past Papers</Link>
-          </li>
-          <li>
-            <Link href="/exams/fia-constable/urdu/most-repeated">FIA Urdu MCQs</Link>
-          </li>
-          <li>
-            <Link href="/exams/css-mpt/pakistan-affairs/practice">CSS MPT Pakistan Affairs</Link>
-          </li>
+          <li><Link href="/exams/fia-assistant">FIA Assistant</Link></li>
+          <li><Link href="/exams/fia-staff-car-driver">FIA Staff Car Driver</Link></li>
+          <li><Link href="/mdcat/biology">MDCAT Biology</Link></li>
+          <li><Link href="/exams/ppsc-assistant/general-knowledge/past-papers/set/1">PPSC GK Past Papers Set 1</Link></li>
         </ul>
       </nav>
-
-      <p>
-        <Link href="/exams">Browse all 200+ exams</Link>
-      </p>
     </section>
   )
 }
