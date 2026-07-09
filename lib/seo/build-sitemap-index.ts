@@ -1,15 +1,23 @@
 import { EXAM_SITEMAP_LASTMOD, BASE_URL } from '@/lib/seo/sitemap-builders'
-import { listMcqSitemapParts, mcqSitemapLoc } from '@/lib/seo/mcq-sitemap'
+import { listMcqSitemapParts, mcqSitemapLoc, type McqSitemapPart } from '@/lib/seo/mcq-sitemap'
+import { MCQ_INDEXABLE_BANKS } from '@/lib/seo/topic-indexing'
 
 const STATIC_SEGMENTS = ['core', 'exams', 'modes', 'sets', 'topics'] as const
 
+function staticMcqParts(): McqSitemapPart[] {
+  return [...MCQ_INDEXABLE_BANKS].map((bank) => ({ bank, page: 1 }))
+}
+
 /** Full sitemap index XML — static segments + dynamic MCQ bank parts. */
 export async function buildSitemapIndexXml(): Promise<string> {
-  let mcqParts: Awaited<ReturnType<typeof listMcqSitemapParts>> = []
+  let mcqParts: McqSitemapPart[] = []
   try {
     mcqParts = await listMcqSitemapParts()
   } catch {
     mcqParts = []
+  }
+  if (mcqParts.length === 0) {
+    mcqParts = staticMcqParts()
   }
 
   const staticEntries = STATIC_SEGMENTS.map(

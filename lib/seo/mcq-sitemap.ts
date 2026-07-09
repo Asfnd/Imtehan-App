@@ -22,13 +22,15 @@ export async function countMcqsInBank(bank: string): Promise<number> {
 }
 
 export async function listMcqSitemapParts(): Promise<McqSitemapPart[]> {
+  const banks = [...MCQ_INDEXABLE_BANKS]
+  const counts = await Promise.all(banks.map((bank) => countMcqsInBank(bank)))
   const parts: McqSitemapPart[] = []
-  for (const bank of MCQ_INDEXABLE_BANKS) {
-    const count = await countMcqsInBank(bank)
+  for (let i = 0; i < banks.length; i++) {
+    const count = counts[i]
     if (count === 0) continue
     const pages = Math.ceil(count / MCQ_URLS_PER_SITEMAP)
     for (let page = 1; page <= pages; page++) {
-      parts.push({ bank, page })
+      parts.push({ bank: banks[i], page })
     }
   }
   return parts

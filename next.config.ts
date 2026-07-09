@@ -232,6 +232,10 @@ const nextConfig: NextConfig = {
         destination: '/imtehan-indexnow-key',
       },
       {
+        source: '/sitemap-index.xml',
+        destination: '/sitemap-index',
+      },
+      {
         source: '/sitemap/mcq/:bank/:page.xml',
         destination: '/sitemap-mcq/:bank/:page',
       },
@@ -243,12 +247,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Fresh sitemap index (bypasses stale CDN cache on /sitemap.xml)
-      {
-        source: '/sitemap.xml',
-        destination: '/sitemap-index',
-        permanent: false,
-      },
       // Redirect old CSS practice routes to new structure
       {
         source: '/css-practice',

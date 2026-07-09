@@ -202,7 +202,9 @@ export default async function middleware(request: NextRequest) {
     pathname.startsWith('/careers/') ||
     pathname === '/contact' ||
     pathname === '/terms' ||
-    pathname === '/privacy'
+    pathname === '/privacy' ||
+    pathname === '/sitemap-index' ||
+    pathname.startsWith('/sitemap')
   ) {
     return NextResponse.next()
   }
