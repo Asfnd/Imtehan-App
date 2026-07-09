@@ -41,7 +41,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/',
       },
     ],
-    sitemap: [`${BASE_URL}/sitemap.xml`, `${BASE_URL}/sitemap-index`],
+    sitemap: [`${BASE_URL}/sitemap-index`, `${BASE_URL}/sitemap.xml`],
     host: BASE_URL.replace('https://', ''),
   }
 }
