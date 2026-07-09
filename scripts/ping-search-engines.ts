@@ -24,6 +24,7 @@ const PRIORITY_URLS = [
 
 async function main() {
   const forcePriority = process.argv.includes('--priority')
+  const flushBatches = process.argv.includes('--flush')
   const current = new Set(buildAllIndexableUrls())
   let previous = new Set<string>()
 
@@ -43,9 +44,11 @@ async function main() {
   // First deploy or major expansion: ping representative URLs + sitemap
   const toPing = forcePriority
     ? PRIORITY_URLS
-    : isFirstRun
-      ? [...PRIORITY_URLS, ...added.slice(0, 100)]
-      : added.slice(0, 10_000)
+    : flushBatches
+      ? [...current]
+      : isFirstRun
+        ? [...PRIORITY_URLS, ...added.slice(0, 100)]
+        : added.slice(0, 10_000)
 
   if (toPing.length > 0) {
     console.log(`Pinging IndexNow with ${toPing.length} URLs...`)
