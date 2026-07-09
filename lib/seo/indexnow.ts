@@ -31,12 +31,14 @@ export async function pingIndexNow(urls: string[]): Promise<void> {
 
 /** Legacy Google sitemap ping — weak signal but harmless on deploy. */
 export async function pingGoogleSitemap(): Promise<void> {
-  try {
-    await fetch(
-      `https://www.google.com/ping?sitemap=${encodeURIComponent(`${BASE_URL}/sitemap.xml`)}`,
-      { method: 'GET' },
-    )
-  } catch {
-    // Google deprecated bulk ping; GSC sitemap submit is the real path
+  const sitemaps = [`${BASE_URL}/sitemap.xml`, `${BASE_URL}/sitemap-index`]
+  for (const sitemap of sitemaps) {
+    try {
+      await fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(sitemap)}`, {
+        method: 'GET',
+      })
+    } catch {
+      // Google deprecated bulk ping; GSC sitemap submit is the real path
+    }
   }
 }
