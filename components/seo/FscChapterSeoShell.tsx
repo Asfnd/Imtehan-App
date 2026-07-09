@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoCrawlNav, SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 import { breadcrumbListNode, jsonLdString } from '@/lib/seo/jsonld'
 
 const SUBJECT_NAMES: Record<string, string> = {
@@ -41,30 +41,32 @@ export function FscChapterSeoShell({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
-      <SeoPageHeader
-        title={h1}
-        subtitle={`Practice FSc ${subjectName} ${chapterLabel} chapter MCQs in sets of 20 with answers.`}
-      />
+      <SeoCrawlOnly>
+        <SeoPageHeader
+          title={h1}
+          subtitle={`Practice FSc ${subjectName} ${chapterLabel} chapter MCQs in sets of 20 with answers.`}
+        />
 
-      <SeoCrawlNav label="Chapter practice sets">
-        <ul>
-          {Array.from({ length: maxSet }, (_, i) => i + 1).map((n) => (
-            <li key={n}>
-              <Link href={`${base}/set/${n}`}>Set {n}</Link>
-            </li>
-          ))}
-        </ul>
-      </SeoCrawlNav>
+        <SeoCrawlNav label="Chapter practice sets">
+          <ul>
+            {Array.from({ length: maxSet }, (_, i) => i + 1).map((n) => (
+              <li key={n}>
+                <Link href={`${base}/set/${n}`}>Set {n}</Link>
+              </li>
+            ))}
+          </ul>
+        </SeoCrawlNav>
 
-      <SeoCrawlNav label="FSc subjects">
-        <ul>
-          {Object.entries(SUBJECT_NAMES).map(([slug, name]) => (
-            <li key={slug}>
-              <Link href={`/fsc/${slug}`}>{name}</Link>
-            </li>
-          ))}
-        </ul>
-      </SeoCrawlNav>
+        <SeoCrawlNav label="FSc subjects">
+          <ul>
+            {Object.entries(SUBJECT_NAMES).map(([slug, name]) => (
+              <li key={slug}>
+                <Link href={`/fsc/${slug}`}>{name}</Link>
+              </li>
+            ))}
+          </ul>
+        </SeoCrawlNav>
+      </SeoCrawlOnly>
 
       {children}
     </>

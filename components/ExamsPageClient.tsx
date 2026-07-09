@@ -141,7 +141,7 @@ export default function ExamsPageClient() {
             href={`/exams/category/${activeCategory}`}
             className="text-xs font-semibold text-blue-600 hover:underline"
           >
-            {activeCat.label} preparation guide →
+            Browse {activeCat.label} →
           </Link>
         </div>
 

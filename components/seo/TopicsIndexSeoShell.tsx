@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { TABLE_POPULAR_TAGS, tagSlugToLabel } from '@/lib/topic-tags'
 import { isTopicBankSupported } from '@/lib/seo/topic-indexing'
-import { SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoCrawlNav, SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 import { breadcrumbListNode, jsonLdString } from '@/lib/seo/jsonld'
 
 export function TopicsIndexSeoShell({
@@ -40,39 +40,41 @@ export function TopicsIndexSeoShell({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
-      <SeoPageHeader
-        title={h1}
-        subtitle={`Browse all ${examName} ${subjectName} topics — past papers, most repeated, and topic-wise MCQ sets.`}
-      />
+      <SeoCrawlOnly>
+        <SeoPageHeader
+          title={h1}
+          subtitle={`Browse all ${examName} ${subjectName} topics — past papers, most repeated, and topic-wise MCQ sets.`}
+        />
 
-      {tags.length > 0 && (
-        <SeoCrawlNav label={`${subjectName} topics`}>
+        {tags.length > 0 && (
+          <SeoCrawlNav label={`${subjectName} topics`}>
+            <ul>
+              {tags.map((tag) => (
+                <li key={tag}>
+                  <Link href={`${base}/topic/${tag}`}>{tagSlugToLabel(tag)}</Link>
+                </li>
+              ))}
+            </ul>
+          </SeoCrawlNav>
+        )}
+
+        <SeoCrawlNav label="Related practice">
           <ul>
-            {tags.map((tag) => (
-              <li key={tag}>
-                <Link href={`${base}/topic/${tag}`}>{tagSlugToLabel(tag)}</Link>
-              </li>
-            ))}
+            <li>
+              <Link href={base}>All {subjectName} modes</Link>
+            </li>
+            <li>
+              <Link href={`${base}/difficulty/easy`}>Easy MCQs</Link>
+            </li>
+            <li>
+              <Link href={`${base}/difficulty/medium`}>Medium MCQs</Link>
+            </li>
+            <li>
+              <Link href={`${base}/difficulty/hard`}>Hard MCQs</Link>
+            </li>
           </ul>
         </SeoCrawlNav>
-      )}
-
-      <SeoCrawlNav label="Related practice">
-        <ul>
-          <li>
-            <Link href={base}>All {subjectName} modes</Link>
-          </li>
-          <li>
-            <Link href={`${base}/difficulty/easy`}>Easy MCQs</Link>
-          </li>
-          <li>
-            <Link href={`${base}/difficulty/medium`}>Medium MCQs</Link>
-          </li>
-          <li>
-            <Link href={`${base}/difficulty/hard`}>Hard MCQs</Link>
-          </li>
-        </ul>
-      </SeoCrawlNav>
+      </SeoCrawlOnly>
 
       {children}
     </>

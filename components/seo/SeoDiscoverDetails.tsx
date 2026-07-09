@@ -18,6 +18,11 @@ export function SeoCrawlLayer({
   )
 }
 
+/** Wraps any crawl-only block — use for shells so visible UI can never leak in by mistake. */
+export function SeoCrawlOnly({ children }: { children: ReactNode }) {
+  return <div className="sr-only">{children}</div>
+}
+
 /** Invisible H1 + intro — satisfies crawler heading requirements without UI clutter. */
 export function SeoPageHeader({
   title,

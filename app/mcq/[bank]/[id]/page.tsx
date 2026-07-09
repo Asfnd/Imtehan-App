@@ -4,7 +4,7 @@ import { fetchMcqById } from '@/lib/seo/fetch-mcq-by-id'
 import { mcqPageIndexingMeta, MCQ_INDEXABLE_BANKS } from '@/lib/seo/topic-indexing'
 import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
 import { McqHumanRedirect } from '@/components/seo/McqHumanRedirect'
-import { SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString } from '@/lib/seo/jsonld'
 
@@ -67,8 +67,10 @@ export default async function McqPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(quizJsonLd) }} />
-      <SeoPageHeader title={h1} subtitle={mcq.question} />
-      <McqCrawlBlock mcqs={[mcq]} heading={h1} dbTable={bank} />
+      <SeoCrawlOnly>
+        <SeoPageHeader title={h1} subtitle={mcq.question} />
+        <McqCrawlBlock mcqs={[mcq]} heading={h1} dbTable={bank} />
+      </SeoCrawlOnly>
       <McqHumanRedirect />
     </>
   )

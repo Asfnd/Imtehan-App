@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import type { ExamConfig } from '@/lib/exam-configs'
 import { getExamSeoContent } from '@/lib/seo/examContent'
 import { getRelatedExamSlugs } from '@/lib/seo/related-exams'
-import { SeoDiscoverDetails, SeoCrawlNav, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoDiscoverDetails, SeoCrawlNav, SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 
 export function ExamSeoShell({
   slug,
@@ -34,27 +34,29 @@ export function ExamSeoShell({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <SeoPageHeader title={h1} subtitle={shortIntro} />
+      <SeoCrawlOnly>
+        <SeoPageHeader title={h1} subtitle={shortIntro} />
 
-      {subjects.length > 0 && (
-        <SeoCrawlNav label={`${config.name} subjects`}>
+        {subjects.length > 0 && (
+          <SeoCrawlNav label={`${config.name} subjects`}>
+            <ul>
+              {subjects.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/exams/${slug}/${s.slug}`}>{s.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </SeoCrawlNav>
+        )}
+
+        <SeoCrawlNav label="Full mock tests">
           <ul>
-            {subjects.map((s) => (
-              <li key={s.slug}>
-                <Link href={`/exams/${slug}/${s.slug}`}>{s.label}</Link>
-              </li>
-            ))}
+            <li>
+              <Link href={`/exams/${slug}/mock`}>{config.name} mock tests</Link>
+            </li>
           </ul>
         </SeoCrawlNav>
-      )}
-
-      <SeoCrawlNav label="Full mock tests">
-        <ul>
-          <li>
-            <Link href={`/exams/${slug}/mock`}>{config.name} mock tests</Link>
-          </li>
-        </ul>
-      </SeoCrawlNav>
+      </SeoCrawlOnly>
 
       {children}
 

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
-import { SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
+import { SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails'
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString, breadcrumbListNode } from '@/lib/seo/jsonld'
 
@@ -71,15 +71,17 @@ export function MdcatTopicSeoShell({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
-      <SeoPageHeader title={h1} subtitle={subtitle} />
-      <nav aria-label="MDCAT breadcrumb" className="sr-only">
-        <Link href="/mdcat">MDCAT</Link>
-        {' / '}
-        <Link href={`/mdcat/${subject}`}>{subjectName}</Link>
-        {' / '}
-        <span>{topicLabel}</span>
-      </nav>
-      <McqCrawlBlock mcqs={sampleMcqs} heading={h1} dbTable={dbTable} />
+      <SeoCrawlOnly>
+        <SeoPageHeader title={h1} subtitle={subtitle} />
+        <nav aria-label="MDCAT breadcrumb">
+          <Link href="/mdcat">MDCAT</Link>
+          {' / '}
+          <Link href={`/mdcat/${subject}`}>{subjectName}</Link>
+          {' / '}
+          <span>{topicLabel}</span>
+        </nav>
+        <McqCrawlBlock mcqs={sampleMcqs} heading={h1} dbTable={dbTable} />
+      </SeoCrawlOnly>
       {children}
     </>
   )
@@ -129,8 +131,10 @@ export function MdcatSetSeoShell({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(graphJsonLd) }} />
-      <SeoPageHeader title={h1} subtitle={subtitle} />
-      <McqCrawlBlock mcqs={mcqs} heading={h1} dbTable={dbTable} />
+      <SeoCrawlOnly>
+        <SeoPageHeader title={h1} subtitle={subtitle} />
+        <McqCrawlBlock mcqs={mcqs} heading={h1} dbTable={dbTable} />
+      </SeoCrawlOnly>
       {children}
     </>
   )
