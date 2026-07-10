@@ -13,7 +13,6 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { recordExamPractice } from '@/lib/pinned-exam'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
-import { isActivePremium } from '@/lib/is-active-premium'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
@@ -112,14 +111,12 @@ export default function QuizInterface({
 }: QuizInterfaceProps) {
   const router = useRouter()
 
-  const { user, loading: authLoading } = useAuth()
-  const isPremium = isActivePremium(user)
+  const { loading: authLoading } = useAuth()
   const soundsEnabled = useSoundsEnabled()
 
   const [showSignIn, setShowSignIn] = useState(false)
   const [liveMcqs, setLiveMcqs] = useState<MCQ[]>([])
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'denied'>('loading')
-  const [isDemoSession, setIsDemoSession] = useState(false)
   const [streak, setStreak] = useState(0)
   const [totalXp, setTotalXp] = useState(0)
   const [lastXpGain, setLastXpGain] = useState(0)
@@ -142,7 +139,6 @@ export default function QuizInterface({
 
       if (result.ok) {
         setLiveMcqs(result.mcqs as MCQ[])
-        setIsDemoSession(!!result.demoConsumed || (!isPremium && setNumber === 1 && !user))
         setLoadState('ready')
         return
       }
@@ -436,13 +432,8 @@ export default function QuizInterface({
             setShowSignIn(false)
             router.push(backUrl)
           }}
-          message="Finish your free demo, then sign in — Premium unlocks every set"
         />
-        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
-          {accessGate === 'pending' || authLoading
-            ? 'Loading your free demo…'
-            : 'Unlock this set to practice'}
-        </div>
+        <div className="flex min-h-[40vh] items-center justify-center p-8" aria-busy="true" />
       </>
     )
   }
@@ -494,11 +485,6 @@ export default function QuizInterface({
           router.push(backUrl)
         }}
       />
-      {isDemoSession && !isPremium && (
-        <div className="border-b border-emerald-100 bg-emerald-50 px-4 py-2 text-center text-xs text-emerald-800 sm:text-sm">
-          Free demo set — enjoy the full quiz. Next practice needs sign-in, then Premium for unlimited sets.
-        </div>
-      )}
       <GamifiedQuizShell
         journey={
           <QuizJourneyPanel
