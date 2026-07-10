@@ -1,0 +1,38 @@
+# Imtehan on Oracle Always Free — Next.js + HTTPS (Caddy)
+# On VM: cd ~/CSS-App/deploy/oracle && docker compose up -d --build
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      web:
+        condition: service_started
+
+  web:
+    build:
+      context: ../..
+      dockerfile: deploy/oracle/Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://imtehan.com}
+        NEXT_PUBLIC_META_PIXEL_ID: ${NEXT_PUBLIC_META_PIXEL_ID:-}
+        NEXT_PUBLIC_GA_ID: ${NEXT_PUBLIC_GA_ID:-}
+        NEXT_PUBLIC_R2_CUSTOM_DOMAIN: ${NEXT_PUBLIC_R2_CUSTOM_DOMAIN:-www.imtehan.com}
+    restart: unless-stopped
+    env_file:
+      - .env
+    expose:
+      - '3000'
+
+volumes:
+  caddy_data:
+  caddy_config:

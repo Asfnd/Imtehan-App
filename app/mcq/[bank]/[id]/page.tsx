@@ -8,8 +8,13 @@ import { SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString } from '@/lib/seo/jsonld'
 
-/** ISR — Googlebot re-hits serve from cache instead of full SSR + Supabase. */
+/**
+ * force-static + revalidate: first crawl builds HTML, later Googlebot hits
+ * are CDN/ISR — cuts Fluid Active CPU. Public MCQ content only (no cookies).
+ */
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 const BANK_LABELS: Record<string, string> = {
   english: 'English',

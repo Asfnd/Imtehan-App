@@ -434,6 +434,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: '/mcq/:bank/:id',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
+      {
         source: '/imtehan-indexnow-key.txt',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],
       },

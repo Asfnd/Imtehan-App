@@ -1,0 +1,12 @@
+# Cloudflare orange cloud: use Origin Certificate in ./certs/
+# docker-compose: mount ./certs:/etc/caddy/certs:ro and swap Caddyfile to this file.
+
+www.imtehan.com {
+	tls /etc/caddy/certs/origin.crt /etc/caddy/certs/origin.key
+	redir https://imtehan.com{uri} permanent
+}
+
+imtehan.com {
+	tls /etc/caddy/certs/origin.crt /etc/caddy/certs/origin.key
+	reverse_proxy web:3000
+}

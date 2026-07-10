@@ -1,0 +1,11 @@
+# HTTPS via Let's Encrypt. Cloudflare: grey cloud (DNS only) on imtehan.com for first cert,
+# or use Caddyfile.cloudflare-origin with an Origin Certificate (orange cloud OK).
+# See ORACLE_DEPLOYMENT.md
+
+www.imtehan.com {
+	redir https://imtehan.com{uri} permanent
+}
+
+imtehan.com {
+	reverse_proxy web:3000
+}
