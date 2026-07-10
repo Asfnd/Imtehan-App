@@ -137,6 +137,34 @@ export function cachedMdcatRangeSet(params: {
   )()
 }
 
+/** Cached row count for MDCAT/FSc set pagination (totalSets). */
+export function cachedMdcatTopicCount(params: {
+  dbTable: string
+  difficulty?: string
+  topic?: string
+  admin?: boolean
+}): Promise<number> {
+  const key = [
+    'mdcat-count',
+    params.dbTable,
+    params.difficulty ?? '',
+    params.topic ?? '',
+  ]
+  return unstable_cache(
+    async () => {
+      const supabase = adminOrPublic(!!params.admin)
+      let query = supabase.from(params.dbTable).select('*', { count: 'exact', head: true })
+      if (params.difficulty) query = query.eq('difficulty', params.difficulty)
+      else if (params.topic) query = query.eq('topic', params.topic)
+      const { count, error } = await query
+      if (error) throw new Error(error.message)
+      return count ?? 0
+    },
+    key,
+    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+  )()
+}
+
 /** Sets 1–3 are often indexable — keep full solved HTML for Google. */
 export function seoMcqsForSet(setNumber: number, mcqs: QuizMcqRow[]): QuizMcqRow[] {
   if (setNumber >= 1 && setNumber <= 3) return mcqs

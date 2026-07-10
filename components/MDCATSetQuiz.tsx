@@ -25,6 +25,7 @@ import {
   quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 import { fetchPracticeSet, handlePracticeDeny } from '@/lib/practice-client'
+import { isActivePremium } from '@/lib/is-active-premium'
 
 interface MCQ {
   id: number
@@ -136,11 +137,13 @@ export default function MDCATSetQuiz({
   const backUrl = backPath ?? `/mdcat/${subject}/${encodeURIComponent(difficulty)}`
 
   const { user, loading: authLoading } = useAuth()
+  const isPremium = isActivePremium(user)
   const soundsEnabled = useSoundsEnabled()
 
   const [showSignIn, setShowSignIn] = useState(false)
   const [liveMcqs, setLiveMcqs] = useState<MCQ[]>([])
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'denied'>('loading')
+  const [isDemoSession, setIsDemoSession] = useState(false)
   const [streak, setStreak] = useState(0)
   const [totalXp, setTotalXp] = useState(0)
   const [lastXpGain, setLastXpGain] = useState(0)
@@ -157,6 +160,7 @@ export default function MDCATSetQuiz({
       if (cancelled) return
       if (result.ok) {
         setLiveMcqs(result.mcqs as MCQ[])
+        setIsDemoSession(!!result.demoConsumed || (!isPremium && setNumber === 1 && !user))
         setLoadState('ready')
         return
       }
@@ -215,6 +219,21 @@ export default function MDCATSetQuiz({
       return () => clearTimeout(t)
     }
   }, [showResults, reviewMode, firstTryScore, activeMCQs.length])
+
+  if (!practiceAllowed) {
+    return (
+      <>
+        <SignInPopup
+          isOpen={showSignIn || accessGate === 'require_sign_in'}
+          onClose={() => { setShowSignIn(false); router.push(backUrl) }}
+          message="Sign in to continue — then upgrade for unlimited practice sets"
+        />
+        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
+          {accessGate === 'pending' || authLoading ? 'Loading your free demo…' : 'Unlock this set to practice'}
+        </div>
+      </>
+    )
+  }
 
   // Guard: parent page should prevent this, but protect against empty data
   if (!activeMCQs || activeMCQs.length === 0) {
@@ -424,21 +443,6 @@ export default function MDCATSetQuiz({
 
   const bottomPad = dockPhase === 'wrong' || dockPhase === 'correct' ? 'pb-40' : 'pb-6'
 
-  if (!practiceAllowed) {
-    return (
-      <>
-        <SignInPopup
-          isOpen={showSignIn || accessGate === 'require_sign_in'}
-          onClose={() => { setShowSignIn(false); router.push(backUrl) }}
-          message="Sign in to continue — then upgrade for unlimited practice sets"
-        />
-        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
-          {accessGate === 'pending' ? 'Checking access…' : 'Unlock this set to practice'}
-        </div>
-      </>
-    )
-  }
-
   return (
     <>
       <ConfettiCelebration
@@ -452,6 +456,11 @@ export default function MDCATSetQuiz({
         isOpen={showSignIn}
         onClose={() => { setShowSignIn(false); router.push(backUrl) }}
       />
+      {isDemoSession && !isPremium && (
+        <div className="border-b border-emerald-100 bg-emerald-50 px-4 py-2 text-center text-xs text-emerald-800 sm:text-sm">
+          Free demo set — enjoy the full quiz. Next practice needs sign-in, then Premium for unlimited sets.
+        </div>
+      )}
       <GamifiedQuizShell
         journey={
           <QuizJourneyPanel
