@@ -96,6 +96,8 @@ const appSecurityHeaders =
   process.env.NODE_ENV === 'production' ? securityHeaders : devSecurityHeaders
 
 const nextConfig: NextConfig = {
+  // Docker / Oracle deploy (deploy/oracle/Dockerfile copies .next/standalone)
+  output: 'standalone',
   // Fix: multiple lockfiles warning — pin the tracing root to this project
   outputFileTracingRoot: path.join(__dirname),
   // Production optimizations
