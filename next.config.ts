@@ -443,6 +443,57 @@ const nextConfig: NextConfig = {
           { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
         ],
       },
+      // Practice SET HTML — same CDN profile as /mcq (interactive quiz is client + API)
+      {
+        source: '/exams/:exam/:subject/:mode/set/:set',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
+      {
+        source: '/exams/:exam/:subject/difficulty/:level/set/:set',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
+      {
+        source: '/exams/:exam/:subject/topic/:tag/set/:set',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
+      {
+        source: '/mdcat/:subject/:topic/set/:set',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
+      {
+        source: '/fsc/:subject/:chapter/set/:set',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
+        ],
+      },
       {
         source: '/imtehan-indexnow-key.txt',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],

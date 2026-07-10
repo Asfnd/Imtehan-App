@@ -1,13 +1,14 @@
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
-import { fetchMCQsByTopicSet } from '@/lib/quiz-fetcher'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { isTagArrayTable, tagSlugToLabel, topicDbValue } from '@/lib/topic-tags'
 import { TopicSeoShell } from '@/components/seo/TopicSeoShell'
 import { TopicSetPicker } from './TopicSetPicker'
+import { cachedFetchMCQsByTopicSet } from '@/lib/cached-quiz-fetch'
 
-/** Public SEO page — ISR 24h to cut crawl CPU. */
+/** force-static + ISR — hub HTML CDN-cached. */
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 const SUBJECT_LABELS: Record<string, string> = {
   english: 'English',
@@ -37,14 +38,14 @@ export default async function TopicHubPage({
   if (!config || !section) notFound()
 
   const dbVal = topicDbValue(tagSlug, section.dbTable)
-  const supabase = createPublicSupabaseClient()
-  const sampleMcqs = await fetchMCQsByTopicSet(supabase, {
-    dbTable: section.dbTable,
-    tag: dbVal,
-    useTagsArray: isTagArrayTable(section.dbTable),
-    setNumber: 1,
-    setSize: 20,
-  }).catch(() => [])
+  const sampleMcqs = (
+    await cachedFetchMCQsByTopicSet({
+      dbTable: section.dbTable,
+      tag: dbVal,
+      useTagsArray: isTagArrayTable(section.dbTable),
+      setNumber: 1,
+    }).catch(() => [])
+  ).slice(0, 5)
 
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
   const topicLabel = tagSlugToLabel(tagSlug)

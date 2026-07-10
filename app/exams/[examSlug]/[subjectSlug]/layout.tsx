@@ -1,50 +1,29 @@
 import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
+import { fetchSampleMcqs } from '@/lib/seo/fetch-sample-mcqs'
+import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
+import { jsonLdString } from '@/lib/seo/jsonld'
 
+/** Cookie-free + cached samples — keep all child SET pages CDN/ISR eligible. */
+export const dynamic = 'force-static'
 export const revalidate = 86400
 
 const SUBJECT_LABELS: Record<string, string> = {
-  'english':           'English',
+  english: 'English',
   'general-knowledge': 'General Knowledge',
-  'pakistan-affairs':  'Pakistan Affairs',
-  'islamic-studies':   'Islamic Studies',
-  'current-affairs':   'Current Affairs',
-  'everyday-science':  'Everyday Science',
-  'mathematics':       'Mathematics',
-  'geography':         'Geography',
-  'computer':          'Computer Science',
-  'urdu':              'Urdu',
-  'biology':           'Biology',
-  'chemistry':         'Chemistry',
-  'physics':           'Physics',
+  'pakistan-affairs': 'Pakistan Affairs',
+  'islamic-studies': 'Islamic Studies',
+  'current-affairs': 'Current Affairs',
+  'everyday-science': 'Everyday Science',
+  mathematics: 'Mathematics',
+  geography: 'Geography',
+  computer: 'Computer Science',
+  urdu: 'Urdu',
+  biology: 'Biology',
+  chemistry: 'Chemistry',
+  physics: 'Physics',
   'logical-reasoning': 'Logical Reasoning',
-}
-
-import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
-
-interface MCQRow {
-  question: string
-  option_a: string
-  option_b: string
-  option_c: string
-  option_d: string
-  correct_answer: string
-}
-
-async function fetchSampleMCQs(dbTable: string): Promise<MCQRow[]> {
-  try {
-    const supabase = createPublicSupabaseClient()
-    const { data } = await supabase
-      .from(dbTable)
-      .select('question, option_a, option_b, option_c, option_d, correct_answer')
-      .eq('type', 'most_repeated')
-      .limit(15)
-    return (data as MCQRow[]) ?? []
-  } catch {
-    return []
-  }
 }
 
 export async function generateMetadata({
@@ -93,14 +72,15 @@ export default async function ExamSubjectLayout({
 }) {
   const { examSlug, subjectSlug } = await params
   const config = getExamConfig(examSlug)
-  const section = config?.sections.find(s => s.slug === subjectSlug)
+  const section = config?.sections.find((s) => s.slug === subjectSlug)
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
   const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()
 
   let quizJsonLd: object | null = null
 
   if (section?.dbTable) {
-    const mcqs = await fetchSampleMCQs(section.dbTable)
+    // Cached 24h — never uncached Supabase in this layout (poisons child ISR)
+    const mcqs = await fetchSampleMcqs(section.dbTable, 'most-repeated', 5)
     if (mcqs.length > 0) {
       quizJsonLd = buildQuizJsonLd({
         name: `${examName}: ${subjectName} MCQs with Answers`,
@@ -116,7 +96,7 @@ export default async function ExamSubjectLayout({
       {quizJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(quizJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdString(quizJsonLd) }}
         />
       )}
       {children}

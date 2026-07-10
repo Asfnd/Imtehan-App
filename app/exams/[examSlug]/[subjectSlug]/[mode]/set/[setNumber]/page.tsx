@@ -4,12 +4,15 @@ import { getExamConfig } from '@/lib/exam-configs'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 import { SetSeoShell } from '@/components/seo/SetSeoShell'
 import QuizInterface from '@/components/QuizInterface'
-import { fetchMCQsBySet } from '@/lib/quiz-fetcher'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
-import { seoMcqsForSet } from '@/lib/cached-quiz-fetch'
+import { cachedFetchMCQsBySet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
-/** Public SEO page — ISR 24h. Interactive MCQs load via gated API (cached). */
+/**
+ * force-static + 24h revalidate: Googlebot hits CDN/ISR after first build.
+ * Interactive quiz still loads via gated /api/practice/set (force-dynamic).
+ */
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated', icon: '🔥', type: 'most_repeated' },
@@ -91,10 +94,8 @@ export default async function QuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  // ISR page HTML is already CDN-cached 24h — fetch directly (no unstable_cache)
-  // so SEO routes stay static-friendly. Practice API still uses cached loaders.
-  const supabase = createPublicSupabaseClient()
-  const fullSet = await fetchMCQsBySet(supabase, {
+  // Cached 24h — shared with practice API; keeps this page force-static / CDN-friendly
+  const fullSet = await cachedFetchMCQsBySet({
     dbTable: section.dbTable,
     setNumber,
     mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,

@@ -411,7 +411,28 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // Only run Edge middleware on interactive / gated / API traffic.
+  // SEO trees (/exams, /mdcat, /fsc, /mcq, sitemaps, marketing) never invoke this —
+  // saves Edge CPU on Googlebot while keeping demo/premium gates on APIs + view routes.
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/api/:path*',
+    '/quiz/:path*',
+    '/mpt-practice/:path*',
+    '/css/css-practice/:path*',
+    '/css/solved-papers/view',
+    '/css/solved-papers/view/:path*',
+    '/css/guess-papers/view',
+    '/css/guess-papers/view/:path*',
+    '/css/past-papers/view',
+    '/css/past-papers/view/:path*',
+    '/profile',
+    '/profile/:path*',
+    '/signin',
+    '/signin/:path*',
+    '/admin',
+    '/admin/:path*',
+    '/community',
+    '/community/:path*',
+    '/auth/:path*',
   ],
 }

@@ -1,12 +1,16 @@
 import { notFound } from 'next/navigation'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
-import { fetchMCQsByTopicSet, fetchMCQsByDifficultySet } from '@/lib/quiz-fetcher'
 import { MDCAT_SUBJECT_TABLES } from '@/lib/seo/topic-indexing'
 import { MdcatTopicSeoShell } from '@/components/seo/MdcatTopicSeoShell'
 import { MDCATTopicClient } from './MDCATTopicClient'
+import {
+  cachedFetchMCQsByDifficultySet,
+  cachedFetchMCQsByTopicSet,
+} from '@/lib/cached-quiz-fetch'
 
-/** Public SEO page — ISR 24h to cut crawl CPU. */
+/** force-static + ISR — hub HTML CDN-cached; set list is client. */
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 const DIFFICULTY_DB: Record<string, string> = {
   easy: 'Easy',
@@ -27,21 +31,20 @@ export default async function MDCATTopicPage({
   const difficulty = DIFFICULTY_DB[topic]
   const isDifficulty = !!difficulty
 
-  const supabase = createPublicSupabaseClient()
-  const sampleMcqs = isDifficulty
-    ? await fetchMCQsByDifficultySet(supabase, {
-        dbTable: table,
-        difficulty: topic,
-        setNumber: 1,
-        setSize: 20,
-      }).catch(() => [])
-    : await fetchMCQsByTopicSet(supabase, {
-        dbTable: table,
-        tag: topic,
-        useTagsArray: false,
-        setNumber: 1,
-        setSize: 20,
-      }).catch(() => [])
+  const sampleMcqs = (
+    isDifficulty
+      ? await cachedFetchMCQsByDifficultySet({
+          dbTable: table,
+          difficulty: topic,
+          setNumber: 1,
+        }).catch(() => [])
+      : await cachedFetchMCQsByTopicSet({
+          dbTable: table,
+          tag: topic,
+          useTagsArray: false,
+          setNumber: 1,
+        }).catch(() => [])
+  ).slice(0, 5)
 
   const displayLabel = isDifficulty ? difficulty! : topic
 

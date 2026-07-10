@@ -4,7 +4,9 @@ import { fetchSampleMcqs } from '@/lib/seo/fetch-sample-mcqs'
 import { ModeSeoShell } from '@/components/seo/ModeSeoSection'
 import { ModeSetPicker } from './ModeSetPicker'
 
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 export default async function ExamModePage({
   params,
@@ -17,7 +19,7 @@ export default async function ExamModePage({
   if (!config || !section) notFound()
 
   const sampleMcqs = section.dbTable
-    ? await fetchSampleMcqs(section.dbTable, mode, 20)
+    ? await fetchSampleMcqs(section.dbTable, mode, 5)
     : []
 
   return (

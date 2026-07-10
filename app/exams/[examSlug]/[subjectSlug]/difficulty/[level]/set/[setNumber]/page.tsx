@@ -11,8 +11,10 @@ import { jsonLdString } from '@/lib/seo/jsonld'
 import QuizInterface from '@/components/QuizInterface'
 import { cachedFetchMCQsByDifficultySet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
-/** Public SEO page — ISR 24h to cut crawl CPU. */
+/** force-static + ISR — CDN after first crawl; interactive via practice API. */
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 const VALID_LEVELS = ['easy', 'medium', 'hard'] as const
 const LEVEL_LABELS: Record<string, string> = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
