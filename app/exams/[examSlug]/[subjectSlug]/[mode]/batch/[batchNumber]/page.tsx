@@ -4,10 +4,12 @@ import { notFound } from 'next/navigation'
 import { Play, Lock } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
 import NavigationBar from '@/components/NavigationBar'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
+import { cachedExamTableCount } from '@/lib/cached-quiz-fetch'
 
-/** Public SEO page — ISR 24h to cut crawl CPU. */
+/** noindex batch picker — still force-static so crawlers/users don't burn Fluid CPU. */
+export const dynamic = 'force-static'
 export const revalidate = 86400
+export const dynamicParams = true
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
@@ -56,29 +58,12 @@ export default async function BatchSetsPage({
     notFound()
   }
 
-  // Get total count
-  const supabase = createPublicSupabaseClient()
-
-  let totalMCQs = 0
-
-  if (modeConfig.type === 'mixed') {
-    const { count } = await supabase
-      .from(section.dbTable)
-      .select('*', { count: 'exact', head: true })
-    totalMCQs = count || 0
-  } else if (mode === 'past-papers' && config.pastPapersExam) {
-    const { count } = await supabase
-      .from(section.dbTable)
-      .select('*', { count: 'exact', head: true })
-      .eq('target_exam', config.pastPapersExam)
-    totalMCQs = count || 0
-  } else {
-    const { count } = await supabase
-      .from(section.dbTable)
-      .select('*', { count: 'exact', head: true })
-      .eq('type', modeConfig.type)
-    totalMCQs = count || 0
-  }
+  const totalMCQs = await cachedExamTableCount({
+    dbTable: section.dbTable,
+    type: modeConfig.type === 'mixed' ? null : modeConfig.type,
+    targetExam:
+      mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
+  }).catch(() => 0)
 
   const totalSets = Math.ceil(totalMCQs / 20)
   const startSet = (batchNumber - 1) * SETS_PER_BATCH + 1

@@ -140,6 +140,33 @@ export function cachedMdcatTopicCount(params: {
   )()
 }
 
+/** Cached head counts for exam mode/batch hubs (no full row scan). */
+export function cachedExamTableCount(params: {
+  dbTable: string
+  type?: string | null
+  targetExam?: string
+}): Promise<number> {
+  const key = [
+    'exam-count',
+    params.dbTable,
+    params.type ?? 'all',
+    params.targetExam ?? '',
+  ]
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicSupabaseClient()
+      let query = supabase.from(params.dbTable).select('*', { count: 'exact', head: true })
+      if (params.targetExam) query = query.eq('target_exam', params.targetExam)
+      else if (params.type) query = query.eq('type', params.type)
+      const { count, error } = await query
+      if (error) throw new Error(error.message)
+      return count ?? 0
+    },
+    key,
+    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+  )()
+}
+
 /**
  * Sets 1–3 are indexable — keep full solved HTML for Google.
  * Cap crawl payload to avoid oversized RSC/JSON-LD responses (CPU + reliability).
