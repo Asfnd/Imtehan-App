@@ -1,10 +1,10 @@
 /**
- * Cached MCQ set loaders — 24h ISR-friendly cache to stay within free CPU limits.
- * Used by SEO pages and /api/practice/set so we don't re-scan banks on every hit.
+ * Cached MCQ set loaders — 24h cache to stay within free CPU limits.
+ * Uses cookie-free public Supabase only (safe for ISR SEO pages).
+ * Practice API and SEO pages share these loaders.
  */
 
 import { unstable_cache } from 'next/cache'
-import { createAdminSupabaseClient } from '@/lib/supabase/admin'
 import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import {
   fetchMCQsBySet,
@@ -16,19 +16,7 @@ import type { QuizMcqRow } from '@/lib/set-integrity'
 
 const REVALIDATE = 86400
 
-function adminOrPublic(preferAdmin: boolean) {
-  try {
-    if (preferAdmin) return createAdminSupabaseClient()
-  } catch {
-    /* fall through */
-  }
-  return createPublicSupabaseClient()
-}
-
-export function cachedFetchMCQsBySet(
-  params: FetchSetParams,
-  opts?: { admin?: boolean }
-): Promise<QuizMcqRow[]> {
+export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [
     'set',
     params.dbTable,
@@ -39,10 +27,7 @@ export function cachedFetchMCQsBySet(
     String(!!params.noTypeFilter),
   ]
   return unstable_cache(
-    async () => {
-      const supabase = adminOrPublic(!!opts?.admin)
-      return fetchMCQsBySet(supabase, params)
-    },
+    async () => fetchMCQsBySet(createPublicSupabaseClient(), params),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -53,7 +38,6 @@ export function cachedFetchMCQsByDifficultySet(params: {
   difficulty: string
   setNumber: number
   subjectField?: string
-  admin?: boolean
 }): Promise<QuizMcqRow[]> {
   const key = [
     'diff',
@@ -63,10 +47,7 @@ export function cachedFetchMCQsByDifficultySet(params: {
     params.subjectField ?? '',
   ]
   return unstable_cache(
-    async () => {
-      const supabase = adminOrPublic(!!params.admin)
-      return fetchMCQsByDifficultySet(supabase, params)
-    },
+    async () => fetchMCQsByDifficultySet(createPublicSupabaseClient(), params),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -77,7 +58,6 @@ export function cachedFetchMCQsByTopicSet(params: {
   tag: string
   useTagsArray: boolean
   setNumber: number
-  admin?: boolean
 }): Promise<QuizMcqRow[]> {
   const key = [
     'topic',
@@ -87,10 +67,7 @@ export function cachedFetchMCQsByTopicSet(params: {
     String(params.setNumber),
   ]
   return unstable_cache(
-    async () => {
-      const supabase = adminOrPublic(!!params.admin)
-      return fetchMCQsByTopicSet(supabase, params)
-    },
+    async () => fetchMCQsByTopicSet(createPublicSupabaseClient(), params),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -101,7 +78,6 @@ export function cachedMdcatRangeSet(params: {
   setNumber: number
   difficulty?: string
   topic?: string
-  admin?: boolean
 }): Promise<QuizMcqRow[]> {
   const key = [
     'mdcat-range',
@@ -112,7 +88,7 @@ export function cachedMdcatRangeSet(params: {
   ]
   return unstable_cache(
     async () => {
-      const supabase = adminOrPublic(!!params.admin)
+      const supabase = createPublicSupabaseClient()
       const offset = (params.setNumber - 1) * 20
       const cols =
         'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation, topic, subtopic'
@@ -142,7 +118,6 @@ export function cachedMdcatTopicCount(params: {
   dbTable: string
   difficulty?: string
   topic?: string
-  admin?: boolean
 }): Promise<number> {
   const key = [
     'mdcat-count',
@@ -152,7 +127,7 @@ export function cachedMdcatTopicCount(params: {
   ]
   return unstable_cache(
     async () => {
-      const supabase = adminOrPublic(!!params.admin)
+      const supabase = createPublicSupabaseClient()
       let query = supabase.from(params.dbTable).select('*', { count: 'exact', head: true })
       if (params.difficulty) query = query.eq('difficulty', params.difficulty)
       else if (params.topic) query = query.eq('topic', params.topic)
@@ -165,9 +140,16 @@ export function cachedMdcatTopicCount(params: {
   )()
 }
 
-/** Sets 1–3 are often indexable — keep full solved HTML for Google. */
+/**
+ * Sets 1–3 are indexable — keep full solved HTML for Google.
+ * Cap crawl payload to avoid oversized RSC/JSON-LD responses (CPU + reliability).
+ */
+const SEO_FULL_SET_CAP = 20
+
 export function seoMcqsForSet(setNumber: number, mcqs: QuizMcqRow[]): QuizMcqRow[] {
-  if (setNumber >= 1 && setNumber <= 3) return mcqs
+  if (setNumber >= 1 && setNumber <= 3) {
+    return mcqs.slice(0, SEO_FULL_SET_CAP)
+  }
   // Higher sets: thin teaser (usually noindex) — no answer keys in HTML
   return mcqs.slice(0, 1).map((m) => ({
     ...m,

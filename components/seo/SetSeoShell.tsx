@@ -49,7 +49,8 @@ export function SetSeoShell({
     name: h1,
     description: subtitle,
     url: canonical,
-    mcqs,
+    // Cap JSON-LD size — full answers stay in crawl HTML for Google.
+    mcqs: mcqs.slice(0, 5),
     bare: true,
   })
 

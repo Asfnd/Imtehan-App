@@ -427,6 +427,34 @@ export default function QuizInterface({
     )
   }
 
+  if (!practiceAllowed) {
+    return (
+      <>
+        <SignInPopup
+          isOpen={showSignIn || accessGate === 'require_sign_in'}
+          onClose={() => {
+            setShowSignIn(false)
+            router.push(backUrl)
+          }}
+          message="Finish your free demo, then sign in — Premium unlocks every set"
+        />
+        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
+          {accessGate === 'pending' || authLoading
+            ? 'Loading your free demo…'
+            : 'Unlock this set to practice'}
+        </div>
+      </>
+    )
+  }
+
+  if (!currentMCQ) {
+    return (
+      <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
+        No questions available for this set.
+      </div>
+    )
+  }
+
   const options = [
     { label: 'A', text: currentMCQ.option_a },
     { label: 'B', text: currentMCQ.option_b },
@@ -450,24 +478,6 @@ export default function QuizInterface({
   if (feedbackVisible) dockPhase = 'correct'
 
   const bottomPad = feedbackVisible ? 'pb-40' : 'pb-6'
-
-  if (!practiceAllowed) {
-    return (
-      <>
-        <SignInPopup
-          isOpen={showSignIn || accessGate === 'require_sign_in'}
-          onClose={() => {
-            setShowSignIn(false)
-            router.push(backUrl)
-          }}
-          message="Finish your free demo, then sign in — Premium unlocks every set"
-        />
-        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
-          {accessGate === 'pending' ? 'Checking access…' : 'Unlock this set to practice'}
-        </div>
-      </>
-    )
-  }
 
   return (
     <>

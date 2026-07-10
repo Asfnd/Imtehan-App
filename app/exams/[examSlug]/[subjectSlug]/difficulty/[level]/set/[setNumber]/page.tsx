@@ -86,7 +86,7 @@ export default async function DifficultyQuizSetPage({
     name: h1,
     description: `${levelLabel} MCQs set ${setNumber}`,
     url: canonical,
-    mcqs: seoMcqs.length ? seoMcqs : mcqs.slice(0, 1),
+    mcqs: (seoMcqs.length ? seoMcqs : mcqs).slice(0, 5),
   })
 
   return (

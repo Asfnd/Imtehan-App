@@ -121,7 +121,13 @@ export function TopicSetSeoShell({
         { name: topicLabel, url: topicUrl },
         { name: `Set ${setNumber}` },
       ]),
-      buildQuizJsonLd({ name: h1, description: subtitle, url: canonical, mcqs, bare: true }),
+      buildQuizJsonLd({
+        name: h1,
+        description: subtitle,
+        url: canonical,
+        mcqs: mcqs.slice(0, 5),
+        bare: true,
+      }),
       {
         '@type': 'LearningResource',
         '@id': canonical,

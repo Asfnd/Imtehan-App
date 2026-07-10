@@ -89,7 +89,6 @@ export async function POST(request: NextRequest) {
         difficulty: body.difficulty,
         setNumber,
         subjectField: body.subjectField,
-        admin: true,
       })
     } else if (body.source === 'topic') {
       if (!body.dbTable || !body.tag) {
@@ -100,7 +99,6 @@ export async function POST(request: NextRequest) {
         tag: body.tag,
         useTagsArray: !!body.useTagsArray,
         setNumber,
-        admin: true,
       })
     } else if (body.source === 'mdcat' || body.source === 'fsc') {
       if (!body.dbTable) {
@@ -111,7 +109,6 @@ export async function POST(request: NextRequest) {
         setNumber,
         difficulty: body.difficulty,
         topic: body.tag,
-        admin: true,
       })
     } else {
       let dbTable = body.dbTable
@@ -139,17 +136,14 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Missing dbTable' }, { status: 400 })
       }
 
-      mcqs = await cachedFetchMCQsBySet(
-        {
-          dbTable,
-          setNumber,
-          mode: (modeType as 'practice' | 'most_repeated' | 'most_important' | 'mixed') || 'mixed',
-          noTypeFilter: !!noTypeFilter,
-          subjectField,
-          targetExam,
-        },
-        { admin: true }
-      )
+      mcqs = await cachedFetchMCQsBySet({
+        dbTable,
+        setNumber,
+        mode: (modeType as 'practice' | 'most_repeated' | 'most_important' | 'mixed') || 'mixed',
+        noTypeFilter: !!noTypeFilter,
+        subjectField,
+        targetExam,
+      })
     }
 
     if (!mcqs?.length) {

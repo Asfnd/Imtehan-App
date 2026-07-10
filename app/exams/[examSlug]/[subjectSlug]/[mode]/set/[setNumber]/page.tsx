@@ -4,7 +4,9 @@ import { getExamConfig } from '@/lib/exam-configs'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 import { SetSeoShell } from '@/components/seo/SetSeoShell'
 import QuizInterface from '@/components/QuizInterface'
-import { cachedFetchMCQsBySet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
+import { fetchMCQsBySet } from '@/lib/quiz-fetcher'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
+import { seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
 /** Public SEO page — ISR 24h. Interactive MCQs load via gated API (cached). */
 export const revalidate = 86400
@@ -89,8 +91,10 @@ export default async function QuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  // Cached 24h — shared with practice API to cut Fluid CPU
-  const fullSet = await cachedFetchMCQsBySet({
+  // ISR page HTML is already CDN-cached 24h — fetch directly (no unstable_cache)
+  // so SEO routes stay static-friendly. Practice API still uses cached loaders.
+  const supabase = createPublicSupabaseClient()
+  const fullSet = await fetchMCQsBySet(supabase, {
     dbTable: section.dbTable,
     setNumber,
     mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
