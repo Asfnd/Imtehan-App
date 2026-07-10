@@ -83,28 +83,35 @@ export default async function DifficultyQuizSetPage({
   const levelLabel = LEVEL_LABELS[level] ?? level
   const h1 = `${config.name} ${subjectSlug} ${levelLabel} — Set ${setNumber}`
   const canonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}/difficulty/${level}/set/${setNumber}`
+  const seoMcqs = setNumber === 1 ? mcqs.slice(0, 3) : []
   const quizJsonLd = buildQuizJsonLd({
     name: h1,
     description: `${levelLabel} MCQs set ${setNumber}`,
     url: canonical,
-    mcqs,
+    mcqs: seoMcqs.length ? seoMcqs : mcqs.slice(0, 1),
   })
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(quizJsonLd) }} />
       <SeoPageHeader title={h1} subtitle={`${levelLabel} MCQs with answers`} />
-      <McqCrawlBlock mcqs={mcqs} heading={h1} dbTable={section.dbTable} />
+      <McqCrawlBlock mcqs={seoMcqs} heading={h1} dbTable={section.dbTable} />
       <SeoSiblingSetLinks
         basePath={`/exams/${examSlug}/${subjectSlug}/difficulty/${level}`}
         currentSet={setNumber}
       />
       <QuizInterface
-        mcqs={mcqs}
+        mcqs={[]}
         examSlug={examSlug}
         subjectSlug={subjectSlug}
         mode={`difficulty/${level}`}
         setNumber={setNumber}
+        practiceRequest={{
+          source: 'difficulty',
+          dbTable: section.dbTable,
+          difficulty: difficultyDbValue(level, section.dbTable),
+          subjectField: section.subjectField,
+        }}
       />
     </>
   )

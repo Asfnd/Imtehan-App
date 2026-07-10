@@ -102,6 +102,7 @@ export default async function TopicQuizSetPage({
 
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
   const topicLabel = tagSlugToLabel(tagSlug)
+  const seoMcqs = setNumber === 1 ? mcqs.slice(0, 3) : []
 
   return (
     <TopicSetSeoShell
@@ -113,14 +114,20 @@ export default async function TopicQuizSetPage({
       topicLabel={topicLabel}
       setNumber={setNumber}
       dbTable={section.dbTable}
-      mcqs={mcqs}
+      mcqs={seoMcqs}
     >
       <QuizInterface
-        mcqs={mcqs}
+        mcqs={[]}
         examSlug={examSlug}
         subjectSlug={subjectSlug}
         mode={`topic/${tagSlug}`}
         setNumber={setNumber}
+        practiceRequest={{
+          source: 'topic',
+          dbTable: section.dbTable,
+          tag: dbVal,
+          useTagsArray: isTagArrayTable(section.dbTable),
+        }}
       />
     </TopicSetSeoShell>
   )

@@ -9,9 +9,6 @@ import { saveQuizResults } from '@/lib/analytics'
 import { markCompleted } from '@/lib/completion'
 import FeedbackPopup from '@/components/FeedbackPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
-import { PREMIUM_PAGE_PATH } from '@/lib/routes'
-import { isActivePremium } from '@/lib/is-active-premium'
-import { tieredSetQuizPageAccess } from '@/lib/premium-gates'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
@@ -27,6 +24,7 @@ import {
   quizAccuracyPercent,
   quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
+import { fetchPracticeSet, handlePracticeDeny } from '@/lib/practice-client'
 
 interface MCQ {
   id: number
@@ -42,7 +40,7 @@ interface MCQ {
 }
 
 interface Props {
-  mcqs: MCQ[]
+  mcqs?: MCQ[]
   examSlug: string
   subject: string
   subjectName: string
@@ -52,6 +50,7 @@ interface Props {
   totalSets?: number  // if provided, "Next Set" is hidden on the last set
   theme?: 'blue' | 'green'
   backPath?: string  // optional back URL override
+  practiceRequest: Record<string, unknown>
 }
 
 type FlowState = 'default' | 'wrong' | 'correct' | 'dimmed'
@@ -120,34 +119,62 @@ const THEME = {
   },
 }
 
-export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, difficulty, setNumber, totalSets, theme = 'blue', backPath }: Props) {
+export default function MDCATSetQuiz({
+  mcqs: initialMcqs = [],
+  examSlug,
+  subject,
+  subjectName,
+  difficulty,
+  setNumber,
+  totalSets,
+  theme = 'blue',
+  backPath,
+  practiceRequest,
+}: Props) {
   const router  = useRouter()
   const t       = THEME[theme]
   const backUrl = backPath ?? `/mdcat/${subject}/${encodeURIComponent(difficulty)}`
 
   const { user, loading: authLoading } = useAuth()
-  const isPremium = isActivePremium(user)
   const soundsEnabled = useSoundsEnabled()
 
   const [showSignIn, setShowSignIn] = useState(false)
+  const [liveMcqs, setLiveMcqs] = useState<MCQ[]>([])
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'denied'>('loading')
   const [streak, setStreak] = useState(0)
   const [totalXp, setTotalXp] = useState(0)
   const [lastXpGain, setLastXpGain] = useState(0)
   const [showXpPop, setShowXpPop] = useState(false)
   const [confettiBurst, setConfettiBurst] = useState(0)
 
-  // Access gate: set 1 free demo; set 2+ sign-in then premium
   useEffect(() => {
     if (authLoading) return
-    const gate = tieredSetQuizPageAccess(setNumber, !!user, isPremium)
-    if (gate === 'require_premium') router.replace(PREMIUM_PAGE_PATH)
-    else if (gate === 'require_sign_in') setShowSignIn(true)
-  }, [authLoading, user, isPremium, setNumber, router])
+    let cancelled = false
+    const requestKey = JSON.stringify({ ...practiceRequest, setNumber })
 
-  const accessGate = authLoading
-    ? 'pending'
-    : tieredSetQuizPageAccess(setNumber, !!user, isPremium)
-  const practiceAllowed = accessGate === 'allow'
+    ;(async () => {
+      const result = await fetchPracticeSet(JSON.parse(requestKey))
+      if (cancelled) return
+      if (result.ok) {
+        setLiveMcqs(result.mcqs as MCQ[])
+        setLoadState('ready')
+        return
+      }
+      setLoadState('denied')
+      handlePracticeDeny(result.code, {
+        onSignIn: () => setShowSignIn(true),
+        router,
+      })
+    })()
+
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authLoading, setNumber, JSON.stringify(practiceRequest), router])
+
+  const accessGate = loadState === 'loading' ? 'pending' : loadState === 'ready' ? 'allow' : 'require_sign_in'
+  const practiceAllowed = loadState === 'ready' && (liveMcqs.length > 0 || initialMcqs.length > 0)
 
   const [currentIndex, setCurrentIndex]   = useState(0)
   const [answers, setAnswers]             = useState<Record<number, string>>({})
@@ -168,7 +195,7 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
     soundManager.preload().catch(() => {})
   }, [])
 
-  const activeMCQs = reviewMode ? reviewMCQs : mcqs
+  const activeMCQs = reviewMode ? reviewMCQs : (liveMcqs.length ? liveMcqs : initialMcqs)
 
   useEffect(() => {
     setWrongPicks([])
@@ -255,19 +282,19 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   const finishQuiz = async () => {
     if (!reviewMode) {
       const timeInSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000)
-      const correct = mcqs.reduce((n, _, idx) => n + (firstTryCorrect[idx] ? 1 : 0), 0)
+      const correct = activeMCQs.reduce((n, _, idx) => n + (firstTryCorrect[idx] ? 1 : 0), 0)
       await saveQuizResults({
         quizType: 'subject',
         examSlug: examSlug,
         subject: subjectName,
-        totalQuestions: mcqs.length,
+        totalQuestions: activeMCQs.length,
         correctAnswers: correct,
-        wrongAnswers: mcqs.length - correct,
+        wrongAnswers: activeMCQs.length - correct,
         skippedAnswers: 0,
         timeInSeconds,
       })
       // Persist completion locally so the green badge shows on the set list (guests too).
-      const pct = mcqs.length ? (correct / mcqs.length) * 100 : 0
+      const pct = activeMCQs.length ? (correct / activeMCQs.length) * 100 : 0
       markCompleted(`${examSlug}:${subject}:${difficulty}`, setNumber, pct)
     }
     if (soundsEnabled) {

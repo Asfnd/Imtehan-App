@@ -7,7 +7,7 @@ import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 import { SetSeoShell } from '@/components/seo/SetSeoShell'
 import QuizInterface from '@/components/QuizInterface'
 
-/** Public SEO page — ISR 24h to cut crawl CPU. */
+/** Public SEO page — ISR 24h to cut crawl CPU. Interactive MCQs load via gated API. */
 export const revalidate = 86400
 
 const MODE_CONFIG = {
@@ -92,7 +92,9 @@ export default async function QuizSetPage({
 
   const supabase = createPublicSupabaseClient()
 
-  const mcqs = await fetchMCQsBySet(supabase, {
+  // SEO sample only — never embed full interactive bank in HTML for free bypass.
+  // Set 1: up to 3 solved samples. Set 2+: teaser without full set dump.
+  const fullOrEmpty = await fetchMCQsBySet(supabase, {
     dbTable: section.dbTable,
     setNumber,
     mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
@@ -102,7 +104,17 @@ export default async function QuizSetPage({
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
   }).catch(() => null)
 
-  if (!mcqs || mcqs.length === 0) notFound()
+  if (!fullOrEmpty || fullOrEmpty.length === 0) notFound()
+
+  const seoMcqs =
+    setNumber === 1
+      ? fullOrEmpty.slice(0, 3)
+      : fullOrEmpty.slice(0, 1).map((m) => ({
+          ...m,
+          // Hide answer key in HTML for locked sets (interactive path is API-gated).
+          correct_answer: '',
+          explanation: undefined,
+        }))
 
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
 
@@ -115,14 +127,26 @@ export default async function QuizSetPage({
       mode={mode}
       setNumber={setNumber}
       dbTable={section.dbTable}
-      mcqs={mcqs}
+      mcqs={seoMcqs}
     >
       <QuizInterface
-        mcqs={mcqs}
+        mcqs={[]}
         examSlug={examSlug}
         subjectSlug={subjectSlug}
         mode={mode}
         setNumber={setNumber}
+        practiceRequest={{
+          source: 'exam',
+          examSlug,
+          subjectSlug,
+          mode,
+          dbTable: section.dbTable,
+          subjectField: section.subjectField,
+          noTypeFilter: section.noTypeFilter,
+          targetExam:
+            mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
+          modeType: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
+        }}
       />
     </SetSeoShell>
   )

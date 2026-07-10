@@ -20,6 +20,7 @@ import { saveQuizResults } from '@/lib/analytics'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { mdcatMockPageAccess } from '@/lib/premium-gates'
+import { handlePracticeDeny } from '@/lib/practice-client'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -329,19 +330,55 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
       }, [] as { start: number; end: number }[])
     : []
 
-  // Load MCQs on mount
+  // Load MCQs only after server demo/premium gate passes
   useEffect(() => {
-    if (!config) return
+    if (!config || authLoading) return
+    let cancelled = false
     const supabase = createClient()
-    Promise.all(config.sections.map((section, idx) => fetchSectionMCQs(section, supabase, idx, mockNumber)))
-      .then(sectionMCQs => {
+
+    ;(async () => {
+      if (mockNumber) {
+        const claimRes = await fetch('/api/practice/status', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            kind: `mdcat-mock:${variant}:${mockNumber}`,
+            setOrMockNumber: mockNumber,
+            consume: true,
+          }),
+        })
+        const claimData = await claimRes.json().catch(() => ({}))
+        if (cancelled) return
+        if (!claimRes.ok || !claimData.ok) {
+          const code = claimData.code ?? 'ERROR'
+          handlePracticeDeny(code, {
+            onSignIn: () => setShowSignIn(true),
+            router,
+          })
+          setPhase('intro')
+          return
+        }
+      }
+
+      try {
+        const sectionMCQs = await Promise.all(
+          config.sections.map((section, idx) => fetchSectionMCQs(section, supabase, idx, mockNumber))
+        )
+        if (cancelled) return
         const allMCQs: MockMCQ[] = []
-        sectionMCQs.forEach(mcqsForSection => allMCQs.push(...mcqsForSection))
+        sectionMCQs.forEach((mcqsForSection) => allMCQs.push(...mcqsForSection))
         setMcqs(allMCQs)
         setPhase('intro')
-      })
-      .catch(() => setPhase('intro'))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+      } catch {
+        if (!cancelled) setPhase('intro')
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [authLoading, mockNumber, variant]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Timer countdown
   useEffect(() => {

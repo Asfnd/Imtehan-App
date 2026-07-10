@@ -69,16 +69,19 @@ export default async function FSCSetPage({
 
   const totalSets = count ? Math.ceil(count / MCQS_PER_SET) : undefined
 
-  const mcqs = data.map((row) => ({
-    id: Number(row.id),
-    question: String(row.question),
-    option_a: String(row.option_a),
-    option_b: String(row.option_b),
-    option_c: String(row.option_c),
-    option_d: String(row.option_d),
-    correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
-    explanation: row.explanation ? String(row.explanation) : undefined,
-  }))
+  const seoMcqs =
+    setNumber === 1
+      ? data.slice(0, 3).map((row) => ({
+          id: Number(row.id),
+          question: String(row.question),
+          option_a: String(row.option_a),
+          option_b: String(row.option_b),
+          option_c: String(row.option_c),
+          option_d: String(row.option_d),
+          correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
+          explanation: row.explanation ? String(row.explanation) : undefined,
+        }))
+      : []
 
   return (
     <MdcatSetSeoShell
@@ -87,10 +90,10 @@ export default async function FSCSetPage({
       isDifficulty={false}
       setNumber={setNumber}
       dbTable={subjectCfg.table}
-      mcqs={mcqs}
+      mcqs={seoMcqs}
     >
       <MDCATSetQuiz
-        mcqs={data}
+        mcqs={[]}
         examSlug="fsc"
         subject={subject}
         subjectName={`FSc ${subjectCfg.name}`}
@@ -100,6 +103,11 @@ export default async function FSCSetPage({
         totalSets={totalSets}
         theme="green"
         backPath={`/fsc/${subject}/${rawChapter}`}
+        practiceRequest={{
+          source: 'fsc',
+          dbTable: subjectCfg.table,
+          tag: chapter,
+        }}
       />
     </MdcatSetSeoShell>
   )

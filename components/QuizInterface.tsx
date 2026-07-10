@@ -13,9 +13,7 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { registerQuizCompletion, recordFeedbackAction } from '@/lib/feedbackPrompt'
 import { recordExamPractice } from '@/lib/pinned-exam'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
-import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
-import { tieredSetQuizPageAccess } from '@/lib/premium-gates'
 import { soundManager } from '@/lib/sounds/soundManager'
 import { useSoundsEnabled } from '@/lib/hooks/useSoundsEnabled'
 import { calculatePoints } from '@/lib/gamification/pointsCalculator'
@@ -32,6 +30,7 @@ import {
   quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 import { plainTextMcqFields } from '@/lib/plain-text'
+import { fetchPracticeSet, handlePracticeDeny } from '@/lib/practice-client'
 
 interface MCQ {
   id: number
@@ -55,11 +54,14 @@ const DIFFICULTY_PILL: Record<string, string> = {
 const DIFFICULTY_LABEL: Record<string, string> = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
 
 interface QuizInterfaceProps {
-  mcqs: MCQ[]
+  /** Prefer empty — interactive MCQs load from /api/practice/set */
+  mcqs?: MCQ[]
   examSlug: string
   subjectSlug: string
   mode: string
   setNumber: number
+  /** Server-gated fetch body for /api/practice/set */
+  practiceRequest: Record<string, unknown>
 }
 
 type FlowState = 'default' | 'wrong' | 'correct' | 'dimmed'
@@ -101,11 +103,12 @@ const FLOW_BADGE: Record<FlowState, string> = {
 }
 
 export default function QuizInterface({
-  mcqs,
+  mcqs: initialMcqs = [],
   examSlug,
   subjectSlug,
   mode,
   setNumber,
+  practiceRequest,
 }: QuizInterfaceProps) {
   const router = useRouter()
 
@@ -114,25 +117,49 @@ export default function QuizInterface({
   const soundsEnabled = useSoundsEnabled()
 
   const [showSignIn, setShowSignIn] = useState(false)
+  const [liveMcqs, setLiveMcqs] = useState<MCQ[]>([])
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'denied'>('loading')
   const [streak, setStreak] = useState(0)
   const [totalXp, setTotalXp] = useState(0)
   const [lastXpGain, setLastXpGain] = useState(0)
   const [showXpPop, setShowXpPop] = useState(false)
   const [confettiBurst, setConfettiBurst] = useState(0)
 
-  const sanitizedMcqs = useMemo(() => mcqs.map((m) => plainTextMcqFields(m)), [mcqs])
+  const sanitizedMcqs = useMemo(
+    () => (liveMcqs.length ? liveMcqs : initialMcqs).map((m) => plainTextMcqFields(m)),
+    [liveMcqs, initialMcqs]
+  )
 
   useEffect(() => {
     if (authLoading) return
-    const gate = tieredSetQuizPageAccess(setNumber, !!user, isPremium)
-    if (gate === 'require_premium') router.replace(PREMIUM_PAGE_PATH)
-    else if (gate === 'require_sign_in') setShowSignIn(true)
-  }, [authLoading, user, isPremium, setNumber, router])
+    let cancelled = false
+    const requestKey = JSON.stringify({ ...practiceRequest, setNumber })
 
-  const accessGate = authLoading
-    ? 'pending'
-    : tieredSetQuizPageAccess(setNumber, !!user, isPremium)
-  const practiceAllowed = accessGate === 'allow'
+    ;(async () => {
+      const result = await fetchPracticeSet(JSON.parse(requestKey))
+      if (cancelled) return
+
+      if (result.ok) {
+        setLiveMcqs(result.mcqs as MCQ[])
+        setLoadState('ready')
+        return
+      }
+
+      setLoadState('denied')
+      handlePracticeDeny(result.code, {
+        onSignIn: () => setShowSignIn(true),
+        router,
+      })
+    })()
+
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- practiceRequest serialized
+  }, [authLoading, setNumber, JSON.stringify(practiceRequest), router])
+
+  const accessGate = loadState === 'loading' ? 'pending' : loadState === 'ready' ? 'allow' : 'require_sign_in'
+  const practiceAllowed = loadState === 'ready' && sanitizedMcqs.length > 0
 
   const backUrl = `/exams/${examSlug}/${subjectSlug}/${mode}`
 

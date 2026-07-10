@@ -92,16 +92,19 @@ export default async function MDCATSetPage({
   const totalSets = count ? Math.ceil(count / MCQS_PER_SET) : undefined
   const displayLabel = difficulty ?? topic
 
-  const mcqs = data.map((row) => ({
-    id: Number(row.id),
-    question: String(row.question),
-    option_a: String(row.option_a),
-    option_b: String(row.option_b),
-    option_c: String(row.option_c),
-    option_d: String(row.option_d),
-    correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
-    explanation: row.explanation ? String(row.explanation) : undefined,
-  }))
+  const seoMcqs =
+    setNumber === 1
+      ? data.slice(0, 3).map((row) => ({
+          id: Number(row.id),
+          question: String(row.question),
+          option_a: String(row.option_a),
+          option_b: String(row.option_b),
+          option_c: String(row.option_c),
+          option_d: String(row.option_d),
+          correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
+          explanation: row.explanation ? String(row.explanation) : undefined,
+        }))
+      : []
 
   return (
     <MdcatSetSeoShell
@@ -110,10 +113,10 @@ export default async function MDCATSetPage({
       isDifficulty={!!difficulty}
       setNumber={setNumber}
       dbTable={subjectCfg.table}
-      mcqs={mcqs}
+      mcqs={seoMcqs}
     >
       <MDCATSetQuiz
-        mcqs={data}
+        mcqs={[]}
         examSlug="mdcat"
         subject={subject}
         subjectName={subjectCfg.name}
@@ -121,6 +124,12 @@ export default async function MDCATSetPage({
         difficulty={topic}
         setNumber={setNumber}
         totalSets={totalSets}
+        practiceRequest={{
+          source: 'mdcat',
+          dbTable: subjectCfg.table,
+          difficulty: difficulty || undefined,
+          tag: difficulty ? undefined : topic,
+        }}
       />
     </MdcatSetSeoShell>
   )

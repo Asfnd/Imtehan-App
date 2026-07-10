@@ -8,6 +8,7 @@ import { usageTracker } from '@/lib/usageTracker'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { SIGNED_IN_LIMITS, type FreeTrialUsageType } from '@/lib/free-trial-limits'
+import { claimDemoPractice } from '@/lib/practice-client'
 
 async function fetchWithSupabaseAuth(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const supabase = createClient()
@@ -174,6 +175,19 @@ export function useFreeTrial() {
 
     // Check if user has access
     if (checkAccess(type)) {
+      // Server-side demo claim for guests (localStorage alone is not enough)
+      if (!isSignedIn) {
+        const claim = await claimDemoPractice(`credit:${type}`)
+        if (!claim.ok) {
+          if (claim.code === 'PREMIUM_REQUIRED') {
+            router.push(PREMIUM_PAGE_PATH)
+          } else {
+            setShowSignInPopup(true)
+          }
+          return false
+        }
+      }
+
       // For signed-in users, increment in database
       if (isSignedIn) {
         try {
