@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { fetchMCQsByDifficultySet } from '@/lib/quiz-fetcher'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { difficultyDbValue } from '@/lib/topic-tags'
 import { difficultyIndexingMeta } from '@/lib/seo/topic-indexing'
 import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
@@ -11,6 +11,9 @@ import { SeoSiblingSetLinks } from '@/components/seo/SeoSiblingSetLinks'
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString } from '@/lib/seo/jsonld'
 import QuizInterface from '@/components/QuizInterface'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 const VALID_LEVELS = ['easy', 'medium', 'hard'] as const
 const LEVEL_LABELS: Record<string, string> = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
@@ -67,7 +70,7 @@ export default async function DifficultyQuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
   const mcqs = await fetchMCQsByDifficultySet(supabase, {
     dbTable: section.dbTable,
     difficulty: difficultyDbValue(level, section.dbTable),

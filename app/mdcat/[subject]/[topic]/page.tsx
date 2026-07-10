@@ -1,9 +1,12 @@
 import { notFound } from 'next/navigation'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { fetchMCQsByTopicSet, fetchMCQsByDifficultySet } from '@/lib/quiz-fetcher'
 import { MDCAT_SUBJECT_TABLES } from '@/lib/seo/topic-indexing'
 import { MdcatTopicSeoShell } from '@/components/seo/MdcatTopicSeoShell'
 import { MDCATTopicClient } from './MDCATTopicClient'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 const DIFFICULTY_DB: Record<string, string> = {
   easy: 'Easy',
@@ -24,7 +27,7 @@ export default async function MDCATTopicPage({
   const difficulty = DIFFICULTY_DB[topic]
   const isDifficulty = !!difficulty
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
   const sampleMcqs = isDifficulty
     ? await fetchMCQsByDifficultySet(supabase, {
         dbTable: table,

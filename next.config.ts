@@ -400,9 +400,9 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=60, s-maxage=300, stale-while-revalidate=600',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
           },
-          { key: 'CDN-Cache-Control', value: 'max-age=300' },
+          { key: 'CDN-Cache-Control', value: 'max-age=86400' },
         ],
       },
       {
@@ -410,14 +410,28 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=60, s-maxage=300, stale-while-revalidate=600',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
           },
-          { key: 'CDN-Cache-Control', value: 'max-age=300' },
+          { key: 'CDN-Cache-Control', value: 'max-age=86400' },
         ],
       },
       {
         source: '/sitemap/:segment.xml',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=300, s-maxage=3600' }],
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+      {
+        source: '/sitemap/mcq/:bank/:page.xml',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+          },
+        ],
       },
       {
         source: '/imtehan-indexnow-key.txt',

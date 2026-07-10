@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import MockTestInterface from '@/components/MockTestInterface'
 import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
 import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
@@ -37,7 +40,7 @@ export default async function MockTestPage({
   const { multiplier, qTypes } = spec
   const official = getEffectiveExamSettings(examSlug, config)
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
   const allMCQs: any[] = []
 
   for (const section of official.sections) {

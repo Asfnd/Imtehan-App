@@ -4,7 +4,10 @@ import { notFound } from 'next/navigation'
 import { Play, Lock } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
 import NavigationBar from '@/components/NavigationBar'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 export const metadata: Metadata = {
   robots: { index: false, follow: true },
@@ -54,7 +57,7 @@ export default async function BatchSetsPage({
   }
 
   // Get total count
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
 
   let totalMCQs = 0
 

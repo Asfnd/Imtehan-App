@@ -1,4 +1,5 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
+import { unstable_cache } from 'next/cache'
 
 export interface SampleMcq {
   question: string
@@ -16,13 +17,13 @@ const MODE_DB_TYPE: Record<string, string | null> = {
   practice: null,
 }
 
-export async function fetchSampleMcqs(
+async function fetchSampleMcqsUncached(
   dbTable: string,
-  mode?: string,
-  limit = 5,
+  mode: string | undefined,
+  limit: number,
 ): Promise<SampleMcq[]> {
   try {
-    const supabase = await createServerSupabaseClient()
+    const supabase = createPublicSupabaseClient()
     let query = supabase
       .from(dbTable)
       .select('question, option_a, option_b, option_c, option_d, correct_answer')
@@ -36,6 +37,18 @@ export async function fetchSampleMcqs(
   } catch {
     return []
   }
+}
+
+export async function fetchSampleMcqs(
+  dbTable: string,
+  mode?: string,
+  limit = 5,
+): Promise<SampleMcq[]> {
+  return unstable_cache(
+    () => fetchSampleMcqsUncached(dbTable, mode, limit),
+    [`sample-mcqs-${dbTable}-${mode ?? 'default'}-${limit}`],
+    { revalidate: 86400, tags: [`sample-mcqs-${dbTable}`] },
+  )()
 }
 
 export function correctOptionText(mcq: SampleMcq): string {

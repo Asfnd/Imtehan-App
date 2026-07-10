@@ -2,11 +2,14 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { fetchMCQsByTopicSet } from '@/lib/quiz-fetcher'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { isTagArrayTable, tagSlugToLabel, topicDbValue } from '@/lib/topic-tags'
 import { topicIndexingMeta } from '@/lib/seo/topic-indexing'
 import { TopicSetSeoShell } from '@/components/seo/TopicSeoShell'
 import QuizInterface from '@/components/QuizInterface'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 const SUBJECT_LABELS: Record<string, string> = {
   english: 'English',
@@ -87,7 +90,7 @@ export default async function TopicQuizSetPage({
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
   const dbVal = topicDbValue(tagSlug, section.dbTable)
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
   const mcqs = await fetchMCQsByTopicSet(supabase, {
     dbTable: section.dbTable,
     tag: dbVal,

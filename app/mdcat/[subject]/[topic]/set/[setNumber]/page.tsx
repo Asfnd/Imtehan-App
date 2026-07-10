@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { mdcatTopicIndexingMeta } from '@/lib/seo/topic-indexing'
 import { MdcatSetSeoShell } from '@/components/seo/MdcatTopicSeoShell'
 import MDCATSetQuiz from '@/components/MDCATSetQuiz'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 const SUBJECT_CONFIG: Record<string, { name: string; table: string }> = {
   biology: { name: 'Biology', table: 'mdcat_biology' },
@@ -69,7 +72,7 @@ export default async function MDCATSetPage({
   const difficulty = DIFFICULTY_DB[topic]
   const offset = (setNumber - 1) * MCQS_PER_SET
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
 
   const baseQuery = difficulty
     ? supabase.from(subjectCfg.table).select(COLS).eq('difficulty', difficulty)

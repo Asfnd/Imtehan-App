@@ -8,6 +8,9 @@ import { SeoCrawlOnly, SeoPageHeader } from '@/components/seo/SeoDiscoverDetails
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString } from '@/lib/seo/jsonld'
 
+/** ISR — Googlebot re-hits serve from cache instead of full SSR + Supabase. */
+export const revalidate = 86400
+
 const BANK_LABELS: Record<string, string> = {
   english: 'English',
   general_knowledge: 'General Knowledge',

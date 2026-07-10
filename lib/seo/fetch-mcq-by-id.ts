@@ -1,13 +1,14 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import type { QuizMcqRow } from '@/lib/set-integrity'
+import { unstable_cache } from 'next/cache'
 
-export async function fetchMcqById(
+async function fetchMcqByIdUncached(
   bank: string,
   id: number,
 ): Promise<QuizMcqRow | null> {
   if (!Number.isFinite(id) || id < 1) return null
   try {
-    const supabase = await createServerSupabaseClient()
+    const supabase = createPublicSupabaseClient()
     const { data, error } = await supabase
       .from(bank)
       .select('id, question, option_a, option_b, option_c, option_d, correct_answer, explanation')
@@ -35,4 +36,16 @@ export async function fetchMcqById(
   } catch {
     return null
   }
+}
+
+/** Public MCQ fetch — cached 24h so Googlebot re-hits avoid Supabase + SSR work. */
+export async function fetchMcqById(
+  bank: string,
+  id: number,
+): Promise<QuizMcqRow | null> {
+  return unstable_cache(
+    () => fetchMcqByIdUncached(bank, id),
+    [`mcq-${bank}-${id}`],
+    { revalidate: 86400, tags: [`mcq-${bank}-${id}`] },
+  )()
 }

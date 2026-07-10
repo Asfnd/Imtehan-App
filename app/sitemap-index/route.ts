@@ -1,7 +1,7 @@
 import { buildSitemapIndexXml } from '@/lib/seo/build-sitemap-index'
 import { SITEMAP_XML_HEADERS } from '@/lib/seo/sitemap-xml'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 86400
 export const maxDuration = 60
 
 export async function GET() {

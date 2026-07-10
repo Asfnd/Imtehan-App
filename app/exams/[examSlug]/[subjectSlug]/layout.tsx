@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { getExamConfig } from '@/lib/exam-configs'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
+
+export const revalidate = 86400
 
 const SUBJECT_LABELS: Record<string, string> = {
   'english':           'English',
@@ -33,7 +35,7 @@ interface MCQRow {
 
 async function fetchSampleMCQs(dbTable: string): Promise<MCQRow[]> {
   try {
-    const supabase = await createServerSupabaseClient()
+    const supabase = createPublicSupabaseClient()
     const { data } = await supabase
       .from(dbTable)
       .select('question, option_a, option_b, option_c, option_d, correct_answer')

@@ -2,10 +2,13 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { fetchMCQsBySet } from '@/lib/quiz-fetcher'
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 import { SetSeoShell } from '@/components/seo/SetSeoShell'
 import QuizInterface from '@/components/QuizInterface'
+
+/** Public SEO page — ISR 24h to cut crawl CPU. */
+export const revalidate = 86400
 
 const MODE_CONFIG = {
   'most-repeated': { label: 'Most Repeated', icon: '🔥', type: 'most_repeated' },
@@ -87,7 +90,7 @@ export default async function QuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createPublicSupabaseClient()
 
   const mcqs = await fetchMCQsBySet(supabase, {
     dbTable: section.dbTable,

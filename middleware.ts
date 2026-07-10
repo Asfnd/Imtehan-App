@@ -175,15 +175,32 @@ function isSuspiciousRequest(request: NextRequest): boolean {
   return false
 }
 
+/** Major search crawlers — exempt from DDoS IP limits (they share IPs / burst). */
+function isSearchEngineCrawler(request: NextRequest): boolean {
+  const ua = request.headers.get('user-agent')?.toLowerCase() || ''
+  return (
+    ua.includes('googlebot') ||
+    ua.includes('bingbot') ||
+    ua.includes('slurp') ||
+    ua.includes('duckduckbot') ||
+    ua.includes('yandexbot') ||
+    ua.includes('baiduspider') ||
+    ua.includes('applebot')
+  )
+}
+
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // OPTIMIZATION: Skip middleware for static/cached routes to save edge CPU
+  // OPTIMIZATION: Skip middleware for static/cached/SEO crawl routes to save edge CPU
   // This reduces Edge Request CPU Duration by ~70%
   if (
     pathname === '/' ||
     pathname === '/exams' ||
     pathname.startsWith('/exams/') ||
+    pathname.startsWith('/mcq/') ||
+    pathname.startsWith('/mdcat/') ||
+    pathname.startsWith('/fsc/') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
@@ -213,9 +230,11 @@ export default async function middleware(request: NextRequest) {
 
   const localDev = isLocalDevRequest(request)
   const identifier = getIdentifier(request)
+  const searchCrawler = isSearchEngineCrawler(request)
 
   // DDoS Protection: Check if IP is making too many requests globally
-  if (!localDev && checkDDoSProtection(identifier)) {
+  // Search crawlers exempt — Googlebot bursts would otherwise 429 and retry harder
+  if (!localDev && !searchCrawler && checkDDoSProtection(identifier)) {
     return new NextResponse(
       JSON.stringify({
         error: 'Too many requests',

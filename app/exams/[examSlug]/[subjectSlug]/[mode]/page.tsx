@@ -4,6 +4,8 @@ import { fetchSampleMcqs } from '@/lib/seo/fetch-sample-mcqs'
 import { ModeSeoShell } from '@/components/seo/ModeSeoSection'
 import { ModeSetPicker } from './ModeSetPicker'
 
+export const revalidate = 86400
+
 export default async function ExamModePage({
   params,
 }: {
