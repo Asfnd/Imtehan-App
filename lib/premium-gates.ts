@@ -2,7 +2,8 @@
  * Pure client/server UX rules for set pickers.
  * Authoritative enforcement is `/api/practice/*` + demo_practice_usage.
  *
- * Funnel: 1 free demo (set/mock 1, once) → sign-in → premium.
+ * Funnel: 1 free demo (set/mock 1) → sign-in on next → premium for more.
+ * Signed-in free users still get the one demo if unused.
  */
 
 export type SetQuizPageAccess = 'allow' | 'require_sign_in' | 'require_premium'
@@ -14,9 +15,15 @@ export function tieredSetQuizPageAccess(
   demoUsed = false
 ): SetQuizPageAccess {
   if (isActivePremium) return 'allow'
-  if (isSignedIn) return 'require_premium'
-  if (setNumber >= 2) return 'require_sign_in'
-  if (demoUsed) return 'require_sign_in'
+  if (setNumber >= 2) {
+    if (!isSignedIn) return 'require_sign_in'
+    return 'require_premium'
+  }
+  // set 1
+  if (demoUsed) {
+    if (!isSignedIn) return 'require_sign_in'
+    return 'require_premium'
+  }
   return 'allow'
 }
 
@@ -26,11 +33,7 @@ export function mdcatMockPageAccess(
   isActivePremium: boolean,
   demoUsed = false
 ): SetQuizPageAccess {
-  if (isActivePremium) return 'allow'
-  if (isSignedIn) return 'require_premium'
-  if (mockNumber >= 2) return 'require_sign_in'
-  if (demoUsed) return 'require_sign_in'
-  return 'allow'
+  return tieredSetQuizPageAccess(mockNumber, isSignedIn, isActivePremium, demoUsed)
 }
 
 export type SetTableNavigation = 'navigate' | 'require_sign_in' | 'require_premium'
@@ -41,11 +44,10 @@ export function tieredSetTableNavigation(
   isActivePremium: boolean,
   demoUsed = false
 ): SetTableNavigation {
-  if (isActivePremium) return 'navigate'
-  if (isSignedIn) return 'require_premium'
-  if (setNum >= 2) return 'require_sign_in'
-  if (demoUsed) return 'require_sign_in'
-  return 'navigate'
+  const gate = tieredSetQuizPageAccess(setNum, isSignedIn, isActivePremium, demoUsed)
+  if (gate === 'allow') return 'navigate'
+  if (gate === 'require_sign_in') return 'require_sign_in'
+  return 'require_premium'
 }
 
 export type ExamMockClick = 'open' | 'require_sign_in' | 'show_premium'
@@ -56,11 +58,10 @@ export function examDashboardMockClick(
   isActivePremium: boolean,
   demoUsed = false
 ): ExamMockClick {
-  if (isActivePremium) return 'open'
-  if (isSignedIn) return 'show_premium'
-  if (mockId >= 2) return 'require_sign_in'
-  if (demoUsed) return 'require_sign_in'
-  return 'open'
+  const gate = tieredSetQuizPageAccess(mockId, isSignedIn, isActivePremium, demoUsed)
+  if (gate === 'allow') return 'open'
+  if (gate === 'require_sign_in') return 'require_sign_in'
+  return 'show_premium'
 }
 
 export function isExamMockCardLocked(

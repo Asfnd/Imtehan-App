@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
-import { fetchMCQsBySet } from '@/lib/quiz-fetcher'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
 import { SetSeoShell } from '@/components/seo/SetSeoShell'
 import QuizInterface from '@/components/QuizInterface'
+import { cachedFetchMCQsBySet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
-/** Public SEO page — ISR 24h to cut crawl CPU. Interactive MCQs load via gated API. */
+/** Public SEO page — ISR 24h. Interactive MCQs load via gated API (cached). */
 export const revalidate = 86400
 
 const MODE_CONFIG = {
@@ -90,11 +89,8 @@ export default async function QuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  const supabase = createPublicSupabaseClient()
-
-  // SEO sample only — never embed full interactive bank in HTML for free bypass.
-  // Set 1: up to 3 solved samples. Set 2+: teaser without full set dump.
-  const fullOrEmpty = await fetchMCQsBySet(supabase, {
+  // Cached 24h — shared with practice API to cut Fluid CPU
+  const fullSet = await cachedFetchMCQsBySet({
     dbTable: section.dbTable,
     setNumber,
     mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
@@ -104,18 +100,10 @@ export default async function QuizSetPage({
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
   }).catch(() => null)
 
-  if (!fullOrEmpty || fullOrEmpty.length === 0) notFound()
+  if (!fullSet || fullSet.length === 0) notFound()
 
-  const seoMcqs =
-    setNumber === 1
-      ? fullOrEmpty.slice(0, 3)
-      : fullOrEmpty.slice(0, 1).map((m) => ({
-          ...m,
-          // Hide answer key in HTML for locked sets (interactive path is API-gated).
-          correct_answer: '',
-          explanation: undefined,
-        }))
-
+  // Sets 1–3: full solved HTML for Google. Interactive quiz still API-gated.
+  const seoMcqs = seoMcqsForSet(setNumber, fullSet)
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
 
   return (

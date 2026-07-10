@@ -3,7 +3,7 @@ import { getAuthenticatedUserForRoute } from '@/lib/security/request-verificatio
 import { isActivePremium } from '@/lib/is-active-premium'
 import {
   attachGuestCookie,
-  consumeGuestDemo,
+  consumeDemo,
   decideCreditPracticeAccess,
   decidePracticeAccess,
   getDemoStatus,
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   const user = await getAuthenticatedUserForRoute(request)
   const premium = isActivePremium(user)
   const { token, setCookie } = await getOrCreateGuestToken()
-  const demo = await getDemoStatus(token)
+  const demo = await getDemoStatus(token, user?.id)
 
   const res = NextResponse.json({
     isSignedIn: !!user,
@@ -31,9 +31,7 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST — claim the single guest demo slot (CSS/MPT) or check set/mock access.
- * Body: { kind?: string, setOrMockNumber?: number }
- * Does not return MCQs; use /api/practice/set for that.
+ * POST — claim the single demo slot (CSS/MPT/mocks) or check set/mock access.
  */
 export async function POST(request: NextRequest) {
   let body: { kind?: string; setOrMockNumber?: number; consume?: boolean } = {}
@@ -54,12 +52,14 @@ export async function POST(request: NextRequest) {
           isSignedIn: !!user,
           isPremium: premium,
           guestToken: token,
+          userId: user?.id,
           setOrMockNumber,
         })
       : await decideCreditPracticeAccess({
           isSignedIn: !!user,
           isPremium: premium,
           guestToken: token,
+          userId: user?.id,
         })
 
   if (!decision.allow) {
@@ -70,7 +70,12 @@ export async function POST(request: NextRequest) {
   }
 
   if (body.consume !== false && decision.consumeDemo) {
-    await consumeGuestDemo(token, body.kind ?? 'credit-practice')
+    await consumeDemo({
+      guestToken: token,
+      userId: user?.id,
+      consumeAs: decision.consumeAs,
+      kind: body.kind ?? 'credit-practice',
+    })
   }
 
   const res = NextResponse.json({

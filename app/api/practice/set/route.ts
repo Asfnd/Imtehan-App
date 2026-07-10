@@ -3,16 +3,16 @@ import { getAuthenticatedUserForRoute } from '@/lib/security/request-verificatio
 import { isActivePremium } from '@/lib/is-active-premium'
 import {
   attachGuestCookie,
-  consumeGuestDemo,
+  consumeDemo,
   decidePracticeAccess,
   getOrCreateGuestToken,
 } from '@/lib/demo-access'
-import { createAdminSupabaseClient } from '@/lib/supabase/admin'
 import {
-  fetchMCQsBySet,
-  fetchMCQsByDifficultySet,
-  fetchMCQsByTopicSet,
-} from '@/lib/quiz-fetcher'
+  cachedFetchMCQsBySet,
+  cachedFetchMCQsByDifficultySet,
+  cachedFetchMCQsByTopicSet,
+  cachedMdcatRangeSet,
+} from '@/lib/cached-quiz-fetch'
 import { getExamConfig } from '@/lib/exam-configs'
 
 export const runtime = 'nodejs'
@@ -68,62 +68,52 @@ export async function POST(request: NextRequest) {
     isSignedIn: !!user,
     isPremium: premium,
     guestToken,
+    userId: user?.id,
     setOrMockNumber: setNumber,
   })
 
   if (!decision.allow) {
-    const status = decision.code === 'REQUIRE_SIGN_IN' || decision.code === 'DEMO_USED' ? 401 : 403
+    const status = decision.code === 'PREMIUM_REQUIRED' ? 403 : 401
     return deny(decision.code, status, setCookie ? guestToken : undefined)
   }
 
   try {
-    const admin = createAdminSupabaseClient()
     let mcqs
 
     if (body.source === 'difficulty') {
       if (!body.dbTable || !body.difficulty) {
         return NextResponse.json({ error: 'Missing difficulty params' }, { status: 400 })
       }
-      mcqs = await fetchMCQsByDifficultySet(admin, {
+      mcqs = await cachedFetchMCQsByDifficultySet({
         dbTable: body.dbTable,
         difficulty: body.difficulty,
         setNumber,
         subjectField: body.subjectField,
+        admin: true,
       })
     } else if (body.source === 'topic') {
       if (!body.dbTable || !body.tag) {
         return NextResponse.json({ error: 'Missing topic params' }, { status: 400 })
       }
-      mcqs = await fetchMCQsByTopicSet(admin, {
+      mcqs = await cachedFetchMCQsByTopicSet({
         dbTable: body.dbTable,
         tag: body.tag,
         useTagsArray: !!body.useTagsArray,
         setNumber,
+        admin: true,
       })
     } else if (body.source === 'mdcat' || body.source === 'fsc') {
       if (!body.dbTable) {
         return NextResponse.json({ error: 'Missing dbTable' }, { status: 400 })
       }
-      const offset = (setNumber - 1) * 20
-      const cols =
-        'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation, topic, subtopic'
-      let query = admin.from(body.dbTable).select(cols)
-      if (body.difficulty) query = query.eq('difficulty', body.difficulty)
-      else if (body.tag) query = query.eq('topic', body.tag)
-      const { data, error } = await query.order('id').range(offset, offset + 19)
-      if (error) throw new Error(error.message)
-      mcqs = (data ?? []).map((row: Record<string, unknown>) => ({
-        id: Number(row.id),
-        question: String(row.question),
-        option_a: String(row.option_a),
-        option_b: String(row.option_b),
-        option_c: String(row.option_c),
-        option_d: String(row.option_d),
-        correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
-        explanation: row.explanation ? String(row.explanation) : undefined,
-      }))
+      mcqs = await cachedMdcatRangeSet({
+        dbTable: body.dbTable,
+        setNumber,
+        difficulty: body.difficulty,
+        topic: body.tag,
+        admin: true,
+      })
     } else {
-      // exam / mdcat / fsc mode sets
       let dbTable = body.dbTable
       let subjectField = body.subjectField
       let noTypeFilter = body.noTypeFilter
@@ -149,14 +139,17 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Missing dbTable' }, { status: 400 })
       }
 
-      mcqs = await fetchMCQsBySet(admin, {
-        dbTable,
-        setNumber,
-        mode: (modeType as 'practice' | 'most_repeated' | 'most_important' | 'mixed') || 'mixed',
-        noTypeFilter: !!noTypeFilter,
-        subjectField,
-        targetExam,
-      })
+      mcqs = await cachedFetchMCQsBySet(
+        {
+          dbTable,
+          setNumber,
+          mode: (modeType as 'practice' | 'most_repeated' | 'most_important' | 'mixed') || 'mixed',
+          noTypeFilter: !!noTypeFilter,
+          subjectField,
+          targetExam,
+        },
+        { admin: true }
+      )
     }
 
     if (!mcqs?.length) {
@@ -164,10 +157,12 @@ export async function POST(request: NextRequest) {
     }
 
     if (decision.consumeDemo) {
-      await consumeGuestDemo(
+      await consumeDemo({
         guestToken,
-        `set:${body.source ?? 'exam'}:${body.examSlug ?? body.dbTable}:${setNumber}`
-      )
+        userId: user?.id,
+        consumeAs: decision.consumeAs,
+        kind: `set:${body.source ?? 'exam'}:${body.examSlug ?? body.dbTable}:${setNumber}`,
+      })
     }
 
     const res = NextResponse.json({
@@ -175,6 +170,7 @@ export async function POST(request: NextRequest) {
       mcqs,
       setNumber,
       demoConsumed: decision.consumeDemo,
+      isDemo: decision.consumeDemo,
     })
     if (setCookie) attachGuestCookie(res, guestToken)
     return res

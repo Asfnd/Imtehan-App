@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
-import { fetchMCQsByDifficultySet } from '@/lib/quiz-fetcher'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { difficultyDbValue } from '@/lib/topic-tags'
 import { difficultyIndexingMeta } from '@/lib/seo/topic-indexing'
 import { McqCrawlBlock } from '@/components/seo/McqCrawlBlock'
@@ -11,6 +9,7 @@ import { SeoSiblingSetLinks } from '@/components/seo/SeoSiblingSetLinks'
 import { buildQuizJsonLd } from '@/lib/seo/quiz-jsonld'
 import { jsonLdString } from '@/lib/seo/jsonld'
 import QuizInterface from '@/components/QuizInterface'
+import { cachedFetchMCQsByDifficultySet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
 /** Public SEO page — ISR 24h to cut crawl CPU. */
 export const revalidate = 86400
@@ -70,8 +69,7 @@ export default async function DifficultyQuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  const supabase = createPublicSupabaseClient()
-  const mcqs = await fetchMCQsByDifficultySet(supabase, {
+  const mcqs = await cachedFetchMCQsByDifficultySet({
     dbTable: section.dbTable,
     difficulty: difficultyDbValue(level, section.dbTable),
     setNumber,
@@ -83,7 +81,7 @@ export default async function DifficultyQuizSetPage({
   const levelLabel = LEVEL_LABELS[level] ?? level
   const h1 = `${config.name} ${subjectSlug} ${levelLabel} — Set ${setNumber}`
   const canonical = `https://imtehan.com/exams/${examSlug}/${subjectSlug}/difficulty/${level}/set/${setNumber}`
-  const seoMcqs = setNumber === 1 ? mcqs.slice(0, 3) : []
+  const seoMcqs = seoMcqsForSet(setNumber, mcqs)
   const quizJsonLd = buildQuizJsonLd({
     name: h1,
     description: `${levelLabel} MCQs set ${setNumber}`,

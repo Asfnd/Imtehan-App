@@ -173,74 +173,54 @@ export function useFreeTrial() {
       return false
     }
 
-    // Check if user has access
-    if (checkAccess(type)) {
-      // Server-side demo claim for guests (localStorage alone is not enough)
-      if (!isSignedIn) {
-        const claim = await claimDemoPractice(`credit:${type}`)
-        if (!claim.ok) {
-          if (claim.code === 'PREMIUM_REQUIRED') {
-            router.push(PREMIUM_PAGE_PATH)
-          } else {
-            setShowSignInPopup(true)
-          }
-          return false
-        }
-      }
-
-      // For signed-in users, increment in database
-      if (isSignedIn) {
-        try {
-          const response = await fetchWithSupabaseAuth('/api/usage', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type }),
-          })
-
-          if (response.ok) {
-            // Refresh database usage after increment
-            await fetchDatabaseUsage()
-          }
-        } catch (error) {
-          if (process.env.NODE_ENV === 'development') {
-            console.error('Failed to increment database usage:', error)
-          }
-        }
-      } else {
-        // For guest users, use localStorage
-        switch (type) {
-          case 'cssSubject':
-            usageTracker.incrementCSSSubjectQuiz(false)
-            break
-          case 'cssIdioms':
-            usageTracker.incrementCSSIdiomsQuiz(false)
-            break
-          case 'cssIdiomsRandom':
-            usageTracker.incrementCSSIdiomsRandom(false)
-            break
-          case 'mptMock':
-            usageTracker.incrementMPTMockTest(false)
-            break
-          case 'mptPast':
-            usageTracker.incrementMPTPastPaper(false)
-            break
-          case 'officialPast':
-            usageTracker.incrementOfficialPastPaper(false)
-            break
-        }
-      }
-      return true
-    } else {
-      // User hit their limit
-      if (isSignedIn) {
-        // Signed-in user → redirect to premium page
+    // Server is source of truth for the single free demo (guest + signed-in free)
+    const claim = await claimDemoPractice(`credit:${type}`)
+    if (!claim.ok) {
+      if (claim.code === 'PREMIUM_REQUIRED') {
         router.push(PREMIUM_PAGE_PATH)
       } else {
-        // Guest user → show sign-in popup
         setShowSignInPopup(true)
       }
       return false
     }
+
+    // Soft local/DB counters for UI remaining labels (not authoritative)
+    if (isSignedIn) {
+      try {
+        await fetchWithSupabaseAuth('/api/usage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type }),
+        })
+        await fetchDatabaseUsage()
+      } catch (error) {
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to increment database usage:', error)
+        }
+      }
+    } else {
+      switch (type) {
+        case 'cssSubject':
+          usageTracker.incrementCSSSubjectQuiz(false)
+          break
+        case 'cssIdioms':
+          usageTracker.incrementCSSIdiomsQuiz(false)
+          break
+        case 'cssIdiomsRandom':
+          usageTracker.incrementCSSIdiomsRandom(false)
+          break
+        case 'mptMock':
+          usageTracker.incrementMPTMockTest(false)
+          break
+        case 'mptPast':
+          usageTracker.incrementMPTPastPaper(false)
+          break
+        case 'officialPast':
+          usageTracker.incrementOfficialPastPaper(false)
+          break
+      }
+    }
+    return true
   }
 
   const getTrialStatus = () => {

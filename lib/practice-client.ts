@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 
 export type PracticeFetchResult =
-  | { ok: true; mcqs: any[] }
+  | { ok: true; mcqs: any[]; demoConsumed?: boolean }
   | { ok: false; code: 'REQUIRE_SIGN_IN' | 'PREMIUM_REQUIRED' | 'DEMO_USED' | 'ERROR' }
 
 async function authHeaders(): Promise<HeadersInit> {
@@ -27,7 +27,7 @@ export async function fetchPracticeSet(body: Record<string, unknown>): Promise<P
     })
     const data = await res.json().catch(() => ({}))
     if (res.ok && Array.isArray(data.mcqs)) {
-      return { ok: true, mcqs: data.mcqs }
+      return { ok: true, mcqs: data.mcqs, demoConsumed: !!data.demoConsumed }
     }
     const code = data.code as PracticeFetchResult extends { ok: false; code: infer C } ? C : never
     if (code === 'REQUIRE_SIGN_IN' || code === 'DEMO_USED' || code === 'PREMIUM_REQUIRED') {

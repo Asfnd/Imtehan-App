@@ -90,21 +90,20 @@ export default async function MDCATSetPage({
   if (error || !data || data.length === 0) notFound()
 
   const totalSets = count ? Math.ceil(count / MCQS_PER_SET) : undefined
-  const displayLabel = difficulty ?? topic
 
-  const seoMcqs =
-    setNumber === 1
-      ? data.slice(0, 3).map((row) => ({
-          id: Number(row.id),
-          question: String(row.question),
-          option_a: String(row.option_a),
-          option_b: String(row.option_b),
-          option_c: String(row.option_c),
-          option_d: String(row.option_d),
-          correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
-          explanation: row.explanation ? String(row.explanation) : undefined,
-        }))
-      : []
+  const mapped = data.map((row) => ({
+    id: Number(row.id),
+    question: String(row.question),
+    option_a: String(row.option_a),
+    option_b: String(row.option_b),
+    option_c: String(row.option_c),
+    option_d: String(row.option_d),
+    correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
+    explanation: row.explanation ? String(row.explanation) : undefined,
+  }))
+
+  // Sets 1–3 indexable: full solved crawl HTML. Interactive still API-gated.
+  const seoMcqs = setNumber <= 3 ? mapped : []
 
   return (
     <MdcatSetSeoShell

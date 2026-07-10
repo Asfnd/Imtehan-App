@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
-import { fetchMCQsByTopicSet } from '@/lib/quiz-fetcher'
-import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { isTagArrayTable, tagSlugToLabel, topicDbValue } from '@/lib/topic-tags'
 import { topicIndexingMeta } from '@/lib/seo/topic-indexing'
 import { TopicSetSeoShell } from '@/components/seo/TopicSeoShell'
 import QuizInterface from '@/components/QuizInterface'
+import { cachedFetchMCQsByTopicSet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
 /** Public SEO page — ISR 24h to cut crawl CPU. */
 export const revalidate = 86400
@@ -90,8 +89,7 @@ export default async function TopicQuizSetPage({
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
   const dbVal = topicDbValue(tagSlug, section.dbTable)
-  const supabase = createPublicSupabaseClient()
-  const mcqs = await fetchMCQsByTopicSet(supabase, {
+  const mcqs = await cachedFetchMCQsByTopicSet({
     dbTable: section.dbTable,
     tag: dbVal,
     useTagsArray: isTagArrayTable(section.dbTable),
@@ -102,7 +100,7 @@ export default async function TopicQuizSetPage({
 
   const subjectName = SUBJECT_LABELS[subjectSlug] ?? subjectSlug.replace(/-/g, ' ')
   const topicLabel = tagSlugToLabel(tagSlug)
-  const seoMcqs = setNumber === 1 ? mcqs.slice(0, 3) : []
+  const seoMcqs = seoMcqsForSet(setNumber, mcqs)
 
   return (
     <TopicSetSeoShell
