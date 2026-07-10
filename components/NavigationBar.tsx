@@ -7,11 +7,11 @@ import { LogOut, Menu, X, LayoutGrid, ChevronDown, MessageSquare, Pin } from 'lu
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { Button } from '@/components/ui/Button'
-import { AVAILABLE_NAV_CATEGORIES, EXAMS_BY_CATEGORY } from '@/lib/nav-exam-counts'
 import { trackLogin } from '@/lib/analytics/events'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { PlayStoreButton } from '@/components/PlayStoreButton'
 import { INSTAGRAM_URL } from '@/lib/routes'
+import { ExamBrowseMenu } from '@/components/ExamBrowseMenu'
 
 function InstagramFollowButton({ size = 'md' }: { size?: 'sm' | 'md' }) {
   const box = size === 'sm' ? 'h-10 w-10' : 'h-[42px] w-[42px]'
@@ -31,63 +31,6 @@ function InstagramFollowButton({ size = 'md' }: { size?: 'sm' | 'md' }) {
     </a>
   )
 }
-
-const CATEGORY_CONFIG: Record<string, { label: string; href: string }> = {
-  medical:     { label: 'MDCAT',        href: '/exams?category=medical' },
-  engineering: { label: 'Engineering',  href: '/exams?category=engineering' },
-  hec:        { label: 'HEC / ETC',    href: '/exams?category=hec' },
-  css:        { label: 'CSS',          href: '/css' },
-  pms:        { label: 'PMS',          href: '/exams/pms-competitive' },
-  ppsc:       { label: 'PPSC',         href: '/exams?category=ppsc' },
-  fpsc:       { label: 'FPSC',         href: '/exams?category=fpsc' },
-  fia:        { label: 'FIA',          href: '/exams?category=fia' },
-  provincial: { label: 'Provincial',   href: '/exams?category=provincial' },
-  police:     { label: 'Police',       href: '/exams?category=police' },
-  military:   { label: 'Military',     href: '/exams?category=military' },
-  nts:        { label: 'NTS',          href: '/exams?category=nts' },
-  ots:        { label: 'OTS',          href: '/exams?category=ots' },
-  etea:       { label: 'ETEA',         href: '/exams?category=etea' },
-  railways:   { label: 'Railways',     href: '/exams?category=railways' },
-  banks:      { label: 'Banks',        href: '/exams?category=banks' },
-  judiciary:  { label: 'Judiciary',    href: '/exams?category=judiciary' },
-  devauth:    { label: 'Dev Authority',href: '/exams?category=devauth' },
-  rescue:     { label: 'Rescue 1122', href: '/exams?category=rescue' },
-  revenue:    { label: 'Revenue Auth',href: '/exams?category=revenue' },
-}
-
-const MEDICAL_NAV = [
-  { key: 'mdcat',              label: 'MDCAT',   href: '/mdcat' },
-  { key: 'king-edward-medical', label: 'KEMU',   href: '/exams/king-edward-medical' },
-  { key: 'jsmu-karachi',       label: 'JSMU',   href: '/exams/jsmu-karachi' },
-  { key: 'amc-entry',          label: 'AMC',    href: '/exams/amc-entry' },
-  { key: 'dow-entry',          label: 'Dow',    href: '/exams/dow-entry' },
-  { key: 'medical-all',        label: 'All Medical', href: '/exams?category=medical' },
-]
-
-const ENGINEERING_NAV = [
-  { key: 'ecat',             label: 'ECAT',        href: '/exams?category=engineering&exam=ecat' },
-  { key: 'uet-lahore',       label: 'UET Lahore',  href: '/exams/uet-lahore' },
-  { key: 'net-engineering',  label: 'NUST NET',    href: '/exams?category=engineering&exam=net-engineering' },
-  { key: 'giki-entry',       label: 'GIKI',        href: '/exams?category=engineering&exam=giki-entry' },
-  { key: 'pieas-entry',      label: 'PIEAS',       href: '/exams?category=engineering&exam=pieas-entry' },
-  { key: 'bahria-university', label: 'Bahria',     href: '/exams/bahria-university' },
-  { key: 'comsats',          label: 'COMSATS',      href: '/exams?category=engineering&exam=comsats-engineering' },
-]
-
-const HEC_NAV = [
-  { key: 'hec-lat',     label: 'LAT',      href: '/exams/hec-lat' },
-  { key: 'hec-usat-e',  label: 'USAT-E',   href: '/exams/hec-usat-e' },
-  { key: 'hec-usat-m',  label: 'USAT-M',   href: '/exams/hec-usat-m' },
-  { key: 'hec-law-gat', label: 'Law-GAT',  href: '/exams/hec-law-gat' },
-  { key: 'hec-hat-1',   label: 'HAT-1',    href: '/exams/hec-hat-1' },
-  { key: 'hec-all',     label: 'All HEC',  href: '/exams?category=hec' },
-]
-
-const CATEGORY_ORDER = [
-  'medical', 'engineering', 'hec', 'css', 'pms', 'ppsc', 'fpsc', 'fia', 'provincial', 'police', 'military',
-  'nts', 'ots', 'etea', 'railways', 'banks', 'judiciary', 'devauth',
-  'rescue', 'revenue',
-]
 
 type PinnedExam = { key: string; label: string; href: string }
 
@@ -115,10 +58,6 @@ function usePinnedExam() {
 
   return { pinned, unpin }
 }
-
-// Lightweight category counts (see lib/nav-exam-counts.ts)
-const examsByCategory = EXAMS_BY_CATEGORY
-const availableCategories = AVAILABLE_NAV_CATEGORIES
 
 interface NavigationBarProps {
   showEligibilityButton?: boolean
@@ -154,8 +93,15 @@ export default function NavigationBar({
         setExamDropdownOpen(false)
       }
     }
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === 'Escape') setExamDropdownOpen(false)
+    }
     document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscape)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+    }
   }, [])
 
   const handleSignOut = async () => {
@@ -277,66 +223,8 @@ export default function NavigationBar({
                 </button>
 
                 {examDropdownOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 bg-white border-2 border-gray-300 rounded-2xl shadow-xl z-50 p-5 w-[480px]">
-                    {/* Medical */}
-                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Medical</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {MEDICAL_NAV.map((item) => (
-                        <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                    {/* Engineering */}
-                    <div className="border-t-2 border-gray-200 pt-4 mb-4">
-                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Engineering</p>
-                      <div className="flex flex-wrap gap-2">
-                        {ENGINEERING_NAV.map((item) => (
-                          <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    {/* HEC / ETC */}
-                    <div className="border-t-2 border-gray-200 pt-4 mb-4">
-                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">HEC / ETC</p>
-                      <div className="flex flex-wrap gap-2">
-                        {HEC_NAV.map((item) => (
-                          <Link key={item.key} href={item.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    {/* Civil Services: featured */}
-                    <div className="border-t-2 border-gray-200 pt-4">
-                      <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.12em] mb-2">⭐ Civil Services</p>
-                      <div className="flex gap-2 mb-3">
-                        {['css', 'pms'].filter(c => CATEGORY_CONFIG[c]).map((cat) => {
-                          const cfg = CATEGORY_CONFIG[cat]
-                          return (
-                            <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="flex-1 px-4 py-2.5 rounded-xl border-2 border-indigo-200 bg-indigo-50 text-xs font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all duration-150 text-center">
-                              {cfg.label}
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </div>
-                    {/* Other Competitive */}
-                    <div>
-                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Other Competitive Exams</p>
-                      <div className="flex flex-wrap gap-2">
-                        {availableCategories.filter(c => c !== 'medical' && c !== 'engineering' && c !== 'hec' && c !== 'css' && c !== 'pms').map((cat) => {
-                          const cfg = CATEGORY_CONFIG[cat]
-                          return (
-                            <Link key={cat} href={cfg.href} onClick={() => setExamDropdownOpen(false)} className="px-4 py-2 rounded-lg border-2 border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                              {cfg.label}
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </div>
+                  <div className="absolute top-full left-1/2 z-50 mt-2.5 w-[min(92vw,520px)] -translate-x-1/2 rounded-2xl border-2 border-gray-300 bg-white p-5 shadow-xl">
+                    <ExamBrowseMenu onNavigate={() => setExamDropdownOpen(false)} />
                   </div>
                 )}
               </div>
@@ -541,58 +429,7 @@ export default function NavigationBar({
             {/* Navigation Links */}
             {showCenterNav && (
               <div className="pb-3 border-b border-gray-100">
-                <p className="px-1 pt-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Medical</p>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {MEDICAL_NAV.map((item) => (
-                    <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-                <div className="border-t border-gray-100 pt-3 mb-4">
-                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Engineering</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {ENGINEERING_NAV.map((item) => (
-                      <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="border-t border-gray-100 pt-3 mb-4">
-                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">HEC / ETC</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {HEC_NAV.map((item) => (
-                      <Link key={item.key} href={item.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="border-t border-gray-100 pt-3 mb-1">
-                  <p className="px-1 pb-2 text-[9px] font-bold text-indigo-400 uppercase tracking-[0.12em]">⭐ Civil Services</p>
-                  <div className="flex gap-1.5 mb-3">
-                    {['css', 'pms'].filter(c => CATEGORY_CONFIG[c]).map((cat) => {
-                      const cfg = CATEGORY_CONFIG[cat]
-                      return (
-                        <Link key={cat} href={cfg.href} onClick={() => setMobileMenuOpen(false)} className="flex-1 px-3.5 py-2 rounded-xl border border-indigo-200 bg-indigo-50 text-[11px] font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all duration-150 text-center">
-                          {cfg.label}
-                        </Link>
-                      )
-                    })}
-                  </div>
-                  <p className="px-1 pb-2 text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em]">Other Competitive Exams</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {availableCategories.filter(c => c !== 'medical' && c !== 'engineering' && c !== 'hec' && c !== 'css' && c !== 'pms').map((cat) => {
-                      const cfg = CATEGORY_CONFIG[cat]
-                      return (
-                        <Link key={cat} href={cfg.href} onClick={() => setMobileMenuOpen(false)} className="px-3.5 py-1.5 rounded-lg border border-gray-200 text-[11px] font-medium text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-150">
-                          {cfg.label}
-                        </Link>
-                      )
-                    })}
-                  </div>
-                </div>
+                <ExamBrowseMenu compact onNavigate={() => setMobileMenuOpen(false)} className="max-h-[min(60vh,480px)] overflow-y-auto overscroll-contain" />
                 <Link
                   href="/community"
                   onClick={() => setMobileMenuOpen(false)}
