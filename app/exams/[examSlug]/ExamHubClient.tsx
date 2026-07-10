@@ -378,7 +378,7 @@ function ExamDashboard() {
       </div>
     </div>
 
-    <SignInPopup isOpen={showSignIn} onClose={() => setShowSignIn(false)} message="Sign in to access more mock tests and practice sets" />
+    <SignInPopup isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
     <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
     {pendingMockId && (
       <MockPatternPopup

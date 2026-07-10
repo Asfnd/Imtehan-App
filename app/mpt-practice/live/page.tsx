@@ -95,7 +95,6 @@ export default function MPTLiveTestsPage() {
       <SignInPopup
         isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
-        message="Sign in to access all MPT practice tests"
       />
       <ProtectedContent>
         <div className="min-h-screen bg-gray-50 px-4 py-6">

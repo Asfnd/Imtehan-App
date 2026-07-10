@@ -242,8 +242,6 @@ export default function MDCATMockListingPage() {
                           <div>
                             <p className={`font-semibold text-sm ${isLocked ? 'text-slate-500' : 'text-slate-900'}`}>
                               Mock Test {mockNum}
-                              {isSignIn && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
-                              {isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
                             </p>
                             <p className="text-xs text-slate-400">{meta.total} MCQs · {meta.duration}</p>
                           </div>

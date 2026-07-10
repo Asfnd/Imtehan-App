@@ -185,7 +185,6 @@ export default function PastPapersMain() {
       <SignInPopup 
         isOpen={showSignInPopup} 
         onClose={() => setShowSignInPopup(false)}
-        message="Sign in to continue accessing papers"
       />
       <ProtectedContent>
         <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-white overflow-hidden">

@@ -108,7 +108,6 @@ export default function MPTPastPapersPage() {
       <SignInPopup
         isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
-        message="Sign in to access unlimited MPT past paper practice"
       />
       <ProtectedContent>
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50/40 flex flex-col">

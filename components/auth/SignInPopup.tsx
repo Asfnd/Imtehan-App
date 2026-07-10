@@ -10,7 +10,7 @@ interface SignInPopupProps {
   message?: string
 }
 
-export default function SignInPopup({ isOpen, onClose, message = "Sign in to unlock this content" }: SignInPopupProps) {
+export default function SignInPopup({ isOpen, onClose, message }: SignInPopupProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -89,21 +89,14 @@ export default function SignInPopup({ isOpen, onClose, message = "Sign in to unl
 
               {/* Content */}
               <div className="p-8 text-center">
-                {/* Lock Icon with Animation */}
-                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg animate-bounce">
-                  <Lock className="w-10 h-10 text-white" />
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                  <Lock className="w-8 h-8 text-white" />
                 </div>
 
-                {/* Message */}
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Trial Limit Reached
-                </h2>
-                <p className="text-gray-600 mb-3">
-                  {message}
-                </p>
-                <p className="text-sm text-gray-500 mb-8">
-                  Sign in to get more credits, save your progress, and track your performance
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Sign in</h2>
+                {message ? (
+                  <p className="text-gray-600 mb-6 text-sm">{message}</p>
+                ) : null}
 
                 {/* Google Sign In Button */}
                 <button

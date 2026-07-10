@@ -104,7 +104,6 @@ function GuessPaperViewerContent() {
         <SignInPopup
           isOpen={showSignInPopup}
           onClose={() => setShowSignInPopup(false)}
-          message="Sign in to access premium features"
         />
       </div>
     )

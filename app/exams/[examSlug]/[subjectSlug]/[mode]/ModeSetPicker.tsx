@@ -204,32 +204,16 @@ export function ModeSetPicker() {
                           }`}
                         >
                           Set {setNum}
-                          {needSignIn && (
-                            <span className="ml-1.5 rounded-full bg-blue-100 px-1.5 py-0.5 text-[9px] font-semibold text-blue-700">
-                              Sign In
-                            </span>
-                          )}
-                          {needPremium && (
-                            <span className="ml-1.5 rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700">
-                              Premium
-                            </span>
-                          )}
                         </div>
                         <div className="mt-0.5 text-[10px] text-gray-400 md:text-xs">
-                          {isSetLocked
-                            ? needSignIn
-                              ? 'Sign in free to unlock'
-                              : 'Premium required'
-                            : isCompleted
-                              ? `Completed · ${score}% score`
-                              : setMcqRangeLabel(setNum, totalMCQs)}
+                          {isCompleted
+                            ? `Completed · ${score}% score`
+                            : setMcqRangeLabel(setNum, totalMCQs)}
                         </div>
                       </div>
                     </div>
                     {isSetLocked ? (
-                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-400">
-                        Unlock
-                      </span>
+                      <Lock className="h-4 w-4 flex-shrink-0 text-gray-300" />
                     ) : isCompleted ? (
                       <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
                         {score}%
@@ -242,32 +226,12 @@ export function ModeSetPicker() {
               )
             })}
           </BatchSetPickerGrid>
-
-          {!isPremium && (
-            <div className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <div>
-                <p className="text-sm font-semibold text-blue-900">
-                  {!user
-                    ? '1 free demo set · Sign in on the next set · then Premium'
-                    : 'More sets require Premium'}
-                </p>
-                <p className="mt-0.5 text-xs text-blue-600">Unlimited sets, all mock tests, and solved papers</p>
-              </div>
-              <button
-                onClick={() => (user ? router.push(PREMIUM_PAGE_PATH) : setShowSignIn(true))}
-                className="flex-shrink-0 rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700"
-              >
-                {user ? 'Upgrade' : 'Sign In'}
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
       <SignInPopup
         isOpen={showSignIn}
         onClose={() => setShowSignIn(false)}
-        message="Sign in to access more practice sets"
       />
     </>
   )

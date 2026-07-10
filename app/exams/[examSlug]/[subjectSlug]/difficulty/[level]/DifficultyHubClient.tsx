@@ -204,21 +204,17 @@ export function DifficultyHubClient() {
                               <div className="flex-1 min-w-0">
                                 <div className={`font-semibold text-xs md:text-sm ${isSetLocked ? 'text-gray-400' : isCompleted ? 'text-emerald-800' : 'text-gray-900'}`}>
                                   Set {setNum}
-                                  {needSignIn  && <span className="ml-1.5 text-[9px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
-                                  {needPremium && <span className="ml-1.5 text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
                                 </div>
                                 <div className="text-[10px] md:text-xs text-gray-400 mt-0.5">
-                                  {isSetLocked
-                                    ? (needSignIn ? 'Sign in free to unlock' : 'Premium required')
-                                    : isCompleted
-                                      ? `Completed · ${score}% score`
-                                      : setMcqRangeLabel(setNum, totalMCQs)
+                                  {isCompleted
+                                    ? `Completed · ${score}% score`
+                                    : setMcqRangeLabel(setNum, totalMCQs)
                                   }
                                 </div>
                               </div>
                             </div>
                             {isSetLocked
-                              ? <span className="text-[10px] text-gray-400 font-medium bg-gray-100 px-2 py-0.5 rounded-full">Unlock</span>
+                              ? <Lock className="w-4 h-4 text-gray-300 flex-shrink-0" />
                               : isCompleted
                                 ? <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-emerald-500 flex-shrink-0" />
                                 : <Play className="w-4 h-4 md:w-5 md:h-5 text-blue-600 fill-current flex-shrink-0" />
@@ -229,29 +225,10 @@ export function DifficultyHubClient() {
                     })}
             </BatchSetPickerGrid>
           )}
-
-          {!isPremium && totalSets > 0 && (
-            <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-sm font-semibold text-blue-900">
-                  {!user
-                    ? '1 free demo set · Sign in on the next set · then Premium'
-                    : 'More sets require Premium'}
-                </p>
-                <p className="text-xs text-blue-600 mt-0.5">Unlimited sets, all mock tests, and solved papers</p>
-              </div>
-              <button
-                onClick={() => user ? router.push(PREMIUM_PAGE_PATH) : setShowSignIn(true)}
-                className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
-              >
-                {user ? 'Upgrade' : 'Sign In'}
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
-      <SignInPopup isOpen={showSignIn} onClose={() => setShowSignIn(false)} message="Sign in to access more practice sets" />
+      <SignInPopup isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
     </>
   )
 }

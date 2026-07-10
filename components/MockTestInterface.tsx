@@ -396,11 +396,8 @@ export default function MockTestInterface({
             setShowSignIn(false)
             router.push(`/exams/${examSlug}`)
           }}
-          message="Sign in on your second practice — then upgrade for unlimited mocks"
         />
-        <div className="flex min-h-[40vh] items-center justify-center text-sm text-slate-500">
-          Unlock this mock to practice
-        </div>
+        <div className="flex min-h-[40vh] items-center justify-center" aria-busy="true" />
       </>
     )
   }

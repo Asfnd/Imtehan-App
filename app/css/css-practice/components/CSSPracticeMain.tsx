@@ -65,7 +65,6 @@ export default function CSSPracticeMain() {
       <SignInPopup
         isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
-        message="Sign in to continue practicing"
       />
       <ProtectedContent>
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50/30 flex flex-col">

@@ -456,11 +456,8 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
         <SignInPopup
           isOpen={showSignIn || mockAccessGate === 'require_sign_in'}
           onClose={() => { setShowSignIn(false); router.push(`/mdcat/mock/${variant}`) }}
-          message="Sign in to continue — then upgrade for unlimited mock tests"
         />
-        <div className="text-center text-sm text-slate-500">
-          {mockAccessGate === 'pending' ? 'Checking access…' : 'Unlock this mock to practice'}
-        </div>
+        <div className="min-h-[20vh]" aria-busy="true" />
       </div>
     )
   }

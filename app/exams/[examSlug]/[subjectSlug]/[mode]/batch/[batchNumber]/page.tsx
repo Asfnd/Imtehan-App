@@ -140,8 +140,6 @@ export default async function BatchSetsPage({
                     <div className="flex-1">
                       <h3 className={`font-bold mb-1 transition-colors ${isLocked ? 'text-gray-500' : 'text-gray-900 group-hover:text-blue-600'}`}>
                         Practice Set {setNumber}
-                        {isSignIn && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold align-middle">Sign In</span>}
-                        {isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold align-middle">Premium</span>}
                       </h3>
                       <p className="text-sm text-gray-500 mb-2">Questions {startMCQ} - {endMCQ}</p>
                       <div className="flex items-center gap-2">

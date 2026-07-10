@@ -39,7 +39,6 @@ export default function SolvedPapersMain() {
       <SignInPopup
         isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
-        message="Sign in required to access solved papers"
       />
       <ProtectedContent>
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">

@@ -84,7 +84,6 @@ export default function MPTPracticeMain() {
       <SignInPopup
         isOpen={showSignInPopup}
         onClose={() => setShowSignInPopup(false)}
-        message="Sign in to continue practicing"
       />
       <ProtectedContent>
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">

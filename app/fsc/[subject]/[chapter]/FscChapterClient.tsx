@@ -237,8 +237,6 @@ export function FscChapterClient() {
                           <div>
                             <p className={`font-semibold text-sm transition-colors ${isLocked ? 'text-slate-500' : 'text-slate-900 group-hover:text-emerald-800'}`}>
                               Set {setNum}
-                              {isSignIn && !user && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Sign In</span>}
-                              {isPremiumSet && !isPremium && <span className="ml-2 text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-semibold">Premium</span>}
                               {isDone && <span className="ml-2 text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-semibold">Done · {Math.round(doneScore)}%</span>}
                             </p>
                             <p className="text-xs text-slate-400">Q {startMCQ}-{endMCQ} · {MCQS_PER_SET} MCQs</p>
@@ -263,7 +261,6 @@ export function FscChapterClient() {
       <SignInPopup
         isOpen={showSignIn}
         onClose={() => setShowSignIn(false)}
-        message="Sign in on your second set, then upgrade for full access"
       />
     </div>
   )
