@@ -250,8 +250,10 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
-  // SECURITY: Protect solved papers routes - premium only (with timeout)
-  const isPremiumRoute = pathname.startsWith('/css/solved-papers/view')
+  // SECURITY: Protect premium-only routes (fail closed on auth errors)
+  const isPremiumRoute =
+    pathname.startsWith('/css/solved-papers/view') ||
+    pathname.startsWith('/css/guess-papers/view')
 
   if (isPremiumRoute) {
     try {

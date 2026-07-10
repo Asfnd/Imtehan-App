@@ -247,7 +247,9 @@ export function ModeSetPicker() {
             <div className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-blue-200 bg-blue-50 p-4">
               <div>
                 <p className="text-sm font-semibold text-blue-900">
-                  {!user ? 'Sign in free to unlock Set 3 · Premium unlocks everything' : 'Set 4+ requires Premium'}
+                  {!user
+                    ? '1 free demo set · Sign in on the next set · then Premium'
+                    : 'More sets require Premium'}
                 </p>
                 <p className="mt-0.5 text-xs text-blue-600">Unlimited sets, all mock tests, and solved papers</p>
               </div>

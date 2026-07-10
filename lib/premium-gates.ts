@@ -1,61 +1,64 @@
 /**
  * Pure rules for premium vs free sets/mocks. Used by MDCAT, exam, FSC pages and quiz UIs
  * so logic stays consistent and is easy to test.
+ *
+ * Funnel across Imtehan:
+ *   Set/mock 1 → free demo (guest OK)
+ *   Set/mock 2 → sign-in required for guests; premium for signed-in free
+ *   Set/mock 3+ → premium
  */
 
 export type SetQuizPageAccess = 'allow' | 'require_sign_in' | 'require_premium'
 
 /**
  * When the user is already on a set-quiz page (incl. deep link): allow / ask sign-in / send to paywall.
- * Matches MDCATSetQuiz + QuizInterface effects.
  */
 export function tieredSetQuizPageAccess(
   setNumber: number,
   isSignedIn: boolean,
   isActivePremium: boolean
 ): SetQuizPageAccess {
-  if (setNumber >= 4 && !isActivePremium) return 'require_premium'
-  if (setNumber === 3 && !isSignedIn) return 'require_sign_in'
-  return 'allow'
+  if (isActivePremium) return 'allow'
+  if (setNumber <= 1) return 'allow'
+  if (!isSignedIn) return 'require_sign_in'
+  return 'require_premium'
 }
 
 /**
- * MDCAT mock: mock 1 free, mock 2 = sign-in, mock 3+ = active premium.
- * mockNumber 0/undefined: caller should skip (no gate).
+ * MDCAT mock: mock 1 free, mock 2 = sign-in (then premium if signed-in free), mock 3+ = premium.
  */
 export function mdcatMockPageAccess(
   mockNumber: number,
   isSignedIn: boolean,
   isActivePremium: boolean
 ): SetQuizPageAccess {
+  if (isActivePremium) return 'allow'
   if (mockNumber < 2) return 'allow'
-  if (mockNumber >= 3 && !isActivePremium) return 'require_premium'
-  if (mockNumber === 2 && !isSignedIn) return 'require_sign_in'
-  return 'allow'
+  if (!isSignedIn) return 'require_sign_in'
+  return 'require_premium'
 }
 
 export type SetTableNavigation = 'navigate' | 'require_sign_in' | 'require_premium'
 
 /**
  * FSC / MDCAT topic / exam mode batch: tap on a set in the table.
- * Sets 1-2 or active premium: go; set 3+ not signed in: sign in;
- * set 4+ signed in not premium: paywall; set 3 signed in not premium: go.
+ * Set 1 free; set 2+ guest → sign-in; set 2+ signed-in free → premium.
  */
 export function tieredSetTableNavigation(
   setNum: number,
   isSignedIn: boolean,
   isActivePremium: boolean
 ): SetTableNavigation {
-  if (setNum <= 2 || isActivePremium) return 'navigate'
+  if (isActivePremium) return 'navigate'
+  if (setNum <= 1) return 'navigate'
   if (!isSignedIn) return 'require_sign_in'
-  if (setNum >= 4) return 'require_premium'
-  return 'navigate'
+  return 'require_premium'
 }
 
 export type ExamMockClick = 'open' | 'require_sign_in' | 'show_premium'
 
 /**
- * Exam dashboard: mock 1 (or any mock if premium) always openable; else guest → sign-in, user → paywall.
+ * Exam dashboard: mock 1 free; else guest → sign-in, signed-in free → paywall.
  */
 export function examDashboardMockClick(
   mockId: number,
@@ -76,4 +79,13 @@ export function isExamMockCardLocked(
   isActivePremium: boolean
 ): boolean {
   return lockedAfterFirst && !isActivePremium && mockId > 1
+}
+
+/** UI helper: set 2 is the sign-in gate for guests; set 2+ is premium for free signed-in. */
+export function isSignInSet(setNum: number): boolean {
+  return setNum === 2
+}
+
+export function isPremiumSet(setNum: number): boolean {
+  return setNum >= 2
 }

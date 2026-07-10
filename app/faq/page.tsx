@@ -19,7 +19,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How does the free trial work?",
-    answer: "Guest users can try our platform with limited credits (3 CSS quizzes, 1 idiom quiz, 1 MPT test, and 3 past papers). After signing in with Google, you get additional credits to explore more features. For unlimited access, upgrade to Premium."
+    answer: "Guest users get 1 free demo practice set. On the second attempt you sign in with Google, then upgrade to Premium for unlimited access across CSS, MPT, MDCAT, FSc, and other exams.",
   },
   {
     question: "What's included in the Premium plan?",

@@ -1,58 +1,40 @@
 // Persistent usage tracker using localStorage
 // Tracks anonymous user limits before sign-up
 // ONE-TIME TRIAL: Never resets, maintains history across sessions
-// Applies to ALL quiz types including idioms and MCQs
+// Funnel: 1 demo credit → sign-in → premium (signed-in free has 0 local credits)
+
+import { GUEST_LIMITS, SIGNED_IN_LIMITS } from '@/lib/free-trial-limits'
 
 interface UsageData {
-  cssSubjectQuizzes: number    // Subject-wise CSS quizzes
-  cssIdiomsQuizzes: number     // Idioms quizzes
-  cssIdiomsRandom: number      // Random idioms
-  mptMockTests: number         // MPT mock tests
-  mptPastPapers: number        // MPT past papers
-  officialPastPapers: number   // Official CSS past papers
-  solvedPapers: number         // Solved papers
+  cssSubjectQuizzes: number
+  cssIdiomsQuizzes: number
+  cssIdiomsRandom: number
+  mptMockTests: number
+  mptPastPapers: number
+  officialPastPapers: number
+  solvedPapers: number
   createdAt: string
 }
 
 const STORAGE_KEY = 'quiz_usage'
 const STORAGE_KEY_SIGNED_IN = 'quiz_usage_signed_in'
 
-// GUEST USER LIMITS - PERSISTENT ACROSS SESSIONS (NEVER RESET)
-const GUEST_MAX_CSS_SUBJECT = 3
-const GUEST_MAX_CSS_IDIOMS = 1
-const GUEST_MAX_CSS_IDIOMS_RANDOM = 1
-const GUEST_MAX_MPT_MOCK = 1
-const GUEST_MAX_MPT_PAST = 1
-const GUEST_MAX_OFFICIAL_PAST = 3
-const GUEST_MAX_SOLVED = 0
-
-// SIGNED-IN FREE USER LIMITS (POST SIGN-IN CREDITS)
-const SIGNEDIN_MAX_CSS_SUBJECT = 2
-const SIGNEDIN_MAX_CSS_IDIOMS = 1
-const SIGNEDIN_MAX_CSS_IDIOMS_RANDOM = 1
-const SIGNEDIN_MAX_MPT_MOCK = 1
-const SIGNEDIN_MAX_MPT_PAST = 1
-const SIGNEDIN_MAX_OFFICIAL_PAST = 2
-const SIGNEDIN_MAX_SOLVED = 0  // Premium only
-
 export const usageTracker = {
-  // Get current usage from localStorage
   getUsage(): UsageData {
     if (typeof window === 'undefined') return this.initUsage()
-    
+
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
       if (stored) {
         return JSON.parse(stored)
       }
-    } catch (error) {
-      // Silently handle localStorage errors in production
+    } catch {
+      // ignore
     }
-    
+
     return this.initUsage()
   },
 
-  // Initialize usage data
   initUsage(): UsageData {
     const data = {
       cssSubjectQuizzes: 0,
@@ -62,32 +44,30 @@ export const usageTracker = {
       mptPastPapers: 0,
       officialPastPapers: 0,
       solvedPapers: 0,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     }
-    
+
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-      } catch (error) {
-        // Silently handle localStorage errors in production
+      } catch {
+        // ignore
       }
     }
-    
+
     return data
   },
 
-  // Save usage data to localStorage
   saveUsage(data: UsageData): void {
     if (typeof window === 'undefined') return
-    
+
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-    } catch (error) {
-      // Silently handle localStorage errors in production
+    } catch {
+      // ignore
     }
   },
 
-  // Increment methods - now accept isSignedIn parameter
   incrementCSSSubjectQuiz(isSignedIn: boolean = false): void {
     if (isSignedIn) {
       const usage = this.getSignedInUsage()
@@ -172,7 +152,6 @@ export const usageTracker = {
     }
   },
 
-  // Get usage for signed-in users
   getSignedInUsage(): UsageData {
     if (typeof window === 'undefined') return this.initUsage()
 
@@ -181,87 +160,68 @@ export const usageTracker = {
       if (stored) {
         return JSON.parse(stored)
       }
-    } catch (error) {
-      // Silently handle localStorage errors
+    } catch {
+      // ignore
     }
 
     return this.initUsage()
   },
 
-  // Save signed-in user usage
   saveSignedInUsage(data: UsageData): void {
     if (typeof window === 'undefined') return
 
     try {
       localStorage.setItem(STORAGE_KEY_SIGNED_IN, JSON.stringify(data))
-    } catch (error) {
-      // Silently handle localStorage errors
+    } catch {
+      // ignore
     }
   },
 
-  // Check methods - now accept isSignedIn parameter
   canTakeCSSSubjectQuiz(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_CSS_SUBJECT : GUEST_MAX_CSS_SUBJECT
+    const max = isSignedIn ? SIGNED_IN_LIMITS.cssSubject : GUEST_LIMITS.cssSubject
     return usage.cssSubjectQuizzes < max
   },
 
   canTakeCSSIdiomsQuiz(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_CSS_IDIOMS : GUEST_MAX_CSS_IDIOMS
+    const max = isSignedIn ? SIGNED_IN_LIMITS.cssIdioms : GUEST_LIMITS.cssIdioms
     return usage.cssIdiomsQuizzes < max
   },
 
   canTakeCSSIdiomsRandom(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_CSS_IDIOMS_RANDOM : GUEST_MAX_CSS_IDIOMS_RANDOM
+    const max = isSignedIn ? SIGNED_IN_LIMITS.cssIdiomsRandom : GUEST_LIMITS.cssIdiomsRandom
     return usage.cssIdiomsRandom < max
   },
 
   canTakeMPTMockTest(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_MPT_MOCK : GUEST_MAX_MPT_MOCK
+    const max = isSignedIn ? SIGNED_IN_LIMITS.mptMock : GUEST_LIMITS.mptMock
     return usage.mptMockTests < max
   },
 
   canTakeMPTPastPaper(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_MPT_PAST : GUEST_MAX_MPT_PAST
+    const max = isSignedIn ? SIGNED_IN_LIMITS.mptPast : GUEST_LIMITS.mptPast
     return usage.mptPastPapers < max
   },
 
   canViewOfficialPastPaper(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_OFFICIAL_PAST : GUEST_MAX_OFFICIAL_PAST
+    const max = isSignedIn ? SIGNED_IN_LIMITS.officialPast : GUEST_LIMITS.officialPast
     return usage.officialPastPapers < max
   },
 
   canViewSolvedPaper(isSignedIn: boolean = false): boolean {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const max = isSignedIn ? SIGNEDIN_MAX_SOLVED : GUEST_MAX_SOLVED
+    const max = isSignedIn ? SIGNED_IN_LIMITS.solved : GUEST_LIMITS.solved
     return usage.solvedPapers < max
   },
 
-  // Get remaining counts
   getRemaining(isSignedIn: boolean = false) {
     const usage = isSignedIn ? this.getSignedInUsage() : this.getUsage()
-    const limits = isSignedIn ? {
-      cssSubject: SIGNEDIN_MAX_CSS_SUBJECT,
-      cssIdioms: SIGNEDIN_MAX_CSS_IDIOMS,
-      cssIdiomsRandom: SIGNEDIN_MAX_CSS_IDIOMS_RANDOM,
-      mptMock: SIGNEDIN_MAX_MPT_MOCK,
-      mptPast: SIGNEDIN_MAX_MPT_PAST,
-      officialPast: SIGNEDIN_MAX_OFFICIAL_PAST,
-      solved: SIGNEDIN_MAX_SOLVED
-    } : {
-      cssSubject: GUEST_MAX_CSS_SUBJECT,
-      cssIdioms: GUEST_MAX_CSS_IDIOMS,
-      cssIdiomsRandom: GUEST_MAX_CSS_IDIOMS_RANDOM,
-      mptMock: GUEST_MAX_MPT_MOCK,
-      mptPast: GUEST_MAX_MPT_PAST,
-      officialPast: GUEST_MAX_OFFICIAL_PAST,
-      solved: GUEST_MAX_SOLVED
-    }
+    const limits = isSignedIn ? SIGNED_IN_LIMITS : GUEST_LIMITS
 
     return {
       cssSubjectQuizzes: Math.max(0, limits.cssSubject - usage.cssSubjectQuizzes),
@@ -270,53 +230,38 @@ export const usageTracker = {
       mptMockTests: Math.max(0, limits.mptMock - usage.mptMockTests),
       mptPastPapers: Math.max(0, limits.mptPast - usage.mptPastPapers),
       officialPastPapers: Math.max(0, limits.officialPast - usage.officialPastPapers),
-      solvedPapers: Math.max(0, limits.solved - usage.solvedPapers)
+      solvedPapers: Math.max(0, limits.solved - usage.solvedPapers),
     }
   },
 
-  // Get max limits (for displaying total available)
   getMaxLimits(isSignedIn: boolean = false) {
-    return isSignedIn ? {
-      cssSubjectQuizzes: SIGNEDIN_MAX_CSS_SUBJECT,
-      cssIdiomsQuizzes: SIGNEDIN_MAX_CSS_IDIOMS,
-      cssIdiomsRandom: SIGNEDIN_MAX_CSS_IDIOMS_RANDOM,
-      mptMockTests: SIGNEDIN_MAX_MPT_MOCK,
-      mptPastPapers: SIGNEDIN_MAX_MPT_PAST,
-      officialPastPapers: SIGNEDIN_MAX_OFFICIAL_PAST,
-      solvedPapers: SIGNEDIN_MAX_SOLVED
-    } : {
-      cssSubjectQuizzes: GUEST_MAX_CSS_SUBJECT,
-      cssIdiomsQuizzes: GUEST_MAX_CSS_IDIOMS,
-      cssIdiomsRandom: GUEST_MAX_CSS_IDIOMS_RANDOM,
-      mptMockTests: GUEST_MAX_MPT_MOCK,
-      mptPastPapers: GUEST_MAX_MPT_PAST,
-      officialPastPapers: GUEST_MAX_OFFICIAL_PAST,
-      solvedPapers: GUEST_MAX_SOLVED
+    const limits = isSignedIn ? SIGNED_IN_LIMITS : GUEST_LIMITS
+    return {
+      cssSubjectQuizzes: limits.cssSubject,
+      cssIdiomsQuizzes: limits.cssIdioms,
+      cssIdiomsRandom: limits.cssIdiomsRandom,
+      mptMockTests: limits.mptMock,
+      mptPastPapers: limits.mptPast,
+      officialPastPapers: limits.officialPast,
+      solvedPapers: limits.solved,
     }
   },
 
-  // Legacy methods for backward compatibility - always return true
   canTakeCSSQuiz(): boolean {
     return true
   },
 
-  incrementCSSQuiz(): void {
-    // No-op
-  },
+  incrementCSSQuiz(): void {},
 
   canTakeMPTTest(): boolean {
     return true
   },
 
-  incrementMPTTest(): void {
-    // No-op
-  },
+  incrementMPTTest(): void {},
 
   canViewPaper(): boolean {
     return true
   },
 
-  incrementPaperView(): void {
-    // No-op
-  }
+  incrementPaperView(): void {},
 }

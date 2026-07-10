@@ -1,21 +1,23 @@
 import type { User } from '@supabase/supabase-js'
+import { parsePremiumExpiresAtMs } from '@/lib/parse-premium-expires-at'
 
 type Meta = User['user_metadata'] & { plan?: string; expires_at?: string; is_premium?: boolean | string }
 
 /**
- * For DB auto-downgrade: set is_premium false in auth when a timed plan has ended.
- * Skips lifetime, missing expiry, and users who are not marked premium.
+ * For DB auto-downgrade: clear is_premium when access should no longer be active.
+ * - Timed plans past expires_at
+ * - Non-lifetime flags with missing/unparseable expires_at (orphan forever grants)
+ * Skips explicit plan === 'lifetime'.
  */
 export function shouldDeactivateExpiredPremiumInDb(meta: Meta | null | undefined): boolean {
   if (!meta) return false
   if (meta.plan === 'lifetime') return false
   const flag = meta.is_premium
   if (flag !== true && flag !== 'true') return false
-  const raw = meta.expires_at
-  if (raw == null || raw === '') return false
-  const ms = typeof raw === 'number' ? raw : Date.parse(String(raw).trim())
-  if (Number.isNaN(ms)) return false
-  return Date.now() >= ms
+
+  const expiryMs = parsePremiumExpiresAtMs(meta.expires_at)
+  if (expiryMs == null) return true
+  return Date.now() >= expiryMs
 }
 
 export function mergedMetadataOnDeactivate(meta: Record<string, unknown> | null | undefined): Record<string, unknown> {

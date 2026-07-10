@@ -225,9 +225,11 @@ export function MDCATTopicClient() {
                 {setsInBatch.map((setNum) => {
                   const startMCQ  = (setNum - 1) * MCQS_PER_SET + 1
                   const endMCQ    = Math.min(setNum * MCQS_PER_SET, totalMCQs)
-                  const isSignIn     = setNum === 3
-                  const isPremiumSet = setNum >= 4
-                  const isLocked     = (isSignIn && !user) || (isPremiumSet && !isPremium)
+                  const needSignIn   = setNum >= 2 && !user
+                  const needPremium  = setNum >= 2 && !!user && !isPremium
+                  const isLocked     = needSignIn || needPremium
+                  const isSignIn     = needSignIn
+                  const isPremiumSet = needPremium
                   const doneScore    = !isLocked ? completions[setNum] : undefined
                   const isDone       = doneScore != null
                   return (
@@ -283,7 +285,7 @@ export function MDCATTopicClient() {
       <SignInPopup
         isOpen={showSignIn}
         onClose={() => setShowSignIn(false)}
-        message="Sign in free to unlock Set 3, then upgrade for full access"
+        message="Sign in on your second set, then upgrade for full access"
       />
     </div>
   )

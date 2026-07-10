@@ -105,9 +105,9 @@ export default async function BatchSetsPage({
             const startMCQ  = (setNumber - 1) * 20 + 1
             const endMCQ    = Math.min(setNumber * 20, totalMCQs)
             const mcqCount  = endMCQ - startMCQ + 1
-            const isSignIn  = setNumber === 3
-            const isPremium = setNumber >= 4
-            const isLocked  = isSignIn || isPremium
+            const isSignIn  = setNumber === 2
+            const isPremium = setNumber >= 3
+            const isLocked  = setNumber >= 2
 
             return (
               <Link

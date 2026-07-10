@@ -1,9 +1,10 @@
 /**
  * Single place for “does this user have premium access right now?”
  * - Requires user_metadata.is_premium === true (boolean; string "true" is ignored)
- * - If expires_at is set and parses, access ends at that instant
- * - If expires_at is missing/empty/unparseable, or plan is lifetime → no time limit
- *   (unparseable dates fail OPEN so manual activations are not blocked by format quirks)
+ * - plan === 'lifetime' → always active (explicit lifetime only)
+ * - Timed plans require a parseable expires_at in the future
+ * - Missing / empty / unparseable expires_at → NOT premium (fail closed)
+ *   so one-time activations without expiry cannot grant forever access by accident
  */
 import { parsePremiumExpiresAtMs } from '@/lib/parse-premium-expires-at'
 
@@ -15,6 +16,6 @@ export function isActivePremium(
   if (m.plan === 'lifetime') return true
 
   const expiryMs = parsePremiumExpiresAtMs(m.expires_at)
-  if (expiryMs == null) return true
+  if (expiryMs == null) return false
   return Date.now() < expiryMs
 }

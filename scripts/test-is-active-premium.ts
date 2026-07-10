@@ -26,8 +26,8 @@ test('is_premium not true → false', () => {
   assert.equal(isActivePremium({ user_metadata: { is_premium: 'true' } }), false)
 })
 
-test('is_premium true, no expires_at → true (unlimited/legacy)', () => {
-  assert.equal(isActivePremium({ user_metadata: { is_premium: true } }), true)
+test('is_premium true, no expires_at → false (fail closed)', () => {
+  assert.equal(isActivePremium({ user_metadata: { is_premium: true } }), false)
 })
 
 test('plan lifetime → true (ignores expires)', () => {
@@ -60,14 +60,14 @@ test('numeric expires_at (ms) → true/false by time', () => {
   assert.equal(isActivePremium({ user_metadata: { is_premium: true, expires_at: futureMs } }), true)
 })
 
-test('empty expires_at string → true', () => {
-  assert.equal(isActivePremium({ user_metadata: { is_premium: true, expires_at: '' } }), true)
+test('empty expires_at string → false (fail closed)', () => {
+  assert.equal(isActivePremium({ user_metadata: { is_premium: true, expires_at: '' } }), false)
 })
 
-test('unparseable expires_at → true (fail open for paid users)', () => {
+test('unparseable expires_at → false (fail closed)', () => {
   assert.equal(
     isActivePremium({ user_metadata: { is_premium: true, expires_at: 'definitely-not-a-date' } }),
-    true
+    false
   )
 })
 
@@ -85,7 +85,7 @@ test('at expiry instant: not active (strictly before)', () => {
   assert.equal(
     isActivePremium({ user_metadata: { is_premium: true, expires_at: t + 1 } }),
     true,
-    '1ms after "now" must still be active (race: now may move; we only assert t+1 > typical now)'
+    '1ms after "now" must still be active'
   )
 })
 

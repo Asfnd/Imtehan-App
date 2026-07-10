@@ -218,7 +218,7 @@ export default function MDCATMockListingPage() {
                 {mocksInBatch.map((mockNum) => {
                   const isSignIn  = mockNum === 2
                   const isPremium = mockNum >= 3
-                  const isLocked  = isSignIn || isPremium
+                  const isLocked  = mockNum >= 2
                   return (
                     <button
                       key={mockNum}

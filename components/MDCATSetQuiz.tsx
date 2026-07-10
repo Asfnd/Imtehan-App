@@ -136,13 +136,18 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   const [showXpPop, setShowXpPop] = useState(false)
   const [confettiBurst, setConfettiBurst] = useState(0)
 
-  // Access gate: sets 1-2 = free, set 3 = sign-in required, set 4+ = premium page
+  // Access gate: set 1 free demo; set 2+ sign-in then premium
   useEffect(() => {
     if (authLoading) return
     const gate = tieredSetQuizPageAccess(setNumber, !!user, isPremium)
     if (gate === 'require_premium') router.replace(PREMIUM_PAGE_PATH)
     else if (gate === 'require_sign_in') setShowSignIn(true)
   }, [authLoading, user, isPremium, setNumber, router])
+
+  const accessGate = authLoading
+    ? 'pending'
+    : tieredSetQuizPageAccess(setNumber, !!user, isPremium)
+  const practiceAllowed = accessGate === 'allow'
 
   const [currentIndex, setCurrentIndex]   = useState(0)
   const [answers, setAnswers]             = useState<Record<number, string>>({})
@@ -391,6 +396,21 @@ export default function MDCATSetQuiz({ mcqs, examSlug, subject, subjectName, dif
   else if (showWrongPanel) dockPhase = 'wrong'
 
   const bottomPad = dockPhase === 'wrong' || dockPhase === 'correct' ? 'pb-40' : 'pb-6'
+
+  if (!practiceAllowed) {
+    return (
+      <>
+        <SignInPopup
+          isOpen={showSignIn || accessGate === 'require_sign_in'}
+          onClose={() => { setShowSignIn(false); router.push(backUrl) }}
+          message="Sign in to continue — then upgrade for unlimited practice sets"
+        />
+        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
+          {accessGate === 'pending' ? 'Checking access…' : 'Unlock this set to practice'}
+        </div>
+      </>
+    )
+  }
 
   return (
     <>

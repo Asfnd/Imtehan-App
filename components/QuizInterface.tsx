@@ -129,6 +129,11 @@ export default function QuizInterface({
     else if (gate === 'require_sign_in') setShowSignIn(true)
   }, [authLoading, user, isPremium, setNumber, router])
 
+  const accessGate = authLoading
+    ? 'pending'
+    : tieredSetQuizPageAccess(setNumber, !!user, isPremium)
+  const practiceAllowed = accessGate === 'allow'
+
   const backUrl = `/exams/${examSlug}/${subjectSlug}/${mode}`
 
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -416,6 +421,24 @@ export default function QuizInterface({
   if (feedbackVisible) dockPhase = 'correct'
 
   const bottomPad = feedbackVisible ? 'pb-40' : 'pb-6'
+
+  if (!practiceAllowed) {
+    return (
+      <>
+        <SignInPopup
+          isOpen={showSignIn || accessGate === 'require_sign_in'}
+          onClose={() => {
+            setShowSignIn(false)
+            router.push(backUrl)
+          }}
+          message="Sign in to continue — then upgrade for unlimited practice sets"
+        />
+        <div className="flex min-h-[40vh] items-center justify-center p-8 text-sm text-slate-500">
+          {accessGate === 'pending' ? 'Checking access…' : 'Unlock this set to practice'}
+        </div>
+      </>
+    )
+  }
 
   return (
     <>

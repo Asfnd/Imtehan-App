@@ -7,6 +7,7 @@ import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import { usageTracker } from '@/lib/usageTracker'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { SIGNED_IN_LIMITS, type FreeTrialUsageType } from '@/lib/free-trial-limits'
 
 async function fetchWithSupabaseAuth(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const supabase = createClient()
@@ -16,30 +17,6 @@ async function fetchWithSupabaseAuth(input: RequestInfo | URL, init?: RequestIni
     headers.set('Authorization', `Bearer ${session.access_token}`)
   }
   return fetch(input, { ...init, credentials: 'include', headers })
-}
-
-// Server-side limits for signed-in users (stored in database - CANNOT be bypassed)
-const SIGNED_IN_LIMITS = {
-  cssSubject: 2,
-  cssIdioms: 1,
-  cssIdiomsRandom: 1,
-  mptMock: 1,
-  mptPast: 1,
-  officialPast: 2,
-  solved: 0, // Premium only
-  guessPapers: 0, // Premium only
-}
-
-// Guest limits (stored in localStorage - can be bypassed, but tracks before sign-in)
-const GUEST_LIMITS = {
-  cssSubject: 3,
-  cssIdioms: 1,
-  cssIdiomsRandom: 1,
-  mptMock: 1,
-  mptPast: 1,
-  officialPast: 3,
-  solved: 0, // Premium only
-  guessPapers: 0, // Premium only
 }
 
 interface DatabaseUsage {
@@ -129,7 +106,7 @@ export function useFreeTrial() {
     }
   }, [user])
 
-  const checkAccess = (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved' | 'guessPapers'): boolean => {
+  const checkAccess = (type: FreeTrialUsageType): boolean => {
     const isPremium = isActivePremium(user)
     const isSignedIn = !!user
 
@@ -139,8 +116,9 @@ export function useFreeTrial() {
     // Solved papers and guess papers require premium
     if (type === 'solved' || type === 'guessPapers') return false
 
-    // For signed-in users, check database usage
-    if (isSignedIn && dbUsage) {
+    // Signed-in free: database limits only (never fall back to guest localStorage)
+    if (isSignedIn) {
+      if (!dbUsage) return false
       const usageMap: Record<string, keyof DatabaseUsage> = {
         cssSubject: 'cssSubjectQuizzes',
         cssIdioms: 'cssIdiomsQuizzes',
@@ -152,14 +130,13 @@ export function useFreeTrial() {
       }
 
       const usageKey = usageMap[type]
-      const limitKey = type as keyof typeof SIGNED_IN_LIMITS
       const currentUsage = dbUsage[usageKey] || 0
-      const limit = SIGNED_IN_LIMITS[limitKey]
+      const limit = SIGNED_IN_LIMITS[type]
 
       return currentUsage < limit
     }
 
-    // For guest users, use localStorage (old behavior)
+    // Guest: localStorage demo credits
     switch (type) {
       case 'cssSubject':
         return usageTracker.canTakeCSSSubjectQuiz(false)
@@ -178,7 +155,7 @@ export function useFreeTrial() {
     }
   }
 
-  const requestAccess = async (type: 'cssSubject' | 'cssIdioms' | 'cssIdiomsRandom' | 'mptMock' | 'mptPast' | 'officialPast' | 'solved' | 'guessPapers'): Promise<boolean> => {
+  const requestAccess = async (type: FreeTrialUsageType): Promise<boolean> => {
     const isPremium = isActivePremium(user)
     const isSignedIn = !!user
 

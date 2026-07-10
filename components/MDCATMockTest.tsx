@@ -293,13 +293,19 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
 
   const [showSignIn, setShowSignIn] = useState(false)
 
-  // Access gate: mock 1 = free, mock 2 = sign-in required, mock 3+ = premium page
+  // Access gate: mock 1 free; mock 2+ sign-in then premium
   useEffect(() => {
     if (!mockNumber || authLoading) return
     const gate = mdcatMockPageAccess(mockNumber, !!user, isPremium)
     if (gate === 'require_premium') router.replace(PREMIUM_PAGE_PATH)
     else if (gate === 'require_sign_in') setShowSignIn(true)
   }, [authLoading, user, isPremium, mockNumber, router])
+
+  const mockAccessGate =
+    !mockNumber || authLoading
+      ? 'pending'
+      : mdcatMockPageAccess(mockNumber, !!user, isPremium)
+  const mockPracticeAllowed = !mockNumber || mockAccessGate === 'allow'
 
   const [phase, setPhase]                     = useState<Phase>('loading')
   const [mcqs, setMcqs]                       = useState<MockMCQ[]>([])
@@ -406,6 +412,21 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
   }
 
   const total = config.sections.reduce((s, c) => s + c.count, 0)
+
+  if (!mockPracticeAllowed) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
+        <SignInPopup
+          isOpen={showSignIn || mockAccessGate === 'require_sign_in'}
+          onClose={() => { setShowSignIn(false); router.push(`/mdcat/mock/${variant}`) }}
+          message="Sign in to continue — then upgrade for unlimited mock tests"
+        />
+        <div className="text-center text-sm text-slate-500">
+          {mockAccessGate === 'pending' ? 'Checking access…' : 'Unlock this mock to practice'}
+        </div>
+      </div>
+    )
+  }
 
   // ── Loading ──────────────────────────────────────────────────────────────────
 

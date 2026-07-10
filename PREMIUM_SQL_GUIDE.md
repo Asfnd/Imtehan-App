@@ -98,7 +98,8 @@ SET raw_user_meta_data = raw_user_meta_data ||
 WHERE email = 'user@example.com';
 ```
 
-**Note:** `expires_at: null` means never expires
+**Note:** `expires_at: null` with `plan: 'lifetime'` is the only forever grant.
+Timed plans **must** set a real `expires_at`. Missing expiry is treated as **not premium** (fail closed).
 
 ---
 
@@ -251,19 +252,11 @@ WHERE email = 'ayqureshi1122@gmail.com';
 
 ## Your Code Already Handles This
 
-Your middleware and API routes already check for `is_premium`:
+All access checks use `isActivePremium(user)` which requires:
+- `is_premium === true` (boolean), and
+- either `plan === 'lifetime'`, or a parseable `expires_at` still in the future.
 
-**Middleware (`middleware.ts`):**
-```typescript
-const isPremium = user.user_metadata?.is_premium === true
-```
-
-**API Route (`app/api/solved-papers/get-url/route.ts`):**
-```typescript
-const isPremium = user.user_metadata?.is_premium === true
-```
-
-**No code changes needed!** ✅
+Missing / bad `expires_at` on a timed plan = **not premium** (fail closed).
 
 ---
 
