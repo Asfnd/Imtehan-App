@@ -19,6 +19,8 @@ import {
   QuizResultsCard,
 } from '@/components/gamified-quiz'
 import { plainText, plainTextMcqFields } from '@/lib/plain-text'
+import SignInPopup from '@/components/auth/SignInPopup'
+import { handlePracticeDeny } from '@/lib/practice-client'
 
 interface MCQ {
   id: number
@@ -141,6 +143,10 @@ export default function MockTestInterface({
 }: MockTestInterfaceProps) {
   const router = useRouter()
 
+  const [accessOk, setAccessOk] = useState(false)
+  const [showSignIn, setShowSignIn] = useState(false)
+  const [accessChecked, setAccessChecked] = useState(false)
+
   // Shuffle options once per session to eliminate answer-position bias
   const [shuffledMCQs] = useState(() => mcqs.map((m) => shuffleOptions(plainTextMcqFields(m))))
 
@@ -149,7 +155,7 @@ export default function MockTestInterface({
   const [showResults, setShowResults] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(duration * 60)
-  const [timerActive, setTimerActive] = useState(true)
+  const [timerActive, setTimerActive] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
 
   const [reviewMode, setReviewMode] = useState(false)
@@ -164,10 +170,44 @@ export default function MockTestInterface({
 
   const handleSubmitRef = useRef<() => void>(() => {})
 
+  useEffect(() => {
+    let cancelled = false
+    const n = mockNumber ?? 1
+    ;(async () => {
+      const res = await fetch('/api/practice/status', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          kind: `exam-mock:${examSlug}:${n}`,
+          setOrMockNumber: n,
+          consume: true,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (cancelled) return
+      setAccessChecked(true)
+      if (res.ok && data.ok) {
+        setAccessOk(true)
+        setTimerActive(true)
+        return
+      }
+      handlePracticeDeny(data.code ?? 'ERROR', {
+        onSignIn: () => setShowSignIn(true),
+        router,
+      })
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [examSlug, mockNumber, router])
+
   const activeMCQs = reviewMode ? reviewMCQs : shuffledMCQs
   const currentMCQ = activeMCQs[currentIndex]
   const userAnswer = answers[currentIndex]
-  const progressPct = ((currentIndex + 1) / activeMCQs.length) * 100
+  const progressPct = activeMCQs.length
+    ? ((currentIndex + 1) / activeMCQs.length) * 100
+    : 0
   const totalDurationSeconds = duration * 60
 
   const answeredIndices = useMemo(
@@ -337,6 +377,32 @@ export default function MockTestInterface({
     setAnswers({})
     setShowResults(false)
     setTimerActive(false)
+  }
+
+  if (!accessChecked) {
+    return (
+      <div className="flex min-h-[40vh] items-center justify-center text-sm text-slate-500">
+        Checking access…
+      </div>
+    )
+  }
+
+  if (!accessOk) {
+    return (
+      <>
+        <SignInPopup
+          isOpen={showSignIn}
+          onClose={() => {
+            setShowSignIn(false)
+            router.push(`/exams/${examSlug}`)
+          }}
+          message="Sign in on your second practice — then upgrade for unlimited mocks"
+        />
+        <div className="flex min-h-[40vh] items-center justify-center text-sm text-slate-500">
+          Unlock this mock to practice
+        </div>
+      </>
+    )
   }
 
   if (showResults) {
