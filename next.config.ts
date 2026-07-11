@@ -105,80 +105,13 @@ const nextConfig: NextConfig = {
   poweredByHeader: false, // Remove X-Powered-By header
   reactStrictMode: true, // Enable strict mode for better performance
   
-  webpack: (config, { isServer, dev }) => {
+  webpack: (config) => {
     // Existing aliases for PDF.js
     config.resolve.alias.canvas = false;
     config.resolve.alias.encoding = false;
-    
-    // Production optimizations
-    if (!dev) {
-      // Minimize bundle size
-      config.optimization = {
-        ...config.optimization,
-        minimize: true,
-        usedExports: true, // Tree shaking
-        sideEffects: false, // Better tree shaking
-      };
-    }
-    
-    // Optimize bundle splitting
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          maxInitialRequests: 25,
-          minSize: 20000,
-          cacheGroups: {
-            // Framework chunk (React, React-DOM)
-            framework: {
-              test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/,
-              name: 'framework',
-              chunks: 'all',
-              priority: 40,
-              enforce: true,
-            },
-            // Lucide icons - separate chunk
-            icons: {
-              test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
-              name: 'icons',
-              chunks: 'all',
-              priority: 30,
-            },
-            // Separate react-pdf into its own chunk
-            reactPdf: {
-              test: /[\\/]node_modules[\\/](react-pdf|pdfjs-dist)[\\/]/,
-              name: 'react-pdf',
-              chunks: 'async', // Only load when needed
-              priority: 25,
-            },
-            // Separate Supabase into its own chunk
-            supabase: {
-              test: /[\\/]node_modules[\\/]@supabase[\\/]/,
-              name: 'supabase',
-              chunks: 'async',
-              priority: 20,
-            },
-            // Vendor chunks
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
-              priority: 10,
-            },
-            // Common components chunk
-            common: {
-              name: 'common',
-              minChunks: 2,
-              chunks: 'all',
-              priority: 5,
-              reuseExistingChunk: true,
-            },
-          },
-        },
-      };
-    }
-    
+    // Do NOT override splitChunks / sideEffects — custom "common" cacheGroups
+    // previously emitted a referenced chunk that was missing in production (404),
+    // which broke client hydration so all interactive buttons stayed dead.
     return config;
   },
   // Enable experimental features for better performance

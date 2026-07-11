@@ -1,5 +1,4 @@
 import type React from "react"
-import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
@@ -120,12 +119,8 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${inter.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>
-          <Suspense fallback={null}>
-            <MetaPixelRouteTracker />
-          </Suspense>
-          <Suspense fallback={null}>
-            <PostAuthFollowPrompt />
-          </Suspense>
+          <MetaPixelRouteTracker />
+          <PostAuthFollowPrompt />
           <DeferredMetaPixelConversions />
           {children}
         </AuthProvider>
