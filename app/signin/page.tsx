@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from "@/components/ui/Button"
 import { BookOpen, ArrowLeft, User, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { getSafeRedirectPath } from '@/lib/security/safe-redirects'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 function AuthPageInner() {
   const router = useRouter()
@@ -107,6 +108,8 @@ function AuthPageInner() {
                 </div>
               </div>
             </div>
+
+            <FollowUsCard className="mb-6" title="Follow Imtehan" subtitle="Tips & updates while you prep" />
 
             {/* Actions */}
             <div className="space-y-3">

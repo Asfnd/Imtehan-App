@@ -10,6 +10,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics"
 import { MetaPixel } from "@/components/MetaPixel"
 import { MetaPixelRouteTracker } from "@/components/MetaPixelRouteTracker"
 import { DeferredMetaPixelConversions } from "@/components/DeferredMetaPixelConversions"
+import { PostAuthFollowPrompt } from "@/components/social/PostAuthFollowPrompt"
 import "./globals.css"
 
 const inter = Inter({
@@ -121,6 +122,9 @@ export default function RootLayout({
         <AuthProvider>
           <Suspense fallback={null}>
             <MetaPixelRouteTracker />
+          </Suspense>
+          <Suspense fallback={null}>
+            <PostAuthFollowPrompt />
           </Suspense>
           <DeferredMetaPixelConversions />
           {children}

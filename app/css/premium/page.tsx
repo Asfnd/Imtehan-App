@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Check, Copy, CheckCircle2 } from 'lucide-react'
 import { PREMIUM_FEATURES, PREMIUM_PLANS } from '@/lib/premium-plans'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 export default function PremiumPage() {
   const [copiedField, setCopiedField] = useState<string | null>(null)
@@ -241,6 +242,8 @@ export default function PremiumPage() {
                 </div>
               </div>
             </div>
+
+            <FollowUsCard className="mt-8" title="Stay updated" subtitle="Activation tips & prep content on Instagram & Facebook" />
 
             <div className="mt-8 pt-6 border-t border-gray-100 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
               <div className="flex items-center gap-1.5">

@@ -22,6 +22,7 @@ import { isActivePremium } from '@/lib/is-active-premium'
 import { mdcatMockPageAccess } from '@/lib/premium-gates'
 import { handlePracticeDeny } from '@/lib/practice-client'
 import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -559,6 +560,8 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
                   }
                 </ul>
               </div>
+
+              <FollowUsCard className="mb-6" subtitle="Tips while you prep — Instagram & Facebook" />
 
               <button
                 onClick={handleStart}

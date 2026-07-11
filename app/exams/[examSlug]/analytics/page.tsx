@@ -11,6 +11,7 @@ import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics, getStreakMessage, formatStudyTime } from '@/lib/analytics'
 import type { UserAnalytics, UserStats } from '@/lib/analytics/types'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 const EMPTY_STATS: UserStats = {
   total_questions_solved: 0,
@@ -304,6 +305,8 @@ export default function ExamAnalytics() {
             <p className="text-blue-600 text-sm">Complete a practice set to start tracking your progress.</p>
           </div>
         )}
+
+        <FollowUsCard subtitle="Daily tips to keep your streak going" />
       </div>
     </div>
   )

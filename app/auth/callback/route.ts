@@ -48,6 +48,8 @@ export async function GET(request: Request) {
     }
   }
 
-  // SECURITY: Redirect to validated safe URL
-  return NextResponse.redirect(new URL(next, url.origin))
+  // SECURITY: Redirect to validated safe URL; welcome=1 triggers one-time follow prompt
+  const dest = new URL(next, url.origin)
+  if (code) dest.searchParams.set('welcome', '1')
+  return NextResponse.redirect(dest)
 }

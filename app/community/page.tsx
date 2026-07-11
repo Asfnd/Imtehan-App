@@ -7,6 +7,7 @@ import NavigationBar from '@/components/NavigationBar'
 import { WhatsAppMessageBubble } from '@/components/community/WhatsAppMessageBubble'
 import { buildChatListItems, avatarGradient } from '@/lib/community-chat-utils'
 import { Paperclip, Send, Trash2, ChevronDown } from 'lucide-react'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 // Singleton client: created once, not on every render
 const supabase = createClient()
@@ -415,6 +416,7 @@ function CommunityChatContent() {
             </div>
             <p className="text-base font-bold text-gray-800">Start the conversation</p>
             <p className="text-sm text-gray-500 max-w-sm">Be the first in #{channelLabel}. Ask a question, share a tip, or say hi.</p>
+            <FollowUsCard compact className="mt-2 max-w-sm w-full" title="Join us outside chat" subtitle="Tips & updates on Instagram & Facebook" />
           </div>
         ) : (
           <div className="max-w-3xl mx-auto space-y-1">

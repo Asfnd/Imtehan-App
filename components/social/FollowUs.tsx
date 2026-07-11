@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import { FACEBOOK_URL, INSTAGRAM_URL } from '@/lib/routes'
 
@@ -22,115 +23,145 @@ function FacebookGlyph({ className = 'h-5 w-5' }: { className?: string }) {
 interface FollowUsPopupProps {
   isOpen: boolean
   onClose: () => void
+  eyebrow?: string
+  title?: string
+  description?: string
 }
 
-/** One-time professional follow prompt (Instagram primary, Facebook secondary). */
-export function FollowUsPopup({ isOpen, onClose }: FollowUsPopupProps) {
+/** Professional one-shot follow prompt — Instagram primary, Facebook secondary. */
+export function FollowUsPopup({
+  isOpen,
+  onClose,
+  eyebrow = 'Imtehan',
+  title = 'Follow us for tips & updates',
+  description = 'Short practice tips, exam reminders, and new sets — where you already scroll.',
+}: FollowUsPopupProps) {
+  useEffect(() => {
+    if (!isOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [isOpen, onClose])
+
   if (!isOpen) return null
 
   return (
-    <>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <button
         type="button"
         aria-label="Close"
-        className="fixed inset-0 z-[100] bg-slate-900/45 backdrop-blur-[2px]"
+        className="absolute inset-0 bg-slate-900/40 backdrop-blur-[1.5px]"
         onClick={onClose}
       />
-      <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="follow-us-title"
-          className="pointer-events-auto w-full max-w-[400px] overflow-hidden rounded-2xl bg-white shadow-[0_24px_64px_-28px_rgba(15,23,42,0.45)] ring-1 ring-slate-900/[0.06]"
-        >
-          <div className="relative px-6 pb-2 pt-6 sm:px-7 sm:pt-7">
-            <button
-              type="button"
-              onClick={onClose}
-              className="absolute right-4 top-4 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
-              aria-label="Dismiss"
-            >
-              <X className="h-4 w-4" />
-            </button>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="follow-us-title"
+        className="relative w-full max-w-[380px] overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-24px_rgba(15,23,42,0.4)] ring-1 ring-slate-900/[0.06]"
+      >
+        <div className="relative px-6 pb-1 pt-6">
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-3.5 top-3.5 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-50 hover:text-slate-600"
+            aria-label="Dismiss"
+          >
+            <X className="h-4 w-4" />
+          </button>
 
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-              Welcome to Imtehan
-            </p>
-            <h2 id="follow-us-title" className="mt-1.5 text-[1.35rem] font-semibold tracking-tight text-slate-900">
-              Follow us for tips & updates
-            </h2>
-            <p className="mt-2 text-[14px] leading-relaxed text-slate-500">
-              Short practice tips, exam reminders, and new sets — right where you already scroll.
-            </p>
-          </div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{eyebrow}</p>
+          <h2 id="follow-us-title" className="mt-1.5 pr-8 text-[1.25rem] font-semibold tracking-tight text-slate-900">
+            {title}
+          </h2>
+          <p className="mt-2 text-[14px] leading-relaxed text-slate-500">{description}</p>
+        </div>
 
-          <div className="space-y-2.5 px-6 pb-5 pt-4 sm:px-7">
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className="flex h-12 w-full items-center justify-center gap-2.5 rounded-xl border border-rose-200/80 bg-rose-50 text-[15px] font-semibold text-[#C13584] transition-all hover:border-rose-300 hover:bg-rose-100/80 active:scale-[0.99]"
-            >
-              <InstagramGlyph />
-              Follow on Instagram
-            </a>
-            <a
-              href={FACEBOOK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className="flex h-12 w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-white text-[15px] font-semibold text-[#1877F2] transition-all hover:border-blue-200 hover:bg-blue-50/60 active:scale-[0.99]"
-            >
-              <FacebookGlyph />
-              Follow on Facebook
-            </a>
-            <button
-              type="button"
-              onClick={onClose}
-              className="w-full py-2.5 text-center text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-600"
-            >
-              Maybe later
-            </button>
-          </div>
+        <div className="space-y-2 px-6 pb-5 pt-5">
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className="flex h-11 w-full items-center justify-center gap-2.5 rounded-xl border border-rose-200/90 bg-rose-50/90 text-[14px] font-semibold text-[#C13584] transition-colors hover:bg-rose-100"
+          >
+            <InstagramGlyph className="h-[18px] w-[18px]" />
+            Follow on Instagram
+          </a>
+          <a
+            href={FACEBOOK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className="flex h-11 w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-white text-[14px] font-semibold text-[#1877F2] transition-colors hover:bg-blue-50/70"
+          >
+            <FacebookGlyph className="h-[18px] w-[18px]" />
+            Follow on Facebook
+          </a>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full py-2 text-center text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-600"
+          >
+            Maybe later
+          </button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
-/** Persistent follow strip for quiz results and similar moments. */
-export function FollowUsCard({ className = '' }: { className?: string }) {
+interface FollowUsCardProps {
+  className?: string
+  title?: string
+  subtitle?: string
+  /** Tighter padding for dense layouts (community, side panels). */
+  compact?: boolean
+}
+
+/** Persistent follow strip for results, intro, analytics, premium, etc. */
+export function FollowUsCard({
+  className = '',
+  title = 'Follow Imtehan',
+  subtitle = 'Tips, reminders & new practice',
+  compact = false,
+}: FollowUsCardProps) {
   return (
     <div
-      className={`rounded-xl border border-slate-200/90 bg-gradient-to-br from-slate-50 to-white px-4 py-4 sm:px-5 ${className}`}
+      className={`rounded-xl border border-slate-200/90 bg-white ${
+        compact ? 'px-3.5 py-3' : 'px-4 py-4 sm:px-5'
+      } ${className}`}
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className={`flex flex-col gap-3 ${compact ? '' : 'sm:flex-row sm:items-center sm:justify-between'}`}>
         <div className="min-w-0">
-          <p className="text-[13px] font-semibold text-slate-800">Follow Imtehan</p>
-          <p className="mt-0.5 text-[12px] leading-snug text-slate-500">
-            Tips, reminders & new practice — Instagram & Facebook
-          </p>
+          <p className={`font-semibold text-slate-800 ${compact ? 'text-[13px]' : 'text-[13px]'}`}>{title}</p>
+          <p className="mt-0.5 text-[12px] leading-snug text-slate-500">{subtitle}</p>
         </div>
         <div className="flex shrink-0 gap-2">
           <a
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg border border-rose-200/90 bg-white px-3 text-[13px] font-semibold text-[#C13584] transition-colors hover:bg-rose-50 sm:flex-initial"
+            className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg border border-rose-200/90 bg-rose-50/50 px-3 text-[12px] font-semibold text-[#C13584] transition-colors hover:bg-rose-50 sm:flex-initial"
             aria-label="Follow on Instagram"
           >
-            <InstagramGlyph className="h-4 w-4" />
+            <InstagramGlyph className="h-3.5 w-3.5" />
             Instagram
           </a>
           <a
             href={FACEBOOK_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 text-[13px] font-semibold text-[#1877F2] transition-colors hover:bg-blue-50 sm:flex-initial"
+            className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50/80 px-3 text-[12px] font-semibold text-[#1877F2] transition-colors hover:bg-blue-50 sm:flex-initial"
             aria-label="Follow on Facebook"
           >
-            <FacebookGlyph className="h-4 w-4" />
+            <FacebookGlyph className="h-3.5 w-3.5" />
             Facebook
           </a>
         </div>

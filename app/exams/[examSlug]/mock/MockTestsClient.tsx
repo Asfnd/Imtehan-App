@@ -7,6 +7,7 @@ import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 import { createClient } from '@/lib/supabase/client'
 import NavigationBar from '@/components/NavigationBar'
 import ExamMockSections from '@/components/exams/ExamMockSections'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 export function MockTestsClient() {
   const params = useParams()
@@ -101,6 +102,8 @@ export function MockTestsClient() {
           completedMockIds={completedMockIds}
           mockScores={mockScores}
         />
+
+        <FollowUsCard className="mt-8" subtitle="Mock tips & reminders on Instagram & Facebook" />
       </div>
     </div>
   )
