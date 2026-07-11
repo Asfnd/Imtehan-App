@@ -25,6 +25,7 @@ import {
   quizFeedbackExplanation,
 } from '@/components/gamified-quiz'
 import { fetchPracticeSet, handlePracticeDeny } from '@/lib/practice-client'
+import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
 
 interface MCQ {
   id: number
@@ -538,6 +539,8 @@ export default function MDCATSetQuiz({
         quizType="quiz"
         scorePct={resultPct}
       />
+
+      <FirstQuizFollowPrompt />
     </>
   )
 }

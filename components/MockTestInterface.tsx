@@ -21,6 +21,7 @@ import {
 import { plainText, plainTextMcqFields } from '@/lib/plain-text'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { handlePracticeDeny } from '@/lib/practice-client'
+import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
 
 interface MCQ {
   id: number
@@ -738,6 +739,8 @@ export default function MockTestInterface({
           </div>
         </div>
       )}
+
+      <FirstQuizFollowPrompt />
     </>
   )
 }

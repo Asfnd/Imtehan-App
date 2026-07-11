@@ -11,6 +11,7 @@ import {
   quizResultFooterButtonClass,
   quizResultPrimaryCtaClass,
 } from './QuizResultDashboard'
+import { FollowUsCard } from '@/components/social/FollowUs'
 
 export interface QuizResultsImprovement {
   original: number
@@ -142,6 +143,8 @@ export function QuizResultsCard({
       )}
 
       {footerExtra}
+
+      <FollowUsCard />
 
       <div className="rounded-xl bg-slate-50 px-4 py-3.5 text-center text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
         {examBreakdown ? (

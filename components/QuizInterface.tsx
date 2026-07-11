@@ -30,6 +30,7 @@ import {
 } from '@/components/gamified-quiz'
 import { plainTextMcqFields } from '@/lib/plain-text'
 import { fetchPracticeSet, handlePracticeDeny } from '@/lib/practice-client'
+import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
 
 interface MCQ {
   id: number
@@ -638,6 +639,8 @@ export default function QuizInterface({
           </div>
         </div>
       )}
+
+      <FirstQuizFollowPrompt />
     </>
   )
 }

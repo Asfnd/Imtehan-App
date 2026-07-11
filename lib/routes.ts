@@ -14,5 +14,9 @@ export const PLAY_STORE_URL =
 /** Official Instagram — primary social follow. */
 export const INSTAGRAM_URL = 'https://www.instagram.com/imtehanofficial/' as const
 
+/** Official Facebook page. */
+export const FACEBOOK_URL =
+  'https://www.facebook.com/profile.php?id=61567790634598' as const
+
 /** PMS Writing Coach (essay, précis, long answer): provincial exam tuning. */
 export const PMS_WRITING_COACH_PATH = '/exams/pms-competitive/essay-grader' as const

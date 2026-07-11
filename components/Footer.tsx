@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { PREMIUM_PAGE_PATH } from '@/lib/routes'
+import { PREMIUM_PAGE_PATH, INSTAGRAM_URL, FACEBOOK_URL } from '@/lib/routes'
 import { PlayStoreButton } from '@/components/PlayStoreButton'
 
 export function Footer() {
@@ -38,7 +38,7 @@ export function Footer() {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
-                href="https://www.instagram.com/imtehanofficial/"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -49,7 +49,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.facebook.com/profile.php?id=61567790634598"
+                href={FACEBOOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"

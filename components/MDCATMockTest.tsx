@@ -21,6 +21,7 @@ import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { mdcatMockPageAccess } from '@/lib/premium-gates'
 import { handlePracticeDeny } from '@/lib/practice-client'
+import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -748,6 +749,8 @@ export default function MDCATMockTest({ variant, mockNumber }: { variant: string
             </div>
           </div>
         )}
+
+        <FirstQuizFollowPrompt />
       </>
     )
   }
