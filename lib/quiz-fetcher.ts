@@ -9,7 +9,11 @@ import {
 const DEDUPE_SCAN_BATCH = 400
 const DEDUPE_SCAN_MAX = 24_000
 
-type QueryFactory = () => ReturnType<ReturnType<SupabaseClient['from']>['select']>
+/** Explicit columns only — never select('*') (egress). */
+export const MCQ_SELECT_COLS =
+  'id, question, question_text, mcq, option_a, option_b, option_c, option_d, correct_answer, explanation, explanation_detailed, explanation_a, type, difficulty, topic, tags, subject, year'
+
+type QueryFactory = () => any
 
 function extractAnswerLetter(raw: unknown): string {
   const v = String(raw ?? '').trim().toUpperCase()
@@ -128,7 +132,7 @@ function buildModeQueryFactory(
   }
 ): QueryFactory {
   return () => {
-    let query = supabase.from(dbTable).select('*')
+    let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
     if (opts.subjectField) {
       query = query.eq('subject', opts.subjectField)
     } else if (opts.targetExam) {
@@ -212,7 +216,7 @@ export async function fetchMCQsByDifficultySet(
   const buildQuery: QueryFactory = () => {
     let query = supabase
       .from(dbTable)
-      .select('*')
+      .select(MCQ_SELECT_COLS)
       .in('difficulty', difficultyVariants(difficulty))
     if (subjectField) query = query.eq('subject', subjectField)
     return query
@@ -235,7 +239,7 @@ export async function fetchMCQsByTopicSet(
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
   const buildQuery: QueryFactory = () => {
-    const base = supabase.from(dbTable).select('*')
+    const base = supabase.from(dbTable).select(MCQ_SELECT_COLS)
     return useTagsArray ? base.contains('tags', [tag]) : base.eq('topic', tag)
   }
 

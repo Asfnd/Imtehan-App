@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
-import { createClient } from '@/lib/supabase/client'
 import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
@@ -14,7 +13,6 @@ import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
 import { tagSlugToLabel, isTagArrayTable, topicDbValue } from '@/lib/topic-tags'
 import { fetchRemoteCompletions } from '@/lib/completion'
-import { countUniqueMcqs } from '@/lib/quiz-fetcher'
 import BatchSetPickerGrid, { setMcqRangeLabel } from '@/components/exams/BatchSetPickerGrid'
 
 const SETS_PER_BATCH = 10
@@ -79,16 +77,15 @@ export function TopicSetPicker() {
       const section = config?.sections.find((s) => s.slug === subjectSlug)
       if (!section) { setLoading(false); return }
       const dbVal = topicDbValue(tagSlug, section.dbTable)
-      const supabase = createClient()
-      const buildQuery = () => {
-        const base = supabase.from(section.dbTable).select('*')
-        return isTagArrayTable(section.dbTable)
-          ? base.contains('tags', [dbVal])
-          : base.eq('topic', dbVal)
-      }
       try {
-        const unique = await countUniqueMcqs(supabase, buildQuery)
-        setTotalMCQs(unique)
+        const qs = new URLSearchParams({
+          dbTable: section.dbTable,
+          tag: dbVal,
+          useTagsArray: isTagArrayTable(section.dbTable) ? '1' : '0',
+        })
+        const res = await fetch(`/api/practice/count?${qs}`)
+        const json = (await res.json()) as { count?: number }
+        setTotalMCQs(res.ok ? Number(json.count) || 0 : 0)
       } catch {
         setTotalMCQs(0)
       }

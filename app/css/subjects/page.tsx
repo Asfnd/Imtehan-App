@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
 import { Search, ArrowRight, X, CheckCircle } from 'lucide-react'
 import { useCompletions } from '@/lib/completion'
 import FeedbackButton from '@/components/FeedbackButton'
@@ -34,10 +33,34 @@ interface YearData {
   paper_type?: string | null
 }
 
-function isMissingRelationError(error: any) {
-  if (!error) return false
-  const message = String(error?.message || '').toLowerCase()
-  return error?.code === '42P01' || message.includes('does not exist') || message.includes('relation')
+function withIdiomsVirtualSubject(subjectList: Subject[]): Subject[] {
+  const idiomVariations = ['idiom', 'english (idiom', 'english idiom']
+  const idiomIndex = subjectList.findIndex((s) => {
+    const lower = s.subject.toLowerCase()
+    return idiomVariations.some((v) => lower.includes(v))
+  })
+
+  if (idiomIndex !== -1) {
+    const actualIdiomsSubject = subjectList[idiomIndex].subject
+    return [
+      ...subjectList.slice(0, idiomIndex),
+      ...subjectList.slice(idiomIndex + 1),
+      {
+        ...subjectList[idiomIndex],
+        subject: 'Idioms & Phrases',
+        databaseName: actualIdiomsSubject,
+      },
+    ].sort((a, b) => a.subject.localeCompare(b.subject))
+  }
+
+  return [
+    ...subjectList,
+    {
+      subject: 'Idioms & Phrases',
+      count: 500,
+      databaseName: 'English (Idioms)',
+    },
+  ].sort((a, b) => a.subject.localeCompare(b.subject))
 }
 
 export default function CSSSubjectMCQsPage() {
@@ -53,188 +76,38 @@ export default function CSSSubjectMCQsPage() {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all')
   const [usingFastFallback, setUsingFastFallback] = useState(false)
 
-  const fetchSubjectsFromEnhancedTable = async (supabase: any) => {
-    const chunkSize = 1000
-    let offset = 0
-    let hasMore = true
-    const subjectCountMap = new Map<string, number>()
-
-    while (hasMore) {
-      const { data, error } = await supabase
-        .from('css_mcqs_enhanced')
-        .select('id, subject')
-        .order('id', { ascending: true })
-        .range(offset, offset + chunkSize - 1)
-
-      if (error) throw error
-      if (!data || data.length === 0) {
-        hasMore = false
-        break
-      }
-
-      for (const row of data) {
-        if (!row?.subject) continue
-        subjectCountMap.set(row.subject, (subjectCountMap.get(row.subject) || 0) + 1)
-      }
-
-      offset += chunkSize
-      if (data.length < chunkSize || offset >= 200000) {
-        hasMore = false
-      }
-    }
-
-    return Array.from(subjectCountMap.entries())
-      .map(([subject, count]) => ({ subject, count }))
-      .sort((a, b) => a.subject.localeCompare(b.subject))
-  }
-
-  const fetchSubjectsFromLegacyTable = async (supabase: any) => {
-    // Supabase may cap rows per request, so fetch in chunks to avoid missing subjects.
-    const chunkSize = 1000
-    let offset = 0
-    let hasMore = true
-    let allRows: any[] = []
-
-    while (hasMore) {
-      const { data, error } = await supabase
-        .from('css_mcqs')
-        .select('subject, year')
-        .order('id', { ascending: true })
-        .range(offset, offset + chunkSize - 1)
-
-      if (error) throw error
-      if (!data || data.length === 0) {
-        hasMore = false
-        break
-      }
-
-      allRows = allRows.concat(data)
-      offset += chunkSize
-
-      if (data.length < chunkSize || offset >= 100000) {
-        hasMore = false
-      }
-    }
-
-    const grouped = new Map<string, Set<number>>()
-    for (const row of allRows) {
-      if (!row?.subject) continue
-      if (!grouped.has(row.subject)) {
-        grouped.set(row.subject, new Set<number>())
-      }
-      if (row?.year) {
-        grouped.get(row.subject)?.add(Number(row.year))
-      }
-    }
-
-    return Array.from(grouped.entries())
-      .map(([subject, yearsSet]) => ({
-        subject,
-        count: yearsSet.size > 0 ? yearsSet.size : 1,
-      }))
-      .sort((a, b) => a.subject.localeCompare(b.subject))
-  }
-
   const fetchSubjects = useMemo(() => async () => {
     try {
-      const supabase = createClient()
-      let subjectList: any[] = []
-
-      try {
-        subjectList = await fetchSubjectsFromEnhancedTable(supabase)
-      } catch (enhancedError) {
-        if (isMissingRelationError(enhancedError)) {
-          console.warn('Enhanced CSS table missing, falling back to css_mcqs')
-          subjectList = await fetchSubjectsFromLegacyTable(supabase)
-        } else {
-          throw enhancedError
-        }
+      const res = await fetch('/api/css/subject-stats')
+      if (!res.ok) throw new Error(`subject-stats ${res.status}`)
+      const json = (await res.json()) as {
+        subjects?: { subject: string; question_count: number; years?: number[] }[]
       }
+      const subjectList = (json.subjects || [])
+        .filter((row) => !!row?.subject)
+        .map((row) => ({
+          subject: row.subject,
+          count: Number(row.question_count) || 0,
+        }))
+        .sort((a, b) => a.subject.localeCompare(b.subject))
 
-      if (!subjectList || subjectList.length === 0) {
+      if (subjectList.length === 0) {
         setSubjects([])
         setLoading(false)
         return
       }
 
-      // Keep the list fully data-driven; do not exclude subjects by name.
-      subjectList = subjectList
-        .filter((row: any) => !!row?.subject)
-        .sort((a: any, b: any) => a.subject.localeCompare(b.subject))
-
-      console.log('=== Subjects from database (Filtered) ===')
-      console.log('Total subjects:', subjectList.length)
-      console.log('All subjects:', subjectList.map((s: any) => `${s.subject}: ${s.count}`))
-
-      // Check if idioms already exists - with detailed matching
-      const idiomVariations = ['idiom', 'english (idiom', 'english idiom']
-      const hasIdioms = subjectList.some((s: Subject) => {
-        const lower = s.subject.toLowerCase()
-        return idiomVariations.some(v => lower.includes(v))
-      })
-
-      console.log('Has idioms subject already:', hasIdioms)
-
-      if (hasIdioms) {
-        const idiomSubject = subjectList.find((s: Subject) => {
-          const lower = s.subject.toLowerCase()
-          return idiomVariations.some(v => lower.includes(v))
-        })
-        console.log('Found idiom subject in DB:', idiomSubject?.subject)
-      }
-
-      // Add Idioms as a virtual subject for language skills (only if not already present)
-      let subjectsWithIdioms = subjectList
-
-      if (hasIdioms) {
-        // If idioms exists, rename it to "Idioms & Phrases" for display
-        const idiomIndex = subjectList.findIndex((s: Subject) => {
-          const lower = s.subject.toLowerCase()
-          return idiomVariations.some(v => lower.includes(v))
-        })
-
-        if (idiomIndex !== -1) {
-          const actualIdiomsSubject = subjectList[idiomIndex].subject
-          console.log('Found idiom subject in DB:', actualIdiomsSubject)
-
-          // Create a copy with renamed display name but keep original for queries
-          subjectsWithIdioms = [
-            ...subjectList.slice(0, idiomIndex),
-            ...subjectList.slice(idiomIndex + 1),
-            {
-              ...subjectList[idiomIndex],
-              subject: 'Idioms & Phrases',  // Rename for display
-              databaseName: actualIdiomsSubject  // Keep original name for queries
-            }
-          ].sort((a: any, b: any) => a.subject.localeCompare(b.subject))
-          console.log('Renamed existing idiom subject to "Idioms & Phrases" (DB name: ' + actualIdiomsSubject + ')')
-        }
-      } else {
-        // Create virtual Idioms subject pointing to most likely DB name
-        // Use "Idioms & Phrases" as display name (matches old working version)
-        subjectsWithIdioms = [
-          ...subjectList,
-          {
-            subject: 'Idioms & Phrases',
-            count: 500, // Approximate count for idioms
-            databaseName: 'English (Idioms)' // The actual name in database
-          }
-        ].sort((a: any, b: any) => a.subject.localeCompare(b.subject))
-        console.log('Added virtual Idioms subject (not found in DB)')
-      }
-
-      console.log('Final subjects with idioms:', subjectsWithIdioms.map((s: Subject) => s.subject))
-      setSubjects(subjectsWithIdioms)
+      setSubjects(withIdiomsVirtualSubject(subjectList))
       setUsingFastFallback(false)
       setLoading(false)
     } catch (error) {
       console.error('Error fetching subjects:', error)
-      // Fallback to precomputed 51-subject dataset when DB is unavailable.
-      const fastSubjects = getFastSubjects().map((s) => ({
-        subject: s.subject,
-        count: s.count,
-      }))
-      setSubjects(fastSubjects)
+      setSubjects(
+        getFastSubjects().map((s) => ({
+          subject: s.subject,
+          count: s.count,
+        }))
+      )
       setUsingFastFallback(true)
       setLoading(false)
     }
@@ -243,293 +116,79 @@ export default function CSSSubjectMCQsPage() {
   const fetchYears = useMemo(() => async () => {
     if (!selectedSubject) return
     if (usingFastFallback) {
-      const fastYears = getFastYearsForSubject(selectedSubject).map((y) => ({
-        year: y.year,
-        count: y.count,
-        paper_type: null,
-      }))
-      setYears(fastYears)
+      setYears(
+        getFastYearsForSubject(selectedSubject).map((y) => ({
+          year: y.year,
+          count: y.count,
+          paper_type: null,
+        }))
+      )
       return
     }
     try {
-      const supabase = createClient()
-
-      // Find the subject in the list to get the database name
-      const subjectObj = subjects.find(s => s.subject === selectedSubject)
-      console.log('Subject object:', subjectObj)
-
-      // Use databaseName if available (for virtual subjects), otherwise use the subject name
+      const subjectObj = subjects.find((s) => s.subject === selectedSubject)
       const subjectQuery = subjectObj?.databaseName || selectedSubject
-
-      console.log('Fetching years for subject (display):', selectedSubject)
-      console.log('Fetching years for subject (query):', subjectQuery)
-
-      console.log('=== QUERY DETAILS ===')
-      console.log('Table: css_mcqs_enhanced')
-      console.log('Selecting: year')
-      console.log('Where subject =', subjectQuery)
-      console.log('Order by year DESC')
-      console.log('No limit - loading all years')
-
-      let data, error
-
-      // CRITICAL FIX: Query ALL records without limit, then extract distinct years
-      // Problem: .range() doesn't work with large datasets
-      // Solution: Load in chunks if needed, or use aggregation
-      console.log('🔍 Querying ALL records for subject:', subjectQuery)
-
-      // Try to load ALL records by making multiple requests if needed
-      let allData: any[] = []
-      let offset = 0
-      const chunkSize = 1000
-      let hasMore = true
-      let usingLegacyTable = false
-
-      while (hasMore) {
-        const { data: chunk, error: chunkError } = await supabase
-          .from('css_mcqs_enhanced')
-          .select('id, year, paper_type')
-          .order('id', { ascending: true })
-          .eq('subject', subjectQuery)
-          .range(offset, offset + chunkSize - 1)
-
-        if (chunkError) {
-          if (isMissingRelationError(chunkError)) {
-            usingLegacyTable = true
-            break
-          }
-          error = chunkError
-          break
-        }
-
-        if (!chunk || chunk.length === 0) {
-          hasMore = false
-          break
-        }
-
-        allData = allData.concat(chunk)
-        offset += chunkSize
-
-        // Safety: Stop if we've loaded more than 100k records
-        if (offset >= 100000) {
-          console.warn('⚠️ Stopped loading after 100k records to prevent infinite loop')
-          hasMore = false
-        }
-
-        // If we got less than chunkSize, we've reached the end
-        if (chunk.length < chunkSize) {
-          hasMore = false
+      const candidates = [subjectQuery]
+      if (
+        selectedSubject === 'Idioms & Phrases' ||
+        subjectQuery.toLowerCase().includes('idiom')
+      ) {
+        for (const alt of [
+          'English (Idioms)',
+          'English Idioms',
+          'Idioms',
+          'Idioms & Phrases',
+        ]) {
+          if (!candidates.includes(alt)) candidates.push(alt)
         }
       }
 
-      if (usingLegacyTable) {
-        console.warn('Enhanced CSS table missing, falling back to css_mcqs for years')
-        let legacyAllData: any[] = []
-        let legacyOffset = 0
-        let legacyHasMore = true
-
-        while (legacyHasMore) {
-          const { data: legacyChunk, error: legacyChunkError } = await supabase
-            .from('css_mcqs')
-            .select('id, year, paper')
-            .order('id', { ascending: true })
-            .eq('subject', subjectQuery)
-            .range(legacyOffset, legacyOffset + chunkSize - 1)
-
-          if (legacyChunkError) {
-            error = legacyChunkError
-            break
-          }
-
-          if (!legacyChunk || legacyChunk.length === 0) {
-            legacyHasMore = false
-            break
-          }
-
-          legacyAllData = legacyAllData.concat(
-            legacyChunk.map((row: any) => ({
-              year: row.year,
-              paper_type: row.paper ? `Paper ${row.paper}` : null
-            }))
-          )
-          legacyOffset += chunkSize
-
-          if (legacyOffset >= 100000 || legacyChunk.length < chunkSize) {
-            legacyHasMore = false
-          }
+      let yearList: YearData[] = []
+      for (const candidate of candidates) {
+        const res = await fetch(
+          `/api/css/year-stats?subject=${encodeURIComponent(candidate)}`
+        )
+        if (!res.ok) continue
+        const json = (await res.json()) as {
+          years?: { year: number; paper_type: string | null; question_count: number }[]
         }
-
-        data = legacyAllData
-        error = error || null
-      } else {
-        data = allData
-        error = error || null
+        yearList = (json.years || [])
+          .filter((y) => Number.isFinite(Number(y.year)))
+          .map((y) => ({
+            year: Number(y.year),
+            count: Number(y.question_count) || 0,
+            paper_type: y.paper_type || null,
+          }))
+          .sort((a, b) => {
+            if (b.year !== a.year) return b.year - a.year
+            if (!a.paper_type && !b.paper_type) return 0
+            if (!a.paper_type) return -1
+            if (!b.paper_type) return 1
+            return a.paper_type.localeCompare(b.paper_type)
+          })
+        if (yearList.length > 0) break
       }
 
-      console.log('✅ Loaded ALL records for subject:', subjectQuery)
-      console.log('   Total records loaded:', data?.length)
-      console.log('   Error:', error)
-
-      // Get exact count for this subject to detect truncation
-      const { count: exactCount, error: countErr } = await supabase
-        .from('css_mcqs_enhanced')
-        .select('*', { count: 'exact', head: true })
-        .eq('subject', subjectQuery)
-
-      console.log('Exact count for subject', subjectQuery, ':', exactCount, 'Error:', countErr)
-      if (data && exactCount && data.length < exactCount) {
-        console.warn(`⚠️ TRUNCATION DETECTED: Got ${data.length} rows but ${exactCount} exist!`)
-      }
-
-      // If first query failed and we're looking for idioms, try alternative names
-      if ((error || !data || data.length === 0) && (subjectQuery.toLowerCase().includes('idiom') || selectedSubject === 'Idioms & Phrases')) {
-        console.log('First query failed or returned no data, trying alternative idiom names...')
-
-        const altNames = ['English (Idioms)', 'English Idioms', 'Idioms', 'Idioms & Phrases', 'english (idioms)', 'english idioms']
-        for (const altName of altNames) {
-          if (altName === subjectQuery) continue // Skip if already tried
-
-          console.log('   Trying alternative name:', altName)
-
-          // Load ALL records for this alternative name too
-          let altAllData: any[] = []
-          let altOffset = 0
-          let altHasMore = true
-
-          while (altHasMore) {
-            const { data: altChunk, error: altChunkError } = await supabase
-              .from('css_mcqs_enhanced')
-              .select('year')
-              .eq('subject', altName)
-              .range(altOffset, altOffset + chunkSize - 1)
-
-            if (altChunkError || !altChunk || altChunk.length === 0) {
-              altHasMore = false
-              break
-            }
-
-            altAllData = altAllData.concat(altChunk)
-            altOffset += chunkSize
-
-            if (altOffset >= 100000 || altChunk.length < chunkSize) {
-              altHasMore = false
-            }
-          }
-
-          console.log('   Alternative query returned:', altAllData.length, 'rows')
-          if (altAllData.length > 0) {
-            console.log('   ✅ SUCCESS with alternative name:', altName)
-            data = altAllData
-            error = null
-            break
-          }
-        }
-      }
-
-      console.log('=== QUERY RESPONSE ===')
-      console.log('Error object:', error)
-      console.log('Error keys:', error ? Object.keys(error) : 'no error')
-      console.log('Error message:', error?.message)
-      console.log('Error code:', error?.code)
-      console.log('Error details:', error?.details)
-      console.log('Data:', data)
-      console.log('Data type:', typeof data)
-      console.log('Data is array:', Array.isArray(data))
-      console.log('Data length:', data?.length)
-
-      if (error) {
-        console.error('=== SUPABASE ERROR ===')
-        console.error('Full error:', JSON.stringify(error, null, 2))
-        throw error
-      }
-
-      if (!data || data.length === 0) {
-        console.log('=== NO DATA FOUND ===')
-        console.log('Checking if data is null:', data === null)
-        console.log('Checking if data is undefined:', data === undefined)
-        console.log('Checking if data is empty array:', Array.isArray(data) && data.length === 0)
-
-        // Try a simple count query to see if table exists
-        const { count, error: countError } = await supabase
-          .from('css_mcqs_enhanced')
-          .select('*', { count: 'exact', head: true })
-
-        console.log('Table count query - Count:', count, 'Error:', countError)
-
-        // Try querying without the filter
-        const { data: allData, error: allError } = await supabase
-          .from('css_mcqs_enhanced')
-          .select('subject')
-          .limit(5)
-
-        console.log('All subjects sample (no filter):', allData, 'Error:', allError)
-
-        setYears([])
+      if (yearList.length === 0) {
+        setYears(
+          getFastYearsForSubject(selectedSubject).map((y) => ({
+            year: y.year,
+            count: y.count,
+            paper_type: null,
+          }))
+        )
         return
       }
-
-      console.log('=== DATA FOUND ===')
-      console.log('Total records returned:', data.length)
-      console.log('Raw data sample (first 10):', data.slice(0, 10))
-
-      // Collect all unique years to debug filtering
-      const allUniqueYears = [...new Set(data.map((r: any) => r.year))].sort((a: any, b: any) => b - a)
-      console.log('📊 Raw data analysis:')
-      console.log('   Total records:', data.length)
-      console.log('   Unique years found:', allUniqueYears.length)
-      console.log('   Year range:', allUniqueYears.length > 0 ? `${Math.min(...allUniqueYears)} to ${Math.max(...allUniqueYears)}` : 'N/A')
-      console.log('   All unique years:', allUniqueYears)
-
-      // Count MCQs per year+paper_type combination
-      const yearMap = data.reduce((acc: any, row: any) => {
-        // Only skip null/undefined years
-        if (!row.year) {
-          acc.nullCount = (acc.nullCount || 0) + 1
-          return acc
-        }
-
-        // Create unique key: year-paperType (e.g., "2025-Paper 1", "2025-null")
-        const paperType = row.paper_type || null
-        const key = `${row.year}-${paperType}`
-
-        if (!acc[key]) {
-          acc[key] = { year: row.year, count: 0, paper_type: paperType }
-        }
-        acc[key].count++
-        return acc
-      }, {})
-
-      // Extract actual years and sort (by year DESC, then by paper_type)
-      const yearList = Object.entries(yearMap)
-        .filter(([key]: any) => key !== 'nullCount')
-        .map(([_, value]: any) => value)
-        .sort((a: any, b: any) => {
-          // First sort by year (descending)
-          if (b.year !== a.year) return b.year - a.year
-
-          // Then sort by paper type (null first, then Paper 1, Paper 2)
-          if (!a.paper_type && !b.paper_type) return 0
-          if (!a.paper_type) return -1 // null first
-          if (!b.paper_type) return 1
-          return a.paper_type.localeCompare(b.paper_type)
-        })
-
-      console.log('📋 Final year list:')
-      console.log('   Total years after filtering:', yearList.length)
-      console.log('   Records with null year:', yearMap.nullCount || 0)
-      console.log('   Year details:', yearList)
-      console.log('   Years (comma-separated):', yearList.map(y => y.year).join(', '))
       setYears(yearList)
     } catch (error) {
-      console.error('Error fetching years - Full error object:', error)
-      console.error('Error details:', JSON.stringify(error))
-      // If years query fails, keep UX functional with fast local fallback.
-      const fastYears = getFastYearsForSubject(selectedSubject).map((y) => ({
-        year: y.year,
-        count: y.count,
-        paper_type: null,
-      }))
-      setYears(fastYears)
+      console.error('Error fetching years:', error)
+      setYears(
+        getFastYearsForSubject(selectedSubject).map((y) => ({
+          year: y.year,
+          count: y.count,
+          paper_type: null,
+        }))
+      )
     }
   }, [selectedSubject, subjects, usingFastFallback])
 

@@ -117,7 +117,9 @@ export default function MDCATQuizPage() {
       const supabase = createClient()
       const { data, error } = await supabase
         .from(subjectConfig.table)
-        .select('*')
+        .select(
+          'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation, topic, subtopic, difficulty'
+        )
         .eq('topic', topic)
         .limit(50)
 

@@ -6,6 +6,7 @@ import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import MockTestInterface from '@/components/MockTestInterface'
 import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
 import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
+import { MCQ_SELECT_COLS } from '@/lib/quiz-fetcher'
 
 /** noindex mocks — cached build so repeat opens don't re-scan banks. */
 export const dynamic = 'force-static'
@@ -38,7 +39,7 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
     const limit = Math.max(1, Math.round(section.count * multiplier))
     const { data: typed } = await supabase
       .from(section.dbTable)
-      .select('*')
+      .select(MCQ_SELECT_COLS)
       .in('type', qTypes)
       .limit(limit * 4)
 
@@ -47,7 +48,7 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
     if (pool.length < limit) {
       const { data: fallback } = await supabase
         .from(section.dbTable)
-        .select('*')
+        .select(MCQ_SELECT_COLS)
         .not('type', 'in', `(${qTypes.map((t) => `'${t}'`).join(',')})`)
         .limit((limit - pool.length) * 4)
 

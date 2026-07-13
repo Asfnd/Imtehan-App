@@ -145,19 +145,45 @@ export function cachedExamTableCount(params: {
   dbTable: string
   type?: string | null
   targetExam?: string
+  subjectField?: string
 }): Promise<number> {
   const key = [
     'exam-count',
     params.dbTable,
     params.type ?? 'all',
     params.targetExam ?? '',
+    params.subjectField ?? '',
   ]
   return unstable_cache(
     async () => {
       const supabase = createPublicSupabaseClient()
-      let query = supabase.from(params.dbTable).select('*', { count: 'exact', head: true })
+      let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+      if (params.subjectField) query = query.eq('subject', params.subjectField)
       if (params.targetExam) query = query.eq('target_exam', params.targetExam)
       else if (params.type) query = query.eq('type', params.type)
+      const { count, error } = await query
+      if (error) throw new Error(error.message)
+      return count ?? 0
+    },
+    key,
+    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+  )()
+}
+
+/** Cached topic/tag head counts for set pickers (egress fix). */
+export function cachedTopicTagCount(params: {
+  dbTable: string
+  tag: string
+  useTagsArray: boolean
+}): Promise<number> {
+  const key = ['topic-count', params.dbTable, params.tag, String(params.useTagsArray)]
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicSupabaseClient()
+      const base = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+      const query = params.useTagsArray
+        ? base.contains('tags', [params.tag])
+        : base.eq('topic', params.tag)
       const { count, error } = await query
       if (error) throw new Error(error.message)
       return count ?? 0

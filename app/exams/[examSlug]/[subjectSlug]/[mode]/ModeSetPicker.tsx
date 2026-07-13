@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
-import { createClient } from '@/lib/supabase/client'
 import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
@@ -12,7 +11,6 @@ import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { tieredSetTableNavigation } from '@/lib/premium-gates'
 import { fetchRemoteCompletions } from '@/lib/completion'
-import { countUniqueForMode } from '@/lib/quiz-fetcher'
 import BatchSetPickerGrid, { setMcqRangeLabel } from '@/components/exams/BatchSetPickerGrid'
 
 const MODE_CONFIG = {
@@ -103,19 +101,23 @@ export function ModeSetPicker() {
         return
       }
 
-      const supabase = createClient()
       try {
-        const unique = await countUniqueForMode(supabase, {
-          dbTable: section.dbTable,
-          mode: modeConfig.dbType ?? 'mixed',
-          noTypeFilter: section.noTypeFilter,
-          subjectField: section.subjectField,
-          targetExam:
-            mode === 'past-papers' && config?.pastPapersExam
-              ? config.pastPapersExam
-              : undefined,
-        })
-        setTotalMCQs(unique)
+        const qs = new URLSearchParams({ dbTable: section.dbTable })
+        if (section.subjectField) {
+          qs.set('subjectField', section.subjectField)
+          qs.set('all', '1')
+        } else if (section.noTypeFilter || mode === 'practice') {
+          qs.set('all', '1')
+        } else if (mode === 'past-papers' && config?.pastPapersExam) {
+          qs.set('targetExam', config.pastPapersExam)
+        } else if (modeConfig.dbType) {
+          qs.set('type', modeConfig.dbType)
+        } else {
+          qs.set('all', '1')
+        }
+        const res = await fetch(`/api/practice/count?${qs}`)
+        const json = (await res.json()) as { count?: number }
+        setTotalMCQs(res.ok ? Number(json.count) || 0 : 0)
       } catch {
         setTotalMCQs(0)
       }
