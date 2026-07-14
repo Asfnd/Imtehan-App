@@ -403,6 +403,25 @@ export default function MockTestInterface({
     )
   }
 
+  // Never crash the whole site with "Application error" when a mock has 0 questions
+  if (!shuffledMCQs.length || !currentMCQ) {
+    return (
+      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 px-4 text-center">
+        <p className="text-lg font-semibold text-slate-900">This mock isn’t ready yet</p>
+        <p className="max-w-md text-sm text-slate-600">
+          Questions for this test couldn’t be loaded. Please try another mock or go back to the exam hub.
+        </p>
+        <button
+          type="button"
+          onClick={() => router.push(`/exams/${examSlug}/mock`)}
+          className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+        >
+          Back to mock tests
+        </button>
+      </div>
+    )
+  }
+
   if (showResults) {
     const score = calcScore()
     const timeTaken = totalDurationSeconds - timeLeft

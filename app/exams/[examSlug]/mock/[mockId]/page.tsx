@@ -25,6 +25,45 @@ function hashId(id: string, seed: number): number {
   return Math.abs(h)
 }
 
+async function fetchSectionPool(
+  dbTable: string,
+  qTypes: string[],
+  limit: number
+): Promise<Record<string, unknown>[]> {
+  const supabase = createPublicSupabaseClient()
+
+  const { data: typed, error: typedErr } = await supabase
+    .from(dbTable)
+    .select(MCQ_SELECT_COLS)
+    .in('type', qTypes)
+    .limit(limit * 4)
+
+  if (typedErr) {
+    console.error(`[mock] typed select failed ${dbTable}:`, typedErr.message)
+  }
+
+  let pool: Record<string, unknown>[] = (typed as Record<string, unknown>[] | null) ?? []
+
+  if (pool.length < limit) {
+    // Prefer untyped fill — some banks (e.g. MDCAT) have no `type` column.
+    const { data: fallback, error: fallbackErr } = await supabase
+      .from(dbTable)
+      .select(MCQ_SELECT_COLS)
+      .limit((limit - pool.length) * 4)
+
+    if (fallbackErr) {
+      console.error(`[mock] fallback select failed ${dbTable}:`, fallbackErr.message)
+    } else if (fallback?.length) {
+      const seen = new Set(pool.map((m) => String(m.id)))
+      for (const row of fallback as Record<string, unknown>[]) {
+        if (!seen.has(String(row.id))) pool.push(row)
+      }
+    }
+  }
+
+  return pool
+}
+
 async function buildMockMcqs(examSlug: string, mockNumber: number) {
   const config = getExamConfig(examSlug)
   if (!config) return null
@@ -32,28 +71,11 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
   if (!spec) return null
   const { multiplier, qTypes } = spec
   const official = getEffectiveExamSettings(examSlug, config)
-  const supabase = createPublicSupabaseClient()
   const allMCQs: Record<string, unknown>[] = []
 
   for (const section of official.sections) {
     const limit = Math.max(1, Math.round(section.count * multiplier))
-    const { data: typed } = await supabase
-      .from(section.dbTable)
-      .select(MCQ_SELECT_COLS)
-      .in('type', qTypes)
-      .limit(limit * 4)
-
-    let pool = typed ?? []
-
-    if (pool.length < limit) {
-      const { data: fallback } = await supabase
-        .from(section.dbTable)
-        .select(MCQ_SELECT_COLS)
-        .not('type', 'in', `(${qTypes.map((t) => `'${t}'`).join(',')})`)
-        .limit((limit - pool.length) * 4)
-
-      pool = [...pool, ...(fallback ?? [])]
-    }
+    const pool = await fetchSectionPool(section.dbTable, qTypes, limit)
 
     if (pool.length > 0) {
       const seeded = pool
@@ -65,6 +87,8 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       allMCQs.push(...seeded)
     }
   }
+
+  if (allMCQs.length === 0) return null
 
   const shuffledMCQs = allMCQs
     .map((mcq) => ({ mcq, hash: hashId(String(mcq.id), mockNumber * 3571) }))
@@ -83,10 +107,11 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
 }
 
 function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
+  // Cache key version bump (v2) invalidates empty results from the bad select cols bug.
   return unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-${examSlug}-${mockNumber}`],
-    { revalidate: 86400, tags: [`exam-mock-${examSlug}`] }
+    [`exam-mock-v2-${examSlug}-${mockNumber}`],
+    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v2'] }
   )()
 }
 
@@ -103,7 +128,7 @@ export default async function MockTestPage({
   if (!EXAM_MOCK_SPECS[mockNumber]) notFound()
 
   const built = await cachedBuildMockMcqs(examSlug, mockNumber)
-  if (!built) notFound()
+  if (!built || built.shuffledMCQs.length === 0) notFound()
 
   return (
     <MockTestInterface

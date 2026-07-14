@@ -18,7 +18,7 @@ const REVALIDATE = 86400
 
 export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [
-    'set',
+    'set-v2',
     params.dbTable,
     String(params.setNumber),
     params.mode ?? 'practice',
@@ -40,7 +40,7 @@ export function cachedFetchMCQsByDifficultySet(params: {
   subjectField?: string
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'diff',
+    'diff-v2',
     params.dbTable,
     params.difficulty,
     String(params.setNumber),
@@ -60,7 +60,7 @@ export function cachedFetchMCQsByTopicSet(params: {
   setNumber: number
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'topic',
+    'topic-v2',
     params.dbTable,
     params.tag,
     String(params.useTagsArray),

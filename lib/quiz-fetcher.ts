@@ -9,9 +9,15 @@ import {
 const DEDUPE_SCAN_BATCH = 400
 const DEDUPE_SCAN_MAX = 24_000
 
-/** Explicit columns only — never select('*') (egress). */
+/**
+ * Explicit columns only — never select('*') (egress).
+ * Must be the INTERSECTION of columns across CSS/job banks and MDCAT tables.
+ * Selecting optional cols (question_text, mcq, topic, tags, type, year, …)
+ * breaks PostgREST when any one table is missing that column — mocks/sets
+ * then return [] and crash the client.
+ */
 export const MCQ_SELECT_COLS =
-  'id, question, question_text, mcq, option_a, option_b, option_c, option_d, correct_answer, explanation, explanation_detailed, explanation_a, type, difficulty, topic, tags, subject, year'
+  'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation'
 
 type QueryFactory = () => any
 
