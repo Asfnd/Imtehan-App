@@ -16,7 +16,6 @@ AI_MCQ_Output
 data/expansion
 data/audit
 data/syllabus
-scripts
 *.ndjson
 *.pem
 .env

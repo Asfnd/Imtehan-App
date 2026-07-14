@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 # Install git hooks for auto-push to CSS-App.
+# No-op on Vercel/CI (no .git) — never fail npm install in production builds.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+if [ ! -d "$ROOT/.git" ]; then
+  echo "Skipping git-hook install (no .git — CI/Vercel)"
+  exit 0
+fi
+
 HOOKS_DIR="$ROOT/.git/hooks"
 SRC="$ROOT/scripts/git-hooks/post-commit"
 
