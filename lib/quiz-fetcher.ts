@@ -5,6 +5,7 @@ import {
   normalizeQuestionStem,
   type QuizMcqRow,
 } from '@/lib/set-integrity'
+import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 
 const DEDUPE_SCAN_BATCH = 400
 const DEDUPE_SCAN_MAX = 24_000
@@ -42,13 +43,16 @@ function normRow(r: Record<string, unknown>): QuizMcqRow | null {
       (row as Record<string, unknown>).question_text ??
       (row as Record<string, unknown>).mcq
   )
-  if (!question) return null
+  if (!question || question.length < 8) return null
 
   const option_a = s(row.option_a)
   const option_b = s(row.option_b)
   const option_c = s(row.option_c)
   const option_d = s(row.option_d)
   if (!option_a || !option_b || !option_c || !option_d) return null
+  // Drop duplicate-option garbage
+  const opts = [option_a, option_b, option_c, option_d].map((o) => o.toLowerCase())
+  if (new Set(opts).size < 4) return null
 
   const correct_answer = extractAnswerLetter(row.correct_answer)
   if (!correct_answer) return null
@@ -135,17 +139,26 @@ function buildModeQueryFactory(
     noTypeFilter?: boolean
     subjectField?: string
     targetExam?: string
+    examSlug?: string
+    questionNeedles?: string[]
   }
 ): QueryFactory {
   return () => {
     let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
-    if (opts.subjectField) {
-      query = query.eq('subject', opts.subjectField)
-    } else if (opts.targetExam) {
-      query = query.eq('target_exam', opts.targetExam)
-    } else if (!opts.noTypeFilter && opts.mode) {
+
+    // Type filter when the bank supports it (skipped for mixed / MDCAT / subject slices)
+    if (!opts.noTypeFilter && opts.mode && !opts.subjectField) {
       query = query.eq('type', opts.mode)
     }
+
+    query = applyBankExamScope(query, {
+      dbTable,
+      examSlug: opts.examSlug,
+      targetExam: opts.targetExam,
+      subjectField: opts.subjectField,
+      questionNeedles: opts.questionNeedles,
+    })
+
     return query
   }
 }
@@ -158,6 +171,9 @@ export type FetchSetParams = {
   noTypeFilter?: boolean
   subjectField?: string
   targetExam?: string
+  /** Live exam slug — scopes pipeline banks via target_exams */
+  examSlug?: string
+  questionNeedles?: string[]
 }
 
 export async function fetchMCQsBySet(
@@ -172,32 +188,60 @@ export async function fetchMCQsBySet(
     noTypeFilter = false,
     subjectField,
     targetExam,
+    examSlug,
+    questionNeedles,
   } = params
 
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
   const mixed = !!subjectField || noTypeFilter || mode === 'mixed'
-  const buildQuery = buildModeQueryFactory(supabase, dbTable, {
+  const buildScoped = buildModeQueryFactory(supabase, dbTable, {
     mode: mixed ? 'practice' : mode,
     noTypeFilter: mixed,
     subjectField,
     targetExam,
+    examSlug,
+    questionNeedles,
   })
 
-  return fetchDedupedSetPage(buildQuery, setNumber, setSize)
+  let page = await fetchDedupedSetPage(buildScoped, setNumber, setSize)
+
+  // Specialist needle slices (FIA Act): if too few, drop needles but keep exam scope
+  if (page.length < setSize && questionNeedles?.length && examSlug) {
+    const loose = buildModeQueryFactory(supabase, dbTable, {
+      mode: mixed ? 'practice' : mode,
+      noTypeFilter: mixed,
+      subjectField,
+      targetExam,
+      examSlug,
+    })
+    page = await fetchDedupedSetPage(loose, setNumber, setSize)
+  }
+
+  return page
 }
 
 export async function countUniqueForMode(
   supabase: SupabaseClient,
   params: Omit<FetchSetParams, 'setNumber' | 'setSize'>
 ): Promise<number> {
-  const { dbTable, mode = 'practice', noTypeFilter = false, subjectField, targetExam } = params
+  const {
+    dbTable,
+    mode = 'practice',
+    noTypeFilter = false,
+    subjectField,
+    targetExam,
+    examSlug,
+    questionNeedles,
+  } = params
   const mixed = !!subjectField || noTypeFilter || mode === 'mixed'
   const buildQuery = buildModeQueryFactory(supabase, dbTable, {
     mode: mixed ? 'practice' : mode,
     noTypeFilter: mixed,
     subjectField,
     targetExam,
+    examSlug,
+    questionNeedles,
   })
   return countUniqueMcqs(supabase, buildQuery)
 }
@@ -214,9 +258,10 @@ export async function fetchMCQsByDifficultySet(
     setNumber: number
     setSize?: number
     subjectField?: string
+    examSlug?: string
   }
 ): Promise<QuizMcqRow[]> {
-  const { dbTable, difficulty, setNumber, setSize = 20, subjectField } = params
+  const { dbTable, difficulty, setNumber, setSize = 20, subjectField, examSlug } = params
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
   const buildQuery: QueryFactory = () => {
@@ -224,7 +269,7 @@ export async function fetchMCQsByDifficultySet(
       .from(dbTable)
       .select(MCQ_SELECT_COLS)
       .in('difficulty', difficultyVariants(difficulty))
-    if (subjectField) query = query.eq('subject', subjectField)
+    query = applyBankExamScope(query, { dbTable, examSlug, subjectField })
     return query
   }
 
@@ -239,14 +284,16 @@ export async function fetchMCQsByTopicSet(
     useTagsArray: boolean
     setNumber: number
     setSize?: number
+    examSlug?: string
   }
 ): Promise<QuizMcqRow[]> {
-  const { dbTable, tag, useTagsArray, setNumber, setSize = 20 } = params
+  const { dbTable, tag, useTagsArray, setNumber, setSize = 20, examSlug } = params
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
   const buildQuery: QueryFactory = () => {
-    const base = supabase.from(dbTable).select(MCQ_SELECT_COLS)
-    return useTagsArray ? base.contains('tags', [tag]) : base.eq('topic', tag)
+    let base = supabase.from(dbTable).select(MCQ_SELECT_COLS)
+    base = useTagsArray ? base.contains('tags', [tag]) : base.eq('topic', tag)
+    return applyBankExamScope(base, { dbTable, examSlug })
   }
 
   return fetchDedupedSetPage(buildQuery, setNumber, setSize)

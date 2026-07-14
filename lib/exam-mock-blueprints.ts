@@ -31,7 +31,15 @@ export type EffectiveExamSettings = {
   negativeMarking: boolean
   negativeMarkingValue: number
   blueprint: MockBlueprint
-  sections: { slug: string; count: number; label: string; dbTable: string }[]
+  sections: {
+    slug: string
+    count: number
+    label: string
+    dbTable: string
+    noTypeFilter?: boolean
+    subjectField?: string
+    questionNeedles?: string[]
+  }[]
 }
 
 export type ExamGuideView = {
@@ -623,6 +631,9 @@ function mergeBlueprintSections(
       count: bs.count,
       label: cfg?.label ?? bs.slug,
       dbTable: cfg?.dbTable ?? bs.slug.replace(/-/g, '_'),
+      noTypeFilter: cfg?.noTypeFilter,
+      subjectField: cfg?.subjectField,
+      questionNeedles: cfg?.questionNeedles,
     }
   })
 }

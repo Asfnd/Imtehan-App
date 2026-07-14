@@ -143,6 +143,11 @@ export async function POST(request: NextRequest) {
         noTypeFilter: !!noTypeFilter,
         subjectField,
         targetExam,
+        examSlug: body.examSlug,
+        questionNeedles: body.examSlug
+          ? getExamConfig(body.examSlug)?.sections.find((s) => s.slug === body.subjectSlug)
+              ?.questionNeedles
+          : undefined,
       })
     }
 

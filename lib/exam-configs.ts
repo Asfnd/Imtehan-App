@@ -9,6 +9,11 @@ export interface ExamSection {
   noTypeFilter?: boolean
   /** Filter shared banks (e.g. css_mcqs_enhanced) by `subject` column */
   subjectField?: string
+  /**
+   * Prefer questions whose stem matches any of these needles (ILIKE).
+   * Used for specialist slices (e.g. FIA Act) sitting inside a shared bank.
+   */
+  questionNeedles?: string[]
 }
 
 export interface ExamConfig {
@@ -2067,8 +2072,15 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
       { slug: 'pakistan-affairs',  label: 'Pakistan Study',    dbTable: 'pakistan_studies',         count: 10 },
       { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge',        count: 20 },
       { slug: 'computer',          label: 'Computer',          dbTable: 'basic_computer',           count: 10 },
-      { slug: 'math-iq',           label: 'Math IQ',           dbTable: 'engineering_intelligence', count: 20 },
-      { slug: 'fia-act',           label: 'FIA Act 1974',      dbTable: 'general_knowledge',        count: 10 },
+      // IQ items are transferable; table has no FIA target_exams — leave unscoped by exam
+      { slug: 'math-iq',           label: 'Math IQ',           dbTable: 'engineering_intelligence', count: 20, noTypeFilter: true },
+      {
+        slug: 'fia-act',
+        label: 'FIA Act 1974',
+        dbTable: 'general_knowledge',
+        count: 10,
+        questionNeedles: ['FIA Act', 'Federal Investigation Agency', 'FIA '],
+      },
     ]
     const fiaPost = (name: string, passingPercentage: number) => ({
       name,

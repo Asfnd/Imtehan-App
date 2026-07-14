@@ -103,6 +103,8 @@ export default async function QuizSetPage({
     subjectField: section.subjectField,
     targetExam:
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
+    examSlug,
+    questionNeedles: section.questionNeedles,
   }).catch(() => null)
 
   if (!fullSet || fullSet.length === 0) notFound()
