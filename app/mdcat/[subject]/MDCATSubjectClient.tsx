@@ -2,7 +2,6 @@
 
 import { useRouter, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, BookOpen, Zap, Target, Flame, ChevronRight } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
@@ -73,37 +72,26 @@ export function MDCATSubjectClient() {
 
   useEffect(() => {
     if (!cfg) return
-    const supabase = createClient()
     async function loadData() {
-      const supabase = createClient()
-
-      const [easy, medium, hard] = await Promise.all([
-        supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Easy'),
-        supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Medium'),
-        supabase.from(cfg.table).select('*', { count: 'exact', head: true }).eq('difficulty', 'Hard'),
-      ])
-      setCounts({ Easy: easy.count ?? 0, Medium: medium.count ?? 0, Hard: hard.count ?? 0 })
-
-      // Paginate through all rows to count topics (Supabase default limit is 1000/page)
-      const PAGE = 1000
-      const topicCounts: Record<string, number> = {}
-      let from = 0
-      while (true) {
-        const { data, error } = await supabase
-          .from(cfg.table)
-          .select('topic')
-          .range(from, from + PAGE - 1)
-        if (error || !data || data.length === 0) break
-        data.forEach((r: any) => { topicCounts[r.topic] = (topicCounts[r.topic] || 0) + 1 })
-        if (data.length < PAGE) break
-        from += PAGE
+      try {
+        const res = await fetch(`/api/bank/topic-stats?dbTable=${encodeURIComponent(cfg.table)}`)
+        if (!res.ok) throw new Error(`topic-stats ${res.status}`)
+        const json = (await res.json()) as {
+          topics?: TopicStat[]
+          difficulties?: DiffCounts
+        }
+        setCounts(json.difficulties ?? { Easy: 0, Medium: 0, Hard: 0 })
+        setTopics(
+          (json.topics || [])
+            .map((t) => ({ topic: t.topic, count: Number(t.count) || 0 }))
+            .filter((t) => t.topic && t.count > 0)
+            .sort((a, b) => b.count - a.count)
+        )
+      } catch (error) {
+        console.error('MDCAT subject stats:', error)
+        setCounts({ Easy: 0, Medium: 0, Hard: 0 })
+        setTopics([])
       }
-
-      setTopics(
-        Object.entries(topicCounts)
-          .map(([topic, count]) => ({ topic, count }))
-          .sort((a, b) => b.count - a.count)
-      )
       setLoading(false)
     }
     loadData()

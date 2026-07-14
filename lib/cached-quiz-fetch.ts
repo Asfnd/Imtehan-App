@@ -193,6 +193,147 @@ export function cachedTopicTagCount(params: {
   )()
 }
 
+/** Cached difficulty head count (MDCAT/exam hubs). */
+export function cachedDifficultyCount(params: {
+  dbTable: string
+  difficulty: string
+  subjectField?: string
+}): Promise<number> {
+  const key = [
+    'diff-count',
+    params.dbTable,
+    params.difficulty,
+    params.subjectField ?? '',
+  ]
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicSupabaseClient()
+      let query = supabase
+        .from(params.dbTable)
+        .select('id', { count: 'exact', head: true })
+        .eq('difficulty', params.difficulty)
+      if (params.subjectField) query = query.eq('subject', params.subjectField)
+      const { count, error } = await query
+      if (error) throw new Error(error.message)
+      return count ?? 0
+    },
+    key,
+    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+  )()
+}
+
+/** MDCAT/FSc topic aggregates via RPC — KB payload, no full-table download. */
+export function cachedBankTopicStats(dbTable: string): Promise<{ topic: string; count: number }[]> {
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicSupabaseClient()
+      const { data, error } = await supabase.rpc('get_bank_topic_counts', { p_table: dbTable })
+      if (error) throw new Error(error.message)
+      return ((data as { topic: string; question_count: number }[]) || [])
+        .map((row) => ({
+          topic: String(row.topic),
+          count: Number(row.question_count) || 0,
+        }))
+        .filter((row) => row.topic && row.count > 0)
+    },
+    ['bank-topic-stats-v1', dbTable],
+    { revalidate: REVALIDATE, tags: [`mcq-set-${dbTable}`] }
+  )()
+}
+
+export type SectionStatsPayload = {
+  pastCount: number
+  importantCount: number
+  repeatedCount: number
+  easyCount: number
+  mediumCount: number
+  hardCount: number
+  topics: Record<string, number>
+}
+
+/** One cached payload for subject-mode hubs (replaces N client head counts). */
+export function cachedSectionStats(params: {
+  dbTable: string
+  noTypeFilter?: boolean
+  subjectField?: string
+  titleCaseDifficulty?: boolean
+  tags?: string[]
+  useTagsArray?: boolean
+}): Promise<SectionStatsPayload> {
+  const tags = params.tags ?? []
+  const key = [
+    'section-stats-v1',
+    params.dbTable,
+    String(!!params.noTypeFilter),
+    params.subjectField ?? '',
+    String(!!params.titleCaseDifficulty),
+    String(!!params.useTagsArray),
+    tags.join(','),
+  ]
+  return unstable_cache(
+    async () => {
+      const easy = params.titleCaseDifficulty ? 'Easy' : 'easy'
+      const medium = params.titleCaseDifficulty ? 'Medium' : 'medium'
+      const hard = params.titleCaseDifficulty ? 'Hard' : 'hard'
+      const sharedTotal = !!(params.noTypeFilter || params.subjectField)
+
+      const [allOrPast, importantCount, repeatedCount, easyCount, mediumCount, hardCount, ...topicCounts] =
+        await Promise.all([
+          cachedExamTableCount({
+            dbTable: params.dbTable,
+            type: sharedTotal ? null : 'practice',
+            subjectField: params.subjectField,
+          }),
+          sharedTotal
+            ? Promise.resolve(0)
+            : cachedExamTableCount({ dbTable: params.dbTable, type: 'most_important' }),
+          sharedTotal
+            ? Promise.resolve(0)
+            : cachedExamTableCount({ dbTable: params.dbTable, type: 'most_repeated' }),
+          cachedDifficultyCount({
+            dbTable: params.dbTable,
+            difficulty: easy,
+            subjectField: params.subjectField,
+          }),
+          cachedDifficultyCount({
+            dbTable: params.dbTable,
+            difficulty: medium,
+            subjectField: params.subjectField,
+          }),
+          cachedDifficultyCount({
+            dbTable: params.dbTable,
+            difficulty: hard,
+            subjectField: params.subjectField,
+          }),
+          ...tags.map((tag) =>
+            cachedTopicTagCount({
+              dbTable: params.dbTable,
+              tag,
+              useTagsArray: !!params.useTagsArray,
+            })
+          ),
+        ])
+
+      const topics: Record<string, number> = {}
+      tags.forEach((tag, i) => {
+        topics[tag] = topicCounts[i] || 0
+      })
+
+      return {
+        pastCount: allOrPast,
+        importantCount: sharedTotal ? allOrPast : importantCount,
+        repeatedCount: sharedTotal ? allOrPast : repeatedCount,
+        easyCount,
+        mediumCount,
+        hardCount,
+        topics,
+      }
+    },
+    key,
+    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+  )()
+}
+
 /**
  * Sets 1–3 are indexable — keep full solved HTML for Google.
  * Cap crawl payload to avoid oversized RSC/JSON-LD responses (CPU + reliability).
