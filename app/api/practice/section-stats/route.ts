@@ -30,6 +30,14 @@ export async function GET(request: NextRequest) {
       titleCaseDifficulty: sp.get('titleCase') === '1',
       tags: resolvedTags,
       useTagsArray: !useTopicCol && sp.get('useTagsArray') !== '0',
+      examSlug: sp.get('examSlug') || undefined,
+      questionNeedles: sp.get('needles')
+        ? sp
+            .get('needles')!
+            .split('|')
+            .map((n) => n.trim())
+            .filter(Boolean)
+        : undefined,
     })
 
     // Remap topic counts back to original tag keys for the UI.

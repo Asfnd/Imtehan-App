@@ -25,6 +25,8 @@ export async function GET(request: NextRequest) {
             dbTable: section.dbTable,
             type: null,
             subjectField: section.subjectField,
+            examSlug,
+            questionNeedles: section.questionNeedles,
           })
           return {
             slug: section.slug,
@@ -36,9 +38,24 @@ export async function GET(request: NextRequest) {
         }
 
         const [pastCount, importantCount, repeatedCount] = await Promise.all([
-          cachedExamTableCount({ dbTable: section.dbTable, type: 'practice' }),
-          cachedExamTableCount({ dbTable: section.dbTable, type: 'most_important' }),
-          cachedExamTableCount({ dbTable: section.dbTable, type: 'most_repeated' }),
+          cachedExamTableCount({
+            dbTable: section.dbTable,
+            type: 'practice',
+            examSlug,
+            questionNeedles: section.questionNeedles,
+          }),
+          cachedExamTableCount({
+            dbTable: section.dbTable,
+            type: 'most_important',
+            examSlug,
+            questionNeedles: section.questionNeedles,
+          }),
+          cachedExamTableCount({
+            dbTable: section.dbTable,
+            type: 'most_repeated',
+            examSlug,
+            questionNeedles: section.questionNeedles,
+          }),
         ])
 
         return {

@@ -1,5 +1,6 @@
 import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { unstable_cache } from 'next/cache'
+import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 
 export interface SampleMcq {
   question: string
@@ -21,6 +22,8 @@ async function fetchSampleMcqsUncached(
   dbTable: string,
   mode: string | undefined,
   limit: number,
+  examSlug?: string,
+  questionNeedles?: string[],
 ): Promise<SampleMcq[]> {
   try {
     const supabase = createPublicSupabaseClient()
@@ -31,6 +34,13 @@ async function fetchSampleMcqsUncached(
 
     const dbType = mode ? MODE_DB_TYPE[mode] : 'most_repeated'
     if (dbType) query = query.eq('type', dbType)
+
+    query = applyBankExamScope(query, {
+      dbTable,
+      examSlug,
+      questionNeedles,
+      scopeMode: 'family',
+    })
 
     const { data } = await query
     return (data as SampleMcq[]) ?? []
@@ -43,10 +53,19 @@ export async function fetchSampleMcqs(
   dbTable: string,
   mode?: string,
   limit = 5,
+  examSlug?: string,
+  questionNeedles?: string[],
 ): Promise<SampleMcq[]> {
   return unstable_cache(
-    () => fetchSampleMcqsUncached(dbTable, mode, limit),
-    [`sample-mcqs-${dbTable}-${mode ?? 'default'}-${limit}`],
+    () => fetchSampleMcqsUncached(dbTable, mode, limit, examSlug, questionNeedles),
+    [
+      'sample-mcqs-v4',
+      dbTable,
+      mode ?? 'default',
+      String(limit),
+      examSlug ?? '',
+      (questionNeedles ?? []).join('|'),
+    ],
     { revalidate: 86400, tags: [`sample-mcqs-${dbTable}`] },
   )()
 }

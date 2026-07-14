@@ -7,7 +7,11 @@ import MockTestInterface from '@/components/MockTestInterface'
 import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
 import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 import { MCQ_SELECT_COLS } from '@/lib/quiz-fetcher'
-import { applyBankExamScope, isPipelineMcqTable } from '@/lib/mcq-bank-scope'
+import {
+  applyBankExamScope,
+  isPipelineMcqTable,
+  type BankScopeMode,
+} from '@/lib/mcq-bank-scope'
 
 /** noindex mocks — cached build so repeat opens don't re-scan banks. */
 export const dynamic = 'force-static'
@@ -61,23 +65,33 @@ async function fetchSectionPool(opts: {
     pastPapersExam,
   } = opts
   const supabase = createPublicSupabaseClient()
-  const need = limit * 4
+  const need = Math.max(limit * 4, 40)
+  const pipeline = isPipelineMcqTable(dbTable)
+  const hasNeedles = !!questionNeedles?.length
 
-  const run = async (useNeedles: boolean, scoped: boolean) => {
+  const run = async (useNeedles: boolean, scopeMode: BankScopeMode | null) => {
     let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
     if (!noTypeFilter && !subjectField) {
       query = query.in('type', qTypes)
     }
-    if (scoped) {
+    if (scopeMode && pipeline) {
       query = applyBankExamScope(query, {
         dbTable,
         examSlug,
         subjectField,
         targetExam: pastPapersExam,
         questionNeedles: useNeedles ? questionNeedles : undefined,
+        scopeMode,
       })
-    } else if (subjectField) {
-      query = query.eq('subject', subjectField)
+    } else if (subjectField || pastPapersExam || (useNeedles && questionNeedles)) {
+      query = applyBankExamScope(query, {
+        dbTable,
+        examSlug: pipeline ? examSlug : undefined,
+        subjectField,
+        targetExam: pastPapersExam,
+        questionNeedles: useNeedles ? questionNeedles : undefined,
+        scopeMode: pipeline ? 'family' : undefined,
+      })
     }
     const { data, error } = await query.limit(need)
     if (error) {
@@ -87,36 +101,31 @@ async function fetchSectionPool(opts: {
     return ((data as Record<string, unknown>[]) ?? []).filter(isQualityRow)
   }
 
-  // 1) Exact exam scope (+ specialist needles when set)
-  let pool = await run(!!questionNeedles?.length, true)
-
-  // 2) Drop needles, keep exam scope
-  if (pool.length < limit && questionNeedles?.length) {
-    pool = await run(false, true)
+  // Specialist modules (FIA Act): needles stay on — never pad with random GK.
+  if (hasNeedles) {
+    let pool = await run(true, 'exact')
+    if (pool.length < limit) pool = await run(true, 'family')
+    return pool
   }
 
-  // 3) Soft fallback: typed pool without exam scope (pipeline only — avoid polluting MDCAT)
-  if (pool.length < limit && isPipelineMcqTable(dbTable)) {
-    console.warn(
-      `[mock] scoped pool short for ${examSlug}/${dbTable} (${pool.length}/${limit}); soft fallback`
-    )
-    const fb = await run(false, false)
-    const seen = new Set(pool.map((m) => String(m.id)))
-    for (const row of fb) {
-      if (!seen.has(String(row.id))) pool.push(row)
-    }
+  // Normal sections: exact slug first, then family hub — never unscoped pipeline.
+  let pool = await run(false, pipeline ? 'exact' : null)
+  if (pool.length < limit && pipeline) {
+    pool = await run(false, 'family')
   }
-
-  // 4) Last resort: any quality rows from table
-  if (pool.length < limit) {
-    const { data } = await supabase.from(dbTable).select(MCQ_SELECT_COLS).limit(need)
-    const seen = new Set(pool.map((m) => String(m.id)))
-    for (const row of ((data as Record<string, unknown>[]) ?? []).filter(isQualityRow)) {
-      if (!seen.has(String(row.id))) pool.push(row)
-    }
+  // Non-pipeline (e.g. engineering_intelligence / MDCAT / css_mcqs_enhanced)
+  if (pool.length < limit && !pipeline) {
+    pool = await run(false, null)
   }
 
   return pool
+}
+
+type SectionPick = {
+  label: string
+  limit: number
+  rows: Record<string, unknown>[]
+  needles?: boolean
 }
 
 async function buildMockMcqs(examSlug: string, mockNumber: number) {
@@ -126,8 +135,8 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
   if (!spec) return null
   const { multiplier, qTypes } = spec
   const official = getEffectiveExamSettings(examSlug, config)
-  const allMCQs: Record<string, unknown>[] = []
 
+  const picks: SectionPick[] = []
   for (const section of official.sections) {
     const limit = Math.max(1, Math.round(section.count * multiplier))
     const pool = await fetchSectionPool({
@@ -140,16 +149,42 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       questionNeedles: section.questionNeedles,
       pastPapersExam: config.pastPapersExam,
     })
+    picks.push({
+      label: section.label,
+      limit,
+      rows: pool,
+      needles: !!section.questionNeedles?.length,
+    })
+  }
 
-    if (pool.length > 0) {
-      const seeded = pool
-        .map((mcq) => ({ mcq, hash: hashId(String(mcq.id), mockNumber * 7919) }))
-        .sort((a, b) => a.hash - b.hash)
-        .slice(0, limit)
-        .map(({ mcq }) => ({ ...mcq, subject: section.label }))
-
-      allMCQs.push(...seeded)
+  // Keep official total MCQ count without mislabeling specialist shortfalls
+  // (e.g. FIA Act). Extra slots go into non-needle pipeline sections that still
+  // have unused scoped rows (usually GK / English).
+  let deficit = 0
+  for (const p of picks) {
+    if (p.rows.length < p.limit) deficit += p.limit - p.rows.length
+  }
+  if (deficit > 0) {
+    for (const p of picks) {
+      if (deficit <= 0) break
+      if (p.needles) continue
+      const spare = Math.max(0, p.rows.length - p.limit)
+      if (spare <= 0) continue
+      const take = Math.min(spare, deficit)
+      p.limit += take
+      deficit -= take
     }
+  }
+
+  const allMCQs: Record<string, unknown>[] = []
+  for (const p of picks) {
+    if (p.rows.length === 0) continue
+    const seeded = p.rows
+      .map((mcq) => ({ mcq, hash: hashId(String(mcq.id), mockNumber * 7919) }))
+      .sort((a, b) => a.hash - b.hash)
+      .slice(0, p.limit)
+      .map(({ mcq }) => ({ ...mcq, subject: p.label }))
+    allMCQs.push(...seeded)
   }
 
   if (allMCQs.length === 0) return null
@@ -171,11 +206,11 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
 }
 
 function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
-  // v3: exam-scoped pools via target_exams
+  // v4: exact→family scope, no unscoped soft fallback, honest needle modules
   return unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-v3-${examSlug}-${mockNumber}`],
-    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v3'] }
+    [`exam-mock-v4-${examSlug}-${mockNumber}`],
+    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v4'] }
   )()
 }
 

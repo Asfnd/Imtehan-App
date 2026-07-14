@@ -76,6 +76,7 @@ export default async function DifficultyQuizSetPage({
     difficulty: difficultyDbValue(level, section.dbTable),
     setNumber,
     subjectField: section.subjectField,
+    examSlug,
   }).catch(() => null)
 
   if (!mcqs || mcqs.length === 0) notFound()
@@ -111,6 +112,7 @@ export default async function DifficultyQuizSetPage({
           dbTable: section.dbTable,
           difficulty: difficultyDbValue(level, section.dbTable),
           subjectField: section.subjectField,
+          examSlug,
         }}
       />
     </>

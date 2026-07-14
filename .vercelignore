@@ -1,0 +1,28 @@
+# Never upload local junk via `vercel deploy` — production ships from Git only.
+# Git deploy ignores this file; this is a guardrail against CLI uploads.
+
+.claude
+.cursorrules
+.git
+.vercel
+.next
+node_modules
+coverage
+out
+build
+tmp
+tmp_*
+AI_MCQ_Output
+data/expansion
+data/audit
+data/syllabus
+scripts
+*.ndjson
+*.pem
+.env
+.env.*
+auto-push.log
+.sitemap-url-snapshot.json
+NON_MDCAT_*.md
+_out_*.json
+world_caps_currencies_practice_35.json

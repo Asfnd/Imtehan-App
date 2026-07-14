@@ -13,12 +13,13 @@ import {
   type FetchSetParams,
 } from '@/lib/quiz-fetcher'
 import type { QuizMcqRow } from '@/lib/set-integrity'
+import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 
 const REVALIDATE = 86400
 
 export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [
-    'set-v3',
+    'set-v4',
     params.dbTable,
     String(params.setNumber),
     params.mode ?? 'practice',
@@ -40,13 +41,15 @@ export function cachedFetchMCQsByDifficultySet(params: {
   difficulty: string
   setNumber: number
   subjectField?: string
+  examSlug?: string
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'diff-v2',
+    'diff-v4',
     params.dbTable,
     params.difficulty,
     String(params.setNumber),
     params.subjectField ?? '',
+    params.examSlug ?? '',
   ]
   return unstable_cache(
     async () => fetchMCQsByDifficultySet(createPublicSupabaseClient(), params),
@@ -60,13 +63,15 @@ export function cachedFetchMCQsByTopicSet(params: {
   tag: string
   useTagsArray: boolean
   setNumber: number
+  examSlug?: string
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'topic-v2',
+    'topic-v4',
     params.dbTable,
     params.tag,
     String(params.useTagsArray),
     String(params.setNumber),
+    params.examSlug ?? '',
   ]
   return unstable_cache(
     async () => fetchMCQsByTopicSet(createPublicSupabaseClient(), params),
@@ -148,13 +153,17 @@ export function cachedExamTableCount(params: {
   type?: string | null
   targetExam?: string
   subjectField?: string
+  examSlug?: string
+  questionNeedles?: string[]
 }): Promise<number> {
   const key = [
-    'exam-count',
+    'exam-count-v4',
     params.dbTable,
     params.type ?? 'all',
     params.targetExam ?? '',
     params.subjectField ?? '',
+    params.examSlug ?? '',
+    (params.questionNeedles ?? []).join('|'),
   ]
   return unstable_cache(
     async () => {
@@ -163,6 +172,14 @@ export function cachedExamTableCount(params: {
       if (params.subjectField) query = query.eq('subject', params.subjectField)
       if (params.targetExam) query = query.eq('target_exam', params.targetExam)
       else if (params.type) query = query.eq('type', params.type)
+      query = applyBankExamScope(query, {
+        dbTable: params.dbTable,
+        examSlug: params.examSlug,
+        subjectField: params.subjectField,
+        targetExam: params.targetExam,
+        questionNeedles: params.questionNeedles,
+        scopeMode: 'family',
+      })
       const { count, error } = await query
       if (error) throw new Error(error.message)
       return count ?? 0
@@ -177,15 +194,27 @@ export function cachedTopicTagCount(params: {
   dbTable: string
   tag: string
   useTagsArray: boolean
+  examSlug?: string
 }): Promise<number> {
-  const key = ['topic-count', params.dbTable, params.tag, String(params.useTagsArray)]
+  const key = [
+    'topic-count-v4',
+    params.dbTable,
+    params.tag,
+    String(params.useTagsArray),
+    params.examSlug ?? '',
+  ]
   return unstable_cache(
     async () => {
       const supabase = createPublicSupabaseClient()
-      const base = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-      const query = params.useTagsArray
-        ? base.contains('tags', [params.tag])
-        : base.eq('topic', params.tag)
+      let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+      query = params.useTagsArray
+        ? query.contains('tags', [params.tag])
+        : query.eq('topic', params.tag)
+      query = applyBankExamScope(query, {
+        dbTable: params.dbTable,
+        examSlug: params.examSlug,
+        scopeMode: 'family',
+      })
       const { count, error } = await query
       if (error) throw new Error(error.message)
       return count ?? 0
@@ -200,12 +229,14 @@ export function cachedDifficultyCount(params: {
   dbTable: string
   difficulty: string
   subjectField?: string
+  examSlug?: string
 }): Promise<number> {
   const key = [
-    'diff-count',
+    'diff-count-v4',
     params.dbTable,
     params.difficulty,
     params.subjectField ?? '',
+    params.examSlug ?? '',
   ]
   return unstable_cache(
     async () => {
@@ -215,6 +246,12 @@ export function cachedDifficultyCount(params: {
         .select('id', { count: 'exact', head: true })
         .eq('difficulty', params.difficulty)
       if (params.subjectField) query = query.eq('subject', params.subjectField)
+      query = applyBankExamScope(query, {
+        dbTable: params.dbTable,
+        examSlug: params.examSlug,
+        subjectField: params.subjectField,
+        scopeMode: 'family',
+      })
       const { count, error } = await query
       if (error) throw new Error(error.message)
       return count ?? 0
@@ -261,16 +298,20 @@ export function cachedSectionStats(params: {
   titleCaseDifficulty?: boolean
   tags?: string[]
   useTagsArray?: boolean
+  examSlug?: string
+  questionNeedles?: string[]
 }): Promise<SectionStatsPayload> {
   const tags = params.tags ?? []
   const key = [
-    'section-stats-v1',
+    'section-stats-v4',
     params.dbTable,
     String(!!params.noTypeFilter),
     params.subjectField ?? '',
     String(!!params.titleCaseDifficulty),
     String(!!params.useTagsArray),
     tags.join(','),
+    params.examSlug ?? '',
+    (params.questionNeedles ?? []).join('|'),
   ]
   return unstable_cache(
     async () => {
@@ -285,33 +326,49 @@ export function cachedSectionStats(params: {
             dbTable: params.dbTable,
             type: sharedTotal ? null : 'practice',
             subjectField: params.subjectField,
+            examSlug: params.examSlug,
+            questionNeedles: params.questionNeedles,
           }),
           sharedTotal
             ? Promise.resolve(0)
-            : cachedExamTableCount({ dbTable: params.dbTable, type: 'most_important' }),
+            : cachedExamTableCount({
+                dbTable: params.dbTable,
+                type: 'most_important',
+                examSlug: params.examSlug,
+                questionNeedles: params.questionNeedles,
+              }),
           sharedTotal
             ? Promise.resolve(0)
-            : cachedExamTableCount({ dbTable: params.dbTable, type: 'most_repeated' }),
+            : cachedExamTableCount({
+                dbTable: params.dbTable,
+                type: 'most_repeated',
+                examSlug: params.examSlug,
+                questionNeedles: params.questionNeedles,
+              }),
           cachedDifficultyCount({
             dbTable: params.dbTable,
             difficulty: easy,
             subjectField: params.subjectField,
+            examSlug: params.examSlug,
           }),
           cachedDifficultyCount({
             dbTable: params.dbTable,
             difficulty: medium,
             subjectField: params.subjectField,
+            examSlug: params.examSlug,
           }),
           cachedDifficultyCount({
             dbTable: params.dbTable,
             difficulty: hard,
             subjectField: params.subjectField,
+            examSlug: params.examSlug,
           }),
           ...tags.map((tag) =>
             cachedTopicTagCount({
               dbTable: params.dbTable,
               tag,
               useTagsArray: !!params.useTagsArray,
+              examSlug: params.examSlug,
             })
           ),
         ])

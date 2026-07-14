@@ -2079,7 +2079,15 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         label: 'FIA Act 1974',
         dbTable: 'general_knowledge',
         count: 10,
-        questionNeedles: ['FIA Act', 'Federal Investigation Agency', 'FIA '],
+        // Avoid bare "FIA " — ILIKE '%FIA %' false-matches words like "Sofia".
+        questionNeedles: [
+          'Federal Investigation Agency',
+          'FIA Act',
+          'FIA of Pakistan',
+          'FIA is the',
+          'FIA of Pakistan was',
+          '(FIA)',
+        ],
       },
     ]
     const fiaPost = (name: string, passingPercentage: number) => ({

@@ -82,6 +82,7 @@ export function TopicSetPicker() {
           dbTable: section.dbTable,
           tag: dbVal,
           useTagsArray: isTagArrayTable(section.dbTable) ? '1' : '0',
+          examSlug,
         })
         const res = await fetch(`/api/practice/count?${qs}`)
         const json = (await res.json()) as { count?: number }

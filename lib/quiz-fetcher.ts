@@ -5,7 +5,11 @@ import {
   normalizeQuestionStem,
   type QuizMcqRow,
 } from '@/lib/set-integrity'
-import { applyBankExamScope } from '@/lib/mcq-bank-scope'
+import {
+  applyBankExamScope,
+  isPipelineMcqTable,
+  type BankScopeMode,
+} from '@/lib/mcq-bank-scope'
 
 const DEDUPE_SCAN_BATCH = 400
 const DEDUPE_SCAN_MAX = 24_000
@@ -141,6 +145,7 @@ function buildModeQueryFactory(
     targetExam?: string
     examSlug?: string
     questionNeedles?: string[]
+    scopeMode?: BankScopeMode
   }
 ): QueryFactory {
   return () => {
@@ -157,6 +162,7 @@ function buildModeQueryFactory(
       targetExam: opts.targetExam,
       subjectField: opts.subjectField,
       questionNeedles: opts.questionNeedles,
+      scopeMode: opts.scopeMode ?? 'family',
     })
 
     return query
@@ -195,27 +201,26 @@ export async function fetchMCQsBySet(
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
   const mixed = !!subjectField || noTypeFilter || mode === 'mixed'
-  const buildScoped = buildModeQueryFactory(supabase, dbTable, {
-    mode: mixed ? 'practice' : mode,
-    noTypeFilter: mixed,
-    subjectField,
-    targetExam,
-    examSlug,
-    questionNeedles,
-  })
+  const pipeline = isPipelineMcqTable(dbTable) && !!examSlug
 
-  let page = await fetchDedupedSetPage(buildScoped, setNumber, setSize)
+  // Prefer exact exam slug; widen to family hub only if this set would be empty/short.
+  const tryModes: BankScopeMode[] = pipeline ? ['exact', 'family'] : ['family']
+  let page: QuizMcqRow[] = []
 
-  // Specialist needle slices (FIA Act): if too few, drop needles but keep exam scope
-  if (page.length < setSize && questionNeedles?.length && examSlug) {
-    const loose = buildModeQueryFactory(supabase, dbTable, {
+  for (const scopeMode of tryModes) {
+    const buildScoped = buildModeQueryFactory(supabase, dbTable, {
       mode: mixed ? 'practice' : mode,
       noTypeFilter: mixed,
       subjectField,
       targetExam,
       examSlug,
+      questionNeedles,
+      scopeMode,
     })
-    page = await fetchDedupedSetPage(loose, setNumber, setSize)
+    page = await fetchDedupedSetPage(buildScoped, setNumber, setSize)
+    if (page.length >= setSize) break
+    // Specialist modules (FIA Act etc.): never drop needles into generic bank content
+    if (questionNeedles?.length) break
   }
 
   return page

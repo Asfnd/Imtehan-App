@@ -4,6 +4,13 @@
  * Pipeline tables store `target_exams text[]` with live exam slugs
  * (e.g. fia-assistant, css-mpt). MDCAT / css_mcqs_enhanced / engineering
  * / pms_* use different schemas — never apply target_exams there.
+ *
+ * Scope tiers:
+ *   exact  — row must include this exam slug (contains)
+ *   family — exact OR family hub / CSS aliases (overlaps)
+ *
+ * Never fall back to an unscoped pipeline bank — that is how
+ * English/GK from another exam bleed into FIA (etc.).
  */
 
 /** Tables that have `target_exams text[]` and shared type/tags schema. */
@@ -70,7 +77,7 @@ export function examScopeSlugs(examSlug: string): string[] {
     slugs.add(FAMILY_HUB[prefix])
   }
   // CSS MPT share with classic css-pms tagged content
-  if (examSlug === 'css-mpt' || examSlug === 'css') {
+  if (examSlug === 'css-mpt' || examSlug === 'css' || examSlug === 'css-pms') {
     slugs.add('css-mpt')
     slugs.add('css-pms')
   }
@@ -85,6 +92,8 @@ export function isEngineeringMcqTable(dbTable: string): boolean {
   return ENGINEERING_MCQ_TABLES.has(dbTable)
 }
 
+export type BankScopeMode = 'exact' | 'family'
+
 export type BankScopeOpts = {
   dbTable: string
   examSlug?: string
@@ -93,16 +102,21 @@ export type BankScopeOpts = {
   subjectField?: string
   /**
    * When set, require question text to match (e.g. FIA Act section).
-   * Applied as OR of ILIKE patterns — only with a fallback path upstream.
+   * Applied as OR of ILIKE patterns — never pair with unscoped bank fallback.
    */
   questionNeedles?: string[]
+  /**
+   * exact = contains([examSlug]); family = overlaps(examScopeSlugs).
+   * Default family for counts / steady-state fetch so thin posts stay full.
+   */
+  scopeMode?: BankScopeMode
 }
 
 /**
  * Apply relevance filters to a Supabase query builder.
  * Safe to call on any bank — no-ops when the column doesn't exist for that family.
  */
-export function applyBankExamScope<T extends { eq: Function; overlaps: Function; or: Function }>(
+export function applyBankExamScope<T extends { eq: Function; overlaps: Function; contains: Function; or: Function }>(
   query: T,
   opts: BankScopeOpts
 ): T {
@@ -115,9 +129,12 @@ export function applyBankExamScope<T extends { eq: Function; overlaps: Function;
   if (opts.targetExam && isEngineeringMcqTable(opts.dbTable)) {
     q = q.eq('target_exam', opts.targetExam) as T
   } else if (opts.examSlug && isPipelineMcqTable(opts.dbTable)) {
-    const slugs = examScopeSlugs(opts.examSlug)
-    // overlaps = row.target_exams && slugs (any match)
-    q = q.overlaps('target_exams', slugs) as T
+    const mode = opts.scopeMode ?? 'family'
+    if (mode === 'exact') {
+      q = q.contains('target_exams', [opts.examSlug]) as T
+    } else {
+      q = q.overlaps('target_exams', examScopeSlugs(opts.examSlug)) as T
+    }
   }
 
   if (opts.questionNeedles?.length) {

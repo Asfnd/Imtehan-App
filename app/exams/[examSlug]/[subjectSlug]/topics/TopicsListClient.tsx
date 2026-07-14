@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { BookOpen } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
-import { createClient } from '@/lib/supabase/client'
 import {
   TABLE_POPULAR_TAGS,
   tagSlugToLabel,
@@ -45,16 +44,22 @@ export function TopicsListClient() {
     const useTopicCol = TOPIC_COL_TABLES.has(dbTable)
 
     async function load() {
-      const supabase = createClient()
       const results = await Promise.all(
-        tags.map((tag) => {
+        tags.map(async (tag) => {
           const dbVal = useTopicCol ? topicDbValue(tag, dbTable) : tag
-          const base = supabase.from(dbTable).select('*', { count: 'exact', head: true })
-          return useTopicCol ? base.eq('topic', dbVal) : base.contains('tags', [dbVal])
+          const qs = new URLSearchParams({
+            dbTable,
+            tag: dbVal,
+            useTagsArray: useTopicCol ? '0' : '1',
+            examSlug,
+          })
+          const res = await fetch(`/api/practice/count?${qs}`)
+          const json = (await res.json()) as { count?: number }
+          return res.ok ? Number(json.count) || 0 : 0
         }),
       )
       if (cancelled) return
-      setTopicCounts(Object.fromEntries(tags.map((tag, i) => [tag, results[i].count || 0])))
+      setTopicCounts(Object.fromEntries(tags.map((tag, i) => [tag, results[i] || 0])))
       setLoading(false)
     }
 
@@ -62,7 +67,7 @@ export function TopicsListClient() {
     return () => {
       cancelled = true
     }
-  }, [config, section])
+  }, [config, section, examSlug])
 
   if (!config) {
     router.push('/exams')

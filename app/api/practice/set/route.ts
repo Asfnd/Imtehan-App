@@ -89,6 +89,7 @@ export async function POST(request: NextRequest) {
         difficulty: body.difficulty,
         setNumber,
         subjectField: body.subjectField,
+        examSlug: body.examSlug,
       })
     } else if (body.source === 'topic') {
       if (!body.dbTable || !body.tag) {
@@ -99,6 +100,7 @@ export async function POST(request: NextRequest) {
         tag: body.tag,
         useTagsArray: !!body.useTagsArray,
         setNumber,
+        examSlug: body.examSlug,
       })
     } else if (body.source === 'mdcat' || body.source === 'fsc') {
       if (!body.dbTable) {

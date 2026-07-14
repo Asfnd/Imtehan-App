@@ -63,6 +63,8 @@ export default async function BatchSetsPage({
     type: modeConfig.type === 'mixed' ? null : modeConfig.type,
     targetExam:
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
+    examSlug,
+    questionNeedles: section.questionNeedles,
   }).catch(() => 0)
 
   const totalSets = Math.ceil(totalMCQs / 20)

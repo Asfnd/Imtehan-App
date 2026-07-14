@@ -96,6 +96,7 @@ export default async function TopicQuizSetPage({
     tag: dbVal,
     useTagsArray: isTagArrayTable(section.dbTable),
     setNumber,
+    examSlug,
   }).catch(() => null)
 
   if (!mcqs || mcqs.length === 0) notFound()
@@ -127,6 +128,7 @@ export default async function TopicQuizSetPage({
           dbTable: section.dbTable,
           tag: dbVal,
           useTagsArray: isTagArrayTable(section.dbTable),
+          examSlug,
         }}
       />
     </TopicSetSeoShell>

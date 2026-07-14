@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
-import { createClient } from '@/lib/supabase/client'
 import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import { getExamConfig } from '@/lib/exam-configs'
 import SignInPopup from '@/components/auth/SignInPopup'
@@ -86,11 +85,19 @@ export function DifficultyHubClient() {
       const dbLevel = TITLE_CASE_DIFFICULTY_TABLES.has(section.dbTable)
         ? level.charAt(0).toUpperCase() + level.slice(1)
         : level
-      const { count } = await createClient()
-        .from(section.dbTable)
-        .select('*', { count: 'exact', head: true })
-        .eq('difficulty', dbLevel)
-      setTotalMCQs(count || 0)
+      try {
+        const qs = new URLSearchParams({
+          dbTable: section.dbTable,
+          difficulty: dbLevel,
+          examSlug,
+        })
+        if (section.subjectField) qs.set('subjectField', section.subjectField)
+        const res = await fetch(`/api/practice/count?${qs}`)
+        const json = (await res.json()) as { count?: number }
+        setTotalMCQs(res.ok ? Number(json.count) || 0 : 0)
+      } catch {
+        setTotalMCQs(0)
+      }
       setLoading(false)
     }
     fetchCount()

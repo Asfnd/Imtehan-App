@@ -102,7 +102,10 @@ export function ModeSetPicker() {
       }
 
       try {
-        const qs = new URLSearchParams({ dbTable: section.dbTable })
+        const qs = new URLSearchParams({ dbTable: section.dbTable, examSlug })
+        if (section.questionNeedles?.length) {
+          qs.set('needles', section.questionNeedles.join('|'))
+        }
         if (section.subjectField) {
           qs.set('subjectField', section.subjectField)
           qs.set('all', '1')

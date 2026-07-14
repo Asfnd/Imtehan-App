@@ -7,12 +7,10 @@ import {
   BookOpen, CheckCircle, TrendingUp, ChevronRight, Lock,
 } from 'lucide-react'
 import { getExamConfig } from '@/lib/exam-configs'
-import { createClient } from '@/lib/supabase/client'
 import { getFreshAuthUser } from '@/lib/auth/fresh-user'
 import {
   TABLE_POPULAR_TAGS, tagSlugToLabel,
   TITLE_CASE_DIFFICULTY_TABLES,
-  TOPIC_COL_TABLES, topicDbValue,
 } from '@/lib/topic-tags'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
@@ -142,82 +140,37 @@ export function SubjectModesClient() {
     let cancelled = false
     setLoading(true)
     const dbTable = section.dbTable
+    const tags = TABLE_POPULAR_TAGS[dbTable] ?? []
 
     async function loadCounts() {
-      const supabase = createClient()
-      const titleCase = TITLE_CASE_DIFFICULTY_TABLES.has(dbTable)
-      const skipType = !!section?.noTypeFilter
-
-      if (skipType) {
-        const [
-          { count: totalCount },
-          { count: easyCount }, { count: mediumCount }, { count: hardCount },
-        ] = await Promise.all([
-          supabase.from(dbTable).select('*', { count: 'exact', head: true }),
-          supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Easy'   : 'easy'),
-          supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Medium' : 'medium'),
-          supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Hard'   : 'hard'),
-        ])
-        const total = totalCount || 0
-
-        const tags = TABLE_POPULAR_TAGS[dbTable] ?? []
-        const useTopicCol = TOPIC_COL_TABLES.has(dbTable)
-        const topicResults = tags.length && useTopicCol
-          ? await Promise.all(
-              tags.map((tag) => {
-                const dbVal = topicDbValue(tag, dbTable)
-                return supabase
-                  .from(dbTable)
-                  .select('*', { count: 'exact', head: true })
-                  .eq('topic', dbVal)
-              })
-            )
-          : []
-
-        if (cancelled) return
+      try {
+        const qs = new URLSearchParams({ dbTable, examSlug })
+        if (section?.noTypeFilter) qs.set('noTypeFilter', '1')
+        if (section?.subjectField) qs.set('subjectField', section.subjectField)
+        if (TITLE_CASE_DIFFICULTY_TABLES.has(dbTable)) qs.set('titleCase', '1')
+        if (tags.length) qs.set('tags', tags.join(','))
+        if (section?.questionNeedles?.length) {
+          qs.set('needles', section.questionNeedles.join('|'))
+        }
+        const res = await fetch(`/api/practice/section-stats?${qs}`)
+        const json = await res.json()
+        if (cancelled || !res.ok) {
+          if (!cancelled) setLoading(false)
+          return
+        }
         setCounts({
-          pastCount: total, importantCount: total, repeatedCount: total,
-          easyCount: easyCount || 0, mediumCount: mediumCount || 0, hardCount: hardCount || 0,
+          pastCount: Number(json.pastCount) || 0,
+          importantCount: Number(json.importantCount) || 0,
+          repeatedCount: Number(json.repeatedCount) || 0,
+          easyCount: Number(json.easyCount) || 0,
+          mediumCount: Number(json.mediumCount) || 0,
+          hardCount: Number(json.hardCount) || 0,
         })
-        setTopicCounts(
-          tags.length && useTopicCol
-            ? Object.fromEntries(tags.map((tag, i) => [tag, topicResults[i].count || 0]))
-            : {}
-        )
-        setLoading(false)
-        return
+        setTopicCounts((json.topics as Record<string, number>) || {})
+      } catch {
+        /* keep zeros */
       }
-
-      const [
-        { count: pastCount }, { count: importantCount }, { count: repeatedCount },
-        { count: easyCount }, { count: mediumCount }, { count: hardCount },
-      ] = await Promise.all([
-        supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('type', 'practice'),
-        supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('type', 'most_important'),
-        supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('type', 'most_repeated'),
-        supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Easy'   : 'easy'),
-        supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Medium' : 'medium'),
-        supabase.from(dbTable).select('*', { count: 'exact', head: true }).eq('difficulty', titleCase ? 'Hard'   : 'hard'),
-      ])
-
-      const tags = TABLE_POPULAR_TAGS[dbTable] ?? []
-      const useTopicCol = TOPIC_COL_TABLES.has(dbTable)
-      const topicResults = await Promise.all(
-        tags.map((tag) => {
-          const dbVal = useTopicCol ? topicDbValue(tag, dbTable) : tag
-          const base  = supabase.from(dbTable).select('*', { count: 'exact', head: true })
-          return useTopicCol ? base.eq('topic', dbVal) : base.contains('tags', [dbVal])
-        })
-      )
-
-      if (cancelled) return
-      setCounts({
-        pastCount: pastCount || 0, importantCount: importantCount || 0,
-        repeatedCount: repeatedCount || 0, easyCount: easyCount || 0,
-        mediumCount: mediumCount || 0, hardCount: hardCount || 0,
-      })
-      setTopicCounts(Object.fromEntries(tags.map((tag, i) => [tag, topicResults[i].count || 0])))
-      setLoading(false)
+      if (!cancelled) setLoading(false)
     }
 
     loadCounts()
