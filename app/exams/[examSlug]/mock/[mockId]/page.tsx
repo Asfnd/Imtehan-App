@@ -51,6 +51,7 @@ async function fetchSectionPool(opts: {
   limit: number
   noTypeFilter?: boolean
   subjectField?: string
+  subtopicField?: string
   questionNeedles?: string[]
   pastPapersExam?: string
 }): Promise<Record<string, unknown>[]> {
@@ -61,6 +62,7 @@ async function fetchSectionPool(opts: {
     limit,
     noTypeFilter,
     subjectField,
+    subtopicField,
     questionNeedles,
     pastPapersExam,
   } = opts
@@ -71,7 +73,7 @@ async function fetchSectionPool(opts: {
 
   const run = async (useNeedles: boolean, scopeMode: BankScopeMode | null) => {
     let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
-    if (!noTypeFilter && !subjectField) {
+    if (!noTypeFilter && !subjectField && !subtopicField) {
       query = query.in('type', qTypes)
     }
     if (scopeMode && pipeline) {
@@ -79,15 +81,17 @@ async function fetchSectionPool(opts: {
         dbTable,
         examSlug,
         subjectField,
+        subtopicField,
         targetExam: pastPapersExam,
         questionNeedles: useNeedles ? questionNeedles : undefined,
         scopeMode,
       })
-    } else if (subjectField || pastPapersExam || (useNeedles && questionNeedles)) {
+    } else if (subjectField || subtopicField || pastPapersExam || (useNeedles && questionNeedles)) {
       query = applyBankExamScope(query, {
         dbTable,
         examSlug: pipeline ? examSlug : undefined,
         subjectField,
+        subtopicField,
         targetExam: pastPapersExam,
         questionNeedles: useNeedles ? questionNeedles : undefined,
         scopeMode: pipeline ? 'family' : undefined,
@@ -146,6 +150,7 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       limit,
       noTypeFilter: section.noTypeFilter,
       subjectField: section.subjectField,
+      subtopicField: section.subtopicField,
       questionNeedles: section.questionNeedles,
       pastPapersExam: config.pastPapersExam,
     })

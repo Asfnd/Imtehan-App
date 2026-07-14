@@ -101,6 +101,7 @@ export default async function QuizSetPage({
     mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
     noTypeFilter: section.noTypeFilter,
     subjectField: section.subjectField,
+    subtopicField: section.subtopicField,
     targetExam:
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
     examSlug,
@@ -137,6 +138,7 @@ export default async function QuizSetPage({
           mode,
           dbTable: section.dbTable,
           subjectField: section.subjectField,
+          subtopicField: section.subtopicField,
           noTypeFilter: section.noTypeFilter,
           targetExam:
             mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,

@@ -148,56 +148,53 @@ function ExamDashboard() {
   }
 
   const loadSubjectCounts = async () => {
-    const supabase = createClient()
-
-    const counts = await Promise.all(
-      config.sections.map(async (section) => {
-        if (section.noTypeFilter || section.subjectField) {
-          let query = supabase
-            .from(section.dbTable)
-            .select('*', { count: 'exact', head: true })
-          if (section.subjectField) {
-            query = query.eq('subject', section.subjectField)
-          }
-          const { count } = await query
-          const total = count || 0
+    try {
+      const res = await fetch(`/api/practice/exam-hub-counts?examSlug=${encodeURIComponent(examSlug)}`)
+      const json = (await res.json()) as {
+        sections?: Array<{
+          slug: string
+          pastCount: number
+          importantCount: number
+          repeatedCount: number
+          totalMCQs: number
+        }>
+      }
+      if (!res.ok || !json.sections) {
+        setSubjectsWithCounts(
+          config.sections.map((section) => ({
+            ...section,
+            repeatedCount: 0,
+            importantCount: 0,
+            pastCount: 0,
+            totalMCQs: 0,
+          }))
+        )
+        return
+      }
+      const bySlug = Object.fromEntries(json.sections.map((s) => [s.slug, s]))
+      setSubjectsWithCounts(
+        config.sections.map((section) => {
+          const c = bySlug[section.slug]
           return {
             ...section,
-            repeatedCount: total,
-            importantCount: total,
-            pastCount: total,
-            totalMCQs: total,
+            repeatedCount: c?.repeatedCount ?? 0,
+            importantCount: c?.importantCount ?? 0,
+            pastCount: c?.pastCount ?? 0,
+            totalMCQs: c?.totalMCQs ?? 0,
           }
-        }
-
-        const { count: pastCount } = await supabase
-          .from(section.dbTable)
-          .select('*', { count: 'exact', head: true })
-          .eq('type', 'practice')
-
-        const { count: importantCount } = await supabase
-          .from(section.dbTable)
-          .select('*', { count: 'exact', head: true })
-          .eq('type', 'most_important')
-
-        const { count: repeatedCount } = await supabase
-          .from(section.dbTable)
-          .select('*', { count: 'exact', head: true })
-          .eq('type', 'most_repeated')
-
-        const totalMCQs = (pastCount || 0) + (importantCount || 0) + (repeatedCount || 0)
-
-        return {
+        })
+      )
+    } catch {
+      setSubjectsWithCounts(
+        config.sections.map((section) => ({
           ...section,
-          repeatedCount: repeatedCount || 0,
-          importantCount: importantCount || 0,
-          pastCount: pastCount || 0,
-          totalMCQs
-        }
-      })
-    )
-
-    setSubjectsWithCounts(counts)
+          repeatedCount: 0,
+          importantCount: 0,
+          pastCount: 0,
+          totalMCQs: 0,
+        }))
+      )
+    }
   }
 
   const loadAnalytics = async () => {

@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
       dbTable,
       noTypeFilter: sp.get('noTypeFilter') === '1',
       subjectField: sp.get('subjectField') || undefined,
+      subtopicField: sp.get('subtopicField') || undefined,
       titleCaseDifficulty: sp.get('titleCase') === '1',
       tags: resolvedTags,
       useTagsArray: !useTopicCol && sp.get('useTagsArray') !== '0',

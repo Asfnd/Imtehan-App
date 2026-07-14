@@ -29,6 +29,7 @@ type Body = {
   tag?: string
   useTagsArray?: boolean
   subjectField?: string
+  subtopicField?: string
   noTypeFilter?: boolean
   targetExam?: string
   modeType?: string
@@ -115,6 +116,7 @@ export async function POST(request: NextRequest) {
     } else {
       let dbTable = body.dbTable
       let subjectField = body.subjectField
+      let subtopicField = body.subtopicField
       let noTypeFilter = body.noTypeFilter
       let targetExam = body.targetExam
       let modeType = body.modeType
@@ -127,6 +129,7 @@ export async function POST(request: NextRequest) {
         }
         dbTable = section.dbTable
         subjectField = section.subjectField
+        subtopicField = section.subtopicField
         noTypeFilter = section.noTypeFilter
         if (body.mode === 'past-papers' && config.pastPapersExam) {
           targetExam = config.pastPapersExam
@@ -138,18 +141,21 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Missing dbTable' }, { status: 400 })
       }
 
+      const sectionCfg =
+        body.examSlug && body.subjectSlug
+          ? getExamConfig(body.examSlug)?.sections.find((s) => s.slug === body.subjectSlug)
+          : undefined
+
       mcqs = await cachedFetchMCQsBySet({
         dbTable,
         setNumber,
         mode: (modeType as 'practice' | 'most_repeated' | 'most_important' | 'mixed') || 'mixed',
         noTypeFilter: !!noTypeFilter,
         subjectField,
+        subtopicField: subtopicField ?? sectionCfg?.subtopicField,
         targetExam,
         examSlug: body.examSlug,
-        questionNeedles: body.examSlug
-          ? getExamConfig(body.examSlug)?.sections.find((s) => s.slug === body.subjectSlug)
-              ?.questionNeedles
-          : undefined,
+        questionNeedles: sectionCfg?.questionNeedles,
       })
     }
 

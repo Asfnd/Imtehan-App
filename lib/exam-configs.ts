@@ -9,6 +9,8 @@ export interface ExamSection {
   noTypeFilter?: boolean
   /** Filter shared banks (e.g. css_mcqs_enhanced) by `subject` column */
   subjectField?: string
+  /** Filter MDCAT banks by `subtopic` (e.g. generated USAT Quantitative) */
+  subtopicField?: string
   /**
    * Prefer questions whose stem matches any of these needles (ILIKE).
    * Used for specialist slices (e.g. FIA Act) sitting inside a shared bank.
@@ -253,7 +255,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'verbal-reasoning', label: 'Verbal Reasoning', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
       { slug: 'physics', label: 'Physics', dbTable: 'engineering_physics', count: 10 },
       { slug: 'chemistry', label: 'Chemistry', dbTable: 'engineering_chemistry', count: 10 },
       { slug: 'mathematics', label: 'Mathematics', dbTable: 'engineering_mathematics', count: 10 },
@@ -276,7 +278,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'verbal-reasoning', label: 'Verbal Reasoning', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
       { slug: 'physics', label: 'Physics', dbTable: 'mdcat_physics', count: 8, noTypeFilter: true },
       { slug: 'chemistry', label: 'Chemistry', dbTable: 'mdcat_chemistry', count: 8, noTypeFilter: true },
       { slug: 'biology', label: 'Biology', dbTable: 'mdcat_biology', count: 14, noTypeFilter: true },
@@ -299,7 +301,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'verbal-reasoning', label: 'Verbal Reasoning', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
       { slug: 'computer-science', label: 'Computer Science', dbTable: 'engineering_computer_science', count: 15 },
       { slug: 'mathematics', label: 'Mathematics', dbTable: 'engineering_mathematics', count: 10 },
       { slug: 'physics', label: 'Physics', dbTable: 'engineering_physics', count: 5 },
@@ -322,7 +324,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'verbal-reasoning', label: 'Verbal Reasoning', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
       { slug: 'everyday-science', label: 'Everyday Science', dbTable: 'everyday_science', count: 15 },
       { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 10 },
       { slug: 'english', label: 'English', dbTable: 'english', count: 5 },
@@ -345,7 +347,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'verbal-reasoning', label: 'Verbal Reasoning', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
       { slug: 'english', label: 'English', dbTable: 'english', count: 15 },
       { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 10 },
       { slug: 'pakistan-affairs', label: 'Pakistan Studies', dbTable: 'pakistan_studies', count: 5 },
@@ -368,7 +370,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'verbal-reasoning', label: 'Verbal Reasoning', dbTable: 'mdcat_english', count: 20, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
       { slug: 'mathematics', label: 'Mathematics', dbTable: 'general_math', count: 15 },
       { slug: 'english', label: 'English', dbTable: 'english', count: 10 },
       { slug: 'general-knowledge', label: 'General Knowledge', dbTable: 'general_knowledge', count: 5 },
@@ -391,7 +393,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'english', label: 'English / Verbal', dbTable: 'engineering_english', count: 30 },
-      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true },
+      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true, subtopicField: 'HAT Analytical' },
       { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'engineering_mathematics', count: 40 },
     ],
     guide: {
@@ -412,8 +414,8 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'english', label: 'English / Verbal', dbTable: 'engineering_english', count: 30 },
-      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 40, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 30 },
+      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 40, noTypeFilter: true, subtopicField: 'HAT Analytical' },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
     ],
     guide: {
       authority: 'HEC Education Testing Council (ETC)',
@@ -433,8 +435,8 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'english', label: 'English / Verbal', dbTable: 'english', count: 40 },
-      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 35, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 25 },
+      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 35, noTypeFilter: true, subtopicField: 'HAT Analytical' },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 25, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
     ],
     guide: {
       authority: 'HEC Education Testing Council (ETC)',
@@ -454,8 +456,8 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'english', label: 'English / Verbal', dbTable: 'mdcat_english', count: 40, noTypeFilter: true },
-      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 30 },
+      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true, subtopicField: 'HAT Analytical' },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
     ],
     guide: {
       authority: 'HEC Education Testing Council (ETC)',
@@ -475,9 +477,9 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     negativeMarking: false,
     sections: [
       { slug: 'english', label: 'English / Verbal', dbTable: 'english', count: 40 },
-      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true },
+      { slug: 'analytical-reasoning', label: 'Analytical Reasoning', dbTable: 'mdcat_logical_reasoning', count: 30, noTypeFilter: true, subtopicField: 'HAT Analytical' },
       { slug: 'islamic-studies', label: 'Islamic Studies', dbTable: 'islamiat', count: 15 },
-      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'general_math', count: 15 },
+      { slug: 'quantitative-reasoning', label: 'Quantitative Reasoning', dbTable: 'mdcat_logical_reasoning', count: 15, noTypeFilter: true, subtopicField: 'USAT Quantitative' },
     ],
     guide: {
       authority: 'HEC Education Testing Council (ETC)',

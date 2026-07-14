@@ -7,7 +7,7 @@
  *
  * Scope tiers:
  *   exact  — row must include this exam slug (contains)
- *   family — exact OR family hub / CSS aliases (overlaps)
+ *   family — exact OR family hub / explicit exam hubs / CSS aliases (overlaps)
  *
  * Never fall back to an unscoped pipeline bank — that is how
  * English/GK from another exam bleed into FIA (etc.).
@@ -58,6 +58,54 @@ const FAMILY_HUB: Record<string, string> = {
   banking: 'banking-general',
   rescue: 'rescue-1122-computer-operator',
   military: 'military-rangers',
+  // Prefix hubs for educator / entry exams (slug ≠ commission-*)
+  hec: 'nts-general',
+  punjab: 'ppsc-assistant',
+  kpk: 'etea-general',
+  sindh: 'spsc-general',
+  sts: 'spsc-general',
+  ajk: 'ajkpsc-general',
+  gb: 'gbpsc-general',
+  balochistan: 'bpsc-general',
+  tevta: 'ots-general',
+  qau: 'nts-general',
+  iba: 'nts-general',
+  icap: 'banking-general',
+  bsn: 'nts-general',
+}
+
+/**
+ * Exact-exam hubs — best matching tagged banks for thin / untagged exams.
+ * Shared multi-exam rows are OK; quality comes from large curated hubs
+ * (CSS MPT, NTS, PPSC, ETEA, …), not random unscoped dumps.
+ */
+const EXAM_SCOPE_HUBS: Record<string, string[]> = {
+  'punjab-educators': ['ppsc-assistant', 'ppsc-pst'],
+  'kpk-educators-etea': ['etea-general', 'etea-pst'],
+  'sindh-educators': ['spsc-general', 'nts-general'],
+  'sts-sindh-jest': ['spsc-general', 'nts-general'],
+  'ajk-educators': ['ajkpsc-general'],
+  'gb-educators': ['gbpsc-general', 'nts-general'],
+  'balochistan-educators': ['bpsc-general'],
+  'qau-entry': ['nts-general'],
+  'tevta-skills-test': ['ots-general', 'nts-general'],
+  'icap-ca-foundation': ['banking-general', 'nts-general'],
+  'iba-karachi': ['nts-general', 'banking-general'],
+  'bsn-nursing-entry': ['nts-general'],
+  // HEC — LAT / SEE / humanities HAT share CSS MPT compulsory quality
+  'hec-lat': ['css-mpt', 'css-pms', 'nts-general'],
+  'hec-see-law': ['css-mpt', 'css-pms', 'nts-general'],
+  'hec-hat-2': ['nts-general', 'css-mpt'],
+  'hec-hat-3': ['css-mpt', 'nts-general'],
+  'hec-hat-4': ['nts-general', 'css-mpt'],
+  'hec-hat-general': ['css-mpt', 'nts-general'],
+  // USAT pipeline extras (GS/A/COM english/GK/eds); quant uses generated USAT bank
+  'hec-usat-gs': ['nts-general', 'css-mpt'],
+  'hec-usat-a': ['nts-general', 'css-mpt'],
+  'hec-usat-com': ['nts-general', 'css-mpt'],
+  'hec-usat-e': ['nts-general'],
+  'hec-usat-m': ['nts-general'],
+  'hec-usat-cs': ['nts-general'],
 }
 
 function familyPrefix(examSlug: string): string | null {
@@ -68,10 +116,11 @@ function familyPrefix(examSlug: string): string | null {
 
 /**
  * Slugs to match against `target_exams` (OR / overlaps).
- * Always includes the exact exam; may include a family hub for thin posts.
+ * Always includes the exact exam; may include hubs for thin posts.
  */
 export function examScopeSlugs(examSlug: string): string[] {
   const slugs = new Set<string>([examSlug])
+  for (const h of EXAM_SCOPE_HUBS[examSlug] ?? []) slugs.add(h)
   const prefix = familyPrefix(examSlug)
   if (prefix && FAMILY_HUB[prefix]) {
     slugs.add(FAMILY_HUB[prefix])
@@ -100,6 +149,8 @@ export type BankScopeOpts = {
   /** Engineering past-paper scalar (NET / ECAT / …) */
   targetExam?: string
   subjectField?: string
+  /** MDCAT-style `subtopic` equality (e.g. USAT Quantitative) */
+  subtopicField?: string
   /**
    * When set, require question text to match (e.g. FIA Act section).
    * Applied as OR of ILIKE patterns — never pair with unscoped bank fallback.
@@ -124,6 +175,10 @@ export function applyBankExamScope<T extends { eq: Function; overlaps: Function;
 
   if (opts.subjectField) {
     q = q.eq('subject', opts.subjectField) as T
+  }
+
+  if (opts.subtopicField) {
+    q = q.eq('subtopic', opts.subtopicField) as T
   }
 
   if (opts.targetExam && isEngineeringMcqTable(opts.dbTable)) {

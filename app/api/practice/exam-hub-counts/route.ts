@@ -20,11 +20,12 @@ export async function GET(request: NextRequest) {
   try {
     const sections = await Promise.all(
       config.sections.map(async (section) => {
-        if (section.noTypeFilter || section.subjectField) {
+        if (section.noTypeFilter || section.subjectField || section.subtopicField) {
           const total = await cachedExamTableCount({
             dbTable: section.dbTable,
             type: null,
             subjectField: section.subjectField,
+            subtopicField: section.subtopicField,
             examSlug,
             questionNeedles: section.questionNeedles,
           })

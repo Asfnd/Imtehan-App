@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
   const type = sp.get('type')
   const targetExam = sp.get('targetExam') || undefined
   const subjectField = sp.get('subjectField') || undefined
+  const subtopicField = sp.get('subtopicField') || undefined
   const tag = sp.get('tag') || undefined
   const useTagsArray = sp.get('useTagsArray') === '1'
   const all = sp.get('all') === '1'
@@ -55,6 +56,7 @@ export async function GET(request: NextRequest) {
         type: all ? null : type,
         targetExam,
         subjectField,
+        subtopicField,
         examSlug,
         questionNeedles,
       })

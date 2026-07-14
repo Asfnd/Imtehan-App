@@ -142,6 +142,7 @@ function buildModeQueryFactory(
     mode?: string
     noTypeFilter?: boolean
     subjectField?: string
+    subtopicField?: string
     targetExam?: string
     examSlug?: string
     questionNeedles?: string[]
@@ -152,7 +153,7 @@ function buildModeQueryFactory(
     let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
 
     // Type filter when the bank supports it (skipped for mixed / MDCAT / subject slices)
-    if (!opts.noTypeFilter && opts.mode && !opts.subjectField) {
+    if (!opts.noTypeFilter && opts.mode && !opts.subjectField && !opts.subtopicField) {
       query = query.eq('type', opts.mode)
     }
 
@@ -161,6 +162,7 @@ function buildModeQueryFactory(
       examSlug: opts.examSlug,
       targetExam: opts.targetExam,
       subjectField: opts.subjectField,
+      subtopicField: opts.subtopicField,
       questionNeedles: opts.questionNeedles,
       scopeMode: opts.scopeMode ?? 'family',
     })
@@ -176,6 +178,7 @@ export type FetchSetParams = {
   mode?: string
   noTypeFilter?: boolean
   subjectField?: string
+  subtopicField?: string
   targetExam?: string
   /** Live exam slug — scopes pipeline banks via target_exams */
   examSlug?: string
@@ -193,6 +196,7 @@ export async function fetchMCQsBySet(
     mode = 'practice',
     noTypeFilter = false,
     subjectField,
+    subtopicField,
     targetExam,
     examSlug,
     questionNeedles,
@@ -200,7 +204,7 @@ export async function fetchMCQsBySet(
 
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
-  const mixed = !!subjectField || noTypeFilter || mode === 'mixed'
+  const mixed = !!subjectField || !!subtopicField || noTypeFilter || mode === 'mixed'
   const pipeline = isPipelineMcqTable(dbTable) && !!examSlug
 
   // Prefer exact exam slug; widen to family hub only if this set would be empty/short.
@@ -212,6 +216,7 @@ export async function fetchMCQsBySet(
       mode: mixed ? 'practice' : mode,
       noTypeFilter: mixed,
       subjectField,
+      subtopicField,
       targetExam,
       examSlug,
       questionNeedles,
@@ -235,15 +240,17 @@ export async function countUniqueForMode(
     mode = 'practice',
     noTypeFilter = false,
     subjectField,
+    subtopicField,
     targetExam,
     examSlug,
     questionNeedles,
   } = params
-  const mixed = !!subjectField || noTypeFilter || mode === 'mixed'
+  const mixed = !!subjectField || !!subtopicField || noTypeFilter || mode === 'mixed'
   const buildQuery = buildModeQueryFactory(supabase, dbTable, {
     mode: mixed ? 'practice' : mode,
     noTypeFilter: mixed,
     subjectField,
+    subtopicField,
     targetExam,
     examSlug,
     questionNeedles,

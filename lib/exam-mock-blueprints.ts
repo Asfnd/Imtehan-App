@@ -38,6 +38,7 @@ export type EffectiveExamSettings = {
     dbTable: string
     noTypeFilter?: boolean
     subjectField?: string
+    subtopicField?: string
     questionNeedles?: string[]
   }[]
 }
@@ -633,6 +634,7 @@ function mergeBlueprintSections(
       dbTable: cfg?.dbTable ?? bs.slug.replace(/-/g, '_'),
       noTypeFilter: cfg?.noTypeFilter,
       subjectField: cfg?.subjectField,
+      subtopicField: cfg?.subtopicField,
       questionNeedles: cfg?.questionNeedles,
     }
   })
