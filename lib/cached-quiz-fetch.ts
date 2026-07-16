@@ -1,5 +1,5 @@
 /**
- * Cached MCQ set loaders — 24h cache to stay within free CPU limits.
+ * Cached MCQ set loaders — 7d cache to stay within free egress limits.
  * Uses cookie-free public Supabase only (safe for ISR SEO pages).
  * Practice API and SEO pages share these loaders.
  */
@@ -15,7 +15,7 @@ import {
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 
-const REVALIDATE = 86400
+const REVALIDATE = 604800
 
 export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [

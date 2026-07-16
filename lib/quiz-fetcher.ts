@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { plainText, plainTextMcqFields } from '@/lib/plain-text'
+import { fetchDedupedMcqSetRpc, type McqSetRpcParams } from '@/lib/mcq-set-rpc'
 import {
   dedupeMcqsForQuiz,
   normalizeQuestionStem,
@@ -90,11 +91,28 @@ async function loadMcqBatch(
     .filter((m): m is QuizMcqRow => m !== null)
 }
 
+function rowsFromRpcPayload(data: Record<string, unknown>[] | null): QuizMcqRow[] | null {
+  if (!data) return null
+  const rows = data
+    .map(normRow)
+    .filter((m): m is QuizMcqRow => m !== null)
+  return dedupeMcqsForQuiz(rows)
+}
+
 async function fetchDedupedSetPage(
+  supabase: SupabaseClient,
   buildQuery: QueryFactory,
   setNumber: number,
-  setSize: number
+  setSize: number,
+  rpcParams?: Omit<McqSetRpcParams, 'setNumber' | 'setSize'>
 ): Promise<QuizMcqRow[]> {
+  if (rpcParams) {
+    const rpcRows = rowsFromRpcPayload(
+      await fetchDedupedMcqSetRpc(supabase, { ...rpcParams, setNumber, setSize })
+    )
+    if (rpcRows !== null) return rpcRows
+  }
+
   const targetEnd = setNumber * setSize
   const targetStart = (setNumber - 1) * setSize
   const unique: QuizMcqRow[] = []
@@ -212,8 +230,9 @@ export async function fetchMCQsBySet(
   let page: QuizMcqRow[] = []
 
   for (const scopeMode of tryModes) {
+    const modeForQuery = mixed ? 'practice' : mode
     const buildScoped = buildModeQueryFactory(supabase, dbTable, {
-      mode: mixed ? 'practice' : mode,
+      mode: modeForQuery,
       noTypeFilter: mixed,
       subjectField,
       subtopicField,
@@ -222,7 +241,17 @@ export async function fetchMCQsBySet(
       questionNeedles,
       scopeMode,
     })
-    page = await fetchDedupedSetPage(buildScoped, setNumber, setSize)
+    page = await fetchDedupedSetPage(supabase, buildScoped, setNumber, setSize, {
+      dbTable,
+      type: mixed ? null : modeForQuery,
+      skipTypeFilter: mixed || !modeForQuery || !!subjectField || !!subtopicField,
+      subjectField,
+      subtopicField,
+      targetExam,
+      examSlug,
+      scopeMode,
+      questionNeedles,
+    })
     if (page.length >= setSize) break
     // Specialist modules (FIA Act etc.): never drop needles into generic bank content
     if (questionNeedles?.length) break
@@ -285,7 +314,13 @@ export async function fetchMCQsByDifficultySet(
     return query
   }
 
-  return fetchDedupedSetPage(buildQuery, setNumber, setSize)
+  return fetchDedupedSetPage(supabase, buildQuery, setNumber, setSize, {
+    dbTable,
+    difficulties: difficultyVariants(difficulty),
+    subjectField,
+    examSlug,
+    scopeMode: 'family',
+  })
 }
 
 export async function fetchMCQsByTopicSet(
@@ -308,5 +343,11 @@ export async function fetchMCQsByTopicSet(
     return applyBankExamScope(base, { dbTable, examSlug })
   }
 
-  return fetchDedupedSetPage(buildQuery, setNumber, setSize)
+  return fetchDedupedSetPage(supabase, buildQuery, setNumber, setSize, {
+    dbTable,
+    tag,
+    useTagsArray,
+    examSlug,
+    scopeMode: 'family',
+  })
 }
