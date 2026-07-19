@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getExamConfig } from '@/lib/exam-configs'
 import { cachedExamTableCount } from '@/lib/cached-quiz-fetch'
+import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -69,14 +70,7 @@ export async function GET(request: NextRequest) {
       })
     )
 
-    return NextResponse.json(
-      { sections },
-      {
-        headers: {
-          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
-        },
-      }
-    )
+    return NextResponse.json({ sections }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
     console.error('exam-hub-counts:', error)
     return NextResponse.json({ error: 'Failed to load exam counts' }, { status: 500 })

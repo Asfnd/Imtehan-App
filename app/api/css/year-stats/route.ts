@@ -1,6 +1,7 @@
 import { unstable_cache } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 import { createPublicSupabaseClient } from '@/lib/supabase/public'
+import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -38,14 +39,7 @@ export async function GET(request: NextRequest) {
       { revalidate: 604800, tags: ['css-year-stats', `css-year-${subject}`] }
     )()
 
-    return NextResponse.json(
-      { years },
-      {
-        headers: {
-          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
-        },
-      }
-    )
+    return NextResponse.json({ years }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
     console.error('css year-stats:', error)
     return NextResponse.json({ error: 'Failed to load year stats' }, { status: 500 })

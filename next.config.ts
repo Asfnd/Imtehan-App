@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 import { PREMIUM_PAGE_PATH } from "./lib/routes";
 import {
+  ORIGIN_NO_STORE_HEADERS,
   ROBOTS_CACHE_CONTROL,
   SEO_CDN_CACHE_HEADERS,
   SEO_CLOUDFLARE_CACHE_CONTROL,
@@ -287,12 +288,40 @@ const nextConfig: NextConfig = {
       // API routes: no public caching — authenticated responses must not be cached by CDN
       {
         source: '/api/:path((?!pdf/proxy).*)*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'private, no-store',
-          },
-        ],
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      // Gated / interactive HTML — origin must not advertise SEO TTL (Cloudflare bypass too)
+      {
+        source: '/profile/:path*',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/admin/:path*',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/auth/:path*',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/signin',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/community',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/quiz/:path*',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/mpt-practice/:path*',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/css/css-practice/:path*',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
       },
       // NO CACHE for PDF viewer pages - always fetch fresh
       {
@@ -386,7 +415,8 @@ const nextConfig: NextConfig = {
       },
       // Marketing / hub HTML — 7d edge cache (Cloudflare + Vercel CDN)
       {
-        source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+        source:
+          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|_next/static|_next/image|favicon.ico).*)',
         headers: [{ key: 'Cache-Control', value: SEO_CLOUDFLARE_CACHE_CONTROL }],
       },
     ]

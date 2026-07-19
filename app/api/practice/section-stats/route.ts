@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cachedSectionStats } from '@/lib/cached-quiz-fetch'
 import { topicDbValue, TOPIC_COL_TABLES } from '@/lib/topic-tags'
+import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -47,14 +48,7 @@ export async function GET(request: NextRequest) {
       topics[tag] = stats.topics[resolvedTags[i]] ?? 0
     })
 
-    return NextResponse.json(
-      { ...stats, topics },
-      {
-        headers: {
-          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
-        },
-      }
-    )
+    return NextResponse.json({ ...stats, topics }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
     console.error('section-stats:', error)
     return NextResponse.json({ error: 'Failed to load section stats' }, { status: 500 })

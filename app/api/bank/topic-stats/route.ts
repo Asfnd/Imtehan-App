@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cachedBankTopicStats, cachedDifficultyCount } from '@/lib/cached-quiz-fetch'
+import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -33,11 +34,7 @@ export async function GET(request: NextRequest) {
         difficulties: { Easy: easy, Medium: medium, Hard: hard },
         total: easy + medium + hard,
       },
-      {
-        headers: {
-          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
-        },
-      }
+      { headers: API_JSON_NO_STORE_HEADERS }
     )
   } catch (error) {
     console.error('bank topic-stats:', error)

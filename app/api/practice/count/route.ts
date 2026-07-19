@@ -4,12 +4,13 @@ import {
   cachedTopicTagCount,
   cachedDifficultyCount,
 } from '@/lib/cached-quiz-fetch'
+import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 /**
- * Head-count only (no row download), 24h server cache.
+ * Head-count only (no row download). Server-side unstable_cache (7d); HTTP no-store.
  * Replaces client-side unique-stem scans on set pickers (egress fix).
  * Pass examSlug so pipeline banks count only that exam's target_exams pool.
  */
@@ -62,14 +63,7 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    return NextResponse.json(
-      { count },
-      {
-        headers: {
-          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
-        },
-      }
-    )
+    return NextResponse.json({ count }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
     console.error('practice count:', error)
     return NextResponse.json({ error: 'Failed to count' }, { status: 500 })
