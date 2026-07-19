@@ -40,6 +40,7 @@
     "test-premium-gates": "tsx scripts/test-premium-gates.ts",
     "cf:cache-rules": "node cloudflare/apply-seo-cache-rules.mjs",
     "cf:verify-cache": "node cloudflare/verify-edge-cache.mjs",
+    "e2e:prod-audit": "node scripts/e2e-production-audit.mjs",
     "test-deactivate-db": "tsx scripts/test-deactivate-expired-db.ts",
     "test-question-reports": "tsx scripts/test-question-reports-e2e.ts",
     "ping-search-engines": "tsx scripts/ping-search-engines.ts",
