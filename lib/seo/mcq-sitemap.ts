@@ -26,7 +26,7 @@ export async function countMcqsInBank(bank: string): Promise<number> {
   return unstable_cache(
     () => countMcqsInBankUncached(bank),
     [`mcq-count-${bank}`],
-    { revalidate: 86400, tags: [`mcq-count-${bank}`] },
+    { revalidate: 604800, tags: [`mcq-count-${bank}`] },
   )()
 }
 
@@ -72,7 +72,7 @@ export async function buildMcqSitemapPage(
       }))
     },
     [`mcq-sitemap-${bank}-${page}`],
-    { revalidate: 86400, tags: [`mcq-sitemap-${bank}`] },
+    { revalidate: 604800, tags: [`mcq-sitemap-${bank}`] },
   )()
 }
 

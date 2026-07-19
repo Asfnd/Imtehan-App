@@ -7,11 +7,11 @@ import QuizInterface from '@/components/QuizInterface'
 import { cachedFetchMCQsBySet, seoMcqsForSet } from '@/lib/cached-quiz-fetch'
 
 /**
- * force-static + 24h revalidate: Googlebot hits CDN/ISR after first build.
+ * force-static + 7d revalidate: Googlebot hits CDN/ISR after first build.
  * Interactive quiz still loads via gated /api/practice/set (force-dynamic).
  */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 const MODE_CONFIG = {
@@ -94,7 +94,7 @@ export default async function QuizSetPage({
   const setNumber = parseInt(setNumberStr, 10)
   if (isNaN(setNumber) || setNumber < 1) notFound()
 
-  // Cached 24h — shared with practice API; keeps this page force-static / CDN-friendly
+  // Cached 7d — shared with practice API; keeps this page force-static / CDN-friendly
   const fullSet = await cachedFetchMCQsBySet({
     dbTable: section.dbTable,
     setNumber,

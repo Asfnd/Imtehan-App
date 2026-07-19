@@ -35,14 +35,14 @@ export async function GET(request: NextRequest) {
     const years = await unstable_cache(
       () => loadYearStats(subject),
       ['css-year-stats-v1', subject],
-      { revalidate: 86400, tags: ['css-year-stats', `css-year-${subject}`] }
+      { revalidate: 604800, tags: ['css-year-stats', `css-year-${subject}`] }
     )()
 
     return NextResponse.json(
       { years },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
         },
       }
     )

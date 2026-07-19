@@ -46,6 +46,6 @@ export async function fetchMcqById(
   return unstable_cache(
     () => fetchMcqByIdUncached(bank, id),
     [`mcq-${bank}-${id}`],
-    { revalidate: 86400, tags: [`mcq-${bank}-${id}`] },
+    { revalidate: 604800, tags: [`mcq-${bank}-${id}`] },
   )()
 }

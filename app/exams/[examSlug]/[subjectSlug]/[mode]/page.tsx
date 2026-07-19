@@ -5,7 +5,7 @@ import { ModeSeoShell } from '@/components/seo/ModeSeoSection'
 import { ModeSetPicker } from './ModeSetPicker'
 
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 export default async function ExamModePage({

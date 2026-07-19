@@ -13,7 +13,7 @@ import { jsonLdString } from '@/lib/seo/jsonld'
  * are CDN/ISR — cuts Fluid Active CPU. Public MCQ content only (no cookies).
  */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 const BANK_LABELS: Record<string, string> = {

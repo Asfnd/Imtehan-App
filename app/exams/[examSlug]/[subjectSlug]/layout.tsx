@@ -7,7 +7,7 @@ import { jsonLdString } from '@/lib/seo/jsonld'
 
 /** Cookie-free + cached samples — keep all child SET pages CDN/ISR eligible. */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 
 const SUBJECT_LABELS: Record<string, string> = {
   english: 'English',

@@ -9,7 +9,7 @@ import {
 
 /** force-static + ISR — hub HTML CDN-cached; set list is client. */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 const DIFFICULTY_DB: Record<string, string> = {

@@ -13,7 +13,7 @@ import { cachedFetchMCQsByDifficultySet, seoMcqsForSet } from '@/lib/cached-quiz
 
 /** force-static + ISR — CDN after first crawl; interactive via practice API. */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 const VALID_LEVELS = ['easy', 'medium', 'hard'] as const

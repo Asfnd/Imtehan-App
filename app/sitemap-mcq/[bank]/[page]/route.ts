@@ -2,7 +2,7 @@ import { buildMcqSitemapPage } from '@/lib/seo/mcq-sitemap'
 import { MCQ_INDEXABLE_BANKS } from '@/lib/seo/topic-indexing'
 import { SITEMAP_XML_HEADERS, serializeSitemap } from '@/lib/seo/sitemap-xml'
 
-export const revalidate = 86400
+export const revalidate = 604800
 
 export async function GET(
   _request: Request,

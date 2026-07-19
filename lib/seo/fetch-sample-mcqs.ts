@@ -66,7 +66,7 @@ export async function fetchSampleMcqs(
       examSlug ?? '',
       (questionNeedles ?? []).join('|'),
     ],
-    { revalidate: 86400, tags: [`sample-mcqs-${dbTable}`] },
+    { revalidate: 604800, tags: [`sample-mcqs-${dbTable}`] },
   )()
 }
 

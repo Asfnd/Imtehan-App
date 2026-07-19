@@ -4,7 +4,7 @@ import { createPublicSupabaseClient } from '@/lib/supabase/public'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 
 type SubjectStatRow = {
   subject: string
@@ -24,7 +24,7 @@ async function loadSubjectStats(): Promise<SubjectStatRow[]> {
 }
 
 const cachedSubjectStats = unstable_cache(loadSubjectStats, ['css-subject-stats-v1'], {
-  revalidate: 86400,
+  revalidate: 604800,
   tags: ['css-subject-stats'],
 })
 
@@ -36,7 +36,7 @@ export async function GET() {
       { subjects: stats },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+          'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=604800',
         },
       }
     )

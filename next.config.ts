@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 import path from "path";
 import { PREMIUM_PAGE_PATH } from "./lib/routes";
+import {
+  ROBOTS_CACHE_CONTROL,
+  SEO_CDN_CACHE_HEADERS,
+  SEO_CLOUDFLARE_CACHE_CONTROL,
+  SITEMAP_CACHE_CONTROL,
+} from "./lib/seo/cdn-cache";
 
 const securityHeaders = [
   // SECURITY: Content Security Policy (re-enabled)
@@ -323,123 +329,65 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // SEO discovery files — short CDN TTL so deploys propagate quickly
+      // SEO discovery files
       {
         source: '/robots.txt',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=300, s-maxage=3600' }],
+        headers: [{ key: 'Cache-Control', value: ROBOTS_CACHE_CONTROL }],
       },
       {
         source: '/sitemap.xml',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
-          },
+          { key: 'Cache-Control', value: SITEMAP_CACHE_CONTROL },
           { key: 'CDN-Cache-Control', value: 'max-age=86400' },
         ],
       },
       {
         source: '/sitemap-index',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
-          },
+          { key: 'Cache-Control', value: SITEMAP_CACHE_CONTROL },
           { key: 'CDN-Cache-Control', value: 'max-age=86400' },
         ],
       },
       {
         source: '/sitemap/:segment.xml',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
-          },
-        ],
+        headers: [{ key: 'Cache-Control', value: SITEMAP_CACHE_CONTROL }],
       },
       {
         source: '/sitemap/mcq/:bank/:page.xml',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
-          },
-        ],
+        headers: [{ key: 'Cache-Control', value: SITEMAP_CACHE_CONTROL }],
       },
       {
         source: '/mcq/:bank/:id',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
-        ],
+        headers: [...SEO_CDN_CACHE_HEADERS],
       },
-      // Practice SET HTML — same CDN profile as /mcq (interactive quiz is client + API)
       {
         source: '/exams/:exam/:subject/:mode/set/:set',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
-        ],
+        headers: [...SEO_CDN_CACHE_HEADERS],
       },
       {
         source: '/exams/:exam/:subject/difficulty/:level/set/:set',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
-        ],
+        headers: [...SEO_CDN_CACHE_HEADERS],
       },
       {
         source: '/exams/:exam/:subject/topic/:tag/set/:set',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
-        ],
+        headers: [...SEO_CDN_CACHE_HEADERS],
       },
       {
         source: '/mdcat/:subject/:topic/set/:set',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
-        ],
+        headers: [...SEO_CDN_CACHE_HEADERS],
       },
       {
         source: '/fsc/:subject/:chapter/set/:set',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-          { key: 'CDN-Cache-Control', value: 'public, max-age=86400' },
-        ],
+        headers: [...SEO_CDN_CACHE_HEADERS],
       },
       {
         source: '/imtehan-indexnow-key.txt',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],
       },
-      // Cache pages with stale-while-revalidate
+      // Marketing / hub HTML — 7d edge cache (Cloudflare + Vercel CDN)
       {
         source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
-          },
-        ],
+        headers: [{ key: 'Cache-Control', value: SEO_CLOUDFLARE_CACHE_CONTROL }],
       },
     ]
   },

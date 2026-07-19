@@ -7,7 +7,7 @@ import { cachedFetchMCQsByTopicSet } from '@/lib/cached-quiz-fetch'
 
 /** force-static + ISR — hub HTML CDN-cached. */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 const SUBJECT_LABELS: Record<string, string> = {

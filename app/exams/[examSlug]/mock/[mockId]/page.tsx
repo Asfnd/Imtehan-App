@@ -15,7 +15,7 @@ import {
 
 /** noindex mocks — cached build so repeat opens don't re-scan banks. */
 export const dynamic = 'force-static'
-export const revalidate = 86400
+export const revalidate = 604800
 export const dynamicParams = true
 
 export const metadata: Metadata = {
@@ -215,7 +215,7 @@ function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
   return unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
     [`exam-mock-v4-${examSlug}-${mockNumber}`],
-    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v4'] }
+    { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v4'] }
   )()
 }
 
