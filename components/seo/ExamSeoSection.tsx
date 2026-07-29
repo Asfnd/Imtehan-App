@@ -15,7 +15,8 @@ export function ExamSeoShell({
   children: ReactNode
 }) {
   const { h1, intro, facts, subjects, faqs, highlights, prep } = getExamSeoContent(slug, config)
-  const base = `https://imtehan.com/exams/${slug}`
+  // Must be relative — absolute hrefs in Link can concatenate onto the current path.
+  const base = `/exams/${slug}`
   const related = getRelatedExamSlugs(slug, config.category)
   const categoryHub = `/exams/category/${config.category}`
 

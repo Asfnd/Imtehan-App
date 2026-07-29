@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 import { getExamConfig } from '@/lib/exam-configs'
 import { examIndexingMeta } from '@/lib/seo/sitemap-tiers'
+import { stripConcatenatedUrlFromSegment } from '@/lib/seo/fix-concatenated-url'
 
 const EXAM_SEO: Record<string, {
   description: string
@@ -124,7 +126,10 @@ export async function generateMetadata({
 }: {
   params: Promise<{ examSlug: string }>
 }): Promise<Metadata> {
-  const { examSlug } = await params
+  const { examSlug: rawSlug } = await params
+  const fixed = stripConcatenatedUrlFromSegment(rawSlug)
+  if (fixed) return { alternates: { canonical: `https://imtehan.com/exams/${fixed}` } }
+  const examSlug = rawSlug
   const config = getExamConfig(examSlug)
 
   if (!config) return { title: 'Exam Practice' }
@@ -164,7 +169,10 @@ export default async function ExamLayout({
   children: React.ReactNode
   params: Promise<{ examSlug: string }>
 }) {
-  const { examSlug } = await params
+  const { examSlug: rawSlug } = await params
+  const fixedSlug = stripConcatenatedUrlFromSegment(rawSlug)
+  if (fixedSlug) redirect(`/exams/${fixedSlug}`)
+  const examSlug = rawSlug
   const config = getExamConfig(examSlug)
 
   const examName = config?.name ?? examSlug.replace(/-/g, ' ').toUpperCase()

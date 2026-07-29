@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
+import { cleanConcatenatedAbsoluteUrlPath } from '@/lib/seo/fix-concatenated-url'
 
 /**
  * Lightning-fast middleware with minimal overhead
@@ -191,6 +192,14 @@ function isSearchEngineCrawler(request: NextRequest): boolean {
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // Fix mangled paths before the early-skip below (covers /exams/*, /mcq/*, etc.)
+  const cleanedPath = cleanConcatenatedAbsoluteUrlPath(pathname)
+  if (cleanedPath) {
+    const url = request.nextUrl.clone()
+    url.pathname = cleanedPath
+    return NextResponse.redirect(url, 308)
+  }
 
   // OPTIMIZATION: Skip middleware for static/cached/SEO crawl routes to save edge CPU
   // This reduces Edge Request CPU Duration by ~70%
@@ -411,9 +420,8 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Only run Edge middleware on interactive / gated / API traffic.
-  // SEO trees (/exams, /mdcat, /fsc, /mcq, sitemaps, marketing) never invoke this —
-  // saves Edge CPU on Googlebot while keeping demo/premium gates on APIs + view routes.
+  // Interactive / gated / API traffic, plus SEO trees so we can 308-repair
+  // absolute-URL concatenation bugs (early-return keeps that path cheap).
   matcher: [
     '/api/:path*',
     '/quiz/:path*',
@@ -434,5 +442,10 @@ export const config = {
     '/community',
     '/community/:path*',
     '/auth/:path*',
+    '/exams',
+    '/exams/:path*',
+    '/mcq/:path*',
+    '/mdcat/:path*',
+    '/fsc/:path*',
   ],
 }

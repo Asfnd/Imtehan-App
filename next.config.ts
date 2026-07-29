@@ -189,6 +189,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Repair absolute URL concatenated onto a path segment
+      // (e.g. /exams/foohttps:/imtehan.com/exams/foo after // → / collapse).
+      {
+        source: '/exams/:slug([^/]*?)https\\:/:path*',
+        destination: '/exams/:slug',
+        permanent: true,
+      },
+      {
+        source: '/mcq/:bank/:id([^/]*?)https\\:/:path*',
+        destination: '/mcq/:bank/:id',
+        permanent: true,
+      },
       // Redirect old CSS practice routes to new structure
       {
         source: '/css-practice',
