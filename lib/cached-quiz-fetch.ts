@@ -238,27 +238,37 @@ export function cachedDifficultyCount(params: {
   dbTable: string
   difficulty: string
   subjectField?: string
+  topicFields?: string[]
+  questionNeedles?: string[]
   examSlug?: string
 }): Promise<number> {
   const key = [
-    'diff-count-v4',
+    'diff-count-v5',
     params.dbTable,
     params.difficulty,
     params.subjectField ?? '',
+    (params.topicFields ?? []).join('|'),
+    (params.questionNeedles ?? []).join('|'),
     params.examSlug ?? '',
   ]
   return unstable_cache(
     async () => {
       const supabase = createPublicSupabaseClient()
+      const level = params.difficulty.trim()
+      const variants = Array.from(
+        new Set([level, level.charAt(0).toUpperCase() + level.slice(1).toLowerCase(), level.toLowerCase()])
+      )
       let query = supabase
         .from(params.dbTable)
         .select('id', { count: 'exact', head: true })
-        .eq('difficulty', params.difficulty)
+        .in('difficulty', variants)
       if (params.subjectField) query = query.eq('subject', params.subjectField)
       query = applyBankExamScope(query, {
         dbTable: params.dbTable,
         examSlug: params.examSlug,
         subjectField: params.subjectField,
+        topicFields: params.topicFields,
+        questionNeedles: params.questionNeedles,
         scopeMode: 'family',
       })
       const { count, error } = await query
@@ -314,7 +324,7 @@ export function cachedSectionStats(params: {
 }): Promise<SectionStatsPayload> {
   const tags = params.tags ?? []
   const key = [
-    'section-stats-v5',
+    'section-stats-v6',
     params.dbTable,
     String(!!params.noTypeFilter),
     params.subjectField ?? '',
@@ -369,18 +379,24 @@ export function cachedSectionStats(params: {
             dbTable: params.dbTable,
             difficulty: easy,
             subjectField: params.subjectField,
+            topicFields: params.topicFields,
+            questionNeedles: params.questionNeedles,
             examSlug: params.examSlug,
           }),
           cachedDifficultyCount({
             dbTable: params.dbTable,
             difficulty: medium,
             subjectField: params.subjectField,
+            topicFields: params.topicFields,
+            questionNeedles: params.questionNeedles,
             examSlug: params.examSlug,
           }),
           cachedDifficultyCount({
             dbTable: params.dbTable,
             difficulty: hard,
             subjectField: params.subjectField,
+            topicFields: params.topicFields,
+            questionNeedles: params.questionNeedles,
             examSlug: params.examSlug,
           }),
           ...tags.map((tag) =>

@@ -1,5 +1,6 @@
 'use client'
 
+import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { BookOpen } from 'lucide-react'
@@ -13,13 +14,6 @@ import {
 import NavigationBar from '@/components/NavigationBar'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import ExamPracticeGridCard from '@/components/exams/ExamPracticeGridCard'
-
-const roundMCQs = (n: number) => {
-  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
-  if (n >= 1000) return `${Math.floor(n / 500) * 500}+`
-  if (n >= 100) return `${Math.floor(n / 50) * 50}+`
-  return `${n}`
-}
 
 export function TopicsListClient() {
   const params = useParams()
@@ -129,7 +123,7 @@ export function TopicsListClient() {
                 icon={BookOpen}
                 title={tagSlugToLabel(tag)}
                 subtitle={`${config.name} · ${section.label}`}
-                statPrimary={roundMCQs(count)}
+                statPrimary={roundMcqCount(count)}
                 statSecondary="MCQs in topic"
                 actionLabel="Start"
               />

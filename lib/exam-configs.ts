@@ -498,7 +498,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
   'hec-law-gat': {
     name: 'HEC Law Graduate Assessment Test (Law-GAT)',
     category: 'hec',
-    totalMCQs: 800,
+    totalMCQs: 434,
     duration: 120,
     passingPercentage: 50,
     negativeMarking: false,

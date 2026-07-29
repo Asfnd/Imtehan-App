@@ -1,5 +1,6 @@
 'use client'
 
+import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import {
@@ -17,13 +18,6 @@ import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import NavigationBar from '@/components/NavigationBar'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
-
-const roundMCQs = (n: number) => {
-  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
-  if (n >= 1000) return `${Math.floor(n / 500) * 500}+`
-  if (n >= 100) return `${Math.floor(n / 50) * 50}+`
-  return `${n}`
-}
 
 // ─── Reusable card matching ExamPracticeGridCard structure exactly ────────────
 
@@ -264,7 +258,7 @@ export function SubjectModesClient() {
           </h1>
           <p className="text-sm text-gray-500 max-w-md mx-auto">
             Sets of 20 MCQs
-            {totalPracticeCount > 0 && <> &middot; <span className="font-medium text-gray-700">{roundMCQs(totalPracticeCount)} questions</span> in bank</>}
+            {totalPracticeCount > 0 && <> &middot; <span className="font-medium text-gray-700">{roundMcqCount(totalPracticeCount)} questions</span> in bank</>}
           </p>
         </div>
 
@@ -278,7 +272,7 @@ export function SubjectModesClient() {
                 icon={Target}
                 title="Practice Sets"
                 subtitle="Timed-style sets of 20 unique MCQs"
-                statPrimary={roundMCQs(totalPracticeCount)}
+                statPrimary={roundMcqCount(totalPracticeCount)}
                 statSecondary="Stem-deduped sets"
               />
             </div>
@@ -289,7 +283,7 @@ export function SubjectModesClient() {
               icon={Flame}
               title="Most Repeated"
               subtitle="High-yield frequently asked questions"
-              statPrimary={roundMCQs(counts.repeatedCount)}
+              statPrimary={roundMcqCount(counts.repeatedCount)}
               statSecondary="Exam focused"
             />
             <PracticeCard
@@ -297,7 +291,7 @@ export function SubjectModesClient() {
               icon={Star}
               title="Most Important"
               subtitle="Critical must-know MCQs"
-              statPrimary={roundMCQs(counts.importantCount)}
+              statPrimary={roundMcqCount(counts.importantCount)}
               statSecondary="Core concepts"
             />
             <PracticeCard
@@ -305,7 +299,7 @@ export function SubjectModesClient() {
               icon={FileText}
               title="Past MCQs"
               subtitle="Actual exam questions, 2015 onwards"
-              statPrimary={roundMCQs(counts.pastCount)}
+              statPrimary={roundMcqCount(counts.pastCount)}
               statSecondary="2015 - 2026"
             />
             <PracticeCard
@@ -313,7 +307,7 @@ export function SubjectModesClient() {
               icon={Target}
               title="Practice Mode"
               subtitle="Mixed random sets from all types"
-              statPrimary={roundMCQs(totalPracticeCount)}
+              statPrimary={roundMcqCount(totalPracticeCount)}
               statSecondary="All types mixed"
             />
           </div>
@@ -376,7 +370,7 @@ export function SubjectModesClient() {
         {/* ── By Difficulty ── */}
         {hasDifficulty && (
           <section>
-            <SectionLabel chip={`${roundMCQs(totalDifficultyCount)} MCQs`}>
+            <SectionLabel chip={`${roundMcqCount(totalDifficultyCount)} MCQs`}>
               Practice by Difficulty
             </SectionLabel>
             <div className="grid grid-cols-3 items-stretch gap-3 sm:gap-4">
@@ -386,7 +380,7 @@ export function SubjectModesClient() {
                   icon={CheckCircle}
                   title="Easy"
                   subtitle="Straightforward questions to build confidence"
-                  statPrimary={roundMCQs(counts.easyCount)}
+                  statPrimary={roundMcqCount(counts.easyCount)}
                   statSecondary="Easy level"
                   accentFrom="from-emerald-500" accentTo="to-emerald-600"
                   borderHover="hover:border-emerald-400" shadowHover="hover:shadow-emerald-500/10"
@@ -403,7 +397,7 @@ export function SubjectModesClient() {
                   icon={TrendingUp}
                   title="Medium"
                   subtitle="Moderate challenge for steady progress"
-                  statPrimary={roundMCQs(counts.mediumCount)}
+                  statPrimary={roundMcqCount(counts.mediumCount)}
                   statSecondary="Medium level"
                   accentFrom="from-amber-500" accentTo="to-amber-600"
                   borderHover="hover:border-amber-400" shadowHover="hover:shadow-amber-500/10"
@@ -420,7 +414,7 @@ export function SubjectModesClient() {
                   icon={Flame}
                   title="Hard"
                   subtitle="High-difficulty sets for exam edge"
-                  statPrimary={roundMCQs(counts.hardCount)}
+                  statPrimary={roundMcqCount(counts.hardCount)}
                   statSecondary="Hard level"
                   accentFrom="from-rose-500" accentTo="to-rose-600"
                   borderHover="hover:border-rose-400" shadowHover="hover:shadow-rose-500/10"

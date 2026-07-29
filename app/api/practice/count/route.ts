@@ -53,6 +53,8 @@ export async function GET(request: NextRequest) {
         dbTable,
         difficulty,
         subjectField,
+        topicFields,
+        questionNeedles,
         examSlug,
       })
     } else {

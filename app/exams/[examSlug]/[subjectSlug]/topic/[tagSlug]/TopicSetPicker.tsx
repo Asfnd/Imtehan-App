@@ -1,5 +1,6 @@
 'use client'
 
+import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
@@ -16,13 +17,6 @@ import { fetchRemoteCompletions } from '@/lib/completion'
 import BatchSetPickerGrid, { setMcqRangeLabel } from '@/components/exams/BatchSetPickerGrid'
 
 const SETS_PER_BATCH = 10
-
-const roundMCQs = (n: number) => {
-  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
-  if (n >= 1000)  return `${(Math.floor(n / 100) * 100).toLocaleString()}+`
-  if (n >= 100)   return `${Math.floor(n / 10) * 10}+`
-  return `${n}`
-}
 
 export function TopicSetPicker() {
   const params      = useParams()
@@ -140,7 +134,7 @@ export function TopicSetPicker() {
             <p className="text-sm text-gray-500 mt-1">
               {sectionCfg?.label || subjectSlug}
               {' · '}
-              <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>
+              <span className="font-medium text-gray-700">{roundMcqCount(totalMCQs)} MCQs</span>
               {totalBatches > 0 && (
                 <>{' '}across <span className="font-medium text-gray-700">{totalBatches} batch{totalBatches !== 1 ? 'es' : ''}</span></>
               )}

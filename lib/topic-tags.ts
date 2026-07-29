@@ -304,6 +304,7 @@ export const TITLE_CASE_DIFFICULTY_TABLES = new Set([
   'mdcat_physics',
   'mdcat_english',
   'mdcat_logical_reasoning',
+  'css_mcqs_enhanced',
 ])
 
 export function difficultyDbValue(level: string, dbTable: string): string {

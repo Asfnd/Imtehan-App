@@ -1,5 +1,6 @@
 'use client'
 
+import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
@@ -21,13 +22,6 @@ const LEVEL_CONFIG: Record<string, { label: string; badgeClass: string; iconClas
   easy:   { label: 'Easy',   badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200', iconClass: 'bg-emerald-500' },
   medium: { label: 'Medium', badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',       iconClass: 'bg-amber-500'   },
   hard:   { label: 'Hard',   badgeClass: 'bg-rose-50 text-rose-700 border-rose-200',           iconClass: 'bg-rose-500'    },
-}
-
-const roundMCQs = (n: number) => {
-  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
-  if (n >= 1000)  return `${(Math.floor(n / 100) * 100).toLocaleString()}+`
-  if (n >= 100)   return `${Math.floor(n / 10) * 10}+`
-  return `${n}`
 }
 
 export function DifficultyHubClient() {
@@ -92,6 +86,8 @@ export function DifficultyHubClient() {
           examSlug,
         })
         if (section.subjectField) qs.set('subjectField', section.subjectField)
+        if (section.topicFields?.length) qs.set('topics', section.topicFields.join('|'))
+        if (section.questionNeedles?.length) qs.set('needles', section.questionNeedles.join('|'))
         const res = await fetch(`/api/practice/count?${qs}`)
         const json = (await res.json()) as { count?: number }
         setTotalMCQs(res.ok ? Number(json.count) || 0 : 0)
@@ -155,7 +151,7 @@ export function DifficultyHubClient() {
             <p className="text-sm text-gray-500 mt-1">
               {sectionCfg?.label || subjectSlug}
               {' · '}
-              <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>
+              <span className="font-medium text-gray-700">{roundMcqCount(totalMCQs)} MCQs</span>
               {totalBatches > 0 && (
                 <>{' '}across <span className="font-medium text-gray-700">{totalBatches} batch{totalBatches !== 1 ? 'es' : ''}</span></>
               )}

@@ -1,5 +1,6 @@
 'use client'
 
+import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Play, Lock, CheckCircle } from 'lucide-react'
@@ -21,13 +22,6 @@ const MODE_CONFIG = {
 }
 
 const SETS_PER_BATCH = 10
-
-const roundMCQs = (n: number) => {
-  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
-  if (n >= 1000) return `${(Math.floor(n / 100) * 100).toLocaleString()}+`
-  if (n >= 100) return `${Math.floor(n / 10) * 10}+`
-  return `${n}`
-}
 
 export function ModeSetPicker() {
   const params = useParams()
@@ -162,7 +156,7 @@ export function ModeSetPicker() {
         <div className="container mx-auto max-w-7xl px-4 py-6">
           <p className="mb-5 text-sm text-gray-500">
             {modeConfig.description} ·{' '}
-            <span className="font-medium text-gray-700">{roundMCQs(totalMCQs)} MCQs</span>
+            <span className="font-medium text-gray-700">{roundMcqCount(totalMCQs)} MCQs</span>
             {' '}· <span className="font-medium text-gray-700">{totalBatches} batches</span>
           </p>
 

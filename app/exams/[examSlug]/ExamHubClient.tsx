@@ -1,5 +1,6 @@
 'use client'
 
+import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useEffect, useState, Suspense } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -23,13 +24,6 @@ interface SubjectProgress {
   subject: string
   attempted: number
   accuracy: number
-}
-
-const roundMCQs = (n: number) => {
-  if (n >= 10000) return `${Math.floor(n / 1000)}k+`
-  if (n >= 1000) return `${Math.floor(n / 500) * 500}+`
-  if (n >= 100) return `${Math.floor(n / 50) * 50}+`
-  return `${n}`
 }
 
 export function ExamHubClient() {
@@ -343,7 +337,7 @@ function ExamDashboard() {
           <div className="grid grid-cols-2 items-stretch gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
             {subjectsWithCounts.map((section) => {
               const progress = subjectProgress.find(p => p.subject === section.slug)
-              const roundedCount = roundMCQs(section.totalMCQs)
+              const roundedCount = roundMcqCount(section.totalMCQs)
 
               return (
                 <ExamPracticeGridCard
