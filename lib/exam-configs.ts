@@ -9,6 +9,8 @@ export interface ExamSection {
   noTypeFilter?: boolean
   /** Filter shared banks (e.g. css_mcqs_enhanced) by `subject` column */
   subjectField?: string
+  /** OR of subject values (e.g. Law-GAT Jurisprudence = Law + Muslim Law). */
+  subjectFields?: string[]
   /** Filter MDCAT banks by `subtopic` (e.g. generated USAT Quantitative) */
   subtopicField?: string
   /**
@@ -518,10 +520,25 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         slug: 'jurisprudence',
         label: 'Jurisprudence',
         dbTable: 'css_mcqs_enhanced',
-        subjectField: 'Law',
         count: 10,
         noTypeFilter: true,
-        topicFields: ['Jurisprudence', 'Legal Maxims', 'Legal Method', 'Legal method'],
+        // Official Law-GAT: English (Salmond) + Islamic (Nyazee).
+        subjectFields: ['Law', 'Muslim Law and Jurisprudence'],
+        topicFields: [
+          'Jurisprudence',
+          'Legal Maxims',
+          'Legal Method',
+          'Legal method',
+          'Usul al-Fiqh',
+          'Usul al-fiqh concepts',
+          'Usul',
+          'Usul al Fiqh',
+          'Sources of Islamic law',
+          'Sources of Law',
+          'Schools of law',
+          'Schools',
+          'Secondary sources and methods',
+        ],
       },
       {
         slug: 'civil-procedure',

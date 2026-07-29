@@ -53,6 +53,7 @@ async function fetchSectionPool(opts: {
   limit: number
   noTypeFilter?: boolean
   subjectField?: string
+  subjectFields?: string[]
   subtopicField?: string
   topicFields?: string[]
   questionNeedles?: string[]
@@ -65,6 +66,7 @@ async function fetchSectionPool(opts: {
     limit,
     noTypeFilter,
     subjectField,
+    subjectFields,
     subtopicField,
     topicFields,
     questionNeedles,
@@ -73,11 +75,18 @@ async function fetchSectionPool(opts: {
   const supabase = createPublicSupabaseClient()
   const need = Math.max(limit * 4, 40)
   const pipeline = isPipelineMcqTable(dbTable)
-  const hasSpecialistFilter = !!questionNeedles?.length || !!topicFields?.length
+  const hasSpecialistFilter =
+    !!questionNeedles?.length || !!topicFields?.length || !!subjectFields?.length
 
   const run = async (useNeedles: boolean, scopeMode: BankScopeMode | null) => {
     let query = supabase.from(dbTable).select(mcqSelectCols(dbTable))
-    if (!noTypeFilter && !subjectField && !subtopicField && !topicFields?.length) {
+    if (
+      !noTypeFilter &&
+      !subjectField &&
+      !subjectFields?.length &&
+      !subtopicField &&
+      !topicFields?.length
+    ) {
       query = query.in('type', qTypes)
     }
     if (scopeMode && pipeline) {
@@ -85,6 +94,7 @@ async function fetchSectionPool(opts: {
         dbTable,
         examSlug,
         subjectField,
+        subjectFields,
         subtopicField,
         topicFields,
         targetExam: pastPapersExam,
@@ -93,6 +103,7 @@ async function fetchSectionPool(opts: {
       })
     } else if (
       subjectField ||
+      subjectFields?.length ||
       subtopicField ||
       topicFields?.length ||
       pastPapersExam ||
@@ -102,6 +113,7 @@ async function fetchSectionPool(opts: {
         dbTable,
         examSlug: pipeline ? examSlug : undefined,
         subjectField,
+        subjectFields,
         subtopicField,
         topicFields,
         targetExam: pastPapersExam,
@@ -163,6 +175,7 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       limit,
       noTypeFilter: section.noTypeFilter,
       subjectField: section.subjectField,
+      subjectFields: section.subjectFields,
       subtopicField: section.subtopicField,
       topicFields: section.topicFields,
       questionNeedles: section.questionNeedles,
@@ -172,7 +185,10 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       label: section.label,
       limit,
       rows: pool,
-      needles: !!section.questionNeedles?.length || !!section.topicFields?.length,
+      needles:
+        !!section.questionNeedles?.length ||
+        !!section.topicFields?.length ||
+        !!section.subjectFields?.length,
     })
   }
 
@@ -225,11 +241,11 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
 }
 
 function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
-  // v5: css_mcqs_enhanced column map + official Law-GAT section scope
+  // v7: bust stale ISR 404 for Law-GAT mock/1 after topic-scoped pools filled
   return unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-v6-${examSlug}-${mockNumber}`],
-    { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v5'] }
+    [`exam-mock-v7-${examSlug}-${mockNumber}`],
+    { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v7'] }
   )()
 }
 

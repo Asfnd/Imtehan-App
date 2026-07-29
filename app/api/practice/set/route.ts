@@ -152,6 +152,7 @@ export async function POST(request: NextRequest) {
         mode: (modeType as 'practice' | 'most_repeated' | 'most_important' | 'mixed') || 'mixed',
         noTypeFilter: !!noTypeFilter,
         subjectField,
+        subjectFields: sectionCfg?.subjectFields,
         subtopicField: subtopicField ?? sectionCfg?.subtopicField,
         topicFields: sectionCfg?.topicFields,
         targetExam,

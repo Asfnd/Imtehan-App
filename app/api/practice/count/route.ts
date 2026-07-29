@@ -24,6 +24,10 @@ export async function GET(request: NextRequest) {
   const type = sp.get('type')
   const targetExam = sp.get('targetExam') || undefined
   const subjectField = sp.get('subjectField') || undefined
+  const subjectsRaw = sp.get('subjects') || undefined
+  const subjectFields = subjectsRaw
+    ? subjectsRaw.split('|').map((n) => n.trim()).filter(Boolean)
+    : undefined
   const subtopicField = sp.get('subtopicField') || undefined
   const tag = sp.get('tag') || undefined
   const useTagsArray = sp.get('useTagsArray') === '1'
@@ -63,6 +67,7 @@ export async function GET(request: NextRequest) {
         type: all ? null : type,
         targetExam,
         subjectField,
+        subjectFields,
         subtopicField,
         topicFields,
         examSlug,

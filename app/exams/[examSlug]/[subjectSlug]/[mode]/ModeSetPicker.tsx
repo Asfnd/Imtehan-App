@@ -106,6 +106,9 @@ export function ModeSetPicker() {
         if (section.subjectField) {
           qs.set('subjectField', section.subjectField)
           qs.set('all', '1')
+        } else if (section.subjectFields?.length) {
+          qs.set('subjects', section.subjectFields.join('|'))
+          qs.set('all', '1')
         } else if (section.subtopicField) {
           qs.set('subtopicField', section.subtopicField)
           qs.set('all', '1')

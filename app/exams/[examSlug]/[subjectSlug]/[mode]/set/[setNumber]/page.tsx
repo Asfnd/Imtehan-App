@@ -107,6 +107,7 @@ export default async function QuizSetPage({
     mode: modeConfig.type === 'mixed' ? 'mixed' : modeConfig.type,
     noTypeFilter: section.noTypeFilter,
     subjectField: section.subjectField,
+    subjectFields: section.subjectFields,
     subtopicField: section.subtopicField,
     targetExam:
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,

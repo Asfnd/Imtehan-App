@@ -141,6 +141,7 @@ export function SubjectModesClient() {
         const qs = new URLSearchParams({ dbTable, examSlug })
         if (section?.noTypeFilter) qs.set('noTypeFilter', '1')
         if (section?.subjectField) qs.set('subjectField', section.subjectField)
+        if (section?.subjectFields?.length) qs.set('subjects', section.subjectFields.join('|'))
         if (section?.subtopicField) qs.set('subtopicField', section.subtopicField)
         if (TITLE_CASE_DIFFICULTY_TABLES.has(dbTable)) qs.set('titleCase', '1')
         if (tags.length) qs.set('tags', tags.join(','))

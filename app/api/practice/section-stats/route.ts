@@ -28,6 +28,13 @@ export async function GET(request: NextRequest) {
       dbTable,
       noTypeFilter: sp.get('noTypeFilter') === '1',
       subjectField: sp.get('subjectField') || undefined,
+      subjectFields: sp.get('subjects')
+        ? sp
+            .get('subjects')!
+            .split('|')
+            .map((n) => n.trim())
+            .filter(Boolean)
+        : undefined,
       subtopicField: sp.get('subtopicField') || undefined,
       topicFields: sp.get('topics')
         ? sp

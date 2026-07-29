@@ -168,6 +168,7 @@ function buildModeQueryFactory(
     mode?: string
     noTypeFilter?: boolean
     subjectField?: string
+    subjectFields?: string[]
     subtopicField?: string
     topicFields?: string[]
     targetExam?: string
@@ -184,6 +185,7 @@ function buildModeQueryFactory(
       !opts.noTypeFilter &&
       opts.mode &&
       !opts.subjectField &&
+      !opts.subjectFields?.length &&
       !opts.subtopicField &&
       !opts.topicFields?.length
     ) {
@@ -195,6 +197,7 @@ function buildModeQueryFactory(
       examSlug: opts.examSlug,
       targetExam: opts.targetExam,
       subjectField: opts.subjectField,
+      subjectFields: opts.subjectFields,
       subtopicField: opts.subtopicField,
       topicFields: opts.topicFields,
       questionNeedles: opts.questionNeedles,
@@ -212,6 +215,7 @@ export type FetchSetParams = {
   mode?: string
   noTypeFilter?: boolean
   subjectField?: string
+  subjectFields?: string[]
   subtopicField?: string
   topicFields?: string[]
   targetExam?: string
@@ -231,6 +235,7 @@ export async function fetchMCQsBySet(
     mode = 'practice',
     noTypeFilter = false,
     subjectField,
+    subjectFields,
     subtopicField,
     topicFields,
     targetExam,
@@ -242,6 +247,7 @@ export async function fetchMCQsBySet(
 
   const mixed =
     !!subjectField ||
+    !!subjectFields?.length ||
     !!subtopicField ||
     !!topicFields?.length ||
     noTypeFilter ||
@@ -258,6 +264,7 @@ export async function fetchMCQsBySet(
       mode: modeForQuery,
       noTypeFilter: mixed,
       subjectField,
+      subjectFields,
       subtopicField,
       topicFields,
       targetExam,
@@ -269,8 +276,14 @@ export async function fetchMCQsBySet(
       dbTable,
       type: mixed ? null : modeForQuery,
       skipTypeFilter:
-        mixed || !modeForQuery || !!subjectField || !!subtopicField || !!topicFields?.length,
+        mixed ||
+        !modeForQuery ||
+        !!subjectField ||
+        !!subjectFields?.length ||
+        !!subtopicField ||
+        !!topicFields?.length,
       subjectField,
+      subjectFields,
       subtopicField,
       topicFields,
       targetExam,
@@ -280,7 +293,7 @@ export async function fetchMCQsBySet(
     })
     if (page.length >= setSize) break
     // Specialist modules (FIA Act / Law-GAT topics): never drop filters into generic bank
-    if (questionNeedles?.length || topicFields?.length) break
+    if (questionNeedles?.length || topicFields?.length || subjectFields?.length) break
   }
 
   return page
@@ -295,6 +308,7 @@ export async function countUniqueForMode(
     mode = 'practice',
     noTypeFilter = false,
     subjectField,
+    subjectFields,
     subtopicField,
     topicFields,
     targetExam,
@@ -303,6 +317,7 @@ export async function countUniqueForMode(
   } = params
   const mixed =
     !!subjectField ||
+    !!subjectFields?.length ||
     !!subtopicField ||
     !!topicFields?.length ||
     noTypeFilter ||
@@ -311,6 +326,7 @@ export async function countUniqueForMode(
     mode: mixed ? 'practice' : mode,
     noTypeFilter: mixed,
     subjectField,
+    subjectFields,
     subtopicField,
     topicFields,
     targetExam,

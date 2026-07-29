@@ -12,6 +12,7 @@ export type McqSetRpcParams = {
   type?: string | null
   skipTypeFilter?: boolean
   subjectField?: string
+  subjectFields?: string[]
   subtopicField?: string
   topicFields?: string[]
   targetExam?: string
@@ -67,6 +68,8 @@ export async function fetchDedupedMcqSetRpc(
   supabase: SupabaseClient,
   opts: McqSetRpcParams
 ): Promise<Record<string, unknown>[] | null> {
+  // Multi-subject slices need client-side `.in('subject', …)` — RPC is single-subject today.
+  if (opts.subjectFields && opts.subjectFields.length > 1) return null
   const { data, error } = await supabase.rpc('get_deduped_mcq_set', buildMcqSetRpcParams(opts))
   if (error) return null
   return (data as Record<string, unknown>[]) ?? []

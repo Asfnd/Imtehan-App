@@ -149,6 +149,8 @@ export type BankScopeOpts = {
   /** Engineering past-paper scalar (NET / ECAT / …) */
   targetExam?: string
   subjectField?: string
+  /** OR of `subject` values when a section spans multiple subjects. */
+  subjectFields?: string[]
   /** MDCAT-style `subtopic` equality (e.g. USAT Quantitative) */
   subtopicField?: string
   /** Exact `topic` match against any of these values (Law-GAT syllabus slices). */
@@ -174,7 +176,9 @@ export function applyBankExamScope<
 >(query: T, opts: BankScopeOpts): T {
   let q = query
 
-  if (opts.subjectField) {
+  if (opts.subjectFields?.length) {
+    q = q.in('subject', opts.subjectFields) as T
+  } else if (opts.subjectField) {
     q = q.eq('subject', opts.subjectField) as T
   }
 

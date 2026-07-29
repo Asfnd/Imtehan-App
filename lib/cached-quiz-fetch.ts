@@ -24,6 +24,7 @@ export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow
     String(params.setNumber),
     params.mode ?? 'practice',
     params.subjectField ?? '',
+    (params.subjectFields ?? []).join('|'),
     params.targetExam ?? '',
     params.examSlug ?? '',
     (params.questionNeedles ?? []).join('|'),
@@ -155,17 +156,19 @@ export function cachedExamTableCount(params: {
   type?: string | null
   targetExam?: string
   subjectField?: string
+  subjectFields?: string[]
   subtopicField?: string
   topicFields?: string[]
   examSlug?: string
   questionNeedles?: string[]
 }): Promise<number> {
   const key = [
-    'exam-count-v5',
+    'exam-count-v6',
     params.dbTable,
     params.type ?? 'all',
     params.targetExam ?? '',
     params.subjectField ?? '',
+    (params.subjectFields ?? []).join('|'),
     params.subtopicField ?? '',
     (params.topicFields ?? []).join('|'),
     params.examSlug ?? '',
@@ -175,14 +178,13 @@ export function cachedExamTableCount(params: {
     async () => {
       const supabase = createPublicSupabaseClient()
       let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-      if (params.subjectField) query = query.eq('subject', params.subjectField)
-      if (params.subtopicField) query = query.eq('subtopic', params.subtopicField)
       if (params.targetExam) query = query.eq('target_exam', params.targetExam)
       else if (params.type) query = query.eq('type', params.type)
       query = applyBankExamScope(query, {
         dbTable: params.dbTable,
         examSlug: params.examSlug,
         subjectField: params.subjectField,
+        subjectFields: params.subjectFields,
         subtopicField: params.subtopicField,
         topicFields: params.topicFields,
         targetExam: params.targetExam,
@@ -314,6 +316,7 @@ export function cachedSectionStats(params: {
   dbTable: string
   noTypeFilter?: boolean
   subjectField?: string
+  subjectFields?: string[]
   subtopicField?: string
   topicFields?: string[]
   titleCaseDifficulty?: boolean
@@ -324,10 +327,11 @@ export function cachedSectionStats(params: {
 }): Promise<SectionStatsPayload> {
   const tags = params.tags ?? []
   const key = [
-    'section-stats-v6',
+    'section-stats-v7',
     params.dbTable,
     String(!!params.noTypeFilter),
     params.subjectField ?? '',
+    (params.subjectFields ?? []).join('|'),
     params.subtopicField ?? '',
     (params.topicFields ?? []).join('|'),
     String(!!params.titleCaseDifficulty),
@@ -344,6 +348,7 @@ export function cachedSectionStats(params: {
       const sharedTotal = !!(
         params.noTypeFilter ||
         params.subjectField ||
+        params.subjectFields?.length ||
         params.subtopicField ||
         params.topicFields?.length
       )
@@ -354,6 +359,7 @@ export function cachedSectionStats(params: {
             dbTable: params.dbTable,
             type: sharedTotal ? null : 'practice',
             subjectField: params.subjectField,
+            subjectFields: params.subjectFields,
             subtopicField: params.subtopicField,
             topicFields: params.topicFields,
             examSlug: params.examSlug,
