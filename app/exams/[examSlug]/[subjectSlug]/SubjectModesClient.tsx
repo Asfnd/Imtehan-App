@@ -153,6 +153,9 @@ export function SubjectModesClient() {
         if (section?.questionNeedles?.length) {
           qs.set('needles', section.questionNeedles.join('|'))
         }
+        if (section?.topicFields?.length) {
+          qs.set('topics', section.topicFields.join('|'))
+        }
         const res = await fetch(`/api/practice/section-stats?${qs}`)
         const json = await res.json()
         if (cancelled || !res.ok) {

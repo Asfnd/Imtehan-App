@@ -13,6 +13,7 @@ export type McqSetRpcParams = {
   skipTypeFilter?: boolean
   subjectField?: string
   subtopicField?: string
+  topicFields?: string[]
   targetExam?: string
   examSlug?: string
   scopeMode?: BankScopeMode
@@ -55,6 +56,7 @@ export function buildMcqSetRpcParams(opts: McqSetRpcParams) {
     p_scope_mode: scope.scopeMode ?? null,
     p_difficulties: opts.difficulties?.length ? opts.difficulties : null,
     p_topic: opts.topic ?? null,
+    p_topics: opts.topicFields?.length ? opts.topicFields : null,
     p_tag: opts.tag ?? null,
     p_use_tags_array: !!opts.useTagsArray,
     p_question_needles: opts.questionNeedles?.length ? opts.questionNeedles : null,

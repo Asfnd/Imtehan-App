@@ -64,6 +64,9 @@ export default async function BatchSetsPage({
     targetExam:
       mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
     examSlug,
+    subjectField: section.subjectField,
+    subtopicField: section.subtopicField,
+    topicFields: section.topicFields,
     questionNeedles: section.questionNeedles,
   }).catch(() => 0)
 

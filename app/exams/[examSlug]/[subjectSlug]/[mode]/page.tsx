@@ -19,13 +19,13 @@ export default async function ExamModePage({
   if (!config || !section) notFound()
 
   const sampleMcqs = section.dbTable
-    ? await fetchSampleMcqs(
-        section.dbTable,
-        mode,
-        5,
+    ? await fetchSampleMcqs(section.dbTable, mode, 5, {
         examSlug,
-        section.questionNeedles,
-      )
+        subjectField: section.subjectField,
+        subtopicField: section.subtopicField,
+        topicFields: section.topicFields,
+        questionNeedles: section.questionNeedles,
+      })
     : []
 
   return (

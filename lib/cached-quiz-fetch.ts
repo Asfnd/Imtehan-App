@@ -19,7 +19,7 @@ const REVALIDATE = 604800
 
 export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [
-    'set-v5',
+    'set-v6',
     params.dbTable,
     String(params.setNumber),
     params.mode ?? 'practice',
@@ -27,6 +27,7 @@ export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow
     params.targetExam ?? '',
     params.examSlug ?? '',
     (params.questionNeedles ?? []).join('|'),
+    (params.topicFields ?? []).join('|'),
     params.subtopicField ?? '',
     String(!!params.noTypeFilter),
   ]
@@ -155,16 +156,18 @@ export function cachedExamTableCount(params: {
   targetExam?: string
   subjectField?: string
   subtopicField?: string
+  topicFields?: string[]
   examSlug?: string
   questionNeedles?: string[]
 }): Promise<number> {
   const key = [
-    'exam-count-v4',
+    'exam-count-v5',
     params.dbTable,
     params.type ?? 'all',
     params.targetExam ?? '',
     params.subjectField ?? '',
     params.subtopicField ?? '',
+    (params.topicFields ?? []).join('|'),
     params.examSlug ?? '',
     (params.questionNeedles ?? []).join('|'),
   ]
@@ -181,6 +184,7 @@ export function cachedExamTableCount(params: {
         examSlug: params.examSlug,
         subjectField: params.subjectField,
         subtopicField: params.subtopicField,
+        topicFields: params.topicFields,
         targetExam: params.targetExam,
         questionNeedles: params.questionNeedles,
         scopeMode: 'family',
@@ -301,6 +305,7 @@ export function cachedSectionStats(params: {
   noTypeFilter?: boolean
   subjectField?: string
   subtopicField?: string
+  topicFields?: string[]
   titleCaseDifficulty?: boolean
   tags?: string[]
   useTagsArray?: boolean
@@ -309,11 +314,12 @@ export function cachedSectionStats(params: {
 }): Promise<SectionStatsPayload> {
   const tags = params.tags ?? []
   const key = [
-    'section-stats-v4',
+    'section-stats-v5',
     params.dbTable,
     String(!!params.noTypeFilter),
     params.subjectField ?? '',
     params.subtopicField ?? '',
+    (params.topicFields ?? []).join('|'),
     String(!!params.titleCaseDifficulty),
     String(!!params.useTagsArray),
     tags.join(','),
@@ -325,7 +331,12 @@ export function cachedSectionStats(params: {
       const easy = params.titleCaseDifficulty ? 'Easy' : 'easy'
       const medium = params.titleCaseDifficulty ? 'Medium' : 'medium'
       const hard = params.titleCaseDifficulty ? 'Hard' : 'hard'
-      const sharedTotal = !!(params.noTypeFilter || params.subjectField || params.subtopicField)
+      const sharedTotal = !!(
+        params.noTypeFilter ||
+        params.subjectField ||
+        params.subtopicField ||
+        params.topicFields?.length
+      )
 
       const [allOrPast, importantCount, repeatedCount, easyCount, mediumCount, hardCount, ...topicCounts] =
         await Promise.all([
@@ -334,6 +345,7 @@ export function cachedSectionStats(params: {
             type: sharedTotal ? null : 'practice',
             subjectField: params.subjectField,
             subtopicField: params.subtopicField,
+            topicFields: params.topicFields,
             examSlug: params.examSlug,
             questionNeedles: params.questionNeedles,
           }),

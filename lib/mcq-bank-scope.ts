@@ -151,6 +151,8 @@ export type BankScopeOpts = {
   subjectField?: string
   /** MDCAT-style `subtopic` equality (e.g. USAT Quantitative) */
   subtopicField?: string
+  /** Exact `topic` match against any of these values (Law-GAT syllabus slices). */
+  topicFields?: string[]
   /**
    * When set, require question text to match (e.g. FIA Act section).
    * Applied as OR of ILIKE patterns — never pair with unscoped bank fallback.
@@ -167,10 +169,9 @@ export type BankScopeOpts = {
  * Apply relevance filters to a Supabase query builder.
  * Safe to call on any bank — no-ops when the column doesn't exist for that family.
  */
-export function applyBankExamScope<T extends { eq: Function; overlaps: Function; contains: Function; or: Function }>(
-  query: T,
-  opts: BankScopeOpts
-): T {
+export function applyBankExamScope<
+  T extends { eq: Function; overlaps: Function; contains: Function; or: Function; in: Function },
+>(query: T, opts: BankScopeOpts): T {
   let q = query
 
   if (opts.subjectField) {
@@ -179,6 +180,10 @@ export function applyBankExamScope<T extends { eq: Function; overlaps: Function;
 
   if (opts.subtopicField) {
     q = q.eq('subtopic', opts.subtopicField) as T
+  }
+
+  if (opts.topicFields?.length) {
+    q = q.in('topic', opts.topicFields) as T
   }
 
   if (opts.targetExam && isEngineeringMcqTable(opts.dbTable)) {

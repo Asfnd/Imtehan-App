@@ -54,6 +54,7 @@ async function fetchSectionPool(opts: {
   noTypeFilter?: boolean
   subjectField?: string
   subtopicField?: string
+  topicFields?: string[]
   questionNeedles?: string[]
   pastPapersExam?: string
 }): Promise<Record<string, unknown>[]> {
@@ -65,17 +66,18 @@ async function fetchSectionPool(opts: {
     noTypeFilter,
     subjectField,
     subtopicField,
+    topicFields,
     questionNeedles,
     pastPapersExam,
   } = opts
   const supabase = createPublicSupabaseClient()
   const need = Math.max(limit * 4, 40)
   const pipeline = isPipelineMcqTable(dbTable)
-  const hasNeedles = !!questionNeedles?.length
+  const hasSpecialistFilter = !!questionNeedles?.length || !!topicFields?.length
 
   const run = async (useNeedles: boolean, scopeMode: BankScopeMode | null) => {
     let query = supabase.from(dbTable).select(mcqSelectCols(dbTable))
-    if (!noTypeFilter && !subjectField && !subtopicField) {
+    if (!noTypeFilter && !subjectField && !subtopicField && !topicFields?.length) {
       query = query.in('type', qTypes)
     }
     if (scopeMode && pipeline) {
@@ -84,16 +86,24 @@ async function fetchSectionPool(opts: {
         examSlug,
         subjectField,
         subtopicField,
+        topicFields,
         targetExam: pastPapersExam,
         questionNeedles: useNeedles ? questionNeedles : undefined,
         scopeMode,
       })
-    } else if (subjectField || subtopicField || pastPapersExam || (useNeedles && questionNeedles)) {
+    } else if (
+      subjectField ||
+      subtopicField ||
+      topicFields?.length ||
+      pastPapersExam ||
+      (useNeedles && questionNeedles)
+    ) {
       query = applyBankExamScope(query, {
         dbTable,
         examSlug: pipeline ? examSlug : undefined,
         subjectField,
         subtopicField,
+        topicFields,
         targetExam: pastPapersExam,
         questionNeedles: useNeedles ? questionNeedles : undefined,
         scopeMode: pipeline ? 'family' : undefined,
@@ -104,11 +114,12 @@ async function fetchSectionPool(opts: {
       console.error(`[mock] select failed ${dbTable}:`, error.message)
       return [] as Record<string, unknown>[]
     }
-    return ((data as Record<string, unknown>[]) ?? []).filter(isQualityRow)
+    // Dynamic `mcqSelectCols()` makes PostgREST infer GenericStringError[]; narrow via unknown.
+    return ((data as unknown as Record<string, unknown>[]) ?? []).filter(isQualityRow)
   }
 
-  // Specialist modules (FIA Act): needles stay on — never pad with random GK.
-  if (hasNeedles) {
+  // Specialist modules (FIA Act / Law-GAT topics): never pad with random bank rows.
+  if (hasSpecialistFilter) {
     let pool = await run(true, 'exact')
     if (pool.length < limit) pool = await run(true, 'family')
     return pool
@@ -153,6 +164,7 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       noTypeFilter: section.noTypeFilter,
       subjectField: section.subjectField,
       subtopicField: section.subtopicField,
+      topicFields: section.topicFields,
       questionNeedles: section.questionNeedles,
       pastPapersExam: config.pastPapersExam,
     })
@@ -160,7 +172,7 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       label: section.label,
       limit,
       rows: pool,
-      needles: !!section.questionNeedles?.length,
+      needles: !!section.questionNeedles?.length || !!section.topicFields?.length,
     })
   }
 
@@ -216,7 +228,7 @@ function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
   // v5: css_mcqs_enhanced column map + official Law-GAT section scope
   return unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-v5-${examSlug}-${mockNumber}`],
+    [`exam-mock-v6-${examSlug}-${mockNumber}`],
     { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v5'] }
   )()
 }

@@ -153,6 +153,7 @@ export async function POST(request: NextRequest) {
         noTypeFilter: !!noTypeFilter,
         subjectField,
         subtopicField: subtopicField ?? sectionCfg?.subtopicField,
+        topicFields: sectionCfg?.topicFields,
         targetExam,
         examSlug: body.examSlug,
         questionNeedles: sectionCfg?.questionNeedles,

@@ -34,6 +34,10 @@ export async function GET(request: NextRequest) {
   const questionNeedles = needlesRaw
     ? needlesRaw.split('|').map((n) => n.trim()).filter(Boolean)
     : undefined
+  const topicsRaw = sp.get('topics') || undefined
+  const topicFields = topicsRaw
+    ? topicsRaw.split('|').map((n) => n.trim()).filter(Boolean)
+    : undefined
 
   try {
     let count = 0
@@ -58,6 +62,7 @@ export async function GET(request: NextRequest) {
         targetExam,
         subjectField,
         subtopicField,
+        topicFields,
         examSlug,
         questionNeedles,
       })

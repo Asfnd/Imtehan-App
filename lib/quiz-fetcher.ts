@@ -169,6 +169,7 @@ function buildModeQueryFactory(
     noTypeFilter?: boolean
     subjectField?: string
     subtopicField?: string
+    topicFields?: string[]
     targetExam?: string
     examSlug?: string
     questionNeedles?: string[]
@@ -179,7 +180,13 @@ function buildModeQueryFactory(
     let query = supabase.from(dbTable).select(mcqSelectCols(dbTable))
 
     // Type filter when the bank supports it (skipped for mixed / MDCAT / subject slices)
-    if (!opts.noTypeFilter && opts.mode && !opts.subjectField && !opts.subtopicField) {
+    if (
+      !opts.noTypeFilter &&
+      opts.mode &&
+      !opts.subjectField &&
+      !opts.subtopicField &&
+      !opts.topicFields?.length
+    ) {
       query = query.eq('type', opts.mode)
     }
 
@@ -189,6 +196,7 @@ function buildModeQueryFactory(
       targetExam: opts.targetExam,
       subjectField: opts.subjectField,
       subtopicField: opts.subtopicField,
+      topicFields: opts.topicFields,
       questionNeedles: opts.questionNeedles,
       scopeMode: opts.scopeMode ?? 'family',
     })
@@ -205,6 +213,7 @@ export type FetchSetParams = {
   noTypeFilter?: boolean
   subjectField?: string
   subtopicField?: string
+  topicFields?: string[]
   targetExam?: string
   /** Live exam slug — scopes pipeline banks via target_exams */
   examSlug?: string
@@ -223,6 +232,7 @@ export async function fetchMCQsBySet(
     noTypeFilter = false,
     subjectField,
     subtopicField,
+    topicFields,
     targetExam,
     examSlug,
     questionNeedles,
@@ -230,7 +240,12 @@ export async function fetchMCQsBySet(
 
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
-  const mixed = !!subjectField || !!subtopicField || noTypeFilter || mode === 'mixed'
+  const mixed =
+    !!subjectField ||
+    !!subtopicField ||
+    !!topicFields?.length ||
+    noTypeFilter ||
+    mode === 'mixed'
   const pipeline = isPipelineMcqTable(dbTable) && !!examSlug
 
   // Prefer exact exam slug; widen to family hub only if this set would be empty/short.
@@ -244,6 +259,7 @@ export async function fetchMCQsBySet(
       noTypeFilter: mixed,
       subjectField,
       subtopicField,
+      topicFields,
       targetExam,
       examSlug,
       questionNeedles,
@@ -252,17 +268,19 @@ export async function fetchMCQsBySet(
     page = await fetchDedupedSetPage(supabase, buildScoped, setNumber, setSize, {
       dbTable,
       type: mixed ? null : modeForQuery,
-      skipTypeFilter: mixed || !modeForQuery || !!subjectField || !!subtopicField,
+      skipTypeFilter:
+        mixed || !modeForQuery || !!subjectField || !!subtopicField || !!topicFields?.length,
       subjectField,
       subtopicField,
+      topicFields,
       targetExam,
       examSlug,
       scopeMode,
       questionNeedles,
     })
     if (page.length >= setSize) break
-    // Specialist modules (FIA Act etc.): never drop needles into generic bank content
-    if (questionNeedles?.length) break
+    // Specialist modules (FIA Act / Law-GAT topics): never drop filters into generic bank
+    if (questionNeedles?.length || topicFields?.length) break
   }
 
   return page
@@ -278,16 +296,23 @@ export async function countUniqueForMode(
     noTypeFilter = false,
     subjectField,
     subtopicField,
+    topicFields,
     targetExam,
     examSlug,
     questionNeedles,
   } = params
-  const mixed = !!subjectField || !!subtopicField || noTypeFilter || mode === 'mixed'
+  const mixed =
+    !!subjectField ||
+    !!subtopicField ||
+    !!topicFields?.length ||
+    noTypeFilter ||
+    mode === 'mixed'
   const buildQuery = buildModeQueryFactory(supabase, dbTable, {
     mode: mixed ? 'practice' : mode,
     noTypeFilter: mixed,
     subjectField,
     subtopicField,
+    topicFields,
     targetExam,
     examSlug,
     questionNeedles,

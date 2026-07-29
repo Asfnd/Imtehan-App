@@ -1,6 +1,13 @@
 -- Align get_deduped_mcq_set with css_mcqs_enhanced column names
 -- (question_text / explanation_detailed) and drop Law-GAT review padding.
 
+DROP FUNCTION IF EXISTS public.get_deduped_mcq_set(
+  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text, boolean, text[]
+);
+DROP FUNCTION IF EXISTS public.get_deduped_mcq_set(
+  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text[], text, boolean, text[]
+);
+
 CREATE OR REPLACE FUNCTION public.get_deduped_mcq_set(
   p_table text,
   p_set_number integer,
@@ -15,6 +22,7 @@ CREATE OR REPLACE FUNCTION public.get_deduped_mcq_set(
   p_scope_mode text DEFAULT NULL,
   p_difficulties text[] DEFAULT NULL,
   p_topic text DEFAULT NULL,
+  p_topics text[] DEFAULT NULL,
   p_tag text DEFAULT NULL,
   p_use_tags_array boolean DEFAULT false,
   p_question_needles text[] DEFAULT NULL
@@ -156,6 +164,10 @@ BEGIN
 
   IF p_use_tags_array AND p_tag IS NOT NULL AND public._mcq_table_has_col(p_table, 'tags') THEN
     v_where := v_where || format(' AND tags @> ARRAY[%L]::text[]', p_tag);
+  ELSIF p_topics IS NOT NULL
+     AND cardinality(p_topics) > 0
+     AND public._mcq_table_has_col(p_table, 'topic') THEN
+    v_where := v_where || format(' AND topic = ANY(%L::text[])', p_topics);
   ELSIF NOT COALESCE(p_use_tags_array, false) AND p_topic IS NOT NULL AND public._mcq_table_has_col(p_table, 'topic') THEN
     v_where := v_where || format(' AND topic = %L', p_topic);
   ELSIF NOT COALESCE(p_use_tags_array, false) AND p_tag IS NOT NULL AND public._mcq_table_has_col(p_table, 'topic') THEN
@@ -257,11 +269,11 @@ END;
 $$;
 
 GRANT EXECUTE ON FUNCTION public.get_deduped_mcq_set(
-  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text, boolean, text[]
+  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text[], text, boolean, text[]
 ) TO public;
 GRANT EXECUTE ON FUNCTION public.get_deduped_mcq_set(
-  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text, boolean, text[]
+  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text[], text, boolean, text[]
 ) TO anon;
 GRANT EXECUTE ON FUNCTION public.get_deduped_mcq_set(
-  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text, boolean, text[]
+  text, integer, integer, text, boolean, text, text, text, text, text[], text, text[], text, text[], text, boolean, text[]
 ) TO authenticated;

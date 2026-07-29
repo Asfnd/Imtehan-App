@@ -12,6 +12,11 @@ export interface ExamSection {
   /** Filter MDCAT banks by `subtopic` (e.g. generated USAT Quantitative) */
   subtopicField?: string
   /**
+   * Prefer rows whose `topic` is one of these values (exact match, any of).
+   * Preferred over broad questionNeedles for syllabus-tagged banks (Law-GAT).
+   */
+  topicFields?: string[]
+  /**
    * Prefer questions whose stem matches any of these needles (ILIKE).
    * Used for specialist slices (e.g. FIA Act) sitting inside a shared bank.
    */
@@ -498,6 +503,8 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     passingPercentage: 50,
     negativeMarking: false,
     // Official HEC/PBC Law-GAT: 100 MCQs, 50% pass, six syllabus divisions.
+    // Topic tags on css_mcqs_enhanced are preferred over stem needles (avoids
+    // false positives like ILIKE '%FIR%' matching "first").
     sections: [
       {
         slug: 'constitution',
@@ -511,9 +518,10 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         slug: 'jurisprudence',
         label: 'Jurisprudence',
         dbTable: 'css_mcqs_enhanced',
-        subjectField: 'Muslim Law and Jurisprudence',
+        subjectField: 'Law',
         count: 10,
         noTypeFilter: true,
+        topicFields: ['Jurisprudence', 'Legal Maxims', 'Legal Method', 'Legal method'],
       },
       {
         slug: 'civil-procedure',
@@ -522,21 +530,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         subjectField: 'Law',
         count: 20,
         noTypeFilter: true,
-        questionNeedles: [
-          'Civil Procedure',
-          'CPC',
-          'Code of Civil Procedure',
-          'plaint',
-          'written statement',
-          'res judicata',
-          'Order VII',
-          'Order IX',
-          'temporary injunction',
-          'first appeal',
-          'revision under',
-          'Section 115',
-          'Section 151',
-        ],
+        topicFields: ['Civil Procedure', 'Civil procedure'],
       },
       {
         slug: 'criminal-law',
@@ -545,23 +539,12 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         subjectField: 'Law',
         count: 20,
         noTypeFilter: true,
-        questionNeedles: [
-          'PPC',
-          'Penal Code',
-          'Cr.P.C',
-          'CrPC',
+        topicFields: [
+          'Criminal Law',
+          'Criminal law',
           'Criminal Procedure',
-          'culpable homicide',
-          'kidnapping',
-          'cognizable',
-          'FIR',
-          'bail',
-          'arrest',
-          'mens rea',
-          'actus reus',
-          'wrongful confinement',
-          'theft under',
-          'extortion',
+          'Criminal procedure',
+          'Criminal Law Basics',
         ],
       },
       {
@@ -571,22 +554,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         subjectField: 'Law',
         count: 20,
         noTypeFilter: true,
-        questionNeedles: [
-          'Qanun-e-Shahadat',
-          'Qanoon-e-Shahadat',
-          'Qanun e Shahadat',
-          'law of evidence',
-          'Law of Evidence',
-          'hearsay',
-          'competent to testify',
-          'Evidence recorded',
-          'primary evidence',
-          'secondary evidence',
-          'burden of proof',
-          'estoppel',
-          'confession',
-          'dying declaration',
-        ],
+        topicFields: ['Law of Evidence', 'Law of evidence', 'Evidence'],
       },
       {
         slug: 'professional-ethics',
@@ -595,18 +563,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
         subjectField: 'Law',
         count: 10,
         noTypeFilter: true,
-        questionNeedles: [
-          'Professional Ethics',
-          'professional conduct',
-          'Bar Council',
-          'advocate',
-          'canons of',
-          'Legal Practitioners',
-          'client confidentiality',
-          'conflict of interest',
-          'vakalatnama',
-          'tout',
-        ],
+        topicFields: ['Professional Ethics'],
       },
     ],
     guide: {

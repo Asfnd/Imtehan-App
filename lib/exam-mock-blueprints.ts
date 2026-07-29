@@ -39,6 +39,7 @@ export type EffectiveExamSettings = {
     noTypeFilter?: boolean
     subjectField?: string
     subtopicField?: string
+    topicFields?: string[]
     questionNeedles?: string[]
   }[]
 }
@@ -637,6 +638,7 @@ function mergeBlueprintSections(
       noTypeFilter: cfg?.noTypeFilter,
       subjectField: cfg?.subjectField,
       subtopicField: cfg?.subtopicField,
+      topicFields: cfg?.topicFields,
       questionNeedles: cfg?.questionNeedles,
     }
   })

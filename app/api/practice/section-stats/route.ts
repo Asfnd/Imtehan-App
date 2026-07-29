@@ -29,6 +29,13 @@ export async function GET(request: NextRequest) {
       noTypeFilter: sp.get('noTypeFilter') === '1',
       subjectField: sp.get('subjectField') || undefined,
       subtopicField: sp.get('subtopicField') || undefined,
+      topicFields: sp.get('topics')
+        ? sp
+            .get('topics')!
+            .split('|')
+            .map((n) => n.trim())
+            .filter(Boolean)
+        : undefined,
       titleCaseDifficulty: sp.get('titleCase') === '1',
       tags: resolvedTags,
       useTagsArray: !useTopicCol && sp.get('useTagsArray') !== '0',
