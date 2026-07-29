@@ -53,7 +53,7 @@ export function ExamSeoShell({
         <SeoCrawlNav label="Full mock tests">
           <ul>
             <li>
-              <Link href={`/exams/${slug}/mock`}>{config.name} mock tests</Link>
+              <Link href={`/exams/${slug}/mocks`}>{config.name} mock tests</Link>
             </li>
           </ul>
         </SeoCrawlNav>

@@ -13,7 +13,7 @@ export async function generateMetadata({
   if (!config) return { title: 'Mock Tests' }
 
   const official = getEffectiveExamSettings(examSlug, config)
-  const selfCanonical = `https://imtehan.com/exams/${examSlug}/mock`
+  const selfCanonical = `https://imtehan.com/exams/${examSlug}/mocks`
   const indexing = examIndexingMeta(examSlug, config.category, selfCanonical)
   const title = `${config.name} Mock Tests — Full-Length Practice Exams`
   const description = `Take ${config.name} mock tests online: ${official.totalMCQs} MCQs in ${official.duration} minutes. Twenty timed simulations with instant scoring and explanations.`

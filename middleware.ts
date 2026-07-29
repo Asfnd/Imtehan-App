@@ -201,6 +201,14 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308)
   }
 
+  // Exam mock attempts: always land on /mock-attempt/:id (avoids CDN soft-404 on /mock/1)
+  const mockAttempt = pathname.match(/^\/exams\/([^/]+)\/mock\/(\d+)\/?$/)
+  if (mockAttempt) {
+    const url = request.nextUrl.clone()
+    url.pathname = `/exams/${mockAttempt[1]}/mock-attempt/${mockAttempt[2]}`
+    return NextResponse.redirect(url, 307)
+  }
+
   // OPTIMIZATION: Skip middleware for static/cached/SEO crawl routes to save edge CPU
   // This reduces Edge Request CPU Duration by ~70%
   if (

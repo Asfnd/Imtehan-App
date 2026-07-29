@@ -4,6 +4,9 @@ import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
 import { MockSeoShell } from '@/components/seo/MockSeoShell'
 import { MockTestsClient } from './MockTestsClient'
 
+/** Never let Cloudflare keep a week-old listing that links to poisoned /mock/1. */
+export const dynamic = 'force-dynamic'
+
 export default async function MockTestsPage({
   params,
 }: {

@@ -187,7 +187,7 @@ export function buildExamsSitemap(): MetadataRoute.Sitemap {
       }
     }
     entries.push({
-      url: `${BASE_URL}/exams/${slug}/mock`,
+      url: `${BASE_URL}/exams/${slug}/mocks`,
       lastModified: lm,
       changeFrequency: 'weekly',
       priority: hubPriority - 0.03,

@@ -207,10 +207,16 @@ const nextConfig: NextConfig = {
         destination: '/exams/hec-law-gat/constitution',
         permanent: true,
       },
-      // Bust Cloudflare soft-404 on /mock/:id — attempts live at /mock-attempt/:id
+      // Old CF soft-404s on /mock/1 and /mock/3 — send to fresh mock-attempt path
       {
         source: '/exams/:exam/mock/:mockId(\\d+)',
         destination: '/exams/:exam/mock-attempt/:mockId',
+        permanent: false,
+      },
+      // Fresh mock listing (old /mock listing HTML was CDN-stuck with broken links)
+      {
+        source: '/exams/:exam/mock',
+        destination: '/exams/:exam/mocks',
         permanent: false,
       },
       {
@@ -383,6 +389,15 @@ const nextConfig: NextConfig = {
         source: '/exams/:exam/mock/:mockId',
         headers: [...ORIGIN_NO_STORE_HEADERS],
       },
+      // Mock listing must not stay on 7d CDN (stale JS kept linking to poisoned /mock/1)
+      {
+        source: '/exams/:exam/mock',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/exams/:exam/mocks',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
       {
         source: '/mpt-practice/:path*',
         headers: [...ORIGIN_NO_STORE_HEADERS],
@@ -485,7 +500,7 @@ const nextConfig: NextConfig = {
       // Exclude exam mock attempts (interactive / noindex) — see no-store rule above
       {
         source:
-          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|exams/.+/mock-attempt/[0-9]+|exams/.+/mock/[0-9]+|_next/static|_next/image|favicon.ico).*)',
+          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|exams/.+/mock-attempt|exams/.+/mocks|exams/.+/mock|_next/static|_next/image|favicon.ico).*)',
         headers: [{ key: 'Cache-Control', value: SEO_CLOUDFLARE_CACHE_CONTROL }],
       },
     ]

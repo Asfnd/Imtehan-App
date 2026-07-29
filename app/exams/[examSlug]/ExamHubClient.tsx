@@ -297,7 +297,7 @@ function ExamDashboard() {
               </span>
               <div className="flex-1" />
               <Link
-                href={`/exams/${examSlug}/mock`}
+                href={`/exams/${examSlug}/mocks`}
                 className="text-sm font-medium text-blue-600 hover:text-blue-800"
               >
                 Full mock list

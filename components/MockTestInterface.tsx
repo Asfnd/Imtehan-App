@@ -413,7 +413,7 @@ export default function MockTestInterface({
         </p>
         <button
           type="button"
-          onClick={() => router.push(`/exams/${examSlug}/mock`)}
+          onClick={() => router.push(`/exams/${examSlug}/mocks`)}
           className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
         >
           Back to mock tests

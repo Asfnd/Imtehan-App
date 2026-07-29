@@ -146,7 +146,10 @@ export default async function QuizSetPage({
           mode,
           dbTable: section.dbTable,
           subjectField: section.subjectField,
+          subjectFields: section.subjectFields,
           subtopicField: section.subtopicField,
+          topicFields: section.topicFields,
+          questionNeedles: section.questionNeedles,
           noTypeFilter: section.noTypeFilter,
           targetExam:
             mode === 'past-papers' && config.pastPapersExam ? config.pastPapersExam : undefined,
