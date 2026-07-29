@@ -572,10 +572,12 @@ const RESEARCHED: Record<string, MockBlueprint[]> = {
     {
       key: 'law-gat', label: 'Law-GAT', durationMin: 120, negMarking: 0,
       sections: [
-        { slug: 'constitutional-law', count: 25 },
-        { slug: 'law', count: 25 },
-        { slug: 'muslim-law', count: 25 },
-        { slug: 'mercantile-law', count: 25 },
+        { slug: 'constitution', count: 20 },
+        { slug: 'jurisprudence', count: 10 },
+        { slug: 'civil-procedure', count: 20 },
+        { slug: 'criminal-law', count: 20 },
+        { slug: 'law-of-evidence', count: 20 },
+        { slug: 'professional-ethics', count: 10 },
       ],
     },
   ],

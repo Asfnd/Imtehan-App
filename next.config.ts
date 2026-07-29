@@ -201,6 +201,47 @@ const nextConfig: NextConfig = {
         destination: '/mcq/:bank/:id',
         permanent: true,
       },
+      // Law-GAT official syllabus section rename (CSS optional subjects → HEC/PBC divisions)
+      {
+        source: '/exams/hec-law-gat/constitutional-law',
+        destination: '/exams/hec-law-gat/constitution',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/constitutional-law/:path*',
+        destination: '/exams/hec-law-gat/constitution/:path*',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/muslim-law',
+        destination: '/exams/hec-law-gat/jurisprudence',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/muslim-law/:path*',
+        destination: '/exams/hec-law-gat/jurisprudence/:path*',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/law',
+        destination: '/exams/hec-law-gat/criminal-law',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/law/:path*',
+        destination: '/exams/hec-law-gat/criminal-law/:path*',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/mercantile-law',
+        destination: '/exams/hec-law-gat',
+        permanent: true,
+      },
+      {
+        source: '/exams/hec-law-gat/mercantile-law/:path*',
+        destination: '/exams/hec-law-gat',
+        permanent: true,
+      },
       // Redirect old CSS practice routes to new structure
       {
         source: '/css-practice',

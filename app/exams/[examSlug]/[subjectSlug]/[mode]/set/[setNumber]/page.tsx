@@ -36,6 +36,12 @@ const SUBJECT_LABELS: Record<string, string> = {
   chemistry: 'Chemistry',
   physics: 'Physics',
   'logical-reasoning': 'Logical Reasoning',
+  constitution: 'Constitution',
+  jurisprudence: 'Jurisprudence',
+  'civil-procedure': 'Civil Procedure Code',
+  'criminal-law': 'Criminal Law',
+  'law-of-evidence': 'Law of Evidence',
+  'professional-ethics': 'Professional Ethics',
 }
 
 export async function generateMetadata({

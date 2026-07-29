@@ -193,8 +193,9 @@ export function applyBankExamScope<T extends { eq: Function; overlaps: Function;
   }
 
   if (opts.questionNeedles?.length) {
+    const qCol = opts.dbTable === 'css_mcqs_enhanced' ? 'question_text' : 'question'
     const orExpr = opts.questionNeedles
-      .map((n) => `question.ilike.%${n.replace(/%/g, '')}%`)
+      .map((n) => `${qCol}.ilike.%${n.replace(/%/g, '')}%`)
       .join(',')
     q = q.or(orExpr) as T
   }

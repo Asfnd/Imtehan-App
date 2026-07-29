@@ -19,7 +19,7 @@ const REVALIDATE = 604800
 
 export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [
-    'set-v4',
+    'set-v5',
     params.dbTable,
     String(params.setNumber),
     params.mode ?? 'practice',

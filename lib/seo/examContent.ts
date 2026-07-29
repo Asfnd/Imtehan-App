@@ -181,6 +181,34 @@ const TOP_EXAM_OVERRIDES: Record<string, ExamOverride> = {
       'Track weak areas and revisit them weekly',
     ],
   },
+  'hec-law-gat': {
+    intro:
+      'HEC Law Graduate Assessment Test (Law-GAT) is the mandatory MCQ exam for LLB graduates seeking enrolment as advocates with a Bar Council in Pakistan. The official paper has 100 MCQs: Constitution 20, Jurisprudence 10, Civil Procedure Code 20, Criminal Law 20, Law of Evidence 20, and Professional Ethics 10. Passing requires 50%. On Imtehan you can practice each official division and attempt full 100-question timed mocks.',
+    highlights: [
+      'Official HEC/PBC pattern: 100 MCQs in six syllabus divisions, 50% pass mark, no negative marking',
+      'Constitution covers constitutional history landmark cases, 1973 Constitution (Fundamental Rights, Parliament, Judicature), and basic International Law (UN Charter, ICJ)',
+      'Jurisprudence covers English (Salmond) and Islamic (Nyazee) jurisprudence',
+      'Procedure and evidence focus on CPC, PPC/CrPC, and the Qanun-e-Shahadat Order 1984',
+    ],
+    prep: [
+      'Drill each official division separately before mixing them in full mocks',
+      'Memorise landmark constitutional cases and key CPC Orders (1, 6–9, 39, 41, 43)',
+      'Practise Qanun-e-Shahadat and professional conduct rules for the ethics section',
+      'Sit full 100-question, 120-minute mocks to match real exam stamina',
+    ],
+    faqs: [
+      {
+        question: 'What is the official Law-GAT paper pattern?',
+        answer:
+          'Law-GAT has 100 MCQs: Constitution 20, Jurisprudence 10, Civil Procedure Code 20, Criminal Law 20, Law of Evidence 20, and Professional Ethics 10. You need at least 50% to pass. There is no negative marking.',
+      },
+      {
+        question: 'Who must take the HEC Law-GAT?',
+        answer:
+          'LLB graduates who want to enrol as advocates with a Provincial or Pakistan Bar Council must clear Law-GAT. It is conducted by HEC’s Education Testing Council.',
+      },
+    ],
+  },
   'ppsc-assistant': {
     intro:
       'The PPSC Assistant (BS-16) test is conducted by the Punjab Public Service Commission to recruit Assistants across Punjab government departments. It is a one-paper MCQ test covering general subjects. On Imtehan you can practice PPSC Assistant MCQs subject by subject, work through past-paper style questions, and take full mock tests with answers and explanations.',

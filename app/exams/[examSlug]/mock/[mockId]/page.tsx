@@ -6,7 +6,7 @@ import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import MockTestInterface from '@/components/MockTestInterface'
 import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
 import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
-import { MCQ_SELECT_COLS } from '@/lib/quiz-fetcher'
+import { mcqSelectCols } from '@/lib/quiz-fetcher'
 import {
   applyBankExamScope,
   isPipelineMcqTable,
@@ -31,8 +31,10 @@ function hashId(id: string, seed: number): number {
 }
 
 function isQualityRow(row: Record<string, unknown>): boolean {
-  const q = String(row.question ?? '').trim()
+  const q = String(row.question ?? row.question_text ?? '').trim()
   if (q.length < 8) return false
+  // Drop generator padding that is not real Law-GAT syllabus content
+  if (/^law-gat review\s+\d+/i.test(q)) return false
   const opts = ['option_a', 'option_b', 'option_c', 'option_d'].map((k) =>
     String(row[k] ?? '').trim().toLowerCase()
   )
@@ -72,7 +74,7 @@ async function fetchSectionPool(opts: {
   const hasNeedles = !!questionNeedles?.length
 
   const run = async (useNeedles: boolean, scopeMode: BankScopeMode | null) => {
-    let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
+    let query = supabase.from(dbTable).select(mcqSelectCols(dbTable))
     if (!noTypeFilter && !subjectField && !subtopicField) {
       query = query.in('type', qTypes)
     }
@@ -211,11 +213,11 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
 }
 
 function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
-  // v4: exact→family scope, no unscoped soft fallback, honest needle modules
+  // v5: css_mcqs_enhanced column map + official Law-GAT section scope
   return unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-v4-${examSlug}-${mockNumber}`],
-    { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v4'] }
+    [`exam-mock-v5-${examSlug}-${mockNumber}`],
+    { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v5'] }
   )()
 }
 

@@ -17,13 +17,19 @@ const DEDUPE_SCAN_MAX = 24_000
 
 /**
  * Explicit columns only — never select('*') (egress).
- * Must be the INTERSECTION of columns across CSS/job banks and MDCAT tables.
- * Selecting optional cols (question_text, mcq, topic, tags, type, year, …)
- * breaks PostgREST when any one table is missing that column — mocks/sets
- * then return [] and crash the client.
+ * Default is the INTERSECTION across CSS/job banks and MDCAT tables.
+ * `css_mcqs_enhanced` uses question_text / explanation_detailed — use
+ * mcqSelectCols(dbTable) so those sets/mocks do not 404 on empty pools.
  */
 export const MCQ_SELECT_COLS =
   'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation'
+
+export const CSS_ENHANCED_SELECT_COLS =
+  'id, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation_detailed'
+
+export function mcqSelectCols(dbTable: string): string {
+  return dbTable === 'css_mcqs_enhanced' ? CSS_ENHANCED_SELECT_COLS : MCQ_SELECT_COLS
+}
 
 type QueryFactory = () => any
 
@@ -49,6 +55,8 @@ function normRow(r: Record<string, unknown>): QuizMcqRow | null {
       (row as Record<string, unknown>).mcq
   )
   if (!question || question.length < 8) return null
+  // Generator padding from expansion waves — not real syllabus items
+  if (/^law-gat review\s+\d+/i.test(question)) return null
 
   const option_a = s(row.option_a)
   const option_b = s(row.option_b)
@@ -168,7 +176,7 @@ function buildModeQueryFactory(
   }
 ): QueryFactory {
   return () => {
-    let query = supabase.from(dbTable).select(MCQ_SELECT_COLS)
+    let query = supabase.from(dbTable).select(mcqSelectCols(dbTable))
 
     // Type filter when the bank supports it (skipped for mixed / MDCAT / subject slices)
     if (!opts.noTypeFilter && opts.mode && !opts.subjectField && !opts.subtopicField) {
@@ -308,7 +316,7 @@ export async function fetchMCQsByDifficultySet(
   const buildQuery: QueryFactory = () => {
     let query = supabase
       .from(dbTable)
-      .select(MCQ_SELECT_COLS)
+      .select(mcqSelectCols(dbTable))
       .in('difficulty', difficultyVariants(difficulty))
     query = applyBankExamScope(query, { dbTable, examSlug, subjectField })
     return query
@@ -338,7 +346,7 @@ export async function fetchMCQsByTopicSet(
   if (setNumber < 1) throw new Error(`Invalid setNumber: ${setNumber}`)
 
   const buildQuery: QueryFactory = () => {
-    let base = supabase.from(dbTable).select(MCQ_SELECT_COLS)
+    let base = supabase.from(dbTable).select(mcqSelectCols(dbTable))
     base = useTagsArray ? base.contains('tags', [tag]) : base.eq('topic', tag)
     return applyBankExamScope(base, { dbTable, examSlug })
   }
