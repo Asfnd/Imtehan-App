@@ -207,6 +207,12 @@ const nextConfig: NextConfig = {
         destination: '/exams/hec-law-gat/constitution',
         permanent: true,
       },
+      // Bust Cloudflare soft-404 on /mock/:id — attempts live at /mock-attempt/:id
+      {
+        source: '/exams/:exam/mock/:mockId(\\d+)',
+        destination: '/exams/:exam/mock-attempt/:mockId',
+        permanent: false,
+      },
       {
         source: '/exams/hec-law-gat/constitutional-law/:path*',
         destination: '/exams/hec-law-gat/constitution/:path*',
@@ -368,6 +374,15 @@ const nextConfig: NextConfig = {
         source: '/quiz/:path*',
         headers: [...ORIGIN_NO_STORE_HEADERS],
       },
+      // Exam mocks are interactive (noindex) — never edge-cache soft-404 HTML
+      {
+        source: '/exams/:exam/mock-attempt/:mockId',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
+        source: '/exams/:exam/mock/:mockId',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
       {
         source: '/mpt-practice/:path*',
         headers: [...ORIGIN_NO_STORE_HEADERS],
@@ -467,9 +482,10 @@ const nextConfig: NextConfig = {
         headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],
       },
       // Marketing / hub HTML — 7d edge cache (Cloudflare + Vercel CDN)
+      // Exclude exam mock attempts (interactive / noindex) — see no-store rule above
       {
         source:
-          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|_next/static|_next/image|favicon.ico).*)',
+          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|exams/.+/mock-attempt/[0-9]+|exams/.+/mock/[0-9]+|_next/static|_next/image|favicon.ico).*)',
         headers: [{ key: 'Cache-Control', value: SEO_CLOUDFLARE_CACHE_CONTROL }],
       },
     ]

@@ -119,7 +119,7 @@ export default function MPTLiveTestsPage() {
                 const mcqs = item.kind === 'live' ? item.question_count : 200
                 const handleClick = item.kind === 'live'
                   ? () => startTest(item.test_number)
-                  : () => router.push(`/exams/css-mpt/mock/${item.n}`)
+                  : () => router.push(`/exams/css-mpt/mock-attempt/${item.n}`)
                 const doneScore = completed[num]
                 const isDone = doneScore != null
 

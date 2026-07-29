@@ -13,9 +13,12 @@ import {
   type BankScopeMode,
 } from '@/lib/mcq-bank-scope'
 
-/** noindex mocks — cached build so repeat opens don't re-scan banks. */
-export const dynamic = 'force-static'
-export const revalidate = 604800
+/**
+ * noindex mocks — bank fetch is unstable_cache'd; page itself must not be
+ * force-static with a week-long CDN TTL or a one-off empty build poisons
+ * Cloudflare with a soft-404 for 7 days (seen on Law-GAT mock/1).
+ */
+export const dynamic = 'force-dynamic'
 export const dynamicParams = true
 
 export const metadata: Metadata = {
@@ -240,13 +243,16 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
   }
 }
 
-function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
-  // v7: bust stale ISR 404 for Law-GAT mock/1 after topic-scoped pools filled
-  return unstable_cache(
+async function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
+  // v8: recover from v7 empty-cache poison; never cache a null miss long-term
+  const cached = await unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-v7-${examSlug}-${mockNumber}`],
-    { revalidate: 604800, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v7'] }
+    [`exam-mock-v8-${examSlug}-${mockNumber}`],
+    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v8'] }
   )()
+  if (cached && cached.shuffledMCQs.length > 0) return cached
+  // Bypass poisoned/empty cache entry with a fresh bank read
+  return buildMockMcqs(examSlug, mockNumber)
 }
 
 export default async function MockTestPage({
@@ -262,7 +268,10 @@ export default async function MockTestPage({
   if (!EXAM_MOCK_SPECS[mockNumber]) notFound()
 
   const built = await cachedBuildMockMcqs(examSlug, mockNumber)
-  if (!built || built.shuffledMCQs.length === 0) notFound()
+  // Prefer error over notFound so CDNs don't cache a soft-404 for a week
+  if (!built || built.shuffledMCQs.length === 0) {
+    throw new Error(`Mock ${mockNumber} for ${examSlug} returned no MCQs`)
+  }
 
   return (
     <MockTestInterface
