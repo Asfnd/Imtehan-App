@@ -201,11 +201,13 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308)
   }
 
-  // Exam mock attempts: always land on /attempt/:id (escapes CF-poisoned /mock and /mock-attempt)
-  const legacyMock = pathname.match(/^\/exams\/([^/]+)\/(?:mock|mock-attempt)\/(\d+)\/?$/)
+  // Exam mock attempts: always land on /run/:id (escapes CF-poisoned legacy mock paths)
+  const legacyMock = pathname.match(
+    /^\/exams\/([^/]+)\/(?:mock|mock-attempt|attempt)\/(\d+)\/?$/
+  )
   if (legacyMock) {
     const url = request.nextUrl.clone()
-    url.pathname = `/exams/${legacyMock[1]}/attempt/${legacyMock[2]}`
+    url.pathname = `/exams/${legacyMock[1]}/run/${legacyMock[2]}`
     return NextResponse.redirect(url, 307)
   }
 

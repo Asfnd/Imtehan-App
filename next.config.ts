@@ -207,15 +207,20 @@ const nextConfig: NextConfig = {
         destination: '/exams/hec-law-gat/constitution',
         permanent: true,
       },
-      // Escape CF-poisoned /mock and /mock-attempt HTML — live path is /attempt/:id
+      // Escape CF-poisoned /mock, /mock-attempt, /attempt HTML — live path is /run/:id
       {
         source: '/exams/:exam/mock/:mockId(\\d+)',
-        destination: '/exams/:exam/attempt/:mockId',
+        destination: '/exams/:exam/run/:mockId',
         permanent: false,
       },
       {
         source: '/exams/:exam/mock-attempt/:mockId(\\d+)',
-        destination: '/exams/:exam/attempt/:mockId',
+        destination: '/exams/:exam/run/:mockId',
+        permanent: false,
+      },
+      {
+        source: '/exams/:exam/attempt/:mockId(\\d+)',
+        destination: '/exams/:exam/run/:mockId',
         permanent: false,
       },
       // Fresh mock listing (old /mock listing HTML was CDN-stuck with broken links)
@@ -387,6 +392,10 @@ const nextConfig: NextConfig = {
       },
       // Exam mocks are interactive (noindex) — never edge-cache soft-404 / blank-stem HTML
       {
+        source: '/exams/:exam/run/:mockId',
+        headers: [...ORIGIN_NO_STORE_HEADERS],
+      },
+      {
         source: '/exams/:exam/attempt/:mockId',
         headers: [...ORIGIN_NO_STORE_HEADERS],
       },
@@ -509,7 +518,7 @@ const nextConfig: NextConfig = {
       // Exclude exam mock attempts (interactive / noindex) — see no-store rule above
       {
         source:
-          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|exams/.+/attempt|exams/.+/mock-attempt|exams/.+/mocks|exams/.+/mock|_next/static|_next/image|favicon.ico).*)',
+          '/((?!api|auth|profile|admin|signin|community|quiz|mpt-practice|css/css-practice|css/solved-papers/view|css/past-papers/view|css/guess-papers/view|exams/.+/run|exams/.+/attempt|exams/.+/mock-attempt|exams/.+/mocks|exams/.+/mock|_next/static|_next/image|favicon.ico).*)',
         headers: [{ key: 'Cache-Control', value: SEO_CLOUDFLARE_CACHE_CONTROL }],
       },
     ]

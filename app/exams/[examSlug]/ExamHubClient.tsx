@@ -377,7 +377,7 @@ function ExamDashboard() {
         examSlug={examSlug}
         mockId={pendingMockId}
         onConfirm={() => {
-          router.push(`/exams/${examSlug}/attempt/${pendingMockId}`)
+          router.push(`/exams/${examSlug}/run/${pendingMockId}`)
           setPendingMockId(null)
         }}
         onClose={() => setPendingMockId(null)}
