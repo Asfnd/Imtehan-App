@@ -45,7 +45,7 @@ export function MockSeoShell({
           <ul>
             {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
               <li key={n}>
-                <Link href={`${base}/mock-attempt/${n}`}>
+                <Link href={`${base}/attempt/${n}`}>
                   {examName} Mock Test {n}
                 </Link>
               </li>

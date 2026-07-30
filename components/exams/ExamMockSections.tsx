@@ -131,7 +131,7 @@ export default function ExamMockSections({
 
   const navigateOrSelect = (mockId: number) => {
     if (onMockSelect) onMockSelect(mockId)
-    else router.push(`/exams/${examSlug}/mock-attempt/${mockId}`)
+    else router.push(`/exams/${examSlug}/attempt/${mockId}`)
   }
 
   const isLocked = (mockId: number) => isExamMockCardLocked(lockedAfterFirst, mockId, isPremium)

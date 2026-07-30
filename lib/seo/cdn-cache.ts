@@ -5,10 +5,19 @@ export const SEO_EDGE_TTL_SECONDS = 604800
 
 /** Origin + browser: never cache interactive or API JSON at CDN (use unstable_cache server-side). */
 export const ORIGIN_NO_STORE_CACHE_CONTROL =
-  'private, no-store, must-revalidate'
+  'private, no-cache, no-store, must-revalidate, max-age=0'
 
+/**
+ * CF "Cache Everything" can ignore private/no-store alone — also set CDN + Cloudflare
+ * directives so interactive exam HTML is never edge-cached again.
+ */
 export const ORIGIN_NO_STORE_HEADERS = [
   { key: 'Cache-Control', value: ORIGIN_NO_STORE_CACHE_CONTROL },
+  { key: 'CDN-Cache-Control', value: 'no-store' },
+  { key: 'Cloudflare-CDN-Cache-Control', value: 'no-store' },
+  { key: 'Surrogate-Control', value: 'no-store' },
+  { key: 'Pragma', value: 'no-cache' },
+  { key: 'Expires', value: '0' },
 ] as const
 
 /** JSON API responses — same policy, single object for route handlers. */
