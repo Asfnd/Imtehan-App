@@ -42,7 +42,8 @@ function extractAnswerLetter(raw: unknown): string {
   return ''
 }
 
-function normRow(r: Record<string, unknown>): QuizMcqRow | null {
+/** Map bank rows (incl. css_mcqs_enhanced question_text) onto QuizMcqRow. */
+export function normalizeQuizMcqRow(r: Record<string, unknown>): QuizMcqRow | null {
   const s = (v: unknown) => (v == null ? '' : String(v).trim())
   const row = plainTextMcqFields(r)
 
@@ -83,6 +84,10 @@ function normRow(r: Record<string, unknown>): QuizMcqRow | null {
     correct_answer,
     explanation: rawExpl == null ? undefined : plainText(s(rawExpl)),
   }
+}
+
+function normRow(r: Record<string, unknown>): QuizMcqRow | null {
+  return normalizeQuizMcqRow(r)
 }
 
 async function loadMcqBatch(

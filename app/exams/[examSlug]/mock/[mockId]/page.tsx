@@ -6,7 +6,7 @@ import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import MockTestInterface from '@/components/MockTestInterface'
 import { EXAM_MOCK_SPECS } from '@/lib/exam-mock-specs'
 import { getEffectiveExamSettings } from '@/lib/exam-mock-blueprints'
-import { mcqSelectCols } from '@/lib/quiz-fetcher'
+import { mcqSelectCols, normalizeQuizMcqRow } from '@/lib/quiz-fetcher'
 import {
   applyBankExamScope,
   isPipelineMcqTable,
@@ -221,7 +221,12 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
       .map((mcq) => ({ mcq, hash: hashId(String(mcq.id), mockNumber * 7919) }))
       .sort((a, b) => a.hash - b.hash)
       .slice(0, p.limit)
-      .map(({ mcq }) => ({ ...mcq, subject: p.label }))
+      .map(({ mcq }) => {
+        const normalized = normalizeQuizMcqRow(mcq)
+        if (!normalized) return null
+        return { ...normalized, subject: p.label }
+      })
+      .filter((row): row is NonNullable<typeof row> => row != null)
     allMCQs.push(...seeded)
   }
 
@@ -244,11 +249,11 @@ async function buildMockMcqs(examSlug: string, mockNumber: number) {
 }
 
 async function cachedBuildMockMcqs(examSlug: string, mockNumber: number) {
-  // v8: recover from v7 empty-cache poison; never cache a null miss long-term
+  // v9: map css_mcqs_enhanced question_text → question for MockTestInterface
   const cached = await unstable_cache(
     () => buildMockMcqs(examSlug, mockNumber),
-    [`exam-mock-v8-${examSlug}-${mockNumber}`],
-    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v8'] }
+    [`exam-mock-v9-${examSlug}-${mockNumber}`],
+    { revalidate: 86400, tags: [`exam-mock-${examSlug}`, 'exam-mocks-v9'] }
   )()
   if (cached && cached.shuffledMCQs.length > 0) return cached
   // Bypass poisoned/empty cache entry with a fresh bank read

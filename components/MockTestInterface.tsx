@@ -33,6 +33,9 @@ interface MCQ {
   correct_answer: string
   subject: string
   explanation?: string
+  /** css_mcqs_enhanced bank column — normalized away before render */
+  question_text?: string
+  explanation_detailed?: string
 }
 
 interface MockTestInterfaceProps {
@@ -45,6 +48,16 @@ interface MockTestInterfaceProps {
   examSlug: string
   mockNumber?: number
   mockTitle?: string
+}
+
+function coerceMcq(raw: MCQ): MCQ {
+  const question = String(raw.question ?? raw.question_text ?? '').trim()
+  const explanation = String(raw.explanation ?? raw.explanation_detailed ?? '').trim()
+  return {
+    ...raw,
+    question,
+    explanation: explanation || undefined,
+  }
 }
 
 function shuffleOptions(mcq: MCQ): MCQ {
@@ -149,7 +162,12 @@ export default function MockTestInterface({
   const [accessChecked, setAccessChecked] = useState(false)
 
   // Shuffle options once per session to eliminate answer-position bias
-  const [shuffledMCQs] = useState(() => mcqs.map((m) => shuffleOptions(plainTextMcqFields(m))))
+  const [shuffledMCQs] = useState(() =>
+    mcqs
+      .map((m) => coerceMcq(plainTextMcqFields(m)))
+      .filter((m) => m.question.length >= 8)
+      .map((m) => shuffleOptions(m))
+  )
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
