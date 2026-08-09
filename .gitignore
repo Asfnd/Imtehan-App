@@ -56,5 +56,8 @@ next-env.d.ts
 # Cached commission portal fetches (HTML/PDF; large — remove this line to commit)
 /data/syllabus/fetched/
 
+# Static MCQ bank export (serve via Caddy volume — do not commit JSON blobs)
+/data/banks/
+
 # auto-push hook log
 auto-push.log

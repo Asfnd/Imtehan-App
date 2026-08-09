@@ -27,12 +27,14 @@ jobs:
             git fetch origin
             git checkout main
             git reset --hard origin/main
+            mkdir -p ~/CSS-App/data/banks
             cp -a deploy/oracle/Caddyfile.azure-flexible deploy/oracle/Caddyfile
             test -f deploy/oracle/.env
             cd deploy/oracle
             sudo docker compose up -d --build --remove-orphans
             sleep 8
             curl -sf -o /dev/null -w "home %{http_code}\n" --max-time 30 http://127.0.0.1/
+            curl -sf -o /dev/null -w "banks %{http_code}\n" --max-time 15 http://127.0.0.1/banks/v1/ || true
             curl -sf -o /dev/null -w "assistant %{http_code}\n" --max-time 30 http://127.0.0.1/exams/police-islamabad-assistant || \
               curl -sf -o /dev/null -w "assistant_legacy %{http_code}\n" --max-time 30 http://127.0.0.1/exams/police-ict-assistant
             curl -sf -o /dev/null -w "exams %{http_code}\n" --max-time 30 http://127.0.0.1/exams

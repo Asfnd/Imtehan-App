@@ -20,12 +20,30 @@ import {
   SoftSkipError,
   withSoftCache,
 } from '@/lib/supabase-soft'
+import { loadBankSetPreferStatic, loadBankCountPreferStatic } from '@/lib/static-mcq-fetch'
+import type { BankPoolKey } from '@/lib/banks-pool'
 
 const REVALIDATE = 604800
 
+function modePoolKey(params: FetchSetParams): BankPoolKey {
+  return {
+    kind: 'mode',
+    dbTable: params.dbTable,
+    mode: params.mode ?? 'practice',
+    noTypeFilter: !!params.noTypeFilter,
+    subjectField: params.subjectField,
+    subjectFields: params.subjectFields,
+    topicFields: params.topicFields,
+    questionNeedles: params.questionNeedles,
+    subtopicField: params.subtopicField,
+    examSlug: params.examSlug,
+    targetExam: params.targetExam,
+  }
+}
+
 export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow[]> {
   const key = [
-    'set-v6',
+    'set-v7-static',
     params.dbTable,
     String(params.setNumber),
     params.mode ?? 'practice',
@@ -39,7 +57,10 @@ export function cachedFetchMCQsBySet(params: FetchSetParams): Promise<QuizMcqRow
     String(!!params.noTypeFilter),
   ]
   return unstable_cache(
-    async () => fetchMCQsBySet(createPublicSupabaseClient(), params),
+    async () =>
+      loadBankSetPreferStatic(modePoolKey(params), params.setNumber, () =>
+        fetchMCQsBySet(createPublicSupabaseClient(), params)
+      ),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -53,15 +74,26 @@ export function cachedFetchMCQsByDifficultySet(params: {
   examSlug?: string
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'diff-v4',
+    'diff-v5-static',
     params.dbTable,
     params.difficulty,
     String(params.setNumber),
     params.subjectField ?? '',
     params.examSlug ?? '',
   ]
+  const pool: BankPoolKey = {
+    kind: 'difficulty',
+    dbTable: params.dbTable,
+    difficulty: params.difficulty,
+    subjectField: params.subjectField,
+    examSlug: params.examSlug,
+    noTypeFilter: true,
+  }
   return unstable_cache(
-    async () => fetchMCQsByDifficultySet(createPublicSupabaseClient(), params),
+    async () =>
+      loadBankSetPreferStatic(pool, params.setNumber, () =>
+        fetchMCQsByDifficultySet(createPublicSupabaseClient(), params)
+      ),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -75,15 +107,26 @@ export function cachedFetchMCQsByTopicSet(params: {
   examSlug?: string
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'topic-v4',
+    'topic-v5-static',
     params.dbTable,
     params.tag,
     String(params.useTagsArray),
     String(params.setNumber),
     params.examSlug ?? '',
   ]
+  const pool: BankPoolKey = {
+    kind: 'topic',
+    dbTable: params.dbTable,
+    tag: params.tag,
+    useTagsArray: params.useTagsArray,
+    examSlug: params.examSlug,
+    noTypeFilter: true,
+  }
   return unstable_cache(
-    async () => fetchMCQsByTopicSet(createPublicSupabaseClient(), params),
+    async () =>
+      loadBankSetPreferStatic(pool, params.setNumber, () =>
+        fetchMCQsByTopicSet(createPublicSupabaseClient(), params)
+      ),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -96,34 +139,42 @@ export function cachedMdcatRangeSet(params: {
   topic?: string
 }): Promise<QuizMcqRow[]> {
   const key = [
-    'mdcat-range',
+    'mdcat-range-v2-static',
     params.dbTable,
     String(params.setNumber),
     params.difficulty ?? '',
     params.topic ?? '',
   ]
+  const pool: BankPoolKey = {
+    kind: 'mdcat',
+    dbTable: params.dbTable,
+    difficulty: params.difficulty,
+    tag: params.topic,
+    noTypeFilter: true,
+  }
   return unstable_cache(
-    async () => {
-      const supabase = createPublicSupabaseClient()
-      const offset = (params.setNumber - 1) * 20
-      const cols =
-        'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation, topic, subtopic'
-      let query = supabase.from(params.dbTable).select(cols)
-      if (params.difficulty) query = query.eq('difficulty', params.difficulty)
-      else if (params.topic) query = query.eq('topic', params.topic)
-      const { data, error } = await query.order('id').range(offset, offset + 19)
-      if (error) throw new Error(error.message)
-      return (data ?? []).map((row: Record<string, unknown>) => ({
-        id: Number(row.id),
-        question: String(row.question),
-        option_a: String(row.option_a),
-        option_b: String(row.option_b),
-        option_c: String(row.option_c),
-        option_d: String(row.option_d),
-        correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
-        explanation: row.explanation ? String(row.explanation) : undefined,
-      }))
-    },
+    async () =>
+      loadBankSetPreferStatic(pool, params.setNumber, async () => {
+        const supabase = createPublicSupabaseClient()
+        const offset = (params.setNumber - 1) * 20
+        const cols =
+          'id, question, option_a, option_b, option_c, option_d, correct_answer, explanation, topic, subtopic'
+        let query = supabase.from(params.dbTable).select(cols)
+        if (params.difficulty) query = query.eq('difficulty', params.difficulty)
+        else if (params.topic) query = query.eq('topic', params.topic)
+        const { data, error } = await query.order('id').range(offset, offset + 19)
+        if (error) throw new Error(error.message)
+        return (data ?? []).map((row: Record<string, unknown>) => ({
+          id: Number(row.id),
+          question: String(row.question),
+          option_a: String(row.option_a),
+          option_b: String(row.option_b),
+          option_c: String(row.option_c),
+          option_d: String(row.option_d),
+          correct_answer: String(row.correct_answer).charAt(0).toUpperCase(),
+          explanation: row.explanation ? String(row.explanation) : undefined,
+        }))
+      }),
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
   )()
@@ -136,24 +187,43 @@ export function cachedMdcatTopicCount(params: {
   topic?: string
 }): Promise<number> {
   const key = [
-    'mdcat-count',
+    'mdcat-count-v2-static',
     params.dbTable,
     params.difficulty ?? '',
     params.topic ?? '',
   ]
-  return unstable_cache(
-    async () => {
-      const supabase = createPublicSupabaseClient()
-      let query = supabase.from(params.dbTable).select('*', { count: 'exact', head: true })
-      if (params.difficulty) query = query.eq('difficulty', params.difficulty)
-      else if (params.topic) query = query.eq('topic', params.topic)
-      const { count, error } = await query
-      if (error) throw new Error(error.message)
-      return count ?? 0
-    },
-    key,
-    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
-  )()
+  const pool: BankPoolKey = {
+    kind: 'mdcat',
+    dbTable: params.dbTable,
+    difficulty: params.difficulty,
+    tag: params.topic,
+    noTypeFilter: true,
+  }
+  return withSoftCache(0, () =>
+    unstable_cache(
+      async () =>
+        loadBankCountPreferStatic(pool, async () => {
+          if (softMode()) throw new SoftSkipError()
+          try {
+            const supabase = createPublicSupabaseClient()
+            let query = supabase.from(params.dbTable).select('*', { count: 'exact', head: true })
+            if (params.difficulty) query = query.eq('difficulty', params.difficulty)
+            else if (params.topic) query = query.eq('topic', params.topic)
+            const { count, error } = await query
+            if (error) {
+              noteSupabaseFailure(error)
+              throw new Error(error.message)
+            }
+            return count ?? 0
+          } catch (e) {
+            noteSupabaseFailure(e)
+            throw e
+          }
+        }),
+      key,
+      { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+    )()
+  )
 }
 
 /** Cached head counts for exam mode/batch hubs (no full row scan). */
@@ -169,7 +239,7 @@ export function cachedExamTableCount(params: {
   questionNeedles?: string[]
 }): Promise<number> {
   const key = [
-    'exam-count-v6',
+    'exam-count-v7-static',
     params.dbTable,
     params.type ?? 'all',
     params.targetExam ?? '',
@@ -180,37 +250,57 @@ export function cachedExamTableCount(params: {
     params.examSlug ?? '',
     (params.questionNeedles ?? []).join('|'),
   ]
+  const mixed =
+    !params.type ||
+    !!params.subjectField ||
+    !!(params.subjectFields && params.subjectFields.length) ||
+    !!params.subtopicField ||
+    !!(params.topicFields && params.topicFields.length)
+  const pool: BankPoolKey = {
+    kind: 'mode',
+    dbTable: params.dbTable,
+    mode: mixed ? 'practice' : params.type,
+    noTypeFilter: mixed,
+    subjectField: params.subjectField,
+    subjectFields: params.subjectFields,
+    topicFields: params.topicFields,
+    questionNeedles: params.questionNeedles,
+    subtopicField: params.subtopicField,
+    examSlug: params.examSlug,
+    targetExam: params.targetExam,
+  }
   return withSoftCache(0, () =>
     unstable_cache(
-      async () => {
-        if (softMode()) throw new SoftSkipError()
-        try {
-          const supabase = createPublicSupabaseClient()
-          let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-          if (params.targetExam) query = query.eq('target_exam', params.targetExam)
-          else if (params.type) query = query.eq('type', params.type)
-          query = applyBankExamScope(query, {
-            dbTable: params.dbTable,
-            examSlug: params.examSlug,
-            subjectField: params.subjectField,
-            subjectFields: params.subjectFields,
-            subtopicField: params.subtopicField,
-            topicFields: params.topicFields,
-            targetExam: params.targetExam,
-            questionNeedles: params.questionNeedles,
-            scopeMode: 'family',
-          })
-          const { count, error } = await query
-          if (error) {
-            noteSupabaseFailure(error)
-            throw new Error(error.message)
+      async () =>
+        loadBankCountPreferStatic(pool, async () => {
+          if (softMode()) throw new SoftSkipError()
+          try {
+            const supabase = createPublicSupabaseClient()
+            let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+            if (params.targetExam) query = query.eq('target_exam', params.targetExam)
+            else if (params.type) query = query.eq('type', params.type)
+            query = applyBankExamScope(query, {
+              dbTable: params.dbTable,
+              examSlug: params.examSlug,
+              subjectField: params.subjectField,
+              subjectFields: params.subjectFields,
+              subtopicField: params.subtopicField,
+              topicFields: params.topicFields,
+              targetExam: params.targetExam,
+              questionNeedles: params.questionNeedles,
+              scopeMode: 'family',
+            })
+            const { count, error } = await query
+            if (error) {
+              noteSupabaseFailure(error)
+              throw new Error(error.message)
+            }
+            return count ?? 0
+          } catch (e) {
+            noteSupabaseFailure(e)
+            throw e
           }
-          return count ?? 0
-        } catch (e) {
-          noteSupabaseFailure(e)
-          throw e
-        }
-      },
+        }),
       key,
       { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
     )()
@@ -225,38 +315,47 @@ export function cachedTopicTagCount(params: {
   examSlug?: string
 }): Promise<number> {
   const key = [
-    'topic-count-v4',
+    'topic-count-v5-static',
     params.dbTable,
     params.tag,
     String(params.useTagsArray),
     params.examSlug ?? '',
   ]
+  const pool: BankPoolKey = {
+    kind: 'topic',
+    dbTable: params.dbTable,
+    tag: params.tag,
+    useTagsArray: params.useTagsArray,
+    examSlug: params.examSlug,
+    noTypeFilter: true,
+  }
   return withSoftCache(0, () =>
     unstable_cache(
-      async () => {
-        if (softMode()) throw new SoftSkipError()
-        try {
-          const supabase = createPublicSupabaseClient()
-          let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-          query = params.useTagsArray
-            ? query.contains('tags', [params.tag])
-            : query.eq('topic', params.tag)
-          query = applyBankExamScope(query, {
-            dbTable: params.dbTable,
-            examSlug: params.examSlug,
-            scopeMode: 'family',
-          })
-          const { count, error } = await query
-          if (error) {
-            noteSupabaseFailure(error)
-            throw new Error(error.message)
+      async () =>
+        loadBankCountPreferStatic(pool, async () => {
+          if (softMode()) throw new SoftSkipError()
+          try {
+            const supabase = createPublicSupabaseClient()
+            let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+            query = params.useTagsArray
+              ? query.contains('tags', [params.tag])
+              : query.eq('topic', params.tag)
+            query = applyBankExamScope(query, {
+              dbTable: params.dbTable,
+              examSlug: params.examSlug,
+              scopeMode: 'family',
+            })
+            const { count, error } = await query
+            if (error) {
+              noteSupabaseFailure(error)
+              throw new Error(error.message)
+            }
+            return count ?? 0
+          } catch (e) {
+            noteSupabaseFailure(e)
+            throw e
           }
-          return count ?? 0
-        } catch (e) {
-          noteSupabaseFailure(e)
-          throw e
-        }
-      },
+        }),
       key,
       { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
     )()
@@ -273,7 +372,7 @@ export function cachedDifficultyCount(params: {
   examSlug?: string
 }): Promise<number> {
   const key = [
-    'diff-count-v5',
+    'diff-count-v6-static',
     params.dbTable,
     params.difficulty,
     params.subjectField ?? '',
@@ -281,40 +380,53 @@ export function cachedDifficultyCount(params: {
     (params.questionNeedles ?? []).join('|'),
     params.examSlug ?? '',
   ]
+  const pool: BankPoolKey = {
+    kind: 'difficulty',
+    dbTable: params.dbTable,
+    difficulty: params.difficulty,
+    subjectField: params.subjectField,
+    examSlug: params.examSlug,
+    noTypeFilter: true,
+  }
   return withSoftCache(0, () =>
     unstable_cache(
-      async () => {
-        if (softMode()) throw new SoftSkipError()
-        try {
-          const supabase = createPublicSupabaseClient()
-          const level = params.difficulty.trim()
-          const variants = Array.from(
-            new Set([level, level.charAt(0).toUpperCase() + level.slice(1).toLowerCase(), level.toLowerCase()])
-          )
-          let query = supabase
-            .from(params.dbTable)
-            .select('id', { count: 'exact', head: true })
-            .in('difficulty', variants)
-          if (params.subjectField) query = query.eq('subject', params.subjectField)
-          query = applyBankExamScope(query, {
-            dbTable: params.dbTable,
-            examSlug: params.examSlug,
-            subjectField: params.subjectField,
-            topicFields: params.topicFields,
-            questionNeedles: params.questionNeedles,
-            scopeMode: 'family',
-          })
-          const { count, error } = await query
-          if (error) {
-            noteSupabaseFailure(error)
-            throw new Error(error.message)
+      async () =>
+        loadBankCountPreferStatic(pool, async () => {
+          if (softMode()) throw new SoftSkipError()
+          try {
+            const supabase = createPublicSupabaseClient()
+            const level = params.difficulty.trim()
+            const variants = Array.from(
+              new Set([
+                level,
+                level.charAt(0).toUpperCase() + level.slice(1).toLowerCase(),
+                level.toLowerCase(),
+              ])
+            )
+            let query = supabase
+              .from(params.dbTable)
+              .select('id', { count: 'exact', head: true })
+              .in('difficulty', variants)
+            if (params.subjectField) query = query.eq('subject', params.subjectField)
+            query = applyBankExamScope(query, {
+              dbTable: params.dbTable,
+              examSlug: params.examSlug,
+              subjectField: params.subjectField,
+              topicFields: params.topicFields,
+              questionNeedles: params.questionNeedles,
+              scopeMode: 'family',
+            })
+            const { count, error } = await query
+            if (error) {
+              noteSupabaseFailure(error)
+              throw new Error(error.message)
+            }
+            return count ?? 0
+          } catch (e) {
+            noteSupabaseFailure(e)
+            throw e
           }
-          return count ?? 0
-        } catch (e) {
-          noteSupabaseFailure(e)
-          throw e
-        }
-      },
+        }),
       key,
       { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
     )()

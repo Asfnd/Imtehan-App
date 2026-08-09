@@ -12,6 +12,8 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+      # Pre-materialized MCQ JSON: host data/banks/v1 → /srv/banks/v1
+      - ../../data/banks:/srv/banks:ro
     depends_on:
       web:
         condition: service_started
@@ -30,6 +32,13 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      BANKS_DIR: /app/data/banks/v1
+      BANKS_STATIC: ${BANKS_STATIC:-1}
+      # Keep fallback until full export coverage; set 0 when banks are complete.
+      BANKS_FALLBACK_SUPABASE: ${BANKS_FALLBACK_SUPABASE:-1}
+    volumes:
+      - ../../data/banks:/app/data/banks:ro
     expose:
       - '3000'
 
