@@ -39,6 +39,7 @@ export const FEATURED_EXAM_SLUGS = [
   'nts-general',
   'military-pak-army',
   'issb-academic',
+  'police-islamabad-assistant',
   'police-punjab-constable',
   'mdcat',
   'pharm-d-entry',
