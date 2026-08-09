@@ -1,9 +1,13 @@
 'use client'
 
+import Link from 'next/link'
 import { Lock, CheckCircle, type LucideIcon } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 export type ExamPracticeGridCardProps = {
-  onClick: () => void
+  /** Prefer href so first click works before hydration / if soft-nav stalls. */
+  href?: string
+  onClick?: () => void
   icon: LucideIcon
   title: string
   subtitle: string
@@ -19,6 +23,7 @@ export type ExamPracticeGridCardProps = {
  * Compact tile shared by mock tiers, mocks, and subject practice: matches original subject card scale.
  */
 export default function ExamPracticeGridCard({
+  href,
   onClick,
   icon: Icon,
   title,
@@ -42,12 +47,10 @@ export default function ExamPracticeGridCard({
       ? 'hover:-translate-y-1 hover:border-emerald-300 hover:shadow-md hover:shadow-emerald-500/10'
       : 'hover:-translate-y-1 hover:border-blue-400 hover:shadow-md hover:shadow-blue-500/10'
 
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`group relative flex h-full w-full flex-col overflow-hidden rounded-lg border text-center shadow-sm transition-all duration-300 ${borderBase} ${hoverBase}`}
-    >
+  const className = `group relative flex h-full w-full flex-col overflow-hidden rounded-lg border text-center shadow-sm transition-all duration-300 ${borderBase} ${hoverBase}`
+
+  const inner: ReactNode = (
+    <>
       <div
         className={[
           'pointer-events-none absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-0 transition-opacity duration-300',
@@ -60,7 +63,6 @@ export default function ExamPracticeGridCard({
       />
 
       <div className="relative flex flex-1 flex-col p-3 text-center sm:p-3.5">
-        {/* Top-right badge: lock or completed check */}
         {locked && (
           <div className="absolute right-1.5 top-1.5 rounded-full bg-gray-100 p-0.5">
             <Lock className="h-2.5 w-2.5 text-gray-400" aria-hidden />
@@ -150,6 +152,25 @@ export default function ExamPracticeGridCard({
           {completed ? 'Retake' : actionLabel}
         </span>
       </div>
+    </>
+  )
+
+  if (href && !locked) {
+    return (
+      <Link
+        href={href}
+        prefetch
+        onClick={onClick}
+        className={className}
+      >
+        {inner}
+      </Link>
+    )
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {inner}
     </button>
   )
 }

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { FileText, ChevronDown, LayoutGrid } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
@@ -37,7 +37,6 @@ const CATEGORY_ORDER = [
 ]
 
 export default function ExamsPageClient() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const initialCategory = searchParams.get('category') || 'css'
   const [activeCategory, setActiveCategory] = useState(initialCategory)
@@ -50,8 +49,8 @@ export default function ExamsPageClient() {
         setDropdownOpen(false)
       }
     }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
+    document.addEventListener('pointerdown', handleClick)
+    return () => document.removeEventListener('pointerdown', handleClick)
   }, [])
 
   const examsByCategory = Object.entries(EXAM_CONFIGS).reduce((acc, [slug, config]) => {
@@ -147,32 +146,33 @@ export default function ExamsPageClient() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {activeExams.map((exam) => (
-            <div
+            <Link
               key={exam.slug}
-              className="group relative bg-white rounded-lg border-2 border-gray-300 hover:border-blue-500 shadow-sm hover:shadow-md hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
-              onClick={() => router.push(`/exams/${exam.slug}`)}
+              href={`/exams/${exam.slug}`}
+              prefetch
+              className="group relative block overflow-hidden rounded-lg border-2 border-gray-300 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-500 hover:shadow-md hover:shadow-blue-500/10"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative p-5 text-center">
-                <div className="w-10 h-10 mx-auto rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mb-3 shadow-sm group-hover:scale-105 transition-all duration-300">
-                  <FileText className="w-5 h-5 text-white" />
+                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 shadow-sm transition-all duration-300 group-hover:scale-105">
+                  <FileText className="h-5 w-5 text-white" />
                 </div>
 
-                <h2 className="text-sm font-semibold text-gray-900 mb-3 group-hover:text-blue-900 transition-colors line-clamp-2 min-h-[2.5rem]">
+                <h2 className="mb-3 line-clamp-2 min-h-[2.5rem] text-sm font-semibold text-gray-900 transition-colors group-hover:text-blue-900">
                   {exam.name}
                 </h2>
 
-                <div className="bg-blue-50 rounded-lg p-2.5 mb-3 border border-blue-100">
+                <div className="mb-3 rounded-lg border border-blue-100 bg-blue-50 p-2.5">
                   <div className="text-sm font-semibold text-blue-600">MCQs + Mocks</div>
                   <div className="text-[10px] text-gray-500">{exam.sections.length} subjects · {exam.duration}m</div>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-3 rounded-md font-semibold text-sm transition-all">
+                <span className="block w-full rounded-md bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-2 text-sm font-semibold text-white transition-all group-hover:from-blue-700 group-hover:to-blue-800">
                   Practice
-                </button>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

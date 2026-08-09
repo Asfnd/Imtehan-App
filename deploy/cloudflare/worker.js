@@ -9,10 +9,10 @@
 const ORIGIN_IP = '20.205.110.177'
 const PUBLIC_HOST = 'imtehan.com'
 const ORIGIN_BASE = `http://${PUBLIC_HOST}`
-const CACHE_VER = 'v31'
+const CACHE_VER = 'v32'
 
-const HTML_EDGE_TTL = 3600
-const HTML_STALE_TTL = 86400
+const HTML_EDGE_TTL = 300
+const HTML_STALE_TTL = 1800
 const SEO_EDGE_TTL = 86400
 const API_EDGE_TTL = 21600
 
@@ -146,7 +146,10 @@ function shouldHtmlWorkerCache(request, url) {
   if (/sb-.*-auth-token/i.test(cookie)) return false
   if (request.headers.get('authorization')) return false
   const accept = (request.headers.get('Accept') || '').toLowerCase()
-  if (!accept.includes('text/html')) return false
+  // Browsers send text/html; some clients send */* — both should use HTML cache path.
+  if (accept && !accept.includes('text/html') && accept !== '*/*' && !accept.startsWith('*/*')) {
+    return false
+  }
   return isPublicHtmlPath(url.pathname)
 }
 
@@ -373,15 +376,25 @@ async function handleHtml(request, incoming, target, ctx) {
     } else {
       const storedAt = Number(hit.headers.get('X-Imtehan-Stored-At') || 0)
       const ageMs = storedAt ? Date.now() - storedAt : HTML_EDGE_TTL * 1000
-      if (ageMs > HTML_EDGE_TTL * 1000) {
+      const stale = ageMs > HTML_EDGE_TTL * 1000
+      // Exam hubs change often after deploys — never serve a stale shell (breaks first soft-nav).
+      const examBrowse = incoming.pathname === '/exams' || incoming.pathname.startsWith('/exams/')
+      if (stale && examBrowse) {
+        try {
+          ctx.waitUntil(cache.delete(key))
+        } catch (_) {}
+      } else if (stale) {
         ctx.waitUntil(refreshHtml(request, target, key))
+        const headers = withMeta(new Headers(hit.headers), { cache: 'STALE' })
+        noStoreHtmlHeaders(headers)
+        attachCanonical(headers, incoming.pathname)
+        return new Response(hit.body, { status: hit.status, headers })
+      } else {
+        const headers = withMeta(new Headers(hit.headers), { cache: 'HIT' })
+        noStoreHtmlHeaders(headers)
+        attachCanonical(headers, incoming.pathname)
+        return new Response(hit.body, { status: hit.status, headers })
       }
-      const headers = withMeta(new Headers(hit.headers), {
-        cache: ageMs > HTML_EDGE_TTL * 1000 ? 'STALE' : 'HIT',
-      })
-      noStoreHtmlHeaders(headers)
-      attachCanonical(headers, incoming.pathname)
-      return new Response(hit.body, { status: hit.status, headers })
     }
   }
 
@@ -399,6 +412,12 @@ async function handleHtml(request, incoming, target, ctx) {
       headers.set('X-Imtehan-Put', 'err')
       headers.set('X-Imtehan-Put-Err', String(e && e.message ? e.message : e).slice(0, 80))
     }
+  } else if (!resp.ok) {
+    // Never poison the edge with soft/hard 404 HTML shells.
+    try {
+      ctx.waitUntil(cache.delete(key))
+    } catch (_) {}
+    headers.set('Cache-Control', 'private, no-store')
   }
 
   return new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers })
@@ -476,7 +495,8 @@ async function handleRsc(request, target) {
 }
 
 async function handleBypass(request, target) {
-  const resp = await fetchOrigin(request, target, { edgeTtl: 0 })
+  const bust = request.method === 'GET' || request.method === 'HEAD'
+  const resp = await fetchOrigin(request, target, { edgeTtl: 0, bust })
   const headers = withMeta(new Headers(resp.headers), { cache: 'BYPASS' })
   stripCdnCacheHeaders(headers)
   headers.set('Cache-Control', 'private, no-store')
