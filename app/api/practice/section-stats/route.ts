@@ -2,9 +2,21 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cachedSectionStats } from '@/lib/cached-quiz-fetch'
 import { topicDbValue, TOPIC_COL_TABLES } from '@/lib/topic-tags'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
+import { noteSupabaseFailure, softMode, SOFT_API_CACHE_HEADERS } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
+
+const SOFT_SECTION_STATS = {
+  pastCount: 0,
+  importantCount: 0,
+  repeatedCount: 0,
+  easyCount: 0,
+  mediumCount: 0,
+  hardCount: 0,
+  topics: {} as Record<string, number>,
+  soft: true as const,
+}
 
 /** Batched subject-hub counts (modes + difficulty + topics), 24h cache. */
 export async function GET(request: NextRequest) {
@@ -22,6 +34,10 @@ export async function GET(request: NextRequest) {
   const resolvedTags = tags.map((tag) =>
     useTopicCol ? topicDbValue(tag, dbTable) : tag
   )
+
+  if (softMode()) {
+    return NextResponse.json(SOFT_SECTION_STATS, { headers: SOFT_API_CACHE_HEADERS })
+  }
 
   try {
     const stats = await cachedSectionStats({
@@ -64,7 +80,8 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ ...stats, topics }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('section-stats:', error)
-    return NextResponse.json({ error: 'Failed to load section stats' }, { status: 500 })
+    return NextResponse.json(SOFT_SECTION_STATS, { headers: SOFT_API_CACHE_HEADERS })
   }
 }

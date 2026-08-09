@@ -1,14 +1,21 @@
 /**
  * Free-tier circuit breaker: skip non-essential Supabase work when Auth/DB is dying.
- * Env NEXT_PUBLIC_SUPABASE_SOFT_MODE=1 forces soft mode. Otherwise auto-trips on timeouts.
+ *
+ * - SUPABASE_SOFT_MODE=1 / NEXT_PUBLIC_SUPABASE_SOFT_MODE=1 → force soft (counts/auth spam only)
+ * - Auto-trips on timeouts for hours so Nano can recover
+ * - clearSoftMode() / probeAndMaybeClearSoft() when ENV is off and DB is healthy again
  */
 
 const ENV_ON =
   process.env.NEXT_PUBLIC_SUPABASE_SOFT_MODE === '1' ||
   process.env.SUPABASE_SOFT_MODE === '1'
 
-/** Start soft for 45m after each deploy so Nano can recover from count storms. */
-let trippedUntil = Date.now() + 45 * 60_000
+/** Auto soft after boot (6h) so deploys don't stampede a recovering Nano. */
+const BOOT_SOFT_MS = 6 * 60 * 60_000
+const TRIP_MS = 2 * 60 * 60_000
+
+let trippedUntil = Date.now() + BOOT_SOFT_MS
+let probing = false
 
 const FAIL_RE =
   /timeout|timed out|context deadline|503|502|504|522|524|525|overloaded|connection terminated|ECONNRESET|fetch failed|Failed to fetch|JWT|AuthRetryable|network/i
@@ -17,7 +24,7 @@ export function softMode(): boolean {
   return ENV_ON || Date.now() < trippedUntil
 }
 
-export function tripSoftMode(ms = 20 * 60_000): void {
+export function tripSoftMode(ms = TRIP_MS): void {
   const until = Date.now() + ms
   if (until > trippedUntil) trippedUntil = until
 }
@@ -42,3 +49,50 @@ export function wrapSoft<T>(fallback: T, run: () => Promise<T>): Promise<T> {
     return fallback
   })
 }
+
+/**
+ * Cheap Auth health probe. Only clears auto soft when ENV is not forcing soft.
+ * Safe to call from a cron / admin / health route.
+ */
+export async function probeAndMaybeClearSoft(): Promise<{
+  soft: boolean
+  healthy: boolean
+  forced: boolean
+}> {
+  const forced = ENV_ON
+  if (forced) return { soft: true, healthy: false, forced: true }
+  if (probing) return { soft: softMode(), healthy: false, forced: false }
+  probing = true
+  try {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!url || !key) return { soft: softMode(), healthy: false, forced: false }
+
+    const ctrl = new AbortController()
+    const timer = setTimeout(() => ctrl.abort(), 4000)
+    try {
+      const res = await fetch(`${url}/auth/v1/health`, {
+        headers: { apikey: key, Authorization: `Bearer ${key}` },
+        signal: ctrl.signal,
+        cache: 'no-store',
+      })
+      const healthy = res.ok
+      if (healthy) clearSoftMode()
+      else tripSoftMode()
+      return { soft: softMode(), healthy, forced: false }
+    } finally {
+      clearTimeout(timer)
+    }
+  } catch (e) {
+    noteSupabaseFailure(e)
+    return { soft: true, healthy: false, forced: false }
+  } finally {
+    probing = false
+  }
+}
+
+/** Soft count/stats JSON — short edge TTL so CF can absorb repeat hub hits. */
+export const SOFT_API_CACHE_HEADERS = {
+  'Cache-Control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=600',
+  'X-Imtehan-Soft': '1',
+} as const
