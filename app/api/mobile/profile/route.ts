@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
         .from("users")
         .select("id, email, total_xp, level, current_streak, longest_streak, total_quizzes")
         .eq("id", authUser.id)
-        .single(),
+        .maybeSingle(),
       supabase
         .from("quiz_history")
         .select("id, topic, score, total_questions, time_taken, completed_at")

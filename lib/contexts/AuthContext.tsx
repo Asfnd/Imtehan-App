@@ -51,9 +51,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setTimeout(runAuthCheck, 0)
     }
 
-    // Re-sync when tab regains focus (picks up admin premium grants without re-login)
+    // Re-sync when tab regains focus (picks up admin premium grants without re-login).
+    // Soft refresh only — hard Auth refreshes are rate-limited inside getFreshAuthUser.
+    let lastVisibleAt = 0
     const onVisible = () => {
       if (document.visibilityState !== 'visible') return
+      const now = Date.now()
+      if (now - lastVisibleAt < 5 * 60 * 1000) return
+      lastVisibleAt = now
       void getFreshAuthUser().then(setUser).catch(() => {})
     }
     document.addEventListener('visibilitychange', onVisible)

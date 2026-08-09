@@ -11,6 +11,33 @@ import type { NextResponse } from 'next/server'
 export const GUEST_DEMO_COOKIE = 'imtehan_gid'
 export const DEMO_PRACTICE_LIMIT = 1
 
+/** Tiny process cache — cuts repeat demo_practice_usage reads on the same guest/user. */
+const demoCountCache = new Map<string, { count: number; at: number }>()
+const DEMO_COUNT_TTL_MS = 60_000
+
+function cacheGet(key: string): number | null {
+  const hit = demoCountCache.get(key)
+  if (!hit) return null
+  if (Date.now() - hit.at > DEMO_COUNT_TTL_MS) {
+    demoCountCache.delete(key)
+    return null
+  }
+  return hit.count
+}
+
+function cacheSet(key: string, count: number): void {
+  demoCountCache.set(key, { count, at: Date.now() })
+  if (demoCountCache.size > 5000) {
+    const first = demoCountCache.keys().next().value
+    if (first) demoCountCache.delete(first)
+  }
+}
+
+function cacheBump(key: string): void {
+  const cur = cacheGet(key) ?? 0
+  cacheSet(key, cur + 1)
+}
+
 export type PracticeDenyCode = 'REQUIRE_SIGN_IN' | 'PREMIUM_REQUIRED' | 'DEMO_USED'
 
 export type PracticeAccessDecision =
@@ -41,23 +68,33 @@ export function attachGuestCookie(res: NextResponse, token: string): void {
 }
 
 async function getCountByGuest(guestToken: string): Promise<number> {
+  const key = `g:${guestToken}`
+  const cached = cacheGet(key)
+  if (cached != null) return cached
   const admin = createAdminSupabaseClient()
   const { data } = await admin
     .from('demo_practice_usage')
     .select('practice_count')
     .eq('guest_token', guestToken)
     .maybeSingle()
-  return data?.practice_count ?? 0
+  const count = data?.practice_count ?? 0
+  cacheSet(key, count)
+  return count
 }
 
 async function getCountByUser(userId: string): Promise<number> {
+  const key = `u:${userId}`
+  const cached = cacheGet(key)
+  if (cached != null) return cached
   const admin = createAdminSupabaseClient()
   const { data } = await admin
     .from('demo_practice_usage')
     .select('practice_count')
     .eq('user_id', userId)
     .maybeSingle()
-  return data?.practice_count ?? 0
+  const count = data?.practice_count ?? 0
+  cacheSet(key, count)
+  return count
 }
 
 /** Combined demo usage for this browser + account (prevents double-dip after sign-in). */
@@ -137,6 +174,7 @@ export async function consumeDemo(opts: {
           updated_at: now,
         })
         .eq('id', existing.id)
+      cacheBump(`u:${opts.userId}`)
       return
     }
 
@@ -146,6 +184,7 @@ export async function consumeDemo(opts: {
       last_kind: opts.kind,
       last_practice_at: now,
     })
+    cacheSet(`u:${opts.userId}`, 1)
     return
   }
 
@@ -165,6 +204,7 @@ export async function consumeDemo(opts: {
         updated_at: now,
       })
       .eq('id', existing.id)
+    cacheBump(`g:${opts.guestToken}`)
     return
   }
 
@@ -174,6 +214,7 @@ export async function consumeDemo(opts: {
     last_kind: opts.kind,
     last_practice_at: now,
   })
+  cacheSet(`g:${opts.guestToken}`, 1)
 }
 
 /** @deprecated use consumeDemo */
