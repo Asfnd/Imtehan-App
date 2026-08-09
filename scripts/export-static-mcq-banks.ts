@@ -26,7 +26,7 @@ import {
 import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 import { mcqSelectCols, normalizeQuizMcqRow } from '@/lib/quiz-fetcher'
 import { normalizeQuestionStem, SET_SIZE, type QuizMcqRow } from '@/lib/set-integrity'
-import { TABLE_POPULAR_TAGS, isTagArrayTable, difficultyDbValue } from '@/lib/topic-tags'
+import { TABLE_POPULAR_TAGS, isTagArrayTable, difficultyDbValue, topicDbValue } from '@/lib/topic-tags'
 
 dotenv.config({ path: '.env.local' })
 dotenv.config()
@@ -146,8 +146,15 @@ function topicQuery(supabase: SupabaseClient, key: BankPoolKey): QueryFactory {
 function mdcatQuery(supabase: SupabaseClient, key: BankPoolKey): QueryFactory {
   return () => {
     let query = supabase.from(key.dbTable).select(mcqSelectCols(key.dbTable))
-    if (key.difficulty) query = query.eq('difficulty', key.difficulty)
-    else if (key.tag) query = query.eq('topic', key.tag)
+    if (key.difficulty) {
+      const d = key.difficulty
+      const variants = Array.from(
+        new Set([d, d.charAt(0).toUpperCase() + d.slice(1).toLowerCase(), d.toLowerCase()])
+      )
+      query = query.in('difficulty', variants)
+    } else if (key.tag) {
+      query = query.eq('topic', key.tag)
+    }
     return query
   }
 }
@@ -171,14 +178,10 @@ async function materializePool(
           ? mdcatQuery(supabase, key)
           : modeQuery(supabase, key)
 
-  // mdcat range path historically was id-order without stem dedupe; keep order by id
-  // but still drop invalid rows. Mode/diff/topic match live stem-dedupe.
-  let rows: QuizMcqRow[]
-  if (key.kind === 'mdcat') {
-    const raw = await loadAllDeduped(build) // still normalize; stem-dedupe is fine & stable
-    rows = raw
-  } else {
-    rows = await loadAllDeduped(build)
+  const rows = await loadAllDeduped(build)
+  if (rows.length === 0) {
+    // Never write empty manifests — they poison counts to 0 and block fallback.
+    return { poolId, total: 0, setCount: 0, skippedEmpty: true as const }
   }
 
   const setCount = Math.ceil(rows.length / SET_SIZE) || 0
@@ -211,7 +214,7 @@ async function materializePool(
     generatedAt: new Date().toISOString(),
   }
   await fs.writeFile(path.join(dir, 'manifest.json'), JSON.stringify(man, null, 2))
-  return { poolId, total: rows.length, setCount }
+  return { poolId, total: rows.length, setCount, skippedEmpty: false as const }
 }
 
 function collectPools(examFilter?: string): BankPoolKey[] {
@@ -263,15 +266,16 @@ function collectPools(examFilter?: string): BankPoolKey[] {
         })
       }
 
-      // Popular tags / topics
+      // Popular tags / topics — store DB topic values (not URL slugs) in the pool key.
       const tags = TABLE_POPULAR_TAGS[section.dbTable]
       if (tags?.length) {
         const useTagsArray = isTagArrayTable(section.dbTable)
         for (const tag of tags) {
+          const dbTag = useTagsArray ? tag : topicDbValue(tag, section.dbTable)
           add({
             kind: 'topic',
             dbTable: section.dbTable,
-            tag,
+            tag: dbTag,
             useTagsArray,
             examSlug,
             noTypeFilter: true,
@@ -290,7 +294,7 @@ function collectPools(examFilter?: string): BankPoolKey[] {
           add({
             kind: 'mdcat',
             dbTable: section.dbTable,
-            difficulty: level,
+            difficulty: difficultyDbValue(level, section.dbTable),
             noTypeFilter: true,
           })
         }
@@ -305,8 +309,32 @@ async function main() {
   const outRoot = path.resolve(arg('out') || path.join(process.cwd(), 'data', 'banks'))
   const examFilter = arg('exam')
   const resume = hasFlag('resume')
+  const pruneEmpty = hasFlag('prune-empty') || true
   const maxPools = arg('max-pools') ? Number(arg('max-pools')) : Infinity
   const sleepMs = arg('sleep-ms') ? Number(arg('sleep-ms')) : 50
+
+  if (pruneEmpty) {
+    const v1 = path.join(outRoot, BANKS_VERSION)
+    try {
+      const dirs = await fs.readdir(v1)
+      let pruned = 0
+      for (const id of dirs) {
+        const manPath = path.join(v1, id, 'manifest.json')
+        try {
+          const man = JSON.parse(await fs.readFile(manPath, 'utf8')) as BankManifest
+          if (!man.total || !man.setCount) {
+            await fs.rm(path.join(v1, id), { recursive: true, force: true })
+            pruned++
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+      if (pruned) console.log(`Pruned ${pruned} empty pool dirs`)
+    } catch {
+      /* no banks yet */
+    }
+  }
 
   const pools = collectPools(examFilter)
   console.log(
@@ -316,6 +344,7 @@ async function main() {
   const supabase = createClientOrDie()
   let done = 0
   let skipped = 0
+  let empty = 0
   let failed = 0
 
   for (const key of pools) {
@@ -324,9 +353,11 @@ async function main() {
     const manPath = path.join(outRoot, BANKS_VERSION, poolId, 'manifest.json')
     if (resume) {
       try {
-        await fs.access(manPath)
-        skipped++
-        continue
+        const man = JSON.parse(await fs.readFile(manPath, 'utf8')) as BankManifest
+        if (man.total > 0 && man.setCount > 0) {
+          skipped++
+          continue
+        }
       } catch {
         /* export */
       }
@@ -334,10 +365,17 @@ async function main() {
 
     try {
       const r = await materializePool(supabase, key, outRoot)
-      done++
-      console.log(
-        `[${done}+${skipped}] ${key.kind} ${key.dbTable} ${key.mode || key.difficulty || key.tag || ''} → ${r.total} Q / ${r.setCount} sets (${poolId})`
-      )
+      if (r.skippedEmpty) {
+        empty++
+        // Remove any prior empty dir
+        await fs.rm(path.join(outRoot, BANKS_VERSION, poolId), { recursive: true, force: true }).catch(() => {})
+        console.log(`[skip-empty] ${key.kind} ${key.dbTable} ${key.mode || key.difficulty || key.tag || ''} (${poolId})`)
+      } else {
+        done++
+        console.log(
+          `[${done}+${skipped}] ${key.kind} ${key.dbTable} ${key.mode || key.difficulty || key.tag || ''} → ${r.total} Q / ${r.setCount} sets (${poolId})`
+        )
+      }
     } catch (e) {
       failed++
       console.error(`FAIL ${poolId} ${key.kind} ${key.dbTable}:`, e)
@@ -346,7 +384,7 @@ async function main() {
     if (sleepMs > 0) await new Promise((r) => setTimeout(r, sleepMs))
   }
 
-  console.log(`\nDone. exported=${done} skipped=${skipped} failed=${failed}`)
+  console.log(`\nDone. exported=${done} skipped=${skipped} empty=${empty} failed=${failed}`)
   console.log(`Serve with Caddy / volume mount, or copy to public/banks/${BANKS_VERSION}`)
 }
 

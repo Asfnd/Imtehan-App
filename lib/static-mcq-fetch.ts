@@ -106,8 +106,9 @@ export async function loadBankCountPreferStatic(
   fallback: () => Promise<number>
 ): Promise<number> {
   const man = await loadStaticBankManifest(key)
-  if (man && Number.isFinite(man.total)) return man.total
-  if (!allowSupabaseFallback()) return 0
+  // total===0 means a bad/empty export — never poison counts; fall through.
+  if (man && Number.isFinite(man.total) && man.total > 0) return man.total
+  if (!allowSupabaseFallback()) return man?.total ?? 0
   return fallback()
 }
 
