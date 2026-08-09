@@ -17,7 +17,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; shortLabel: string; descr
   fpsc:       { label: 'FPSC',         shortLabel: 'FPSC',         description: 'Federal Public Service Commission, all posts' },
   fia:        { label: 'FIA',          shortLabel: 'FIA',          description: 'Federal Investigation Agency recruitment tests by post' },
   provincial: { label: 'Provincial',   shortLabel: 'Provincial',   description: 'PMS Punjab, Sindh, KPK: KPPSC, SPSC, BPSC, AJKPSC, GBPSC' },
-  police:     { label: 'Police',       shortLabel: 'Police',       description: 'Punjab, Sindh, KPK & Islamabad Police: Constable, ASI & SI posts' },
+  police:     { label: 'Police',       shortLabel: 'Police',       description: 'Punjab, Sindh, KPK & Islamabad Police: Constable, ASI, SI & Assistant (BS-15)' },
   military:   { label: 'Military',     shortLabel: 'Military',     description: 'Pak Army, Navy, PAF, Rangers, FC, ANF & Coast Guard' },
   nts:        { label: 'NTS',          shortLabel: 'NTS',          description: 'National Testing Service: Railways, WAPDA, FBR & more' },
   ots:        { label: 'OTS',          shortLabel: 'OTS',          description: 'Open Testing Service: Education, Health & Revenue' },

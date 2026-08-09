@@ -3172,6 +3172,45 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
+  'police-ict-assistant': {
+    name: 'Islamabad Police Assistant (BS-15)',
+    category: 'police',
+    totalMCQs: 100,
+    duration: 90,
+    passingPercentage: 50,
+    negativeMarking: false,
+    sections: [
+      // Official NPFTAS written split (20% each) — mocks use these five.
+      { slug: 'english',           label: 'English',                 dbTable: 'english',           count: 20 },
+      { slug: 'islamic-studies',   label: 'Islamic Studies',         dbTable: 'islamiat',          count: 20 },
+      { slug: 'pakistan-affairs',  label: 'Pakistan Studies',        dbTable: 'pakistan_studies',  count: 20 },
+      { slug: 'general-knowledge', label: 'General Knowledge',       dbTable: 'general_knowledge', count: 20 },
+      { slug: 'computer',          label: 'Computer / Job Related',  dbTable: 'basic_computer',    count: 20 },
+      // Official GK paper also mixes Current Affairs + Everyday Science — extra practice lanes.
+      { slug: 'current-affairs',   label: 'Current Affairs',         dbTable: 'current_affairs',   count: 20 },
+      { slug: 'everyday-science',  label: 'Everyday Science',        dbTable: 'everyday_science',  count: 20 },
+    ],
+    guide: {
+      authority: 'Islamabad Capital Territory (ICT) Police / NPFTAS',
+      officialLink: 'https://www.islamabadpolice.gov.pk/',
+      eligibility: [
+        'Graduate (Bachelor\'s or equivalent) with computer literacy (MS Office, Internet, typing).',
+        'Age typically 18–28 years as per the latest ICT Police / NPFTAS advertisement (confirm age relaxation on the live notice).',
+      ],
+      important: [
+        'Written paper: 100 MCQs in 90 minutes — no negative marking on the usual NPFTAS Assistant pattern.',
+        'Official subject split: English 20 · Islamic Studies 20 · Pakistan Studies 20 · General Knowledge 20 · Computer / Job Related 20.',
+        'GK questions often include Everyday Science and Current Affairs — practise those banks with pure GK.',
+        'Selected Assistants complete mandatory NITB computer training during probation.',
+      ],
+      helpful: [
+        'Drill all five written subjects equally in timed sets of 20 (one full paper cycle).',
+        'English: grammar, vocabulary, comprehension. Computer: MS Office, email, typing, e-office habits.',
+        'Pakistan Studies + Islamiat decide easy marks — revise high-frequency MCQs first.',
+      ],
+    },
+  },
+
   'police-punjab-asi': {
     name: 'Punjab Police ASI (BS-9)',
     category: 'police',
@@ -5030,6 +5069,9 @@ const EXAM_ALIASES: Record<string, ExamSlug> = {
   uet: 'uet-lahore',
   kemu: 'king-edward-medical',
   amc: 'amc-entry',
+  'police-islamabad-assistant': 'police-ict-assistant',
+  'ict-assistant': 'police-ict-assistant',
+  'islamabad-police-assistant': 'police-ict-assistant',
 }
 
 export function getExamConfig(slug: string): ExamConfig | null {

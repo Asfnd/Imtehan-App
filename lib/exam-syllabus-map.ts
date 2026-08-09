@@ -880,6 +880,54 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
     ],
   },
 
+  'police-ict-assistant': {
+    pakistan_studies: [
+      'ICT administration: Islamabad Capital Territory structure, CDA, district administration',
+      'ICT Police: organization, ranks, and ministerial staff role of Assistant (BS-15)',
+      'Pakistan Affairs: constitution, federal vs provincial subjects, Islamabad as federal capital',
+      'Office procedures: noting, drafting, file movement, official correspondence',
+      'Right of Access to Information Act 2017 basics for government offices',
+      'Pakistan history, geography, and institutions at graduate competitive-exam level',
+    ],
+    basic_computer: [
+      'MS Office: Word (letters, notes), Excel (registers, simple formulas), PowerPoint',
+      'Internet and email for official communication',
+      'Typing speed and accuracy for clerical work',
+      'File management, scanning, printing, and digital record keeping',
+      'NITB / e-governance awareness for federal and ICT offices',
+      'Cybersecurity basics: passwords, phishing, safe browsing in government use',
+    ],
+    english: [
+      'Vocabulary, synonyms, antonyms, idioms',
+      'Grammar usage: tenses, prepositions, articles, subject-verb agreement',
+      'Comprehension and sentence correction',
+      'Official letter and note drafting style awareness',
+    ],
+    islamiat: [
+      'Basic Islamic beliefs, pillars, and prophets',
+      'Quran and Hadith fundamentals relevant to competitive exams',
+      'Islamic history and civilization MCQs at graduate level',
+      'Ethics / Islamic moral teachings (alternate for non-Muslim candidates where applicable)',
+    ],
+    general_knowledge: [
+      'Pakistan geography, history, and institutions',
+      'Everyday science: basic physics, chemistry, biology for general papers',
+      'Current affairs: national and international events',
+      'Islamabad / ICT landmarks, departments, and recent developments',
+      'International organizations, capitals, and world facts common in NPFTAS papers',
+    ],
+    current_affairs: [
+      'Pakistan current events: cabinet, economy, foreign policy',
+      'Islamabad / ICT local developments relevant to police and federal capital',
+      'International headlines and organizations in the news',
+    ],
+    everyday_science: [
+      'Basic physics and chemistry for general competitive papers',
+      'Human body, diseases, vitamins, and environment MCQs',
+      'Inventions, discoveries, and science in daily life',
+    ],
+  },
+
   // ── FIA ───────────────────────────────────────────────────────────────────
   'fia-sub-inspector': {
     pakistan_studies: [
