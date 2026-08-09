@@ -26,6 +26,8 @@ ENV NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
 ENV NEXT_PUBLIC_R2_CUSTOM_DOMAIN=$NEXT_PUBLIC_R2_CUSTOM_DOMAIN
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+# Free Nano: never block `next build` on live Auth/DB (sitemaps, subject-stats, etc).
+ENV SUPABASE_SOFT_MODE=1
 
 RUN npm run build
 
