@@ -22,6 +22,7 @@ import {
 } from '@/lib/supabase-soft'
 import { loadBankSetPreferStatic, loadBankCountPreferStatic } from '@/lib/static-mcq-fetch'
 import type { BankPoolKey } from '@/lib/banks-pool'
+import { poolExamSlug } from '@/lib/banks-pool'
 
 const REVALIDATE = 604800
 
@@ -43,7 +44,7 @@ function modePoolKey(params: FetchSetParams): BankPoolKey {
     topicFields: params.topicFields,
     questionNeedles: params.questionNeedles,
     subtopicField: params.subtopicField,
-    examSlug: params.examSlug,
+    examSlug: poolExamSlug(params.dbTable, params.examSlug),
     targetExam: params.targetExam,
   }
 }
@@ -93,7 +94,7 @@ export function cachedFetchMCQsByDifficultySet(params: {
     dbTable: params.dbTable,
     difficulty: params.difficulty,
     subjectField: params.subjectField,
-    examSlug: params.examSlug,
+    examSlug: poolExamSlug(params.dbTable, params.examSlug),
     noTypeFilter: true,
   }
   return unstable_cache(
@@ -126,7 +127,7 @@ export function cachedFetchMCQsByTopicSet(params: {
     dbTable: params.dbTable,
     tag: params.tag,
     useTagsArray: params.useTagsArray,
-    examSlug: params.examSlug,
+    examSlug: poolExamSlug(params.dbTable, params.examSlug),
     noTypeFilter: true,
   }
   return unstable_cache(
@@ -273,7 +274,7 @@ export function cachedExamTableCount(params: {
     topicFields: params.topicFields,
     questionNeedles: params.questionNeedles,
     subtopicField: params.subtopicField,
-    examSlug: params.examSlug,
+    examSlug: poolExamSlug(params.dbTable, params.examSlug),
     targetExam: params.targetExam,
   }
   return withSoftCache(0, () =>
@@ -333,7 +334,7 @@ export function cachedTopicTagCount(params: {
     dbTable: params.dbTable,
     tag: params.tag,
     useTagsArray: params.useTagsArray,
-    examSlug: params.examSlug,
+    examSlug: poolExamSlug(params.dbTable, params.examSlug),
     noTypeFilter: true,
   }
   return withSoftCache(0, () =>
@@ -392,7 +393,7 @@ export function cachedDifficultyCount(params: {
     dbTable: params.dbTable,
     difficulty: params.difficulty,
     subjectField: params.subjectField,
-    examSlug: params.examSlug,
+    examSlug: poolExamSlug(params.dbTable, params.examSlug),
     noTypeFilter: true,
   }
   return withSoftCache(0, () =>

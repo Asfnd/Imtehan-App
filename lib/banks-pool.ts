@@ -55,6 +55,27 @@ export function bankPoolId(key: BankPoolKey): string {
 
 export const BANKS_VERSION = 'v1'
 
+/** Pipeline banks need examSlug in the pool id; MDCAT/enhanced/etc. share one pool. */
+const PIPELINE_BANK_TABLES = new Set([
+  'english',
+  'general_knowledge',
+  'pakistan_studies',
+  'islamiat',
+  'current_affairs',
+  'everyday_science',
+  'general_math',
+  'geography',
+  'basic_computer',
+  'urdu',
+  'ethics',
+])
+
+/** Only pipeline tables get examSlug in the pool hash (avoids 20k duplicate MDCAT pools). */
+export function poolExamSlug(dbTable: string, examSlug?: string | null): string | undefined {
+  if (!examSlug) return undefined
+  return PIPELINE_BANK_TABLES.has(dbTable) ? examSlug : undefined
+}
+
 export function banksBaseUrl(): string {
   const raw =
     process.env.NEXT_PUBLIC_BANKS_BASE_URL ||
