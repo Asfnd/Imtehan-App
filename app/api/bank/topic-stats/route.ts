@@ -28,10 +28,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'invalid dbTable' }, { status: 400 })
   }
 
-  if (softMode()) {
-    return NextResponse.json(SOFT_TOPIC_STATS, { headers: SOFT_API_CACHE_HEADERS })
-  }
-
   try {
     const [topics, easy, medium, hard] = await Promise.all([
       cachedBankTopicStats(dbTable),
@@ -40,11 +36,19 @@ export async function GET(request: NextRequest) {
       cachedDifficultyCount({ dbTable, difficulty: 'Hard' }),
     ])
 
+    const total = easy + medium + hard
+    const empty = topics.length === 0 && total === 0
+
+    // Soft + cold miss → empty fallback; soft headers. Warm cache still serves real numbers.
+    if (softMode() && empty) {
+      return NextResponse.json(SOFT_TOPIC_STATS, { headers: SOFT_API_CACHE_HEADERS })
+    }
+
     return NextResponse.json(
       {
         topics,
         difficulties: { Easy: easy, Medium: medium, Hard: hard },
-        total: easy + medium + hard,
+        total,
       },
       { headers: API_JSON_NO_STORE_HEADERS }
     )

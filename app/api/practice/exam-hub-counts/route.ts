@@ -19,18 +19,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'exam not found' }, { status: 404 })
   }
 
-  // Free-tier soft mode: skip COUNT storms so Auth/DB can recover.
-  if (softMode()) {
-    const sections = config.sections.map((section) => ({
-      slug: section.slug,
-      pastCount: 0,
-      importantCount: 0,
-      repeatedCount: 0,
-      totalMCQs: 0,
-    }))
-    return NextResponse.json({ sections, soft: true }, { headers: SOFT_API_CACHE_HEADERS })
-  }
-
   try {
     const sections = await Promise.all(
       config.sections.map(async (section) => {
@@ -84,6 +72,13 @@ export async function GET(request: NextRequest) {
         }
       })
     )
+
+    // Soft + cold miss → zeros from withSoftCache; fail-open with soft headers.
+    // Soft + warm cache → real counts, normal response.
+    const empty = sections.every((s) => s.totalMCQs === 0)
+    if (softMode() && empty) {
+      return NextResponse.json({ sections, soft: true }, { headers: SOFT_API_CACHE_HEADERS })
+    }
 
     return NextResponse.json({ sections }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {

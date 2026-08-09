@@ -50,6 +50,32 @@ export function wrapSoft<T>(fallback: T, run: () => Promise<T>): Promise<T> {
   })
 }
 
+/** Thrown inside unstable_cache factories so soft misses do not poison the cache with zeros. */
+export class SoftSkipError extends Error {
+  constructor() {
+    super('SOFT_SKIP')
+    this.name = 'SoftSkipError'
+  }
+}
+
+export function isSoftSkip(e: unknown): boolean {
+  return e instanceof SoftSkipError || (e as Error)?.name === 'SoftSkipError' || String((e as Error)?.message) === 'SOFT_SKIP'
+}
+
+/**
+ * Prefer warm Next.js cache (real counts) even while soft.
+ * Only skips a cold DB hit — never writes zeros into the 7d cache.
+ */
+export async function withSoftCache<T>(fallback: T, run: () => Promise<T>): Promise<T> {
+  try {
+    return await run()
+  } catch (e) {
+    if (isSoftSkip(e)) return fallback
+    noteSupabaseFailure(e)
+    return fallback
+  }
+}
+
 /**
  * Cheap Auth health probe. Only clears auto soft when ENV is not forcing soft.
  * Safe to call from a cron / admin / health route.
