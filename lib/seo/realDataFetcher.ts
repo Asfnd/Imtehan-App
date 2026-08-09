@@ -7,6 +7,7 @@
  */
 
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 export interface SubjectStats {
   subject: string
@@ -34,12 +35,14 @@ export interface PlatformStats {
  * Security: Aggregate data only, no individual MCQ exposure
  */
 export async function getSubjectStats(): Promise<SubjectStats[]> {
+  if (softMode()) return getDefaultSubjectStats()
   try {
     const supabase = await createServerSupabaseClient()
 
     const { data, error } = await supabase.rpc('get_enhanced_css_subject_stats')
 
     if (error) {
+      noteSupabaseFailure(error)
       console.error('Error fetching subject stats:', error)
       return getDefaultSubjectStats()
     }
@@ -50,6 +53,7 @@ export async function getSubjectStats(): Promise<SubjectStats[]> {
       years: item.years || [],
     }))
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('Failed to fetch subject stats:', error)
     return getDefaultSubjectStats()
   }
