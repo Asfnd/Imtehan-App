@@ -2,10 +2,11 @@ import { unstable_cache } from 'next/cache'
 import { NextResponse } from 'next/server'
 import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
-export const dynamic = 'force-static'
-export const revalidate = 604800
+/** Never bake this at build time — Free Nano timeouts kill `next build`. */
+export const dynamic = 'force-dynamic'
 
 type SubjectStatRow = {
   subject: string
@@ -29,13 +30,17 @@ const cachedSubjectStats = unstable_cache(loadSubjectStats, ['css-subject-stats-
   tags: ['css-subject-stats'],
 })
 
-/** Aggregate subject list + years — KB payload, 24h cache (egress fix). */
+/** Aggregate subject list + years — KB payload (egress fix). */
 export async function GET() {
+  if (softMode()) {
+    return NextResponse.json({ subjects: [], soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
+  }
   try {
     const stats = await cachedSubjectStats()
     return NextResponse.json({ subjects: stats }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('css subject-stats:', error)
-    return NextResponse.json({ error: 'Failed to load subject stats' }, { status: 500 })
+    return NextResponse.json({ subjects: [], soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
   }
 }

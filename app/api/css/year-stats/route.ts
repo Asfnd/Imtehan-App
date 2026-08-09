@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -32,6 +33,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'subject required' }, { status: 400 })
   }
 
+  if (softMode()) {
+    return NextResponse.json({ years: [], soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
+  }
+
   try {
     const years = await unstable_cache(
       () => loadYearStats(subject),
@@ -41,7 +46,8 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ years }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('css year-stats:', error)
-    return NextResponse.json({ error: 'Failed to load year stats' }, { status: 500 })
+    return NextResponse.json({ years: [], soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
   }
 }
