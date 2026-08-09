@@ -18,5 +18,5 @@ if [[ ! -f "$KEY" ]]; then
 fi
 
 ssh -i "$KEY" -o StrictHostKeyChecking=accept-new "$HOST" 'mkdir -p ~/CSS-App/data/banks'
-rsync -avz --progress -e "ssh -i $KEY -o StrictHostKeyChecking=accept-new" "$SRC" "$DEST"
+rsync -avz --delete --progress -e "ssh -i $KEY -o StrictHostKeyChecking=accept-new" "$SRC" "$DEST"
 echo "Synced. Caddy serves https://imtehan.com/banks/v1/…"

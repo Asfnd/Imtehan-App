@@ -26,11 +26,18 @@ import type { BankPoolKey } from '@/lib/banks-pool'
 const REVALIDATE = 604800
 
 function modePoolKey(params: FetchSetParams): BankPoolKey {
+  const mixed =
+    !!params.noTypeFilter ||
+    params.mode === 'mixed' ||
+    !!params.subjectField ||
+    !!(params.subjectFields && params.subjectFields.length) ||
+    !!params.subtopicField ||
+    !!(params.topicFields && params.topicFields.length)
   return {
     kind: 'mode',
     dbTable: params.dbTable,
-    mode: params.mode ?? 'practice',
-    noTypeFilter: !!params.noTypeFilter,
+    mode: mixed ? 'practice' : params.mode ?? 'practice',
+    noTypeFilter: mixed,
     subjectField: params.subjectField,
     subjectFields: params.subjectFields,
     topicFields: params.topicFields,

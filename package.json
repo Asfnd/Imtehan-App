@@ -10,6 +10,8 @@
     "clean": "rm -rf .next",
     "export:static-banks": "tsx scripts/export-static-mcq-banks.ts",
     "export:static-banks:resume": "tsx scripts/export-static-mcq-banks.ts --resume",
+    "validate:static-banks": "tsx scripts/validate-static-banks.ts",
+    "validate:static-banks:live": "tsx scripts/validate-static-banks.ts --live",
     "setup-paper-type": "tsx scripts/setup-paper-type.ts",
     "upload-mcqs": "tsx scripts/upload-new-mcqs.ts",
     "delete-subjects": "tsx scripts/delete-uploaded-subjects.ts",
