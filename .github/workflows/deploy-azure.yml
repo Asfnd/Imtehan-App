@@ -1,0 +1,38 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: azure-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          command_timeout: 40m
+          script: |
+            set -euo pipefail
+            cd ~/CSS-App
+            git fetch origin
+            git checkout main
+            git reset --hard origin/main
+            cp -a deploy/oracle/Caddyfile.azure-flexible deploy/oracle/Caddyfile
+            test -f deploy/oracle/.env
+            cd deploy/oracle
+            sudo docker compose up -d --build --remove-orphans
+            sleep 8
+            curl -sf -o /dev/null -w "home %{http_code}\n" --max-time 30 http://127.0.0.1/
+            curl -sf -o /dev/null -w "assistant %{http_code}\n" --max-time 30 http://127.0.0.1/exams/police-islamabad-assistant || \
+              curl -sf -o /dev/null -w "assistant_legacy %{http_code}\n" --max-time 30 http://127.0.0.1/exams/police-ict-assistant
+            sudo docker compose ps

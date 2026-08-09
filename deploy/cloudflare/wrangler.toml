@@ -1,0 +1,129 @@
+name = "imtehan-origin-proxy"
+main = "worker.js"
+compatibility_date = "2024-09-01"
+account_id = "67225b43c28cc0f6b36a9d5c5ad11b31"
+
+# DNS A (orange) → Azure + SSL Flexible is live.
+# Static (/_next/*, images, fonts) = Cloudflare CDN → Azure, NO Worker (Free 100k headroom).
+# Worker only on HTML / API / SEO / www redirect.
+
+[[routes]]
+pattern = "imtehan.com/"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/exams*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/blog*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/mcq*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/mdcat*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/fsc*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/css*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/api*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/auth*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/signin*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/profile*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/admin*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/community*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/quiz*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/mpt-practice*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/portal*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/premium*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/about*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/faq*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/contact*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/privacy*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/terms*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/careers*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/delete-account*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/robots.txt"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/sitemap*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/manifest*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/imtehan-indexnow-key*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/.well-known*"
+zone_name = "imtehan.com"
+
+# www → apex 301 only (tiny volume)
+[[routes]]
+pattern = "www.imtehan.com/*"
+zone_name = "imtehan.com"

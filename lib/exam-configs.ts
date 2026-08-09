@@ -3172,7 +3172,7 @@ export const EXAM_CONFIGS: Record<string, ExamConfig> = {
     ]
   },
 
-  'police-ict-assistant': {
+  'police-islamabad-assistant': {
     name: 'Islamabad Police Assistant (BS-15)',
     category: 'police',
     totalMCQs: 100,
@@ -5069,9 +5069,9 @@ const EXAM_ALIASES: Record<string, ExamSlug> = {
   uet: 'uet-lahore',
   kemu: 'king-edward-medical',
   amc: 'amc-entry',
-  'police-islamabad-assistant': 'police-ict-assistant',
-  'ict-assistant': 'police-ict-assistant',
-  'islamabad-police-assistant': 'police-ict-assistant',
+  'police-ict-assistant': 'police-islamabad-assistant',
+  'ict-assistant': 'police-islamabad-assistant',
+  'islamabad-police-assistant': 'police-islamabad-assistant',
 }
 
 export function getExamConfig(slug: string): ExamConfig | null {

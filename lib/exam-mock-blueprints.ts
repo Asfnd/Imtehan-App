@@ -152,7 +152,7 @@ export const OFFICIAL_EXAM_LINKS: Record<string, string> = {
   'mdcat-nums':          'https://www.numspak.edu.pk/',
   'mdcat-aku':           'https://www.aku.edu/',
   'issb-academic':       'https://issb.com.pk/',
-  'police-ict-assistant': 'https://www.islamabadpolice.gov.pk/',
+  'police-islamabad-assistant': 'https://www.islamabadpolice.gov.pk/',
   'nts-nat-im':          'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
   'nts-nat-ics':         'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
   'nts-nat-igs':         'https://www.nts.org.pk/products/ntsnat/nat-paper-pattern.php',
@@ -459,7 +459,7 @@ const RESEARCHED: Record<string, MockBlueprint[]> = {
     },
   ],
   /** ICT / Islamabad Police Assistant BS-15 — NPFTAS written pattern (20% × 5 subjects). */
-  'police-ict-assistant': [
+  'police-islamabad-assistant': [
     {
       key: 'written', label: 'Islamabad Police Assistant Written', durationMin: 90, negMarking: 0,
       sections: [
