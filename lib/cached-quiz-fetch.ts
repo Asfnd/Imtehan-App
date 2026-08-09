@@ -14,6 +14,7 @@ import {
 } from '@/lib/quiz-fetcher'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { applyBankExamScope } from '@/lib/mcq-bank-scope'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 const REVALIDATE = 604800
 
@@ -162,6 +163,7 @@ export function cachedExamTableCount(params: {
   examSlug?: string
   questionNeedles?: string[]
 }): Promise<number> {
+  if (softMode()) return Promise.resolve(0)
   const key = [
     'exam-count-v6',
     params.dbTable,
@@ -176,24 +178,32 @@ export function cachedExamTableCount(params: {
   ]
   return unstable_cache(
     async () => {
-      const supabase = createPublicSupabaseClient()
-      let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-      if (params.targetExam) query = query.eq('target_exam', params.targetExam)
-      else if (params.type) query = query.eq('type', params.type)
-      query = applyBankExamScope(query, {
-        dbTable: params.dbTable,
-        examSlug: params.examSlug,
-        subjectField: params.subjectField,
-        subjectFields: params.subjectFields,
-        subtopicField: params.subtopicField,
-        topicFields: params.topicFields,
-        targetExam: params.targetExam,
-        questionNeedles: params.questionNeedles,
-        scopeMode: 'family',
-      })
-      const { count, error } = await query
-      if (error) throw new Error(error.message)
-      return count ?? 0
+      try {
+        const supabase = createPublicSupabaseClient()
+        let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+        if (params.targetExam) query = query.eq('target_exam', params.targetExam)
+        else if (params.type) query = query.eq('type', params.type)
+        query = applyBankExamScope(query, {
+          dbTable: params.dbTable,
+          examSlug: params.examSlug,
+          subjectField: params.subjectField,
+          subjectFields: params.subjectFields,
+          subtopicField: params.subtopicField,
+          topicFields: params.topicFields,
+          targetExam: params.targetExam,
+          questionNeedles: params.questionNeedles,
+          scopeMode: 'family',
+        })
+        const { count, error } = await query
+        if (error) {
+          noteSupabaseFailure(error)
+          throw new Error(error.message)
+        }
+        return count ?? 0
+      } catch (e) {
+        noteSupabaseFailure(e)
+        throw e
+      }
     },
     key,
     { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }

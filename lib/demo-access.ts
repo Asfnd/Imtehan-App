@@ -7,6 +7,7 @@
 import { cookies } from 'next/headers'
 import { createAdminSupabaseClient } from '@/lib/supabase/admin'
 import type { NextResponse } from 'next/server'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 export const GUEST_DEMO_COOKIE = 'imtehan_gid'
 export const DEMO_PRACTICE_LIMIT = 1
@@ -71,30 +72,45 @@ async function getCountByGuest(guestToken: string): Promise<number> {
   const key = `g:${guestToken}`
   const cached = cacheGet(key)
   if (cached != null) return cached
-  const admin = createAdminSupabaseClient()
-  const { data } = await admin
-    .from('demo_practice_usage')
-    .select('practice_count')
-    .eq('guest_token', guestToken)
-    .maybeSingle()
-  const count = data?.practice_count ?? 0
-  cacheSet(key, count)
-  return count
+  // Soft mode: fail closed on demo (assume used) so we don't hammer Postgres.
+  if (softMode()) return DEMO_PRACTICE_LIMIT
+  try {
+    const admin = createAdminSupabaseClient()
+    const { data, error } = await admin
+      .from('demo_practice_usage')
+      .select('practice_count')
+      .eq('guest_token', guestToken)
+      .maybeSingle()
+    if (error) noteSupabaseFailure(error)
+    const count = data?.practice_count ?? 0
+    cacheSet(key, count)
+    return count
+  } catch (e) {
+    noteSupabaseFailure(e)
+    return DEMO_PRACTICE_LIMIT
+  }
 }
 
 async function getCountByUser(userId: string): Promise<number> {
   const key = `u:${userId}`
   const cached = cacheGet(key)
   if (cached != null) return cached
-  const admin = createAdminSupabaseClient()
-  const { data } = await admin
-    .from('demo_practice_usage')
-    .select('practice_count')
-    .eq('user_id', userId)
-    .maybeSingle()
-  const count = data?.practice_count ?? 0
-  cacheSet(key, count)
-  return count
+  if (softMode()) return DEMO_PRACTICE_LIMIT
+  try {
+    const admin = createAdminSupabaseClient()
+    const { data, error } = await admin
+      .from('demo_practice_usage')
+      .select('practice_count')
+      .eq('user_id', userId)
+      .maybeSingle()
+    if (error) noteSupabaseFailure(error)
+    const count = data?.practice_count ?? 0
+    cacheSet(key, count)
+    return count
+  } catch (e) {
+    noteSupabaseFailure(e)
+    return DEMO_PRACTICE_LIMIT
+  }
 }
 
 /** Combined demo usage for this browser + account (prevents double-dip after sign-in). */

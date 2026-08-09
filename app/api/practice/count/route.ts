@@ -5,6 +5,7 @@ import {
   cachedDifficultyCount,
 } from '@/lib/cached-quiz-fetch'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -43,6 +44,10 @@ export async function GET(request: NextRequest) {
     ? topicsRaw.split('|').map((n) => n.trim()).filter(Boolean)
     : undefined
 
+  if (softMode()) {
+    return NextResponse.json({ count: 0, soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
+  }
+
   try {
     let count = 0
     if (tag) {
@@ -77,6 +82,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ count }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('practice count:', error)
     return NextResponse.json({ error: 'Failed to count' }, { status: 500 })
   }

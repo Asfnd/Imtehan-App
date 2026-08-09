@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getExamConfig } from '@/lib/exam-configs'
 import { cachedExamTableCount } from '@/lib/cached-quiz-fetch'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -16,6 +17,18 @@ export async function GET(request: NextRequest) {
   const config = getExamConfig(examSlug)
   if (!config) {
     return NextResponse.json({ error: 'exam not found' }, { status: 404 })
+  }
+
+  // Free-tier soft mode: skip COUNT storms so Auth/DB can recover.
+  if (softMode()) {
+    const sections = config.sections.map((section) => ({
+      slug: section.slug,
+      pastCount: 0,
+      importantCount: 0,
+      repeatedCount: 0,
+      totalMCQs: 0,
+    }))
+    return NextResponse.json({ sections, soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
   }
 
   try {
@@ -74,6 +87,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ sections }, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('exam-hub-counts:', error)
     return NextResponse.json({ error: 'Failed to load exam counts' }, { status: 500 })
   }

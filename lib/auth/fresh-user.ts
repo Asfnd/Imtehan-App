@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 const SOFT_REFRESH_TTL_MS = 30 * 60 * 1000
 const JWT_REFRESH_SKEW_MS = 10 * 60 * 1000
@@ -21,9 +22,20 @@ export async function getFreshAuthUser(opts?: {
   const supabase = createClient()
   const { data: { session } } = await supabase.auth.getSession()
   if (!session) {
-    const { data: { user } } = await supabase.auth.getUser()
-    return user ?? null
+    // Soft mode: never cold-call getUser() when Auth/DB is overloaded.
+    if (softMode()) return null
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser()
+      if (error) noteSupabaseFailure(error)
+      return user ?? null
+    } catch (e) {
+      noteSupabaseFailure(e)
+      return null
+    }
   }
+
+  // Soft mode: trust local JWT only — no refresh / getUser round-trips.
+  if (softMode()) return session.user
 
   const force = !!opts?.forceRefresh
   const stale = Date.now() - lastHardRefreshAt > SOFT_REFRESH_TTL_MS
@@ -31,12 +43,19 @@ export async function getFreshAuthUser(opts?: {
 
   if (force || stale || expiring) {
     lastHardRefreshAt = Date.now()
-    const { data: refreshed, error } = await supabase.auth.refreshSession()
-    if (!error && refreshed.session?.user) {
-      return refreshed.session.user
+    try {
+      const { data: refreshed, error } = await supabase.auth.refreshSession()
+      if (!error && refreshed.session?.user) {
+        return refreshed.session.user
+      }
+      if (error) noteSupabaseFailure(error)
+      const { data: { user }, error: userErr } = await supabase.auth.getUser()
+      if (userErr) noteSupabaseFailure(userErr)
+      return user ?? session.user ?? null
+    } catch (e) {
+      noteSupabaseFailure(e)
+      return session.user
     }
-    const { data: { user } } = await supabase.auth.getUser()
-    return user ?? session.user ?? null
   }
 
   return session.user
