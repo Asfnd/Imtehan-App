@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "clean": "rm -rf .next",
+    "export:static-banks": "tsx scripts/export-static-mcq-banks.ts",
+    "export:static-banks:resume": "tsx scripts/export-static-mcq-banks.ts --resume",
     "setup-paper-type": "tsx scripts/setup-paper-type.ts",
     "upload-mcqs": "tsx scripts/upload-new-mcqs.ts",
     "delete-subjects": "tsx scripts/delete-uploaded-subjects.ts",

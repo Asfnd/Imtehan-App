@@ -317,6 +317,20 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // Static MCQ banks (CDN / browser long-cache — never hit Supabase)
+      {
+        source: '/banks/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=604800, stale-while-revalidate=86400',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
       // PDF proxy route - CRITICAL: No X-Frame-Options to allow iframe embedding
       {
         source: '/api/pdf/proxy',

@@ -4,9 +4,20 @@
 
 :80 {
 	encode gzip zstd
-	reverse_proxy web:3000 {
-		header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
-		header_up X-Forwarded-Host {http.request.header.X-Forwarded-Host}
-		header_up X-Real-IP {http.request.header.CF-Connecting-IP}
+
+	# Static MCQ banks — disk only, never Next/Supabase (Free Nano forever).
+	handle /banks/* {
+		root * /srv
+		file_server
+		header Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+		header Access-Control-Allow-Origin "*"
+	}
+
+	handle {
+		reverse_proxy web:3000 {
+			header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
+			header_up X-Forwarded-Host {http.request.header.X-Forwarded-Host}
+			header_up X-Real-IP {http.request.header.CF-Connecting-IP}
+		}
 	}
 }
