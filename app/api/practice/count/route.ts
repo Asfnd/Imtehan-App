@@ -5,7 +5,7 @@ import {
   cachedDifficultyCount,
 } from '@/lib/cached-quiz-fetch'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
-import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
+import { noteSupabaseFailure, softMode, SOFT_API_CACHE_HEADERS } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     : undefined
 
   if (softMode()) {
-    return NextResponse.json({ count: 0, soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
+    return NextResponse.json({ count: 0, soft: true }, { headers: SOFT_API_CACHE_HEADERS })
   }
 
   try {

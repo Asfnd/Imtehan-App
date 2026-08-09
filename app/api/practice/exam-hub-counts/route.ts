@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getExamConfig } from '@/lib/exam-configs'
 import { cachedExamTableCount } from '@/lib/cached-quiz-fetch'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
-import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
+import { noteSupabaseFailure, softMode, SOFT_API_CACHE_HEADERS } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
       repeatedCount: 0,
       totalMCQs: 0,
     }))
-    return NextResponse.json({ sections, soft: true }, { headers: API_JSON_NO_STORE_HEADERS })
+    return NextResponse.json({ sections, soft: true }, { headers: SOFT_API_CACHE_HEADERS })
   }
 
   try {

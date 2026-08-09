@@ -6,22 +6,32 @@
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import type { User } from '@supabase/supabase-js'
 import { matchesSafeRedirectPath } from '@/lib/security/safe-redirects'
+import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
 
 /**
  * Get authenticated user from request
  * SECURITY: Verifies the request has a valid session
+ * Soft mode: trust local JWT via getSession() (avoids Auth→DB getUser storms).
  */
 export async function getAuthenticatedUser(): Promise<User | null> {
   try {
     const supabase = await createServerSupabaseClient()
+    if (softMode()) {
+      const { data: { session }, error } = await supabase.auth.getSession()
+      if (error) noteSupabaseFailure(error)
+      return session?.user ?? null
+    }
     const { data: { user }, error } = await supabase.auth.getUser()
 
-    if (error || !user) {
+    if (error) {
+      noteSupabaseFailure(error)
       return null
     }
+    if (!user) return null
 
     return user
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('Error getting authenticated user:', error)
     return null
   }
@@ -37,7 +47,21 @@ const BEARER_PREFIX = /^Bearer\s+/i
 export async function getAuthenticatedUserForRoute(request: Request): Promise<User | null> {
   try {
     const supabase = await createServerSupabaseClient()
+    if (softMode()) {
+      const { data: { session }, error } = await supabase.auth.getSession()
+      if (error) noteSupabaseFailure(error)
+      if (session?.user) return session.user
+
+      // Soft: decode Bearer JWT locally via getSession isn't enough — skip getUser(token).
+      const raw = request.headers.get('authorization')?.trim() ?? ''
+      const token = BEARER_PREFIX.test(raw) ? raw.replace(BEARER_PREFIX, '').trim() : ''
+      if (!token) return null
+      // Best-effort: cookie session already checked; Bearer without cookie → null in soft.
+      return null
+    }
+
     const { data: { user }, error } = await supabase.auth.getUser()
+    if (error) noteSupabaseFailure(error)
     if (!error && user) return user
 
     const raw = request.headers.get('authorization')?.trim() ?? ''
@@ -45,9 +69,14 @@ export async function getAuthenticatedUserForRoute(request: Request): Promise<Us
     if (!token) return null
 
     const { data: { user: jwtUser }, error: jwtError } = await supabase.auth.getUser(token)
-    if (jwtError || !jwtUser) return null
+    if (jwtError) {
+      noteSupabaseFailure(jwtError)
+      return null
+    }
+    if (!jwtUser) return null
     return jwtUser
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('Error getting authenticated user for route:', error)
     return null
   }

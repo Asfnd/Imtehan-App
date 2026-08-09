@@ -302,8 +302,17 @@ export default async function middleware(request: NextRequest) {
         }
       )
 
+      // Soft ENV: trust cookie JWT via getSession (skip Auth→DB getUser).
+      const softAuth =
+        process.env.SUPABASE_SOFT_MODE === '1' ||
+        process.env.NEXT_PUBLIC_SUPABASE_SOFT_MODE === '1'
+
       // Use Promise.race with timeout for faster failure (2 second timeout)
-      const authPromise = supabase.auth.getUser()
+      const authPromise = softAuth
+        ? supabase.auth.getSession().then(({ data }) => ({
+            data: { user: data.session?.user ?? null },
+          }))
+        : supabase.auth.getUser()
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Auth timeout')), 2000)
       )

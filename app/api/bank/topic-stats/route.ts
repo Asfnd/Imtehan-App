@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cachedBankTopicStats, cachedDifficultyCount } from '@/lib/cached-quiz-fetch'
 import { API_JSON_NO_STORE_HEADERS } from '@/lib/seo/cdn-cache'
+import { noteSupabaseFailure, softMode, SOFT_API_CACHE_HEADERS } from '@/lib/supabase-soft'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -13,11 +14,22 @@ const ALLOWED = new Set([
   'mdcat_logical_reasoning',
 ])
 
+const SOFT_TOPIC_STATS = {
+  topics: [] as { topic: string; count: number }[],
+  difficulties: { Easy: 0, Medium: 0, Hard: 0 },
+  total: 0,
+  soft: true as const,
+}
+
 /** Topic + difficulty aggregates for MDCAT/FSc — no full-table client scans. */
 export async function GET(request: NextRequest) {
   const dbTable = request.nextUrl.searchParams.get('dbTable')?.trim()
   if (!dbTable || !ALLOWED.has(dbTable)) {
     return NextResponse.json({ error: 'invalid dbTable' }, { status: 400 })
+  }
+
+  if (softMode()) {
+    return NextResponse.json(SOFT_TOPIC_STATS, { headers: SOFT_API_CACHE_HEADERS })
   }
 
   try {
@@ -37,7 +49,8 @@ export async function GET(request: NextRequest) {
       { headers: API_JSON_NO_STORE_HEADERS }
     )
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('bank topic-stats:', error)
-    return NextResponse.json({ error: 'Failed to load topic stats' }, { status: 500 })
+    return NextResponse.json(SOFT_TOPIC_STATS, { headers: SOFT_API_CACHE_HEADERS })
   }
 }
