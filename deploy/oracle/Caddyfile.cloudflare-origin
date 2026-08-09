@@ -8,5 +8,16 @@ www.imtehan.com {
 
 imtehan.com {
 	tls /etc/caddy/certs/origin.crt /etc/caddy/certs/origin.key
-	reverse_proxy web:3000
+
+	# Static MCQ banks — disk only (same as azure-flexible). Never Next/Supabase.
+	handle /banks/* {
+		root * /srv
+		file_server
+		header Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+		header Access-Control-Allow-Origin "*"
+	}
+
+	handle {
+		reverse_proxy web:3000
+	}
 }

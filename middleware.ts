@@ -4,6 +4,7 @@ import { createServerClient } from '@supabase/ssr'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { cleanConcatenatedAbsoluteUrlPath } from '@/lib/seo/fix-concatenated-url'
+import { softMode } from '@/lib/supabase-soft'
 
 /**
  * Lightning-fast middleware with minimal overhead
@@ -302,8 +303,10 @@ export default async function middleware(request: NextRequest) {
         }
       )
 
-      // Soft ENV: trust cookie JWT via getSession (skip Auth→DB getUser).
+      // Soft: trust cookie JWT via getSession (skip Auth→DB getUser).
+      // Includes auto soft-mode trip, not only ENV.
       const softAuth =
+        softMode() ||
         process.env.SUPABASE_SOFT_MODE === '1' ||
         process.env.NEXT_PUBLIC_SUPABASE_SOFT_MODE === '1'
 
