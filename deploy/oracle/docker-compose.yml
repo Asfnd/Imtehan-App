@@ -35,10 +35,13 @@ services:
     environment:
       BANKS_DIR: /app/data/banks/v1
       BANKS_STATIC: ${BANKS_STATIC:-1}
-      # Keep fallback until full export coverage; set 0 when banks are complete.
-      BANKS_FALLBACK_SUPABASE: ${BANKS_FALLBACK_SUPABASE:-1}
+      # Prefer 0 once hub banks are synced; misses return empty instead of melting Nano.
+      BANKS_FALLBACK_SUPABASE: ${BANKS_FALLBACK_SUPABASE:-0}
     volumes:
       - ../../data/banks:/app/data/banks:ro
+    # Azure Nano / small VMs: leave RAM for Caddy + OS
+    mem_limit: 768m
+    cpus: 0.9
     expose:
       - '3000'
 
