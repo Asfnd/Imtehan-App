@@ -43,13 +43,22 @@ function ExamDashboard() {
   const preselectedMode = searchParams.get('mode') // e.g. 'most-repeated' or 'most-important'
 
   const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
   const [showSignIn, setShowSignIn] = useState(false)
   const [showPremium, setShowPremium] = useState(false)
   const [showGuide, setShowGuide] = useState(false)
   const [pendingMockId, setPendingMockId] = useState<number | null>(null)
   const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([])
-  const [subjectsWithCounts, setSubjectsWithCounts] = useState<any[]>([])
+  const [subjectsWithCounts, setSubjectsWithCounts] = useState<any[]>(() =>
+    config
+      ? config.sections.map((section) => ({
+          ...section,
+          repeatedCount: 0,
+          importantCount: 0,
+          pastCount: 0,
+          totalMCQs: 0,
+        }))
+      : [],
+  )
   const [completedMockIds, setCompletedMockIds] = useState<Set<number>>(new Set())
   const [mockScores, setMockScores] = useState<Record<number, number>>({})
 
@@ -136,9 +145,17 @@ function ExamDashboard() {
   }
 
   const checkUser = async () => {
-    const user = await getFreshAuthUser()
-    setUser(user)
-    setLoading(false)
+    // Paint hub immediately from cached session; refresh premium metadata in background.
+    try {
+      const supabase = createClient()
+      const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+    } catch {
+      setUser(null)
+    }
+    void getFreshAuthUser().then((fresh) => {
+      if (fresh) setUser(fresh)
+    })
   }
 
   const loadSubjectCounts = async () => {
@@ -225,17 +242,6 @@ function ExamDashboard() {
       return user.email.split('@')[0]
     }
     return 'User'
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -342,12 +348,10 @@ function ExamDashboard() {
               return (
                 <ExamPracticeGridCard
                   key={section.slug}
-                  onClick={() =>
-                    router.push(
-                      preselectedMode
-                        ? `/exams/${examSlug}/${section.slug}/${preselectedMode}`
-                        : `/exams/${examSlug}/${section.slug}`,
-                    )
+                  href={
+                    preselectedMode
+                      ? `/exams/${examSlug}/${section.slug}/${preselectedMode}`
+                      : `/exams/${examSlug}/${section.slug}`
                   }
                   icon={BookOpen}
                   title={section.label}

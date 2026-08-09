@@ -10,6 +10,7 @@ import { MetaPixel } from "@/components/MetaPixel"
 import { MetaPixelRouteTracker } from "@/components/MetaPixelRouteTracker"
 import { DeferredMetaPixelConversions } from "@/components/DeferredMetaPixelConversions"
 import { PostAuthFollowPrompt } from "@/components/social/PostAuthFollowPrompt"
+import { SoftNavHardFallback } from "@/components/SoftNavHardFallback"
 import "./globals.css"
 
 const inter = Inter({
@@ -119,6 +120,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${inter.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>
+          <SoftNavHardFallback />
           <MetaPixelRouteTracker />
           <PostAuthFollowPrompt />
           <DeferredMetaPixelConversions />

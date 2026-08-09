@@ -3,6 +3,7 @@
 import { roundMcqCount } from '@/lib/round-mcq-count'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
 import {
   Flame, Star, FileText, Target,
   BookOpen, CheckCircle, TrendingUp, ChevronRight, Lock,
@@ -22,7 +23,8 @@ import { FAQSchema } from '@/components/seo/StructuredData'
 // ─── Reusable card matching ExamPracticeGridCard structure exactly ────────────
 
 type PracticeCardProps = {
-  onClick: () => void
+  href?: string
+  onClick?: () => void
   icon: React.ElementType
   title: string
   subtitle: string
@@ -45,7 +47,7 @@ type PracticeCardProps = {
 }
 
 function PracticeCard({
-  onClick, icon: Icon, title, subtitle,
+  href, onClick, icon: Icon, title, subtitle,
   statPrimary, statSecondary, actionLabel = 'Start',
   accentFrom = 'from-blue-600', accentTo = 'to-blue-700',
   borderHover = 'hover:border-blue-400', shadowHover = 'hover:shadow-blue-500/10',
@@ -55,12 +57,9 @@ function PracticeCard({
   btnHoverFrom = 'hover:from-blue-700', btnHoverTo = 'hover:to-blue-800',
   titleHover = 'group-hover:text-blue-900',
 }: PracticeCardProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`group relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white text-center shadow-sm transition-all duration-300 hover:-translate-y-1 ${borderHover} hover:shadow-md ${shadowHover}`}
-    >
+  const className = `group relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white text-center shadow-sm transition-all duration-300 hover:-translate-y-1 ${borderHover} hover:shadow-md ${shadowHover}`
+  const inner = (
+    <>
       <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${gradientFrom} via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
       <div className="relative flex flex-1 flex-col p-3 text-center sm:p-3.5">
         <div className={`mx-auto mb-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${accentFrom} ${accentTo} shadow-sm transition-transform duration-300 group-hover:scale-105`}>
@@ -78,10 +77,24 @@ function PracticeCard({
           <div className={`text-sm font-bold tabular-nums leading-tight ${statColor}`}>{statPrimary}</div>
           <div className="text-[10px] leading-tight text-gray-500">{statSecondary}</div>
         </div>
-        <span className={`mt-auto block w-full shrink-0 rounded-md bg-gradient-to-r py-1.5 text-xs font-medium text-white transition-all ${btnFrom} ${btnTo} ${btnHoverFrom} ${btnHoverTo}`}>
+        <span className={`mt-auto block w-full shrink-0 rounded-md bg-gradient-to-r ${btnFrom} ${btnTo} py-1.5 text-xs font-medium text-white transition-all ${btnHoverFrom} ${btnHoverTo}`}>
           {actionLabel}
         </span>
       </div>
+    </>
+  )
+
+  if (href) {
+    return (
+      <Link href={href} prefetch onClick={onClick} className={className}>
+        {inner}
+      </Link>
+    )
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {inner}
     </button>
   )
 }
@@ -222,17 +235,6 @@ export function SubjectModesClient() {
         },
       ]
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       <NavigationBar />
@@ -269,7 +271,7 @@ export function SubjectModesClient() {
           {skipType ? (
             <div className="grid grid-cols-1 items-stretch gap-3 sm:max-w-sm sm:mx-auto">
               <PracticeCard
-                onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/practice`)}
+                href={`/exams/${examSlug}/${subjectSlug}/practice`}
                 icon={Target}
                 title="Practice Sets"
                 subtitle="Timed-style sets of 20 unique MCQs"
@@ -280,7 +282,7 @@ export function SubjectModesClient() {
           ) : (
           <div className="grid grid-cols-2 items-stretch gap-3 sm:grid-cols-4 sm:gap-4">
             <PracticeCard
-              onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/most-repeated`)}
+              href={`/exams/${examSlug}/${subjectSlug}/most-repeated`}
               icon={Flame}
               title="Most Repeated"
               subtitle="High-yield frequently asked questions"
@@ -288,7 +290,7 @@ export function SubjectModesClient() {
               statSecondary="Exam focused"
             />
             <PracticeCard
-              onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/most-important`)}
+              href={`/exams/${examSlug}/${subjectSlug}/most-important`}
               icon={Star}
               title="Most Important"
               subtitle="Critical must-know MCQs"
@@ -296,7 +298,7 @@ export function SubjectModesClient() {
               statSecondary="Core concepts"
             />
             <PracticeCard
-              onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/past-papers`)}
+              href={`/exams/${examSlug}/${subjectSlug}/past-papers`}
               icon={FileText}
               title="Past MCQs"
               subtitle="Actual exam questions, 2015 onwards"
@@ -304,7 +306,7 @@ export function SubjectModesClient() {
               statSecondary="2015 - 2026"
             />
             <PracticeCard
-              onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/practice`)}
+              href={`/exams/${examSlug}/${subjectSlug}/practice`}
               icon={Target}
               title="Practice Mode"
               subtitle="Mixed random sets from all types"
@@ -321,13 +323,9 @@ export function SubjectModesClient() {
             <SectionLabel chip={`${topicsWithCounts.length} topics`}>
               Practice by Topic
             </SectionLabel>
-            <button
-              type="button"
-              onClick={() => {
-                // TODO: re-enable premium gate when testing is done
-                // if (!isPremium) { router.push(PREMIUM_PAGE_PATH); return }
-                router.push(`/exams/${examSlug}/${subjectSlug}/topics`)
-              }}
+            <Link
+              href={`/exams/${examSlug}/${subjectSlug}/topics`}
+              prefetch
               className="group relative w-full rounded-xl border shadow-sm transition-all duration-300 overflow-hidden text-left bg-gradient-to-br from-blue-50 via-indigo-50/50 to-blue-50/70 border-blue-200 hover:border-blue-400 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/20"
             >
               <div className="flex items-center gap-4 p-5 sm:p-6">
@@ -364,7 +362,7 @@ export function SubjectModesClient() {
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </div>
-            </button>
+            </Link>
           </section>
         )}
 
@@ -377,7 +375,7 @@ export function SubjectModesClient() {
             <div className="grid grid-cols-3 items-stretch gap-3 sm:gap-4">
               {counts.easyCount > 0 && (
                 <PracticeCard
-                  onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/difficulty/easy`)}
+                  href={`/exams/${examSlug}/${subjectSlug}/difficulty/easy`}
                   icon={CheckCircle}
                   title="Easy"
                   subtitle="Straightforward questions to build confidence"
@@ -394,7 +392,7 @@ export function SubjectModesClient() {
               )}
               {counts.mediumCount > 0 && (
                 <PracticeCard
-                  onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/difficulty/medium`)}
+                  href={`/exams/${examSlug}/${subjectSlug}/difficulty/medium`}
                   icon={TrendingUp}
                   title="Medium"
                   subtitle="Moderate challenge for steady progress"
@@ -411,7 +409,7 @@ export function SubjectModesClient() {
               )}
               {counts.hardCount > 0 && (
                 <PracticeCard
-                  onClick={() => router.push(`/exams/${examSlug}/${subjectSlug}/difficulty/hard`)}
+                  href={`/exams/${examSlug}/${subjectSlug}/difficulty/hard`}
                   icon={Flame}
                   title="Hard"
                   subtitle="High-difficulty sets for exam edge"

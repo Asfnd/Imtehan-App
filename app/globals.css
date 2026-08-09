@@ -2,6 +2,15 @@
 @import "tw-animate-css";
 @import "../styles/animations.css";
 
+/* Avoid iOS/touch “first tap applies hover, second tap clicks”. */
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

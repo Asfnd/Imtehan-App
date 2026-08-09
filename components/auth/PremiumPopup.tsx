@@ -17,11 +17,14 @@ export function PremiumPopup({ isOpen, onClose }: PremiumPopupProps) {
   return (
     <>
       {/* Full-screen blocking overlay */}
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]" />
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]" onClick={onClose} aria-hidden />
 
       {/* Popup content */}
-      <div className="fixed inset-0 z-[101] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-300">
+      <div className="fixed inset-0 z-[101] flex items-center justify-center p-4" onClick={onClose}>
+        <div
+          className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-300"
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* Header with gradient */}
           <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-6 text-white relative">
             <button
