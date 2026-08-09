@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
 import { FileText, ChevronDown, LayoutGrid } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
@@ -37,11 +37,22 @@ const CATEGORY_ORDER = [
 ]
 
 function ExamsInner() {
+  const router = useRouter()
   const searchParams = useSearchParams()
-  const initialCategory = searchParams.get('category') || 'css'
-  const [activeCategory, setActiveCategory] = useState(initialCategory)
+  const categoryFromUrl = searchParams.get('category') || 'css'
+  const [activeCategory, setActiveCategory] = useState(categoryFromUrl)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setActiveCategory(categoryFromUrl)
+  }, [categoryFromUrl])
+
+  const selectCategory = (cat: string) => {
+    setActiveCategory(cat)
+    setDropdownOpen(false)
+    router.replace(`/exams?category=${cat}`, { scroll: false })
+  }
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -59,8 +70,23 @@ function ExamsInner() {
     return acc
   }, {} as Record<string, any[]>)
 
+  // Keep newest / high-intent posts visible at the top of each grid.
+  const PINNED_EXAM_SLUGS: Record<string, string[]> = {
+    police: ['police-islamabad-assistant', 'police-islamabad-si', 'police-islamabad-constable'],
+  }
+
   const availableCategories = CATEGORY_ORDER.filter((cat) => examsByCategory[cat]?.length)
-  const activeExams = examsByCategory[activeCategory] || []
+  const activeExams = [...(examsByCategory[activeCategory] || [])].sort((a, b) => {
+    const pinned = PINNED_EXAM_SLUGS[activeCategory] || []
+    const ai = pinned.indexOf(a.slug)
+    const bi = pinned.indexOf(b.slug)
+    if (ai !== -1 || bi !== -1) {
+      if (ai === -1) return 1
+      if (bi === -1) return -1
+      return ai - bi
+    }
+    return String(a.name).localeCompare(String(b.name))
+  })
   const activeCat = CATEGORY_CONFIG[activeCategory]
 
   const categoryDropdown = (
@@ -83,7 +109,7 @@ function ExamsInner() {
               return (
                 <button
                   key={cat}
-                  onClick={() => { setActiveCategory(cat); setDropdownOpen(false) }}
+                  onClick={() => selectCategory(cat)}
                   className={`rounded-xl border-2 px-4 py-3 text-left text-sm font-bold transition-all ${
                     isActive
                       ? 'border-transparent bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-500/25'
@@ -105,7 +131,7 @@ function ExamsInner() {
               return (
                 <button
                   key={cat}
-                  onClick={() => { setActiveCategory(cat); setDropdownOpen(false) }}
+                  onClick={() => selectCategory(cat)}
                   className={`rounded-lg border-2 px-3.5 py-2.5 text-left text-sm font-semibold transition-all ${
                     isActive
                       ? 'border-blue-600 bg-blue-600 text-white'
