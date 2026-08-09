@@ -22,6 +22,7 @@ import {
   type BankManifest,
   type BankPoolKey,
   type BankSetFile,
+  poolExamSlug,
 } from '@/lib/banks-pool'
 import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 import { mcqSelectCols, normalizeQuizMcqRow } from '@/lib/quiz-fetcher'
@@ -217,14 +218,34 @@ async function materializePool(
   return { poolId, total: rows.length, setCount, skippedEmpty: false as const }
 }
 
-function collectPools(examFilter?: string): BankPoolKey[] {
+function collectPools(examFilter?: string, hubsOnly = false): BankPoolKey[] {
   const map = new Map<string, BankPoolKey>()
   const add = (key: BankPoolKey) => {
     map.set(bankPoolId(key), key)
   }
 
+  /** Flagship exams — cover shared banks without exporting every thin post. */
+  const HUB_EXAMS = new Set([
+    'css-mpt',
+    'mdcat',
+    'ppsc-assistant',
+    'nts-general',
+    'fpsc-general',
+    'kppsc-general',
+    'spsc-general',
+    'bpsc-general',
+    'etea-general',
+    'police-asi',
+    'fia-assistant',
+    'hec-law-gat',
+    'issb',
+    'uet-lahore',
+    'bahria-university',
+  ])
+
   for (const [examSlug, config] of Object.entries(EXAM_CONFIGS)) {
     if (examFilter && examSlug !== examFilter) continue
+    if (hubsOnly && !examFilter && !HUB_EXAMS.has(examSlug)) continue
     for (const section of config.sections) {
       const base = {
         dbTable: section.dbTable,
@@ -233,7 +254,7 @@ function collectPools(examFilter?: string): BankPoolKey[] {
         topicFields: section.topicFields,
         questionNeedles: section.questionNeedles,
         subtopicField: section.subtopicField,
-        examSlug,
+        examSlug: poolExamSlug(section.dbTable, examSlug),
         targetExam: config.targetExam,
       }
 
@@ -261,7 +282,7 @@ function collectPools(examFilter?: string): BankPoolKey[] {
           dbTable: section.dbTable,
           difficulty: d,
           subjectField: section.subjectField,
-          examSlug,
+          examSlug: poolExamSlug(section.dbTable, examSlug),
           noTypeFilter: true,
         })
       }
@@ -277,7 +298,7 @@ function collectPools(examFilter?: string): BankPoolKey[] {
             dbTable: section.dbTable,
             tag: dbTag,
             useTagsArray,
-            examSlug,
+            examSlug: poolExamSlug(section.dbTable, examSlug),
             noTypeFilter: true,
           })
         }
@@ -308,8 +329,9 @@ function collectPools(examFilter?: string): BankPoolKey[] {
 async function main() {
   const outRoot = path.resolve(arg('out') || path.join(process.cwd(), 'data', 'banks'))
   const examFilter = arg('exam')
+  const hubsOnly = hasFlag('hubs') || !examFilter // default: hubs only (protect Free Nano)
   const resume = hasFlag('resume')
-  const pruneEmpty = hasFlag('prune-empty') || true
+  const pruneEmpty = !hasFlag('no-prune')
   const maxPools = arg('max-pools') ? Number(arg('max-pools')) : Infinity
   const sleepMs = arg('sleep-ms') ? Number(arg('sleep-ms')) : 50
 
@@ -336,9 +358,9 @@ async function main() {
     }
   }
 
-  const pools = collectPools(examFilter)
+  const pools = collectPools(examFilter, hubsOnly && !examFilter)
   console.log(
-    `Pools to export: ${pools.length}${examFilter ? ` (exam=${examFilter})` : ''} → ${outRoot}`
+    `Pools to export: ${pools.length}${examFilter ? ` (exam=${examFilter})` : hubsOnly ? ' (hubs)' : ''} → ${outRoot}`
   )
 
   const supabase = createClientOrDie()
@@ -367,7 +389,6 @@ async function main() {
       const r = await materializePool(supabase, key, outRoot)
       if (r.skippedEmpty) {
         empty++
-        // Remove any prior empty dir
         await fs.rm(path.join(outRoot, BANKS_VERSION, poolId), { recursive: true, force: true }).catch(() => {})
         console.log(`[skip-empty] ${key.kind} ${key.dbTable} ${key.mode || key.difficulty || key.tag || ''} (${poolId})`)
       } else {

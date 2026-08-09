@@ -79,13 +79,24 @@ export default function PremiumPage() {
                   ) : (
                     <p className="text-xs text-gray-400 mt-1">billed once</p>
                   )}
-                  {plan.savings && (
-                    <div className="flex items-center gap-2 mt-1.5">
-                      <p className={`text-xs font-semibold ${plan.savingsColor}`}>{plan.savings}</p>
-                      {plan.badge && (
-                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${plan.badgeColor}`}>{plan.badge}</span>
+                  {(plan.savings || (plan.badge && !plan.highlight)) && (
+                    <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                      {plan.savings && (
+                        <p className={`text-xs font-semibold ${plan.savingsColor || 'text-green-600'}`}>
+                          {plan.savings}
+                        </p>
+                      )}
+                      {plan.badge && !plan.highlight && (
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${plan.badgeColor}`}>
+                          {plan.badge}
+                        </span>
                       )}
                     </div>
+                  )}
+                  {plan.highlight && plan.savings && (
+                    <p className={`text-xs font-semibold mt-1.5 ${plan.savingsColor || 'text-blue-600'}`}>
+                      {plan.savings}
+                    </p>
                   )}
                 </div>
 
