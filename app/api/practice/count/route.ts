@@ -44,10 +44,6 @@ export async function GET(request: NextRequest) {
     ? topicsRaw.split('|').map((n) => n.trim()).filter(Boolean)
     : undefined
 
-  if (softMode()) {
-    return NextResponse.json({ count: 0, soft: true }, { headers: SOFT_API_CACHE_HEADERS })
-  }
-
   try {
     let count = 0
     if (tag) {
@@ -78,6 +74,11 @@ export async function GET(request: NextRequest) {
         examSlug,
         questionNeedles,
       })
+    }
+
+    // Soft + cold miss → 0 from withSoftCache; soft headers. Warm cache still serves real counts.
+    if (softMode() && count === 0) {
+      return NextResponse.json({ count: 0, soft: true }, { headers: SOFT_API_CACHE_HEADERS })
     }
 
     return NextResponse.json({ count }, { headers: API_JSON_NO_STORE_HEADERS })

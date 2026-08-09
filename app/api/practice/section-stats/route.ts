@@ -18,6 +18,26 @@ const SOFT_SECTION_STATS = {
   soft: true as const,
 }
 
+function isEmptySectionStats(stats: {
+  pastCount: number
+  importantCount: number
+  repeatedCount: number
+  easyCount: number
+  mediumCount: number
+  hardCount: number
+  topics: Record<string, number>
+}): boolean {
+  return (
+    stats.pastCount === 0 &&
+    stats.importantCount === 0 &&
+    stats.repeatedCount === 0 &&
+    stats.easyCount === 0 &&
+    stats.mediumCount === 0 &&
+    stats.hardCount === 0 &&
+    Object.keys(stats.topics).every((k) => (stats.topics[k] ?? 0) === 0)
+  )
+}
+
 /** Batched subject-hub counts (modes + difficulty + topics), 24h cache. */
 export async function GET(request: NextRequest) {
   const sp = request.nextUrl.searchParams
@@ -34,10 +54,6 @@ export async function GET(request: NextRequest) {
   const resolvedTags = tags.map((tag) =>
     useTopicCol ? topicDbValue(tag, dbTable) : tag
   )
-
-  if (softMode()) {
-    return NextResponse.json(SOFT_SECTION_STATS, { headers: SOFT_API_CACHE_HEADERS })
-  }
 
   try {
     const stats = await cachedSectionStats({
@@ -78,7 +94,14 @@ export async function GET(request: NextRequest) {
       topics[tag] = stats.topics[resolvedTags[i]] ?? 0
     })
 
-    return NextResponse.json({ ...stats, topics }, { headers: API_JSON_NO_STORE_HEADERS })
+    const payload = { ...stats, topics }
+
+    // Soft + cold miss → empty fallback; soft headers. Warm cache still serves real numbers.
+    if (softMode() && isEmptySectionStats(payload)) {
+      return NextResponse.json(SOFT_SECTION_STATS, { headers: SOFT_API_CACHE_HEADERS })
+    }
+
+    return NextResponse.json(payload, { headers: API_JSON_NO_STORE_HEADERS })
   } catch (error) {
     noteSupabaseFailure(error)
     console.error('section-stats:', error)

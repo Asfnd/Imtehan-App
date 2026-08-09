@@ -14,7 +14,12 @@ import {
 } from '@/lib/quiz-fetcher'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { applyBankExamScope } from '@/lib/mcq-bank-scope'
-import { noteSupabaseFailure, softMode } from '@/lib/supabase-soft'
+import {
+  noteSupabaseFailure,
+  softMode,
+  SoftSkipError,
+  withSoftCache,
+} from '@/lib/supabase-soft'
 
 const REVALIDATE = 604800
 
@@ -163,7 +168,6 @@ export function cachedExamTableCount(params: {
   examSlug?: string
   questionNeedles?: string[]
 }): Promise<number> {
-  if (softMode()) return Promise.resolve(0)
   const key = [
     'exam-count-v6',
     params.dbTable,
@@ -176,38 +180,41 @@ export function cachedExamTableCount(params: {
     params.examSlug ?? '',
     (params.questionNeedles ?? []).join('|'),
   ]
-  return unstable_cache(
-    async () => {
-      try {
-        const supabase = createPublicSupabaseClient()
-        let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-        if (params.targetExam) query = query.eq('target_exam', params.targetExam)
-        else if (params.type) query = query.eq('type', params.type)
-        query = applyBankExamScope(query, {
-          dbTable: params.dbTable,
-          examSlug: params.examSlug,
-          subjectField: params.subjectField,
-          subjectFields: params.subjectFields,
-          subtopicField: params.subtopicField,
-          topicFields: params.topicFields,
-          targetExam: params.targetExam,
-          questionNeedles: params.questionNeedles,
-          scopeMode: 'family',
-        })
-        const { count, error } = await query
-        if (error) {
-          noteSupabaseFailure(error)
-          throw new Error(error.message)
+  return withSoftCache(0, () =>
+    unstable_cache(
+      async () => {
+        if (softMode()) throw new SoftSkipError()
+        try {
+          const supabase = createPublicSupabaseClient()
+          let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+          if (params.targetExam) query = query.eq('target_exam', params.targetExam)
+          else if (params.type) query = query.eq('type', params.type)
+          query = applyBankExamScope(query, {
+            dbTable: params.dbTable,
+            examSlug: params.examSlug,
+            subjectField: params.subjectField,
+            subjectFields: params.subjectFields,
+            subtopicField: params.subtopicField,
+            topicFields: params.topicFields,
+            targetExam: params.targetExam,
+            questionNeedles: params.questionNeedles,
+            scopeMode: 'family',
+          })
+          const { count, error } = await query
+          if (error) {
+            noteSupabaseFailure(error)
+            throw new Error(error.message)
+          }
+          return count ?? 0
+        } catch (e) {
+          noteSupabaseFailure(e)
+          throw e
         }
-        return count ?? 0
-      } catch (e) {
-        noteSupabaseFailure(e)
-        throw e
-      }
-    },
-    key,
-    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
-  )()
+      },
+      key,
+      { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+    )()
+  )
 }
 
 /** Cached topic/tag head counts for set pickers (egress fix). */
@@ -217,7 +224,6 @@ export function cachedTopicTagCount(params: {
   useTagsArray: boolean
   examSlug?: string
 }): Promise<number> {
-  if (softMode()) return Promise.resolve(0)
   const key = [
     'topic-count-v4',
     params.dbTable,
@@ -225,33 +231,36 @@ export function cachedTopicTagCount(params: {
     String(params.useTagsArray),
     params.examSlug ?? '',
   ]
-  return unstable_cache(
-    async () => {
-      try {
-        const supabase = createPublicSupabaseClient()
-        let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
-        query = params.useTagsArray
-          ? query.contains('tags', [params.tag])
-          : query.eq('topic', params.tag)
-        query = applyBankExamScope(query, {
-          dbTable: params.dbTable,
-          examSlug: params.examSlug,
-          scopeMode: 'family',
-        })
-        const { count, error } = await query
-        if (error) {
-          noteSupabaseFailure(error)
-          throw new Error(error.message)
+  return withSoftCache(0, () =>
+    unstable_cache(
+      async () => {
+        if (softMode()) throw new SoftSkipError()
+        try {
+          const supabase = createPublicSupabaseClient()
+          let query = supabase.from(params.dbTable).select('id', { count: 'exact', head: true })
+          query = params.useTagsArray
+            ? query.contains('tags', [params.tag])
+            : query.eq('topic', params.tag)
+          query = applyBankExamScope(query, {
+            dbTable: params.dbTable,
+            examSlug: params.examSlug,
+            scopeMode: 'family',
+          })
+          const { count, error } = await query
+          if (error) {
+            noteSupabaseFailure(error)
+            throw new Error(error.message)
+          }
+          return count ?? 0
+        } catch (e) {
+          noteSupabaseFailure(e)
+          throw e
         }
-        return count ?? 0
-      } catch (e) {
-        noteSupabaseFailure(e)
-        throw e
-      }
-    },
-    key,
-    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
-  )()
+      },
+      key,
+      { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+    )()
+  )
 }
 
 /** Cached difficulty head count (MDCAT/exam hubs). */
@@ -263,7 +272,6 @@ export function cachedDifficultyCount(params: {
   questionNeedles?: string[]
   examSlug?: string
 }): Promise<number> {
-  if (softMode()) return Promise.resolve(0)
   const key = [
     'diff-count-v5',
     params.dbTable,
@@ -273,69 +281,74 @@ export function cachedDifficultyCount(params: {
     (params.questionNeedles ?? []).join('|'),
     params.examSlug ?? '',
   ]
-  return unstable_cache(
-    async () => {
-      try {
-        const supabase = createPublicSupabaseClient()
-        const level = params.difficulty.trim()
-        const variants = Array.from(
-          new Set([level, level.charAt(0).toUpperCase() + level.slice(1).toLowerCase(), level.toLowerCase()])
-        )
-        let query = supabase
-          .from(params.dbTable)
-          .select('id', { count: 'exact', head: true })
-          .in('difficulty', variants)
-        if (params.subjectField) query = query.eq('subject', params.subjectField)
-        query = applyBankExamScope(query, {
-          dbTable: params.dbTable,
-          examSlug: params.examSlug,
-          subjectField: params.subjectField,
-          topicFields: params.topicFields,
-          questionNeedles: params.questionNeedles,
-          scopeMode: 'family',
-        })
-        const { count, error } = await query
-        if (error) {
-          noteSupabaseFailure(error)
-          throw new Error(error.message)
+  return withSoftCache(0, () =>
+    unstable_cache(
+      async () => {
+        if (softMode()) throw new SoftSkipError()
+        try {
+          const supabase = createPublicSupabaseClient()
+          const level = params.difficulty.trim()
+          const variants = Array.from(
+            new Set([level, level.charAt(0).toUpperCase() + level.slice(1).toLowerCase(), level.toLowerCase()])
+          )
+          let query = supabase
+            .from(params.dbTable)
+            .select('id', { count: 'exact', head: true })
+            .in('difficulty', variants)
+          if (params.subjectField) query = query.eq('subject', params.subjectField)
+          query = applyBankExamScope(query, {
+            dbTable: params.dbTable,
+            examSlug: params.examSlug,
+            subjectField: params.subjectField,
+            topicFields: params.topicFields,
+            questionNeedles: params.questionNeedles,
+            scopeMode: 'family',
+          })
+          const { count, error } = await query
+          if (error) {
+            noteSupabaseFailure(error)
+            throw new Error(error.message)
+          }
+          return count ?? 0
+        } catch (e) {
+          noteSupabaseFailure(e)
+          throw e
         }
-        return count ?? 0
-      } catch (e) {
-        noteSupabaseFailure(e)
-        throw e
-      }
-    },
-    key,
-    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
-  )()
+      },
+      key,
+      { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+    )()
+  )
 }
 
 /** MDCAT/FSc topic aggregates via RPC — KB payload, no full-table download. */
 export function cachedBankTopicStats(dbTable: string): Promise<{ topic: string; count: number }[]> {
-  if (softMode()) return Promise.resolve([])
-  return unstable_cache(
-    async () => {
-      try {
-        const supabase = createPublicSupabaseClient()
-        const { data, error } = await supabase.rpc('get_bank_topic_counts', { p_table: dbTable })
-        if (error) {
-          noteSupabaseFailure(error)
-          throw new Error(error.message)
+  return withSoftCache([], () =>
+    unstable_cache(
+      async () => {
+        if (softMode()) throw new SoftSkipError()
+        try {
+          const supabase = createPublicSupabaseClient()
+          const { data, error } = await supabase.rpc('get_bank_topic_counts', { p_table: dbTable })
+          if (error) {
+            noteSupabaseFailure(error)
+            throw new Error(error.message)
+          }
+          return ((data as { topic: string; question_count: number }[]) || [])
+            .map((row) => ({
+              topic: String(row.topic),
+              count: Number(row.question_count) || 0,
+            }))
+            .filter((row) => row.topic && row.count > 0)
+        } catch (e) {
+          noteSupabaseFailure(e)
+          throw e
         }
-        return ((data as { topic: string; question_count: number }[]) || [])
-          .map((row) => ({
-            topic: String(row.topic),
-            count: Number(row.question_count) || 0,
-          }))
-          .filter((row) => row.topic && row.count > 0)
-      } catch (e) {
-        noteSupabaseFailure(e)
-        throw e
-      }
-    },
-    ['bank-topic-stats-v1', dbTable],
-    { revalidate: REVALIDATE, tags: [`mcq-set-${dbTable}`] }
-  )()
+      },
+      ['bank-topic-stats-v1', dbTable],
+      { revalidate: REVALIDATE, tags: [`mcq-set-${dbTable}`] }
+    )()
+  )
 }
 
 export type SectionStatsPayload = {
@@ -372,7 +385,6 @@ export function cachedSectionStats(params: {
   examSlug?: string
   questionNeedles?: string[]
 }): Promise<SectionStatsPayload> {
-  if (softMode()) return Promise.resolve(EMPTY_SECTION_STATS)
   const tags = params.tags ?? []
   const key = [
     'section-stats-v7',
@@ -388,104 +400,107 @@ export function cachedSectionStats(params: {
     params.examSlug ?? '',
     (params.questionNeedles ?? []).join('|'),
   ]
-  return unstable_cache(
-    async () => {
-      try {
-        const easy = params.titleCaseDifficulty ? 'Easy' : 'easy'
-        const medium = params.titleCaseDifficulty ? 'Medium' : 'medium'
-        const hard = params.titleCaseDifficulty ? 'Hard' : 'hard'
-        const sharedTotal = !!(
-          params.noTypeFilter ||
-          params.subjectField ||
-          params.subjectFields?.length ||
-          params.subtopicField ||
-          params.topicFields?.length
-        )
+  return withSoftCache(EMPTY_SECTION_STATS, () =>
+    unstable_cache(
+      async () => {
+        if (softMode()) throw new SoftSkipError()
+        try {
+          const easy = params.titleCaseDifficulty ? 'Easy' : 'easy'
+          const medium = params.titleCaseDifficulty ? 'Medium' : 'medium'
+          const hard = params.titleCaseDifficulty ? 'Hard' : 'hard'
+          const sharedTotal = !!(
+            params.noTypeFilter ||
+            params.subjectField ||
+            params.subjectFields?.length ||
+            params.subtopicField ||
+            params.topicFields?.length
+          )
 
-        const [allOrPast, importantCount, repeatedCount, easyCount, mediumCount, hardCount, ...topicCounts] =
-          await Promise.all([
-            cachedExamTableCount({
-              dbTable: params.dbTable,
-              type: sharedTotal ? null : 'practice',
-              subjectField: params.subjectField,
-              subjectFields: params.subjectFields,
-              subtopicField: params.subtopicField,
-              topicFields: params.topicFields,
-              examSlug: params.examSlug,
-              questionNeedles: params.questionNeedles,
-            }),
-            sharedTotal
-              ? Promise.resolve(0)
-              : cachedExamTableCount({
-                  dbTable: params.dbTable,
-                  type: 'most_important',
-                  examSlug: params.examSlug,
-                  questionNeedles: params.questionNeedles,
-                }),
-            sharedTotal
-              ? Promise.resolve(0)
-              : cachedExamTableCount({
-                  dbTable: params.dbTable,
-                  type: 'most_repeated',
-                  examSlug: params.examSlug,
-                  questionNeedles: params.questionNeedles,
-                }),
-            cachedDifficultyCount({
-              dbTable: params.dbTable,
-              difficulty: easy,
-              subjectField: params.subjectField,
-              topicFields: params.topicFields,
-              questionNeedles: params.questionNeedles,
-              examSlug: params.examSlug,
-            }),
-            cachedDifficultyCount({
-              dbTable: params.dbTable,
-              difficulty: medium,
-              subjectField: params.subjectField,
-              topicFields: params.topicFields,
-              questionNeedles: params.questionNeedles,
-              examSlug: params.examSlug,
-            }),
-            cachedDifficultyCount({
-              dbTable: params.dbTable,
-              difficulty: hard,
-              subjectField: params.subjectField,
-              topicFields: params.topicFields,
-              questionNeedles: params.questionNeedles,
-              examSlug: params.examSlug,
-            }),
-            ...tags.map((tag) =>
-              cachedTopicTagCount({
+          const [allOrPast, importantCount, repeatedCount, easyCount, mediumCount, hardCount, ...topicCounts] =
+            await Promise.all([
+              cachedExamTableCount({
                 dbTable: params.dbTable,
-                tag,
-                useTagsArray: !!params.useTagsArray,
+                type: sharedTotal ? null : 'practice',
+                subjectField: params.subjectField,
+                subjectFields: params.subjectFields,
+                subtopicField: params.subtopicField,
+                topicFields: params.topicFields,
                 examSlug: params.examSlug,
-              })
-            ),
-          ])
+                questionNeedles: params.questionNeedles,
+              }),
+              sharedTotal
+                ? Promise.resolve(0)
+                : cachedExamTableCount({
+                    dbTable: params.dbTable,
+                    type: 'most_important',
+                    examSlug: params.examSlug,
+                    questionNeedles: params.questionNeedles,
+                  }),
+              sharedTotal
+                ? Promise.resolve(0)
+                : cachedExamTableCount({
+                    dbTable: params.dbTable,
+                    type: 'most_repeated',
+                    examSlug: params.examSlug,
+                    questionNeedles: params.questionNeedles,
+                  }),
+              cachedDifficultyCount({
+                dbTable: params.dbTable,
+                difficulty: easy,
+                subjectField: params.subjectField,
+                topicFields: params.topicFields,
+                questionNeedles: params.questionNeedles,
+                examSlug: params.examSlug,
+              }),
+              cachedDifficultyCount({
+                dbTable: params.dbTable,
+                difficulty: medium,
+                subjectField: params.subjectField,
+                topicFields: params.topicFields,
+                questionNeedles: params.questionNeedles,
+                examSlug: params.examSlug,
+              }),
+              cachedDifficultyCount({
+                dbTable: params.dbTable,
+                difficulty: hard,
+                subjectField: params.subjectField,
+                topicFields: params.topicFields,
+                questionNeedles: params.questionNeedles,
+                examSlug: params.examSlug,
+              }),
+              ...tags.map((tag) =>
+                cachedTopicTagCount({
+                  dbTable: params.dbTable,
+                  tag,
+                  useTagsArray: !!params.useTagsArray,
+                  examSlug: params.examSlug,
+                })
+              ),
+            ])
 
-        const topics: Record<string, number> = {}
-        tags.forEach((tag, i) => {
-          topics[tag] = topicCounts[i] || 0
-        })
+          const topics: Record<string, number> = {}
+          tags.forEach((tag, i) => {
+            topics[tag] = topicCounts[i] || 0
+          })
 
-        return {
-          pastCount: allOrPast,
-          importantCount: sharedTotal ? allOrPast : importantCount,
-          repeatedCount: sharedTotal ? allOrPast : repeatedCount,
-          easyCount,
-          mediumCount,
-          hardCount,
-          topics,
+          return {
+            pastCount: allOrPast,
+            importantCount: sharedTotal ? allOrPast : importantCount,
+            repeatedCount: sharedTotal ? allOrPast : repeatedCount,
+            easyCount,
+            mediumCount,
+            hardCount,
+            topics,
+          }
+        } catch (e) {
+          noteSupabaseFailure(e)
+          throw e
         }
-      } catch (e) {
-        noteSupabaseFailure(e)
-        throw e
-      }
-    },
-    key,
-    { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
-  )()
+      },
+      key,
+      { revalidate: REVALIDATE, tags: [`mcq-set-${params.dbTable}`] }
+    )()
+  )
 }
 
 /**
