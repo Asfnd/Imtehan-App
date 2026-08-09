@@ -1,0 +1,12 @@
+# Cloudflare Flexible / IP origin — HTTP :80 only.
+# TLS terminates at Cloudflare; origin stays plain HTTP.
+# Use this on Azure (20.205.110.177). Do not use Let's Encrypt host blocks here.
+
+:80 {
+	encode gzip zstd
+	reverse_proxy web:3000 {
+		header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
+		header_up X-Forwarded-Host {http.request.header.X-Forwarded-Host}
+		header_up X-Real-IP {http.request.header.CF-Connecting-IP}
+	}
+}
