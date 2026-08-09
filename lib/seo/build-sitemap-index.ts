@@ -1,6 +1,7 @@
 import { EXAM_SITEMAP_LASTMOD, BASE_URL } from '@/lib/seo/sitemap-builders'
 import { listMcqSitemapParts, mcqSitemapLoc, type McqSitemapPart } from '@/lib/seo/mcq-sitemap'
 import { MCQ_INDEXABLE_BANKS } from '@/lib/seo/topic-indexing'
+import { softMode } from '@/lib/supabase-soft'
 
 const STATIC_SEGMENTS = ['core', 'exams', 'modes', 'sets', 'topics'] as const
 
@@ -11,10 +12,13 @@ function staticMcqParts(): McqSitemapPart[] {
 /** Full sitemap index XML — static segments + dynamic MCQ bank parts. */
 export async function buildSitemapIndexXml(): Promise<string> {
   let mcqParts: McqSitemapPart[] = []
-  try {
-    mcqParts = await listMcqSitemapParts()
-  } catch {
-    mcqParts = []
+  // Soft mode / build-time: never wait on Supabase bank counts.
+  if (!softMode()) {
+    try {
+      mcqParts = await listMcqSitemapParts()
+    } catch {
+      mcqParts = []
+    }
   }
   if (mcqParts.length === 0) {
     mcqParts = staticMcqParts()
