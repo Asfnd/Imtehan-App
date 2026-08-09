@@ -132,17 +132,17 @@ const CATEGORY_META: Record<
   },
   police: {
     label: 'Police',
-    h1: 'Police Test MCQs 2026  -  Constable, ASI & SI Online Practice',
+    h1: 'Police Test MCQs 2026  -  Constable, ASI, SI & Assistant Online Practice',
     intro:
-      'Prepare for Punjab, Sindh, KPK, Balochistan and Islamabad Police recruitment tests. Constable, ASI and Sub Inspector MCQs with past papers and mock tests.',
+      'Prepare for Punjab, Sindh, KPK, Balochistan and Islamabad (ICT) Police recruitment tests. Constable, ASI, Sub Inspector and Assistant (BS-15) MCQs with past papers and mock tests.',
     highlights: [
-      'Police tests cover General Knowledge, Pakistan Studies, English and Urdu',
-      'Physical test follows the written MCQ exam for most posts',
-      'Provincial police tests have similar but not identical syllabi',
+      'Police tests cover General Knowledge, Pakistan Studies, English, Islamiat and Computer for ministerial posts',
+      'Islamabad Police Assistant (BS-15) follows the NPFTAS written pattern: 100 MCQs, 20 marks per subject',
+      'Physical test follows the written MCQ exam for most operational posts',
     ],
     prep: [
       'Practice province-specific past paper MCQs',
-      'Master Pakistan Affairs and Islamic Studies basics',
+      'For ICT Assistant, drill English, Islamiat, Pakistan Studies, GK and Computer equally',
       'Attempt timed mocks matching your province\'s paper length',
     ],
   },
