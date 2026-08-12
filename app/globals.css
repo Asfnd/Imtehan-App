@@ -686,44 +686,81 @@
 .note-cta-link:hover {
   text-decoration: underline;
 }
+
+/* Clean note tables */
+.note-table-block {
+  margin: 0 0 36px;
+}
+.note-table-caption {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #71717A;
+  margin: 0 0 10px;
+}
 .note-table-wrap {
   overflow-x: auto;
-  margin: 0 0 32px;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #E8E8EA;
+  border-radius: 8px;
+  background: #fff;
 }
 .note-table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-inter), system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  background: #fff;
+  font-size: 14.5px;
+  line-height: 1.55;
 }
 .note-table th {
   text-align: left;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #71717A;
-  background: #FAFAFA;
-  padding: 12px 16px;
-  border-bottom: 1px solid #E5E7EB;
+  color: #6B7280;
+  background: #F7F7F8;
+  padding: 11px 16px;
+  border-bottom: 1px solid #E8E8EA;
+  white-space: nowrap;
 }
 .note-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #E5E7EB;
-  color: #242424;
+  padding: 13px 16px;
+  border-bottom: 1px solid #F0F0F2;
+  color: #303036;
   vertical-align: top;
 }
-.note-table tr:last-child td {
+.note-table tbody tr:last-child td {
   border-bottom: none;
 }
-.note-table td:first-child {
+.note-table tbody tr:nth-child(even) td {
+  background: #FCFCFD;
+}
+.note-table-narrow-first td:first-child {
   font-weight: 600;
   color: #111;
-  width: 34%;
+  width: 32%;
+  white-space: nowrap;
 }
+.note-table:not(.note-table-narrow-first) td:first-child {
+  font-weight: 600;
+  color: #111;
+}
+
+.article-body .note-table-block p,
+.article-body .note-scaffold p,
+.article-body .note-prompt p,
+.article-body .note-cta p {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  margin-bottom: 0;
+}
+.article-body .note-scaffold,
+.article-body .note-prompt,
+.article-body .note-cta {
+  font-size: 15.5px;
+}
+
 @media (max-width: 640px) {
   .note-fact-row {
     grid-template-columns: 1fr;
@@ -733,7 +770,12 @@
     margin-right: 0;
     font-size: 22px;
   }
-  .note-table td:first-child {
+  .note-table-narrow-first td:first-child {
     width: auto;
+    white-space: normal;
+  }
+  .note-table th,
+  .note-table td {
+    padding: 11px 12px;
   }
 }
