@@ -190,7 +190,7 @@ export default function ObjectivesResolutionNotePage() {
       <NoteTable
         caption="Themes to remember"
         headers={['Theme', 'Meaning in your answer']}
-        narrowFirst={false}
+        narrowFirst
         rows={[
           [
             'Islamic orientation',

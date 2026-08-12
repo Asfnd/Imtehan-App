@@ -702,55 +702,51 @@
 }
 .note-table-wrap {
   overflow-x: auto;
-  border: 1px solid #A1A1AA;
-  border-radius: 6px;
+  border: 1.5px solid #71717A;
+  border-radius: 4px;
   background: #fff;
 }
-.note-table {
+.article-body .note-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-size: 14.5px;
-  line-height: 1.5;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-family: var(--font-inter), system-ui, sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.45 !important;
+  color: #18181B;
 }
-.note-table th {
+.article-body .note-table th,
+.article-body .note-table td {
   text-align: left;
-  font-size: 11px;
-  font-weight: 600;
+  vertical-align: top;
+  padding: 12px 14px !important;
+  border: 1px solid #A1A1AA !important;
+  font-family: var(--font-inter), system-ui, sans-serif !important;
+}
+.article-body .note-table th {
+  font-size: 11px !important;
+  font-weight: 700 !important;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #3F3F46;
-  background: #F4F4F5;
-  padding: 12px 14px;
-  border-right: 1px solid #A1A1AA;
-  border-bottom: 1px solid #A1A1AA;
-  white-space: nowrap;
+  color: #3F3F46 !important;
+  background: #E4E4E7 !important;
 }
-.note-table th:last-child {
-  border-right: none;
+.article-body .note-table td {
+  font-size: 14.5px !important;
+  font-weight: 400 !important;
+  color: #18181B !important;
+  background: #fff !important;
 }
-.note-table td {
-  padding: 12px 14px;
-  border-right: 1px solid #D4D4D8;
-  border-bottom: 1px solid #D4D4D8;
-  color: #18181B;
-  vertical-align: top;
+.article-body .note-table-narrow-first td:first-child,
+.article-body .note-table td:first-child {
+  font-weight: 700 !important;
+  color: #09090B !important;
+  background: #FAFAFA !important;
+  width: 34%;
 }
-.note-table td:last-child {
-  border-right: none;
-}
-.note-table tbody tr:last-child td {
-  border-bottom: none;
-}
-.note-table-narrow-first td:first-child {
-  font-weight: 700;
-  color: #09090B;
-  width: 30%;
-  background: #FAFAFA;
-}
-.note-table:not(.note-table-narrow-first) td:first-child {
-  font-weight: 700;
-  color: #09090B;
+.article-body .note-table td:last-child {
+  width: 66%;
 }
 
 /* Simple timeline diagram (text only, no images) */
