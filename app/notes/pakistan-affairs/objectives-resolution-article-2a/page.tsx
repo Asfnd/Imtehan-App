@@ -86,6 +86,31 @@ function NoteTable({
   )
 }
 
+function NoteTimeline({
+  caption,
+  items,
+}: {
+  caption: string
+  items: { year: string; title: string; why: string }[]
+}) {
+  return (
+    <div className="note-table-block">
+      <p className="note-table-caption">{caption}</p>
+      <div className="note-timeline">
+        {items.map((item) => (
+          <div className="note-timeline-item" key={item.year + item.title}>
+            <div className="note-timeline-year">{item.year}</div>
+            <div className="note-timeline-body">
+              <p className="note-timeline-title">{item.title}</p>
+              <p className="note-timeline-why">{item.why}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function ObjectivesResolutionNotePage() {
   return (
     <BlogPostShell
@@ -317,30 +342,56 @@ export default function ObjectivesResolutionNotePage() {
         ]}
       />
 
-      <NoteTable
-        caption="Timeline"
-        headers={['Year', 'Event', 'Why it matters']}
-        narrowFirst={false}
-        rows={[
-          ['1949', 'Objectives Resolution passed', 'Sets founding direction'],
-          ['1956', 'Used as preamble', 'Enters first Constitution'],
-          ['1962', 'Used as preamble', 'Continues as guiding statement'],
-          ['1973', 'Used as preamble', 'Opening spirit of the Constitution'],
-          ['1985', 'Article 2A inserted', 'Becomes substantive constitutional text'],
-          ['1992', 'Hakim Khan judgment', 'Not above the whole Constitution'],
-          ['2010', '18th Amendment', 'Restores the word freely'],
+      <NoteTimeline
+        caption="Timeline to memorise"
+        items={[
+          {
+            year: '1949',
+            title: 'Objectives Resolution passed',
+            why: 'Sets founding direction for the future Constitution',
+          },
+          {
+            year: '1956',
+            title: 'Used as preamble',
+            why: 'Enters the first Constitution as opening spirit',
+          },
+          {
+            year: '1962',
+            title: 'Used as preamble',
+            why: 'Continues as guiding statement',
+          },
+          {
+            year: '1973',
+            title: 'Used as preamble',
+            why: 'Still the opening spirit of the Constitution',
+          },
+          {
+            year: '1985',
+            title: 'Article 2A inserted',
+            why: 'Becomes substantive constitutional text',
+          },
+          {
+            year: '1992',
+            title: 'Hakim Khan judgment',
+            why: 'Article 2A is part of the Constitution, not above it',
+          },
+          {
+            year: '2010',
+            title: '18th Amendment',
+            why: 'Restores the word freely',
+          },
         ]}
       />
 
       <NoteTable
         caption="One line memory aid"
-        headers={['Remember', 'Line']}
+        headers={['Year / stage', 'Remember this']}
         rows={[
           ['1949', 'Founding direction'],
-          ['Preamble years', 'Spirit of the Constitution'],
-          ['1985', 'Legal weight inside the Constitution'],
+          ['1956 / 1962 / 1973', 'Preamble = spirit'],
+          ['1985', 'Article 2A = legal weight'],
+          ['1992', 'Not above the whole Constitution'],
           ['2010', 'Freely restored'],
-          ['1992', 'Part of the Constitution, not above it'],
         ]}
       />
 

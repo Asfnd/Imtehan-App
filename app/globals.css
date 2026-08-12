@@ -687,7 +687,7 @@
   text-decoration: underline;
 }
 
-/* Clean note tables */
+/* Clean note tables: full grid lines */
 .note-table-block {
   margin: 0 0 36px;
 }
@@ -702,8 +702,8 @@
 }
 .note-table-wrap {
   overflow-x: auto;
-  border: 1px solid #E8E8EA;
-  border-radius: 8px;
+  border: 1px solid #A1A1AA;
+  border-radius: 6px;
   background: #fff;
 }
 .note-table {
@@ -711,7 +711,7 @@
   border-collapse: collapse;
   font-family: var(--font-inter), system-ui, sans-serif;
   font-size: 14.5px;
-  line-height: 1.55;
+  line-height: 1.5;
 }
 .note-table th {
   text-align: left;
@@ -719,39 +719,87 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #6B7280;
-  background: #F7F7F8;
-  padding: 11px 16px;
-  border-bottom: 1px solid #E8E8EA;
+  color: #3F3F46;
+  background: #F4F4F5;
+  padding: 12px 14px;
+  border-right: 1px solid #A1A1AA;
+  border-bottom: 1px solid #A1A1AA;
   white-space: nowrap;
 }
+.note-table th:last-child {
+  border-right: none;
+}
 .note-table td {
-  padding: 13px 16px;
-  border-bottom: 1px solid #F0F0F2;
-  color: #303036;
+  padding: 12px 14px;
+  border-right: 1px solid #D4D4D8;
+  border-bottom: 1px solid #D4D4D8;
+  color: #18181B;
   vertical-align: top;
+}
+.note-table td:last-child {
+  border-right: none;
 }
 .note-table tbody tr:last-child td {
   border-bottom: none;
 }
-.note-table tbody tr:nth-child(even) td {
-  background: #FCFCFD;
-}
 .note-table-narrow-first td:first-child {
-  font-weight: 600;
-  color: #111;
-  width: 32%;
-  white-space: nowrap;
+  font-weight: 700;
+  color: #09090B;
+  width: 30%;
+  background: #FAFAFA;
 }
 .note-table:not(.note-table-narrow-first) td:first-child {
+  font-weight: 700;
+  color: #09090B;
+}
+
+/* Simple timeline diagram (text only, no images) */
+.note-timeline {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  border: 1px solid #A1A1AA;
+  border-radius: 6px;
+  margin: 0 0 36px;
+  overflow: hidden;
+  background: #fff;
+}
+.note-timeline-item {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  border-bottom: 1px solid #D4D4D8;
+}
+.note-timeline-item:last-child {
+  border-bottom: none;
+}
+.note-timeline-year {
+  padding: 14px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #09090B;
+  background: #F4F4F5;
+  border-right: 1px solid #A1A1AA;
+}
+.note-timeline-body {
+  padding: 14px 16px;
+}
+.note-timeline-title {
+  font-size: 14.5px;
   font-weight: 600;
-  color: #111;
+  color: #09090B;
+  margin: 0 0 4px;
+  line-height: 1.35;
+}
+.note-timeline-why {
+  font-size: 13.5px;
+  color: #52525B;
+  margin: 0;
+  line-height: 1.45;
 }
 
 .article-body .note-table-block p,
 .article-body .note-scaffold p,
 .article-body .note-prompt p,
-.article-body .note-cta p {
+.article-body .note-cta p,
+.article-body .note-timeline p {
   font-family: var(--font-inter), system-ui, sans-serif;
   margin-bottom: 0;
 }
@@ -776,6 +824,9 @@
   }
   .note-table th,
   .note-table td {
-    padding: 11px 12px;
+    padding: 10px 12px;
+  }
+  .note-timeline-item {
+    grid-template-columns: 64px 1fr;
   }
 }
