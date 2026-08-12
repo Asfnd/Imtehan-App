@@ -16,7 +16,7 @@ export default function NotesHubPage() {
             marginBottom: 12,
           }}
         >
-          Imtehan Notes · Demo
+          Imtehan Notes
         </p>
         <h1
           style={{
@@ -28,7 +28,7 @@ export default function NotesHubPage() {
             marginBottom: 16,
           }}
         >
-          Notes built for how aspirants actually win
+          Clear notes. Easy revision. Real exam help.
         </h1>
         <p
           style={{
@@ -39,8 +39,8 @@ export default function NotesHubPage() {
             marginBottom: 40,
           }}
         >
-          Not PDF dumps. Dual-sourced topic pages with analytical scaffolds, one-page revision,
-          past-paper angles, and practice MCQs.
+          Short topic pages with key facts, answer shapes, and a one-page revision sheet. Built to
+          understand and remember, not to copy.
         </p>
 
         <Link
@@ -55,7 +55,7 @@ export default function NotesHubPage() {
               marginBottom: 8,
             }}
           >
-            Pakistan Affairs · CSS / PMS / One-paper · Demo
+            Pakistan Affairs · Demo
           </p>
           <p
             style={{
@@ -66,7 +66,7 @@ export default function NotesHubPage() {
               marginBottom: 8,
             }}
           >
-            Objectives Resolution & Article 2A
+            Objectives Resolution and Article 2A
           </p>
           <p
             style={{
@@ -76,8 +76,7 @@ export default function NotesHubPage() {
               lineHeight: 1.5,
             }}
           >
-            Open the pilot page — verified facts, examiner angle, one-pager, writing prompt, MCQ
-            CTA.
+            One-minute summary, key facts, answer shape, and a quick revision sheet.
           </p>
         </Link>
       </main>
