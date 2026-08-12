@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { softMode } from '@/lib/supabase-soft'
 
 /**
  * SECURITY: Validate subject to prevent SQL injection
@@ -91,6 +92,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
    */
   const getCount = useCallback(async () => {
     if (!subject || !year) return null
+    if (softMode()) return 0
 
     // SECURITY: Validate subject against whitelist
     if (!isValidSubject(subject)) {
@@ -101,7 +103,7 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
     try {
       let query = supabase
         .from('css_mcqs_enhanced')
-        .select('*', { count: 'exact', head: true })
+        .select('id', { count: 'exact', head: true })
         .eq('subject', subject)
         .eq('year', parseInt(year))
 
@@ -127,6 +129,12 @@ export function useLazyLoadMCQs(options: UseLazyLoadMCQsOptions) {
     try {
       setLoading(true)
       setError(null)
+
+      if (softMode()) {
+        setMcqs([])
+        setLoading(false)
+        return
+      }
 
       // SECURITY: Validate subject against whitelist
       if (subject && !isValidSubject(subject)) {

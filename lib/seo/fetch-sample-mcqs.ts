@@ -2,6 +2,9 @@ import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import { unstable_cache } from 'next/cache'
 import { applyBankExamScope } from '@/lib/mcq-bank-scope'
 import { mcqSelectCols } from '@/lib/quiz-fetcher'
+import { loadStaticBankPrefix } from '@/lib/static-mcq-fetch'
+import { poolExamSlug, type BankPoolKey } from '@/lib/banks-pool'
+import { softMode, SoftSkipError, withSoftCache } from '@/lib/supabase-soft'
 
 export interface SampleMcq {
   question: string
@@ -34,14 +37,37 @@ async function fetchSampleMcqsUncached(
   scope: SampleMcqScope = {},
 ): Promise<SampleMcq[]> {
   try {
-    const supabase = createPublicSupabaseClient()
-    let query = supabase.from(dbTable).select(mcqSelectCols(dbTable)).limit(limit)
-
     const skipType =
       !!scope.subjectField || !!scope.subtopicField || !!scope.topicFields?.length
     const dbType = mode ? MODE_DB_TYPE[mode] : 'most_repeated'
-    if (dbType && !skipType) query = query.eq('type', dbType)
+    const mixed = skipType || !dbType
+    const poolKey: BankPoolKey = {
+      kind: 'mode',
+      dbTable,
+      mode: mixed ? 'practice' : dbType,
+      noTypeFilter: mixed,
+      subjectField: scope.subjectField,
+      topicFields: scope.topicFields,
+      questionNeedles: scope.questionNeedles,
+      subtopicField: scope.subtopicField,
+      examSlug: poolExamSlug(dbTable, scope.examSlug),
+    }
+    const fromStatic = await loadStaticBankPrefix(poolKey, limit)
+    if (fromStatic?.length) {
+      return fromStatic.slice(0, limit).map((row) => ({
+        question: row.question,
+        option_a: row.option_a,
+        option_b: row.option_b,
+        option_c: row.option_c,
+        option_d: row.option_d,
+        correct_answer: row.correct_answer,
+      }))
+    }
+    if (softMode()) throw new SoftSkipError()
 
+    const supabase = createPublicSupabaseClient()
+    let query = supabase.from(dbTable).select(mcqSelectCols(dbTable)).limit(limit)
+    if (dbType && !skipType) query = query.eq('type', dbType)
     query = applyBankExamScope(query, {
       dbTable,
       examSlug: scope.examSlug,
@@ -67,7 +93,8 @@ async function fetchSampleMcqsUncached(
         } satisfies SampleMcq
       })
       .filter((m): m is SampleMcq => m !== null)
-  } catch {
+  } catch (e) {
+    if (e instanceof SoftSkipError) throw e
     return []
   }
 }
@@ -84,21 +111,23 @@ export async function fetchSampleMcqs(
       ? { examSlug: examSlugOrScope, questionNeedles }
       : examSlugOrScope
 
-  return unstable_cache(
-    () => fetchSampleMcqsUncached(dbTable, mode, limit, scope),
-    [
-      'sample-mcqs-v5',
-      dbTable,
-      mode ?? 'default',
-      String(limit),
-      scope.examSlug ?? '',
-      scope.subjectField ?? '',
-      scope.subtopicField ?? '',
-      (scope.topicFields ?? []).join('|'),
-      (scope.questionNeedles ?? []).join('|'),
-    ],
-    { revalidate: 604800, tags: [`sample-mcqs-${dbTable}`] },
-  )()
+  return withSoftCache([], () =>
+    unstable_cache(
+      () => fetchSampleMcqsUncached(dbTable, mode, limit, scope),
+      [
+        'sample-mcqs-v6-static',
+        dbTable,
+        mode ?? 'default',
+        String(limit),
+        scope.examSlug ?? '',
+        scope.subjectField ?? '',
+        scope.subtopicField ?? '',
+        (scope.topicFields ?? []).join('|'),
+        (scope.questionNeedles ?? []).join('|'),
+      ],
+      { revalidate: 604800, tags: [`sample-mcqs-${dbTable}`] },
+    )(),
+  )
 }
 
 export function correctOptionText(mcq: SampleMcq): string {

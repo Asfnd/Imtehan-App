@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft, Play, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
-import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
@@ -44,13 +43,15 @@ export function FscChapterClient() {
 
   useEffect(() => {
     if (!subjectCfg) return
-    const supabase = createClient()
-    supabase
-      .from(subjectCfg.table)
-      .select('*', { count: 'exact', head: true })
-      .eq('topic', decoded)
-      .then(({ count }) => {
-        setTotalMCQs(count ?? 0)
+    const qs = new URLSearchParams({ dbTable: subjectCfg.table, tag: decoded })
+    fetch(`/api/practice/count?${qs.toString()}`)
+      .then((r) => r.json())
+      .then((body) => {
+        setTotalMCQs(Number(body?.count) || 0)
+        setLoading(false)
+      })
+      .catch(() => {
+        setTotalMCQs(0)
         setLoading(false)
       })
   }, [subject, chapter]) // eslint-disable-line react-hooks/exhaustive-deps

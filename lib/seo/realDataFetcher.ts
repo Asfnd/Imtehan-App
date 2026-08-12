@@ -65,6 +65,7 @@ export async function getSubjectStats(): Promise<SubjectStats[]> {
  * Security: Aggregate only, no file paths or sensitive data
  */
 export async function getPaperStats(): Promise<PaperStats[]> {
+  if (softMode()) return getDefaultPaperStats()
   try {
     const supabase = await createServerSupabaseClient()
 
@@ -74,6 +75,7 @@ export async function getPaperStats(): Promise<PaperStats[]> {
       .order('year', { ascending: false })
 
     if (error) {
+      noteSupabaseFailure(error)
       console.error('Error fetching paper stats:', error)
       return getDefaultPaperStats()
     }
@@ -99,6 +101,7 @@ export async function getPaperStats(): Promise<PaperStats[]> {
       }))
       .sort((a, b) => b.year - a.year)
   } catch (error) {
+    noteSupabaseFailure(error)
     console.error('Failed to fetch paper stats:', error)
     return getDefaultPaperStats()
   }

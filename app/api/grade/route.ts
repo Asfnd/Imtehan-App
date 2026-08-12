@@ -16,6 +16,7 @@ import {
 // ─── Rate limits (lifetime, never reset) ────────────────────────────────────
 const ANON_LIMIT = 1    // anonymous: 1 lifetime grading per IP
 const FREE_LIMIT = 1    // free signed-in: 1 lifetime grading total
+const PREMIUM_DAILY_LIMIT = Number(process.env.PREMIUM_DAILY_GRADE_CAP ?? '20')
 const DEV_LIMIT  = 50   // local dev: generous for testing
 
 /** Reject oversized JSON bodies (DoS / accidental paste bombs). */
@@ -30,22 +31,23 @@ function getAdminClient() {
   )
 }
 
-async function getUsageCount(key: string): Promise<number> {
+async function getUsageCount(key: string): Promise<number | null> {
   try {
-    const { data } = await getAdminClient()
+    const { data, error } = await getAdminClient()
       .from('grading_usage')
       .select('count')
       .eq('key', key)
-      .single()
+      .maybeSingle()
+    if (error) return null
     return (data?.count as number) ?? 0
   } catch {
-    return 0 // fail open: don't block users if DB is unreachable
+    return null // fail closed: block grading if metering DB is unreachable
   }
 }
 
 async function incrementUsageCount(key: string): Promise<void> {
   try {
-    const current = await getUsageCount(key)
+    const current = (await getUsageCount(key)) ?? 0
     await getAdminClient()
       .from('grading_usage')
       .upsert(
@@ -114,17 +116,24 @@ export async function POST(request: NextRequest) {
       limitKey = `anon:${ip}:${mode as string}${examSuffix}`
       usageLimit = isLocalhost && isDev ? DEV_LIMIT : ANON_LIMIT
     } else if (isPremium) {
-      // Premium: unlimited
-      limitKey = `user:${user.id}`
-      usageLimit = Infinity
+      // Premium: soft daily ceiling (protect OpenRouter / Free Nano metering)
+      const day = new Date().toISOString().slice(0, 10)
+      limitKey = `user:${user.id}:premium:${day}`
+      usageLimit = isLocalhost && isDev ? DEV_LIMIT : PREMIUM_DAILY_LIMIT
     } else {
       // Free signed-in: 1 lifetime grading per mode (essay / precis / long-answer) per exam type
       limitKey = `user:${user.id}:${mode as string}${examSuffix}`
       usageLimit = isLocalhost && isDev ? DEV_LIMIT : FREE_LIMIT
     }
 
-    // 5. Check persistent lifetime count
+    // 5. Check persistent count (fail closed if metering DB is down)
     const currentCount = await getUsageCount(limitKey)
+    if (currentCount == null) {
+      return NextResponse.json(
+        { error: 'Grading temporarily unavailable. Please try again shortly.' },
+        { status: 503 },
+      )
+    }
     if (currentCount >= usageLimit) {
       return NextResponse.json(
         {
@@ -132,8 +141,10 @@ export async function POST(request: NextRequest) {
           upgrade: true,
           requiresAuth: !user,
           message: !user
-            ? `You've used your free try for this mode. Sign in free to get 1 try per mode on all devices, or upgrade to Premium for unlimited grading.`
-            : `You've used your free try for this mode. Upgrade to Premium for unlimited grading.`,
+            ? `You've used your free try for this mode. Sign in free to get 1 try per mode on all devices, or upgrade to Premium for more grading.`
+            : isPremium
+              ? `Daily grading limit reached. Try again tomorrow.`
+              : `You've used your free try for this mode. Upgrade to Premium for more grading.`,
         },
         { status: 429 }
       )
@@ -228,13 +239,11 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 10. Increment usage counter (after successful grading)
-    if (!isPremium) {
-      await incrementUsageCount(limitKey)
-    }
+    // 10. Increment usage counter (after successful grading) — all tiers
+    await incrementUsageCount(limitKey)
 
-    const newCount = await getUsageCount(limitKey)
-    const remaining = isPremium ? null : Math.max(0, usageLimit - newCount)
+    const newCount = (await getUsageCount(limitKey)) ?? currentCount + 1
+    const remaining = Math.max(0, usageLimit - newCount)
 
     return NextResponse.json({
       success: true,
@@ -243,7 +252,7 @@ export async function POST(request: NextRequest) {
       ...(isDev && gradingProvider ? { debugProvider: gradingProvider } : {}),
       usage: {
         remaining,
-        limit: isPremium ? null : usageLimit,
+        limit: usageLimit,
         isPremium,
         isAnon: !user,
         signInBonus: !user ? FREE_LIMIT - ANON_LIMIT : 0,

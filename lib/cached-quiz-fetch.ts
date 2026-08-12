@@ -523,7 +523,7 @@ export function cachedSectionStats(params: {
   return withSoftCache(EMPTY_SECTION_STATS, () =>
     unstable_cache(
       async () => {
-        if (softMode()) throw new SoftSkipError()
+        // Soft only inside nested count fallbacks — static manifests still load.
         try {
           const easy = params.titleCaseDifficulty ? 'Easy' : 'easy'
           const medium = params.titleCaseDifficulty ? 'Medium' : 'medium'

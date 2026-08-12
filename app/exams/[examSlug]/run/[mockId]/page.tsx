@@ -12,6 +12,9 @@ import {
   isPipelineMcqTable,
   type BankScopeMode,
 } from '@/lib/mcq-bank-scope'
+import { loadStaticBankPrefix, allowSupabaseFallback } from '@/lib/static-mcq-fetch'
+import { poolExamSlug, type BankPoolKey } from '@/lib/banks-pool'
+import { softMode } from '@/lib/supabase-soft'
 
 /**
  * noindex mocks — bank fetch is unstable_cache'd; page itself must not be
@@ -75,8 +78,36 @@ async function fetchSectionPool(opts: {
     questionNeedles,
     pastPapersExam,
   } = opts
-  const supabase = createPublicSupabaseClient()
   const need = Math.max(limit * 4, 40)
+
+  // Prefer static CDN/disk banks — hash-pick happens after; no live oversample when covered.
+  const mixed =
+    !!noTypeFilter ||
+    !!subjectField ||
+    !!subjectFields?.length ||
+    !!subtopicField ||
+    !!topicFields?.length ||
+    qTypes.length !== 1
+  const poolKey: BankPoolKey = {
+    kind: 'mode',
+    dbTable,
+    mode: mixed ? 'practice' : qTypes[0] || 'practice',
+    noTypeFilter: mixed,
+    subjectField,
+    subjectFields,
+    topicFields,
+    questionNeedles,
+    subtopicField,
+    examSlug: poolExamSlug(dbTable, examSlug),
+    targetExam: pastPapersExam,
+  }
+  const fromStatic = await loadStaticBankPrefix(poolKey, need)
+  if (fromStatic && fromStatic.length > 0) {
+    return fromStatic as unknown as Record<string, unknown>[]
+  }
+  if (softMode() || !allowSupabaseFallback()) return []
+
+  const supabase = createPublicSupabaseClient()
   const pipeline = isPipelineMcqTable(dbTable)
   const hasSpecialistFilter =
     !!questionNeedles?.length || !!topicFields?.length || !!subjectFields?.length

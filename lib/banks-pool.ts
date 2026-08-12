@@ -70,10 +70,48 @@ const PIPELINE_BANK_TABLES = new Set([
   'ethics',
 ])
 
+/**
+ * Map thin exam posts → one exported CDN hub (keeps Free Nano export tiny).
+ * Must match mobile `src/lib/banks-pool.ts` + export `--hubs` set.
+ */
+const BANK_FAMILY_HUB: Record<string, string> = {
+  fia: 'fia-assistant',
+  ppsc: 'ppsc-assistant',
+  fpsc: 'fpsc-general',
+  kppsc: 'kppsc-general',
+  spsc: 'spsc-general',
+  bpsc: 'bpsc-general',
+  ajkpsc: 'ajkpsc-general',
+  gbpsc: 'gbpsc-general',
+  nts: 'nts-general',
+  ots: 'ots-general',
+  etea: 'etea-general',
+  police: 'police-asi',
+  banking: 'banking-general',
+  hec: 'nts-general',
+  punjab: 'ppsc-assistant',
+  kpk: 'etea-general',
+  sindh: 'spsc-general',
+  sts: 'spsc-general',
+  ajk: 'ajkpsc-general',
+  gb: 'gbpsc-general',
+  balochistan: 'bpsc-general',
+}
+
+/** Resolve exam slug used inside static bank pool hashes. */
+export function bankHubExamSlug(examSlug: string): string {
+  if (examSlug === 'css' || examSlug === 'css-pms') return 'css-mpt'
+  if (examSlug.startsWith('mdcat')) return examSlug
+  const i = examSlug.indexOf('-')
+  const prefix = i > 0 ? examSlug.slice(0, i) : examSlug
+  return BANK_FAMILY_HUB[prefix] ?? examSlug
+}
+
 /** Only pipeline tables get examSlug in the pool hash (avoids 20k duplicate MDCAT pools). */
 export function poolExamSlug(dbTable: string, examSlug?: string | null): string | undefined {
   if (!examSlug) return undefined
-  return PIPELINE_BANK_TABLES.has(dbTable) ? examSlug : undefined
+  if (!PIPELINE_BANK_TABLES.has(dbTable)) return undefined
+  return bankHubExamSlug(examSlug)
 }
 
 export function banksBaseUrl(): string {

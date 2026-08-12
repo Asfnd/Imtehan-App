@@ -10,8 +10,8 @@ const ENV_ON =
   process.env.NEXT_PUBLIC_SUPABASE_SOFT_MODE === '1' ||
   process.env.SUPABASE_SOFT_MODE === '1'
 
-/** Auto soft after boot (6h) so deploys don't stampede a recovering Nano. */
-const BOOT_SOFT_MS = 6 * 60 * 60_000
+/** Brief soft after boot so deploys don't stampede a recovering Nano. */
+const BOOT_SOFT_MS = 5 * 60_000
 const TRIP_MS = 2 * 60 * 60_000
 
 let trippedUntil = Date.now() + BOOT_SOFT_MS
