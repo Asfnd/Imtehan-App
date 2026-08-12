@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import BlogPostShell from '@/components/blog/BlogPostShell'
 import type { RelatedPost } from '@/components/blog/blog-utils'
+import { NoteTable, NoteTimeline } from '@/components/notes/NoteTable'
 
 export const metadata: Metadata = {
   title: 'Objectives Resolution and Article 2A | Pakistan Affairs Notes',
@@ -47,69 +48,6 @@ const RELATED: RelatedPost[] = [
 ]
 
 const TAGS = ['Pakistan Affairs', 'Constitution', 'CSS', 'PMS', 'Article 2A']
-
-function NoteTable({
-  caption,
-  headers,
-  rows,
-  narrowFirst = true,
-}: {
-  caption: string
-  headers: string[]
-  rows: string[][]
-  narrowFirst?: boolean
-}) {
-  return (
-    <div className="note-table-block">
-      <p className="note-table-caption">{caption}</p>
-      <div className="note-table-wrap">
-        <table className={`note-table${narrowFirst ? ' note-table-narrow-first' : ''}`}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.join('|')}>
-                {row.map((cell, i) => (
-                  <td key={`${row[0]}-${i}`}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
-}
-
-function NoteTimeline({
-  caption,
-  items,
-}: {
-  caption: string
-  items: { year: string; title: string; why: string }[]
-}) {
-  return (
-    <div className="note-table-block">
-      <p className="note-table-caption">{caption}</p>
-      <div className="note-timeline">
-        {items.map((item) => (
-          <div className="note-timeline-item" key={item.year + item.title}>
-            <div className="note-timeline-year">{item.year}</div>
-            <div className="note-timeline-body">
-              <p className="note-timeline-title">{item.title}</p>
-              <p className="note-timeline-why">{item.why}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 export default function ObjectivesResolutionNotePage() {
   return (

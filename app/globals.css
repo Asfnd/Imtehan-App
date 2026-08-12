@@ -687,115 +687,109 @@
   text-decoration: underline;
 }
 
-/* Clean note tables: full grid lines */
-.note-table-block {
+/* ── Notes tables (CSS grid — real rows/columns, not plain text) ── */
+.nt-block {
   margin: 0 0 36px;
-}
-.note-table-caption {
   font-family: var(--font-inter), system-ui, sans-serif;
+}
+.nt-caption {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #71717A;
+  color: #52525B;
   margin: 0 0 10px;
 }
-.note-table-wrap {
-  overflow-x: auto;
-  border: 1.5px solid #71717A;
-  border-radius: 4px;
-  background: #fff;
-}
-.article-body .note-table {
+.nt-grid {
+  display: grid;
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  table-layout: fixed;
-  font-family: var(--font-inter), system-ui, sans-serif !important;
-  font-size: 14.5px !important;
-  line-height: 1.45 !important;
-  color: #18181B;
-}
-.article-body .note-table th,
-.article-body .note-table td {
-  text-align: left;
-  vertical-align: top;
-  padding: 12px 14px !important;
-  border: 1px solid #A1A1AA !important;
-  font-family: var(--font-inter), system-ui, sans-serif !important;
-}
-.article-body .note-table th {
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #3F3F46 !important;
-  background: #E4E4E7 !important;
-}
-.article-body .note-table td {
-  font-size: 14.5px !important;
-  font-weight: 400 !important;
-  color: #18181B !important;
-  background: #fff !important;
-}
-.article-body .note-table-narrow-first td:first-child,
-.article-body .note-table td:first-child {
-  font-weight: 700 !important;
-  color: #09090B !important;
-  background: #FAFAFA !important;
-  width: 34%;
-}
-.article-body .note-table td:last-child {
-  width: 66%;
-}
-
-/* Simple timeline diagram (text only, no images) */
-.note-timeline {
-  font-family: var(--font-inter), system-ui, sans-serif;
-  border: 1px solid #A1A1AA;
-  border-radius: 6px;
-  margin: 0 0 36px;
+  border: 1.5px solid #3F3F46;
+  border-radius: 4px;
   overflow: hidden;
   background: #fff;
 }
-.note-timeline-item {
-  display: grid;
-  grid-template-columns: 76px 1fr;
-  border-bottom: 1px solid #D4D4D8;
+.nt-th,
+.nt-td {
+  padding: 12px 14px;
+  border-right: 1px solid #71717A;
+  border-bottom: 1px solid #71717A;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #18181B;
+  min-width: 0;
+  box-sizing: border-box;
 }
-.note-timeline-item:last-child {
+.nt-th.nt-last-col,
+.nt-td.nt-last-col {
+  border-right: none;
+}
+.nt-th.nt-last-row,
+.nt-td.nt-last-row {
   border-bottom: none;
 }
-.note-timeline-year {
+.nt-th {
+  background: #E4E4E7;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #27272A;
+}
+.nt-td {
+  background: #fff;
+}
+.nt-td-key {
+  font-weight: 700;
+  background: #F4F4F5;
+  color: #09090B;
+}
+
+.nt-timeline {
+  border: 1.5px solid #3F3F46;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+.nt-timeline-row {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  border-bottom: 1px solid #71717A;
+}
+.nt-timeline-row:last-child {
+  border-bottom: none;
+}
+.nt-timeline-year {
   padding: 14px 10px;
   font-size: 13px;
   font-weight: 700;
   color: #09090B;
-  background: #F4F4F5;
-  border-right: 1px solid #A1A1AA;
+  background: #E4E4E7;
+  border-right: 1px solid #71717A;
+  box-sizing: border-box;
 }
-.note-timeline-body {
+.nt-timeline-body {
   padding: 14px 16px;
 }
-.note-timeline-title {
-  font-size: 14.5px;
-  font-weight: 600;
-  color: #09090B;
+.nt-timeline-title {
   margin: 0 0 4px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #09090B;
   line-height: 1.35;
 }
-.note-timeline-why {
+.nt-timeline-why {
+  margin: 0;
   font-size: 13.5px;
   color: #52525B;
-  margin: 0;
   line-height: 1.45;
 }
 
-.article-body .note-table-block p,
+.article-body .nt-block p,
+.article-body .nt-timeline-title,
+.article-body .nt-timeline-why,
 .article-body .note-scaffold p,
 .article-body .note-prompt p,
-.article-body .note-cta p,
-.article-body .note-timeline p {
+.article-body .note-cta p {
   font-family: var(--font-inter), system-ui, sans-serif;
   margin-bottom: 0;
 }
@@ -806,23 +800,15 @@
 }
 
 @media (max-width: 640px) {
-  .note-fact-row {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
   .pull-quote {
     margin-right: 0;
     font-size: 22px;
   }
-  .note-table-narrow-first td:first-child {
-    width: auto;
-    white-space: normal;
-  }
-  .note-table th,
-  .note-table td {
+  .nt-th,
+  .nt-td {
     padding: 10px 12px;
   }
-  .note-timeline-item {
-    grid-template-columns: 64px 1fr;
+  .nt-timeline-row {
+    grid-template-columns: 64px minmax(0, 1fr);
   }
 }
