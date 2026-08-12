@@ -686,6 +686,44 @@
 .note-cta-link:hover {
   text-decoration: underline;
 }
+.note-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 32px;
+  border: 1px solid #E5E7EB;
+}
+.note-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  background: #fff;
+}
+.note-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #71717A;
+  background: #FAFAFA;
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+.note-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  color: #242424;
+  vertical-align: top;
+}
+.note-table tr:last-child td {
+  border-bottom: none;
+}
+.note-table td:first-child {
+  font-weight: 600;
+  color: #111;
+  width: 34%;
+}
 @media (max-width: 640px) {
   .note-fact-row {
     grid-template-columns: 1fr;
@@ -694,5 +732,8 @@
   .pull-quote {
     margin-right: 0;
     font-size: 22px;
+  }
+  .note-table td:first-child {
+    width: auto;
   }
 }
