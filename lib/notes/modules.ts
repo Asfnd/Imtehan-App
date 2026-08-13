@@ -17,9 +17,12 @@ const CSS_WRITTEN_SECTIONS: NotesModuleSection[] = [
 /** FPSC Pakistan Affairs compulsory outline (CE-2016 onwards), Phase 1 nodes. */
 export const CSS_WRITTEN_PA_TOPICS: string[] = [
   'Ideology of Pakistan: definition, history, Iqbal and Quaid',
+  'Lahore Resolution (Pakistan Resolution) 1940',
   'Land and people of Pakistan: geography, society, resources',
   'Constitutional development: 1956, 1962, 1973 and amendments',
+  '1973 Constitution of Pakistan',
   'Objectives Resolution and Article 2A',
+  '18th Amendment (2010)',
   'Recent constitutional and legal debates (syllabus XXVII)',
   'Political evolution since 1971',
   'Evolution of democratic system in Pakistan',

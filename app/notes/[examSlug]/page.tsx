@@ -26,6 +26,17 @@ export default async function NotesExamModulePage({ params }: Props) {
   if (!mod) notFound()
 
   const kitTotal = countKitsForModule(examSlug)
+  const readyKits = mod.sections.flatMap((section) =>
+    listSyllabusTopicsForSection(examSlug, section.slug)
+      .filter((t) => t.hasKit)
+      .map((t) => ({ ...t, subjectSlug: section.slug, subjectLabel: section.label }))
+  )
+  const seen = new Set<string>()
+  const uniqueKits = readyKits.filter((k) => {
+    if (seen.has(k.slug)) return false
+    seen.add(k.slug)
+    return true
+  })
 
   return (
     <div className="note-hub">
@@ -43,10 +54,31 @@ export default async function NotesExamModulePage({ params }: Props) {
         <p className="note-hub-lead">
           Subjects match this exam. Open a subject to see syllabus topics.
           {kitTotal > 0
-            ? ` ${kitTotal} full revision kit${kitTotal === 1 ? '' : 's'} ready so far.`
+            ? ` ${uniqueKits.length} full revision kit${uniqueKits.length === 1 ? '' : 's'} ready so far.`
             : ' Kits will appear here as we publish them. Practice MCQs are linked from each topic.'}
         </p>
 
+        {uniqueKits.length > 0 ? (
+          <section style={{ marginBottom: 36 }}>
+            <h2 className="note-hub-cat">Ready revision kits</h2>
+            <div className="note-hub-list">
+              {uniqueKits.map((kit) => (
+                <Link
+                  key={kit.slug}
+                  href={`/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
+                  className="note-hub-card"
+                >
+                  <p className="note-hub-card-title">{kit.title}</p>
+                  <p className="note-hub-card-meta">
+                    {kit.subjectLabel} · one-pager, past papers, fact cards
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        <h2 className="note-hub-cat">Subjects</h2>
         <div className="note-hub-list">
           {mod.sections.map((section) => {
             const topics = listSyllabusTopicsForSection(examSlug, section.slug)

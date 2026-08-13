@@ -9,6 +9,18 @@ import type {
   RevisionDay,
 } from '@/lib/notes/types'
 import { NoteTable, NoteTimeline } from '@/components/notes/NoteTable'
+import {
+  Constitution1973Body,
+  Constitution1973Tables,
+} from '@/components/notes/bodies/Constitution1973Body'
+import {
+  EighteenthAmendmentBody,
+  EighteenthAmendmentTables,
+} from '@/components/notes/bodies/EighteenthAmendmentBody'
+import {
+  LahoreResolutionBody,
+  LahoreResolutionTables,
+} from '@/components/notes/bodies/LahoreResolutionBody'
 
 export function NoteMetaStrip({
   track,
@@ -421,6 +433,15 @@ export function KitRevisionTables() {
 export function renderKitByContentId(contentId: string) {
   if (contentId === 'objectives-resolution-article-2a') {
     return { Body: ObjectivesResolutionBody, Tables: KitRevisionTables }
+  }
+  if (contentId === 'constitution-1973') {
+    return { Body: Constitution1973Body, Tables: Constitution1973Tables }
+  }
+  if (contentId === 'eighteenth-amendment') {
+    return { Body: EighteenthAmendmentBody, Tables: EighteenthAmendmentTables }
+  }
+  if (contentId === 'lahore-resolution-1940') {
+    return { Body: LahoreResolutionBody, Tables: LahoreResolutionTables }
   }
   return null
 }

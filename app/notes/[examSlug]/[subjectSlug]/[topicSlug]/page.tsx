@@ -25,6 +25,8 @@ const PRIORITY_KIT_EXAMS = [
   'nts-general',
 ] as const
 
+/** Keep generateStaticParams focused on exams that students hit first. */
+
 export function generateStaticParams() {
   const params: Array<{ examSlug: string; subjectSlug: string; topicSlug: string }> = []
   for (const examSlug of PRIORITY_KIT_EXAMS) {

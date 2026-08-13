@@ -17,6 +17,7 @@ import {
 import { isActivePremium } from '@/lib/is-active-premium'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import NavigationBar from '@/components/NavigationBar'
+import { ExamNotesBanner } from '@/components/notes/ExamNotesBanner'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
 import { FAQSchema } from '@/components/seo/StructuredData'
 
@@ -264,6 +265,14 @@ export function SubjectModesClient() {
             {totalPracticeCount > 0 && <> &middot; <span className="font-medium text-gray-700">{roundMcqCount(totalPracticeCount)} questions</span> in bank</>}
           </p>
         </div>
+
+        <ExamNotesBanner
+          examSlug={examSlug}
+          examName={config.name}
+          subjectSlug={subjectSlug}
+          subjectLabel={section.label}
+          kitHint="Revise facts, then lock them with MCQs below"
+        />
 
         {/* ── Practice modes ── */}
         <section>
