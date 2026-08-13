@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft, Play, Zap, Target, Flame, Lock, CheckCircle } from 'lucide-react'
 import NavigationBar from '@/components/NavigationBar'
-import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import SignInPopup from '@/components/auth/SignInPopup'
 import { Breadcrumb } from '@/components/seo/Breadcrumb'
@@ -58,17 +57,23 @@ export function MDCATTopicClient() {
   useEffect(() => {
     if (!subjectCfg) return
 
-    const supabase = createClient()
-    const base     = supabase.from(subjectCfg.table).select('*', { count: 'exact', head: true })
+    const params = new URLSearchParams({ dbTable: subjectCfg.table })
+    if (isDifficulty) {
+      params.set('difficulty', difficultyCfg!.dbKey)
+    } else {
+      params.set('tag', decodedTopic)
+    }
 
-    const countQuery = isDifficulty
-      ? base.eq('difficulty', difficultyCfg!.dbKey)
-      : base.eq('topic', decodedTopic)
-
-    countQuery.then(({ count }) => {
-      setTotalMCQs(count ?? 0)
-      setLoading(false)
-    })
+    fetch(`/api/practice/count?${params.toString()}`)
+      .then((r) => r.json())
+      .then((body) => {
+        setTotalMCQs(Number(body?.count) || 0)
+        setLoading(false)
+      })
+      .catch(() => {
+        setTotalMCQs(0)
+        setLoading(false)
+      })
   }, [subject, topic]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!subjectCfg) {
@@ -225,7 +230,7 @@ export function MDCATTopicClient() {
                 {setsInBatch.map((setNum) => {
                   const startMCQ  = (setNum - 1) * MCQS_PER_SET + 1
                   const endMCQ    = Math.min(setNum * MCQS_PER_SET, totalMCQs)
-                  const needSignIn   = setNum >= 2 && !user
+                      const needSignIn   = setNum >= 2 && !user
                   const needPremium  = setNum >= 2 && !!user && !isPremium
                   const isLocked     = needSignIn || needPremium
                   const isSignIn     = needSignIn

@@ -23,7 +23,8 @@ function banksEnabled(): boolean {
 }
 
 function allowSupabaseFallback(): boolean {
-  return process.env.BANKS_FALLBACK_SUPABASE !== '0'
+  // Default OFF — live Nano only if explicitly BANKS_FALLBACK_SUPABASE=1.
+  return process.env.BANKS_FALLBACK_SUPABASE === '1'
 }
 
 function diskRoot(): string {
@@ -99,6 +100,46 @@ export async function loadBankSetPreferStatic(
   if (staticRows && staticRows.length > 0) return staticRows
   if (!allowSupabaseFallback()) return []
   return fallback()
+}
+
+const PAGE = 20
+
+/** Contiguous stem-deduped slice from set pages (MDCAT mocks / custom sizes). */
+export async function loadStaticBankSlice(
+  key: BankPoolKey,
+  startIndex: number,
+  count: number
+): Promise<QuizMcqRow[] | null> {
+  if (!banksEnabled() || count < 1 || startIndex < 0) return null
+  const firstPage = Math.floor(startIndex / PAGE) + 1
+  const lastPage = Math.floor((startIndex + count - 1) / PAGE) + 1
+  const pages: QuizMcqRow[] = []
+  for (let n = firstPage; n <= lastPage; n++) {
+    const set = await loadStaticBankSet(key, n)
+    if (!set?.length) return pages.length ? pages : null
+    pages.push(...set)
+  }
+  const offsetInFirst = startIndex % PAGE
+  const slice = pages.slice(offsetInFirst, offsetInFirst + count)
+  return slice.length ? slice : null
+}
+
+/** First N unique MCQs from static pages (exam mock oversample for hash-pick). */
+export async function loadStaticBankPrefix(
+  key: BankPoolKey,
+  need: number
+): Promise<QuizMcqRow[] | null> {
+  if (!banksEnabled() || need < 1) return null
+  const man = await loadStaticBankManifest(key)
+  if (!man?.setCount || !man.total) return null
+  const pagesNeeded = Math.min(man.setCount, Math.ceil(need / PAGE) + 2)
+  const out: QuizMcqRow[] = []
+  for (let n = 1; n <= pagesNeeded && out.length < need; n++) {
+    const set = await loadStaticBankSet(key, n)
+    if (!set?.length) break
+    out.push(...set)
+  }
+  return out.length >= Math.min(need, PAGE) ? out : null
 }
 
 export async function loadBankCountPreferStatic(

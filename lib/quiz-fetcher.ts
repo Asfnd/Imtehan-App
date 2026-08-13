@@ -12,8 +12,9 @@ import {
   type BankScopeMode,
 } from '@/lib/mcq-bank-scope'
 
-const DEDUPE_SCAN_BATCH = 400
-const DEDUPE_SCAN_MAX = 24_000
+const DEDUPE_SCAN_BATCH = 200
+/** Cap fallback walks hard — free-tier egress cannot afford multi-k row scans. */
+const DEDUPE_SCAN_MAX = 400
 
 /**
  * Explicit columns only — never select('*') (egress).

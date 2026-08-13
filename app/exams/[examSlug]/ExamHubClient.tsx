@@ -15,6 +15,7 @@ import NavigationBar from '@/components/NavigationBar'
 import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
 import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
+import { ExamNotesBanner } from '@/components/notes/ExamNotesBanner'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { examDashboardMockClick } from '@/lib/premium-gates'
@@ -257,6 +258,8 @@ function ExamDashboard() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Analytics Bar: handles sign-in CTA, stats, today's focus */}
         <ExamAnalyticsBar examSlug={examSlug} signInHref={`/signin?next=${encodeURIComponent(`/exams/${examSlug}`)}`} />
+
+        <ExamNotesBanner examSlug={examSlug} examName={config.name} />
 
         {examSlug === 'pms-competitive' && (
           <Link

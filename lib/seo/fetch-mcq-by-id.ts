@@ -1,12 +1,14 @@
 import { createPublicSupabaseClient } from '@/lib/supabase/public'
 import type { QuizMcqRow } from '@/lib/set-integrity'
 import { unstable_cache } from 'next/cache'
+import { softMode, SoftSkipError, withSoftCache } from '@/lib/supabase-soft'
 
 async function fetchMcqByIdUncached(
   bank: string,
   id: number,
 ): Promise<QuizMcqRow | null> {
   if (!Number.isFinite(id) || id < 1) return null
+  if (softMode()) throw new SoftSkipError()
   try {
     const supabase = createPublicSupabaseClient()
     const { data, error } = await supabase
@@ -33,19 +35,22 @@ async function fetchMcqByIdUncached(
       correct_answer: letter,
       explanation: data.explanation ? String(data.explanation) : undefined,
     }
-  } catch {
+  } catch (e) {
+    if (e instanceof SoftSkipError) throw e
     return null
   }
 }
 
-/** Public MCQ fetch — cached 24h so Googlebot re-hits avoid Supabase + SSR work. */
+/** Public MCQ fetch — 7d cache; soft mode skips live Nano hits. */
 export async function fetchMcqById(
   bank: string,
   id: number,
 ): Promise<QuizMcqRow | null> {
-  return unstable_cache(
-    () => fetchMcqByIdUncached(bank, id),
-    [`mcq-${bank}-${id}`],
-    { revalidate: 604800, tags: [`mcq-${bank}-${id}`] },
-  )()
+  return withSoftCache(null, () =>
+    unstable_cache(
+      () => fetchMcqByIdUncached(bank, id),
+      [`mcq-v2-${bank}-${id}`],
+      { revalidate: 604800, tags: [`mcq-${bank}-${id}`] },
+    )(),
+  )
 }

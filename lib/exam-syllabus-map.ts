@@ -880,7 +880,7 @@ export const EXAM_TOPIC_OVERRIDES: Record<string, Record<string, string[]>> = {
     ],
   },
 
-  'police-islamabad-assistant': {
+  'police-ict-assistant': {
     pakistan_studies: [
       'ICT administration: Islamabad Capital Territory structure, CDA, district administration',
       'ICT Police: organization, ranks, and ministerial staff role of Assistant (BS-15)',

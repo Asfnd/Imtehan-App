@@ -1,0 +1,50 @@
+import Link from 'next/link'
+import NavigationBar from '@/components/NavigationBar'
+import {
+  categoryLabel,
+  countKitsForModule,
+  listNotesModulesByCategory,
+} from '@/lib/notes/modules'
+
+export default function NotesHubPage() {
+  const groups = listNotesModulesByCategory()
+
+  return (
+    <div className="note-hub">
+      <NavigationBar />
+      <main className="note-hub-main">
+        <p className="note-hub-kicker">Imtehan Notes</p>
+        <h1 className="note-hub-title">Pick your exam. Then open syllabus notes.</h1>
+        <p className="note-hub-lead">
+          Each exam has its own module. Topics follow that exam syllabus. Full revision kits ship
+          topic by topic. Start with your exam, not a random blog list.
+        </p>
+
+        {groups.map(({ category, modules }) => (
+          <section key={category}>
+            <h2 className="note-hub-cat">{categoryLabel(category)}</h2>
+            <div className="note-hub-list">
+              {modules.map((mod) => {
+                const kits = countKitsForModule(mod.slug)
+                return (
+                  <Link
+                    key={mod.slug}
+                    href={`/notes/${mod.slug}`}
+                    className="note-hub-card"
+                  >
+                    <p className="note-hub-card-title">{mod.name}</p>
+                    <p className="note-hub-card-meta">
+                      {mod.sections.length} subjects
+                      {kits > 0 ? ` · ${kits} kit${kits === 1 ? '' : 's'} ready` : ' · syllabus listed'}
+                      {mod.track === 'written' ? ' · written focus' : ''}
+                    </p>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        ))}
+      </main>
+    </div>
+  )
+}

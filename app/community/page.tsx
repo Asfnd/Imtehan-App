@@ -8,6 +8,7 @@ import { WhatsAppMessageBubble } from '@/components/community/WhatsAppMessageBub
 import { buildChatListItems, avatarGradient } from '@/lib/community-chat-utils'
 import { Paperclip, Send, Trash2, ChevronDown } from 'lucide-react'
 import { FollowUsCard } from '@/components/social/FollowUs'
+import { softMode } from '@/lib/supabase-soft'
 
 // Singleton client: created once, not on every render
 const supabase = createClient()
@@ -171,9 +172,14 @@ function CommunityChatContent() {
     setMessages([])
     setReactions([])
 
+    if (softMode()) {
+      setIsLoading(false)
+      return
+    }
+
     supabase
       .from('community_messages')
-      .select('*')
+      .select('id, user_id, user_name, user_avatar, message, channel, created_at')
       .eq('channel', activeChannel)
       .order('created_at', { ascending: true })
       .limit(50)
@@ -184,7 +190,7 @@ function CommunityChatContent() {
         if (msgList.length > 0) {
           const { data: rxns } = await supabase
             .from('community_reactions')
-            .select('*')
+            .select('id, message_id, user_id, emoji')
             .in('message_id', msgList.map((m) => m.id))
           setReactions(rxns ?? [])
         }
@@ -198,8 +204,9 @@ function CommunityChatContent() {
     requestAnimationFrame(() => scrollToEnd(false))
   }, [activeChannel, scrollToEnd])
 
-  // Realtime: messages + reactions
+  // Realtime: messages + reactions (skip in soft mode — Realtime burns Free Nano)
   useEffect(() => {
+    if (softMode()) return
     const channel = supabase
       .channel('community_realtime')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'community_messages' }, (payload) => {

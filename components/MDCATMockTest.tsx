@@ -23,6 +23,8 @@ import { mdcatMockPageAccess } from '@/lib/premium-gates'
 import { handlePracticeDeny } from '@/lib/practice-client'
 import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
 import { FollowUsCard } from '@/components/social/FollowUs'
+import { softMode } from '@/lib/supabase-soft'
+import { allowSupabaseFallback } from '@/lib/static-mcq-fetch'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -242,25 +244,97 @@ async function fetchSectionMCQs(
   sectionIndex: number,
   mockNumber?: number,
 ): Promise<MockMCQ[]> {
-  // Deterministic mode: Mock N uses rows [(N-1)*count … N*count-1], ordered by id
+  const mapRow = (row: any): MockMCQ => ({
+    ...row,
+    _subject: section.label,
+    _color: section.color,
+    _bgColor: section.bgColor,
+    _sectionIndex: sectionIndex,
+  })
+
+  // Deterministic mode: Mock N uses rows [(N-1)*count … N*count-1]
   if (mockNumber !== undefined) {
     const offset = (mockNumber - 1) * section.count
+    // Prefer static CDN banks (client-safe — no Node fs).
+    try {
+      const { bankPoolId, bankSetUrl, banksBaseUrl } = await import('@/lib/banks-pool')
+      const poolId = bankPoolId({ kind: 'mdcat', dbTable: section.table, noTypeFilter: true })
+      const PAGE = 20
+      const first = Math.floor(offset / PAGE) + 1
+      const last = Math.floor((offset + section.count - 1) / PAGE) + 1
+      const pages: any[] = []
+      let ok = true
+      for (let n = first; n <= last; n++) {
+        const res = await fetch(bankSetUrl(poolId, n, banksBaseUrl()), {
+          headers: { Accept: 'application/json' },
+        })
+        if (!res.ok) {
+          ok = false
+          break
+        }
+        const file = await res.json()
+        if (!file?.mcqs?.length) {
+          ok = false
+          break
+        }
+        pages.push(...file.mcqs)
+      }
+      if (ok && pages.length) {
+        const slice = pages.slice(offset % PAGE, (offset % PAGE) + section.count)
+        if (slice.length) return slice.map(mapRow)
+      }
+    } catch {
+      /* fall through */
+    }
+
+    if (softMode() || !allowSupabaseFallback()) return []
+
     const { data, error } = await supabase
       .from(section.table)
       .select('id, question, option_a, option_b, option_c, option_d, correct_answer, difficulty, topic, subtopic')
       .order('id')
       .range(offset, offset + section.count - 1)
     if (error || !data) return []
-    return (data as any[]).map(row => ({
-      ...row,
-      _subject: section.label,
-      _color: section.color,
-      _bgColor: section.bgColor,
-      _sectionIndex: sectionIndex,
-    }))
+    return (data as any[]).map(mapRow)
   }
 
-  // Random mode: fetch a large window and shuffle
+  // Random mode: prefer CDN prefix, else soft-skip / live shuffle
+  try {
+    const { bankPoolId, bankSetUrl, banksBaseUrl } = await import('@/lib/banks-pool')
+    const poolId = bankPoolId({ kind: 'mdcat', dbTable: section.table, noTypeFilter: true })
+    const PAGE = 20
+    const need = Math.min(section.count * 5, 400)
+    const pagesNeeded = Math.ceil(need / PAGE)
+    const pages: any[] = []
+    let ok = true
+    for (let n = 1; n <= pagesNeeded; n++) {
+      const res = await fetch(bankSetUrl(poolId, n, banksBaseUrl()), {
+        headers: { Accept: 'application/json' },
+      })
+      if (!res.ok) {
+        ok = false
+        break
+      }
+      const file = await res.json()
+      if (!file?.mcqs?.length) {
+        ok = false
+        break
+      }
+      pages.push(...file.mcqs)
+    }
+    if (ok && pages.length) {
+      return pages
+        .slice()
+        .sort(() => Math.random() - 0.5)
+        .slice(0, section.count)
+        .map(mapRow)
+    }
+  } catch {
+    /* fall through */
+  }
+
+  if (softMode() || !allowSupabaseFallback()) return []
+
   const totalRows = TABLE_SIZES[section.table] ?? 1000
   const fetchCount = Math.min(section.count * 5, 400)
   const maxOffset = Math.max(0, totalRows - fetchCount)
@@ -276,13 +350,7 @@ async function fetchSectionMCQs(
   return (data as any[])
     .sort(() => Math.random() - 0.5)
     .slice(0, section.count)
-    .map(row => ({
-      ...row,
-      _subject: section.label,
-      _color: section.color,
-      _bgColor: section.bgColor,
-      _sectionIndex: sectionIndex,
-    }))
+    .map(mapRow)
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
