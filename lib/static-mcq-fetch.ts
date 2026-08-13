@@ -1,6 +1,8 @@
 /**
  * Read pre-materialized MCQ sets from disk (/banks) or CDN.
  * Prefer this over live Supabase so Free Nano stays alive forever.
+ *
+ * Server / Node only. Client code must import flags from `@/lib/banks-flags`.
  */
 
 import { promises as fs } from 'fs'
@@ -15,17 +17,8 @@ import {
   type BankPoolKey,
   type BankSetFile,
 } from '@/lib/banks-pool'
+import { allowSupabaseFallback, banksEnabled } from '@/lib/banks-flags'
 import type { QuizMcqRow } from '@/lib/set-integrity'
-
-function banksEnabled(): boolean {
-  // Default ON — set BANKS_STATIC=0 to force live Supabase reads.
-  return process.env.BANKS_STATIC !== '0'
-}
-
-function allowSupabaseFallback(): boolean {
-  // Default OFF — live Nano only if explicitly BANKS_FALLBACK_SUPABASE=1.
-  return process.env.BANKS_FALLBACK_SUPABASE === '1'
-}
 
 function diskRoot(): string {
   return (
@@ -153,4 +146,5 @@ export async function loadBankCountPreferStatic(
   return fallback()
 }
 
-export { banksEnabled, allowSupabaseFallback, bankPoolId }
+export { banksEnabled, allowSupabaseFallback } from '@/lib/banks-flags'
+export { bankPoolId }

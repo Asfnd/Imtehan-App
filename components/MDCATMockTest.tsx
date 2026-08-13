@@ -24,7 +24,7 @@ import { handlePracticeDeny } from '@/lib/practice-client'
 import { FirstQuizFollowPrompt } from '@/components/social/FirstQuizFollowPrompt'
 import { FollowUsCard } from '@/components/social/FollowUs'
 import { softMode } from '@/lib/supabase-soft'
-import { allowSupabaseFallback } from '@/lib/static-mcq-fetch'
+import { allowSupabaseFallback } from '@/lib/banks-flags'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
