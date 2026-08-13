@@ -49,20 +49,20 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
   onePager: [
     'Passed by the National Assembly on 10 April 1973. Authenticated 12 April 1973. Came into force on 14 August 1973.',
     'Built as a parliamentary federal republic after the 1971 crisis, under Zulfikar Ali Bhutto’s political leadership.',
-    'Key design: federal structure, parliamentary executive, bicameral Majlis-e-Shoora, and Fundamental Rights (Arts 8-28).',
+    'Key design: federal structure, parliamentary executive, bicameral Majlis-e-Shoora (National Assembly and Senate), and Fundamental Rights (Arts 8-28).',
+    'Article 6 makes abrogation or subversion of the Constitution high treason. It raises the legal cost of attacking the text. It is not a magic shield by itself.',
     '1956: first constitution, parliamentary, short life, ended with 1958 martial law.',
     '1962: presidential system under Ayub Khan, ended in 1969.',
-    '1973 survived better because provinces and parties could own a negotiated parliamentary document, and because courts and politics later treated revival as restoration rather than a brand-new constitution.',
-    'It was held in abeyance after July 1977 martial law, then revived in stages in 1985 (not replaced by a fourth constitution).',
-    'Exam use: constitutional development, democracy, federalism, rights, and later amendments (especially 8th and 18th).',
+    '1973 survived better because provinces and parties could own a negotiated parliamentary document, and because later politics revived the same text (1985) instead of writing a fourth constitution.',
+    'Exam use: constitutional development, democracy, federalism, rights, Art 6, and later amendments (especially 8th and 18th).',
   ],
   answerSteps: [
     'Open with the problem after 1971: Pakistan needed a constitution that parties and provinces could accept.',
-    'State the basics: passed 10 April 1973, enforced 14 August 1973, parliamentary federal design.',
-    'Compare briefly with 1956 (short parliamentary life) and 1962 (presidential, Ayub).',
-    'Explain durability factors: negotiated consensus, parliamentary ownership, rights chapter, and later revival instead of permanent replacement.',
-    'Add one precise point: abeyance after 1977 and revival in 1985, or Arts 8-28 as a mark earner.',
-    'Close with present relevance: every major debate (federalism, rights, amendments) still starts from the 1973 text.',
+    'Give the hard facts: passed 10 April 1973, enforced 14 August 1973, framed under Bhutto with National Assembly consensus.',
+    'Contrast briefly: 1956 (parliamentary, gone 1958) and 1962 (presidential, gone with Ayub).',
+    'Explain the 1973 design: federal parliament, strong PM, bicameral house, Senate as provincial voice.',
+    'Add rights and durability tools: Arts 8 to 28, plus Art 6 on high treason. Note later amendments kept the same document alive.',
+    'Close with a clear judgment: 1973 was amended and revived, while earlier texts were discarded.',
   ],
   questionVariants: [
     'Why has the 1973 Constitution shown greater durability than the Constitutions of 1956 and 1962? Discuss.',
@@ -88,6 +88,10 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
       text: 'Fundamental Rights are set out in Articles 8 to 28 of the Constitution.',
     },
     {
+      label: 'Article 6',
+      text: 'Abrogating or subverting the Constitution by unconstitutional means is high treason. Later amendments tightened this further.',
+    },
+    {
       label: 'Continuity',
       text: 'After 1977 martial law put the Constitution in abeyance, the 1973 text was revived in 1985 rather than replaced by a new constitution.',
     },
@@ -97,7 +101,9 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
     { prompt: 'When was it authenticated?', answer: '12 April 1973' },
     { prompt: 'When did it come into force?', answer: '14 August 1973' },
     { prompt: 'What political system did it restore?', answer: 'Parliamentary federal system' },
+    { prompt: 'Name the two houses of Parliament.', answer: 'National Assembly and Senate' },
     { prompt: 'Which articles cover Fundamental Rights?', answer: 'Articles 8 to 28' },
+    { prompt: 'What does Article 6 deal with?', answer: 'High treason for attacking the Constitution' },
     { prompt: 'What system did the 1962 Constitution create?', answer: 'Presidential system under Ayub Khan' },
     { prompt: 'When did the 1956 Constitution end in practice?', answer: 'With the 1958 martial law' },
     {
@@ -105,10 +111,6 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
       answer: 'It was held in abeyance (not permanently replaced)',
     },
     { prompt: 'When was the 1973 Constitution revived in stages?', answer: '1985' },
-    {
-      prompt: 'Name two durability reasons for exam answers.',
-      answer: 'Negotiated parliamentary ownership and later revival instead of a new constitution',
-    },
     {
       prompt: 'Who was the leading political figure of the framing period?',
       answer: 'Zulfikar Ali Bhutto',
@@ -128,8 +130,8 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
       correct: 'It was held in abeyance after 1977 and revived in 1985.',
     },
     {
-      trap: 'Listing only dates with no argument.',
-      correct: 'Use dates to support a claim about durability, federalism, or rights.',
+      trap: 'Treating Article 6 as if it alone prevented every coup.',
+      correct: 'Article 6 raises the legal cost. Political and institutional factors also explain survival.',
     },
     {
       trap: 'Confusing Article 2A (1985) with the original 1973 text.',

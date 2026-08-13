@@ -11,8 +11,8 @@ export function LahoreResolutionBody() {
       </p>
       <p>
         The Resolution asked for independent states in contiguous Muslim-majority regions of the
-        north-western and eastern zones of British India. It gave Muslim politics a territorial
-        direction. That is why exams still treat 1940 as a foundation date.
+        north-western and eastern zones of British India. The text does not use the word Pakistan.
+        That later popular name is why exams also call it the Pakistan Resolution.
       </p>
 
       <NoteTable
@@ -48,12 +48,16 @@ export function LahoreResolutionBody() {
             '1940 set a territorial principle for Muslim-majority regions',
           ],
           [
-            'Jinnah personally moved the Resolution',
+            'The text named Pakistan',
+            'The text does not use the word Pakistan',
+          ],
+          [
+            'Jinnah moved the Resolution',
             'Fazlul Huq moved it. Jinnah led League politics',
           ],
           [
-            'Only a slogan day',
-            'A political shift toward a territorial solution',
+            'Iqbal drafted the 1940 Resolution',
+            'Iqbal’s 1930 Allahabad Address is background. He died in 1938',
           ],
         ]}
       />

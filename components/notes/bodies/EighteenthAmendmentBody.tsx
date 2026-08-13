@@ -12,8 +12,9 @@ export function EighteenthAmendmentBody() {
       </p>
       <p>
         For exams, lead with substance, not slogans. The Concurrent Legislative List was abolished.
-        Provinces gained legislative space. The Objectives Resolution Annex also regained the word
-        freely. A high score needs both the gains and the capacity limits that followed.
+        Most subjects moved to the provinces, while criminal law, criminal procedure, and evidence
+        stay shared. The Annex also regained the word freely. A high score needs both the gains and
+        the capacity limits that followed.
       </p>
 
       <NoteTable
@@ -46,7 +47,16 @@ export function EighteenthAmendmentBody() {
         narrowFirst={false}
         rows={[
           ['Concurrent List shared many subjects', 'Concurrent List abolished'],
-          ['Stronger central legislative overlap', 'More provincial legislative space'],
+          [
+            'Heavy central legislative overlap',
+            'Most former concurrent subjects become provincial',
+          ],
+          [
+            'Shared leftovers unclear in student answers',
+            'Criminal law, criminal procedure, and evidence stay shared',
+          ],
+          ['CCI weaker in practice', 'PM chairs CCI; meet at least once in 90 days'],
+          ['No hard NFC floor in the same form', 'Later award share cannot fall below previous share'],
           ['NWFP name in Constitution', 'Renamed Khyber Pakhtunkhwa'],
           ['Annex freely missing since 1985 text', 'Freely restored in Annex'],
         ]}
