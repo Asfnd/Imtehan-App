@@ -5,7 +5,7 @@ import { BreadcrumbListSchema } from '@/components/seo/StructuredData'
 export const metadata: Metadata = {
   title: 'Exam Notes | Imtehan',
   description:
-    'Syllabus-mapped, dual-sourced notes for CSS, PMS, PPSC and more — built for analysis, revision, and practice.',
+    'Syllabus-mapped notes for CSS, PMS, PPSC and more. Built for analysis, revision, and practice.',
   alternates: { canonical: 'https://imtehan.com/notes' },
 }
 
