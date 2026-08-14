@@ -25,6 +25,8 @@ const PRIORITY_KIT_EXAMS = [
   'fpsc-general',
   'nts-general',
   'nts-gat',
+  'fpsc-assistant',
+  'ppsc-tehsildar',
 ] as const
 
 /** Keep generateStaticParams focused on exams that students hit first. */
