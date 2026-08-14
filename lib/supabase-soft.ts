@@ -1,14 +1,17 @@
 /**
  * Free-tier circuit breaker: skip non-essential Supabase work when Auth/DB is dying.
  *
- * - SUPABASE_SOFT_MODE=1 / NEXT_PUBLIC_SUPABASE_SOFT_MODE=1 → force soft (counts/auth spam only)
+ * - NEXT_PUBLIC_SUPABASE_SOFT_MODE=1 → force soft in browser and server
+ * - SUPABASE_SOFT_MODE=1 → server/build only (Docker uses this during `next build`)
+ *   Do not read SUPABASE_SOFT_MODE on the client: Next inlines it at build time and
+ *   would empty Community chat and other live reads in production.
  * - Auto-trips on timeouts for hours so Nano can recover
  * - clearSoftMode() / probeAndMaybeClearSoft() when ENV is off and DB is healthy again
  */
 
 const ENV_ON =
   process.env.NEXT_PUBLIC_SUPABASE_SOFT_MODE === '1' ||
-  process.env.SUPABASE_SOFT_MODE === '1'
+  (typeof window === 'undefined' && process.env.SUPABASE_SOFT_MODE === '1')
 
 /** Brief soft after boot so deploys don't stampede a recovering Nano. */
 const BOOT_SOFT_MS = 5 * 60_000
