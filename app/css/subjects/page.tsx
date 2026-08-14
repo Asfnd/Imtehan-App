@@ -319,7 +319,12 @@ export default function CSSSubjectMCQsPage() {
                       Subject Practice
                     </h1>
                   </div>
-                  <div className="w-20"></div>
+                  <button
+                    onClick={() => router.push('/notes/css-written')}
+                    className="flex items-center gap-2.5 px-4 py-2.5 bg-white/15 hover:bg-white/25 backdrop-blur-md text-white rounded-xl transition-all border border-white/30 hover:border-white/40 shadow-lg hover:shadow-xl"
+                  >
+                    <span className="font-bold text-sm tracking-wide">Study notes</span>
+                  </button>
                 </div>
               </div>
 

@@ -172,18 +172,19 @@ function CommunityChatContent() {
     setMessages([])
     setReactions([])
 
-    if (softMode()) {
-      setIsLoading(false)
-      return
-    }
-
     supabase
       .from('community_messages')
       .select('id, user_id, user_name, user_avatar, message, channel, created_at')
       .eq('channel', activeChannel)
       .order('created_at', { ascending: true })
       .limit(50)
-      .then(async ({ data: msgs }) => {
+      .then(async ({ data: msgs, error }) => {
+        if (error) {
+          console.error('community_messages load failed', error)
+          setMessages([])
+          setIsLoading(false)
+          return
+        }
         const msgList = msgs ?? []
         setMessages(msgList)
         setIsLoading(false)
@@ -204,7 +205,7 @@ function CommunityChatContent() {
     requestAnimationFrame(() => scrollToEnd(false))
   }, [activeChannel, scrollToEnd])
 
-  // Realtime: messages + reactions (skip in soft mode — Realtime burns Free Nano)
+  // Realtime: messages + reactions (skip in soft mode. Realtime burns Free Nano)
   useEffect(() => {
     if (softMode()) return
     const channel = supabase
