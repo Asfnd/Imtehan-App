@@ -10,7 +10,6 @@ import SignInPopup from '@/components/auth/SignInPopup'
 import { useFreeTrial } from '@/lib/hooks/useFreeTrial'
 import { CSSExamCountdownSimple } from '@/components/CSSExamCountdown'
 import { ExamNotesBanner } from '@/components/notes/ExamNotesBanner'
-import { ReadyKitsStrip } from '@/components/notes/ReadyKitsStrip'
 
 export default function CSSPracticeMain() {
   const router = useRouter()
@@ -97,12 +96,7 @@ export default function CSSPracticeMain() {
                 <CSSExamCountdownSimple />
               </div>
 
-              <ExamNotesBanner
-                examSlug="css-written"
-                examName="CSS Written"
-                kitHint="Pakistan Affairs kits ready: Objectives Resolution, 1973 Constitution, 18th Amendment, Lahore Resolution"
-              />
-              <ReadyKitsStrip examSlug="css-written" />
+              <ExamNotesBanner examSlug="css-written" examName="CSS Written" />
 
               {/* Practice Cards */}
               <div className="flex justify-center">

@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { BookOpen, BookMarked, FileText, Target, LogOut, ArrowRight, TrendingUp, Flame, Star, Play, Award, PenLine } from 'lucide-react'
+import { BookOpen, FileText, Target, LogOut, ArrowRight, TrendingUp, Flame, Star, Play, Award, PenLine } from 'lucide-react'
 import FeedbackButton from '@/components/FeedbackButton'
 import { createClient } from '@/lib/supabase/client'
 import { getUserAnalytics } from '@/lib/analytics'
@@ -12,7 +12,6 @@ import type { UserStats, TodaysRecommendation as RecommendationType, WeakSubject
 import dynamic from 'next/dynamic'
 import NavigationBar from '@/components/NavigationBar'
 import { ExamNotesBanner } from '@/components/notes/ExamNotesBanner'
-import { ReadyKitsStrip } from '@/components/notes/ReadyKitsStrip'
 import { CourseSchema } from '@/components/seo/StructuredData'
 import { CSSExamCountdown } from '@/components/CSSExamCountdown'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
@@ -247,12 +246,7 @@ function DashboardContent() {
       {/* Main Content Area */}
       <div className="flex-1 py-8 md:py-16 bg-gradient-to-br from-blue-50 via-white to-blue-50/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ExamNotesBanner
-            examSlug="css-written"
-            examName="CSS Written"
-            kitHint="Pakistan Affairs kits ready: Objectives Resolution, 1973 Constitution, 18th Amendment, Lahore Resolution"
-          />
-          <ReadyKitsStrip examSlug="css-written" />
+          <ExamNotesBanner examSlug="css-written" examName="CSS Written" />
           <Link
             href={WRITING_COACH_PATHS.css.pagePath}
             className="mb-8 flex flex-col gap-3 rounded-2xl border border-blue-200/80 bg-gradient-to-br from-blue-50/90 via-white to-white p-4 shadow-sm transition hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:p-5"
@@ -494,26 +488,6 @@ function DashboardContent() {
 
           {/* Practice Cards: ordered by priority */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-
-            {/* 0: Study notes */}
-            <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-slate-400 shadow-lg hover:shadow-xl hover:shadow-slate-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-50/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative p-5 flex-1 flex flex-col">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center mb-4 shadow-md shadow-slate-500/30 group-hover:scale-110 transition-transform duration-300">
-                  <BookMarked className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-base font-bold mb-2 text-gray-900 group-hover:text-slate-900 transition-colors">Study Notes</h3>
-                <p className="text-gray-600 text-xs leading-relaxed mb-3 flex-1 break-words">Pakistan Affairs kits: Objectives Resolution, 1973 Constitution, 18th Amendment, Lahore Resolution</p>
-                <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-gray-100">
-                  <div className="text-center"><span className="font-bold text-slate-700 block">4</span><span className="text-gray-500">Kits</span></div>
-                  <div className="w-px h-6 bg-gray-200"></div>
-                  <div className="text-center"><span className="font-bold text-slate-700 block">PA</span><span className="text-gray-500">Written</span></div>
-                </div>
-                <button onClick={() => router.push('/notes/css-written')} className="w-full bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-900 hover:to-black text-white font-semibold py-2.5 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-sm shadow-md hover:shadow-lg overflow-hidden">
-                  <span className="truncate">Open Notes</span><ArrowRight className="w-4 h-4 flex-shrink-0" />
-                </button>
-              </div>
-            </div>
 
             {/* 1: Most Repeated MCQs */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
