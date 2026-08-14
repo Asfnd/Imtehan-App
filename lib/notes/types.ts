@@ -47,6 +47,8 @@ export type NoteKitData = {
 export type NoteTopicMeta = {
   slug: string
   title: string
+  /** Short label for exam UI buttons */
+  shortTitle?: string
   contentId: string
   /** Subject slugs where this kit may appear (e.g. pakistan-affairs) */
   subjectSlugs: string[]

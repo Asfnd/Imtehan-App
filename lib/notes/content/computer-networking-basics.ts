@@ -47,14 +47,14 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'OSI model has 7 layers (bottom to top): Physical, Data Link, Network, Transport, Session, Presentation, Application.',
-    'Memory tip: Please Do Not Throw Sausage Pizza Away (Physical to Application).',
-    'Network layer deals with logical addressing and routing (IP). Data Link deals with framing and MAC addresses on a local link.',
-    'Transport layer: end-to-end delivery. TCP and UDP live here in the usual teaching map.',
-    'TCP: connection-oriented, reliable, ordered delivery, heavier overhead. UDP: connectionless, faster, no reliability guarantee.',
-    'Common ports: 80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP (email sending), 53 DNS.',
-    'IP address: logical address of a host on a network (can change with network). MAC address: hardware address of a network interface (burned-in / link-layer identity teaching).',
-    'TCP/IP (Internet model) is often taught as 4 layers: Link, Internet, Transport, Application. Map it to OSI only when asked.',
+    'OSI 7 layers (bottom to top): Physical, Data Link, Network, Transport, Session, Presentation, Application.',
+    'Mnemonic: Please Do Not Throw Sausage Pizza Away.',
+    'Network layer: logical addressing and routing (IP). Data Link: framing and MAC on a local link.',
+    'Transport layer: end-to-end delivery. Classic map places TCP and UDP here.',
+    'TCP: connection-oriented, reliable, ordered, heavier. UDP: connectionless, faster, no delivery guarantee.',
+    'Ports: 80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS.',
+    'IP: logical host address (can change with network). MAC: interface hardware / link-layer identity.',
+    'TCP/IP teaching model: often 4 layers (Link, Internet, Transport, Application). Map to OSI only when asked.',
   ],
   answerSteps: [
     'If OSI is asked, list all 7 layers in order first.',
@@ -92,53 +92,32 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
     },
   ],
   flashcards: [
-    { prompt: 'How many layers are in the OSI model?', answer: '7' },
+    { prompt: 'OSI layer count?', answer: '7' },
     {
-      prompt: 'OSI layers bottom to top?',
+      prompt: 'OSI bottom to top?',
       answer: 'Physical, Data Link, Network, Transport, Session, Presentation, Application',
     },
+    { prompt: 'IP addressing/routing layer?', answer: 'Network layer' },
+    { prompt: 'MAC address layer?', answer: 'Data Link layer' },
+    { prompt: 'TCP: oriented how?', answer: 'Connection-oriented' },
+    { prompt: 'UDP reliability in MCQs?', answer: 'Unreliable (no delivery guarantee)' },
+    { prompt: 'HTTP port?', answer: '80' },
+    { prompt: 'HTTPS port?', answer: '443' },
+    { prompt: 'SSH port?', answer: '22' },
+    { prompt: 'SMTP port?', answer: '25' },
+    { prompt: 'DNS port?', answer: '53' },
     {
-      prompt: 'Which OSI layer handles IP addressing/routing in classic teaching?',
-      answer: 'Network layer',
+      prompt: 'Which changes when you move networks (classic teaching)?',
+      answer: 'IP (logical). MAC is interface/link identity.',
     },
-    {
-      prompt: 'Which OSI layer is associated with MAC addresses?',
-      answer: 'Data Link layer',
-    },
-    {
-      prompt: 'TCP is connection-oriented or connectionless?',
-      answer: 'Connection-oriented',
-    },
-    {
-      prompt: 'UDP is reliable or unreliable in classic MCQs?',
-      answer: 'Unreliable (no delivery guarantee)',
-    },
-    { prompt: 'Default HTTP port?', answer: '80' },
-    { prompt: 'Default HTTPS port?', answer: '443' },
-    { prompt: 'Default SSH port?', answer: '22' },
-    { prompt: 'Default SMTP port?', answer: '25' },
-    { prompt: 'Default DNS port?', answer: '53' },
-    {
-      prompt: 'Which address can change when you move networks: IP or MAC (classic teaching)?',
-      answer: 'IP (logical); MAC is interface hardware/link identity',
-    },
-    {
-      prompt: 'Which protocol suits live video streaming more often in MCQs: TCP or UDP?',
-      answer: 'UDP (speed over guaranteed delivery)',
-    },
-    {
-      prompt: 'Which protocol suits file transfer when reliability matters: TCP or UDP?',
-      answer: 'TCP',
-    },
-    {
-      prompt: 'How many layers in the common TCP/IP teaching model?',
-      answer: '4',
-    },
+    { prompt: 'Live streaming often mapped to?', answer: 'UDP (speed over guaranteed delivery)' },
+    { prompt: 'Reliable file transfer mapped to?', answer: 'TCP' },
+    { prompt: 'Common TCP/IP model layer count?', answer: '4' },
   ],
   mistakes: [
     {
-      trap: 'Reversing OSI order (Application at the bottom).',
-      correct: 'Physical is layer 1 at the bottom. Application is layer 7 at the top.',
+      trap: 'Putting Application at the bottom of OSI.',
+      correct: 'Physical is layer 1 (bottom). Application is layer 7 (top).',
     },
     {
       trap: 'Saying UDP is more reliable than TCP.',
@@ -150,11 +129,15 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
     },
     {
       trap: 'Calling MAC a Network-layer address.',
-      correct: 'MAC is Data Link / hardware interface addressing. IP is Network-layer logical addressing.',
+      correct: 'MAC is Data Link / hardware interface. IP is Network-layer logical addressing.',
     },
     {
       trap: 'Putting SMTP on port 22.',
       correct: '22 is SSH. 25 is SMTP.',
+    },
+    {
+      trap: 'Equating OSI 7 layers with TCP/IP 4 layers as identical names.',
+      correct: 'They are related maps. Recite each model as taught; map only when asked.',
     },
   ],
   revisionPath: [

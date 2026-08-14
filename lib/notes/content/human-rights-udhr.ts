@@ -48,14 +48,14 @@ export const HUMAN_RIGHTS_UDHR_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'Universal Declaration of Human Rights (UDHR) was adopted by the UN General Assembly on 10 December 1948. It is a foundational declaration, not a treaty with the same legal form as later covenants.',
-    'Two core covenants often paired in exams: International Covenant on Civil and Political Rights (ICCPR) and International Covenant on Economic, Social and Cultural Rights (ICESCR). Both adopted in 1966; entered into force in 1976.',
-    'Together with the UDHR, ICCPR and ICESCR are taught as the International Bill of Human Rights.',
-    'CEDAW (1979): Convention on the Elimination of All Forms of Discrimination against Women. CRC (1989): Convention on the Rights of the Child. Memorise full names for MCQs.',
-    'Civil and political rights (ICCPR style): life, liberty, fair trial, expression, association. Economic, social and cultural rights (ICESCR style): work, education, health, adequate standard of living.',
-    'Pakistan Constitution 1973 places Fundamental Rights mainly in Articles 8 to 28 (classical exam range). Article 8 addresses laws inconsistent with Fundamental Rights.',
-    'Examples often asked: Art 9 security of person; Art 10 safeguards as to arrest and detention; Art 14 dignity; Art 19 freedom of speech; Art 25 equality. Use exact article numbers only when sure.',
-    'Exam tip: separate international instruments from constitutional rights. Do not call UDHR a Pakistan statute or invent treaty article numbers as Constitution articles.',
+    'UDHR adopted by UN General Assembly on 10 December 1948. Foundational declaration, not a covenant/treaty of the same legal form.',
+    'Twin covenants: ICCPR and ICESCR. Adopted 1966; entered into force 1976.',
+    'International Bill of Human Rights (exam trio): UDHR + ICCPR + ICESCR.',
+    'CEDAW (1979): Convention on the Elimination of All Forms of Discrimination against Women. CRC (1989): Convention on the Rights of the Child.',
+    'ICCPR-style rights: life, liberty, fair trial, expression, association. ICESCR-style: work, education, health, adequate living standard.',
+    'Pakistan 1973 Constitution: Fundamental Rights classically Arts 8-28. Article 8 targets laws inconsistent with Fundamental Rights.',
+    'High-yield articles when sure: Art 9 security of person; Art 10 arrest/detention safeguards; Art 14 dignity; Art 19 speech; Art 25 equality.',
+    'Exam move: keep international instruments separate from constitutional articles. No UDHR-as-statute claims; no treaty numbers as Constitution articles.',
   ],
   answerSteps: [
     'Open with human dignity and the post-1945 international rights project.',
@@ -90,83 +90,45 @@ export const HUMAN_RIGHTS_UDHR_KIT: NoteKitData = {
     },
   ],
   flashcards: [
+    { prompt: 'UDHR adoption date?', answer: '10 December 1948' },
+    { prompt: 'Who adopted UDHR?', answer: 'UN General Assembly' },
+    { prompt: 'Is UDHR a treaty like ICCPR?', answer: 'No. It is a declaration.' },
+    { prompt: 'ICCPR expands to?', answer: 'International Covenant on Civil and Political Rights' },
+    { prompt: 'ICESCR expands to?', answer: 'International Covenant on Economic, Social and Cultural Rights' },
+    { prompt: 'ICCPR/ICESCR adoption year?', answer: '1966' },
+    { prompt: 'ICCPR/ICESCR entry into force?', answer: '1976' },
+    { prompt: 'International Bill of Human Rights trio?', answer: 'UDHR, ICCPR, ICESCR' },
     {
-      prompt: 'When was the UDHR adopted?',
-      answer: '10 December 1948',
-    },
-    {
-      prompt: 'Who adopted the UDHR?',
-      answer: 'UN General Assembly',
-    },
-    {
-      prompt: 'Is the UDHR itself a treaty like ICCPR?',
-      answer: 'No. It is a declaration (foundational, not the same legal form as the covenants)',
-    },
-    {
-      prompt: 'What does ICCPR stand for?',
-      answer: 'International Covenant on Civil and Political Rights',
-    },
-    {
-      prompt: 'What does ICESCR stand for?',
-      answer: 'International Covenant on Economic, Social and Cultural Rights',
-    },
-    {
-      prompt: 'When were ICCPR and ICESCR adopted?',
-      answer: '1966',
-    },
-    {
-      prompt: 'When did ICCPR and ICESCR enter into force?',
-      answer: '1976',
-    },
-    {
-      prompt: 'What three texts are taught as the International Bill of Human Rights?',
-      answer: 'UDHR, ICCPR, and ICESCR',
-    },
-    {
-      prompt: 'What does CEDAW stand for?',
+      prompt: 'CEDAW expands to?',
       answer: 'Convention on the Elimination of All Forms of Discrimination against Women',
     },
-    {
-      prompt: 'CEDAW year?',
-      answer: '1979',
-    },
-    {
-      prompt: 'What does CRC stand for?',
-      answer: 'Convention on the Rights of the Child',
-    },
-    {
-      prompt: 'CRC year?',
-      answer: '1989',
-    },
-    {
-      prompt: 'Classical Fundamental Rights article range in Pakistan’s 1973 Constitution?',
-      answer: 'Articles 8 to 28',
-    },
-    {
-      prompt: 'Name one civil-political right theme.',
-      answer: 'Life, liberty, fair trial, speech, or association',
-    },
-    {
-      prompt: 'Name one economic-social-cultural right theme.',
-      answer: 'Education, health, work, or adequate living standard',
-    },
+    { prompt: 'CEDAW year?', answer: '1979' },
+    { prompt: 'CRC expands to?', answer: 'Convention on the Rights of the Child' },
+    { prompt: 'CRC year?', answer: '1989' },
+    { prompt: 'Pakistan Fundamental Rights article range?', answer: 'Articles 8 to 28' },
+    { prompt: 'One civil-political theme?', answer: 'Life, liberty, fair trial, speech, or association' },
+    { prompt: 'One ESC rights theme?', answer: 'Education, health, work, or adequate living standard' },
   ],
   mistakes: [
     {
-      trap: 'Saying UDHR was adopted in 1945 with the UN Charter.',
+      trap: 'Dating UDHR to 1945 with the UN Charter.',
       correct: 'UN Charter 1945. UDHR 10 December 1948.',
     },
     {
       trap: 'Calling CEDAW the child rights treaty.',
-      correct: 'CEDAW is about discrimination against women. CRC is the child rights convention.',
+      correct: 'CEDAW is women’s discrimination. CRC is child rights.',
     },
     {
       trap: 'Writing Fundamental Rights as Arts 1-7 or inventing wrong ranges.',
-      correct: 'Classical exam range for Fundamental Rights is Arts 8-28.',
+      correct: 'Classical exam range is Arts 8-28.',
     },
     {
       trap: 'Treating ICCPR article numbers as Pakistan Constitution articles.',
       correct: 'Keep international instruments and constitutional articles separate.',
+    },
+    {
+      trap: 'Confusing ICCPR adoption (1966) with entry into force (1976).',
+      correct: 'Adopted 1966; entered into force 1976.',
     },
   ],
   revisionPath: [
