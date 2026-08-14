@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { BookMarked } from 'lucide-react'
-import { getNotesModule, listSyllabusTopicsForSection } from '@/lib/notes/modules'
 
 type ExamNotesBannerProps = {
   examSlug: string
@@ -11,24 +10,6 @@ type ExamNotesBannerProps = {
   subjectSlug?: string
   subjectLabel?: string
   kitHint?: string
-}
-
-function readyKitTitles(examSlug: string, subjectSlug?: string): string[] {
-  const mod = getNotesModule(examSlug)
-  if (!mod) return []
-  const sections = subjectSlug
-    ? mod.sections.filter((s) => s.slug === subjectSlug)
-    : mod.sections
-  const seen = new Set<string>()
-  const titles: string[] = []
-  for (const section of sections) {
-    for (const topic of listSyllabusTopicsForSection(examSlug, section.slug)) {
-      if (!topic.hasKit || seen.has(topic.slug)) continue
-      seen.add(topic.slug)
-      titles.push(topic.title)
-    }
-  }
-  return titles
 }
 
 /**
@@ -46,18 +27,15 @@ export function ExamNotesBanner({
     ? `/notes/${examSlug}/${subjectSlug}`
     : `/notes/${examSlug}`
 
-  const kits = readyKitTitles(examSlug, subjectSlug)
   const title = subjectLabel
     ? `${subjectLabel} notes`
     : `Notes for ${examName}`
 
   const subtitle =
     kitHint ??
-    (kits.length > 0
-      ? `${kits.length} kit${kits.length === 1 ? '' : 's'} ready: ${kits.slice(0, 4).join(', ')}.`
-      : subjectLabel
-        ? 'Syllabus notes for this subject. One-pagers, past-paper angles, and fact cards.'
-        : 'Syllabus notes mapped to this exam. One-pagers, past-paper angles, and fact cards.')
+    (subjectLabel
+      ? 'Syllabus notes for this subject. One-pagers, past-paper angles, and fact cards.'
+      : 'Syllabus notes mapped to this exam. One-pagers, past-paper angles, and fact cards.')
 
   return (
     <Link

@@ -16,7 +16,6 @@ import { PremiumPopup } from '@/components/auth/PremiumPopup'
 import SignInPopup from '@/components/auth/SignInPopup'
 import ExamAnalyticsBar from '@/components/ExamAnalyticsBar'
 import { ExamNotesBanner } from '@/components/notes/ExamNotesBanner'
-import { ReadyKitsStrip } from '@/components/notes/ReadyKitsStrip'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 import { isActivePremium } from '@/lib/is-active-premium'
 import { examDashboardMockClick } from '@/lib/premium-gates'
@@ -261,7 +260,6 @@ function ExamDashboard() {
         <ExamAnalyticsBar examSlug={examSlug} signInHref={`/signin?next=${encodeURIComponent(`/exams/${examSlug}`)}`} />
 
         <ExamNotesBanner examSlug={examSlug} examName={config.name} />
-        <ReadyKitsStrip examSlug={examSlug} />
 
         {examSlug === 'pms-competitive' && (
           <Link
