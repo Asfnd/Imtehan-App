@@ -208,13 +208,54 @@ export function listSyllabusTopicsForSection(
 }
 
 export function countKitsForModule(examSlug: string): number {
+  return listReadyKitsForExam(examSlug).length
+}
+
+export type ReadyKitButton = {
+  slug: string
+  title: string
+  shortTitle: string
+  subjectSlug: string
+  subjectLabel: string
+}
+
+/** Deduped ready kits for exam UI buttons (optional subject filter). */
+export function listReadyKitsForExam(
+  examSlug: string,
+  subjectSlug?: string
+): ReadyKitButton[] {
   const mod = getNotesModule(examSlug)
-  if (!mod) return 0
-  let n = 0
-  for (const section of mod.sections) {
-    n += listSyllabusTopicsForSection(examSlug, section.slug).filter((t) => t.hasKit).length
+  if (!mod) return []
+  const sections = subjectSlug
+    ? mod.sections.filter((s) => s.slug === subjectSlug)
+    : mod.sections
+  const seen = new Set<string>()
+  const kits: ReadyKitButton[] = []
+  for (const section of sections) {
+    for (const topic of listSyllabusTopicsForSection(examSlug, section.slug)) {
+      if (!topic.hasKit || seen.has(topic.slug)) continue
+      seen.add(topic.slug)
+      const meta = getRegisteredTopicForSubject(section.slug).find((t) => t.slug === topic.slug)
+        ?? listRegisteredTopics().find((t) => t.slug === topic.slug)
+      kits.push({
+        slug: topic.slug,
+        title: topic.title,
+        shortTitle: meta?.shortTitle ?? shortenKitTitle(topic.title),
+        subjectSlug: section.slug,
+        subjectLabel: section.label,
+      })
+    }
   }
-  return n
+  kits.sort((a, b) => a.shortTitle.localeCompare(b.shortTitle))
+  return kits
+}
+
+function shortenKitTitle(title: string): string {
+  return title
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 42)
 }
 
 export function categoryLabel(category: string): string {

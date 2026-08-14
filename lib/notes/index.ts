@@ -6,12 +6,14 @@ export type {
   NotesModule,
   NotesModuleSection,
 } from '@/lib/notes/types'
+export type { ReadyKitButton } from '@/lib/notes/modules'
 export {
   getNotesModule,
   listNotesModules,
   listNotesModulesByCategory,
   listSyllabusTopicsForSection,
   countKitsForModule,
+  listReadyKitsForExam,
   categoryLabel,
   CSS_WRITTEN_PA_TOPICS,
 } from '@/lib/notes/modules'

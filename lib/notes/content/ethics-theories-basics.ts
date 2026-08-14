@@ -47,14 +47,14 @@ export const ETHICS_THEORIES_BASICS_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'Utilitarianism asks which action produces the greatest overall good (often framed as happiness or welfare). Jeremy Bentham and John Stuart Mill are the classic names.',
-    'It is consequentialist: outcomes matter most. Strength: clear for cost-benefit style policy. Weakness: minority rights can be sacrificed if the majority gains.',
-    'Kantian ethics (Immanuel Kant) is duty-based (deontology). Act from duty according to the categorical imperative: act only on maxims you could will as universal law; treat persons as ends, never merely as means.',
-    'Strength: protects dignity and honesty even when lying seems useful. Weakness: hard when duties collide (truth vs rescue).',
-    'Virtue ethics focuses on character (Aristotle tradition): courage, temperance, justice, practical wisdom (phronesis). The question is what a good person would do, not only rules or totals.',
-    'John Rawls (A Theory of Justice, 1971): justice as fairness. In the original position behind a veil of ignorance, people choose principles without knowing their own status.',
-    'Rawls priority teaching: equal basic liberties; then fair equality of opportunity; then the difference principle (inequalities should benefit the least advantaged).',
-    'Exam application: procurement, whistleblowing, resource allocation, preferential treatment, and conflict of interest. Name the theory, state its test, apply one public dilemma, then give one limit.',
+    'Utilitarianism: choose the act with greatest overall good (welfare/happiness). Classic names: Bentham, Mill. Consequentialist.',
+    'Utilitarian strength: cost-benefit clarity. Limit: minority rights can be sacrificed for majority gain.',
+    'Kant (deontology): act from duty. Categorical imperative: universalizable maxims; treat persons as ends, never merely as means.',
+    'Kant strength: protects dignity and honesty when lying seems useful. Limit: colliding duties (truth vs rescue).',
+    'Virtue ethics (Aristotle tradition): character first. Courage, temperance, justice, phronesis (practical wisdom).',
+    'Rawls, A Theory of Justice (1971): justice as fairness. Original position behind a veil of ignorance.',
+    'Rawls priority teaching: equal basic liberties; fair equality of opportunity; difference principle (inequalities benefit the least advantaged).',
+    'Exam move: name the theory, state its test, apply one public dilemma (procurement, whistleblowing, allocation), then state one limit.',
   ],
   answerSteps: [
     'Define the dilemma in one line (who is affected, what duty or value is at stake).',
@@ -93,86 +93,44 @@ export const ETHICS_THEORIES_BASICS_KIT: NoteKitData = {
     },
   ],
   flashcards: [
+    { prompt: 'Utilitarianism type?', answer: 'Consequentialist (outcomes decide)' },
+    { prompt: 'Two classic utilitarian thinkers?', answer: 'Jeremy Bentham and John Stuart Mill' },
+    { prompt: 'Utilitarian test?', answer: 'Greatest overall good / happiness / welfare' },
+    { prompt: 'Common utilitarian criticism?', answer: 'Can sacrifice minority rights for majority gain' },
+    { prompt: 'Kant’s ethics type?', answer: 'Duty ethics / deontology' },
+    { prompt: 'Kant’s famous moral law idea?', answer: 'Categorical imperative' },
+    { prompt: 'Kant on persons?', answer: 'Treat as ends, never merely as means' },
+    { prompt: 'Virtue ethics focuses on?', answer: 'Character and virtues of the agent' },
+    { prompt: 'Classical virtue ethics thinker?', answer: 'Aristotle' },
+    { prompt: 'What is phronesis?', answer: 'Practical wisdom' },
+    { prompt: 'Author of A Theory of Justice (1971)?', answer: 'John Rawls' },
+    { prompt: 'Rawls’s main label?', answer: 'Justice as fairness' },
+    { prompt: 'Veil of ignorance?', answer: 'Choose principles without knowing your own social status' },
+    { prompt: 'Difference principle (exam level)?', answer: 'Inequalities should benefit the least advantaged' },
     {
-      prompt: 'What kind of theory is utilitarianism?',
-      answer: 'Consequentialist (outcomes decide right and wrong)',
-    },
-    {
-      prompt: 'Name two classic utilitarian thinkers.',
-      answer: 'Jeremy Bentham and John Stuart Mill',
-    },
-    {
-      prompt: 'What is the basic utilitarian test?',
-      answer: 'Greatest overall good / happiness / welfare',
-    },
-    {
-      prompt: 'What is a common criticism of utilitarianism?',
-      answer: 'It can sacrifice minority rights for majority gain',
-    },
-    {
-      prompt: 'What kind of ethics is Kant’s?',
-      answer: 'Duty ethics / deontology',
-    },
-    {
-      prompt: 'Name Kant’s famous moral law idea.',
-      answer: 'Categorical imperative',
-    },
-    {
-      prompt: 'How should persons be treated in Kantian ethics?',
-      answer: 'As ends, never merely as means',
-    },
-    {
-      prompt: 'What does virtue ethics focus on?',
-      answer: 'Character and virtues of the agent',
-    },
-    {
-      prompt: 'Which classical thinker is linked to virtue ethics?',
-      answer: 'Aristotle',
-    },
-    {
-      prompt: 'What is phronesis in virtue ethics teaching?',
-      answer: 'Practical wisdom',
-    },
-    {
-      prompt: 'Who wrote A Theory of Justice (1971)?',
-      answer: 'John Rawls',
-    },
-    {
-      prompt: 'What is Rawls’s main label for his approach?',
-      answer: 'Justice as fairness',
-    },
-    {
-      prompt: 'What is the veil of ignorance?',
-      answer: 'Choosing principles without knowing your own social status',
-    },
-    {
-      prompt: 'What is Rawls’s difference principle (exam level)?',
-      answer: 'Inequalities should benefit the least advantaged',
-    },
-    {
-      prompt: 'Name one public dilemma to apply these theories.',
-      answer: 'Procurement bias, whistleblowing, or resource allocation under scarcity',
+      prompt: 'One public dilemma for application?',
+      answer: 'Procurement bias, whistleblowing, or scarce resource allocation',
     },
   ],
   mistakes: [
     {
       trap: 'Calling Kant a utilitarian because he wants good outcomes.',
-      correct: 'Kant is duty-based. Outcomes do not decide rightness the way utilitarianism does.',
+      correct: 'Kant is duty-based. Outcomes do not decide rightness the utilitarian way.',
     },
     {
       trap: 'Saying virtue ethics is only about feelings.',
-      correct: 'It is about cultivated character, habits, and practical wisdom, not mood alone.',
+      correct: 'It is cultivated character, habits, and practical wisdom, not mood alone.',
     },
     {
-      trap: 'Writing that Rawls wants absolute equality of income.',
+      trap: 'Writing that Rawls demands absolute income equality.',
       correct: 'He allows inequalities if they fit fair opportunity and benefit the least advantaged.',
     },
     {
-      trap: 'Mixing Bentham with Kant as the same school.',
+      trap: 'Mixing Bentham and Kant as the same school.',
       correct: 'Bentham: utilitarianism. Kant: duty ethics. Different tests.',
     },
     {
-      trap: 'Giving partisan Pakistan cases as if they prove a theory.',
+      trap: 'Using partisan Pakistan cases as if they prove a theory.',
       correct: 'Use neutral public service dilemmas and name the ethical test accurately.',
     },
   ],

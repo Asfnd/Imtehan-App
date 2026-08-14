@@ -38,6 +38,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'objectives-resolution-article-2a',
     title: 'Objectives Resolution and Article 2A',
+    shortTitle: 'Objectives Resolution',
     contentId: 'objectives-resolution-article-2a',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: [
@@ -53,6 +54,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'constitution-1973',
     title: '1973 Constitution of Pakistan',
+    shortTitle: '1973 Constitution',
     contentId: 'constitution-1973',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: [
@@ -67,6 +69,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'eighteenth-amendment',
     title: '18th Amendment (2010)',
+    shortTitle: '18th Amendment',
     contentId: 'eighteenth-amendment',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: [
@@ -82,6 +85,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'lahore-resolution-1940',
     title: 'Lahore Resolution (Pakistan Resolution) 1940',
+    shortTitle: 'Lahore Resolution',
     contentId: 'lahore-resolution-1940',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: [
@@ -97,6 +101,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'ideology-of-pakistan',
     title: 'Ideology of Pakistan (Iqbal and Quaid)',
+    shortTitle: 'Ideology of Pakistan',
     contentId: 'ideology-of-pakistan',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: [
@@ -113,6 +118,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'constitutional-development-pakistan',
     title: 'Constitutional Development (1956, 1962, 1973)',
+    shortTitle: 'Constitutional Development',
     contentId: 'constitutional-development-pakistan',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: [
@@ -128,6 +134,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'civil-military-relations',
     title: 'Civil-Military Relations in Pakistan',
+    shortTitle: 'Civil-Military Relations',
     contentId: 'civil-military-relations',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: ['civil-military', 'civil military', 'martial law', 'military regimes'],
@@ -137,6 +144,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'foreign-policy-post-911',
     title: 'Foreign Policy of Pakistan after 9/11',
+    shortTitle: 'Foreign Policy after 9/11',
     contentId: 'foreign-policy-post-911',
     subjectSlugs: ['pakistan-affairs', 'current-affairs'],
     syllabusHints: ['foreign policy', '9/11', 'post 9/11', 'afghanistan', 'war on terror'],
@@ -146,6 +154,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'pakistan-india-relations',
     title: 'Pakistan-India Relations since 1947',
+    shortTitle: 'Pakistan-India Relations',
     contentId: 'pakistan-india-relations',
     subjectSlugs: ['pakistan-affairs', 'current-affairs'],
     syllabusHints: ['pakistan and india', 'india relations', 'kashmir', 'simla', 'indus waters'],
@@ -155,6 +164,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'political-evolution-1971',
     title: 'Political Evolution since 1971',
+    shortTitle: 'Politics since 1971',
     contentId: 'political-evolution-1971',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: ['political evolution since 1971', 'since 1971', 'bhutto', 'zia', 'musharraf'],
@@ -164,6 +174,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'democracy-evolution-pakistan',
     title: 'Evolution of Democratic System in Pakistan',
+    shortTitle: 'Democratic System',
     contentId: 'democracy-evolution-pakistan',
     subjectSlugs: ['pakistan-affairs'],
     syllabusHints: ['evolution of democratic', 'democratic system', 'elections', 'parliamentary'],
@@ -173,6 +184,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'land-people-pakistan',
     title: 'Land and People of Pakistan',
+    shortTitle: 'Land and People',
     contentId: 'land-people-pakistan',
     subjectSlugs: ['pakistan-affairs', 'geography'],
     syllabusHints: ['land and people', 'geography', 'society', 'resources', 'provinces'],
@@ -182,6 +194,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'indus-river-system',
     title: 'Indus River System and Water Resources',
+    shortTitle: 'Indus River System',
     contentId: 'indus-river-system',
     subjectSlugs: ['pakistan-affairs', 'geography'],
     syllabusHints: ['indus', 'water', 'tarbela', 'mangla', 'indus waters treaty'],
@@ -191,6 +204,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'pakistan-nuclear-program',
     title: 'Pakistan Nuclear Program (Exam Facts)',
+    shortTitle: 'Nuclear Program',
     contentId: 'pakistan-nuclear-program',
     subjectSlugs: ['pakistan-affairs', 'current-affairs'],
     syllabusHints: ['nuclear', 'chagai', 'deterrence', '1998'],
@@ -202,6 +216,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'cpec-and-regional-connectivity',
     title: 'CPEC and Regional Connectivity',
+    shortTitle: 'CPEC',
     contentId: 'cpec-and-regional-connectivity',
     subjectSlugs: ['current-affairs', 'pakistan-affairs'],
     syllabusHints: ['cpec', 'belt and road', 'gwadar', 'china', 'connectivity'],
@@ -211,6 +226,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'pakistan-economy-imf-sbp',
     title: 'Pakistan Economy, IMF and SBP Basics',
+    shortTitle: 'Economy, IMF and SBP',
     contentId: 'pakistan-economy-imf-sbp',
     subjectSlugs: ['current-affairs', 'pakistan-affairs'],
     syllabusHints: ['economy', 'imf', 'sbp', 'inflation', 'economic survey', 'economic conditions'],
@@ -220,6 +236,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'climate-floods-smog-pakistan',
     title: 'Climate Change, Floods and Smog in Pakistan',
+    shortTitle: 'Climate, Floods, Smog',
     contentId: 'climate-floods-smog-pakistan',
     subjectSlugs: ['current-affairs', 'pakistan-affairs', 'everyday-science', 'geography'],
     syllabusHints: ['climate', 'floods', 'smog', 'environment', 'paris agreement', 'social problems'],
@@ -231,6 +248,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'pillars-of-islam',
     title: 'Five Pillars of Islam',
+    shortTitle: 'Five Pillars',
     contentId: 'pillars-of-islam',
     subjectSlugs: ['islamic-studies'],
     syllabusHints: ['pillars', 'salah', 'zakat', 'hajj', 'sawm', 'ibadat', 'worship'],
@@ -240,6 +258,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'sources-of-islamic-law',
     title: 'Sources of Islamic Law (Usul)',
+    shortTitle: 'Sources of Islamic Law',
     contentId: 'sources-of-islamic-law',
     subjectSlugs: ['islamic-studies'],
     syllabusHints: ['sources of islamic law', 'usul', 'ijma', 'qiyas', 'fiqh', 'madhab'],
@@ -249,6 +268,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'quran-revelation-compilation',
     title: 'Revelation and Compilation of the Quran',
+    shortTitle: 'Quran Compilation',
     contentId: 'quran-revelation-compilation',
     subjectSlugs: ['islamic-studies'],
     syllabusHints: ['quran', 'revelation', 'compilation', 'uthman', 'abu bakr', 'makki', 'madani'],
@@ -258,6 +278,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'seerah-high-yield',
     title: 'Seerah High-Yield Facts (Prophet Muhammad PBUH)',
+    shortTitle: 'Seerah Facts',
     contentId: 'seerah-high-yield',
     subjectSlugs: ['islamic-studies'],
     syllabusHints: ['seerah', 'prophet', 'hijra', 'badr', 'uhud', 'makkah'],
@@ -267,6 +288,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'hadith-sciences-basics',
     title: 'Hadith Sciences Basics',
+    shortTitle: 'Hadith Sciences',
     contentId: 'hadith-sciences-basics',
     subjectSlugs: ['islamic-studies'],
     syllabusHints: ['hadith', 'bukhari', 'muslim', 'sihah', 'isnad'],
@@ -278,6 +300,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'english-essay-css',
     title: 'CSS English Essay (Structure and Method)',
+    shortTitle: 'English Essay Method',
     contentId: 'english-essay-css',
     subjectSlugs: ['english-essay', 'english'],
     syllabusHints: ['essay', 'english essay', 'outline', 'thesis'],
@@ -287,6 +310,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'precis-composition-css',
     title: 'Precis and Composition (CSS Method)',
+    shortTitle: 'Precis Method',
     contentId: 'precis-composition-css',
     subjectSlugs: ['english-precis', 'english'],
     syllabusHints: ['precis', 'précis', 'composition', 'comprehension'],
@@ -296,6 +320,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'english-grammar-high-yield',
     title: 'English Grammar High-Yield for One-Paper Exams',
+    shortTitle: 'English Grammar',
     contentId: 'english-grammar-high-yield',
     subjectSlugs: ['english'],
     syllabusHints: ['grammar', 'tenses', 'articles', 'prepositions', 'subject-verb'],
@@ -307,6 +332,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'un-international-organizations',
     title: 'UN and Major International Organizations',
+    shortTitle: 'UN and Organizations',
     contentId: 'un-international-organizations',
     subjectSlugs: ['general-knowledge', 'current-affairs'],
     syllabusHints: ['united nations', 'imf', 'world bank', 'oic', 'saarc', 'wto', 'sco'],
@@ -316,6 +342,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'computer-networking-basics',
     title: 'Computer Networking Basics (OSI and TCP/IP)',
+    shortTitle: 'OSI and TCP/IP',
     contentId: 'computer-networking-basics',
     subjectSlugs: ['computer', 'basic-computer', 'computer-science'],
     syllabusHints: ['osi', 'tcp', 'networking', 'ports', 'ip'],
@@ -325,6 +352,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'vitamins-hormones-basics',
     title: 'Vitamins, Hormones and Deficiency Diseases',
+    shortTitle: 'Vitamins and Hormones',
     contentId: 'vitamins-hormones-basics',
     subjectSlugs: ['everyday-science'],
     syllabusHints: ['vitamin', 'hormone', 'deficiency', 'insulin', 'human body'],
@@ -334,6 +362,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'percentages-ratios-profit-loss',
     title: 'Percentages, Ratios and Profit Loss',
+    shortTitle: 'Percentages and Profit Loss',
     contentId: 'percentages-ratios-profit-loss',
     subjectSlugs: ['mathematics'],
     syllabusHints: ['percentage', 'ratio', 'profit', 'loss', 'arithmetic'],
@@ -345,6 +374,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'ethics-theories-basics',
     title: 'Ethical Theories for Civil Service Exams',
+    shortTitle: 'Ethical Theories',
     contentId: 'ethics-theories-basics',
     subjectSlugs: ['ethics-civics', 'general-knowledge'],
     syllabusHints: ['ethics', 'utilitarianism', 'kant', 'rawls', 'virtue'],
@@ -354,6 +384,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'good-governance-undp',
     title: 'Good Governance Principles',
+    shortTitle: 'Good Governance',
     contentId: 'good-governance-undp',
     subjectSlugs: ['ethics-civics', 'pakistan-affairs', 'general-knowledge'],
     syllabusHints: ['good governance', 'transparency', 'accountability', 'rule of law', 'undp'],
@@ -363,6 +394,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'sdgs-pakistan',
     title: 'Sustainable Development Goals (SDGs)',
+    shortTitle: 'SDGs',
     contentId: 'sdgs-pakistan',
     subjectSlugs: ['ethics-civics', 'current-affairs', 'general-knowledge'],
     syllabusHints: ['sdg', 'sustainable development', '2030', 'poverty', 'gender'],
@@ -372,6 +404,7 @@ const TOPICS: NoteTopicMeta[] = [
   {
     slug: 'human-rights-udhr',
     title: 'Human Rights Framework (UDHR and Core Treaties)',
+    shortTitle: 'Human Rights',
     contentId: 'human-rights-udhr',
     subjectSlugs: ['ethics-civics', 'pakistan-affairs', 'general-knowledge'],
     syllabusHints: [
