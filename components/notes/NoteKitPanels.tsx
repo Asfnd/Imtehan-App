@@ -430,6 +430,20 @@ export function KitRevisionTables() {
   )
 }
 
+export function OverviewFromKit({ kit }: { kit: NoteKitData }) {
+  return (
+    <div className="note-panel" id="overview">
+      <p className="note-panel-label">Overview</p>
+      <ul className="note-overview-list">
+        {kit.onePager.map((line) => (
+          <li key={line.slice(0, 48)}>{line}</li>
+        ))}
+      </ul>
+      <p className="note-panel-foot">{kit.subtitle}</p>
+    </div>
+  )
+}
+
 export function renderKitByContentId(contentId: string) {
   if (contentId === 'objectives-resolution-article-2a') {
     return { Body: ObjectivesResolutionBody, Tables: KitRevisionTables }
@@ -491,7 +505,7 @@ export function NoteKitShell({
       ) : (
         <>
           <PastPaperMap items={kit.pastPapers} />
-          {parts ? <parts.Body /> : null}
+          {parts ? <parts.Body /> : <OverviewFromKit kit={kit} />}
           <AnswerScaffold steps={kit.answerSteps} />
           <QuestionVariants prompts={kit.questionVariants} />
           <CitationBank items={kit.citations} />
