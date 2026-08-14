@@ -624,13 +624,15 @@
 }
 .note-panel ul,
 .note-scaffold ol,
-.note-onepager ul {
+.note-onepager ul,
+.note-overview-list {
   margin: 0;
   padding-left: 1.25rem;
 }
 .note-panel li,
 .note-scaffold li,
-.note-onepager li {
+.note-onepager li,
+.note-overview-list li {
   margin-bottom: 8px;
 }
 .note-facts {

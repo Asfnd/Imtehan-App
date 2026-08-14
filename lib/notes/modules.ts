@@ -12,6 +12,8 @@ const CSS_WRITTEN_SECTIONS: NotesModuleSection[] = [
   { slug: 'islamic-studies', label: 'Islamic Studies', dbTable: 'islamiat' },
   { slug: 'english-essay', label: 'English Essay', dbTable: 'english' },
   { slug: 'english-precis', label: 'Precis and Composition', dbTable: 'english' },
+  { slug: 'geography', label: 'Geography', dbTable: 'geography' },
+  { slug: 'ethics-civics', label: 'Ethics and Governance', dbTable: 'ethics_civics' },
 ]
 
 /** FPSC Pakistan Affairs compulsory outline (CE-2016 onwards), Phase 1 nodes. */
