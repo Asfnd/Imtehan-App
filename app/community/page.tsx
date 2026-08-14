@@ -138,6 +138,8 @@ function CommunityChatContent() {
   const [reactions, setReactions] = useState<Reaction[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState<string | null>(null)
+  const [reloadKey, setReloadKey] = useState(0)
   const [isSending, setIsSending] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [lastSentAt, setLastSentAt] = useState(0)
@@ -166,37 +168,40 @@ function CommunityChatContent() {
     if (near) setPendingNew(0)
   }, [])
 
-  // Fetch messages + reactions when channel changes
+  // Same-origin API so chat history is not skipped by client soft-mode / REST blocks
   useEffect(() => {
+    let cancelled = false
     setIsLoading(true)
+    setLoadError(null)
     setMessages([])
     setReactions([])
 
-    supabase
-      .from('community_messages')
-      .select('id, user_id, user_name, user_avatar, message, channel, created_at')
-      .eq('channel', activeChannel)
-      .order('created_at', { ascending: true })
-      .limit(50)
-      .then(async ({ data: msgs, error }) => {
-        if (error) {
-          console.error('community_messages load failed', error)
-          setMessages([])
-          setIsLoading(false)
-          return
-        }
-        const msgList = msgs ?? []
-        setMessages(msgList)
-        setIsLoading(false)
-        if (msgList.length > 0) {
-          const { data: rxns } = await supabase
-            .from('community_reactions')
-            .select('id, message_id, user_id, emoji')
-            .in('message_id', msgList.map((m) => m.id))
-          setReactions(rxns ?? [])
-        }
+    fetch(`/api/community/messages?channel=${encodeURIComponent(activeChannel)}`, {
+      cache: 'no-store',
+    })
+      .then(async (res) => {
+        const body = await res.json().catch(() => ({}))
+        if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`)
+        return body as { messages: CommunityMessage[]; reactions: Reaction[] }
       })
-  }, [activeChannel])
+      .then((body) => {
+        if (cancelled) return
+        setMessages(body.messages ?? [])
+        setReactions(body.reactions ?? [])
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.error('community_messages load failed', err)
+        if (cancelled) return
+        setLoadError('Could not load messages')
+        setMessages([])
+        setIsLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeChannel, reloadKey])
 
   useEffect(() => {
     prevMsgCountRef.current = 0
@@ -414,6 +419,18 @@ function CommunityChatContent() {
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
             <div className="w-7 h-7 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : loadError ? (
+          <div className="flex flex-col items-center justify-center h-full gap-3 text-gray-500 px-6 text-center">
+            <p className="text-base font-bold text-gray-800">Could not load chat</p>
+            <p className="text-sm text-gray-500 max-w-sm">{loadError}. Your messages are still saved.</p>
+            <button
+              type="button"
+              onClick={() => setReloadKey((n) => n + 1)}
+              className="mt-1 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+            >
+              Try again
+            </button>
           </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full gap-3 text-gray-500 px-6 text-center">
