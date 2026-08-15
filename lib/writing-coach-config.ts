@@ -4,6 +4,20 @@
 
 export type WritingCoachExamType = 'css' | 'pms'
 
+/** Official exam length bands. CSS is 1,000-1,200 — not the 2,500-3,000 academy myth. */
+export const ESSAY_WORD_LIMITS: Record<
+  WritingCoachExamType,
+  { min: number; lo: number; hi: number; max: number }
+> = {
+  css: { min: 400, lo: 1000, hi: 1200, max: 1600 },
+  pms: { min: 500, lo: 1400, hi: 1600, max: 2000 },
+}
+
+export function countEssayWords(text: string): number {
+  const t = text.trim()
+  return t ? t.split(/\s+/).length : 0
+}
+
 export const CSS_LONG_ANSWER_SUBJECTS = [
   'English (Précis & Composition)',
   'General Science & Ability',

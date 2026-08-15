@@ -47,14 +47,14 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'Passed 10 April 1973. Authenticated 12 April 1973. Came into force 14 August 1973 (Art 265).',
+    'Passed 10 April 1973. Authenticated 12 April 1973. Came into force 14 August 1973 (Art 265). Classic teaching date for enforcement is 14 August.',
     'Parliamentary federal republic after 1971, framed under Zulfikar Ali Bhutto’s National Assembly leadership.',
     'Design: federal structure, parliamentary executive, bicameral Majlis-e-Shoora (NA + Senate), Fundamental Rights Arts 8-28.',
     'Article 6: abrogation or subversion of the Constitution is high treason. Raises legal cost; not a magic shield alone.',
     '1956: first constitution, parliamentary; ended with 1958 martial law.',
     '1962: presidential system under Ayub Khan; ended 1969.',
     'Why 1973 lasted better: negotiated parliamentary ownership by parties and provinces; same text revived in 1985, not a fourth constitution.',
-    'Exam hooks: constitutional development, democracy, federalism, rights, Art 6, 8th and 18th Amendments.',
+    'Exam hooks: constitutional development, democracy, federalism, rights, Art 6, 8th and 18th Amendments. Article 2A is 1985, not original 1973.',
   ],
   answerSteps: [
     'Open with the problem after 1971: Pakistan needed a constitution parties and provinces could accept.',
@@ -115,7 +115,7 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
   mistakes: [
     {
       trap: 'Saying it was enforced on 10 April 1973.',
-      correct: 'Passed 10 April. Enforced 14 August 1973.',
+      correct: 'Passed 10 April. Authenticated 12 April. Enforced 14 August 1973 (Art 265).',
     },
     {
       trap: 'Treating 1956, 1962, and 1973 as the same design.',
@@ -132,6 +132,10 @@ export const CONSTITUTION_1973_KIT: NoteKitData = {
     {
       trap: 'Confusing Article 2A (1985) with the original 1973 text.',
       correct: 'Article 2A was inserted later, in 1985.',
+    },
+    {
+      trap: 'Calling 1973 a presidential constitution.',
+      correct: '1973 restored a parliamentary federal republic (PM-led cabinet accountable to Parliament).',
     },
   ],
   revisionPath: [

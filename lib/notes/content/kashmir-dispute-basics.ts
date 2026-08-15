@@ -3,10 +3,11 @@ import type { NoteKitData } from '@/lib/notes/types'
 /**
  * Cross-checked exam basics:
  * - 1947-48 first Kashmir war after partition and accession dispute
+ * - 1965 Indo-Pak war (separate year trap; not the origin war)
  * - UN involvement: Security Council resolutions calling for ceasefire and self-determination process (name-level; do not invent resolution numbers unless certain)
- * - Simla Agreement 1972: bilateral frame after 1971 war
- * - LoC (Line of Control) as the ceasefire line evolved into control line
- * - Siachen and Kargil as later conflict markers; avoid sensational claims and invented casualty totals
+ * - Simla Agreement 2 July 1972: bilateral frame after 1971 war
+ * - LoC (Line of Control) as the ceasefire line evolved into control line (Simla renamed ceasefire line as LoC)
+ * - Siachen (1984 conflict start commonly taught) and Kargil (1999) as later markers; avoid sensational claims and invented casualty totals
  */
 export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
   id: 'kashmir-dispute-basics',
@@ -41,24 +42,25 @@ export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
     {
       year: 'One-paper',
       directive: 'MCQ fact',
-      angle: '1947-48, Simla 1972, LoC meaning',
+      angle: '1947-48, 1965 trap, Simla 1972, LoC meaning',
       frequency: 'high',
     },
   ],
   onePager: [
-    '1947-48: after partition, Jammu and Kashmir became a disputed accession and war issue between Pakistan and India.',
+    '1947-48: after partition, Jammu and Kashmir became a disputed accession and war issue between Pakistan and India. This is the origin war, not 1965.',
     'Core dispute: competing claims over the former princely state; people and territory remain contested.',
     'UN role (name-level): Security Council engagement sought ceasefire and a process linked to the will of the people. Do not invent resolution numbers if unsure.',
-    'Simla Agreement (1972): after the 1971 war, Pakistan and India accepted a bilateral frame for resolving differences, including Kashmir-related issues.',
-    'LoC (Line of Control): the military control line that evolved from the ceasefire line; it is not an internationally settled final border.',
-    'Later markers: Siachen conflict and Kargil (1999) show the dispute can turn hot again. Use as conflict markers, not sensational stories.',
-    'Exam rule: origin → UN name-level → Simla bilateral frame → LoC → later markers. No invented casualty totals or fake maps.',
+    '1965: another India-Pakistan war year often mixed with 1947-48 or 1971. Keep years separate.',
+    'Simla Agreement (2 July 1972): after the 1971 war, Pakistan and India accepted a bilateral frame for resolving differences, including Kashmir-related issues. Ceasefire line became Line of Control in teaching.',
+    'LoC (Line of Control): the military control line; it is not an internationally settled final border.',
+    'Later markers: Siachen (1984 commonly taught start) and Kargil (1999) show the dispute can turn hot again. Use as conflict markers, not sensational stories.',
+    'Exam rule: origin → UN name-level → war-year traps → Simla bilateral frame → LoC → later markers. No invented casualty totals or fake maps.',
   ],
   answerSteps: [
     'Open with 1947-48 origin: partition, accession dispute, and first war.',
     'State the nature of the dispute: competing sovereignty claims and unfinished settlement.',
     'Explain UN involvement carefully at name-level: ceasefire and self-determination process language.',
-    'Place Simla 1972 as the bilateral diplomatic frame after 1971.',
+    'Separate 1965 from 1947-48 and 1971, then place Simla 1972 as the bilateral diplomatic frame after 1971.',
     'Define LoC and add Siachen/Kargil only as later conflict markers.',
     'Close with a sober line: dispute remains unresolved; answers need law, politics, and restraint, not slogans.',
   ],
@@ -78,8 +80,12 @@ export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
       text: 'The United Nations Security Council engaged the dispute with resolutions aimed at ceasefire and a process linked to the will of the people. Quote specific resolution numbers only if verified.',
     },
     {
+      label: 'War-year caution',
+      text: 'Keep 1947-48 (origin), 1965 (later war), and 1971 (Bangladesh war context before Simla) as separate markers.',
+    },
+    {
       label: 'Simla 1972',
-      text: 'The Simla Agreement (1972) between Pakistan and India emphasised bilateral resolution of differences after the 1971 war.',
+      text: 'The Simla Agreement (2 July 1972) between Pakistan and India emphasised bilateral resolution of differences after the 1971 war.',
     },
     {
       label: 'LoC',
@@ -87,7 +93,7 @@ export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
     },
     {
       label: 'Later markers',
-      text: 'Siachen and the Kargil conflict (1999) are later military markers of unresolved tension. Avoid invented casualty figures.',
+      text: 'Siachen (1984 commonly taught) and the Kargil conflict (1999) are later military markers of unresolved tension. Avoid invented casualty figures.',
     },
   ],
   flashcards: [
@@ -105,7 +111,7 @@ export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
     },
     {
       prompt: 'Year of the Simla Agreement?',
-      answer: '1972',
+      answer: '1972 (2 July 1972)',
     },
     {
       prompt: 'Simla frame in one line?',
@@ -121,11 +127,15 @@ export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
     },
     {
       prompt: 'Two later conflict markers?',
-      answer: 'Siachen and Kargil (1999)',
+      answer: 'Siachen (1984 taught start) and Kargil (1999)',
     },
     {
       prompt: 'Trap: inventing UN resolution numbers?',
       answer: 'Use name-level UN role unless the number is verified',
+    },
+    {
+      prompt: 'Trap: mixing 1947-48, 1965, and 1971?',
+      answer: '1947-48 = Kashmir origin war; 1965 = later Indo-Pak war; 1971 = before Simla',
     },
     {
       prompt: 'Trap: mixing Simla with 1948 war?',
@@ -146,18 +156,22 @@ export const KASHMIR_DISPUTE_BASICS_KIT: NoteKitData = {
       correct: 'Origin is 1947-48. Simla is a later bilateral diplomatic frame after 1971.',
     },
     {
+      trap: 'Dating the first Kashmir war to 1965 or 1971.',
+      correct: 'First Kashmir war / origin conflict is 1947-48. 1965 and 1971 are later war years.',
+    },
+    {
       trap: 'Using sensational casualty totals or unverified map claims.',
       correct: 'Name conflict markers (Siachen, Kargil) without invented numbers.',
     },
     {
       trap: 'Writing only slogans without origin, UN, Simla, and LoC structure.',
-      correct: 'Use the exam sequence: origin → UN → Simla → LoC → later markers.',
+      correct: 'Use the exam sequence: origin → UN → war-year care → Simla → LoC → later markers.',
     },
   ],
   revisionPath: [
     { day: 'Day 1', task: 'Memorise 1947-48 origin and dispute nature.' },
     { day: 'Day 2', task: 'Learn UN name-level role and Simla 1972.' },
-    { day: 'Day 3', task: 'Define LoC clearly; add Siachen/Kargil as markers only.' },
+    { day: 'Day 3', task: 'Define LoC clearly; separate 1965 from 1947-48; add Siachen/Kargil as markers only.' },
     { day: 'Day 4', task: 'Drill flashcards.' },
     { day: 'Day 5', task: 'Attempt UN vs Simla critically examine outline.' },
     { day: 'Day 6', task: 'One-pager + citations.' },

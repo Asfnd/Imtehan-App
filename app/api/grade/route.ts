@@ -12,6 +12,7 @@ import {
   buildPmsEssayPrompt,
   buildPmsPrecisPrompt,
 } from '@/lib/grading/writingCoachPrompts'
+import { countEssayWords, ESSAY_WORD_LIMITS } from '@/lib/writing-coach-config'
 
 // ─── Rate limits (lifetime, never reset) ────────────────────────────────────
 const ANON_LIMIT = 1    // anonymous: 1 lifetime grading per IP
@@ -165,8 +166,19 @@ export async function POST(request: NextRequest) {
       if (!topic || !content) {
         return NextResponse.json({ error: 'Topic and essay content are required' }, { status: 400 })
       }
-      if ((content as string).length > 20_000) {
-        return NextResponse.json({ error: 'Essay too long (max ~2,500 words)' }, { status: 400 })
+      const essayText = content as string
+      const limits = ESSAY_WORD_LIMITS[examType]
+      const words = countEssayWords(essayText)
+      if (essayText.length > 28_000 || words > limits.max) {
+        return NextResponse.json(
+          {
+            error:
+              examType === 'pms'
+                ? `Essay too long (${words} words). PMS essays are about ${limits.lo}-${limits.hi} words (max ${limits.max} to grade).`
+                : `Essay too long (${words} words). CSS essays are ${limits.lo}-${limits.hi} words, not 2,500-3,000 (max ${limits.max} to grade).`,
+          },
+          { status: 400 }
+        )
       }
       prompt =
         examType === 'pms'

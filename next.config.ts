@@ -69,7 +69,7 @@ const securityHeaders = [
   },
   {
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+    value: 'camera=(self), microphone=(), geolocation=(), interest-cohort=()',
   },
   // SECURITY: CORS headers - Allow cross-origin resources for PDF viewing
   // Note: COEP disabled to allow PDF iframes from Supabase storage

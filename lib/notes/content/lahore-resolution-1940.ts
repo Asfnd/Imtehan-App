@@ -18,7 +18,7 @@ export const LAHORE_RESOLUTION_KIT: NoteKitData = {
     'Freedom movement',
     'Pakistan Resolution 1940',
   ],
-  updated: '14 Aug 2026',
+  updated: '15 Aug 2026',
   pastPapers: [
     {
       year: 'CSS pattern',
@@ -47,7 +47,7 @@ export const LAHORE_RESOLUTION_KIT: NoteKitData = {
   ],
   onePager: [
     '23 March 1940: All-India Muslim League adopts the Lahore Resolution at Lahore (Minto Park, later Iqbal Park).',
-    'Moved by A. K. Fazlul Huq. Session under Quaid-e-Azam Muhammad Ali Jinnah as League president.',
+    'Moved by A. K. Fazlul Huq; seconded by Chaudhry Khaliquzzaman. Session under Quaid-e-Azam as League president (not the mover).',
     'Core demand: independent states in contiguous Muslim-majority units in the north-western and eastern zones, with minority safeguards.',
     'The Resolution text does not use the word Pakistan. Pakistan Resolution is the later popular name.',
     'Iqbal (Allahabad, 29 December 1930) gave an earlier homeland idea. He died in 1938. Do not credit him with drafting 1940.',
@@ -75,7 +75,7 @@ export const LAHORE_RESOLUTION_KIT: NoteKitData = {
     },
     {
       label: 'Mover',
-      text: 'Moved by A. K. Fazlul Huq.',
+      text: 'Moved by A. K. Fazlul Huq; seconded by Chaudhry Khaliquzzaman. Jinnah was League president, not the mover.',
     },
     {
       label: 'Core demand',
@@ -95,6 +95,10 @@ export const LAHORE_RESOLUTION_KIT: NoteKitData = {
     { prompt: 'Where was it adopted?', answer: 'Lahore (Minto Park, later Iqbal Park)' },
     { prompt: 'Which party adopted it?', answer: 'All-India Muslim League' },
     { prompt: 'Who moved the Resolution?', answer: 'A. K. Fazlul Huq' },
+    {
+      prompt: 'Who seconded the Resolution (classic teaching)?',
+      answer: 'Chaudhry Khaliquzzaman',
+    },
     {
       prompt: 'Does the Resolution text use the word Pakistan?',
       answer: 'No',
@@ -127,7 +131,7 @@ export const LAHORE_RESOLUTION_KIT: NoteKitData = {
   mistakes: [
     {
       trap: 'Saying Jinnah moved the Lahore Resolution.',
-      correct: 'Fazlul Huq moved it. Jinnah was League president and session leader.',
+      correct: 'Fazlul Huq moved it (seconded by Khaliquzzaman). Jinnah was League president and session leader.',
     },
     {
       trap: 'Writing that the Resolution text created Pakistan by name.',
@@ -144,6 +148,10 @@ export const LAHORE_RESOLUTION_KIT: NoteKitData = {
     {
       trap: 'Confusing 23 March 1940 with 14 August 1947 or 12 March 1949.',
       correct: '1940 = Lahore Resolution. 1947 = Independence. 1949 = Objectives Resolution.',
+    },
+    {
+      trap: 'Crediting Choudhry Rahmat Ali as mover or League negotiator at Lahore.',
+      correct: 'He coined the name Pakistan in 1933. He did not move the 1940 Resolution.',
     },
   ],
   revisionPath: [

@@ -76,6 +76,14 @@ export const ENGLISH_IDIOMS_ONE_PAPER_KIT: NoteKitData = {
       label: 'Core set',
       text: 'Twelve repeatedly tested figurative phrases covering start, accuracy, rarity, effort, secrecy, health, turn-taking, overcommitment, stopping, and cost.',
     },
+    {
+      label: 'Literal trap',
+      text: 'Wrong options often keep a word from the idiom but change the figurative sense. Reject word-by-word glosses first.',
+    },
+    {
+      label: 'Exam use',
+      text: 'In writing papers, one correct idiom beats three forced ones. In MCQs, match situation type before guessing.',
+    },
   ],
   flashcards: [
     { prompt: 'break the ice', answer: 'make people feel comfortable; start conversation' },

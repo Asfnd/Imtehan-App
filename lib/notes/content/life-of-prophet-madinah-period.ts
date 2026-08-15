@@ -55,7 +55,7 @@ export const LIFE_OF_PROPHET_MADINAH_PERIOD_KIT: NoteKitData = {
     'Battle of the Trench / Ahzab / Khandaq (5 AH): coalition siege; trench defence (linked with Salman al-Farsi in standard teaching). Siege failed.',
     'Treaty of Hudaybiyyah (6 AH): agreement with Quraysh. Terms looked hard at first; later opened peaceful outreach. Linked with Surah Al-Fath in classic teaching.',
     'Conquest of Makkah (8 AH): largely peaceful entry after related commitments were broken. Strong amnesty theme. Kaaba cleared of idols.',
-    'Farewell Sermon (Hajjat al-Wada): sanctity of life and property, equality of believers, end of jahiliya pride, justice, and dignified treatment of women in standard syllabus themes.',
+    'Farewell Sermon (Hajjat al-Wada, 10 AH): sanctity of life and property, equality of believers, end of jahiliya pride, justice, and dignified treatment of women in standard syllabus themes.',
   ],
   answerSteps: [
     'Begin with Hijra and the need for a secure community in Madinah.',
@@ -86,7 +86,7 @@ export const LIFE_OF_PROPHET_MADINAH_PERIOD_KIT: NoteKitData = {
     },
     {
       label: 'Hudaybiyyah and Makkah',
-      text: 'Hudaybiyyah 6 AH; Conquest of Makkah 8 AH.',
+      text: 'Hudaybiyyah 6 AH; Conquest of Makkah 8 AH; Farewell Sermon 10 AH.',
     },
     {
       label: 'Farewell Sermon',
@@ -107,6 +107,7 @@ export const LIFE_OF_PROPHET_MADINAH_PERIOD_KIT: NoteKitData = {
     { prompt: 'Treaty of Hudaybiyyah: which AH?', answer: '6 AH' },
     { prompt: 'Why is Hudaybiyyah called a turning point?', answer: 'Hard terms at first, but opened a period of peaceful outreach' },
     { prompt: 'Conquest of Makkah: which AH?', answer: '8 AH' },
+    { prompt: 'Farewell Sermon: which AH?', answer: '10 AH' },
     { prompt: 'Tone of Conquest of Makkah in standard Seerah?', answer: 'Largely peaceful with amnesty theme' },
     { prompt: 'Name one Farewell Sermon theme.', answer: 'Equality / sanctity of life and property / justice / women`s dignity' },
     { prompt: 'Correct battle order before Hudaybiyyah?', answer: 'Badr, then Uhud, then Trench' },
@@ -117,8 +118,8 @@ export const LIFE_OF_PROPHET_MADINAH_PERIOD_KIT: NoteKitData = {
       correct: 'Badr 2 AH, Uhud 3 AH, Trench 5 AH.',
     },
     {
-      trap: 'Dating Conquest of Makkah as 6 AH.',
-      correct: 'Hudaybiyyah is 6 AH. Conquest of Makkah is 8 AH.',
+      trap: 'Dating Conquest of Makkah as 6 AH or Farewell Sermon as 8 AH.',
+      correct: 'Hudaybiyyah 6 AH; Conquest of Makkah 8 AH; Farewell Sermon 10 AH.',
     },
     {
       trap: 'Calling the Charter of Madinah a modern Western constitution copy.',

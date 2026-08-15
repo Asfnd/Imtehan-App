@@ -98,6 +98,7 @@ export const PILLARS_OF_ISLAM_KIT: NoteKitData = {
     { prompt: 'Fajr fard rakahs?', answer: '2' },
     { prompt: 'Maghrib fard rakahs?', answer: '3' },
     { prompt: 'Zuhr, Asr, Isha fard rakahs?', answer: '4 each' },
+    { prompt: 'Total daily fard rakahs?', answer: '17 (2+4+4+3+4)' },
     { prompt: 'Standard Zakat rate (cash/qualifying wealth)?', answer: '2.5% (one-fortieth)' },
     { prompt: 'What is hawl?', answer: 'One lunar year of nisab-level wealth possession' },
     { prompt: 'Sawm month?', answer: 'Ramadan' },

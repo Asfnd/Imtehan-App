@@ -49,7 +49,7 @@ export const TWO_NATION_THEORY_KIT: NoteKitData = {
     'Two-Nation Theory: Muslims and Hindus in British India were distinct nations, not only religious communities inside one political nation.',
     'Political core: majoritarian democracy alone would not secure Muslim identity, culture, and power. Separate political arrangement was needed.',
     'Markers used in the debate: religion, social customs, historical memory, and political interest. Use them as arguments, not as proof of hatred.',
-    'Idea stage markers: Iqbal’s Allahabad Address (29 December 1930). League stage: Lahore Resolution (23 March 1940). State stage: 14 August 1947.',
+    'Idea stage markers: Iqbal’s Allahabad Address (29 December 1930). League stage: Lahore Resolution (23 March 1940; Fazlul Huq mover; word Pakistan absent). State stage: 14 August 1947.',
     'Nation claim ≠ finished state map. 1947 created a territorial state through partition politics, not by slogan alone.',
     'Critics’ angles for balance: composite nationalism; shared anti-colonial struggle; diversity within each community; later costs of partition. Answer with fair critique, not slogans.',
     'Exam rule: define, explain political logic, give 1940/1947 link, add one critic line, avoid invented quotes and fake statistics.',
@@ -152,6 +152,10 @@ export const TWO_NATION_THEORY_KIT: NoteKitData = {
     {
       trap: 'Mixing nation claim with the exact 1947 map as if they were identical from day one.',
       correct: 'Nationhood claim came first in politics. The territorial settlement was later and contested.',
+    },
+    {
+      trap: 'Crediting Iqbal with drafting Lahore 1940 as proof of Two-Nation Theory.',
+      correct: 'Iqbal died 1938. Use Allahabad 1930 as idea marker; Lahore 1940 as League demand under Jinnah.',
     },
   ],
   revisionPath: [

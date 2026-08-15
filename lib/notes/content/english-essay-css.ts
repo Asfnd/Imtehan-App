@@ -2,7 +2,7 @@ import type { NoteKitData } from '@/lib/notes/types'
 
 /**
  * Cross-checked CSS English Essay method (practical teaching):
- * - Essay is a major paper; candidates commonly plan roughly around 100 minutes for the essay task within the English Essay paper pattern (confirm latest FPSC paper instructions each year)
+ * - Essay is a major timed paper (confirm latest FPSC duration each year); coaching habit: short outline, then most of the clock on body, leave minutes to revise
  * - Core skills: topic selection, outline, thesis, coherent paragraphs, balanced argument, conclusion
  * - Avoid inventing fake official marking schemes or guaranteed word counts as if FPSC published a secret grid
  * - Do not dump autobiography or pure storytelling without argument
@@ -53,7 +53,7 @@ export const ENGLISH_ESSAY_CSS_KIT: NoteKitData = {
     'Body: one idea per paragraph. Topic sentence, explain, evidence, link back to thesis.',
     'Balance: acknowledge the other side, then weigh it. Examiners reward judgement, not slogans.',
     'Conclusion: restate thesis in fresh words; synthesise; no new major argument.',
-    'Time habit (coaching, not official grid): outline, write, leave minutes for grammar and relevance. Follow that day’s FPSC instructions.',
+    'Time habit (coaching, not official grid): outline, write, leave minutes for grammar and relevance. Follow that day's FPSC instructions.',
     'Fail patterns: autobiography dump, forced memorised essays, fake statistics, thesaurus overload.',
   ],
   answerSteps: [

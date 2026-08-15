@@ -2,8 +2,9 @@ import type { NoteKitData } from '@/lib/notes/types'
 
 /**
  * Cross-checked (deeper than indus-river-system kit):
- * - Indus Waters Treaty 1960: India-Pakistan; World Bank facilitating role
+ * - Indus Waters Treaty signed Karachi, 19 September 1960 (Nehru and Ayub); World Bank facilitating role
  * - Allocation teaching: eastern rivers (Ravi, Beas, Sutlej) primarily India; western rivers (Indus, Jhelum, Chenab) primarily Pakistan
+ * - Classic trap: Jhelum and Chenab are eastern tributaries in geography lists but western rivers under IWT
  * - Mechanism themes: Permanent Indus Commission; dispute settlement ladder (neutral expert / Court of Arbitration) in standard teaching
  * - Exam angles: water security, run-of-river vs storage debates, climate stress, and treaty resilience
  * Do not invent fake article numbers or invent current case outcomes as settled law unless carefully labelled as contested/process
@@ -49,17 +50,17 @@ export const INDUS_WATERS_TREATY_DEEP_KIT: NoteKitData = {
   ],
   onePager: [
     'This kit goes deeper than river names and dams: focus on treaty design, institutions, and dispute politics. Use the Indus river system kit for tributary geography.',
-    'Indus Waters Treaty (IWT) signed in 1960 between India and Pakistan, with the World Bank in a facilitating role. It is a classic water-sharing agreement in exam literature.',
+    'Indus Waters Treaty (IWT) signed at Karachi on 19 September 1960 by India and Pakistan (Nehru and Ayub Khan), with the World Bank in a facilitating role.',
     'Allocation frame commonly taught: eastern rivers (Ravi, Beas, Sutlej) primarily for India; western rivers (Indus, Jhelum, Chenab) primarily for Pakistan, subject to detailed permitted uses.',
+    'Classic trap: in geography lists, Jhelum and Chenab are eastern (left-bank) tributaries of the Indus. Under IWT they are western rivers allocated primarily to Pakistan.',
     'Design idea: reduce day-to-day conflict by partitioning rivers rather than sharing every drop on all six rivers jointly (exam explanation, not propaganda).',
     'Institution: Permanent Indus Commission (commissioners from both sides) for data exchange, inspection themes, and first-line dispute handling in standard notes.',
     'Dispute ladder (syllabus level): unresolved issues can move to neutral expert and/or Court of Arbitration pathways under the treaty framework. Describe as process, not as a scoreboard of winners.',
-    'Hydrology politics: debates often centre on upstream works (run-of-river hydro vs storage concerns), timing of flows, and information sharing. Stick to concepts; avoid invented technical verdicts.',
-    'Contemporary stress: climate variability, glacier melt uncertainty, population and irrigation demand, and political trust deficits test treaty resilience. Answer close: diplomacy, data transparency, efficient domestic water use, and storage on Pakistan side where feasible.',
+    'Contemporary stress: climate variability, glacier melt uncertainty, population and irrigation demand, and political trust deficits test treaty resilience. Close with diplomacy, data transparency, and efficient domestic water use.',
   ],
   answerSteps: [
-    'State year 1960, parties, and World Bank role.',
-    'Explain eastern vs western river allocation clearly.',
+    'State year 1960 (19 Sept, Karachi), parties, signatories, and World Bank role.',
+    'Explain eastern vs western river allocation clearly; flag the geography vs IWT naming trap.',
     'Describe Permanent Indus Commission function.',
     'Outline dispute settlement ladder at concept level.',
     'Add water-security and climate stress paragraph.',
@@ -74,29 +75,37 @@ export const INDUS_WATERS_TREATY_DEEP_KIT: NoteKitData = {
   citations: [
     {
       label: 'Year and parties',
-      text: 'IWT 1960 between India and Pakistan with World Bank facilitation.',
+      text: 'IWT signed at Karachi on 19 September 1960 between India and Pakistan (Nehru and Ayub Khan), with World Bank facilitation.',
     },
     {
       label: 'Allocation',
-      text: 'Eastern rivers primarily India; western rivers primarily Pakistan in standard teaching.',
+      text: 'Eastern rivers (Ravi, Beas, Sutlej) primarily India; western rivers (Indus, Jhelum, Chenab) primarily Pakistan in standard teaching.',
+    },
+    {
+      label: 'Geography vs treaty trap',
+      text: 'Jhelum and Chenab count as eastern tributaries in many geography lists, but as western rivers under the IWT allocation frame.',
     },
     {
       label: 'Institution',
-      text: 'Permanent Indus Commission handles cooperation and first-line disputes.',
+      text: 'Permanent Indus Commission (one commissioner each side) handles cooperation, data exchange, and first-line disputes.',
     },
     {
       label: 'Disputes',
-      text: 'Neutral expert and Court of Arbitration pathways appear in syllabus-level treaty teaching.',
+      text: 'Neutral expert and Court of Arbitration pathways appear in syllabus-level treaty teaching. Avoid inventing current case outcomes as settled law.',
     },
   ],
   flashcards: [
     {
       prompt: 'When was the Indus Waters Treaty signed?',
-      answer: '1960',
+      answer: '19 September 1960 (Karachi)',
     },
     {
       prompt: 'Which third party facilitated the IWT in teaching?',
       answer: 'World Bank',
+    },
+    {
+      prompt: 'Who signed for India and Pakistan in classic teaching?',
+      answer: 'Jawaharlal Nehru and Ayub Khan',
     },
     {
       prompt: 'Name the eastern rivers in the classic allocation frame.',
@@ -105,6 +114,10 @@ export const INDUS_WATERS_TREATY_DEEP_KIT: NoteKitData = {
     {
       prompt: 'Name the western rivers in the classic allocation frame.',
       answer: 'Indus, Jhelum, Chenab',
+    },
+    {
+      prompt: 'Geography vs IWT trap for Jhelum and Chenab?',
+      answer: 'Eastern tributaries in geography lists; western rivers under IWT',
     },
     {
       prompt: 'What institution is the first cooperation forum?',
@@ -137,6 +150,10 @@ export const INDUS_WATERS_TREATY_DEEP_KIT: NoteKitData = {
       correct: 'Add Commission and dispute ladder for a deep IWT answer.',
     },
     {
+      trap: 'Putting Jhelum or Chenab in the IWT eastern rivers list because they are eastern tributaries geographically.',
+      correct: 'Under IWT, Jhelum and Chenab are western rivers (primarily Pakistan). Eastern IWT set = Ravi, Beas, Sutlej.',
+    },
+    {
       trap: 'Inventing article numbers and fake case verdicts.',
       correct: 'Keep to allocation, institutions, and process language.',
     },
@@ -149,13 +166,13 @@ export const INDUS_WATERS_TREATY_DEEP_KIT: NoteKitData = {
       correct: 'Treaty politics plus domestic management both matter.',
     },
     {
-      trap: 'Mixing Beas into western rivers.',
-      correct: 'Beas is in the eastern set in classic teaching.',
+      trap: 'Dating IWT to 1947, 1948, or 1971, or naming the UN as facilitator.',
+      correct: 'Treaty year is 1960. World Bank facilitated, not the UN.',
     },
   ],
   revisionPath: [
-    { day: 'Day 1', task: 'Memorise 1960, World Bank, eastern/western lists.' },
-    { day: 'Day 2', task: 'Commission + dispute ladder diagram.' },
+    { day: 'Day 1', task: 'Memorise 19 Sept 1960, World Bank, eastern/western lists.' },
+    { day: 'Day 2', task: 'Commission + dispute ladder diagram; geography vs IWT trap.' },
     { day: 'Day 3', task: 'Write salient-features one-pager from memory.' },
     { day: 'Day 4', task: 'Flashcards drill.' },
     { day: 'Day 5', task: 'Critical water-security paragraph.' },
@@ -163,5 +180,5 @@ export const INDUS_WATERS_TREATY_DEEP_KIT: NoteKitData = {
     { day: 'Day 7', task: 'Full 15-minute IWT essay outline.' },
   ],
   sourcesLine:
-    'Sources: Indus Waters Treaty 1960 teaching in Pakistan Affairs and geography notes; World Bank facilitation; Permanent Indus Commission and dispute-pathway primers. Deeper than the river-system overview kit. Avoid invented article trivia and sensational verdict claims.',
+    'Sources: Indus Waters Treaty 1960 (Karachi, 19 Sept); World Bank facilitation; Permanent Indus Commission and dispute-pathway primers. Deeper than the river-system overview kit. Avoid invented article trivia and sensational verdict claims.',
 }

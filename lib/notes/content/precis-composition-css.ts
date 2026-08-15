@@ -46,7 +46,7 @@ export const PRECIS_COMPOSITION_CSS_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'Precis: short restatement of essential meaning in your own words. Keep the author’s stance.',
+    'Precis: short restatement of essential meaning in your own words. Keep the author's stance.',
     'Length teaching: about one-third of the original unless the paper says otherwise. Compression quality beats gaming the number.',
     'Method: read twice, mark essentials, drop examples and repeats, draft in order, then tighten. Usually one continuous paragraph.',
     'Title: short, precise, theme-central. Not a slogan.',
@@ -107,7 +107,7 @@ export const PRECIS_COMPOSITION_CSS_KIT: NoteKitData = {
     { prompt: 'First person in precis?', answer: 'No' },
     { prompt: 'First step before drafting?', answer: 'Read for gist, then mark essential points' },
     { prompt: 'What is a calque error?', answer: 'Word-for-word rendering that breaks English sense or grammar' },
-    { prompt: 'Why count words when required?', answer: 'To meet the paper’s length instruction after condensation' },
+    { prompt: 'Why count words when required?', answer: 'To meet the paper's length instruction after condensation' },
     { prompt: 'End check for language items?', answer: 'Full-sentence correctness, not only the target word' },
   ],
   mistakes: [
@@ -128,11 +128,11 @@ export const PRECIS_COMPOSITION_CSS_KIT: NoteKitData = {
       correct: 'Learn meaning plus natural sentence patterns.',
     },
     {
-      trap: 'Treating a coach’s fake mark sheet as official FPSC law.',
-      correct: 'Follow that year’s paper instructions; practise skills, not mythical grids.',
+      trap: 'Treating a coach's fake mark sheet as official FPSC law.',
+      correct: 'Follow that year's paper instructions; practise skills, not mythical grids.',
     },
     {
-      trap: 'Changing the author’s stance while shortening.',
+      trap: 'Changing the author's stance while shortening.',
       correct: 'Preserve original sense and emphasis.',
     },
   ],

@@ -54,8 +54,8 @@ export const QURAN_REVELATION_COMPILATION_KIT: NoteKitData = {
     'Makki revelations: mostly before Hijra, often shorter surahs, faith in Tawhid, Akhirah, moral reform, and patience under persecution.',
     'Madani revelations: mostly after Hijra to Madinah, often longer passages, law, social order, jihad rules in context, and relations with other communities.',
     'During the Prophet`s life: writing by scribes and strong oral memorisation (huffaz). The Quran was complete as revelation before his death; a single official bound mushaf for the ummah came later.',
-    'Abu Bakr (RA): after heavy losses of memorizers at Yamama, ordered collection into a compiled mushaf. Zayd ibn Thabit led the work, using written fragments and testimony of memorizers.',
-    'Uthman (RA): as Islam spread, dialect and reading differences risked dispute. He commissioned a standard written copy from the Abu Bakr/Umar era collection and sent official copies to major centres, with a policy of unity around that standard text.',
+    'Abu Bakr (RA): after heavy losses of memorizers at Yamama, ordered collection into a compiled mushaf. Zayd ibn Thabit led the work, using written fragments and testimony of memorizers. That collection later passed into Umar`s keeping, then Hafsa`s (RA).',
+    'Uthman (RA): as Islam spread, dialect and reading differences risked dispute. He commissioned a standard written copy from the Abu Bakr/Umar-era collection (via Hafsa) and sent official copies to major centres, with a policy of unity around that standard text.',
   ],
   answerSteps: [
     'Open with the nature of the Quran as divine revelation and the 23-year timeline.',
@@ -91,7 +91,7 @@ export const QURAN_REVELATION_COMPILATION_KIT: NoteKitData = {
     },
     {
       label: 'Uthman standardization',
-      text: 'Official standard copies prepared and distributed to unite the community on one written standard.',
+      text: 'Official standard copies prepared from the earlier compiled mushaf (via Hafsa) and distributed to unite the community on one written standard.',
     },
   ],
   flashcards: [
@@ -106,6 +106,7 @@ export const QURAN_REVELATION_COMPILATION_KIT: NoteKitData = {
     { prompt: 'Who ordered the first official compilation into a mushaf?', answer: 'Abu Bakr (RA)' },
     { prompt: 'Which battle losses pushed the compilation decision?', answer: 'Battle of Yamama (loss of many huffaz)' },
     { prompt: 'Who headed the compilation committee work?', answer: 'Zayd ibn Thabit' },
+    { prompt: 'Where was the Abu Bakr mushaf kept before Uthman`s project?', answer: 'With Umar, then Hafsa (RA)' },
     { prompt: 'Who ordered standardization and official copies for the provinces?', answer: 'Uthman ibn Affan (RA)' },
     { prompt: 'Was the Quran revealed all at once?', answer: 'No, gradually over about 23 years' },
     { prompt: 'How was the Quran preserved in the Prophet`s lifetime?', answer: 'Memorisation and writing by scribes' },

@@ -57,8 +57,8 @@ export const PAKISTAN_MOVEMENT_1857_1947_KIT: NoteKitData = {
     '30 December 1906: All-India Muslim League founded at Dhaka.',
     '1916: Lucknow Pact between Congress and League on shared constitutional demands.',
     '1928 Nehru Report; 1929 Jinnah’s Fourteen Points: clash over constitutional safeguards.',
-    'Early 1930s: Round Table Conferences in London. 1937: provincial elections reshape League strategy.',
-    '23 March 1940: Lahore Resolution. 1946: Cabinet Mission. 3 June 1947: Mountbatten / 3 June Plan. 14 August 1947: independence.',
+    '29 December 1930: Iqbal’s Allahabad Address (homeland idea). Early 1930s: Round Table Conferences. 1937: provincial elections reshape League strategy.',
+    '23 March 1940: Lahore Resolution (Fazlul Huq mover; text does not say Pakistan). 1946: Cabinet Mission. 3 June 1947: Mountbatten / 3 June Plan. 14 August 1947: independence.',
     'Exam rule: crisp dates only. Do not invent fake vote counts or claim every event equalled Pakistan by name.',
   ],
   answerSteps: [
@@ -93,7 +93,7 @@ export const PAKISTAN_MOVEMENT_1857_1947_KIT: NoteKitData = {
     },
     {
       label: 'Endgame markers',
-      text: 'Lahore Resolution 23 March 1940; Cabinet Mission 1946; 3 June Plan 1947; Pakistan independence 14 August 1947.',
+      text: 'Iqbal Allahabad Address 29 December 1930; Lahore Resolution 23 March 1940; Cabinet Mission 1946; 3 June Plan 1947; Pakistan independence 14 August 1947.',
     },
   ],
   flashcards: [
@@ -104,13 +104,19 @@ export const PAKISTAN_MOVEMENT_1857_1947_KIT: NoteKitData = {
     { prompt: 'Year of Nehru Report?', answer: '1928' },
     { prompt: 'Year of Jinnah’s Fourteen Points?', answer: '1929' },
     { prompt: 'Provincial elections that reshaped League strategy?', answer: '1937' },
+    { prompt: 'Iqbal Allahabad Address date?', answer: '29 December 1930' },
     { prompt: 'Lahore Resolution date?', answer: '23 March 1940' },
+    { prompt: 'Who moved the Lahore Resolution?', answer: 'A. K. Fazlul Huq' },
     { prompt: 'Cabinet Mission year?', answer: '1946' },
     { prompt: '3 June Plan year?', answer: '1947' },
     { prompt: 'Pakistan independence date?', answer: '14 August 1947' },
     {
       prompt: 'Trap: mixing 23 March 1940 with 14 August 1947?',
       answer: '1940 = Lahore Resolution; 1947 = independence',
+    },
+    {
+      prompt: 'Trap: mixing 23 March 1940 with 12 March 1949?',
+      answer: '1940 = Lahore Resolution; 1949 = Objectives Resolution',
     },
   ],
   mistakes: [
@@ -129,6 +135,10 @@ export const PAKISTAN_MOVEMENT_1857_1947_KIT: NoteKitData = {
     {
       trap: 'Treating Cabinet Mission and 3 June Plan as the same event.',
       correct: 'Cabinet Mission 1946; 3 June Plan 1947. Different years and plans.',
+    },
+    {
+      trap: 'Skipping Allahabad 1930 or crediting Iqbal with drafting Lahore 1940.',
+      correct: 'Allahabad 29 Dec 1930 = idea marker. Iqbal died 1938. Lahore 1940 mover = Fazlul Huq.',
     },
     {
       trap: 'Inventing exact seat tallies for every election in a timeline essay.',

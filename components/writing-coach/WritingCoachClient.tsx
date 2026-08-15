@@ -7,11 +7,14 @@ import NavigationBar from '@/components/NavigationBar'
 import ScoreCard from '@/components/essay/ScoreCard'
 import AnnotatedEssay from '@/components/essay/AnnotatedEssay'
 import PrecisChecklist from '@/components/essay/PrecisChecklist'
+import { ImageTextImport } from '@/components/writing-coach/ImageTextImport'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import {
   WRITING_COACH_PATHS,
   CSS_LONG_ANSWER_SUBJECTS,
   PMS_LONG_ANSWER_SUBJECTS,
+  ESSAY_WORD_LIMITS,
+  countEssayWords,
   type WritingCoachExamType,
 } from '@/lib/writing-coach-config'
 import { useCSRFToken } from '@/lib/hooks/useCSRFToken'
@@ -31,7 +34,13 @@ const LOADING_STEPS = [
 ]
 
 function wordCount(text: string): number {
-  return text.trim() ? text.trim().split(/\s+/).length : 0
+  return countEssayWords(text)
+}
+
+function appendExtracted(current: string, extracted: string): string {
+  const next = extracted.trim()
+  if (!next) return current
+  return current.trim() ? `${current.trim()}\n\n${next}` : next
 }
 
 export function WritingCoachClient({ variant }: { variant: WritingCoachExamType }) {
@@ -45,9 +54,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
     [variant],
   )
 
-  const essayMin = variant === 'pms' ? 300 : 200
-  const essayLo = variant === 'pms' ? 1400 : 1000
-  const essayHi = variant === 'pms' ? 1600 : 1200
+  const { min: essayMin, lo: essayLo, hi: essayHi, max: essayMax } = ESSAY_WORD_LIMITS[variant]
 
   const [mode, setMode] = useState<Mode>('essay')
   const [phase, setPhase] = useState<Phase>('input')
@@ -86,7 +93,10 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
   }, [phase])
 
   const canSubmit = () => {
-    if (mode === 'essay') return essayTopic.trim().length > 0 && wordCount(essayContent) >= essayMin
+    if (mode === 'essay') {
+      const wc = wordCount(essayContent)
+      return essayTopic.trim().length > 0 && wc >= essayMin && wc <= essayMax
+    }
     if (mode === 'precis') return wordCount(precisOriginal) >= 100 && wordCount(precisContent) >= 30
     return laQuestion.trim().length > 0 && wordCount(laContent) >= (LA_MIN_WORDS[laMarks] ?? 100)
   }
@@ -97,8 +107,13 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       const wc = wordCount(essayContent)
       if (wc < essayMin) {
         return variant === 'pms'
-          ? `Write at least ${essayMin} words (${wc} written). PMS essays are often ~${essayLo}-${essayHi} words`
-          : `Write at least ${essayMin} words (${wc} written). CSS essays require ${essayLo}-${essayHi}`
+          ? `Write at least ${essayMin} words (${wc} written). PMS essays are about ${essayLo}-${essayHi} words`
+          : `Write at least ${essayMin} words (${wc} written). CSS essays are ${essayLo}-${essayHi} words, not 2,500-3,000`
+      }
+      if (wc > essayMax) {
+        return variant === 'pms'
+          ? `Trim to ${essayMax} words or fewer (${wc} written). PMS target is ${essayLo}-${essayHi}`
+          : `Trim to ${essayMax} words or fewer (${wc} written). CSS official length is ${essayLo}-${essayHi}, not 2,500-3,000`
       }
     }
     if (mode === 'precis') {
@@ -191,20 +206,23 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       ? 'PMS English: provincial examiner-style feedback'
       : 'CSS examiner-level feedback'
 
-  const essayTabMeta = variant === 'pms' ? '~1400-1600 words' : '1000-1200 words'
+  const essayTabMeta = variant === 'pms' ? '1400-1600 words' : '1000-1200 words'
 
   const essayWcBadge = (() => {
     const wc = wordCount(essayContent)
     const inGreen = wc >= essayLo && wc <= essayHi
+    const over = wc > essayHi
     const near = wc >= essayLo - 200
     return {
       className: inGreen
         ? 'bg-green-100 text-green-700'
-        : near
-          ? 'bg-amber-100 text-amber-700'
-          : wc >= essayMin
-            ? 'bg-blue-100 text-blue-700'
-            : 'bg-gray-100 text-gray-400',
+        : over || wc > essayMax
+          ? 'bg-red-100 text-red-700'
+          : near
+            ? 'bg-amber-100 text-amber-700'
+            : wc >= essayMin
+              ? 'bg-blue-100 text-blue-700'
+              : 'bg-gray-100 text-gray-400',
       label: `${wc} / ${essayLo}-${essayHi} words`,
     }
   })()
@@ -347,9 +365,22 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
                         value={essayContent}
                         onChange={e => setEssayContent(e.target.value)}
                         rows={14}
-                        placeholder="Paste or type your essay here…"
+                        placeholder="Paste, type, or import from a photo of your handwritten essay…"
                         className="w-full px-3.5 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all resize-none leading-relaxed bg-gray-50/50"
                       />
+                      <p className="text-[11px] text-gray-500 mt-1.5">
+                        {variant === 'pms'
+                          ? `PMS English Essay is about ${essayLo}-${essayHi} words.`
+                          : `FPSC CSS Essay is ${essayLo}-${essayHi} words, not 2,500-3,000.`}
+                      </p>
+                      <div className="mt-3">
+                        <ImageTextImport
+                          csrfToken={csrfToken}
+                          disabled={csrfLoading || !!csrfError}
+                          hasExistingText={essayContent.trim().length > 0}
+                          onAppend={text => setEssayContent(prev => appendExtracted(prev, text))}
+                        />
+                      </div>
                     </div>
                   </>
                 )}
@@ -365,9 +396,17 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
                         value={precisOriginal}
                         onChange={e => setPrecisOriginal(e.target.value)}
                         rows={8}
-                        placeholder="Paste the original passage here…"
+                        placeholder="Paste the original passage here, or import from a photo…"
                         className="w-full px-3.5 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all resize-none leading-relaxed bg-gray-50/50"
                       />
+                      <div className="mt-3">
+                        <ImageTextImport
+                          csrfToken={csrfToken}
+                          disabled={csrfLoading || !!csrfError}
+                          hasExistingText={precisOriginal.trim().length > 0}
+                          onAppend={text => setPrecisOriginal(prev => appendExtracted(prev, text))}
+                        />
+                      </div>
                     </div>
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
@@ -395,9 +434,17 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
                         value={precisContent}
                         onChange={e => setPrecisContent(e.target.value)}
                         rows={6}
-                        placeholder="Write your précis here. Must be ⅓ of original length…"
+                        placeholder="Write your précis here, or import from a photo. Must be ⅓ of original length…"
                         className="w-full px-3.5 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all resize-none leading-relaxed bg-gray-50/50"
                       />
+                      <div className="mt-3">
+                        <ImageTextImport
+                          csrfToken={csrfToken}
+                          disabled={csrfLoading || !!csrfError}
+                          hasExistingText={precisContent.trim().length > 0}
+                          onAppend={text => setPrecisContent(prev => appendExtracted(prev, text))}
+                        />
+                      </div>
                     </div>
                   </>
                 )}
@@ -472,9 +519,17 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
                         value={laContent}
                         onChange={e => setLaContent(e.target.value)}
                         rows={10}
-                        placeholder="Write or paste your answer here…"
+                        placeholder="Write, paste, or import from a photo of your answer…"
                         className="w-full px-3.5 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all resize-none leading-relaxed bg-gray-50/50"
                       />
+                      <div className="mt-3">
+                        <ImageTextImport
+                          csrfToken={csrfToken}
+                          disabled={csrfLoading || !!csrfError}
+                          hasExistingText={laContent.trim().length > 0}
+                          onAppend={text => setLaContent(prev => appendExtracted(prev, text))}
+                        />
+                      </div>
                     </div>
                   </>
                 )}

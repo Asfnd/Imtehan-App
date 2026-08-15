@@ -405,7 +405,7 @@ export default async function middleware(request: NextRequest) {
   }
   response.headers.set('X-XSS-Protection', '1; mode=block') // XSS protection
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin') // Hide referrer
-  response.headers.set('Permissions-Policy', 'interest-cohort=()') // Disable FLoC tracking
+  response.headers.set('Permissions-Policy', 'camera=(self), interest-cohort=()')
   
   // Intelligent caching: disable for active quiz pages, allow for subject/year selection pages
   if (pathname.includes('/quiz') && !pathname.includes('/subjects')) {

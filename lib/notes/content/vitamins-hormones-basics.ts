@@ -2,7 +2,7 @@ import type { NoteKitData } from '@/lib/notes/types'
 
 /**
  * Cross-checked:
- * - Classic deficiency pairs: A night blindness; B1 (thiamine) beriberi; C scurvy; D rickets; B12 pernicious anemia; B3 pellagra; iodine goitre
+ * - Classic deficiency pairs: A night blindness; B1 (thiamine) beriberi; C scurvy; D rickets (children) / osteomalacia (adults); B12 pernicious anemia; B3 pellagra; iodine goitre
  * - Insulin from pancreas; diabetes mellitus linked to insulin deficiency/resistance teaching
  * - Thyroid: thyroxine; hypo vs hyper basics; iodine for thyroid hormone synthesis
  * - Avoid inventing non-standard deficiency claims
@@ -47,7 +47,7 @@ export const VITAMINS_HORMONES_BASICS_KIT: NoteKitData = {
   ],
   onePager: [
     'Vitamins are organic micronutrients needed in small amounts. Deficiency causes classic exam diseases.',
-    'High-yield pairs: Vitamin A night blindness; Vitamin B1 (thiamine) beriberi; Vitamin C scurvy; Vitamin D rickets; Vitamin B12 pernicious anemia; Vitamin B3 (niacin) pellagra.',
+    'High-yield pairs: Vitamin A night blindness; Vitamin B1 (thiamine) beriberi; Vitamin C scurvy; Vitamin D rickets in children (osteomalacia in adults); Vitamin B12 pernicious anemia; Vitamin B3 (niacin) pellagra.',
     'Fat-soluble vitamins often taught: A, D, E, K. Water-soluble: B-complex and C.',
     'Hormones are chemical messengers from endocrine glands. Insulin is produced by the pancreas (beta cells in islets of Langerhans in standard teaching).',
     'Diabetes mellitus: high blood sugar linked to lack of insulin or poor insulin action (insulin resistance). Exams often ask gland and hormone name.',
@@ -75,7 +75,7 @@ export const VITAMINS_HORMONES_BASICS_KIT: NoteKitData = {
     },
     {
       label: 'B vitamins and C/D',
-      text: 'B1 beriberi; B3 pellagra; B12 pernicious anemia; C scurvy; D rickets.',
+      text: 'B1 beriberi; B3 pellagra; B12 pernicious anemia; C scurvy; D rickets (children) / osteomalacia (adults).',
     },
     {
       label: 'Insulin',
@@ -94,7 +94,8 @@ export const VITAMINS_HORMONES_BASICS_KIT: NoteKitData = {
     { prompt: 'Vitamin A deficiency causes?', answer: 'Night blindness' },
     { prompt: 'Vitamin B1 (thiamine) deficiency causes?', answer: 'Beriberi' },
     { prompt: 'Vitamin C deficiency causes?', answer: 'Scurvy' },
-    { prompt: 'Vitamin D deficiency causes?', answer: 'Rickets' },
+    { prompt: 'Vitamin D deficiency in children?', answer: 'Rickets' },
+    { prompt: 'Vitamin D deficiency in adults (classic pair)?', answer: 'Osteomalacia' },
     {
       prompt: 'Vitamin B12 deficiency is classically linked to?',
       answer: 'Pernicious anemia',
@@ -144,7 +145,7 @@ export const VITAMINS_HORMONES_BASICS_KIT: NoteKitData = {
   mistakes: [
     {
       trap: 'Linking Vitamin C to rickets.',
-      correct: 'Rickets is Vitamin D. Scurvy is Vitamin C.',
+      correct: 'Rickets (children) / osteomalacia (adults) = Vitamin D. Scurvy = Vitamin C.',
     },
     {
       trap: 'Saying insulin is produced by the thyroid.',

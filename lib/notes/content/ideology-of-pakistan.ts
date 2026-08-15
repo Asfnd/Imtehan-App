@@ -52,9 +52,9 @@ export const IDEOLOGY_OF_PAKISTAN_KIT: NoteKitData = {
     'Iqbal, Allahabad Address, 29 December 1930: north-west Muslim consolidated state idea. Idea stage, not the 1947 map.',
     'Iqbal died 21 April 1938. He did not draft, move, or pass the Lahore Resolution of 1940.',
     'Choudhry Rahmat Ali coined the name Pakistan in 1933 (Now or Never). Naming is not League policy leadership.',
-    'Jinnah led AIML from demand to state: Lahore Resolution 23 March 1940; independence 14 August 1947.',
+    'Jinnah led AIML from demand to state: Lahore Resolution 23 March 1940 (Fazlul Huq mover; text does not say Pakistan); independence 14 August 1947.',
     'Nation = political community claim. State = territorial sovereign created in 1947. Mixing them weakens answers.',
-    'Link ideology to Objectives Resolution (12 March 1949) only as continuity. No fake quotes or invented vote counts.',
+    'Link ideology to Objectives Resolution (12 March 1949, Liaquat) only as continuity. No fake quotes or invented vote counts.',
   ],
   answerSteps: [
     'Define ideology as Muslim political nationalism seeking security and self-rule, not a poetry essay.',
@@ -135,6 +135,10 @@ export const IDEOLOGY_OF_PAKISTAN_KIT: NoteKitData = {
     {
       trap: 'Claiming the 1940 text used the word Pakistan, or inventing vote counts.',
       correct: 'Stick to dated public markers. The Lahore text does not use the word Pakistan.',
+    },
+    {
+      trap: 'Mixing 29 Dec 1930, 23 March 1940, and 12 March 1949 as one event.',
+      correct: '1930 = Iqbal idea. 1940 = Lahore Resolution. 1949 = Objectives Resolution.',
     },
   ],
   revisionPath: [

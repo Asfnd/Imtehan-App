@@ -7,6 +7,7 @@ import type { NoteKitData } from '@/lib/notes/types'
  * - Badr 2 AH, Uhud 3 AH, Trench (Khandaq/Ahzab) 5 AH
  * - Treaty of Hudaybiyyah 6 AH
  * - Conquest of Makkah 8 AH
+ * - Farewell Pilgrimage / Sermon 10 AH
  * Tone: respectful; use PBUH; avoid speculative miracles lists as MCQ filler
  */
 export const SEERAH_HIGH_YIELD_KIT: NoteKitData = {
@@ -56,6 +57,7 @@ export const SEERAH_HIGH_YIELD_KIT: NoteKitData = {
     'Battle of the Trench / Ahzab / Khandaq (5 AH): coalition siege of Madinah; trench defence (associated with Salman al-Farsi`s counsel in standard teaching). Siege failed.',
     'Treaty of Hudaybiyyah (6 AH): agreement with Quraysh. Terms looked hard at first, but it opened a period of peaceful outreach and is called a clear victory in Quranic reference (Surah Al-Fath) in classic teaching.',
     'Conquest of Makkah (8 AH): largely peaceful entry after Quraysh violated related commitments. General amnesty spirit is a major Seerah theme. Kaaba cleared of idols.',
+    'Farewell Pilgrimage / Farewell Sermon: 10 AH. High-yield ethical themes: sanctity of life and property, equality, justice, and dignified treatment of women.',
   ],
   answerSteps: [
     'Begin with a respectful one-line identity of the Prophet (PBUH) and the purpose of Seerah study.',
@@ -92,6 +94,10 @@ export const SEERAH_HIGH_YIELD_KIT: NoteKitData = {
       label: 'Conquest of Makkah',
       text: '8 AH; largely peaceful conquest with a strong amnesty theme in standard Seerah.',
     },
+    {
+      label: 'Farewell Sermon',
+      text: '10 AH; themes of sanctity of life/property, equality, and justice in standard teaching.',
+    },
   ],
   flashcards: [
     { prompt: 'Approximate birth year of the Prophet (PBUH)?', answer: 'About 570 CE' },
@@ -105,6 +111,7 @@ export const SEERAH_HIGH_YIELD_KIT: NoteKitData = {
     { prompt: 'Another name for the Battle of the Trench?', answer: 'Ahzab or Khandaq' },
     { prompt: 'Treaty of Hudaybiyyah: which AH year?', answer: '6 AH' },
     { prompt: 'Conquest of Makkah: which AH year?', answer: '8 AH' },
+    { prompt: 'Farewell Pilgrimage / Sermon: which AH year?', answer: '10 AH' },
     { prompt: 'Key Uhud lesson often tested?', answer: 'Discipline and obedience (archers leaving their post)' },
     { prompt: 'Why is Hudaybiyyah called a victory in classic teaching?', answer: 'It opened peaceful expansion and later strategic advantage despite hard terms' },
     { prompt: 'Where did the Prophet (PBUH) migrate to in 622 CE?', answer: 'Madinah (Yathrib)' },
