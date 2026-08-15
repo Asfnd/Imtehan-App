@@ -100,6 +100,16 @@ import { RAMADAN_FASTING_RULES_KIT } from '@/lib/notes/content/ramadan-fasting-r
 import { ENGLISH_PUNCTUATION_CAPITALIZATION_KIT } from '@/lib/notes/content/english-punctuation-capitalization'
 import { PERCENTAGES_APPLICATIONS_EXAM_KIT } from '@/lib/notes/content/percentages-applications-exam'
 import { BOOLEAN_LOGIC_NUMBER_SYSTEMS_KIT } from '@/lib/notes/content/boolean-logic-number-systems'
+import { BALOCHISTAN_ISSUES_EXAM_KIT } from '@/lib/notes/content/balochistan-issues-exam'
+import { KARACHI_URBAN_GOVERNANCE_KIT } from '@/lib/notes/content/karachi-urban-governance'
+import { CPEC_GWADAR_DEEP_DIVE_KIT } from '@/lib/notes/content/cpec-gwadar-deep-dive'
+import { INDUS_WATERS_TREATY_DEEP_KIT } from '@/lib/notes/content/indus-waters-treaty-deep'
+import { PAKISTAN_IRAN_RELATIONS_KIT } from '@/lib/notes/content/pakistan-iran-relations'
+import { PAKISTAN_SAUDI_RELATIONS_KIT } from '@/lib/notes/content/pakistan-saudi-relations'
+import { ISLAMIC_ECONOMIC_SYSTEM_KIT } from '@/lib/notes/content/islamic-economic-system'
+import { STATUS_OF_WOMEN_IN_ISLAM_KIT } from '@/lib/notes/content/status-of-women-in-islam'
+import { TRANSLATION_URDU_ENGLISH_METHOD_KIT } from '@/lib/notes/content/translation-urdu-english-method'
+import { PROBABILITY_BASICS_EXAM_KIT } from '@/lib/notes/content/probability-basics-exam'
 
 const TOPICS: NoteTopicMeta[] = [
   // ── Pakistan Affairs / Pakistan Studies ─────────────────────────────
@@ -419,6 +429,39 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'foreign-policy',
   },
   {
+    slug: 'pakistan-iran-relations',
+    title: 'Pakistan-Iran Relations',
+    shortTitle: 'Pakistan-Iran',
+    contentId: 'pakistan-iran-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan iran',
+      'iran relations',
+      'border trade',
+      'energy pipeline',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'pakistan-saudi-relations',
+    title: 'Pakistan-Saudi Arabia Relations',
+    shortTitle: 'Pakistan-Saudi',
+    contentId: 'pakistan-saudi-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan saudi',
+      'saudi arabia',
+      'hajj',
+      'remittances',
+      'muslim world',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
     slug: 'political-evolution-1971',
     title: 'Political Evolution since 1971',
     shortTitle: 'Politics since 1971',
@@ -473,6 +516,22 @@ const TOPICS: NoteTopicMeta[] = [
     syllabusHints: ['indus', 'water', 'tarbela', 'mangla', 'indus waters treaty'],
     mcqSubjectSlug: 'geography',
     mcqTagHint: 'rivers',
+  },
+  {
+    slug: 'indus-waters-treaty-deep',
+    title: 'Indus Waters Treaty (Deep Dive)',
+    shortTitle: 'Indus Waters Treaty',
+    contentId: 'indus-waters-treaty-deep',
+    subjectSlugs: ['pakistan-affairs', 'geography', 'current-affairs'],
+    syllabusHints: [
+      'indus waters treaty',
+      'iwt 1960',
+      'permanent indus commission',
+      'water security',
+      'eastern western rivers',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'water',
   },
   {
     slug: 'population-demographics-pakistan',
@@ -579,6 +638,22 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'pakistan-affairs',
     mcqTagHint: 'social-issues',
+  },
+  {
+    slug: 'karachi-urban-governance',
+    title: 'Karachi Urban Governance',
+    shortTitle: 'Karachi Governance',
+    contentId: 'karachi-urban-governance',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs', 'ethics-civics'],
+    syllabusHints: [
+      'karachi',
+      'urban governance',
+      'mega city',
+      'local government',
+      'service delivery',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'governance',
   },
   {
     slug: 'disaster-management-pakistan',
@@ -792,6 +867,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'security',
   },
   {
+    slug: 'balochistan-issues-exam',
+    title: 'Balochistan Issues (Exam Framing)',
+    shortTitle: 'Balochistan Issues',
+    contentId: 'balochistan-issues-exam',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'balochistan',
+      'provincial issues',
+      'gwadar',
+      'resource sharing',
+      'development',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'provincial-issues',
+  },
+  {
     slug: 'afghanistan-pakistan-relations',
     title: 'Afghanistan-Pakistan Relations',
     shortTitle: 'Afghanistan Relations',
@@ -855,6 +946,22 @@ const TOPICS: NoteTopicMeta[] = [
     contentId: 'cpec-and-regional-connectivity',
     subjectSlugs: ['current-affairs', 'pakistan-affairs'],
     syllabusHints: ['cpec', 'belt and road', 'gwadar', 'china', 'connectivity'],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'cpec',
+  },
+  {
+    slug: 'cpec-gwadar-deep-dive',
+    title: 'CPEC Gwadar Deep Dive',
+    shortTitle: 'Gwadar Deep Dive',
+    contentId: 'cpec-gwadar-deep-dive',
+    subjectSlugs: ['current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'gwadar',
+      'gwadar port',
+      'cpec sez',
+      'arabian sea port',
+      'balochistan coast',
+    ],
     mcqSubjectSlug: 'current-affairs',
     mcqTagHint: 'cpec',
   },
@@ -1107,6 +1214,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'ethics',
   },
   {
+    slug: 'status-of-women-in-islam',
+    title: 'Status of Women in Islam',
+    shortTitle: 'Women in Islam',
+    contentId: 'status-of-women-in-islam',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'status of women',
+      'women in islam',
+      'mahr',
+      'inheritance',
+      'islamic social system',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'social-system',
+  },
+  {
     slug: 'islamic-civilization-contributions',
     title: 'Contributions of Islamic Civilization',
     shortTitle: 'Islamic Civilization',
@@ -1154,6 +1277,23 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'islamic-studies',
     mcqTagHint: 'zakat',
+  },
+  {
+    slug: 'islamic-economic-system',
+    title: 'Islamic Economic System',
+    shortTitle: 'Islamic Economics',
+    contentId: 'islamic-economic-system',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'islamic economic system',
+      'riba',
+      'interest',
+      'risk sharing',
+      'zakat',
+      'islamic finance',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'islamic-economics',
   },
 
   // ── English ─────────────────────────────────────────────────────────
@@ -1279,6 +1419,22 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'english',
     mcqTagHint: 'comprehension',
+  },
+  {
+    slug: 'translation-urdu-english-method',
+    title: 'Urdu-English Translation Method (CSS)',
+    shortTitle: 'Translation Method',
+    contentId: 'translation-urdu-english-method',
+    subjectSlugs: ['english-precis', 'english'],
+    syllabusHints: [
+      'translation',
+      'urdu to english',
+      'english to urdu',
+      'idiom translation',
+      'precis composition',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'translation',
   },
 
   // ── GK / Science / Math / Computer / Geography ──────────────────────
@@ -1504,6 +1660,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'mathematics',
     mcqTagHint: 'sets',
   },
+  {
+    slug: 'probability-basics-exam',
+    title: 'Probability Basics for One-Paper Exams',
+    shortTitle: 'Probability Basics',
+    contentId: 'probability-basics-exam',
+    subjectSlugs: ['mathematics'],
+    syllabusHints: [
+      'probability',
+      'complement',
+      'mutually exclusive',
+      'independent events',
+      'one-paper math',
+    ],
+    mcqSubjectSlug: 'mathematics',
+    mcqTagHint: 'probability',
+  },
 
   // ── Ethics / Civics / Governance ────────────────────────────────────
   {
@@ -1608,11 +1780,14 @@ const KITS: Record<string, NoteKitData> = {
   'kashmir-dispute-basics': KASHMIR_DISPUTE_BASICS_KIT,
   'pakistan-usa-relations': PAKISTAN_USA_RELATIONS_KIT,
   'pakistan-china-relations': PAKISTAN_CHINA_RELATIONS_KIT,
+  'pakistan-iran-relations': PAKISTAN_IRAN_RELATIONS_KIT,
+  'pakistan-saudi-relations': PAKISTAN_SAUDI_RELATIONS_KIT,
   'political-evolution-1971': POLITICAL_EVOLUTION_1971_KIT,
   'democracy-evolution-pakistan': DEMOCRACY_EVOLUTION_PAKISTAN_KIT,
   'land-people-pakistan': LAND_PEOPLE_PAKISTAN_KIT,
   'physical-geography-pakistan': PHYSICAL_GEOGRAPHY_PAKISTAN_KIT,
   'indus-river-system': INDUS_RIVER_SYSTEM_KIT,
+  'indus-waters-treaty-deep': INDUS_WATERS_TREATY_DEEP_KIT,
   'population-demographics-pakistan': POPULATION_DEMOGRAPHICS_PAKISTAN_KIT,
   'pakistan-nuclear-program': PAKISTAN_NUCLEAR_PROGRAM_KIT,
   'education-system-pakistan': EDUCATION_SYSTEM_PAKISTAN_KIT,
@@ -1620,6 +1795,7 @@ const KITS: Record<string, NoteKitData> = {
   'cultural-heritage-pakistan': CULTURAL_HERITAGE_PAKISTAN_KIT,
   'health-system-pakistan': HEALTH_SYSTEM_PAKISTAN_KIT,
   'urbanization-housing-pakistan': URBANIZATION_HOUSING_PAKISTAN_KIT,
+  'karachi-urban-governance': KARACHI_URBAN_GOVERNANCE_KIT,
   'disaster-management-pakistan': DISASTER_MANAGEMENT_PAKISTAN_KIT,
   'social-problems-pakistan': SOCIAL_PROBLEMS_PAKISTAN_KIT,
   'nfc-award-fiscal-federalism': NFC_AWARD_FISCAL_FEDERALISM_KIT,
@@ -1633,10 +1809,12 @@ const KITS: Record<string, NoteKitData> = {
   'agriculture-pakistan': AGRICULTURE_PAKISTAN_KIT,
   'industry-and-trade-pakistan': INDUSTRY_TRADE_PAKISTAN_KIT,
   'terrorism-extremism-pakistan': TERRORISM_EXTREMISM_PAKISTAN_KIT,
+  'balochistan-issues-exam': BALOCHISTAN_ISSUES_EXAM_KIT,
   'afghanistan-pakistan-relations': AFGHANISTAN_PAKISTAN_RELATIONS_KIT,
   'muslim-world-pakistan': MUSLIM_WORLD_PAKISTAN_KIT,
   'environmental-pollution-pakistan': ENVIRONMENTAL_POLLUTION_PAKISTAN_KIT,
   'cpec-and-regional-connectivity': CPEC_REGIONAL_CONNECTIVITY_KIT,
+  'cpec-gwadar-deep-dive': CPEC_GWADAR_DEEP_DIVE_KIT,
   'pakistan-economy-imf-sbp': PAKISTAN_ECONOMY_IMF_SBP_KIT,
   'budget-fiscal-policy-pakistan': BUDGET_FISCAL_POLICY_PAKISTAN_KIT,
   'inflation-monetary-policy': INFLATION_MONETARY_POLICY_KIT,
@@ -1655,9 +1833,11 @@ const KITS: Record<string, NoteKitData> = {
   'life-of-prophet-madinah-period': LIFE_OF_PROPHET_MADINAH_PERIOD_KIT,
   'hadith-sciences-basics': HADITH_SCIENCES_BASICS_KIT,
   'human-rights-in-islam': HUMAN_RIGHTS_IN_ISLAM_KIT,
+  'status-of-women-in-islam': STATUS_OF_WOMEN_IN_ISLAM_KIT,
   'islamic-civilization-contributions': ISLAMIC_CIVILIZATION_CONTRIBUTIONS_KIT,
   'comparative-religions-basics': COMPARATIVE_RELIGIONS_BASICS_KIT,
   'zakat-system-social-welfare': ZAKAT_SYSTEM_SOCIAL_WELFARE_KIT,
+  'islamic-economic-system': ISLAMIC_ECONOMIC_SYSTEM_KIT,
   'english-essay-css': ENGLISH_ESSAY_CSS_KIT,
   'precis-composition-css': PRECIS_COMPOSITION_CSS_KIT,
   'english-grammar-high-yield': ENGLISH_GRAMMAR_HIGH_YIELD_KIT,
@@ -1667,6 +1847,7 @@ const KITS: Record<string, NoteKitData> = {
   'english-punctuation-capitalization': ENGLISH_PUNCTUATION_CAPITALIZATION_KIT,
   'essay-outlining-workshop': ESSAY_OUTLINING_WORKSHOP_KIT,
   'comprehension-passage-method': COMPREHENSION_PASSAGE_METHOD_KIT,
+  'translation-urdu-english-method': TRANSLATION_URDU_ENGLISH_METHOD_KIT,
   'un-international-organizations': UN_INTERNATIONAL_ORGANIZATIONS_KIT,
   'un-security-council-peacekeeping': UN_SECURITY_COUNCIL_PEACEKEEPING_KIT,
   'world-organizations-imf-wb-wto': WORLD_ORGANIZATIONS_IMF_WB_WTO_KIT,
@@ -1682,6 +1863,7 @@ const KITS: Record<string, NoteKitData> = {
   'percentages-applications-exam': PERCENTAGES_APPLICATIONS_EXAM_KIT,
   'ratio-proportion-averages': RATIO_PROPORTION_AVERAGES_KIT,
   'set-theory-basics-math': SET_THEORY_BASICS_MATH_KIT,
+  'probability-basics-exam': PROBABILITY_BASICS_EXAM_KIT,
   'ethics-theories-basics': ETHICS_THEORIES_BASICS_KIT,
   'good-governance-undp': GOOD_GOVERNANCE_UNDP_KIT,
   'public-service-values': PUBLIC_SERVICE_VALUES_KIT,
