@@ -3,6 +3,7 @@ import { csrfProtection } from '@/lib/security/csrf'
 import { rateLimit, getClientIP } from '@/lib/security/rateLimiter'
 import {
   extractHandwritingFromImage,
+  sanitizeOcrError,
   validateOcrImage,
 } from '@/lib/ai/extractHandwriting'
 
@@ -82,9 +83,7 @@ export async function POST(request: NextRequest) {
       const isTimeout =
         err instanceof Error &&
         (err.name === 'AbortError' || err.message.toLowerCase().includes('timeout'))
-      if (process.env.NODE_ENV === 'development') {
-        console.error('[essay-ocr]', err)
-      }
+      console.error('[essay-ocr]', sanitizeOcrError(err))
       return NextResponse.json(
         {
           error: isTimeout

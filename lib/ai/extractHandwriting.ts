@@ -2,7 +2,8 @@
  * Handwriting / printed-page OCR for the Writing Coach.
  * Same technique as the mobile app (ScanSolve / grade-essay):
  * - Client downscales to 1536px JPEG q0.85 (Gemini 768px tile sweet spot)
- * - Server sends the image to Gemini 2.5 Flash, then OpenRouter vision fallback
+ * - Server tries Gemini 2.5 Flash, then OpenRouter vision fallback
+ * - Azure East Asia cannot call Gemini (location blocked) — OpenRouter VL is the live path
  * - Verbatim transcript so spelling mistakes survive for the examiner
  */
 
@@ -13,6 +14,14 @@ const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
 export const ALLOWED_OCR_MIME = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic', 'image/heif'] as const
 export const MAX_IMAGE_B64 = 10_800_000 // ~8MB raw, same as mobile validateImage
+
+/** Free OpenRouter vision models verified from the Azure origin (2026-08). Skip Google VL that inherit Gemini geo-blocks. */
+export const DEFAULT_OPENROUTER_OCR_MODELS = [
+  'nvidia/nemotron-nano-12b-v2-vl:free',
+  'google/gemma-4-26b-a4b-it:free',
+  'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free',
+  'openrouter/free',
+] as const
 
 const OCR_PROMPT = `You are a professional OCR engine for photographed exam scripts (handwritten or typed CSS/PMS essays, precis, and long answers).
 
@@ -26,6 +35,21 @@ Rules:
 - If the image has no readable writing, return empty text and a low confidence.
 - English is expected. If Urdu or another script appears, transcribe it as written.
 - Output ONLY JSON, no markdown: {"text":"full transcript","confidence":0-100}`
+
+export function sanitizeOcrError(err: unknown): string {
+  let s = err instanceof Error ? `${err.name}: ${err.message}` : String(err)
+  s = s.replace(/[?&]key=[^&\s"']+/gi, '')
+  s = s.replace(/Bearer\s+\S+/gi, 'Bearer [redacted]')
+  s = s.replace(/AIza[0-9A-Za-z_-]{10,}/g, '[redacted]')
+  s = s.replace(/sk-or-v1-[A-Za-z0-9]+/g, '[redacted]')
+  s = s.replace(/AQ\.[A-Za-z0-9._-]{10,}/g, '[redacted]')
+  return s.replace(/\s+/g, ' ').trim().slice(0, 400)
+}
+
+function isGeminiRegionBlocked(message: string): boolean {
+  const m = message.toLowerCase()
+  return m.includes('user location is not supported') || m.includes('failed_precondition')
+}
 
 function geminiKeys(): string[] {
   const keys = [
@@ -189,8 +213,19 @@ export type ExtractHandwritingResult = {
   provider: string
 }
 
+export function resolveOpenRouterOcrModels(): string[] {
+  const override = process.env.OPENROUTER_OCR_MODEL?.trim()
+  const extra = (process.env.OPENROUTER_OCR_MODEL_CHAIN ?? '')
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean)
+  const merged = [override, ...extra, ...DEFAULT_OPENROUTER_OCR_MODELS].filter((m): m is string => !!m)
+  return [...new Set(merged)]
+}
+
 /**
- * OCR one page. Tries Gemini keys (Flash then Flash-Lite) then OpenRouter vision.
+ * OCR one page. Tries Gemini (primary then lite, even with one key) then OpenRouter vision.
+ * If Gemini reports a region block, remaining Gemini attempts are skipped.
  */
 export async function extractHandwritingFromImage(
   image: string,
@@ -201,29 +236,32 @@ export async function extractHandwritingFromImage(
   const keys = geminiKeys()
   const primary = process.env.GEMINI_MODEL?.trim() || 'gemini-2.5-flash'
   const lite = process.env.GEMINI_MODEL_FAST?.trim() || 'gemini-2.5-flash-lite'
+  const geminiModels = primary === lite ? [primary] : [primary, lite]
   const start = keys.length ? Math.floor(Math.random() * keys.length) : 0
-  const maxTries = Math.min(3, keys.length)
+  const maxKeyTries = Math.min(3, keys.length)
 
-  for (let i = 0; i < maxTries; i++) {
-    const key = keys[(start + i) % keys.length]
-    const model = i === maxTries - 1 ? lite : primary
-    try {
-      const text = await callGemini(key, model, image, mime, signal)
-      return { text, provider: `gemini:${model}` }
-    } catch (e) {
-      errors.push(e instanceof Error ? e.message : String(e))
+  let skipGemini = false
+  for (const model of geminiModels) {
+    if (skipGemini) break
+    for (let i = 0; i < maxKeyTries; i++) {
+      const key = keys[(start + i) % keys.length]
+      try {
+        const text = await callGemini(key, model, image, mime, signal)
+        return { text, provider: `gemini:${model}` }
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e)
+        errors.push(msg)
+        if (isGeminiRegionBlocked(msg)) {
+          skipGemini = true
+          break
+        }
+      }
     }
   }
 
   const orKey = process.env.OPENROUTER_API_KEY?.trim()
   if (orKey) {
-    const visionModels = [
-      process.env.OPENROUTER_OCR_MODEL?.trim(),
-      'google/gemini-2.5-flash:free',
-      'meta-llama/llama-4-maverick:free',
-      'google/gemma-3-27b-it:free',
-    ].filter((m): m is string => !!m)
-    for (const model of visionModels) {
+    for (const model of resolveOpenRouterOcrModels()) {
       try {
         const text = await callOpenRouterVision(orKey, model, image, mime, signal)
         return { text, provider: `openrouter:${model}` }
@@ -235,7 +273,7 @@ export async function extractHandwritingFromImage(
 
   throw new Error(
     errors.length
-      ? `Could not read this page. ${errors[errors.length - 1] ?? ''}`.trim()
+      ? `Could not read this page. ${sanitizeOcrError(errors[errors.length - 1] ?? '')}`.trim()
       : 'OCR is not configured. Set GEMINI_API_KEY or OPENROUTER_API_KEY.'
   )
 }
