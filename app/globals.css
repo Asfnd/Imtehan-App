@@ -787,6 +787,118 @@
   margin: 0 auto;
   padding: 64px 24px 96px;
 }
+.note-hub-main-wide {
+  max-width: 880px;
+}
+.note-subject-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 36px;
+}
+.note-subject-jump-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #E5E7EB;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #18181B;
+  text-decoration: none;
+  background: #fff;
+}
+.note-subject-jump-chip:hover {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+.note-subject-block {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #E5E7EB;
+}
+.note-subject-block:last-of-type {
+  border-bottom: none;
+}
+.note-subject-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.note-subject-title {
+  font-family: var(--font-libre-baskerville), Georgia, serif;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 4px;
+}
+.note-subject-meta {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  color: #71717A;
+  margin: 0;
+}
+.note-subject-all {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.note-subject-all:hover {
+  text-decoration: underline;
+}
+.note-topic-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .note-topic-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.note-topic-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.note-topic-card:hover {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+.note-topic-card-label {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #71717A;
+}
+.note-topic-card:hover .note-topic-card-label {
+  color: #A1A1AA;
+}
+.note-topic-card-title {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+  color: inherit;
+}
 .note-hub-kicker {
   font-family: var(--font-inter), system-ui, sans-serif;
   font-size: 13px;
@@ -826,11 +938,13 @@
 }
 .note-hub-card {
   display: block;
+  position: relative;
   border: 1px solid #E5E7EB;
   padding: 16px 18px;
   text-decoration: none;
   color: inherit;
   transition: border-color 0.15s ease;
+  overflow: hidden;
 }
 .note-hub-card:hover {
   border-color: #A1A1AA;
@@ -866,6 +980,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
   border: 1px solid #E5E7EB;
   padding: 14px 16px;
   margin-bottom: 8px;
@@ -891,6 +1007,55 @@
 }
 .note-topic-status.is-ready {
   color: #065F46;
+}
+.note-topic-status.is-read {
+  color: #047857;
+}
+
+.note-topic-read-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(16, 185, 129, 0.14);
+  pointer-events: none;
+}
+.note-topic-read-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6ee7b7, #10b981 55%, #047857);
+}
+
+/* Slim reading bar sits under the sticky nav so Notes / article actions stay clickable. */
+.note-read-bar {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 40;
+  pointer-events: none;
+  background: rgba(16, 185, 129, 0.12);
+}
+.note-read-bar-fill {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #a7f3d0, #34d399 40%, #059669);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
+  will-change: transform;
+  transition: transform 0.14s ease-out;
+}
+.note-read-bar.is-done .note-read-bar-fill {
+  background: linear-gradient(90deg, #6ee7b7, #10b981, #047857);
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.45);
+}
+@media (prefers-reduced-motion: reduce) {
+  .note-read-bar-fill {
+    transition: none;
+  }
 }
 .note-empty {
   font-family: var(--font-inter), system-ui, sans-serif;

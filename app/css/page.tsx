@@ -246,7 +246,6 @@ function DashboardContent() {
       {/* Main Content Area */}
       <div className="flex-1 py-8 md:py-16 bg-gradient-to-br from-blue-50 via-white to-blue-50/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ExamNotesBanner examSlug="css-written" examName="CSS Written" />
           <Link
             href={WRITING_COACH_PATHS.css.pagePath}
             className="mb-8 flex flex-col gap-3 rounded-2xl border border-blue-200/80 bg-gradient-to-br from-blue-50/90 via-white to-white p-4 shadow-sm transition hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:p-5"
@@ -488,6 +487,13 @@ function DashboardContent() {
 
           {/* Practice Cards: ordered by priority */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
+            <ExamNotesBanner
+              examSlug="css-written"
+              examName="CSS Written"
+              variant="grid"
+              kitHint="Subject-wise revision kits. Organised by topic inside."
+            />
 
             {/* 1: Most Repeated MCQs */}
             <div className="group relative rounded-xl bg-white border-2 border-gray-100 hover:border-blue-400 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">

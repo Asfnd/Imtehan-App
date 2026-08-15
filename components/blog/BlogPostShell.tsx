@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import NavigationBar from '@/components/NavigationBar'
+import { NoteReadingProgress } from '@/components/notes/NoteReadingProgress'
 import { createClient } from '@/lib/supabase/client'
 import type { Heading, RelatedPost } from './blog-utils'
 
@@ -23,6 +24,8 @@ interface BlogPostShellProps {
   slug: string
   headings?: Heading[]
   otherPosts?: RelatedPost[]
+  /** When set, a slim green bar tracks how far this notes kit has been read (saved per account). */
+  notesProgressItem?: string
   children: React.ReactNode
 }
 
@@ -47,6 +50,7 @@ export default function BlogPostShell({
   slug,
   headings   = [],
   otherPosts = [],
+  notesProgressItem,
   children,
 }: BlogPostShellProps) {
   const [activeHeading, setActiveHeading] = useState('')
@@ -157,6 +161,7 @@ export default function BlogPostShell({
   return (
     <div className="min-h-screen bg-white">
       <NavigationBar />
+      {notesProgressItem ? <NoteReadingProgress item={notesProgressItem} /> : null}
 
       <div className="blog-layout">
 

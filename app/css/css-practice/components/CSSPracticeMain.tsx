@@ -96,7 +96,11 @@ export default function CSSPracticeMain() {
                 <CSSExamCountdownSimple />
               </div>
 
-              <ExamNotesBanner examSlug="css-written" examName="CSS Written" />
+              <ExamNotesBanner
+                examSlug="css-written"
+                examName="CSS Written"
+                kitHint="Subject-wise revision kits. Organised by topic inside."
+              />
 
               {/* Practice Cards */}
               <div className="flex justify-center">
