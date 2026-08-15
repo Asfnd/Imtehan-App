@@ -88,6 +88,18 @@ import { WORLD_ORGANIZATIONS_IMF_WB_WTO_KIT } from '@/lib/notes/content/world-or
 import { BIOLOGY_HUMAN_SYSTEMS_KIT } from '@/lib/notes/content/biology-human-systems'
 import { COMPUTER_HARDWARE_BASICS_KIT } from '@/lib/notes/content/computer-hardware-basics'
 import { RATIO_PROPORTION_AVERAGES_KIT } from '@/lib/notes/content/ratio-proportion-averages'
+import { LANGUAGE_POLICY_PAKISTAN_KIT } from '@/lib/notes/content/language-policy-pakistan'
+import { CULTURAL_HERITAGE_PAKISTAN_KIT } from '@/lib/notes/content/cultural-heritage-pakistan'
+import { HEALTH_SYSTEM_PAKISTAN_KIT } from '@/lib/notes/content/health-system-pakistan'
+import { URBANIZATION_HOUSING_PAKISTAN_KIT } from '@/lib/notes/content/urbanization-housing-pakistan'
+import { DISASTER_MANAGEMENT_PAKISTAN_KIT } from '@/lib/notes/content/disaster-management-pakistan'
+import { PAKISTAN_USA_RELATIONS_KIT } from '@/lib/notes/content/pakistan-usa-relations'
+import { SAARC_REGIONAL_COOPERATION_KIT } from '@/lib/notes/content/saarc-regional-cooperation'
+import { HAJJ_UMRAH_FIQH_BASICS_KIT } from '@/lib/notes/content/hajj-umrah-fiqh-basics'
+import { RAMADAN_FASTING_RULES_KIT } from '@/lib/notes/content/ramadan-fasting-rules'
+import { ENGLISH_PUNCTUATION_CAPITALIZATION_KIT } from '@/lib/notes/content/english-punctuation-capitalization'
+import { PERCENTAGES_APPLICATIONS_EXAM_KIT } from '@/lib/notes/content/percentages-applications-exam'
+import { BOOLEAN_LOGIC_NUMBER_SYSTEMS_KIT } from '@/lib/notes/content/boolean-logic-number-systems'
 
 const TOPICS: NoteTopicMeta[] = [
   // ── Pakistan Affairs / Pakistan Studies ─────────────────────────────
@@ -375,6 +387,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'foreign-policy',
   },
   {
+    slug: 'pakistan-usa-relations',
+    title: 'Pakistan-USA Relations',
+    shortTitle: 'Pakistan-USA',
+    contentId: 'pakistan-usa-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan usa',
+      'pakistan-us relations',
+      'cold war',
+      'post-9/11',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
     slug: 'pakistan-china-relations',
     title: 'Pakistan-China Relations',
     shortTitle: 'Pakistan-China Relations',
@@ -487,6 +515,86 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'pakistan-affairs',
     mcqTagHint: 'education',
+  },
+  {
+    slug: 'language-policy-pakistan',
+    title: 'Language Policy of Pakistan (Article 251)',
+    shortTitle: 'Language Policy',
+    contentId: 'language-policy-pakistan',
+    subjectSlugs: ['pakistan-affairs'],
+    syllabusHints: [
+      'language policy',
+      'article 251',
+      'urdu',
+      'national language',
+      'provincial languages',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'constitution',
+  },
+  {
+    slug: 'cultural-heritage-pakistan',
+    title: 'Cultural Heritage of Pakistan',
+    shortTitle: 'Cultural Heritage',
+    contentId: 'cultural-heritage-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'cultural heritage',
+      'unesco',
+      'soft power',
+      'culture',
+      'tourism',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'culture',
+  },
+  {
+    slug: 'health-system-pakistan',
+    title: 'Health System of Pakistan',
+    shortTitle: 'Health System',
+    contentId: 'health-system-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'health system',
+      'lady health workers',
+      'primary health care',
+      'sdg 3',
+      'social development',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'health',
+  },
+  {
+    slug: 'urbanization-housing-pakistan',
+    title: 'Urbanisation and Housing in Pakistan',
+    shortTitle: 'Urbanisation and Housing',
+    contentId: 'urbanization-housing-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'urbanisation',
+      'urbanization',
+      'housing',
+      'katchi abadi',
+      'informal settlements',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'social-issues',
+  },
+  {
+    slug: 'disaster-management-pakistan',
+    title: 'Disaster Management in Pakistan',
+    shortTitle: 'Disaster Management',
+    contentId: 'disaster-management-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs', 'geography'],
+    syllabusHints: [
+      'disaster management',
+      'ndma',
+      'pdma',
+      'floods',
+      'earthquake preparedness',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'disaster',
   },
   {
     slug: 'social-problems-pakistan',
@@ -834,6 +942,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'general-knowledge',
     mcqTagHint: 'organizations',
   },
+  {
+    slug: 'saarc-regional-cooperation',
+    title: 'SAARC and Regional Cooperation in South Asia',
+    shortTitle: 'SAARC Cooperation',
+    contentId: 'saarc-regional-cooperation',
+    subjectSlugs: ['general-knowledge', 'current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'saarc',
+      'sapta',
+      'safta',
+      'regional cooperation',
+      'south asia',
+    ],
+    mcqSubjectSlug: 'general-knowledge',
+    mcqTagHint: 'organizations',
+  },
 
   // ── Islamic Studies ─────────────────────────────────────────────────
   {
@@ -843,6 +967,38 @@ const TOPICS: NoteTopicMeta[] = [
     contentId: 'pillars-of-islam',
     subjectSlugs: ['islamic-studies'],
     syllabusHints: ['pillars', 'salah', 'zakat', 'hajj', 'sawm', 'ibadat', 'worship'],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'ibadat',
+  },
+  {
+    slug: 'hajj-umrah-fiqh-basics',
+    title: 'Hajj and Umrah: Fiqh Basics',
+    shortTitle: 'Hajj and Umrah',
+    contentId: 'hajj-umrah-fiqh-basics',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'hajj',
+      'umrah',
+      'ihram',
+      'arafah',
+      'ibadat',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'ibadat',
+  },
+  {
+    slug: 'ramadan-fasting-rules',
+    title: 'Ramadan Fasting Rules (Sawm)',
+    shortTitle: 'Ramadan Fasting',
+    contentId: 'ramadan-fasting-rules',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'sawm',
+      'ramadan',
+      'fasting',
+      'qada',
+      'fidya',
+    ],
     mcqSubjectSlug: 'islamic-studies',
     mcqTagHint: 'ibadat',
   },
@@ -1077,6 +1233,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'idioms',
   },
   {
+    slug: 'english-punctuation-capitalization',
+    title: 'English Punctuation and Capitalization',
+    shortTitle: 'Punctuation and Capitals',
+    contentId: 'english-punctuation-capitalization',
+    subjectSlugs: ['english'],
+    syllabusHints: [
+      'punctuation',
+      'capitalization',
+      'apostrophe',
+      'comma',
+      'one-paper english',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'grammar',
+  },
+  {
     slug: 'essay-outlining-workshop',
     title: 'Essay Outlining Workshop (CSS)',
     shortTitle: 'Essay Outlining',
@@ -1199,6 +1371,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'hardware',
   },
   {
+    slug: 'boolean-logic-number-systems',
+    title: 'Boolean Logic and Number Systems',
+    shortTitle: 'Boolean and Number Systems',
+    contentId: 'boolean-logic-number-systems',
+    subjectSlugs: ['computer', 'basic-computer', 'computer-science'],
+    syllabusHints: [
+      'boolean',
+      'binary',
+      'hexadecimal',
+      'and or not',
+      'number systems',
+    ],
+    mcqSubjectSlug: 'computer',
+    mcqTagHint: 'fundamentals',
+  },
+  {
     slug: 'vitamins-hormones-basics',
     title: 'Vitamins, Hormones and Deficiency Diseases',
     shortTitle: 'Vitamins and Hormones',
@@ -1264,6 +1452,22 @@ const TOPICS: NoteTopicMeta[] = [
     contentId: 'percentages-ratios-profit-loss',
     subjectSlugs: ['mathematics'],
     syllabusHints: ['percentage', 'ratio', 'profit', 'loss', 'arithmetic'],
+    mcqSubjectSlug: 'mathematics',
+    mcqTagHint: 'arithmetic',
+  },
+  {
+    slug: 'percentages-applications-exam',
+    title: 'Percentages: Advanced Applications for Exams',
+    shortTitle: 'Percentage Applications',
+    contentId: 'percentages-applications-exam',
+    subjectSlugs: ['mathematics'],
+    syllabusHints: [
+      'successive percentage',
+      'population growth',
+      'reverse percentage',
+      'compound growth',
+      'arithmetic',
+    ],
     mcqSubjectSlug: 'mathematics',
     mcqTagHint: 'arithmetic',
   },
@@ -1402,6 +1606,7 @@ const KITS: Record<string, NoteKitData> = {
   'pakistan-foreign-policy-principles': PAKISTAN_FOREIGN_POLICY_PRINCIPLES_KIT,
   'pakistan-india-relations': PAKISTAN_INDIA_RELATIONS_KIT,
   'kashmir-dispute-basics': KASHMIR_DISPUTE_BASICS_KIT,
+  'pakistan-usa-relations': PAKISTAN_USA_RELATIONS_KIT,
   'pakistan-china-relations': PAKISTAN_CHINA_RELATIONS_KIT,
   'political-evolution-1971': POLITICAL_EVOLUTION_1971_KIT,
   'democracy-evolution-pakistan': DEMOCRACY_EVOLUTION_PAKISTAN_KIT,
@@ -1411,6 +1616,11 @@ const KITS: Record<string, NoteKitData> = {
   'population-demographics-pakistan': POPULATION_DEMOGRAPHICS_PAKISTAN_KIT,
   'pakistan-nuclear-program': PAKISTAN_NUCLEAR_PROGRAM_KIT,
   'education-system-pakistan': EDUCATION_SYSTEM_PAKISTAN_KIT,
+  'language-policy-pakistan': LANGUAGE_POLICY_PAKISTAN_KIT,
+  'cultural-heritage-pakistan': CULTURAL_HERITAGE_PAKISTAN_KIT,
+  'health-system-pakistan': HEALTH_SYSTEM_PAKISTAN_KIT,
+  'urbanization-housing-pakistan': URBANIZATION_HOUSING_PAKISTAN_KIT,
+  'disaster-management-pakistan': DISASTER_MANAGEMENT_PAKISTAN_KIT,
   'social-problems-pakistan': SOCIAL_PROBLEMS_PAKISTAN_KIT,
   'nfc-award-fiscal-federalism': NFC_AWARD_FISCAL_FEDERALISM_KIT,
   'local-government-pakistan': LOCAL_GOVERNMENT_PAKISTAN_KIT,
@@ -1433,7 +1643,10 @@ const KITS: Record<string, NoteKitData> = {
   'climate-floods-smog-pakistan': CLIMATE_FLOODS_SMOG_PAKISTAN_KIT,
   'climate-change-pakistan-policy': CLIMATE_CHANGE_PAKISTAN_POLICY_KIT,
   'oic-saarc-sco': OIC_SAARC_SCO_KIT,
+  'saarc-regional-cooperation': SAARC_REGIONAL_COOPERATION_KIT,
   'pillars-of-islam': PILLARS_OF_ISLAM_KIT,
+  'hajj-umrah-fiqh-basics': HAJJ_UMRAH_FIQH_BASICS_KIT,
+  'ramadan-fasting-rules': RAMADAN_FASTING_RULES_KIT,
   'articles-of-faith-islam': ARTICLES_OF_FAITH_ISLAM_KIT,
   'sources-of-islamic-law': SOURCES_OF_ISLAMIC_LAW_KIT,
   'quran-revelation-compilation': QURAN_REVELATION_COMPILATION_KIT,
@@ -1451,6 +1664,7 @@ const KITS: Record<string, NoteKitData> = {
   'english-vocabulary-high-yield': ENGLISH_VOCABULARY_HIGH_YIELD_KIT,
   'sentence-correction-method': SENTENCE_CORRECTION_METHOD_KIT,
   'english-idioms-one-paper': ENGLISH_IDIOMS_ONE_PAPER_KIT,
+  'english-punctuation-capitalization': ENGLISH_PUNCTUATION_CAPITALIZATION_KIT,
   'essay-outlining-workshop': ESSAY_OUTLINING_WORKSHOP_KIT,
   'comprehension-passage-method': COMPREHENSION_PASSAGE_METHOD_KIT,
   'un-international-organizations': UN_INTERNATIONAL_ORGANIZATIONS_KIT,
@@ -1459,11 +1673,13 @@ const KITS: Record<string, NoteKitData> = {
   'world-physical-geography-basics': WORLD_PHYSICAL_GEOGRAPHY_BASICS_KIT,
   'computer-networking-basics': COMPUTER_NETWORKING_BASICS_KIT,
   'computer-hardware-basics': COMPUTER_HARDWARE_BASICS_KIT,
+  'boolean-logic-number-systems': BOOLEAN_LOGIC_NUMBER_SYSTEMS_KIT,
   'vitamins-hormones-basics': VITAMINS_HORMONES_BASICS_KIT,
   'biology-human-systems': BIOLOGY_HUMAN_SYSTEMS_KIT,
   'everyday-science-physics-basics': EVERYDAY_SCIENCE_PHYSICS_BASICS_KIT,
   'everyday-science-chemistry-basics': EVERYDAY_SCIENCE_CHEMISTRY_BASICS_KIT,
   'percentages-ratios-profit-loss': PERCENTAGES_RATIOS_PROFIT_LOSS_KIT,
+  'percentages-applications-exam': PERCENTAGES_APPLICATIONS_EXAM_KIT,
   'ratio-proportion-averages': RATIO_PROPORTION_AVERAGES_KIT,
   'set-theory-basics-math': SET_THEORY_BASICS_MATH_KIT,
   'ethics-theories-basics': ETHICS_THEORIES_BASICS_KIT,
