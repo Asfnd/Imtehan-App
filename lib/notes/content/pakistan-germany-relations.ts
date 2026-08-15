@@ -43,7 +43,7 @@ export const PAKISTAN_GERMANY_RELATIONS_KIT: NoteKitData = {
       year: 'One-paper',
       directive: 'MCQ fact',
       angle: 'EU partner; development cooperation; diaspora themes',
-      frequency: 'low',
+      frequency: 'niche',
     },
   ],
   onePager: [
