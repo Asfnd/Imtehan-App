@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import NavigationBar from '@/components/NavigationBar'
+import { NoteTopicRows } from '@/components/notes/NoteTopicRows'
 import {
   getNotesModule,
   listSyllabusTopicsForSection,
@@ -47,24 +48,11 @@ export default async function NotesSubjectPage({ params }: Props) {
         <p className="note-hub-kicker">Syllabus topics</p>
         <h1 className="note-hub-title">{section.label}</h1>
         <p className="note-hub-lead">
-          Topics below follow this exam module. Green means a full revision kit is ready. Other
-          topics stay listed so you can still open practice.
+          Topics below follow this exam module. Green means a full revision kit is ready. A thin
+          bar shows how far you have read — signed-in progress is saved to your account.
         </p>
 
-        <div>
-          {topics.map((topic) => (
-            <Link
-              key={topic.slug}
-              href={`/notes/${examSlug}/${subjectSlug}/${topic.slug}`}
-              className="note-topic-row"
-            >
-              <p className="note-topic-title">{topic.title}</p>
-              <span className={`note-topic-status${topic.hasKit ? ' is-ready' : ''}`}>
-                {topic.hasKit ? 'Kit ready' : 'Coming soon'}
-              </span>
-            </Link>
-          ))}
-        </div>
+        <NoteTopicRows examSlug={examSlug} subjectSlug={subjectSlug} topics={topics} />
 
         {mod.hasMcqPractice ? (
           <p style={{ marginTop: 28 }}>

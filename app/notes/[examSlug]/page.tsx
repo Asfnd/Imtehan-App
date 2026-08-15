@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import NavigationBar from '@/components/NavigationBar'
+import { NoteReadyKitCards } from '@/components/notes/NoteTopicRows'
 import {
   countKitsForModule,
   getNotesModule,
@@ -61,20 +62,7 @@ export default async function NotesExamModulePage({ params }: Props) {
         {uniqueKits.length > 0 ? (
           <section style={{ marginBottom: 36 }}>
             <h2 className="note-hub-cat">Ready revision kits</h2>
-            <div className="note-hub-list">
-              {uniqueKits.map((kit) => (
-                <Link
-                  key={kit.slug}
-                  href={`/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
-                  className="note-hub-card"
-                >
-                  <p className="note-hub-card-title">{kit.title}</p>
-                  <p className="note-hub-card-meta">
-                    {kit.subjectLabel} · one-pager, past papers, fact cards
-                  </p>
-                </Link>
-              ))}
-            </div>
+            <NoteReadyKitCards examSlug={examSlug} kits={uniqueKits} />
           </section>
         ) : null}
 

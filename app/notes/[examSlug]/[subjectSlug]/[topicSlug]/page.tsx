@@ -9,6 +9,7 @@ import {
   listSyllabusTopicsForSection,
 } from '@/lib/notes/modules'
 import { resolveTopicKit } from '@/lib/notes/topic-registry'
+import { notesReadItem } from '@/lib/notes/reading-progress'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 
 type Props = {
@@ -151,6 +152,7 @@ export default async function NotesTopicPage({ params }: Props) {
       slug={`notes-${examSlug}-${meta.slug}`}
       headings={headings}
       otherPosts={[]}
+      notesProgressItem={notesReadItem(meta.slug)}
     >
       <p className="note-crumb" style={{ marginTop: 0 }}>
         <Link href="/notes">Notes</Link>

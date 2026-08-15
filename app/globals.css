@@ -826,11 +826,13 @@
 }
 .note-hub-card {
   display: block;
+  position: relative;
   border: 1px solid #E5E7EB;
   padding: 16px 18px;
   text-decoration: none;
   color: inherit;
   transition: border-color 0.15s ease;
+  overflow: hidden;
 }
 .note-hub-card:hover {
   border-color: #A1A1AA;
@@ -866,6 +868,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
   border: 1px solid #E5E7EB;
   padding: 14px 16px;
   margin-bottom: 8px;
@@ -891,6 +895,55 @@
 }
 .note-topic-status.is-ready {
   color: #065F46;
+}
+.note-topic-status.is-read {
+  color: #047857;
+}
+
+.note-topic-read-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(16, 185, 129, 0.14);
+  pointer-events: none;
+}
+.note-topic-read-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6ee7b7, #10b981 55%, #047857);
+}
+
+/* Slim reading bar sits under the sticky nav so Notes / article actions stay clickable. */
+.note-read-bar {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 40;
+  pointer-events: none;
+  background: rgba(16, 185, 129, 0.12);
+}
+.note-read-bar-fill {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #a7f3d0, #34d399 40%, #059669);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
+  will-change: transform;
+  transition: transform 0.14s ease-out;
+}
+.note-read-bar.is-done .note-read-bar-fill {
+  background: linear-gradient(90deg, #6ee7b7, #10b981, #047857);
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.45);
+}
+@media (prefers-reduced-motion: reduce) {
+  .note-read-bar-fill {
+    transition: none;
+  }
 }
 .note-empty {
   font-family: var(--font-inter), system-ui, sans-serif;
