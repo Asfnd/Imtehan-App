@@ -40,7 +40,7 @@ export default function NotesHubPage() {
                   <Link
                     key={mod.slug}
                     href={`/notes/${mod.slug}`}
-                    prefetch={false}
+                    prefetch={featured}
                     className="note-hub-card"
                   >
                     <p className="note-hub-card-title">{mod.name}</p>

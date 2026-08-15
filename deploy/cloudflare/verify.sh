@@ -152,6 +152,16 @@ else
   bad "API cache path ($code cache=$cache)"
 fi
 
+# 8) Notes SEO surfaces
+n_code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 25 -H 'Accept: text/html' "$BASE/notes")
+ns_code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 40 "$BASE/sitemap/notes.xml")
+[[ "$n_code" == "200" && "$ns_code" == "200" ]] && ok "/notes + sitemap/notes.xml 200" || bad "notes ($n_code / sitemap $ns_code)"
+if curl -sS --max-time 40 "$BASE/sitemap/notes.xml" | grep -q 'notes/css-written'; then
+  ok "notes sitemap lists CSS Written"
+else
+  bad "notes sitemap missing css-written"
+fi
+
 echo
 echo "Result: $pass passed, $fail failed"
 [[ "$fail" -eq 0 ]]

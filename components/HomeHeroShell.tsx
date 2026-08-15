@@ -1,5 +1,6 @@
 import { HomeHeroAnimatedLine } from '@/components/HomeHeroAnimatedLine'
 import { HomeExamPicker } from '@/components/HomeExamPicker'
+import Link from 'next/link'
 
 /** Server-rendered hero shell — LCP text paints before client JS hydrates. */
 export function HomeHeroShell() {
@@ -16,8 +17,14 @@ export function HomeHeroShell() {
             A comprehensive learning platform designed to help you excel in competitive examinations through effective practice, personalized insights, and proven strategies.
           </p>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center gap-3 flex-wrap">
             <HomeExamPicker />
+            <Link
+              href="/notes"
+              className="flex items-center h-[52px] px-8 text-[16px] font-semibold bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-sm transition-colors"
+            >
+              Notes
+            </Link>
           </div>
         </div>
       </div>

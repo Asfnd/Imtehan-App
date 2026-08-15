@@ -2,18 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 import { buildAllIndexableUrls } from '@/lib/seo/sitemap-builders'
-import { pingGoogleSitemap, pingIndexNow } from '@/lib/seo/indexnow'
+import { pingGoogleSitemap, pingIndexNow, INDEXNOW_PRIORITY_URLS } from '@/lib/seo/indexnow'
 
 const SNAPSHOT = path.join(process.cwd(), '.sitemap-url-snapshot.json')
-
-const PRIORITY_URLS = [
-  'https://imtehan.com/',
-  'https://imtehan.com/exams',
-  'https://imtehan.com/sitemap.xml',
-  'https://imtehan.com/exams/category/ppsc',
-  'https://imtehan.com/exams/category/fpsc',
-  'https://imtehan.com/exams/category/fia',
-]
 
 function isAuthorized(request: NextRequest): boolean {
   const secret = process.env.CRON_SECRET
@@ -39,7 +30,7 @@ export async function GET(request: NextRequest) {
   }
 
   const added = [...current].filter((u) => !previous.has(u))
-  const toPing = added.length > 0 ? [...PRIORITY_URLS, ...added.slice(0, 10_000)] : PRIORITY_URLS
+  const toPing = added.length > 0 ? [...INDEXNOW_PRIORITY_URLS, ...added.slice(0, 10_000)] : INDEXNOW_PRIORITY_URLS
 
   await pingIndexNow(toPing)
   await pingGoogleSitemap()
