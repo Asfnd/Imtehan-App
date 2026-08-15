@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 45_000)
+    const timeoutId = setTimeout(() => controller.abort(), 70_000)
 
     try {
       const { text, provider } = await extractHandwritingFromImage(
@@ -99,4 +99,4 @@ export async function POST(request: NextRequest) {
 }
 
 export const dynamic = 'force-dynamic'
-export const maxDuration = 60
+export const maxDuration = 90

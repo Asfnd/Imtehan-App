@@ -46,9 +46,14 @@ export function sanitizeOcrError(err: unknown): string {
   return s.replace(/\s+/g, ' ').trim().slice(0, 400)
 }
 
-function isGeminiRegionBlocked(message: string): boolean {
+function isGeminiUnusable(message: string): boolean {
   const m = message.toLowerCase()
-  return m.includes('user location is not supported') || m.includes('failed_precondition')
+  return (
+    m.includes('user location is not supported') ||
+    m.includes('failed_precondition') ||
+    m.includes('api key not valid') ||
+    m.includes('api_key_invalid')
+  )
 }
 
 function geminiKeys(): string[] {
@@ -128,6 +133,17 @@ function coerceTranscript(parsed: { text: string; confidence: number } | null): 
     .trim()
 }
 
+const GEMINI_ATTEMPT_MS = 8_000
+const OPENROUTER_ATTEMPT_MS = 22_000
+
+function attemptSignal(parent: AbortSignal, ms: number): AbortSignal {
+  if (parent.aborted) return parent
+  if (typeof AbortSignal.any === 'function' && typeof AbortSignal.timeout === 'function') {
+    return AbortSignal.any([parent, AbortSignal.timeout(ms)])
+  }
+  return parent
+}
+
 async function callGemini(
   key: string,
   model: string,
@@ -151,7 +167,7 @@ async function callGemini(
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-    signal,
+    signal: attemptSignal(signal, GEMINI_ATTEMPT_MS),
   })
   if (!res.ok) throw new Error(`gemini ${res.status}: ${(await res.text()).slice(0, 220)}`)
   const data = (await res.json()) as {
@@ -177,7 +193,7 @@ async function callOpenRouterVision(
     'https://imtehan.com'
   const res = await fetch(OPENROUTER_URL, {
     method: 'POST',
-    signal,
+    signal: attemptSignal(signal, OPENROUTER_ATTEMPT_MS),
     headers: {
       Authorization: `Bearer ${key}`,
       'Content-Type': 'application/json',
@@ -223,27 +239,23 @@ export function resolveOpenRouterOcrModels(): string[] {
   return [...new Set(merged)]
 }
 
-/**
- * OCR one page. Tries Gemini (primary then lite, even with one key) then OpenRouter vision.
- * If Gemini reports a region block, remaining Gemini attempts are skipped.
- */
-export async function extractHandwritingFromImage(
+async function tryGeminiChain(
   image: string,
   mime: string,
-  signal: AbortSignal
-): Promise<ExtractHandwritingResult> {
-  const errors: string[] = []
+  signal: AbortSignal,
+  errors: string[]
+): Promise<ExtractHandwritingResult | null> {
   const keys = geminiKeys()
+  if (!keys.length) return null
   const primary = process.env.GEMINI_MODEL?.trim() || 'gemini-2.5-flash'
   const lite = process.env.GEMINI_MODEL_FAST?.trim() || 'gemini-2.5-flash-lite'
   const geminiModels = primary === lite ? [primary] : [primary, lite]
-  const start = keys.length ? Math.floor(Math.random() * keys.length) : 0
+  const start = Math.floor(Math.random() * keys.length)
   const maxKeyTries = Math.min(3, keys.length)
 
-  let skipGemini = false
   for (const model of geminiModels) {
-    if (skipGemini) break
     for (let i = 0; i < maxKeyTries; i++) {
+      if (signal.aborted) return null
       const key = keys[(start + i) % keys.length]
       try {
         const text = await callGemini(key, model, image, mime, signal)
@@ -251,25 +263,54 @@ export async function extractHandwritingFromImage(
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e)
         errors.push(msg)
-        if (isGeminiRegionBlocked(msg)) {
-          skipGemini = true
-          break
-        }
+        if (isGeminiUnusable(msg)) return null
       }
     }
   }
+  return null
+}
 
+async function tryOpenRouterChain(
+  image: string,
+  mime: string,
+  signal: AbortSignal,
+  errors: string[]
+): Promise<ExtractHandwritingResult | null> {
   const orKey = process.env.OPENROUTER_API_KEY?.trim()
-  if (orKey) {
-    for (const model of resolveOpenRouterOcrModels()) {
-      try {
-        const text = await callOpenRouterVision(orKey, model, image, mime, signal)
-        return { text, provider: `openrouter:${model}` }
-      } catch (e) {
-        errors.push(e instanceof Error ? e.message : String(e))
-      }
+  if (!orKey) return null
+  for (const model of resolveOpenRouterOcrModels()) {
+    if (signal.aborted) return null
+    try {
+      const text = await callOpenRouterVision(orKey, model, image, mime, signal)
+      return { text, provider: `openrouter:${model}` }
+    } catch (e) {
+      errors.push(e instanceof Error ? e.message : String(e))
     }
   }
+  return null
+}
+
+/**
+ * OCR one page. OpenRouter VL first (Azure East Asia cannot use Gemini), then Gemini.
+ * Each attempt has its own timeout so one hung provider cannot abort the rest.
+ */
+export async function extractHandwritingFromImage(
+  image: string,
+  mime: string,
+  signal: AbortSignal
+): Promise<ExtractHandwritingResult> {
+  const errors: string[] = []
+  const preferGemini = process.env.OCR_PREFER_GEMINI === '1'
+
+  const first = preferGemini
+    ? await tryGeminiChain(image, mime, signal, errors)
+    : await tryOpenRouterChain(image, mime, signal, errors)
+  if (first) return first
+
+  const second = preferGemini
+    ? await tryOpenRouterChain(image, mime, signal, errors)
+    : await tryGeminiChain(image, mime, signal, errors)
+  if (second) return second
 
   throw new Error(
     errors.length
