@@ -1,6 +1,10 @@
 import { redirect } from 'next/navigation'
+import { primaryNotesPathForSlug } from '@/lib/seo/notes-seo'
 
-/** Old pilot URL -> canonical exam module path */
+/** Old pilot URL → canonical kit path */
 export default function LegacyObjectivesResolutionRedirect() {
-  redirect('/notes/css-mpt/pakistan-affairs/objectives-resolution-article-2a')
+  redirect(
+    primaryNotesPathForSlug('objectives-resolution-article-2a') ??
+      '/notes/css-written/pakistan-affairs/objectives-resolution-article-2a',
+  )
 }

@@ -36,6 +36,7 @@ export function HomeIndexingRelay() {
           <li><Link href="/fsc">FSc Pre-Medical MCQs</Link></li>
           <li><Link href="/css">CSS exam preparation</Link></li>
           <li><Link href="/mpt-practice">CSS MPT practice</Link></li>
+          <li><Link href="/notes">Exam notes</Link></li>
           <li><Link href="/blog">Exam prep blog</Link></li>
         </ul>
       </nav>
@@ -49,6 +50,28 @@ export function HomeIndexingRelay() {
               </Link>
             </li>
           ))}
+        </ul>
+      </nav>
+
+      <nav aria-label="Popular notes">
+        <ul>
+          <li><Link href="/notes/css-written">CSS Written notes</Link></li>
+          <li><Link href="/notes/css-mpt">CSS MPT notes</Link></li>
+          <li>
+            <Link href="/notes/css-written/pakistan-affairs/constitution-1973">
+              1973 Constitution notes
+            </Link>
+          </li>
+          <li>
+            <Link href="/notes/css-written/pakistan-affairs/objectives-resolution-article-2a">
+              Objectives Resolution notes
+            </Link>
+          </li>
+          <li>
+            <Link href="/notes/css-written/pakistan-affairs/lahore-resolution-1940">
+              Lahore Resolution notes
+            </Link>
+          </li>
         </ul>
       </nav>
 

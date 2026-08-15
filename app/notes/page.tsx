@@ -1,16 +1,21 @@
 import Link from 'next/link'
 import NavigationBar from '@/components/NavigationBar'
+import { NotesHubJsonLd } from '@/components/notes/NotesJsonLd'
 import {
   categoryLabel,
   countKitsForModule,
   listNotesModulesByCategory,
 } from '@/lib/notes/modules'
+import { notesHubMetadata } from '@/lib/seo/notes-seo'
+
+export const metadata = notesHubMetadata()
 
 export default function NotesHubPage() {
   const groups = listNotesModulesByCategory()
 
   return (
     <div className="note-hub">
+      <NotesHubJsonLd />
       <NavigationBar />
       <main className="note-hub-main">
         <p className="note-hub-kicker">Imtehan Notes</p>

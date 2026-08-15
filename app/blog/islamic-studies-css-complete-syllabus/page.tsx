@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 }
 
 const RELATED: RelatedPost[] = [
+  { slug: 'pillars-of-islam', title: 'Five Pillars notes', date: 'Notes', category: 'Notes', href: '/notes/css-written/islamic-studies/pillars-of-islam' },
   { slug: 'css-compulsory-subjects-overview',   title: 'CSS Compulsory Subjects Overview',     date: 'Feb 10, 2025', category: 'Guide'    },
   { slug: 'pakistan-affairs-important-facts-by-year', title: 'Pakistan Affairs: Key Timeline', date: 'Feb 5, 2025',  category: 'Guide'    },
   { slug: 'css-exam-preparation-guide-2025',    title: 'CSS Exam Preparation Guide 2025',      date: 'Jan 2, 2025',  category: 'Guide'    },
-  { slug: 'current-affairs-css-how-to-prepare', title: 'Current Affairs for CSS',              date: 'Feb 12, 2025', category: 'Strategy' },
 ]
 
 const TAGS = ['Islamic Studies', 'CSS Compulsory', 'Syllabus', 'Preparation']

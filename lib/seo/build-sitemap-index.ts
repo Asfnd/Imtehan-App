@@ -1,9 +1,10 @@
 import { EXAM_SITEMAP_LASTMOD, BASE_URL } from '@/lib/seo/sitemap-builders'
+import { NOTES_SITEMAP_LASTMOD } from '@/lib/seo/notes-seo'
 import { listMcqSitemapParts, mcqSitemapLoc, type McqSitemapPart } from '@/lib/seo/mcq-sitemap'
 import { MCQ_INDEXABLE_BANKS } from '@/lib/seo/topic-indexing'
 import { softMode } from '@/lib/supabase-soft'
 
-const STATIC_SEGMENTS = ['core', 'exams', 'modes', 'sets', 'topics'] as const
+const STATIC_SEGMENTS = ['core', 'exams', 'modes', 'sets', 'topics', 'notes'] as const
 
 function staticMcqParts(): McqSitemapPart[] {
   return [...MCQ_INDEXABLE_BANKS].map((bank) => ({ bank, page: 1 }))
@@ -27,7 +28,7 @@ export async function buildSitemapIndexXml(): Promise<string> {
   const staticEntries = STATIC_SEGMENTS.map(
     (id) => `  <sitemap>
     <loc>${BASE_URL}/sitemap/${id}.xml</loc>
-    <lastmod>${EXAM_SITEMAP_LASTMOD}</lastmod>
+    <lastmod>${id === 'notes' ? NOTES_SITEMAP_LASTMOD : EXAM_SITEMAP_LASTMOD}</lastmod>
   </sitemap>`,
   )
 

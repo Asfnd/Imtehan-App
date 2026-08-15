@@ -146,13 +146,13 @@ export function WebSiteSchema({
     name,
     url,
     description,
-    inLanguage: ['en', 'ur'],
+    inLanguage: 'en-PK',
     publisher: { '@id': `${url}/#organization` },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${url}/exams?q={search_term_string}`,
+        urlTemplate: `${url}/search?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -233,20 +233,30 @@ export function ArticleSchema({
       name: author,
       url: 'https://imtehan.com',
     },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Imtehan',
+      url: 'https://imtehan.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://imtehan.com/logo.png',
+      },
+    },
     datePublished: publishDate,
-    ...(modifiedDate && { dateModified: modifiedDate }),
+    dateModified: modifiedDate ?? publishDate,
     image: {
       '@type': 'ImageObject',
       url: imageUrl,
     },
     url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
     isPartOf: {
       '@type': 'Blog',
       name: 'Imtehan Blog',
       url: 'https://imtehan.com/blog',
-    },
-    mainEntity: {
-      '@type': 'Article',
     },
   }
 

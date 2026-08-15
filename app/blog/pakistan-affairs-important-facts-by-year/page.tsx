@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 }
 
 const RELATED: RelatedPost[] = [
+  { slug: 'constitution-1973', title: '1973 Constitution notes', date: 'Notes', category: 'Notes', href: '/notes/css-written/pakistan-affairs/constitution-1973' },
   { slug: 'css-compulsory-subjects-overview',   title: 'CSS Compulsory Subjects Overview',      date: 'Feb 10, 2025', category: 'Guide'    },
   { slug: 'islamic-studies-css-complete-syllabus', title: 'Islamic Studies for CSS',            date: 'Feb 6, 2025',  category: 'Guide'    },
   { slug: 'current-affairs-css-how-to-prepare', title: 'Current Affairs for CSS',               date: 'Feb 12, 2025', category: 'Strategy' },
-  { slug: 'css-optional-subjects-guide',        title: 'How to Choose CSS Optional Subjects',   date: 'Feb 15, 2025', category: 'Guide'    },
 ]
 
 const TAGS = ['Pakistan Affairs', 'CSS History', 'Compulsory Subjects', 'Timeline']

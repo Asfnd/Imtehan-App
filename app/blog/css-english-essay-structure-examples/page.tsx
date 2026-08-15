@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 }
 
 const RELATED: RelatedPost[] = [
+  { slug: 'english-essay-css', title: 'CSS English Essay notes', date: 'Notes', category: 'Notes', href: '/notes/css-written/english-essay/english-essay-css' },
   { slug: 'css-english-essay-preparation',   title: 'CSS Essay Writing: The Framework',        date: 'Feb 13, 2025', category: 'Writing'  },
   { slug: 'css-english-precis-composition-tips', title: 'CSS Précis and Composition Tips',      date: 'Feb 17, 2025', category: 'Writing'  },
   { slug: 'time-management-css-exam',        title: 'Time Management During the CSS Exam',     date: 'Feb 9, 2025',  category: 'Strategy' },
-  { slug: 'how-to-crack-css-first-attempt',  title: 'How to Crack CSS in First Attempt',       date: 'Feb 14, 2025', category: 'Strategy' },
 ]
 
 const TAGS = ['Essay Structure', 'CSS English', 'Writing Guide', 'Civil Services']

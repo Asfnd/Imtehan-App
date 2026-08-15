@@ -20,6 +20,9 @@ const PRIORITY_URLS = [
   'https://imtehan.com/exams/ppsc-assistant',
   'https://imtehan.com/mpt-practice',
   'https://imtehan.com/css/past-papers',
+  'https://imtehan.com/notes',
+  'https://imtehan.com/notes/css-written',
+  'https://imtehan.com/notes/css-mpt',
   'https://imtehan.com/sitemap.xml',
 ]
 

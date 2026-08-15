@@ -1,28 +1,36 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import NavigationBar from '@/components/NavigationBar'
+import { NotesSubjectJsonLd } from '@/components/notes/NotesJsonLd'
 import { NoteTopicRows } from '@/components/notes/NoteTopicRows'
 import {
   getNotesModule,
+  listNotesModules,
+  listReadyKitsForExam,
   listSyllabusTopicsForSection,
 } from '@/lib/notes/modules'
+import { NOTES_INDEX_EXAMS, notesSubjectMetadata } from '@/lib/seo/notes-seo'
 
 type Props = {
   params: Promise<{ examSlug: string; subjectSlug: string }>
 }
 
-export async function generateMetadata({ params }: Props) {
-  const { examSlug, subjectSlug } = await params
-  const mod = getNotesModule(examSlug)
-  const section = mod?.sections.find((s) => s.slug === subjectSlug)
-  if (!mod || !section) return { title: 'Notes' }
-  return {
-    title: `${section.label} Notes · ${mod.name} | Imtehan`,
-    description: `Syllabus topics for ${section.label} in ${mod.name}.`,
-    alternates: {
-      canonical: `https://imtehan.com/notes/${examSlug}/${subjectSlug}`,
-    },
+export function generateStaticParams() {
+  const params: Array<{ examSlug: string; subjectSlug: string }> = []
+  for (const examSlug of NOTES_INDEX_EXAMS) {
+    const mod = listNotesModules().find((m) => m.slug === examSlug)
+    if (!mod) continue
+    for (const section of mod.sections) {
+      params.push({ examSlug, subjectSlug: section.slug })
+    }
   }
+  return params
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { examSlug, subjectSlug } = await params
+  return notesSubjectMetadata(examSlug, subjectSlug)
 }
 
 export default async function NotesSubjectPage({ params }: Props) {
@@ -33,9 +41,16 @@ export default async function NotesSubjectPage({ params }: Props) {
   if (!section) notFound()
 
   const topics = listSyllabusTopicsForSection(examSlug, subjectSlug)
+  const kits = listReadyKitsForExam(examSlug, subjectSlug)
 
   return (
     <div className="note-hub">
+      <NotesSubjectJsonLd
+        mod={mod}
+        subjectLabel={section.label}
+        subjectSlug={subjectSlug}
+        kits={kits}
+      />
       <NavigationBar />
       <main className="note-hub-main">
         <p className="note-crumb">

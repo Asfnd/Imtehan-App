@@ -1,13 +1,5 @@
 import type { Metadata } from 'next'
 import { Libre_Baskerville } from 'next/font/google'
-import { BreadcrumbListSchema } from '@/components/seo/StructuredData'
-
-export const metadata: Metadata = {
-  title: 'Exam Notes | Imtehan',
-  description:
-    'Syllabus-mapped notes for CSS, PMS, PPSC and more. Built for analysis, revision, and practice.',
-  alternates: { canonical: 'https://imtehan.com/notes' },
-}
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ['latin'],
@@ -18,16 +10,12 @@ const libreBaskerville = Libre_Baskerville({
   preload: false,
 })
 
+export const metadata: Metadata = {
+  title: 'Exam Notes',
+  description:
+    'Syllabus-mapped notes for CSS, PMS, PPSC, FPSC and NTS. One-pagers, fact cards, and past-paper angles — organised by exam.',
+}
+
 export default function NotesLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className={libreBaskerville.variable}>
-      <BreadcrumbListSchema
-        items={[
-          { name: 'Home', url: 'https://imtehan.com' },
-          { name: 'Notes', url: 'https://imtehan.com/notes' },
-        ]}
-      />
-      {children}
-    </div>
-  )
+  return <div className={libreBaskerville.variable}>{children}</div>
 }

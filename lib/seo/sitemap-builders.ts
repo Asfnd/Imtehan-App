@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 import { EXAM_CONFIGS } from '@/lib/exam-configs'
+import { buildNotesSitemap } from '@/lib/seo/notes-seo'
 import { PREMIUM_PAGE_PATH } from '@/lib/routes'
 import { PRACTICE_MODES, isModeIndexable, maxIndexableSetNumber } from '@/lib/seo/sitemap-tiers'
 import {
@@ -93,7 +94,7 @@ function getBlogSlugs(): string[] {
   }
 }
 
-export type SitemapSegment = 'core' | 'exams' | 'modes' | 'sets' | 'topics'
+export type SitemapSegment = 'core' | 'exams' | 'modes' | 'sets' | 'topics' | 'notes'
 
 export function buildCoreSitemap(): MetadataRoute.Sitemap {
   const lm = EXAM_SITEMAP_LASTMOD
@@ -354,12 +355,14 @@ export function buildSitemapSegment(segment: SitemapSegment): MetadataRoute.Site
       return buildSetsSitemap()
     case 'topics':
       return buildTopicsSitemap()
+    case 'notes':
+      return buildNotesSitemap()
   }
 }
 
 /** All indexable URLs — for IndexNow diff scripts. */
 export function buildAllIndexableUrls(): string[] {
-  return (['core', 'exams', 'modes', 'sets', 'topics'] as const).flatMap((seg) =>
+  return (['core', 'exams', 'modes', 'sets', 'topics', 'notes'] as const).flatMap((seg) =>
     buildSitemapSegment(seg).map((e) => e.url),
   )
 }
