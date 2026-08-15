@@ -108,12 +108,12 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       if (wc < essayMin) {
         return variant === 'pms'
           ? `Write at least ${essayMin} words (${wc} written). PMS essays are about ${essayLo}-${essayHi} words`
-          : `Write at least ${essayMin} words (${wc} written). CSS essays are ${essayLo}-${essayHi} words, not 2,500-3,000`
+          : `Write at least ${essayMin} words (${wc} written). CSS essays are ${essayLo}-${essayHi} words`
       }
       if (wc > essayMax) {
         return variant === 'pms'
           ? `Trim to ${essayMax} words or fewer (${wc} written). PMS target is ${essayLo}-${essayHi}`
-          : `Trim to ${essayMax} words or fewer (${wc} written). CSS official length is ${essayLo}-${essayHi}, not 2,500-3,000`
+          : `Trim to ${essayMax} words or fewer (${wc} written). CSS official length is ${essayLo}-${essayHi}`
       }
     }
     if (mode === 'precis') {
@@ -206,7 +206,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
       ? 'PMS English: provincial examiner-style feedback'
       : 'CSS examiner-level feedback'
 
-  const essayTabMeta = variant === 'pms' ? '1400-1600 words' : '1000-1200 words'
+  const essayTabMeta = variant === 'pms' ? '1400-1600 words' : '2500-3000 words'
 
   const essayWcBadge = (() => {
     const wc = wordCount(essayContent)
@@ -371,7 +371,7 @@ export function WritingCoachClient({ variant }: { variant: WritingCoachExamType 
                       <p className="text-[11px] text-gray-500 mt-1.5">
                         {variant === 'pms'
                           ? `PMS English Essay is about ${essayLo}-${essayHi} words.`
-                          : `FPSC CSS Essay is ${essayLo}-${essayHi} words, not 2,500-3,000.`}
+                          : `FPSC CSS Essay is ${essayLo}-${essayHi} words.`}
                       </p>
                       <div className="mt-3">
                         <ImageTextImport

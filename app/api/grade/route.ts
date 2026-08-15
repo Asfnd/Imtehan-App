@@ -169,13 +169,13 @@ export async function POST(request: NextRequest) {
       const essayText = content as string
       const limits = ESSAY_WORD_LIMITS[examType]
       const words = countEssayWords(essayText)
-      if (essayText.length > 28_000 || words > limits.max) {
+      if (essayText.length > 48_000 || words > limits.max) {
         return NextResponse.json(
           {
             error:
               examType === 'pms'
                 ? `Essay too long (${words} words). PMS essays are about ${limits.lo}-${limits.hi} words (max ${limits.max} to grade).`
-                : `Essay too long (${words} words). CSS essays are ${limits.lo}-${limits.hi} words, not 2,500-3,000 (max ${limits.max} to grade).`,
+                : `Essay too long (${words} words). CSS essays are ${limits.lo}-${limits.hi} words (max ${limits.max} to grade).`,
           },
           { status: 400 }
         )

@@ -53,7 +53,7 @@ export const ENGLISH_ESSAY_CSS_KIT: NoteKitData = {
     'Body: one idea per paragraph. Topic sentence, explain, evidence, link back to thesis.',
     'Balance: acknowledge the other side, then weigh it. Examiners reward judgement, not slogans.',
     'Conclusion: restate thesis in fresh words; synthesise; no new major argument.',
-    'Time habit (coaching, not official grid): outline, write, leave minutes for grammar and relevance. Follow that day's FPSC instructions.',
+    "Time habit (coaching, not official grid): outline, write, leave minutes for grammar and relevance. Follow that day's FPSC instructions.",
     'Fail patterns: autobiography dump, forced memorised essays, fake statistics, thesaurus overload.',
   ],
   answerSteps: [

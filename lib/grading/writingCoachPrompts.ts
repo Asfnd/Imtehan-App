@@ -6,9 +6,8 @@ export function buildEssayPrompt(topic: string, content: string): string {
 
 CSS ESSAY PAPER, OFFICIAL STANDARDS:
 - Passing mark: 50/100. Most candidates who clear CSS score 55-65. A score above 70 is exceptional.
-- Official length: **1,000-1,200 words**. This essay is ${wc} words.
-- Academy advice of 2,500-3,000 words is WRONG. Do not use it. A complete 1,050-1,200 word essay is FULL LENGTH. Do not call it short. Do not ask the student to write 2,500 words.
-- Penalise padding and bloated scripts over ~1,400 words. Do not penalise a tight 1,100 word argument for "being too short".
+- Official length: **2,500-3,000 words**. This essay is ${wc} words.
+- A complete CSS essay is 2,500-3,000 words. Do not treat 1,000-1,200 as the FPSC length. Penalise a script that is far short of 2,500, or bloated past ~3,200 with padding.
 - Paper is worth 100 marks in the CSS allocation.
 
 WHAT FPSC EXAMINERS EXPLICITLY REWARD (mark these as strengths):
@@ -44,7 +43,7 @@ GRADE BOUNDARIES (FPSC standard):
 - F (0-39): Failing. Fundamental problems; would not pass any CSS examiner
 
 ESSAY TOPIC: ${topic}
-WORD COUNT: ${wc} words (CSS official target: 1,000-1,200. NOT 2,500-3,000.)
+WORD COUNT: ${wc} words (CSS official target: 2,500-3,000)
 
 ESSAY:
 ${content}

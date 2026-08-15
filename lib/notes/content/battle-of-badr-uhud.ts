@@ -48,15 +48,15 @@ export const BATTLE_OF_BADR_UHUD_KIT: NoteKitData = {
   onePager: [
     'Badr (2 AH / 624 CE): first major pitched battle between Muslims of Madinah and Quraysh of Makkah. Classic MCQ number: about 313 Muslim fighters against a larger Quraysh force (often taught around 1,000).',
     'Badr cause cluster: interception of a Quraysh caravan (Abu Sufyan) escalated into battle near the wells of Badr. Outcome: clear Muslim victory. High-yield names: Abu Jahl killed; many Quraysh leaders defeated; captives treated with ransom / teaching options in Seerah narratives.',
-    'Significance of Badr: morale, legitimacy of the Madinan community, Quranic remembrance as a day of distinction (Furqan themes in teaching), and proof of discipline and faith under the Prophet's (PBUH) leadership.',
-    'Uhud (3 AH / 625 CE): fought near Mount Uhud outside Madinah. Quraysh sought revenge after Badr. Muslims initially pressed forward; a critical error came when many archers left their assigned post on the hill, contrary to the Prophet's (PBUH) orders.',
-    'Uhud turning point: Khalid ibn al-Walid (then still with Quraysh) exploited the vacated archers' position with a flanking move. Muslims suffered heavy loss and confusion. Hamza ibn Abd al-Muttalib (RA) was martyred. The Prophet (PBUH) was injured.',
+    "Significance of Badr: morale, legitimacy of the Madinan community, Quranic remembrance as a day of distinction (Furqan themes in teaching), and proof of discipline and faith under the Prophet's (PBUH) leadership.",
+    "Uhud (3 AH / 625 CE): fought near Mount Uhud outside Madinah. Quraysh sought revenge after Badr. Muslims initially pressed forward; a critical error came when many archers left their assigned post on the hill, contrary to the Prophet's (PBUH) orders.",
+    "Uhud turning point: Khalid ibn al-Walid (then still with Quraysh) exploited the vacated archers' position with a flanking move. Muslims suffered heavy loss and confusion. Hamza ibn Abd al-Muttalib (RA) was martyred. The Prophet (PBUH) was injured.",
     'Lesson cluster for exams: obedience to command, danger of premature pursuit of spoils, patience after setback, and that Uhud was a hard trial, not the end of the mission. Do not invent exact death totals as if every textbook agrees on one number.',
   ],
   answerSteps: [
     'Separate the two battles by year: Badr 2 AH, Uhud 3 AH.',
     'For Badr: cause, ~313 Muslims, victory, significance.',
-    'For Uhud: revenge motive, archers' post, flanking, setback, Hamza (RA).',
+    "For Uhud: revenge motive, archers' post, flanking, setback, Hamza (RA).",
     'State one clear lesson from each battle.',
     'Close by linking both to leadership, discipline, and community resilience.',
   ],
@@ -110,7 +110,7 @@ export const BATTLE_OF_BADR_UHUD_KIT: NoteKitData = {
       correct: 'Badr was a Muslim victory. Uhud was the major setback.',
     },
     {
-      trap: 'Blaming only numbers and ignoring the archers' post.',
+      trap: "Blaming only numbers and ignoring the archers' post.",
       correct: 'The archers leaving their assigned position is the classic tactical turning point in exam keys.',
     },
     {

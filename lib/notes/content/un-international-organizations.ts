@@ -139,7 +139,7 @@ export const UN_INTERNATIONAL_ORGANIZATIONS_KIT: NoteKitData = {
       correct: 'Standard exam answer: Jeddah, Saudi Arabia.',
     },
     {
-      trap: 'Dating Pakistan's SCO membership to founding-era years.',
+      trap: "Dating Pakistan's SCO membership to founding-era years.",
       correct: 'Pakistan and India joined as members in 2017.',
     },
   ],
