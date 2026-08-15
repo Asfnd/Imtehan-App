@@ -174,6 +174,16 @@ import { HADITH_ON_ETHICS_HIGH_YIELD_KIT } from '@/lib/notes/content/hadith-on-e
 import { IMPORTANCE_OF_KNOWLEDGE_ISLAM_KIT } from '@/lib/notes/content/importance-of-knowledge-islam'
 import { ESSAY_INTRODUCTION_TECHNIQUES_KIT } from '@/lib/notes/content/essay-introduction-techniques'
 import { PROFIT_LOSS_DISCOUNT_MATH_KIT } from '@/lib/notes/content/profit-loss-discount-math'
+import { PAKISTAN_FRANCE_RELATIONS_KIT } from '@/lib/notes/content/pakistan-france-relations'
+import { PAKISTAN_JAPAN_RELATIONS_KIT } from '@/lib/notes/content/pakistan-japan-relations'
+import { ASEAN_AND_PAKISTAN_KIT } from '@/lib/notes/content/asean-and-pakistan'
+import { WORLD_BANK_PROJECTS_PAKISTAN_KIT } from '@/lib/notes/content/world-bank-projects-pakistan'
+import { CIVIL_SERVICE_REFORMS_HISTORY_KIT } from '@/lib/notes/content/civil-service-reforms-history'
+import { POLICE_REFORMS_PAKISTAN_KIT } from '@/lib/notes/content/police-reforms-pakistan'
+import { MEDIA_ETHICS_PAKISTAN_KIT } from '@/lib/notes/content/media-ethics-pakistan'
+import { ISLAMIC_HISTORY_UMAYYAD_ABBASID_KIT } from '@/lib/notes/content/islamic-history-umayyad-abbasid'
+import { CONDITIONALS_ENGLISH_GRAMMAR_KIT } from '@/lib/notes/content/conditionals-english-grammar'
+import { PERMUTATION_COMBINATION_BASICS_KIT } from '@/lib/notes/content/permutation-combination-basics'
 
 const TOPICS: NoteTopicMeta[] = [
   // ── Pakistan Affairs / Pakistan Studies ─────────────────────────────
@@ -2862,6 +2872,170 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'mathematics',
     mcqTagHint: 'profit-loss',
   },
+  {
+    slug: 'pakistan-france-relations',
+    title: 'Pakistan-France Relations',
+    shortTitle: 'Pakistan-France',
+    contentId: 'pakistan-france-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan france',
+      'france relations',
+      'european union',
+      'defence industry',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'pakistan-japan-relations',
+    title: 'Pakistan-Japan Relations',
+    shortTitle: 'Pakistan-Japan',
+    contentId: 'pakistan-japan-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan japan',
+      'japan relations',
+      'oda',
+      'development cooperation',
+      'east asia',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'asean-and-pakistan',
+    title: 'ASEAN and Pakistan',
+    shortTitle: 'ASEAN Pakistan',
+    contentId: 'asean-and-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'asean',
+      'southeast asia',
+      'looking east',
+      'dialogue partner',
+      'regional organizations',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'world-bank-projects-pakistan',
+    title: 'World Bank and Pakistan (Roles and Instrument Types)',
+    shortTitle: 'World Bank Pakistan',
+    contentId: 'world-bank-projects-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'world bank',
+      'ibrd',
+      'ida',
+      'development finance',
+      'bretton woods',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'economy',
+  },
+  {
+    slug: 'civil-service-reforms-history',
+    title: 'Civil Service Reforms History (Pakistan)',
+    shortTitle: 'Civil Service Reforms',
+    contentId: 'civil-service-reforms-history',
+    subjectSlugs: ['pakistan-affairs', 'ethics-civics'],
+    syllabusHints: [
+      'civil service reform',
+      'csp',
+      'dmg',
+      'pas',
+      'bureaucracy history',
+      'public administration',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'governance',
+  },
+  {
+    slug: 'police-reforms-pakistan',
+    title: 'Police Reforms in Pakistan',
+    shortTitle: 'Police Reforms',
+    contentId: 'police-reforms-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'ethics-civics'],
+    syllabusHints: [
+      'police reforms',
+      'rule of law',
+      'community policing',
+      'police act 1861',
+      'law and order',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'governance',
+  },
+  {
+    slug: 'media-ethics-pakistan',
+    title: 'Media Ethics in Pakistan',
+    shortTitle: 'Media Ethics',
+    contentId: 'media-ethics-pakistan',
+    subjectSlugs: ['ethics-civics', 'pakistan-affairs'],
+    syllabusHints: [
+      'media ethics',
+      'journalism ethics',
+      'article 19',
+      'responsible media',
+      'sensationalism',
+    ],
+    mcqSubjectSlug: 'ethics-civics',
+    mcqTagHint: 'ethics',
+  },
+  {
+    slug: 'islamic-history-umayyad-abbasid',
+    title: 'Islamic History: Umayyad and Abbasid Caliphates',
+    shortTitle: 'Umayyad Abbasid',
+    contentId: 'islamic-history-umayyad-abbasid',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'umayyad',
+      'abbasid',
+      'damascus',
+      'baghdad',
+      'islamic history',
+      'islamic civilization',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'islamic-history',
+  },
+  {
+    slug: 'conditionals-english-grammar',
+    title: 'Conditionals (English Grammar)',
+    shortTitle: 'Conditionals',
+    contentId: 'conditionals-english-grammar',
+    subjectSlugs: ['english', 'english-precis'],
+    syllabusHints: [
+      'conditionals',
+      'if clauses',
+      'zero first second third conditional',
+      'grammar',
+      'sentence correction',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'grammar',
+  },
+  {
+    slug: 'permutation-combination-basics',
+    title: 'Permutation and Combination Basics',
+    shortTitle: 'Permutation Combination',
+    contentId: 'permutation-combination-basics',
+    subjectSlugs: ['mathematics'],
+    syllabusHints: [
+      'permutation',
+      'combination',
+      'npr',
+      'ncr',
+      'factorial',
+      'one-paper math',
+    ],
+    mcqSubjectSlug: 'mathematics',
+    mcqTagHint: 'permutation-combination',
+  },
 ]
 
 const KITS: Record<string, NoteKitData> = {
@@ -3040,6 +3214,16 @@ const KITS: Record<string, NoteKitData> = {
   'importance-of-knowledge-islam': IMPORTANCE_OF_KNOWLEDGE_ISLAM_KIT,
   'essay-introduction-techniques': ESSAY_INTRODUCTION_TECHNIQUES_KIT,
   'profit-loss-discount-math': PROFIT_LOSS_DISCOUNT_MATH_KIT,
+  'pakistan-france-relations': PAKISTAN_FRANCE_RELATIONS_KIT,
+  'pakistan-japan-relations': PAKISTAN_JAPAN_RELATIONS_KIT,
+  'asean-and-pakistan': ASEAN_AND_PAKISTAN_KIT,
+  'world-bank-projects-pakistan': WORLD_BANK_PROJECTS_PAKISTAN_KIT,
+  'civil-service-reforms-history': CIVIL_SERVICE_REFORMS_HISTORY_KIT,
+  'police-reforms-pakistan': POLICE_REFORMS_PAKISTAN_KIT,
+  'media-ethics-pakistan': MEDIA_ETHICS_PAKISTAN_KIT,
+  'islamic-history-umayyad-abbasid': ISLAMIC_HISTORY_UMAYYAD_ABBASID_KIT,
+  'conditionals-english-grammar': CONDITIONALS_ENGLISH_GRAMMAR_KIT,
+  'permutation-combination-basics': PERMUTATION_COMBINATION_BASICS_KIT,
 }
 
 export function listRegisteredTopics(): NoteTopicMeta[] {
