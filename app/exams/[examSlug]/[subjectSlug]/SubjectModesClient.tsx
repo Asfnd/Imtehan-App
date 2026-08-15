@@ -271,7 +271,7 @@ export function SubjectModesClient() {
           examName={config.name}
           subjectSlug={subjectSlug}
           subjectLabel={section.label}
-          kitHint="Revise facts, then lock them with MCQs below"
+          kitHint={`Revision kits for ${section.label}, organised by topic.`}
         />
 
         {/* ── Practice modes ── */}

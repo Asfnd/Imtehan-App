@@ -259,7 +259,12 @@ function ExamDashboard() {
         {/* Analytics Bar: handles sign-in CTA, stats, today's focus */}
         <ExamAnalyticsBar examSlug={examSlug} signInHref={`/signin?next=${encodeURIComponent(`/exams/${examSlug}`)}`} />
 
-        <ExamNotesBanner examSlug={examSlug} examName={config.name} />
+        <ExamNotesBanner
+          examSlug={examSlug}
+          examName={config.name}
+          variant="banner"
+          kitHint="Subject-wise revision kits. Organised by topic inside."
+        />
 
         {examSlug === 'pms-competitive' && (
           <Link

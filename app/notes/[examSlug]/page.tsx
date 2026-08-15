@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import NavigationBar from '@/components/NavigationBar'
-import { NoteReadyKitCards } from '@/components/notes/NoteTopicRows'
 import {
   countKitsForModule,
   getNotesModule,
+  listReadyKitsForExam,
   listSyllabusTopicsForSection,
 } from '@/lib/notes/modules'
 
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
   if (!mod) return { title: 'Notes' }
   return {
     title: `${mod.name} Notes | Imtehan`,
-    description: `Syllabus-aligned notes module for ${mod.name}.`,
+    description: `Subject-wise syllabus notes for ${mod.name}.`,
     alternates: { canonical: `https://imtehan.com/notes/${examSlug}` },
   }
 }
@@ -27,22 +27,21 @@ export default async function NotesExamModulePage({ params }: Props) {
   if (!mod) notFound()
 
   const kitTotal = countKitsForModule(examSlug)
-  const readyKits = mod.sections.flatMap((section) =>
-    listSyllabusTopicsForSection(examSlug, section.slug)
-      .filter((t) => t.hasKit)
-      .map((t) => ({ ...t, subjectSlug: section.slug, subjectLabel: section.label }))
-  )
-  const seen = new Set<string>()
-  const uniqueKits = readyKits.filter((k) => {
-    if (seen.has(k.slug)) return false
-    seen.add(k.slug)
-    return true
-  })
+  const allKits = listReadyKitsForExam(examSlug)
+
+  const sectionsWithKits = mod.sections
+    .map((section) => {
+      const kits = allKits.filter((k) => k.subjectSlug === section.slug)
+      const syllabus = listSyllabusTopicsForSection(examSlug, section.slug)
+      const upcoming = syllabus.filter((t) => !t.hasKit)
+      return { section, kits, upcoming }
+    })
+    .filter((row) => row.kits.length > 0 || row.upcoming.length > 0)
 
   return (
     <div className="note-hub">
       <NavigationBar />
-      <main className="note-hub-main">
+      <main className="note-hub-main note-hub-main-wide">
         <p className="note-crumb">
           <Link href="/notes">Notes</Link>
           {' / '}
@@ -51,52 +50,70 @@ export default async function NotesExamModulePage({ params }: Props) {
         <p className="note-hub-kicker">
           {mod.track === 'written' ? 'Written module' : 'Exam module'}
         </p>
-        <h1 className="note-hub-title">{mod.name}</h1>
+        <h1 className="note-hub-title">{mod.name} Notes</h1>
         <p className="note-hub-lead">
-          Subjects match this exam. Open a subject to see syllabus topics.
-          {kitTotal > 0
-            ? ` ${uniqueKits.length} full revision kit${uniqueKits.length === 1 ? '' : 's'} ready so far.`
-            : ' Kits will appear here as we publish them. Practice MCQs are linked from each topic.'}
+          Organised by subject. Open a topic for one-pagers, past-paper angles, and fact cards.
+          {kitTotal > 0 ? ` ${kitTotal} kits ready.` : ''}
         </p>
 
-        {uniqueKits.length > 0 ? (
-          <section style={{ marginBottom: 36 }}>
-            <h2 className="note-hub-cat">Ready revision kits</h2>
-            <NoteReadyKitCards examSlug={examSlug} kits={uniqueKits} />
-          </section>
-        ) : null}
+        <nav className="note-subject-jump" aria-label="Jump to subject">
+          {sectionsWithKits.map(({ section, kits }) => (
+            <a key={section.slug} href={`#subject-${section.slug}`} className="note-subject-jump-chip">
+              {section.label}
+              {kits.length > 0 ? ` (${kits.length})` : ''}
+            </a>
+          ))}
+        </nav>
 
-        <h2 className="note-hub-cat">Subjects</h2>
-        <div className="note-hub-list">
-          {mod.sections.map((section) => {
-            const topics = listSyllabusTopicsForSection(examSlug, section.slug)
-            const ready = topics.filter((t) => t.hasKit).length
-            return (
-              <Link
-                key={section.slug}
-                href={`/notes/${examSlug}/${section.slug}`}
-                className="note-hub-card"
-              >
-                <p className="note-hub-card-title">{section.label}</p>
-                <p className="note-hub-card-meta">
-                  {topics.length} syllabus topics
-                  {ready > 0 ? ` · ${ready} kit${ready === 1 ? '' : 's'} ready` : ''}
+        {sectionsWithKits.map(({ section, kits, upcoming }) => (
+          <section
+            key={section.slug}
+            id={`subject-${section.slug}`}
+            className="note-subject-block"
+          >
+            <div className="note-subject-head">
+              <div>
+                <h2 className="note-subject-title">{section.label}</h2>
+                <p className="note-subject-meta">
+                  {kits.length} kit{kits.length === 1 ? '' : 's'} ready
+                  {upcoming.length > 0 ? ` · ${upcoming.length} more on syllabus` : ''}
                 </p>
+              </div>
+              <Link href={`/notes/${examSlug}/${section.slug}`} className="note-subject-all">
+                Subject page
               </Link>
-            )
-          })}
-        </div>
+            </div>
+
+            {kits.length > 0 ? (
+              <div className="note-topic-grid">
+                {kits.map((kit) => (
+                  <Link
+                    key={kit.slug}
+                    href={`/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
+                    className="note-topic-card"
+                  >
+                    <span className="note-topic-card-label">Revision kit</span>
+                    <span className="note-topic-card-title">{kit.shortTitle}</span>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="note-hub-lead" style={{ marginBottom: 12 }}>
+                Kits for this subject are coming. Syllabus topics stay listed on the subject page.
+              </p>
+            )}
+          </section>
+        ))}
 
         {mod.hasMcqPractice ? (
-          <p className="note-hub-lead" style={{ marginTop: 32, marginBottom: 0 }}>
+          <p className="note-hub-lead" style={{ marginTop: 40, marginBottom: 0 }}>
             <Link href={`/exams/${examSlug}`} className="note-cta-link">
-              Open MCQ practice for this exam
+              Back to MCQ practice for this exam
             </Link>
           </p>
         ) : (
-          <p className="note-hub-lead" style={{ marginTop: 32, marginBottom: 0 }}>
-            This is a written-paper module. Use answer scaffolds inside topic kits. For essay and
-            precis drills, open{' '}
+          <p className="note-hub-lead" style={{ marginTop: 40, marginBottom: 0 }}>
+            Written-paper module. For essay and précis drills, open{' '}
             <Link href="/exams/pms-competitive/essay-grader" className="note-cta-link">
               Writing Coach
             </Link>
