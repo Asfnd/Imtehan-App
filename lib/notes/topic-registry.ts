@@ -110,6 +110,16 @@ import { ISLAMIC_ECONOMIC_SYSTEM_KIT } from '@/lib/notes/content/islamic-economi
 import { STATUS_OF_WOMEN_IN_ISLAM_KIT } from '@/lib/notes/content/status-of-women-in-islam'
 import { TRANSLATION_URDU_ENGLISH_METHOD_KIT } from '@/lib/notes/content/translation-urdu-english-method'
 import { PROBABILITY_BASICS_EXAM_KIT } from '@/lib/notes/content/probability-basics-exam'
+import { PAKISTAN_RUSSIA_RELATIONS_KIT } from '@/lib/notes/content/pakistan-russia-relations'
+import { PAKISTAN_CENTRAL_ASIA_RELATIONS_KIT } from '@/lib/notes/content/pakistan-central-asia-relations'
+import { BORDER_MANAGEMENT_PAKISTAN_KIT } from '@/lib/notes/content/border-management-pakistan'
+import { CYBER_SECURITY_BASICS_EXAM_KIT } from '@/lib/notes/content/cyber-security-basics-exam'
+import { DATABASE_BASICS_SQL_KIT } from '@/lib/notes/content/database-basics-sql'
+import { GEOMETRY_AREA_VOLUME_KIT } from '@/lib/notes/content/geometry-area-volume'
+import { ISLAM_AND_SCIENCE_KIT } from '@/lib/notes/content/islam-and-science'
+import { CONCEPT_OF_IBADAH_KIT } from '@/lib/notes/content/concept-of-ibadah'
+import { LETTER_WRITING_CSS_KIT } from '@/lib/notes/content/letter-writing-css'
+import { ACTIVE_PASSIVE_VOICE_KIT } from '@/lib/notes/content/active-passive-voice'
 
 const TOPICS: NoteTopicMeta[] = [
   // ── Pakistan Affairs / Pakistan Studies ─────────────────────────────
@@ -460,6 +470,56 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'pakistan-affairs',
     mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'pakistan-russia-relations',
+    title: 'Pakistan-Russia Relations',
+    shortTitle: 'Pakistan-Russia',
+    contentId: 'pakistan-russia-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan russia',
+      'russia relations',
+      'sco',
+      'cold war',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'pakistan-central-asia-relations',
+    title: 'Pakistan and Central Asia Relations',
+    shortTitle: 'Pakistan-Central Asia',
+    contentId: 'pakistan-central-asia-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'central asia',
+      'cars',
+      'connectivity',
+      'energy corridor',
+      'eco',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'border-management-pakistan',
+    title: 'Border Management in Pakistan',
+    shortTitle: 'Border Management',
+    contentId: 'border-management-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'border management',
+      'fencing',
+      'western border',
+      'eastern border',
+      'smuggling',
+      'security',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'security',
   },
   {
     slug: 'political-evolution-1971',
@@ -1295,6 +1355,37 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'islamic-studies',
     mcqTagHint: 'islamic-economics',
   },
+  {
+    slug: 'islam-and-science',
+    title: 'Islam and Science',
+    shortTitle: 'Islam and Science',
+    contentId: 'islam-and-science',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'islam and science',
+      'knowledge in islam',
+      'muslim scientists',
+      'science and religion',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'science',
+  },
+  {
+    slug: 'concept-of-ibadah',
+    title: 'Concept of Ibadah (Worship) in Islam',
+    shortTitle: 'Concept of Ibadah',
+    contentId: 'concept-of-ibadah',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'ibadah',
+      'worship',
+      'concept of ibadah',
+      'sincerity',
+      'ikhlas',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'ibadat',
+  },
 
   // ── English ─────────────────────────────────────────────────────────
   {
@@ -1436,6 +1527,37 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'english',
     mcqTagHint: 'translation',
   },
+  {
+    slug: 'letter-writing-css',
+    title: 'Letter and Report Writing for CSS English',
+    shortTitle: 'Letter and Report',
+    contentId: 'letter-writing-css',
+    subjectSlugs: ['english-precis', 'english'],
+    syllabusHints: [
+      'letter writing',
+      'formal letter',
+      'report writing',
+      'application',
+      'composition',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'composition',
+  },
+  {
+    slug: 'active-passive-voice',
+    title: 'Active and Passive Voice Conversion',
+    shortTitle: 'Active Passive Voice',
+    contentId: 'active-passive-voice',
+    subjectSlugs: ['english'],
+    syllabusHints: [
+      'active voice',
+      'passive voice',
+      'voice conversion',
+      'grammar',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'grammar',
+  },
 
   // ── GK / Science / Math / Computer / Geography ──────────────────────
   {
@@ -1541,6 +1663,38 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'computer',
     mcqTagHint: 'fundamentals',
+  },
+  {
+    slug: 'cyber-security-basics-exam',
+    title: 'Cyber Security Basics for Computer Papers',
+    shortTitle: 'Cyber Security Basics',
+    contentId: 'cyber-security-basics-exam',
+    subjectSlugs: ['computer', 'basic-computer', 'computer-science'],
+    syllabusHints: [
+      'cyber security',
+      'malware',
+      'phishing',
+      'encryption',
+      'firewall',
+    ],
+    mcqSubjectSlug: 'computer',
+    mcqTagHint: 'security',
+  },
+  {
+    slug: 'database-basics-sql',
+    title: 'Database Basics and SQL Essentials',
+    shortTitle: 'Database and SQL',
+    contentId: 'database-basics-sql',
+    subjectSlugs: ['computer', 'basic-computer', 'computer-science'],
+    syllabusHints: [
+      'database',
+      'sql',
+      'primary key',
+      'normalization',
+      'foreign key',
+    ],
+    mcqSubjectSlug: 'computer',
+    mcqTagHint: 'database',
   },
   {
     slug: 'vitamins-hormones-basics',
@@ -1676,6 +1830,23 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'mathematics',
     mcqTagHint: 'probability',
   },
+  {
+    slug: 'geometry-area-volume',
+    title: 'Geometry: Area and Volume Formulas',
+    shortTitle: 'Area and Volume',
+    contentId: 'geometry-area-volume',
+    subjectSlugs: ['mathematics'],
+    syllabusHints: [
+      'geometry',
+      'area',
+      'volume',
+      'mensuration',
+      'cylinder',
+      'sphere',
+    ],
+    mcqSubjectSlug: 'mathematics',
+    mcqTagHint: 'geometry',
+  },
 
   // ── Ethics / Civics / Governance ────────────────────────────────────
   {
@@ -1782,6 +1953,9 @@ const KITS: Record<string, NoteKitData> = {
   'pakistan-china-relations': PAKISTAN_CHINA_RELATIONS_KIT,
   'pakistan-iran-relations': PAKISTAN_IRAN_RELATIONS_KIT,
   'pakistan-saudi-relations': PAKISTAN_SAUDI_RELATIONS_KIT,
+  'pakistan-russia-relations': PAKISTAN_RUSSIA_RELATIONS_KIT,
+  'pakistan-central-asia-relations': PAKISTAN_CENTRAL_ASIA_RELATIONS_KIT,
+  'border-management-pakistan': BORDER_MANAGEMENT_PAKISTAN_KIT,
   'political-evolution-1971': POLITICAL_EVOLUTION_1971_KIT,
   'democracy-evolution-pakistan': DEMOCRACY_EVOLUTION_PAKISTAN_KIT,
   'land-people-pakistan': LAND_PEOPLE_PAKISTAN_KIT,
@@ -1838,6 +2012,8 @@ const KITS: Record<string, NoteKitData> = {
   'comparative-religions-basics': COMPARATIVE_RELIGIONS_BASICS_KIT,
   'zakat-system-social-welfare': ZAKAT_SYSTEM_SOCIAL_WELFARE_KIT,
   'islamic-economic-system': ISLAMIC_ECONOMIC_SYSTEM_KIT,
+  'islam-and-science': ISLAM_AND_SCIENCE_KIT,
+  'concept-of-ibadah': CONCEPT_OF_IBADAH_KIT,
   'english-essay-css': ENGLISH_ESSAY_CSS_KIT,
   'precis-composition-css': PRECIS_COMPOSITION_CSS_KIT,
   'english-grammar-high-yield': ENGLISH_GRAMMAR_HIGH_YIELD_KIT,
@@ -1848,6 +2024,8 @@ const KITS: Record<string, NoteKitData> = {
   'essay-outlining-workshop': ESSAY_OUTLINING_WORKSHOP_KIT,
   'comprehension-passage-method': COMPREHENSION_PASSAGE_METHOD_KIT,
   'translation-urdu-english-method': TRANSLATION_URDU_ENGLISH_METHOD_KIT,
+  'letter-writing-css': LETTER_WRITING_CSS_KIT,
+  'active-passive-voice': ACTIVE_PASSIVE_VOICE_KIT,
   'un-international-organizations': UN_INTERNATIONAL_ORGANIZATIONS_KIT,
   'un-security-council-peacekeeping': UN_SECURITY_COUNCIL_PEACEKEEPING_KIT,
   'world-organizations-imf-wb-wto': WORLD_ORGANIZATIONS_IMF_WB_WTO_KIT,
@@ -1855,6 +2033,8 @@ const KITS: Record<string, NoteKitData> = {
   'computer-networking-basics': COMPUTER_NETWORKING_BASICS_KIT,
   'computer-hardware-basics': COMPUTER_HARDWARE_BASICS_KIT,
   'boolean-logic-number-systems': BOOLEAN_LOGIC_NUMBER_SYSTEMS_KIT,
+  'cyber-security-basics-exam': CYBER_SECURITY_BASICS_EXAM_KIT,
+  'database-basics-sql': DATABASE_BASICS_SQL_KIT,
   'vitamins-hormones-basics': VITAMINS_HORMONES_BASICS_KIT,
   'biology-human-systems': BIOLOGY_HUMAN_SYSTEMS_KIT,
   'everyday-science-physics-basics': EVERYDAY_SCIENCE_PHYSICS_BASICS_KIT,
@@ -1864,6 +2044,7 @@ const KITS: Record<string, NoteKitData> = {
   'ratio-proportion-averages': RATIO_PROPORTION_AVERAGES_KIT,
   'set-theory-basics-math': SET_THEORY_BASICS_MATH_KIT,
   'probability-basics-exam': PROBABILITY_BASICS_EXAM_KIT,
+  'geometry-area-volume': GEOMETRY_AREA_VOLUME_KIT,
   'ethics-theories-basics': ETHICS_THEORIES_BASICS_KIT,
   'good-governance-undp': GOOD_GOVERNANCE_UNDP_KIT,
   'public-service-values': PUBLIC_SERVICE_VALUES_KIT,
