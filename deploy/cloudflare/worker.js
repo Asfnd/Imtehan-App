@@ -9,7 +9,7 @@
 const ORIGIN_IP = '20.205.110.177'
 const PUBLIC_HOST = 'imtehan.com'
 const ORIGIN_BASE = `http://${PUBLIC_HOST}`
-const CACHE_VER = 'v33'
+const CACHE_VER = 'v34'
 
 const HTML_EDGE_TTL = 300
 const HTML_STALE_TTL = 1800
