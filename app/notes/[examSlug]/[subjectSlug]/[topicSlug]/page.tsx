@@ -1,21 +1,22 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import BlogPostShell from '@/components/blog/BlogPostShell'
 import { NoteKitShell } from '@/components/notes/NoteKitPanels'
 import { NotesTopicJsonLd } from '@/components/notes/NotesJsonLd'
 import {
   getNotesModule,
-  listNotesModules,
   listSyllabusTopicsForSection,
 } from '@/lib/notes/modules'
 import { resolveTopicKit } from '@/lib/notes/topic-registry'
 import { notesReadItem } from '@/lib/notes/reading-progress'
 import { PMS_WRITING_COACH_PATH } from '@/lib/routes'
 import {
-  NOTES_INDEX_EXAMS,
+  listPrimaryKitStaticParams,
+  notesPath,
   notesReadTime,
   notesTopicMetadata,
+  primaryNotesLocation,
   relatedNotePosts,
 } from '@/lib/seo/notes-seo'
 
@@ -23,25 +24,12 @@ type Props = {
   params: Promise<{ examSlug: string; subjectSlug: string; topicSlug: string }>
 }
 
+export const dynamic = 'force-static'
+export const revalidate = 604800
+export const dynamicParams = true
+
 export function generateStaticParams() {
-  const params: Array<{ examSlug: string; subjectSlug: string; topicSlug: string }> = []
-  for (const examSlug of NOTES_INDEX_EXAMS) {
-    const mod = listNotesModules().find((m) => m.slug === examSlug)
-    if (!mod) continue
-    for (const section of mod.sections) {
-      const topics = listSyllabusTopicsForSection(mod.slug, section.slug)
-      for (const topic of topics) {
-        if (topic.hasKit) {
-          params.push({
-            examSlug: mod.slug,
-            subjectSlug: section.slug,
-            topicSlug: topic.slug,
-          })
-        }
-      }
-    }
-  }
-  return params
+  return listPrimaryKitStaticParams()
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -100,6 +88,10 @@ export default async function NotesTopicPage({ params }: Props) {
   }
 
   const { kit, meta } = resolved
+  const loc = primaryNotesLocation(meta)
+  if (examSlug !== loc.examSlug || subjectSlug !== loc.subjectSlug) {
+    permanentRedirect(notesPath([loc.examSlug, loc.subjectSlug, loc.topicSlug]))
+  }
   const writingHref =
     mod.track === 'written' || examSlug === 'css-written' ? PMS_WRITING_COACH_PATH : null
 

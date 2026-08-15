@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     'Syllabus-mapped notes for CSS, PMS, PPSC, FPSC and NTS. One-pagers, fact cards, and past-paper angles — organised by exam.',
 }
 
+export const revalidate = 604800
+
 export default function NotesLayout({ children }: { children: React.ReactNode }) {
   return <div className={libreBaskerville.variable}>{children}</div>
 }

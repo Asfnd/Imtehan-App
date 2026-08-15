@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://imtehan.com/search' },
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function SearchPage({ searchParams }: Props) {
   const { q = '' } = await searchParams
   const query = q.trim()

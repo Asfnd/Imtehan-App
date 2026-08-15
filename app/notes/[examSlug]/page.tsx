@@ -6,18 +6,25 @@ import { NotesExamJsonLd } from '@/components/notes/NotesJsonLd'
 import {
   countKitsForModule,
   getNotesModule,
-  listNotesModules,
   listReadyKitsForExam,
   listSyllabusTopicsForSection,
 } from '@/lib/notes/modules'
-import { NOTES_INDEX_EXAMS, notesExamMetadata } from '@/lib/seo/notes-seo'
+import {
+  NOTES_INDEX_EXAMS,
+  notesExamMetadata,
+  primaryNotesPathForSlug,
+} from '@/lib/seo/notes-seo'
 
 type Props = { params: Promise<{ examSlug: string }> }
 
+export const dynamic = 'force-static'
+export const revalidate = 604800
+export const dynamicParams = true
+
 export function generateStaticParams() {
-  return NOTES_INDEX_EXAMS.map((examSlug) => ({ examSlug })).filter((row) =>
-    listNotesModules().some((m) => m.slug === row.examSlug),
-  )
+  return NOTES_INDEX_EXAMS.filter((examSlug) => getNotesModule(examSlug)).map((examSlug) => ({
+    examSlug,
+  }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -94,7 +101,8 @@ export default async function NotesExamModulePage({ params }: Props) {
                 {kits.map((kit) => (
                   <Link
                     key={kit.slug}
-                    href={`/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
+                    href={primaryNotesPathForSlug(kit.slug) ?? `/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
+                    prefetch={false}
                     className="note-topic-card"
                   >
                     <span className="note-topic-card-label">Revision kit</span>

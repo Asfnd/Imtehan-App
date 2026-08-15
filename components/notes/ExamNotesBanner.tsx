@@ -3,26 +3,22 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { BookMarked, ArrowRight } from 'lucide-react'
-import {
-  countKitsForModule,
-  getNotesModule,
-  listReadyKitsForExam,
-} from '@/lib/notes/modules'
 
 type ExamNotesBannerProps = {
   examSlug: string
   examName: string
-  /** When set, open that subject’s notes only */
   subjectSlug?: string
   subjectLabel?: string
-  /** Match CSS practice grid card look */
   variant?: 'banner' | 'grid'
   kitHint?: string
+  /** Pass from a server parent. Never compute kit lists in this client island. */
+  kitCount?: number
+  subjectCount?: number
 }
 
 /**
- * Single black Study Notes entry (like practice MCQ cards).
- * Kits are organized inside /notes/{exam}, not listed on the exam dashboard.
+ * Single Study Notes entry. Counts are optional props so exam dashboards
+ * do not pull the notes registry into the client bundle.
  */
 export function ExamNotesBanner({
   examSlug,
@@ -31,17 +27,13 @@ export function ExamNotesBanner({
   subjectLabel,
   variant = 'banner',
   kitHint,
+  kitCount,
+  subjectCount,
 }: ExamNotesBannerProps) {
   const router = useRouter()
   const href = subjectSlug
     ? `/notes/${examSlug}/${subjectSlug}`
     : `/notes/${examSlug}`
-
-  const mod = getNotesModule(examSlug)
-  const kitCount = subjectSlug
-    ? listReadyKitsForExam(examSlug, subjectSlug).length
-    : countKitsForModule(examSlug)
-  const subjectCount = subjectSlug ? 1 : (mod?.sections.length ?? 0)
 
   const title = subjectLabel ? `${subjectLabel} Notes` : 'Study Notes'
   const subtitle =
@@ -49,6 +41,8 @@ export function ExamNotesBanner({
     (subjectLabel
       ? `Revision kits for ${subjectLabel}, organised by topic.`
       : `Subject-wise revision kits for ${examName}.`)
+  const readyLine =
+    kitCount && kitCount > 0 ? ` ${kitCount} kits ready.` : ''
 
   if (variant === 'grid') {
     return (
@@ -60,17 +54,21 @@ export function ExamNotesBanner({
           </div>
           <h3 className="text-base font-bold mb-2 text-white">{title}</h3>
           <p className="text-slate-300 text-xs leading-relaxed mb-3 flex-1 break-words">{subtitle}</p>
-          <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-white/15">
-            <div className="text-center">
-              <span className="font-bold text-white block">{kitCount || '—'}</span>
-              <span className="text-slate-400">Kits</span>
+          {kitCount != null || subjectCount != null ? (
+            <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-white/15">
+              <div className="text-center">
+                <span className="font-bold text-white block">{kitCount ?? '—'}</span>
+                <span className="text-slate-400">Kits</span>
+              </div>
+              <div className="w-px h-6 bg-white/20" />
+              <div className="text-center">
+                <span className="font-bold text-white block">{subjectCount ?? '—'}</span>
+                <span className="text-slate-400">Subjects</span>
+              </div>
             </div>
-            <div className="w-px h-6 bg-white/20" />
-            <div className="text-center">
-              <span className="font-bold text-white block">{subjectCount || '—'}</span>
-              <span className="text-slate-400">Subjects</span>
-            </div>
-          </div>
+          ) : (
+            <div className="mb-4 pb-3 border-b border-white/15" />
+          )}
           <button
             type="button"
             onClick={() => router.push(href)}
@@ -87,6 +85,7 @@ export function ExamNotesBanner({
   return (
     <Link
       href={href}
+      prefetch={false}
       className="mb-8 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-slate-950 p-4 shadow-sm transition hover:bg-black hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:p-5"
     >
       <div className="flex items-start gap-3">
@@ -100,13 +99,13 @@ export function ExamNotesBanner({
           <h3 className="text-base font-bold text-white">{title}</h3>
           <p className="mt-1 text-sm text-slate-300">
             {subtitle}
-            {kitCount > 0 ? ` ${kitCount} kits ready.` : ''}
+            {readyLine}
           </p>
         </div>
       </div>
       <span className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 sm:ml-2">
         Open notes
-        <ArrowRight className="h-4 w-4" aria-hidden />
+        <ArrowRight className="h-4 h-4" aria-hidden />
       </span>
     </Link>
   )

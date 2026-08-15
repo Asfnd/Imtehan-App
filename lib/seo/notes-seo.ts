@@ -344,6 +344,31 @@ export function searchNotesAndExams(query: string, limit = 24): NotesSearchHit[]
   return [...notes.slice(0, 16), ...exams.slice(0, 8)].slice(0, limit)
 }
 
+/** Prerender only canonical kit URLs — not every exam duplicate. */
+export function listPrimaryKitStaticParams(): Array<{
+  examSlug: string
+  subjectSlug: string
+  topicSlug: string
+}> {
+  return listRegisteredTopics().map((meta) => {
+    const loc = primaryNotesLocation(meta)
+    return {
+      examSlug: loc.examSlug,
+      subjectSlug: loc.subjectSlug,
+      topicSlug: loc.topicSlug,
+    }
+  })
+}
+
+export function primaryHrefByTopicSlug(slugs: string[]): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const slug of slugs) {
+    const path = primaryNotesPathForSlug(slug)
+    if (path) out[slug] = path
+  }
+  return out
+}
+
 export function buildNotesSitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [
     {
@@ -364,8 +389,8 @@ export function buildNotesSitemap(): MetadataRoute.Sitemap {
       priority: examSlug === 'css-written' || examSlug === 'css-mpt' ? 0.9 : 0.84,
     })
     for (const section of mod.sections) {
-      const kits = listReadyKitsForExam(examSlug, section.slug)
-      if (kits.length === 0) continue
+      const hasKits = listReadyKitsForExam(examSlug, section.slug).length > 0
+      if (!hasKits) continue
       entries.push({
         url: notesUrl([examSlug, section.slug]),
         lastModified: NOTES_SITEMAP_LASTMOD,
@@ -394,7 +419,7 @@ export function buildNotesSitemap(): MetadataRoute.Sitemap {
   return entries
 }
 
-export function notesFaqItems(kit: NoteKitData, max = 8): Array<{ question: string; answer: string }> {
+export function notesFaqItems(kit: NoteKitData, max = 6): Array<{ question: string; answer: string }> {
   return kit.flashcards
     .filter((c) => c.prompt.trim().length > 8 && c.answer.trim().length > 1)
     .slice(0, max)

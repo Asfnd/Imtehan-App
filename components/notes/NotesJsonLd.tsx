@@ -1,11 +1,13 @@
 import { jsonLdString } from '@/lib/seo/jsonld'
 import {
   NOTES_BASE,
+  NOTES_INDEX_EXAMS,
   kitDateIso,
   kitDateModifiedIso,
   notesFaqItems,
   notesUrl,
   primaryNotesLocation,
+  primaryNotesPathForSlug,
 } from '@/lib/seo/notes-seo'
 import type { NoteKitData, NoteTopicMeta, NotesModule } from '@/lib/notes/types'
 import type { ReadyKitButton } from '@/lib/notes/modules'
@@ -56,8 +58,21 @@ export function NotesHubJsonLd() {
       isPartOf: { '@id': `${NOTES_BASE}/#website` },
       publisher: { '@id': ORG_ID },
       inLanguage: 'en-PK',
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: NOTES_INDEX_EXAMS.length,
+        itemListElement: NOTES_INDEX_EXAMS.map((slug, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: notesUrl([slug]),
+        })),
+      },
     },
   ])
+}
+
+function kitAbsUrl(slug: string, examSlug: string, subjectSlug: string): string {
+  return `${NOTES_BASE}${primaryNotesPathForSlug(slug) ?? `/notes/${examSlug}/${subjectSlug}/${slug}`}`
 }
 
 export function NotesExamJsonLd({
@@ -86,11 +101,11 @@ export function NotesExamJsonLd({
       mainEntity: {
         '@type': 'ItemList',
         numberOfItems: kits.length,
-        itemListElement: kits.slice(0, 40).map((kit, i) => ({
+        itemListElement: kits.slice(0, 12).map((kit, i) => ({
           '@type': 'ListItem',
           position: i + 1,
           name: kit.title,
-          url: `${NOTES_BASE}/notes/${mod.slug}/${kit.subjectSlug}/${kit.slug}`,
+          url: kitAbsUrl(kit.slug, mod.slug, kit.subjectSlug),
         })),
       },
     },
@@ -128,11 +143,11 @@ export function NotesSubjectJsonLd({
       mainEntity: {
         '@type': 'ItemList',
         numberOfItems: kits.length,
-        itemListElement: kits.slice(0, 40).map((kit, i) => ({
+        itemListElement: kits.slice(0, 12).map((kit, i) => ({
           '@type': 'ListItem',
           position: i + 1,
           name: kit.title,
-          url: `${NOTES_BASE}/notes/${mod.slug}/${kit.subjectSlug}/${kit.slug}`,
+          url: kitAbsUrl(kit.slug, mod.slug, kit.subjectSlug),
         })),
       },
     },

@@ -15,6 +15,7 @@ Syllabus-mapped revision kits (one-pagers, fact cards, citations, past-paper ang
 - CSS MPT: https://imtehan.com/notes/css-mpt
 - PMS: https://imtehan.com/notes/pms-competitive
 - Notes sitemap: https://imtehan.com/sitemap/notes.xml
+- Notes feed: https://imtehan.com/notes/feed.xml
 
 ## Practice
 
