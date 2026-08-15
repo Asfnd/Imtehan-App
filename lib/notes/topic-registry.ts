@@ -164,6 +164,16 @@ import { FRIDAY_SERMON_SOCIAL_REFORM_KIT } from '@/lib/notes/content/friday-serm
 import { PROPHETS_IN_ISLAM_HIGH_YIELD_KIT } from '@/lib/notes/content/prophets-in-islam-high-yield'
 import { READING_COMPREHENSION_TRAPS_KIT } from '@/lib/notes/content/reading-comprehension-traps'
 import { SIMPLE_INTEREST_COMPOUND_INTEREST_KIT } from '@/lib/notes/content/simple-interest-compound-interest'
+import { NATIONAL_SECURITY_POLICY_BASICS_KIT } from '@/lib/notes/content/national-security-policy-basics'
+import { HYBRID_WARFARE_CONCEPTS_KIT } from '@/lib/notes/content/hybrid-warfare-concepts'
+import { PUBLIC_DEBT_PAKISTAN_KIT } from '@/lib/notes/content/public-debt-pakistan'
+import { TAXATION_SYSTEM_PAKISTAN_KIT } from '@/lib/notes/content/taxation-system-pakistan'
+import { SDG4_EDUCATION_PAKISTAN_KIT } from '@/lib/notes/content/sdg4-education-pakistan'
+import { SDG5_GENDER_EQUALITY_KIT } from '@/lib/notes/content/sdg5-gender-equality'
+import { HADITH_ON_ETHICS_HIGH_YIELD_KIT } from '@/lib/notes/content/hadith-on-ethics-high-yield'
+import { IMPORTANCE_OF_KNOWLEDGE_ISLAM_KIT } from '@/lib/notes/content/importance-of-knowledge-islam'
+import { ESSAY_INTRODUCTION_TECHNIQUES_KIT } from '@/lib/notes/content/essay-introduction-techniques'
+import { PROFIT_LOSS_DISCOUNT_MATH_KIT } from '@/lib/notes/content/profit-loss-discount-math'
 
 const TOPICS: NoteTopicMeta[] = [
   // ── Pakistan Affairs / Pakistan Studies ─────────────────────────────
@@ -2690,6 +2700,168 @@ const TOPICS: NoteTopicMeta[] = [
     mcqSubjectSlug: 'ethics-civics',
     mcqTagHint: 'human-rights',
   },
+  {
+    slug: 'national-security-policy-basics',
+    title: 'National Security Policy Basics',
+    shortTitle: 'National Security Policy',
+    contentId: 'national-security-policy-basics',
+    subjectSlugs: ['current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'national security',
+      'national security policy',
+      'comprehensive security',
+      'human security',
+      'non-traditional security',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'security',
+  },
+  {
+    slug: 'hybrid-warfare-concepts',
+    title: 'Hybrid Warfare Concepts',
+    shortTitle: 'Hybrid Warfare',
+    contentId: 'hybrid-warfare-concepts',
+    subjectSlugs: ['current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'hybrid warfare',
+      'information warfare',
+      'grey zone',
+      'cyber conflict concepts',
+      'current affairs security',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'security',
+  },
+  {
+    slug: 'public-debt-pakistan',
+    title: 'Public Debt in Pakistan (Concepts)',
+    shortTitle: 'Public Debt',
+    contentId: 'public-debt-pakistan',
+    subjectSlugs: ['current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'public debt',
+      'domestic debt',
+      'external debt',
+      'debt servicing',
+      'fiscal deficit',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'economy',
+  },
+  {
+    slug: 'taxation-system-pakistan',
+    title: 'Taxation System of Pakistan (FBR Concepts)',
+    shortTitle: 'Taxation FBR',
+    contentId: 'taxation-system-pakistan',
+    subjectSlugs: ['current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'taxation',
+      'fbr',
+      'direct tax',
+      'indirect tax',
+      'sales tax',
+      'income tax',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'economy',
+  },
+  {
+    slug: 'sdg4-education-pakistan',
+    title: 'SDG 4 Quality Education and Pakistan',
+    shortTitle: 'SDG 4 Education',
+    contentId: 'sdg4-education-pakistan',
+    subjectSlugs: ['ethics-civics', 'current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'sdg 4',
+      'quality education',
+      'article 25-a',
+      'education pakistan',
+      'sustainable development',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'sdgs',
+  },
+  {
+    slug: 'sdg5-gender-equality',
+    title: 'SDG 5 Gender Equality',
+    shortTitle: 'SDG 5 Gender',
+    contentId: 'sdg5-gender-equality',
+    subjectSlugs: ['ethics-civics', 'current-affairs', 'pakistan-affairs'],
+    syllabusHints: [
+      'sdg 5',
+      'gender equality',
+      'women empowerment',
+      'cedaw',
+      'sustainable development',
+    ],
+    mcqSubjectSlug: 'ethics-civics',
+    mcqTagHint: 'sdgs',
+  },
+  {
+    slug: 'hadith-on-ethics-high-yield',
+    title: 'Hadith on Ethics (High-Yield Themes)',
+    shortTitle: 'Hadith Ethics',
+    contentId: 'hadith-on-ethics-high-yield',
+    subjectSlugs: ['islamiat'],
+    syllabusHints: [
+      'hadith ethics',
+      'akhlaq',
+      'honesty',
+      'amanah',
+      'good manners',
+      'prophetic ethics',
+    ],
+    mcqSubjectSlug: 'islamiat',
+    mcqTagHint: 'hadith',
+  },
+  {
+    slug: 'importance-of-knowledge-islam',
+    title: 'Importance of Knowledge in Islam',
+    shortTitle: 'Knowledge in Islam',
+    contentId: 'importance-of-knowledge-islam',
+    subjectSlugs: ['islamiat'],
+    syllabusHints: [
+      'importance of knowledge',
+      'ilm',
+      'seeking knowledge',
+      'education in islam',
+      'islamic studies',
+    ],
+    mcqSubjectSlug: 'islamiat',
+    mcqTagHint: 'ethics',
+  },
+  {
+    slug: 'essay-introduction-techniques',
+    title: 'Essay Introduction Techniques (CSS)',
+    shortTitle: 'Essay Introductions',
+    contentId: 'essay-introduction-techniques',
+    subjectSlugs: ['english-precis', 'english'],
+    syllabusHints: [
+      'essay introduction',
+      'thesis statement',
+      'essay hook',
+      'css english essay',
+      'signposting',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'essay',
+  },
+  {
+    slug: 'profit-loss-discount-math',
+    title: 'Profit, Loss and Discount (Math)',
+    shortTitle: 'Profit Loss Discount',
+    contentId: 'profit-loss-discount-math',
+    subjectSlugs: ['mathematics'],
+    syllabusHints: [
+      'profit and loss',
+      'discount',
+      'marked price',
+      'successive discount',
+      'cost price selling price',
+    ],
+    mcqSubjectSlug: 'mathematics',
+    mcqTagHint: 'profit-loss',
+  },
 ]
 
 const KITS: Record<string, NoteKitData> = {
@@ -2858,6 +3030,16 @@ const KITS: Record<string, NoteKitData> = {
   'sdgs-pakistan': SDGS_PAKISTAN_KIT,
   'human-development-index': HUMAN_DEVELOPMENT_INDEX_KIT,
   'human-rights-udhr': HUMAN_RIGHTS_UDHR_KIT,
+  'national-security-policy-basics': NATIONAL_SECURITY_POLICY_BASICS_KIT,
+  'hybrid-warfare-concepts': HYBRID_WARFARE_CONCEPTS_KIT,
+  'public-debt-pakistan': PUBLIC_DEBT_PAKISTAN_KIT,
+  'taxation-system-pakistan': TAXATION_SYSTEM_PAKISTAN_KIT,
+  'sdg4-education-pakistan': SDG4_EDUCATION_PAKISTAN_KIT,
+  'sdg5-gender-equality': SDG5_GENDER_EQUALITY_KIT,
+  'hadith-on-ethics-high-yield': HADITH_ON_ETHICS_HIGH_YIELD_KIT,
+  'importance-of-knowledge-islam': IMPORTANCE_OF_KNOWLEDGE_ISLAM_KIT,
+  'essay-introduction-techniques': ESSAY_INTRODUCTION_TECHNIQUES_KIT,
+  'profit-loss-discount-math': PROFIT_LOSS_DISCOUNT_MATH_KIT,
 }
 
 export function listRegisteredTopics(): NoteTopicMeta[] {
