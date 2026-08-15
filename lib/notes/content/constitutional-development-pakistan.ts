@@ -49,7 +49,7 @@ export const CONSTITUTIONAL_DEVELOPMENT_PAKISTAN_KIT: NoteKitData = {
   ],
   onePager: [
     '1947-56: Pakistan worked under interim arrangements. The Government of India Act 1935 (as adapted) and the Independence Act framework guided the new state until a constitution was framed.',
-    'Objectives Resolution: passed 12 March 1949. It set Islamic and democratic principles for constitution-making and later entered the 1973 Constitution as Article 2A (via revival history). Use it as a bridge, not as a full constitution.',
+    'Objectives Resolution: passed 12 March 1949 (Liaquat). Guiding principles for constitution-making; used as preamble in 1956, 1962, and 1973. Article 2A (1985) later made the Annex a substantive part. Do not call 1949 itself a constitution.',
     '1956 Constitution: Pakistan’s first constitution. Declared Islamic Republic of Pakistan. Parliamentary system. Short life; martial law in October 1958 ended this constitutional order.',
     '1962 Constitution: introduced under Ayub Khan. Presidential system (with Basic Democracies context in political history answers). This order ended with Ayub’s exit path in 1969 and the next transitional period.',
     '1973 Constitution: framed after the 1971 crisis. Parliamentary federal republic. Passed by National Assembly 10 April 1973; came into force 14 August 1973. Fundamental Rights Arts 8-28.',
@@ -77,7 +77,7 @@ export const CONSTITUTIONAL_DEVELOPMENT_PAKISTAN_KIT: NoteKitData = {
     },
     {
       label: 'Objectives Resolution',
-      text: 'Passed 12 March 1949; guiding principles for the constitution.',
+      text: 'Passed 12 March 1949; guiding principles and later preamble. Article 2A (1985) made the Annex substantive; that was not the original 1973 package.',
     },
     {
       label: '1956',
@@ -157,7 +157,7 @@ export const CONSTITUTIONAL_DEVELOPMENT_PAKISTAN_KIT: NoteKitData = {
     },
     {
       trap: 'Saying the Objectives Resolution was itself the 1956 Constitution.',
-      correct: 'It was a guiding resolution (1949), not the full constitution.',
+      correct: 'It was a guiding resolution (1949), not the full constitution. First constitution = 1956.',
     },
     {
       trap: 'Mixing 10 April 1973 with 14 August 1973.',
@@ -166,6 +166,14 @@ export const CONSTITUTIONAL_DEVELOPMENT_PAKISTAN_KIT: NoteKitData = {
     {
       trap: 'Writing that Pakistan had no constitutional framework before 1956.',
       correct: 'Interim arrangements operated from 1947 to 1956.',
+    },
+    {
+      trap: 'Saying Article 2A was in the original 1973 Constitution.',
+      correct: 'Article 2A was inserted in 1985. 1973 already used the Objectives Resolution as preamble.',
+    },
+    {
+      trap: 'Dating the first constitution to 1949 or 1973.',
+      correct: 'First constitution year is 1956. 1949 = Objectives Resolution. 1973 = current constitution.',
     },
   ],
   revisionPath: [

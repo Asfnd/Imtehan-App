@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'AI CSS Essay Checker : Instant Marking & Examiner Feedback',
-  description: 'Grade your CSS essay instantly with AI that marks like a real FPSC examiner. Get scores out of 20, line-by-line feedback, and improvement tips for Essay, Précis, Pakistan Affairs, IR & all CSS written subjects.',
+  description: 'Grade your CSS essay instantly with AI that marks like a real FPSC examiner. Official length 2,500-3,000 words. Get scores, line-by-line feedback, and improvement tips for Essay, Précis, and all CSS written subjects. Import handwritten pages from camera or gallery.',
   keywords: [
     'CSS essay checker', 'CSS essay grader', 'CSS essay AI', 'grade CSS essay',
     'CSS essay marking', 'CSS precis checker', 'FPSC essay feedback',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'AI CSS Essay Checker : Grade My Essay',
-    description: 'The first AI that marks your CSS essays like a real FPSC examiner. Instant score out of 20 with detailed feedback. Works for Essay, Précis & all CSS written subjects.',
+    description: 'The first AI that marks your CSS essays like a real FPSC examiner. Official length 2,500-3,000 words. Instant score with detailed feedback. Import handwritten pages from camera or gallery.',
     url: 'https://imtehan.com/css/essay-grader',
     type: 'website',
   },

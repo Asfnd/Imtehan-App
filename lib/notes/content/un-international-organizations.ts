@@ -6,7 +6,7 @@ import type { NoteKitData } from '@/lib/notes/types'
  * - IMF and World Bank HQ Washington D.C.; WTO HQ Geneva
  * - OIC: Organization of Islamic Cooperation; HQ Jeddah
  * - SAARC: South Asian Association for Regional Cooperation; HQ Kathmandu
- * - SCO: Shanghai Cooperation Organisation; classic members teaching includes China Russia and Central Asian states plus later expansion (Pakistan/India joined 2017)
+ * - SCO: Shanghai Cooperation Organisation; Secretariat HQ Beijing; classic members teaching includes China Russia and Central Asian states plus later expansion (Pakistan/India joined 2017)
  */
 export const UN_INTERNATIONAL_ORGANIZATIONS_KIT: NoteKitData = {
   id: 'un-international-organizations',
@@ -53,9 +53,9 @@ export const UN_INTERNATIONAL_ORGANIZATIONS_KIT: NoteKitData = {
     'ICJ (World Court): The Hague, Netherlands. Legal disputes between states.',
     'IMF: BOP/macro support. World Bank: development finance. Both HQ: Washington, D.C.',
     'WTO: rules-based multilateral trade. HQ: Geneva, Switzerland.',
-    'OIC: cooperation among Muslim-majority states. HQ: Jeddah, Saudi Arabia.',
-    'SAARC: South Asian regional cooperation. HQ: Kathmandu, Nepal. Eight members including Pakistan and India.',
-    'SCO: Eurasian security and cooperation forum. Pakistan and India joined as members in 2017.',
+    'OIC: founded 1969; cooperation among Muslim-majority states. HQ: Jeddah, Saudi Arabia.',
+    'SAARC: founded 1985; South Asian regional cooperation. HQ: Kathmandu, Nepal. Eight members including Pakistan and India.',
+    'SCO: formalised 2001; Eurasian security and cooperation. Secretariat HQ: Beijing. Pakistan and India joined as members in 2017.',
   ],
   answerSteps: [
     'State UN year and HQ first if the question is UN-focused.',
@@ -85,11 +85,11 @@ export const UN_INTERNATIONAL_ORGANIZATIONS_KIT: NoteKitData = {
     },
     {
       label: 'OIC and SAARC',
-      text: 'OIC HQ Jeddah. SAARC HQ Kathmandu.',
+      text: 'OIC founded 1969, HQ Jeddah. SAARC founded 1985, HQ Kathmandu.',
     },
     {
       label: 'SCO',
-      text: 'Shanghai Cooperation Organisation; Pakistan and India joined as members in 2017.',
+      text: 'Shanghai Cooperation Organisation formalised 2001; Secretariat HQ Beijing; Pakistan and India joined as members in 2017.',
     },
   ],
   flashcards: [
@@ -105,11 +105,12 @@ export const UN_INTERNATIONAL_ORGANIZATIONS_KIT: NoteKitData = {
       prompt: 'IMF vs World Bank focus?',
       answer: 'IMF: BOP/macro. World Bank: development lending/projects.',
     },
-    { prompt: 'OIC expands to?', answer: 'Organization of Islamic Cooperation' },
-    { prompt: 'OIC HQ?', answer: 'Jeddah, Saudi Arabia' },
-    { prompt: 'SAARC expands to?', answer: 'South Asian Association for Regional Cooperation' },
-    { prompt: 'SAARC HQ?', answer: 'Kathmandu, Nepal' },
-    { prompt: 'SCO expands to?', answer: 'Shanghai Cooperation Organisation' },
+    { prompt: 'OIC full form?', answer: 'Organization of Islamic Cooperation' },
+    { prompt: 'OIC founding year and HQ?', answer: '1969; Jeddah, Saudi Arabia' },
+    { prompt: 'SAARC full form?', answer: 'South Asian Association for Regional Cooperation' },
+    { prompt: 'SAARC founding year and HQ?', answer: '1985; Kathmandu, Nepal' },
+    { prompt: 'SCO full form?', answer: 'Shanghai Cooperation Organisation' },
+    { prompt: 'SCO formal year and Secretariat HQ?', answer: '2001; Beijing' },
     { prompt: 'Pakistan joined SCO as member in?', answer: '2017' },
     {
       prompt: 'League of Nations vs UN?',
@@ -138,7 +139,7 @@ export const UN_INTERNATIONAL_ORGANIZATIONS_KIT: NoteKitData = {
       correct: 'Standard exam answer: Jeddah, Saudi Arabia.',
     },
     {
-      trap: 'Dating Pakistan’s SCO membership to founding-era years.',
+      trap: "Dating Pakistan's SCO membership to founding-era years.",
       correct: 'Pakistan and India joined as members in 2017.',
     },
   ],

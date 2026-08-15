@@ -81,6 +81,10 @@ export const PAIR_OF_WORDS_ENGLISH_KIT: NoteKitData = {
       label: 'Exam habit',
       text: 'Spelling and part of speech matter as much as meaning.',
     },
+    {
+      label: 'Trap pattern',
+      text: 'Wrong options often swap the pair or mix noun with verb. Check word class before meaning.',
+    },
   ],
   flashcards: [
     {

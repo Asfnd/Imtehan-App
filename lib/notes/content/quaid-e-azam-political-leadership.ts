@@ -47,11 +47,11 @@ export const QUAID_E_AZAM_POLITICAL_LEADERSHIP_KIT: NoteKitData = {
   ],
   onePager: [
     'Quaid-e-Azam Muhammad Ali Jinnah led the All-India Muslim League as the main political vehicle of Muslim nationalism toward Pakistan.',
-    'Fourteen Points (1929): League-side constitutional safeguards agenda after the Nehru Report politics. Use as overview of federal and minority-protection concerns, not a fake full list in every answer.',
-    'Lahore session, March 1940: Jinnah was League president and session leader. A. K. Fazlul Huq moved the Lahore Resolution. Do not swap these roles.',
+    'Fourteen Points (1929): League-side constitutional safeguards agenda after the Nehru Report (1928) politics. Use as overview of federal and minority-protection concerns, not a fake full list in every answer.',
+    'Lahore session, 23 March 1940: Jinnah was League president and session leader. A. K. Fazlul Huq moved the Lahore Resolution. Do not swap these roles.',
     '11 August 1947: address to the Constituent Assembly of Pakistan. Exam themes: equality of citizens; religion treated as a personal matter in the civic frame he sketched.',
     '14 August 1947: Pakistan becomes independent. Leadership story ends in statehood, not only speeches.',
-    'Exam use: ideology, League strategy, constitutional safeguards, citizenship speech, independence date. Keep mover / president roles clean.',
+    'Exam use: ideology, League strategy, constitutional safeguards, citizenship speech, independence date. Keep mover / president roles clean. No invented vote counts.',
   ],
   answerSteps: [
     'Open with Jinnah as organisational leader of Muslim political demand through the League.',
@@ -73,7 +73,7 @@ export const QUAID_E_AZAM_POLITICAL_LEADERSHIP_KIT: NoteKitData = {
     },
     {
       label: 'Lahore role',
-      text: 'At the Lahore session of March 1940, Jinnah was All-India Muslim League president. A. K. Fazlul Huq moved the Resolution.',
+      text: 'At the Lahore session of 23 March 1940, Jinnah was All-India Muslim League president. A. K. Fazlul Huq moved the Resolution. The text does not use the word Pakistan.',
     },
     {
       label: '11 August 1947',
@@ -144,6 +144,10 @@ export const QUAID_E_AZAM_POLITICAL_LEADERSHIP_KIT: NoteKitData = {
     {
       trap: 'Crediting Iqbal with Jinnah’s organisational leadership of 1940-47.',
       correct: 'Iqbal’s idea stage ends with his death in 1938. Jinnah led League politics to statehood.',
+    },
+    {
+      trap: 'Dating Fourteen Points to 1940 or confusing them with the Nehru Report.',
+      correct: 'Nehru Report 1928; Fourteen Points 1929. Lahore Resolution is 1940.',
     },
   ],
   revisionPath: [

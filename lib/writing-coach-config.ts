@@ -4,6 +4,20 @@
 
 export type WritingCoachExamType = 'css' | 'pms'
 
+/** Official exam length bands. CSS English Essay is 2,500-3,000 words. */
+export const ESSAY_WORD_LIMITS: Record<
+  WritingCoachExamType,
+  { min: number; lo: number; hi: number; max: number }
+> = {
+  css: { min: 800, lo: 2500, hi: 3000, max: 3500 },
+  pms: { min: 500, lo: 1400, hi: 1600, max: 2000 },
+}
+
+export function countEssayWords(text: string): number {
+  const t = text.trim()
+  return t ? t.split(/\s+/).length : 0
+}
+
 export const CSS_LONG_ANSWER_SUBJECTS = [
   'English (Précis & Composition)',
   'General Science & Ability',

@@ -51,9 +51,9 @@ export const HADITH_SCIENCES_BASICS_KIT: NoteKitData = {
     'Two parts of a report: isnad (chain of narrators) and matn (the text). Classical criticism studies both the chain and the content.',
     'Sahih: sound/authentic by the standards of Hadith scholars (trustworthy continuous chain and acceptable text). Hasan: good; slightly below Sahih in strength but still acceptable in many teachings. Daif: weak due to problems in chain or other defects.',
     'Other labels appear in advanced study (for example Mawdu fabricated). For one-paper exams, master Sahih, Hasan, and Daif first.',
-    'Sihah Sitta (six major books in Sunni teaching): Sahih al-Bukhari, Sahih Muslim, Sunan Abu Dawud, Jami al-Tirmidhi, Sunan al-Nasa’i, Sunan Ibn Majah.',
+    "Sihah Sitta (six major books in Sunni teaching): Sahih al-Bukhari, Sahih Muslim, Sunan Abu Dawud, Jami al-Tirmidhi, Sunan al-Nasa'i, Sunan Ibn Majah.",
     'Sahih al-Bukhari (Imam al-Bukhari) and Sahih Muslim (Imam Muslim) are given special primacy among the six in mainstream Sunni teaching.',
-    'Compilers to recognise: Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasa’i, Ibn Majah.',
+    "Compilers to recognise: Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasa'i, Ibn Majah.",
     'Exam use: define terms cleanly, name the six books, explain why isnad criticism mattered for preserving Sunnah, and avoid inventing fake book counts.',
   ],
   answerSteps: [
@@ -80,7 +80,7 @@ export const HADITH_SCIENCES_BASICS_KIT: NoteKitData = {
     },
     {
       label: 'Sihah Sitta',
-      text: 'Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasa’i, Ibn Majah.',
+      text: "Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasa'i, Ibn Majah.",
     },
     {
       label: 'Primacy',
@@ -115,7 +115,7 @@ export const HADITH_SCIENCES_BASICS_KIT: NoteKitData = {
     {
       prompt: 'Name the six books of Sihah Sitta.',
       answer:
-        'Sahih al-Bukhari, Sahih Muslim, Sunan Abu Dawud, Jami al-Tirmidhi, Sunan al-Nasa’i, Sunan Ibn Majah',
+        "Sahih al-Bukhari, Sahih Muslim, Sunan Abu Dawud, Jami al-Tirmidhi, Sunan al-Nasa'i, Sunan Ibn Majah",
     },
     {
       prompt: 'Which two collections have special primacy in Sunni teaching?',
@@ -131,7 +131,7 @@ export const HADITH_SCIENCES_BASICS_KIT: NoteKitData = {
     },
     {
       prompt: 'Name the four Sunan / Jami works after Bukhari and Muslim in the six.',
-      answer: 'Abu Dawud, Tirmidhi, Nasa’i, Ibn Majah',
+      answer: "Abu Dawud, Tirmidhi, Nasa'i, Ibn Majah",
     },
     {
       prompt: 'Why study isnad?',

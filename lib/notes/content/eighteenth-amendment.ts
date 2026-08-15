@@ -17,7 +17,7 @@ export const EIGHTEENTH_AMENDMENT_KIT: NoteKitData = {
     'Federalism and provinces',
     'Constitutional amendments',
   ],
-  updated: '14 Aug 2026',
+  updated: '15 Aug 2026',
   pastPapers: [
     {
       year: 'CSS pattern',
@@ -152,6 +152,10 @@ export const EIGHTEENTH_AMENDMENT_KIT: NoteKitData = {
     {
       trap: 'Treating devolution as finished in practice because the text changed.',
       correct: 'Constitutional devolution is one step. Capacity and financing still need critique.',
+    },
+    {
+      trap: 'Dating the 18th Amendment to 2008 or 2013, or forgetting Article 25A.',
+      correct: 'Year is 2010. Article 25A: free and compulsory education for ages 5 to 16.',
     },
   ],
   revisionPath: [

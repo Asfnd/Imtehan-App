@@ -19,7 +19,7 @@ export const OBJECTIVES_RESOLUTION_KIT: NoteKitData = {
     'Constitutional development',
     'FPSC PA XXVII (legal debates)',
   ],
-  updated: '13 Aug 2026',
+  updated: '15 Aug 2026',
   pastPapers: [
     {
       year: 'CSS pattern',
@@ -52,7 +52,7 @@ export const OBJECTIVES_RESOLUTION_KIT: NoteKitData = {
     '1985: Article 2A makes the Resolution (in the Annex) a substantive part of the Constitution.',
     'Article 2: Islam is the State religion. Often paired with Article 2A in answers.',
     'Freely: present in 1949 text for minorities; missing in the 1985 Annex; restored by the 18th Amendment (2010).',
-    'Hakim Khan (PLD 1992 SC 595): Article 2A is part of the Constitution, not above every other article.',
+    'Hakim Khan (PLD 1992 SC 595): Article 2A is part of the Constitution, not a supra-constitutional override of other articles.',
     'Exam use: ideology, constitutional development, Islamic provisions, minority rights, and recent legal debates.',
   ],
   answerSteps: [
@@ -88,7 +88,7 @@ export const OBJECTIVES_RESOLUTION_KIT: NoteKitData = {
     },
     {
       label: 'Case',
-      text: 'Hakim Khan v. Government of Pakistan, PLD 1992 SC 595. Article 2A is part of the Constitution, not superior to the whole document.',
+      text: 'Hakim Khan v. Government of Pakistan, PLD 1992 SC 595: Article 2A is part of the Constitution, not a supra-constitutional provision that can strike down other articles.',
     },
   ],
   flashcards: [
@@ -127,7 +127,7 @@ export const OBJECTIVES_RESOLUTION_KIT: NoteKitData = {
     },
     {
       trap: 'Saying Article 2A was in the original 1973 text.',
-      correct: 'Article 2A was inserted in 1985.',
+      correct: 'Article 2A was inserted in 1985 (RCO / Eighth Amendment era), not in April 1973.',
     },
     {
       trap: 'Ignoring the freely issue.',
@@ -135,11 +135,15 @@ export const OBJECTIVES_RESOLUTION_KIT: NoteKitData = {
     },
     {
       trap: 'Claiming Article 2A cancels every other article.',
-      correct: 'Hakim Khan: Article 2A is part of the Constitution, not above it.',
+      correct: 'Hakim Khan (PLD 1992 SC 595): Article 2A is part of the Constitution, not a supra-constitutional override.',
     },
     {
-      trap: 'Writing only a date list with no argument.',
-      correct: 'Use dates to support a clear claim about ideology and constitutional force.',
+      trap: 'Calling the Objectives Resolution itself the first constitution.',
+      correct: 'It was a guiding resolution (12 March 1949). The first constitution is 1956.',
+    },
+    {
+      trap: 'Confusing 12 March 1949 with 23 March 1940.',
+      correct: '1940 = Lahore Resolution. 1949 = Objectives Resolution (Liaquat).',
     },
   ],
   revisionPath: [

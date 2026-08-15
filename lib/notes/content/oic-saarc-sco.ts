@@ -4,7 +4,8 @@ import type { NoteKitData } from '@/lib/notes/types'
  * Cross-checked:
  * - OIC: Organization of Islamic Cooperation; founded 1969 (after Al-Aqsa Mosque fire context); HQ Jeddah, Saudi Arabia
  * - SAARC: South Asian Association for Regional Cooperation; founded 1985; HQ Kathmandu, Nepal; 8 members
- * - SCO: Shanghai Cooperation Organisation; Shanghai Five 1996 then SCO 2001; Pakistan and India joined as full members 2017
+ * - SCO: Shanghai Cooperation Organisation; Shanghai Five 1996 then SCO 2001; Secretariat HQ Beijing; Pakistan and India joined as full members 2017
+ * - OIC renamed from Organization of the Islamic Conference to Organization of Islamic Cooperation in 2011
  * - Avoid inventing fake summit host lists for 2026; teach founding/HQ/purpose and Pakistan angles
  */
 export const OIC_SAARC_SCO_KIT: NoteKitData = {
@@ -46,13 +47,13 @@ export const OIC_SAARC_SCO_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'OIC: Organization of Islamic Cooperation. Founded 1969. Headquarters: Jeddah, Saudi Arabia.',
+    'OIC: Organization of Islamic Cooperation. Founded 1969 (Rabat; Al-Aqsa fire context). HQ: Jeddah, Saudi Arabia. Renamed from Organization of the Islamic Conference in 2011; acronym OIC stayed.',
     'OIC purpose (exam line): cooperation among Muslim-majority states on political, economic, cultural, and Palestine-related solidarity themes.',
     'Pakistan and OIC: active founding-era member; uses OIC for Muslim world diplomacy, Kashmir/Palestine narrative spaces, and multilateral identity.',
     'SAARC: South Asian Association for Regional Cooperation. Founded 1985. Headquarters: Kathmandu, Nepal.',
     'SAARC members (8): Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka.',
     'SAARC purpose: regional cooperation on development, connectivity, and people-to-people themes. Practice is often stalled by India-Pakistan political tension.',
-    'SCO: Shanghai Cooperation Organisation. Formalised 2001 from the earlier Shanghai Five process (from 1996).',
+    'SCO: Shanghai Cooperation Organisation. Formalised 2001 from the earlier Shanghai Five process (from 1996). Secretariat HQ: Beijing, China.',
     'SCO classic core: China, Russia, and Central Asian states; later expansion. Pakistan and India became full members in 2017.',
     'SCO purpose (exam line): regional security, counter-terrorism cooperation, and Eurasian political-economic engagement.',
     'Pakistan angles: OIC = Muslim world voice; SAARC = South Asia aspiration with structural limits; SCO = Eurasia/China-Russia track and connectivity diplomacy.',
@@ -73,7 +74,7 @@ export const OIC_SAARC_SCO_KIT: NoteKitData = {
   citations: [
     {
       label: 'OIC',
-      text: 'Organization of Islamic Cooperation founded 1969; headquarters Jeddah, Saudi Arabia.',
+      text: 'Founded 1969; HQ Jeddah. Current name Organization of Islamic Cooperation (renamed 2011 from Organization of the Islamic Conference).',
     },
     {
       label: 'SAARC',
@@ -81,7 +82,7 @@ export const OIC_SAARC_SCO_KIT: NoteKitData = {
     },
     {
       label: 'SCO',
-      text: 'Shanghai Cooperation Organisation formalised 2001; Pakistan and India joined as full members in 2017.',
+      text: 'Shanghai Cooperation Organisation formalised 2001; Secretariat HQ Beijing; Pakistan and India joined as full members in 2017.',
     },
     {
       label: 'Pakistan angles',
@@ -91,7 +92,8 @@ export const OIC_SAARC_SCO_KIT: NoteKitData = {
   flashcards: [
     { prompt: 'OIC founding year?', answer: '1969' },
     { prompt: 'OIC headquarters?', answer: 'Jeddah, Saudi Arabia' },
-    { prompt: 'Full form of OIC?', answer: 'Organization of Islamic Cooperation' },
+    { prompt: 'Full form of OIC (current)?', answer: 'Organization of Islamic Cooperation' },
+    { prompt: 'OIC rename year (Conference to Cooperation)?', answer: '2011' },
     { prompt: 'SAARC founding year?', answer: '1985' },
     { prompt: 'SAARC headquarters?', answer: 'Kathmandu, Nepal' },
     { prompt: 'How many SAARC members?', answer: 'Eight' },
@@ -100,6 +102,7 @@ export const OIC_SAARC_SCO_KIT: NoteKitData = {
       answer: 'Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka',
     },
     { prompt: 'SCO formal founding year (organisation)?', answer: '2001' },
+    { prompt: 'SCO Secretariat HQ?', answer: 'Beijing, China' },
     {
       prompt: 'When did Pakistan join SCO as a full member?',
       answer: '2017 (with India)',
@@ -125,6 +128,10 @@ export const OIC_SAARC_SCO_KIT: NoteKitData = {
     {
       trap: 'Saying OIC HQ is Riyadh.',
       correct: 'OIC headquarters is Jeddah, Saudi Arabia.',
+    },
+    {
+      trap: 'Putting SCO HQ in Shanghai or Moscow.',
+      correct: 'SCO Secretariat headquarters is Beijing, China. Shanghai names the earlier process and 2001 founding.',
     },
     {
       trap: 'Dating Pakistan SCO membership to 2001.',

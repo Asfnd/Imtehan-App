@@ -47,14 +47,15 @@ export const INDUS_RIVER_SYSTEM_KIT: NoteKitData = {
     },
   ],
   onePager: [
-    'The Indus is Pakistan principal river system for irrigation, hydropower, and settlement patterns in the plains.',
+    'The Indus is Pakistan’s principal river system for irrigation, hydropower, and settlement patterns in the plains.',
     'Classic eastern tributaries (left-bank teaching set): Jhelum, Chenab, Ravi, Beas, Sutlej.',
     'Western tributaries (right-bank teaching set, name-level): Kabul, Kurram, Gomal (and related western inflows).',
-    'Indus Waters Treaty (IWT) signed in 1960 between India and Pakistan, with the World Bank playing a facilitating role.',
+    'Indus Waters Treaty (IWT) signed at Karachi on 19 September 1960 between India and Pakistan, with the World Bank playing a facilitating role.',
     'Treaty framework commonly taught: eastern rivers (Ravi, Beas, Sutlej) allocated primarily to India; western rivers (Indus, Jhelum, Chenab) primarily to Pakistan, with detailed use rules.',
+    'Classic trap: Jhelum and Chenab are eastern tributaries in geography lists, but western rivers under IWT.',
     'Tarbela Dam: major storage on the Indus. Mangla Dam: major storage on the Jhelum. Both are high-yield MCQ names.',
     'Barrages divert river water into canals (irrigation network). Dams store water and often generate hydropower.',
-    'Exam caution: water disputes and treaty politics are sensitive. Stick to named facts, year 1960, World Bank role, and river allocation teaching frame.',
+    'Exam caution: stick to named facts, year 1960, World Bank role, and river allocation teaching frame. Deeper institutions live in the IWT deep kit.',
   ],
   answerSteps: [
     'Locate the Indus system on the map of Pakistan in one sentence.',
@@ -80,11 +81,15 @@ export const INDUS_RIVER_SYSTEM_KIT: NoteKitData = {
     },
     {
       label: 'Treaty',
-      text: 'Indus Waters Treaty signed in 1960 by India and Pakistan with World Bank facilitation.',
+      text: 'Indus Waters Treaty signed at Karachi on 19 September 1960 by India and Pakistan with World Bank facilitation.',
     },
     {
       label: 'Allocation teaching frame',
-      text: 'Eastern rivers primarily to India; western rivers (Indus, Jhelum, Chenab) primarily to Pakistan, subject to treaty rules.',
+      text: 'Eastern rivers (Ravi, Beas, Sutlej) primarily to India; western rivers (Indus, Jhelum, Chenab) primarily to Pakistan, subject to treaty rules.',
+    },
+    {
+      label: 'Geography vs IWT trap',
+      text: 'Jhelum and Chenab are eastern tributaries in geography lists but western rivers under the IWT allocation frame.',
     },
     {
       label: 'Major dams',
@@ -147,12 +152,16 @@ export const INDUS_RIVER_SYSTEM_KIT: NoteKitData = {
       correct: 'Western teaching set for IWT: Indus, Jhelum, Chenab. Ravi, Beas, Sutlej are eastern.',
     },
     {
+      trap: 'Putting Jhelum or Chenab in the IWT eastern rivers list because they are eastern tributaries geographically.',
+      correct: 'Geography eastern tributaries ≠ IWT eastern rivers. Under IWT, Jhelum and Chenab are western rivers.',
+    },
+    {
       trap: 'Saying Tarbela is on the Jhelum.',
       correct: 'Tarbela is on the Indus. Mangla is on the Jhelum.',
     },
     {
       trap: 'Dating the Indus Waters Treaty to 1947 or 1971.',
-      correct: 'Treaty year is 1960.',
+      correct: 'Treaty signed 19 September 1960 (Karachi).',
     },
     {
       trap: 'Calling the UN the treaty facilitator instead of the World Bank.',

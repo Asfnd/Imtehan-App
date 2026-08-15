@@ -122,6 +122,10 @@ export const ALLAMA_IQBAL_ALLAHABAD_KIT: NoteKitData = {
       prompt: 'Trap: mixing Iqbal with who?',
       answer: 'Rahmat Ali (naming) or Fazlul Huq (mover of 1940)',
     },
+    {
+      prompt: 'Does the 1940 Lahore text use the word Pakistan?',
+      answer: 'No',
+    },
   ],
   mistakes: [
     {
@@ -143,6 +147,10 @@ export const ALLAMA_IQBAL_ALLAHABAD_KIT: NoteKitData = {
     {
       trap: 'Using invented quotations as if they were official League text.',
       correct: 'Stick to verified markers: date, session, north-western state idea, death before 1940.',
+    },
+    {
+      trap: 'Dating Allahabad to 1940 or confusing it with Lahore Resolution.',
+      correct: 'Allahabad Address = 29 December 1930. Lahore Resolution = 23 March 1940.',
     },
   ],
   revisionPath: [

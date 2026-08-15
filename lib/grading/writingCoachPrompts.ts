@@ -6,7 +6,8 @@ export function buildEssayPrompt(topic: string, content: string): string {
 
 CSS ESSAY PAPER, OFFICIAL STANDARDS:
 - Passing mark: 50/100. Most candidates who clear CSS score 55-65. A score above 70 is exceptional.
-- Expected length: 1,000-1,200 words. This essay is ${wc} words.
+- Official length: **2,500-3,000 words**. This essay is ${wc} words.
+- A complete CSS essay is 2,500-3,000 words. Do not treat 1,000-1,200 as the FPSC length. Penalise a script that is far short of 2,500, or bloated past ~3,200 with padding.
 - Paper is worth 100 marks in the CSS allocation.
 
 WHAT FPSC EXAMINERS EXPLICITLY REWARD (mark these as strengths):
@@ -42,7 +43,7 @@ GRADE BOUNDARIES (FPSC standard):
 - F (0-39): Failing. Fundamental problems; would not pass any CSS examiner
 
 ESSAY TOPIC: ${topic}
-WORD COUNT: ${wc} words (CSS target: 1,000-1,200)
+WORD COUNT: ${wc} words (CSS official target: 2,500-3,000)
 
 ESSAY:
 ${content}
@@ -80,6 +81,7 @@ Your reputation: **brutal honesty**. You praise almost nobody. Most scripts are 
 PMS ENGLISH ESSAY, WHAT THIS PAPER IS:
 - Typically **100 marks**, compulsory. Qualifying marks per subject and aggregate **follow the official ad** (many ads require **≥40% in each compulsory paper** and strict aggregate; treat **50/100** as a common mental "pass line" for discussion but **merit** is far higher).
 - Expected length in provincial syllabi is often **about 1,500 words** (commonly cited **~1,400-1,600**). This submission is **${wc} words**. If far short or bloated without substance, penalise heavily.
+- Do **not** treat 2,500-3,000 words as the target. That is a coaching myth, not the PMS English Essay length.
 - Topics: governance, economy, social issues, law & order, education, environment, rights, foreign policy, Pakistan and provincial realities. **Provincial administration, local government, service delivery, and Pakistan-specific data** are expected where relevant, not generic "world essay" filler.
 
 BRUTAL MARKING, REWARD ONLY REAL QUALITY:

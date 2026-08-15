@@ -4,7 +4,7 @@ import type { NoteKitData } from '@/lib/notes/types'
  * Cross-checked:
  * - OSI 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application
  * - TCP reliable/connection-oriented; UDP unreliable/connectionless (classic teaching)
- * - Common ports: 80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS
+ * - Common ports: 80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS (also 21 FTP often tested)
  * - IP = logical network address; MAC = hardware/data-link address
  * - TCP/IP model often taught as 4 layers vs OSI 7
  */
@@ -52,7 +52,7 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
     'Network layer: logical addressing and routing (IP). Data Link: framing and MAC on a local link.',
     'Transport layer: end-to-end delivery. Classic map places TCP and UDP here.',
     'TCP: connection-oriented, reliable, ordered, heavier. UDP: connectionless, faster, no delivery guarantee.',
-    'Ports: 80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS.',
+    'Ports: 80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS. Also high-yield: 21 FTP.',
     'IP: logical host address (can change with network). MAC: interface hardware / link-layer identity.',
     'TCP/IP teaching model: often 4 layers (Link, Internet, Transport, Application). Map to OSI only when asked.',
   ],
@@ -80,7 +80,7 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
     },
     {
       label: 'Ports',
-      text: '80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS.',
+      text: '80 HTTP, 443 HTTPS, 22 SSH, 25 SMTP, 53 DNS, 21 FTP.',
     },
     {
       label: 'Addressing',
@@ -106,6 +106,7 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
     { prompt: 'SSH port?', answer: '22' },
     { prompt: 'SMTP port?', answer: '25' },
     { prompt: 'DNS port?', answer: '53' },
+    { prompt: 'FTP port (classic MCQ)?', answer: '21' },
     {
       prompt: 'Which changes when you move networks (classic teaching)?',
       answer: 'IP (logical). MAC is interface/link identity.',
@@ -143,7 +144,7 @@ export const COMPUTER_NETWORKING_BASICS_KIT: NoteKitData = {
   revisionPath: [
     { day: 'Day 1', task: 'Memorise OSI 7 layers with mnemonic.' },
     { day: 'Day 2', task: 'TCP vs UDP contrast table.' },
-    { day: 'Day 3', task: 'Ports 80, 443, 22, 25, 53.' },
+    { day: 'Day 3', task: 'Ports 80, 443, 22, 25, 53, 21.' },
     { day: 'Day 4', task: 'IP vs MAC and layer mapping.' },
     { day: 'Day 5', task: 'TCP/IP 4-layer map vs OSI.' },
     { day: 'Day 6', task: 'Full flashcard drill.' },
