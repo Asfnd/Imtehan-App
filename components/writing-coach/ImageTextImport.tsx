@@ -153,7 +153,7 @@ export function ImageTextImport({ csrfToken, disabled, hasExistingText, onAppend
       {error && <p className="text-[11px] text-red-600 leading-snug">{error}</p>}
 
       <p className="text-[10px] text-gray-400 leading-snug">
-        Photograph each page in order. We extract the text the same way as the app (1536px scan, Gemini OCR). You can edit it before grading. Photos are not stored.
+        Photograph each page in order. We read the writing the same way as the app. You can edit it before grading. Photos are not stored.
       </p>
     </div>
   )
