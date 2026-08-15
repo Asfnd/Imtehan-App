@@ -120,6 +120,16 @@ import { ISLAM_AND_SCIENCE_KIT } from '@/lib/notes/content/islam-and-science'
 import { CONCEPT_OF_IBADAH_KIT } from '@/lib/notes/content/concept-of-ibadah'
 import { LETTER_WRITING_CSS_KIT } from '@/lib/notes/content/letter-writing-css'
 import { ACTIVE_PASSIVE_VOICE_KIT } from '@/lib/notes/content/active-passive-voice'
+import { PAKISTAN_BANGLADESH_RELATIONS_KIT } from '@/lib/notes/content/pakistan-bangladesh-relations'
+import { NON_PROLIFERATION_ARMS_CONTROL_KIT } from '@/lib/notes/content/non-proliferation-arms-control'
+import { HUMAN_DEVELOPMENT_INDEX_KIT } from '@/lib/notes/content/human-development-index'
+import { POVERTY_ALLEVIATION_PAKISTAN_KIT } from '@/lib/notes/content/poverty-alleviation-pakistan'
+import { FOOD_SECURITY_PAKISTAN_KIT } from '@/lib/notes/content/food-security-pakistan'
+import { CLIMATE_SMART_AGRICULTURE_KIT } from '@/lib/notes/content/climate-smart-agriculture'
+import { SEERAH_AS_ROLE_MODEL_KIT } from '@/lib/notes/content/seerah-as-role-model'
+import { MUSLIM_POLITICAL_SYSTEM_CONCEPTS_KIT } from '@/lib/notes/content/muslim-political-system-concepts'
+import { PAIR_OF_WORDS_ENGLISH_KIT } from '@/lib/notes/content/pair-of-words-english'
+import { DIRECT_INDIRECT_SPEECH_KIT } from '@/lib/notes/content/direct-indirect-speech'
 
 const TOPICS: NoteTopicMeta[] = [
   // ── Pakistan Affairs / Pakistan Studies ─────────────────────────────
@@ -522,6 +532,40 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'security',
   },
   {
+    slug: 'pakistan-bangladesh-relations',
+    title: 'Pakistan-Bangladesh Relations',
+    shortTitle: 'Pakistan-Bangladesh',
+    contentId: 'pakistan-bangladesh-relations',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'pakistan bangladesh',
+      'bangladesh relations',
+      '1971',
+      'recognition 1974',
+      'saarc',
+      'foreign policy',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'foreign-policy',
+  },
+  {
+    slug: 'non-proliferation-arms-control',
+    title: 'Non-Proliferation and Arms Control (NPT, CTBT, FMCT)',
+    shortTitle: 'NPT CTBT FMCT',
+    contentId: 'non-proliferation-arms-control',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'non-proliferation',
+      'npt',
+      'ctbt',
+      'fmct',
+      'arms control',
+      'nuclear',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'nuclear',
+  },
+  {
     slug: 'political-evolution-1971',
     title: 'Political Evolution since 1971',
     shortTitle: 'Politics since 1971',
@@ -746,6 +790,54 @@ const TOPICS: NoteTopicMeta[] = [
     ],
     mcqSubjectSlug: 'pakistan-affairs',
     mcqTagHint: 'social-issues',
+  },
+  {
+    slug: 'poverty-alleviation-pakistan',
+    title: 'Poverty Alleviation in Pakistan (BISP and Ehsaas)',
+    shortTitle: 'Poverty Alleviation',
+    contentId: 'poverty-alleviation-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'poverty alleviation',
+      'bisp',
+      'ehsaas',
+      'social protection',
+      'cash transfer',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'social-issues',
+  },
+  {
+    slug: 'food-security-pakistan',
+    title: 'Food Security in Pakistan',
+    shortTitle: 'Food Security',
+    contentId: 'food-security-pakistan',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs'],
+    syllabusHints: [
+      'food security',
+      'agriculture',
+      'nutrition',
+      'wheat',
+      'availability access',
+    ],
+    mcqSubjectSlug: 'pakistan-affairs',
+    mcqTagHint: 'agriculture',
+  },
+  {
+    slug: 'climate-smart-agriculture',
+    title: 'Climate-Smart Agriculture',
+    shortTitle: 'Climate-Smart Agriculture',
+    contentId: 'climate-smart-agriculture',
+    subjectSlugs: ['pakistan-affairs', 'current-affairs', 'geography'],
+    syllabusHints: [
+      'climate-smart agriculture',
+      'csa',
+      'adaptation',
+      'water efficient farming',
+      'food security',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'climate',
   },
   {
     slug: 'nfc-award-fiscal-federalism',
@@ -1216,6 +1308,40 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'seerah',
   },
   {
+    slug: 'seerah-as-role-model',
+    title: 'Seerah as a Role Model (Ethics and Leadership)',
+    shortTitle: 'Seerah Role Model',
+    contentId: 'seerah-as-role-model',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'seerah role model',
+      'prophetic leadership',
+      'islamic ethics',
+      'shura',
+      'amanah',
+      'justice mercy',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'seerah',
+  },
+  {
+    slug: 'muslim-political-system-concepts',
+    title: 'Muslim Political System Concepts (Shura, Justice, Accountability)',
+    shortTitle: 'Muslim Political Concepts',
+    contentId: 'muslim-political-system-concepts',
+    subjectSlugs: ['islamic-studies'],
+    syllabusHints: [
+      'islamic political system',
+      'shura',
+      'adl',
+      'amanah',
+      'accountability',
+      'maslaha',
+    ],
+    mcqSubjectSlug: 'islamic-studies',
+    mcqTagHint: 'fiqh',
+  },
+  {
     slug: 'life-of-prophet-makkah-period',
     title: 'Seerah Makkah Period',
     shortTitle: 'Seerah Makkah Period',
@@ -1553,6 +1679,38 @@ const TOPICS: NoteTopicMeta[] = [
       'active voice',
       'passive voice',
       'voice conversion',
+      'grammar',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'grammar',
+  },
+  {
+    slug: 'pair-of-words-english',
+    title: 'Pair of Words (CSS English Method)',
+    shortTitle: 'Pair of Words',
+    contentId: 'pair-of-words-english',
+    subjectSlugs: ['english', 'english-precis'],
+    syllabusHints: [
+      'pair of words',
+      'confusable words',
+      'vocabulary',
+      'homophones',
+      'precis composition',
+    ],
+    mcqSubjectSlug: 'english',
+    mcqTagHint: 'vocabulary',
+  },
+  {
+    slug: 'direct-indirect-speech',
+    title: 'Direct and Indirect Speech',
+    shortTitle: 'Direct Indirect Speech',
+    contentId: 'direct-indirect-speech',
+    subjectSlugs: ['english'],
+    syllabusHints: [
+      'direct speech',
+      'indirect speech',
+      'reported speech',
+      'narration',
       'grammar',
     ],
     mcqSubjectSlug: 'english',
@@ -1911,6 +2069,22 @@ const TOPICS: NoteTopicMeta[] = [
     mcqTagHint: 'sdgs',
   },
   {
+    slug: 'human-development-index',
+    title: 'Human Development Index (HDI)',
+    shortTitle: 'HDI',
+    contentId: 'human-development-index',
+    subjectSlugs: ['ethics-civics', 'current-affairs', 'general-knowledge'],
+    syllabusHints: [
+      'human development index',
+      'hdi',
+      'undp',
+      'life expectancy',
+      'gni',
+    ],
+    mcqSubjectSlug: 'current-affairs',
+    mcqTagHint: 'development',
+  },
+  {
     slug: 'human-rights-udhr',
     title: 'Human Rights Framework (UDHR and Core Treaties)',
     shortTitle: 'Human Rights',
@@ -1956,6 +2130,8 @@ const KITS: Record<string, NoteKitData> = {
   'pakistan-russia-relations': PAKISTAN_RUSSIA_RELATIONS_KIT,
   'pakistan-central-asia-relations': PAKISTAN_CENTRAL_ASIA_RELATIONS_KIT,
   'border-management-pakistan': BORDER_MANAGEMENT_PAKISTAN_KIT,
+  'pakistan-bangladesh-relations': PAKISTAN_BANGLADESH_RELATIONS_KIT,
+  'non-proliferation-arms-control': NON_PROLIFERATION_ARMS_CONTROL_KIT,
   'political-evolution-1971': POLITICAL_EVOLUTION_1971_KIT,
   'democracy-evolution-pakistan': DEMOCRACY_EVOLUTION_PAKISTAN_KIT,
   'land-people-pakistan': LAND_PEOPLE_PAKISTAN_KIT,
@@ -1972,6 +2148,9 @@ const KITS: Record<string, NoteKitData> = {
   'karachi-urban-governance': KARACHI_URBAN_GOVERNANCE_KIT,
   'disaster-management-pakistan': DISASTER_MANAGEMENT_PAKISTAN_KIT,
   'social-problems-pakistan': SOCIAL_PROBLEMS_PAKISTAN_KIT,
+  'poverty-alleviation-pakistan': POVERTY_ALLEVIATION_PAKISTAN_KIT,
+  'food-security-pakistan': FOOD_SECURITY_PAKISTAN_KIT,
+  'climate-smart-agriculture': CLIMATE_SMART_AGRICULTURE_KIT,
   'nfc-award-fiscal-federalism': NFC_AWARD_FISCAL_FEDERALISM_KIT,
   'local-government-pakistan': LOCAL_GOVERNMENT_PAKISTAN_KIT,
   'media-and-civil-society-pakistan': MEDIA_CIVIL_SOCIETY_PAKISTAN_KIT,
@@ -2003,6 +2182,8 @@ const KITS: Record<string, NoteKitData> = {
   'sources-of-islamic-law': SOURCES_OF_ISLAMIC_LAW_KIT,
   'quran-revelation-compilation': QURAN_REVELATION_COMPILATION_KIT,
   'seerah-high-yield': SEERAH_HIGH_YIELD_KIT,
+  'seerah-as-role-model': SEERAH_AS_ROLE_MODEL_KIT,
+  'muslim-political-system-concepts': MUSLIM_POLITICAL_SYSTEM_CONCEPTS_KIT,
   'life-of-prophet-makkah-period': LIFE_OF_PROPHET_MAKKAH_PERIOD_KIT,
   'life-of-prophet-madinah-period': LIFE_OF_PROPHET_MADINAH_PERIOD_KIT,
   'hadith-sciences-basics': HADITH_SCIENCES_BASICS_KIT,
@@ -2026,6 +2207,8 @@ const KITS: Record<string, NoteKitData> = {
   'translation-urdu-english-method': TRANSLATION_URDU_ENGLISH_METHOD_KIT,
   'letter-writing-css': LETTER_WRITING_CSS_KIT,
   'active-passive-voice': ACTIVE_PASSIVE_VOICE_KIT,
+  'pair-of-words-english': PAIR_OF_WORDS_ENGLISH_KIT,
+  'direct-indirect-speech': DIRECT_INDIRECT_SPEECH_KIT,
   'un-international-organizations': UN_INTERNATIONAL_ORGANIZATIONS_KIT,
   'un-security-council-peacekeeping': UN_SECURITY_COUNCIL_PEACEKEEPING_KIT,
   'world-organizations-imf-wb-wto': WORLD_ORGANIZATIONS_IMF_WB_WTO_KIT,
@@ -2050,6 +2233,7 @@ const KITS: Record<string, NoteKitData> = {
   'public-service-values': PUBLIC_SERVICE_VALUES_KIT,
   'separation-of-powers-pakistan': SEPARATION_OF_POWERS_PAKISTAN_KIT,
   'sdgs-pakistan': SDGS_PAKISTAN_KIT,
+  'human-development-index': HUMAN_DEVELOPMENT_INDEX_KIT,
   'human-rights-udhr': HUMAN_RIGHTS_UDHR_KIT,
 }
 
