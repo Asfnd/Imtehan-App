@@ -6,22 +6,9 @@
 import fs from 'fs'
 import path from 'path'
 import { buildAllIndexableUrls } from '../lib/seo/sitemap-builders'
-import { pingGoogleSitemap, pingIndexNow } from '../lib/seo/indexnow'
+import { pingGoogleSitemap, pingIndexNow, INDEXNOW_PRIORITY_URLS } from '../lib/seo/indexnow'
 
 const SNAPSHOT = path.join(process.cwd(), '.sitemap-url-snapshot.json')
-
-const PRIORITY_URLS = [
-  'https://imtehan.com/',
-  'https://imtehan.com/exams',
-  'https://imtehan.com/exams/category/ppsc',
-  'https://imtehan.com/exams/category/fpsc',
-  'https://imtehan.com/exams/category/fia',
-  'https://imtehan.com/exams/css-mpt',
-  'https://imtehan.com/exams/ppsc-assistant',
-  'https://imtehan.com/mpt-practice',
-  'https://imtehan.com/css/past-papers',
-  'https://imtehan.com/sitemap.xml',
-]
 
 async function main() {
   const forcePriority = process.argv.includes('--priority')
@@ -44,11 +31,11 @@ async function main() {
 
   // First deploy or major expansion: ping representative URLs + sitemap
   const toPing = forcePriority
-    ? PRIORITY_URLS
+    ? INDEXNOW_PRIORITY_URLS
     : flushBatches
       ? [...current]
       : isFirstRun
-        ? [...PRIORITY_URLS, ...added.slice(0, 100)]
+        ? [...INDEXNOW_PRIORITY_URLS, ...added.slice(0, 100)]
         : added.slice(0, 10_000)
 
   if (toPing.length > 0) {

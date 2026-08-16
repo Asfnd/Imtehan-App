@@ -284,7 +284,7 @@ export default function BlogPostShell({
               <p className="blog-sidebar-title">Related Reads</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {otherPosts.slice(0, 5).map(post => (
-                  <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
+                  <Link key={post.slug} href={post.href ?? `/blog/${post.slug}`} className="block group">
                     <p style={{
                       fontFamily: 'var(--font-inter), system-ui, sans-serif',
                       fontWeight: 600,

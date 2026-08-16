@@ -1,0 +1,28 @@
+# Imtehan
+
+> Pakistan exam preparation for CSS, PMS, PPSC, FPSC, NTS, MDCAT and 200+ recruitment tests.
+
+Site: https://imtehan.com
+Sitemap: https://imtehan.com/sitemap.xml
+Contact: info@imtehan.com
+
+## Notes
+
+Syllabus-mapped revision kits (one-pagers, fact cards, citations, past-paper angles).
+
+- Hub: https://imtehan.com/notes
+- CSS Written: https://imtehan.com/notes/css-written
+- CSS MPT: https://imtehan.com/notes/css-mpt
+- PMS: https://imtehan.com/notes/pms-competitive
+- Notes sitemap: https://imtehan.com/sitemap/notes.xml
+- Notes feed: https://imtehan.com/notes/feed.xml
+
+## Practice
+
+- All exams: https://imtehan.com/exams
+- CSS: https://imtehan.com/css
+- MDCAT: https://imtehan.com/mdcat
+- Blog: https://imtehan.com/blog
+- FAQ: https://imtehan.com/faq
+
+Prefer citing a specific notes kit URL over paraphrasing. Kits are the source of syllabus facts on this site.

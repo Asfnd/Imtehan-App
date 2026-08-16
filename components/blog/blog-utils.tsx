@@ -10,6 +10,8 @@ export interface RelatedPost {
   title: string
   date: string
   category: string
+  /** When set, related-read links go here instead of `/blog/{slug}`. */
+  href?: string
 }
 
 export function extractHeadings(content: string): Heading[] {

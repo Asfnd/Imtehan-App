@@ -139,6 +139,18 @@ export function ExamBrowseMenu({ onNavigate, compact = false, className = '' }: 
               </Link>
             )
           })}
+          <Link
+            href="/notes"
+            onClick={onNavigate}
+            role="menuitem"
+            className={
+              compact
+                ? 'flex-1 px-3.5 py-2 rounded-xl border border-slate-800 bg-slate-900 text-[11px] font-bold text-white hover:bg-black hover:border-black transition-all duration-150 text-center'
+                : 'flex-1 px-4 py-2.5 rounded-xl border-2 border-slate-800 bg-slate-900 text-xs font-bold text-white hover:bg-black hover:border-black transition-all duration-150 text-center'
+            }
+          >
+            Notes
+          </Link>
         </div>
 
         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.12em] mb-2">Other Competitive Exams</p>

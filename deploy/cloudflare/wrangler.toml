@@ -104,6 +104,14 @@ pattern = "imtehan.com/delete-account*"
 zone_name = "imtehan.com"
 
 [[routes]]
+pattern = "imtehan.com/notes*"
+zone_name = "imtehan.com"
+
+[[routes]]
+pattern = "imtehan.com/llms.txt"
+zone_name = "imtehan.com"
+
+[[routes]]
 pattern = "imtehan.com/robots.txt"
 zone_name = "imtehan.com"
 

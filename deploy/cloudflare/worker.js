@@ -13,6 +13,8 @@ const CACHE_VER = 'v35'
 
 const HTML_EDGE_TTL = 300
 const HTML_STALE_TTL = 1800
+const NOTES_HTML_FRESH_TTL = 86400
+const NOTES_HTML_STORE_TTL = 604800
 const SEO_EDGE_TTL = 86400
 const API_EDGE_TTL = 21600
 
@@ -97,6 +99,8 @@ function isSeoDiscovery(pathname) {
     pathname === '/manifest.webmanifest' ||
     pathname === '/manifest.json' ||
     pathname === '/imtehan-indexnow-key.txt' ||
+    pathname === '/llms.txt' ||
+    pathname === '/notes/feed.xml' ||
     pathname.startsWith('/.well-known/')
   )
 }
@@ -135,8 +139,24 @@ function isPublicHtmlPath(pathname) {
     pathname.startsWith('/privacy') ||
     pathname.startsWith('/terms') ||
     pathname.startsWith('/careers') ||
-    pathname.startsWith('/premium')
+    pathname.startsWith('/premium') ||
+    pathname === '/notes' ||
+    pathname.startsWith('/notes/')
   )
+}
+
+function isNotesHtmlPath(pathname) {
+  return pathname === '/notes' || pathname.startsWith('/notes/')
+}
+
+function htmlFreshTtl(pathname) {
+  if (isNotesHtmlPath(pathname)) return NOTES_HTML_FRESH_TTL
+  return HTML_EDGE_TTL
+}
+
+function htmlStoreTtl(pathname) {
+  if (isNotesHtmlPath(pathname)) return NOTES_HTML_STORE_TTL
+  return HTML_STALE_TTL
 }
 
 function shouldHtmlWorkerCache(request, url) {
@@ -336,10 +356,10 @@ async function handleStatic(request, incoming, target, ctx) {
   return new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers })
 }
 
-async function putHtmlCache(cache, key, resp) {
+async function putHtmlCache(cache, key, resp, storeTtl = HTML_STALE_TTL) {
   const storeHeaders = new Headers({
     'Content-Type': resp.headers.get('content-type') || 'text/html; charset=utf-8',
-    'Cache-Control': `public, s-maxage=${HTML_STALE_TTL}`,
+    'Cache-Control': `public, s-maxage=${storeTtl}`,
     'X-Imtehan-Origin': 'azure',
     'X-Imtehan-Ver': CACHE_VER,
     'X-Imtehan-Stored-At': String(Date.now()),
@@ -358,7 +378,7 @@ async function refreshHtml(request, target, key) {
     const resp = await fetchOrigin(request, target, { rsc: false, edgeTtl: 0, bust: true })
     const ct = (resp.headers.get('content-type') || '').toLowerCase()
     if (resp.ok && ct.includes('text/html')) {
-      await putHtmlCache(caches.default, key, resp)
+      await putHtmlCache(caches.default, key, resp, htmlStoreTtl(target.pathname))
     }
   } catch (_) {}
 }
@@ -375,8 +395,9 @@ async function handleHtml(request, incoming, target, ctx) {
       } catch (_) {}
     } else {
       const storedAt = Number(hit.headers.get('X-Imtehan-Stored-At') || 0)
-      const ageMs = storedAt ? Date.now() - storedAt : HTML_EDGE_TTL * 1000
-      const stale = ageMs > HTML_EDGE_TTL * 1000
+      const freshTtl = htmlFreshTtl(incoming.pathname)
+      const ageMs = storedAt ? Date.now() - storedAt : freshTtl * 1000
+      const stale = ageMs > freshTtl * 1000
       // Exam hubs change often after deploys — never serve a stale shell (breaks first soft-nav).
       const examBrowse = incoming.pathname === '/exams' || incoming.pathname.startsWith('/exams/')
       if (stale && examBrowse) {
@@ -406,7 +427,7 @@ async function handleHtml(request, incoming, target, ctx) {
 
   if (resp.ok && ct.includes('text/html')) {
     try {
-      await putHtmlCache(cache, key, resp)
+      await putHtmlCache(cache, key, resp, htmlStoreTtl(incoming.pathname))
       headers.set('X-Imtehan-Put', 'ok')
     } catch (e) {
       headers.set('X-Imtehan-Put', 'err')

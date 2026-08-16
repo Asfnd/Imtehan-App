@@ -14,10 +14,13 @@ export function NoteTopicRows({
   examSlug,
   subjectSlug,
   topics,
+  kitHrefs,
 }: {
   examSlug: string
   subjectSlug: string
   topics: Topic[]
+  /** Canonical kit paths (server-computed). Avoids duplicate exam URLs. */
+  kitHrefs?: Record<string, string>
 }) {
   const map = useCompletions(NOTES_READ_SCOPE)
 
@@ -30,7 +33,8 @@ export function NoteTopicRows({
         return (
           <Link
             key={topic.slug}
-            href={`/notes/${examSlug}/${subjectSlug}/${topic.slug}`}
+            href={kitHrefs?.[topic.slug] ?? `/notes/${examSlug}/${subjectSlug}/${topic.slug}`}
+            prefetch={false}
             className={`note-topic-row${done ? ' is-read' : ''}`}
           >
             <p className="note-topic-title">{topic.title}</p>
@@ -54,9 +58,11 @@ export function NoteTopicRows({
 export function NoteReadyKitCards({
   examSlug,
   kits,
+  kitHrefs,
 }: {
   examSlug: string
   kits: Array<{ slug: string; title: string; subjectSlug: string; subjectLabel: string }>
+  kitHrefs?: Record<string, string>
 }) {
   const map = useCompletions(NOTES_READ_SCOPE)
 
@@ -68,7 +74,8 @@ export function NoteReadyKitCards({
         return (
           <Link
             key={kit.slug}
-            href={`/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
+            href={kitHrefs?.[kit.slug] ?? `/notes/${examSlug}/${kit.subjectSlug}/${kit.slug}`}
+            prefetch={false}
             className={`note-hub-card${done ? ' is-read' : ''}`}
           >
             <p className="note-hub-card-title">{kit.title}</p>

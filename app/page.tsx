@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Imtehan - CSS & MPT Exam Preparation',
     description: 'Practice smarter, score higher on CSS and MPT exams',
+    images: ['https://imtehan.com/og-image.png'],
   },
 }
 

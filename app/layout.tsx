@@ -27,17 +27,14 @@ export const metadata: Metadata = {
     template: "%s | Imtehan"
   },
   description:
-    "Imtehan  -  Pakistan's exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.",
+    "Pakistan's exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.",
   keywords: [
-    'CSS exam', 'MPT preparation', 'Pakistan CSS', 'competitive exams',
-    'CSS past papers PDF', 'CSS MCQs with answers', 'CSS Islamic Studies MCQs',
-    'Pakistan Affairs MCQs', 'CSS English preparation', 'CSS essay writing',
-    'Federal Public Service Commission', 'FPSC preparation',
-    'CSS exam syllabus 2025', 'CSS online practice test',
-    'CSS mock test free', 'CSS preparation books',
-    'MPT test pattern', 'CSS compulsory subjects',
-    'CSS current affairs', 'CSS general knowledge', 'CSS exam guide',
-    'FPSC CSS', 'CSS competitive exam Pakistan', 'CSS online preparation'
+    'CSS exam preparation',
+    'PPSC MCQs',
+    'FPSC past papers',
+    'MDCAT practice',
+    'CSS notes',
+    'PMS notes',
   ],
   authors: [{ name: 'Imtehan' }],
   alternates: {
@@ -49,7 +46,7 @@ export const metadata: Metadata = {
     url: 'https://imtehan.com',
     siteName: 'Imtehan',
     title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
-    description: 'Imtehan  -  Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
+    description: 'Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
     images: [
       {
         url: '/og-image.png',
@@ -63,7 +60,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@imtehan',
     title: 'Imtehan - Learn smarter, practice better, and compete with confidence',
-    description: 'Imtehan  -  Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
+    description: 'Pakistan\'s exam prep, done right. Practice 150,000+ MCQs, real mock tests and AI scan-to-solve for CSS, PMS, MDCAT, PPSC, FPSC & NTS exams. Free to start.',
     images: ['/og-image.png']
   },
   robots: {
@@ -111,7 +108,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-PK" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
         <MetaPixel />

@@ -501,6 +501,18 @@ const nextConfig: NextConfig = {
         headers: [{ key: 'Cache-Control', value: SITEMAP_CACHE_CONTROL }],
       },
       {
+        source: '/notes',
+        headers: [...SEO_CDN_CACHE_HEADERS],
+      },
+      {
+        source: '/notes/:path*',
+        headers: [...SEO_CDN_CACHE_HEADERS],
+      },
+      {
+        source: '/llms.txt',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, s-maxage=86400' }],
+      },
+      {
         source: '/mcq/:bank/:id',
         headers: [...SEO_CDN_CACHE_HEADERS],
       },
