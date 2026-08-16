@@ -9,7 +9,7 @@
 const ORIGIN_IP = '20.205.110.177'
 const PUBLIC_HOST = 'imtehan.com'
 const ORIGIN_BASE = `http://${PUBLIC_HOST}`
-const CACHE_VER = 'v35'
+const CACHE_VER = 'v36'
 
 const HTML_EDGE_TTL = 300
 const HTML_STALE_TTL = 1800
@@ -332,6 +332,13 @@ async function handleStatic(request, incoming, target, ctx) {
   }
   const resp = await fetchOrigin(request, fetchTarget, { edgeTtl: originTtl })
   const headers = withMeta(new Headers(resp.headers), { cache: 'ASSET' })
+  if (!resp.ok) {
+    // Never let CF CDN store a 404 for robots/sitemaps — new shards 404 once, then stay dead.
+    headers.set('Cache-Control', 'private, no-store, max-age=0')
+    headers.set('CDN-Cache-Control', 'no-store')
+    headers.set('Cloudflare-CDN-Cache-Control', 'no-store')
+    return new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers })
+  }
   if (immutable) {
     headers.set('Cache-Control', 'public, max-age=31536000, immutable')
   } else if (seo) {
@@ -343,15 +350,13 @@ async function handleStatic(request, incoming, target, ctx) {
     headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
   }
 
-  if (resp.ok) {
-    const storeHeaders = new Headers({
-      'Content-Type': resp.headers.get('content-type') || 'application/octet-stream',
-      'Cache-Control': `public, s-maxage=${storeTtl}`,
-    })
-    ctx.waitUntil(
-      cache.put(key, new Response(resp.clone().body, { status: resp.status, headers: storeHeaders }))
-    )
-  }
+  const storeHeaders = new Headers({
+    'Content-Type': resp.headers.get('content-type') || 'application/octet-stream',
+    'Cache-Control': `public, s-maxage=${storeTtl}`,
+  })
+  ctx.waitUntil(
+    cache.put(key, new Response(resp.clone().body, { status: resp.status, headers: storeHeaders }))
+  )
 
   return new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers })
 }
